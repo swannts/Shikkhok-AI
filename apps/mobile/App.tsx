@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { QueryProvider } from './src/providers/QueryProvider';
 import { colors, spacing, typography } from './src/theme';
+
+import { HomeScreen } from './src/features/home/HomeScreen';
+import { LearnScreen } from './src/features/curriculum/LearnScreen';
+import { SubjectScreen } from './src/features/curriculum/SubjectScreen';
+import { LessonScreen } from './src/features/lessons/LessonScreen';
+import { TutorScreen } from './src/features/tutor/TutorScreen';
+import { ProgressScreen } from './src/features/progress/ProgressScreen';
+import { PracticeSessionScreen } from './src/features/practice/PracticeSessionScreen';
+import { PracticeResultScreen } from './src/features/practice/PracticeResultScreen';
+import { HomeworkScreen } from './src/features/homework/HomeworkScreen';
+import { ExamSessionScreen } from './src/features/exams/ExamSessionScreen';
+import { StudyPlanScreen } from './src/features/study-plan/StudyPlanScreen';
+import { ProfileScreen } from './src/features/profile/ProfileScreen';
+import { LoginFeatureScreen } from './src/features/auth/LoginFeatureScreen';
+import { OnboardingFlowScreen } from './src/features/onboarding/OnboardingFlowScreen';
+
 import {
   SplashScreen,
-  OnboardingScreen,
-  LoginScreen,
   SignupScreen,
   OTPVerificationScreen,
-  StudentSetupScreen,
-  HomeScreen,
-  LessonScreen,
-  PracticeScreen,
   DesignSystemScreen,
-  SubjectDetailsScreen,
   ChatHistoryScreen,
   VoiceTutorScreen,
   PracticeSetupScreen,
@@ -25,23 +35,26 @@ import {
   DownloadsScreen,
   AIFeedbackScreen,
 } from './src/screens';
-import { TabKey } from './src/components';
+import { PracticeResultData } from './src/api/repositories/practiceRepository';
+import { ExamResult } from './src/api/repositories/examRepository';
 
 export type ScreenName =
-  | 'splash'
-  | 'onboarding'
-  | 'login'
-  | 'signup'
-  | 'otp'
-  | 'setup'
   | 'home'
+  | 'learn'
+  | 'subject'
   | 'lesson'
-  | 'practice'
-  | 'design_system'
-  | 'subject_details'
-  | 'chat_history'
-  | 'voice_tutor'
+  | 'tutor'
+  | 'progress'
+  | 'practice_session'
+  | 'practice_result'
+  | 'homework'
+  | 'exam_session'
+  | 'study_plan'
+  | 'profile'
+  | 'login_feature'
+  | 'onboarding_flow'
   | 'practice_setup'
+  | 'voice_tutor'
   | 'parent_dashboard'
   | 'subscription'
   | 'payment'
@@ -49,105 +62,213 @@ export type ScreenName =
   | 'notifications'
   | 'search'
   | 'downloads'
-  | 'ai_feedback';
+  | 'ai_feedback'
+  | 'splash'
+  | 'design_system';
 
-export default function App() {
+function AppContent() {
   const [currentScreen, setCurrentScreen] = useState<ScreenName>('home');
+  const [selectedSubjectId, setSelectedSubjectId] = useState<string>('math');
+  const [selectedLessonId, setSelectedLessonId] = useState<string>('linear-equations');
+  const [tutorPrompt, setTutorPrompt] = useState<string | undefined>(undefined);
+  const [practiceResult, setPracticeResult] = useState<PracticeResultData | null>(null);
   const [showDemoSelector, setShowDemoSelector] = useState(false);
 
   const screens: { name: ScreenName; title: string }[] = [
-    { name: 'home', title: '1. Home (হোম)' },
-    { name: 'lesson', title: '2. Lesson (পড়াশোনা)' },
-    { name: 'practice', title: '3. Practice (প্র্যাকটিস হাব)' },
-    { name: 'subject_details', title: '4. Subject Details (গণিত বিস্তারিত)' },
-    { name: 'chat_history', title: '5. Chat History (আগের আলোচনা)' },
-    { name: 'voice_tutor', title: '6. Voice Tutor (AI ভয়েস টিউটর)' },
-    { name: 'practice_setup', title: '7. Practice Setup (প্র্যাকটিস সেটাআপ)' },
-    { name: 'parent_dashboard', title: '8. Parent Dashboard (অভিভাবক)' },
-    { name: 'subscription', title: '9. Subscription (সাবস্ক্রিপশন)' },
-    { name: 'payment', title: '10. Payment (পেমেন্ট)' },
-    { name: 'payment_success', title: '11. Payment Success (পেমেন্ট সফল)' },
-    { name: 'notifications', title: '12. Notifications (নোটিফিকেশন)' },
-    { name: 'search', title: '13. Search (অনুসন্ধান)' },
-    { name: 'downloads', title: '14. Downloads (ডাউনলোড)' },
-    { name: 'ai_feedback', title: '15. AI Feedback (রিপোর্ট ও মতামত)' },
-    { name: 'setup', title: '16. Student Setup (ক্লাস সেটআপ)' },
-    { name: 'signup', title: '17. Sign Up' },
-    { name: 'onboarding', title: '18. Onboarding' },
-    { name: 'splash', title: '19. Splash Screen' },
-    { name: 'login', title: '20. Login' },
-    { name: 'otp', title: '21. OTP Verification' },
-    { name: 'design_system', title: '22. Design System Tokens' },
+    { name: 'home', title: '1. Home Dashboard' },
+    { name: 'learn', title: '2. Learn (বিষয়সমূহ)' },
+    { name: 'subject', title: '3. Subject Details (গণিত)' },
+    { name: 'lesson', title: '4. Lesson (সরল সমীকরণ)' },
+    { name: 'tutor', title: '5. AI Tutor (কথোপকথন)' },
+    { name: 'practice_session', title: '6. Practice Session (MCQ Quiz)' },
+    { name: 'practice_result', title: '7. Practice Result & Mastery' },
+    { name: 'homework', title: '8. Homework Help (ক্যামেরা/গ্যালারি)' },
+    { name: 'exam_session', title: '9. Exam Session (মডেল টেস্ট)' },
+    { name: 'study_plan', title: '10. Study Plan (আজকের প্ল্যান)' },
+    { name: 'progress', title: '11. Progress Tracking' },
+    { name: 'profile', title: '12. Profile & Language Switcher' },
+    { name: 'login_feature', title: '13. Login (React Hook Form + Zod)' },
+    { name: 'onboarding_flow', title: '14. Onboarding Flow (3 Steps)' },
+    { name: 'voice_tutor', title: '15. Voice Tutor' },
+    { name: 'parent_dashboard', title: '16. Parent Dashboard' },
+    { name: 'subscription', title: '17. Subscription' },
+    { name: 'payment', title: '18. Payment' },
+    { name: 'payment_success', title: '19. Payment Success' },
+    { name: 'notifications', title: '20. Notifications' },
+    { name: 'search', title: '21. Search' },
+    { name: 'downloads', title: '22. Downloads' },
+    { name: 'ai_feedback', title: '23. AI Feedback' },
+    { name: 'design_system', title: '24. Design Tokens' },
   ];
-
-  const handleTabNavigation = (tab: TabKey) => {
-    switch (tab) {
-      case 'home':
-        setCurrentScreen('home');
-        break;
-      case 'lesson':
-        setCurrentScreen('lesson');
-        break;
-      case 'practice':
-        setCurrentScreen('practice');
-        break;
-      case 'profile':
-        setCurrentScreen('parent_dashboard');
-        break;
-    }
-  };
 
   const renderCurrentScreen = () => {
     switch (currentScreen) {
-      case 'splash':
-        return <SplashScreen onFinish={() => setCurrentScreen('onboarding')} />;
-      case 'onboarding':
-        return <OnboardingScreen onStart={() => setCurrentScreen('setup')} onLogin={() => setCurrentScreen('login')} />;
-      case 'login':
-        return <LoginScreen onLogin={() => setCurrentScreen('home')} onSignup={() => setCurrentScreen('signup')} onForgotPassword={() => setCurrentScreen('otp')} />;
-      case 'signup':
-        return <SignupScreen onSignupSubmit={() => setCurrentScreen('otp')} onLogin={() => setCurrentScreen('login')} />;
-      case 'otp':
-        return <OTPVerificationScreen onVerify={() => setCurrentScreen('setup')} onBack={() => setCurrentScreen('signup')} />;
-      case 'setup':
-        return <StudentSetupScreen onContinue={() => setCurrentScreen('home')} onBack={() => setCurrentScreen('onboarding')} />;
+      case 'learn':
+        return (
+          <LearnScreen
+            onSelectSubject={(subjectId) => {
+              setSelectedSubjectId(subjectId);
+              setCurrentScreen('subject');
+            }}
+          />
+        );
+      case 'subject':
+        return (
+          <SubjectScreen
+            subjectId={selectedSubjectId}
+            onBack={() => setCurrentScreen('learn')}
+            onSelectChapter={() => {
+              setSelectedLessonId('linear-equations');
+              setCurrentScreen('lesson');
+            }}
+          />
+        );
       case 'lesson':
-        return <LessonScreen onBack={() => setCurrentScreen('home')} onAskAI={() => setCurrentScreen('voice_tutor')} />;
-      case 'practice':
-        return <PracticeScreen onNavigateTab={handleTabNavigation} onStartQuiz={() => setCurrentScreen('practice_setup')} />;
-      case 'subject_details':
-        return <SubjectDetailsScreen onBack={() => setCurrentScreen('home')} onSelectChapter={() => setCurrentScreen('lesson')} />;
-      case 'chat_history':
-        return <ChatHistoryScreen onBack={() => setCurrentScreen('home')} onSelectChat={() => setCurrentScreen('lesson')} />;
-      case 'voice_tutor':
-        return <VoiceTutorScreen onBack={() => setCurrentScreen('lesson')} />;
+        return (
+          <LessonScreen
+            lessonId={selectedLessonId}
+            onBack={() => setCurrentScreen('subject')}
+            onAskTutor={(prompt) => {
+              setTutorPrompt(prompt);
+              setCurrentScreen('tutor');
+            }}
+          />
+        );
+      case 'tutor':
+        return (
+          <TutorScreen
+            initialPrompt={tutorPrompt}
+            onBack={() => setCurrentScreen('lesson')}
+          />
+        );
+      case 'practice_session':
+        return (
+          <PracticeSessionScreen
+            onComplete={(answers, timeSpent) => {
+              setPracticeResult({
+                sessionId: 'session-1',
+                correctAnswers: 4,
+                totalQuestions: 5,
+                accuracyPercentage: 80,
+                timeSpentSeconds: timeSpent,
+                initialMastery: 42,
+                updatedMastery: 58,
+                weakTopics: ['ভগ্নাংশের সমীকরণ'],
+              });
+              setCurrentScreen('practice_result');
+            }}
+            onBack={() => setCurrentScreen('home')}
+          />
+        );
+      case 'practice_result':
+        return practiceResult ? (
+          <PracticeResultScreen
+            result={practiceResult}
+            onGoHome={() => setCurrentScreen('home')}
+            onRetryWeak={() => setCurrentScreen('practice_session')}
+          />
+        ) : (
+          <HomeScreen
+            onNavigateLearn={() => setCurrentScreen('learn')}
+            onOpenSubject={(id) => { setSelectedSubjectId(id); setCurrentScreen('subject'); }}
+            onOpenLesson={(id) => { setSelectedLessonId(id); setCurrentScreen('lesson'); }}
+            onOpenTutor={() => setCurrentScreen('tutor')}
+            onOpenProgress={() => setCurrentScreen('progress')}
+          />
+        );
+      case 'homework':
+        return (
+          <HomeworkScreen
+            onAskTutorWithQuery={(query) => {
+              setTutorPrompt(query);
+              setCurrentScreen('tutor');
+            }}
+            onBack={() => setCurrentScreen('home')}
+          />
+        );
+      case 'exam_session':
+        return (
+          <ExamSessionScreen
+            onFinishExam={() => setCurrentScreen('home')}
+            onCancel={() => setCurrentScreen('home')}
+          />
+        );
+      case 'study_plan':
+        return (
+          <StudyPlanScreen
+            onBack={() => setCurrentScreen('home')}
+            onOpenLesson={() => setCurrentScreen('lesson')}
+          />
+        );
+      case 'progress':
+        return (
+          <ProgressScreen
+            onBack={() => setCurrentScreen('home')}
+            onPracticeTopic={() => {
+              setSelectedLessonId('linear-equations');
+              setCurrentScreen('lesson');
+            }}
+          />
+        );
+      case 'profile':
+        return (
+          <ProfileScreen
+            onOpenParentDashboard={() => setCurrentScreen('parent_dashboard')}
+            onOpenSubscription={() => setCurrentScreen('subscription')}
+            onOpenNotifications={() => setCurrentScreen('notifications')}
+            onOpenDownloads={() => setCurrentScreen('downloads')}
+            onLogout={() => setCurrentScreen('login_feature')}
+          />
+        );
+      case 'login_feature':
+        return (
+          <LoginFeatureScreen
+            onSuccess={() => setCurrentScreen('home')}
+            onGoSignup={() => setCurrentScreen('onboarding_flow')}
+            onGoOTP={() => setCurrentScreen('home')}
+          />
+        );
+      case 'onboarding_flow':
+        return <OnboardingFlowScreen onFinish={() => setCurrentScreen('home')} />;
       case 'practice_setup':
-        return <PracticeSetupScreen onStart={() => setCurrentScreen('practice')} onBack={() => setCurrentScreen('practice')} />;
+        return <PracticeSetupScreen onStart={() => setCurrentScreen('practice_session')} onBack={() => setCurrentScreen('home')} />;
+      case 'voice_tutor':
+        return <VoiceTutorScreen onBack={() => setCurrentScreen('tutor')} />;
       case 'parent_dashboard':
-        return <ParentDashboardScreen onBack={() => setCurrentScreen('home')} />;
+        return <ParentDashboardScreen onBack={() => setCurrentScreen('profile')} />;
       case 'subscription':
-        return <SubscriptionScreen onSelectPlan={() => setCurrentScreen('payment')} onBack={() => setCurrentScreen('home')} />;
+        return <SubscriptionScreen onSelectPlan={() => setCurrentScreen('payment')} onBack={() => setCurrentScreen('profile')} />;
       case 'payment':
         return <PaymentScreen onPaySuccess={() => setCurrentScreen('payment_success')} onBack={() => setCurrentScreen('subscription')} />;
       case 'payment_success':
         return <PaymentSuccessScreen onGoHome={() => setCurrentScreen('home')} />;
       case 'notifications':
-        return <NotificationsScreen onBack={() => setCurrentScreen('home')} />;
+        return <NotificationsScreen onBack={() => setCurrentScreen('profile')} />;
       case 'search':
         return <SearchScreen onBack={() => setCurrentScreen('home')} />;
       case 'downloads':
-        return <DownloadsScreen onBack={() => setCurrentScreen('home')} />;
+        return <DownloadsScreen onBack={() => setCurrentScreen('profile')} />;
       case 'ai_feedback':
         return <AIFeedbackScreen onBack={() => setCurrentScreen('home')} />;
+      case 'splash':
+        return <SplashScreen onFinish={() => setCurrentScreen('onboarding_flow')} />;
       case 'design_system':
         return <DesignSystemScreen />;
       case 'home':
       default:
         return (
           <HomeScreen
-            onNavigateTab={handleTabNavigation}
-            onOpenLesson={() => setCurrentScreen('subject_details')}
-            onOpenPractice={() => setCurrentScreen('practice')}
+            onNavigateLearn={() => setCurrentScreen('learn')}
+            onOpenSubject={(subjectId) => {
+              setSelectedSubjectId(subjectId);
+              setCurrentScreen('subject');
+            }}
+            onOpenLesson={(lessonId) => {
+              setSelectedLessonId(lessonId);
+              setCurrentScreen('lesson');
+            }}
+            onOpenTutor={() => setCurrentScreen('tutor')}
+            onOpenProgress={() => setCurrentScreen('progress')}
           />
         );
     }
@@ -164,14 +285,14 @@ export default function App() {
         onPress={() => setShowDemoSelector(!showDemoSelector)}
         style={styles.floatingPill}
       >
-        <Text style={styles.pillText}>📱 Switch ({currentScreen})</Text>
+        <Text style={styles.pillText}>📱 View Screen ({currentScreen})</Text>
       </TouchableOpacity>
 
       {showDemoSelector && (
         <View style={styles.drawerOverlay}>
           <View style={styles.drawerContent}>
             <View style={styles.drawerHeader}>
-              <Text style={styles.drawerTitle}>All 22 Stitch Screens</Text>
+              <Text style={styles.drawerTitle}>All Production App Features</Text>
               <TouchableOpacity onPress={() => setShowDemoSelector(false)}>
                 <Text style={styles.closeText}>✕</Text>
               </TouchableOpacity>
@@ -208,6 +329,14 @@ export default function App() {
   );
 }
 
+export default function App() {
+  return (
+    <QueryProvider>
+      <AppContent />
+    </QueryProvider>
+  );
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   screenWrapper: { flex: 1 },
@@ -218,7 +347,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.onSurface,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
-    borderRadius: spacing.borderRadius.full,
+    borderRadius: 999,
     elevation: 6,
     zIndex: 99,
     shadowColor: '#000',
@@ -239,8 +368,8 @@ const styles = StyleSheet.create({
   },
   drawerContent: {
     backgroundColor: colors.surface,
-    borderTopLeftRadius: spacing.borderRadius.xl,
-    borderTopRightRadius: spacing.borderRadius.xl,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     padding: spacing.md,
     maxHeight: '70%',
   },
@@ -248,7 +377,7 @@ const styles = StyleSheet.create({
   drawerTitle: { fontSize: typography.size.md, fontWeight: '800', color: colors.onSurface },
   closeText: { fontSize: typography.size.lg, color: colors.outline },
   drawerList: { marginBottom: spacing.md },
-  drawerItem: { paddingVertical: 12, paddingHorizontal: spacing.md, borderRadius: spacing.borderRadius.md, marginBottom: spacing.xs, backgroundColor: colors.surfaceContainerLow },
+  drawerItem: { paddingVertical: 12, paddingHorizontal: spacing.md, borderRadius: 12, marginBottom: spacing.xs, backgroundColor: colors.surfaceContainerLow },
   drawerItemActive: { backgroundColor: colors.primary },
   drawerItemText: { fontSize: typography.size.sm, color: colors.onSurface, fontWeight: '600' },
   drawerItemTextActive: { color: colors.white, fontWeight: '700' },
