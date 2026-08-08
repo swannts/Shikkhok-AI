@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Success - Shikkhok AI</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from design system -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#d3e4fe",
+                      "outline": "#767586",
+                      "background": "#F8FAFC",
+                      "tertiary-fixed": "#ffd8e7",
+                      "on-error": "#ffffff",
+                      "on-tertiary-container": "#fffbff",
+                      "primary-fixed": "#e1e0ff",
+                      "surface-dim": "#cbdbf5",
+                      "on-secondary-fixed-variant": "#2d418d",
+                      "success": "#10B981",
+                      "on-primary-fixed-variant": "#2f2ebe",
+                      "on-surface": "#0b1c30",
+                      "primary-container": "#6063ee",
+                      "surface-tint": "#494bd6",
+                      "on-tertiary-fixed": "#3d0026",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "on-primary-container": "#fffbff",
+                      "surface-container": "#e5eeff",
+                      "on-secondary-fixed": "#001454",
+                      "indigo-soft": "#EEF2FF",
+                      "on-surface-variant": "#464554",
+                      "secondary-container": "#97a9fd",
+                      "on-tertiary-fixed-variant": "#8b005b",
+                      "surface": "#FFFFFF",
+                      "on-background": "#0b1c30",
+                      "outline-variant": "#c7c4d7",
+                      "tertiary-container": "#d32b90",
+                      "on-secondary-container": "#273b88",
+                      "secondary-fixed": "#dde1ff",
+                      "on-primary-fixed": "#07006c",
+                      "surface-container-low": "#eff4ff",
+                      "tertiary-fixed-dim": "#ffafd3",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#b10076",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed-dim": "#b8c4ff",
+                      "error": "#EF4444",
+                      "warning": "#F59E0B",
+                      "surface-container-highest": "#d3e4fe",
+                      "inverse-primary": "#c0c1ff",
+                      "surface-bright": "#f8f9ff",
+                      "primary": "#4648d4",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#4659a7",
+                      "inverse-surface": "#213145",
+                      "surface-container-high": "#dce9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-lg": "24px",
+                      "container-margin-desktop": "64px",
+                      "container-margin-mobile": "16px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "caption": ["Be Vietnam Pro", "sans-serif"],
+                      "headline-xl-mobile": ["Be Vietnam Pro", "sans-serif"],
+                      "body-lg": ["Be Vietnam Pro", "sans-serif"],
+                      "label-md": ["Be Vietnam Pro", "sans-serif"],
+                      "headline-xl": ["Be Vietnam Pro", "sans-serif"],
+                      "body-md": ["Be Vietnam Pro", "sans-serif"],
+                      "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                      "headline-lg": ["Be Vietnam Pro", "sans-serif"]
+              },
+              "fontSize": {
+                      "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                      "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                      "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                      "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                      "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                      "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }]
+              },
+              "boxShadow": {
+                'ambient': '0 10px 15px -3px rgba(99, 102, 241, 0.05)',
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: theme('colors.background');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Subtle entrance animation for the success card */
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-pop-in {
+            animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Ambient background glow */
+        .ambient-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, theme('colors.success') 0%, transparent 70%);
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen flex items-center justify-center p-gutter relative overflow-hidden">
+<!-- Background Ambient Element -->
+<div class="ambient-glow"></div>
+<!-- Main Success Card (Linear/Transactional view - No Nav Shell) -->
+<main class="w-full max-w-[420px] bg-surface rounded-[16px] border border-outline-variant/30 shadow-ambient p-stack-lg sm:p-[32px] relative z-10 flex flex-col items-center text-center animate-pop-in">
+<!-- Celebration Icon -->
+<div class="w-24 h-24 rounded-full bg-success/10 flex items-center justify-center mb-stack-lg text-success relative">
+<div class="absolute inset-0 rounded-full bg-success/20 animate-ping opacity-20"></div>
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Typography -->
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile sm:font-headline-lg sm:text-headline-lg text-on-surface mb-stack-sm w-full">
+            Premium চালু হয়েছে 🎉
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg w-full max-w-[300px]">
+            এখন তুমি Shikkhok AI এর সব প্রিমিয়াম ফিচার ব্যবহার করতে পারবে।
+        </p>
+<!-- Summary Details (Bento-style list) -->
+<div class="w-full bg-surface-container-low rounded-xl p-stack-md flex flex-col gap-stack-sm mb-stack-lg">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20 last:border-0">
+<span class="font-label-md text-label-md text-on-surface-variant">Subscription ID</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">#SKK-8924A</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20 last:border-0">
+<span class="font-label-md text-label-md text-on-surface-variant">Plan</span>
+<span class="font-body-md text-body-md font-medium text-on-surface flex items-center gap-1">
+                    Annual <span class="material-symbols-outlined text-[16px] text-success">verified</span>
+</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20 last:border-0">
+<span class="font-label-md text-label-md text-on-surface-variant">Next Billing</span>
+<span class="font-body-md text-body-md font-medium text-on-surface">24 Oct, 2025</span>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="w-full min-h-[48px] bg-primary text-on-primary font-label-md text-label-md rounded-full shadow-sm hover:bg-surface-tint hover:shadow-md transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2">
+            শেখা শুরু করো
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Subtle Secondary Action (Optional utility for transactional screens) -->
+<a class="mt-stack-md font-label-md text-label-md text-primary hover:text-surface-tint transition-colors" href="#">
+            রসিদ ডাউনলোড করুন (Download Receipt)
+        </a>
+</main>
+</body></html>

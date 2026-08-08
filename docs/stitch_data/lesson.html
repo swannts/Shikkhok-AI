@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shikkhok AI - সরল সমীকরণ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#3d0026",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "secondary-container": "#97a9fd",
+                        "surface-container": "#e5eeff",
+                        "secondary": "#4659a7",
+                        "secondary-fixed": "#dde1ff",
+                        "indigo-soft": "#EEF2FF",
+                        "tertiary-fixed": "#ffd8e7",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#273b88",
+                        "outline-variant": "#c7c4d7",
+                        "surface": "#FFFFFF",
+                        "inverse-surface": "#213145",
+                        "outline": "#767586",
+                        "tertiary-container": "#d32b90",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-tint": "#494bd6",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-high": "#dce9ff",
+                        "success": "#10B981",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#b10076",
+                        "tertiary-fixed-dim": "#ffafd3",
+                        "inverse-primary": "#c0c1ff",
+                        "primary-container": "#6063ee",
+                        "inverse-on-surface": "#eaf1ff",
+                        "warning": "#F59E0B",
+                        "background": "#F8FAFC",
+                        "on-tertiary-fixed-variant": "#8b005b",
+                        "on-secondary-fixed": "#001454",
+                        "error": "#EF4444",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#2d418d",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "primary": "#4648d4",
+                        "on-surface-variant": "#464554",
+                        "on-primary-fixed": "#07006c",
+                        "on-surface": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "on-background": "#0b1c30",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "unit": "8px",
+                        "container-margin-mobile": "16px",
+                        "gutter": "16px",
+                        "stack-md": "16px",
+                        "container-margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "caption": ["Be Vietnam Pro"],
+                        "headline-xl-mobile": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .progress-bar-fill {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- Top Navigation / Header -->
+<header class="bg-surface border-b border-outline-variant sticky top-0 z-10">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between px-container-margin-mobile md:px-container-margin-desktop h-[64px]">
+<div class="flex items-center gap-4">
+<button aria-label="Go back" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center h-10 w-10 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant">গণিত - অষ্টম শ্রেণি</span>
+<h1 class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-primary truncate max-w-[200px] md:max-w-md">সরল সমীকরণ</h1>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Settings" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center h-10 w-10 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-low h-2">
+<div class="bg-success h-full progress-bar-fill rounded-r-full" style="width: 45%;"></div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[800px] mx-auto px-container-margin-mobile md:px-gutter py-stack-lg flex flex-col gap-stack-lg mb-24">
+<!-- Lesson Introduction -->
+<section class="space-y-stack-md">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">সমীকরণ কী?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                অজানা রাশি বা চলক, প্রক্রিয়াহ চিহ্ন এবং সমান চিহ্ন সংবলিত গাণিতিক বাক্য হলো সমীকরণ। 
+                একটি সমীকরণে দুটি পক্ষ থাকে, যা সমান চিহ্নের দুই পাশে অবস্থান করে।
+            </p>
+</section>
+<!-- "মনে রাখো" (Remember) Block -->
+<div class="bg-indigo-soft border border-secondary-fixed rounded-xl p-stack-md flex gap-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="text-primary mt-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-2">মনে রাখো</h3>
+<ul class="list-disc list-inside font-body-md text-body-md text-on-surface-variant space-y-2">
+<li>সমীকরণের বামপক্ষ ও ডানপক্ষ সমান হয়।</li>
+<li>সমীকরণের উভয় পক্ষকে একই সংখ্যা দ্বারা যোগ, বিয়োগ, গুণ বা ভাগ করলে সমীকরণের মানের কোনো পরিবর্তন হয় না।</li>
+</ul>
+</div>
+</div>
+<!-- Example Image/Diagram Placeholder -->
+<div class="rounded-xl overflow-hidden border border-outline-variant bg-surface relative h-64 md:h-80 w-full group">
+<div class="bg-cover bg-center w-full h-full absolute inset-0" data-alt="A clean, modern flat-vector illustration showing a weighing scale perfectly balanced. On one side are 3 blue blocks marked 'x' and a red block marked '5'. On the other side is a green block marked '17'. The background is a crisp white with subtle geometric grid lines, invoking a professional educational setting. The lighting is bright and even, highlighting the conceptual balance." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCXNJ5L7rILCNLB8jPkX9JQgCTzKk4P55hfCUkigespB9zeM_dsb2AKucIdUH5c0t6RnJ5LubXnCz8HnHA4ny-R-j8z20RVIVsqkL7-tEOlAWKbIbwkEAT4Sw-8P_5eQtcNqR7bXU1IwAb1_FNuzO0BMB20Dl3ocLU3l-Z0c4owG9gkbz4H-xT_r5zfJWgclkD3K9nOdW5tKg-B3sWo62Pwf_eDL0Cewlx9yZlL2Zjx-8TzaFgKE4uZ')"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-sm p-4 border-t border-outline-variant">
+<p class="font-caption text-caption text-on-surface text-center">চিত্র: সমীকরণের ভারসাম্য</p>
+</div>
+</div>
+<!-- "উদাহরণ" (Example) Block -->
+<section class="space-y-stack-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">উদাহরণ:</h2>
+<div class="bg-surface border border-outline-variant rounded-xl p-stack-md shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)]">
+<p class="font-body-md text-body-md text-on-surface mb-4">ধরি, একটি সংখ্যা <span class="font-semibold text-primary">x</span>। সংখ্যাটির সাথে 5 যোগ করলে যোগফল 17 হয়। সমীকরণটি গঠন করো এবং সমাধান করো।</p>
+<div class="bg-surface-container-low rounded-lg p-4 font-mono text-center text-lg mb-4">
+                    x + 5 = 17
+                </div>
+<div class="space-y-2 font-body-md text-body-md text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">arrow_right_alt</span>
+<span>বা, x + 5 - 5 = 17 - 5 <span class="text-outline text-sm ml-2">(উভয় পক্ষ থেকে 5 বিয়োগ করে)</span></span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-success text-sm">check_circle</span>
+<span class="font-semibold text-on-surface">∴ x = 12</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Contextual CTA -->
+<div class="flex justify-center mt-stack-md">
+<button class="bg-indigo-soft text-primary hover:bg-surface-container-high transition-colors font-label-md text-label-md px-6 py-4 rounded-xl flex items-center gap-2 shadow-sm border border-secondary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span>AI শিক্ষককে জিজ্ঞেস করো</span>
+</button>
+</div>
+</main>
+<!-- Bottom Action Bar (Contextual Lesson Navigation) -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-40">
+<div class="max-w-[800px] mx-auto flex items-center justify-between gap-4">
+<button class="flex items-center gap-2 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md rounded-lg hover:bg-surface-container-low">
+<span class="material-symbols-outlined">chevron_left</span>
+<span class="hidden sm:inline">পূর্ববর্তী পাঠ</span>
+</button>
+<button class="flex-grow max-w-[200px] bg-primary text-on-primary hover:bg-surface-tint transition-colors font-label-md text-label-md px-6 py-3 rounded-full flex items-center justify-center gap-2 shadow-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Mark Complete</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-3 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md rounded-lg hover:bg-surface-container-low">
+<span class="hidden sm:inline">পরবর্তী পাঠ</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</body></html>

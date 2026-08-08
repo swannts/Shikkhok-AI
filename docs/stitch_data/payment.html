@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Method - Shikkhok AI</title>
+<!-- Google Fonts: Be Vietnam Pro -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#d3e4fe",
+                    "outline": "#767586",
+                    "background": "#F8FAFC",
+                    "tertiary-fixed": "#ffd8e7",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fffbff",
+                    "primary-fixed": "#e1e0ff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed-variant": "#2d418d",
+                    "success": "#10B981",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-surface": "#0b1c30",
+                    "primary-container": "#6063ee",
+                    "surface-tint": "#494bd6",
+                    "on-tertiary-fixed": "#3d0026",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-primary-container": "#fffbff",
+                    "surface-container": "#e5eeff",
+                    "on-secondary-fixed": "#001454",
+                    "indigo-soft": "#EEF2FF",
+                    "on-surface-variant": "#464554",
+                    "secondary-container": "#97a9fd",
+                    "on-tertiary-fixed-variant": "#8b005b",
+                    "surface": "#FFFFFF",
+                    "on-background": "#0b1c30",
+                    "outline-variant": "#c7c4d7",
+                    "tertiary-container": "#d32b90",
+                    "on-secondary-container": "#273b88",
+                    "secondary-fixed": "#dde1ff",
+                    "on-primary-fixed": "#07006c",
+                    "surface-container-low": "#eff4ff",
+                    "tertiary-fixed-dim": "#ffafd3",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#b10076",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "error": "#EF4444",
+                    "warning": "#F59E0B",
+                    "surface-container-highest": "#d3e4fe",
+                    "inverse-primary": "#c0c1ff",
+                    "surface-bright": "#f8f9ff",
+                    "primary": "#4648d4",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#4659a7",
+                    "inverse-surface": "#213145",
+                    "surface-container-high": "#dce9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "gutter": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "container-margin-desktop": "64px",
+                    "container-margin-mobile": "16px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "caption": ["Be Vietnam Pro"],
+                    "headline-xl-mobile": ["Be Vietnam Pro"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "headline-xl": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "headline-md": ["Be Vietnam Pro"],
+                    "headline-lg": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-xl": ["40px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7c4d7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #767586;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- Transactional Header (Nav suppressed as per rules) -->
+<header class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/20">
+<div class="w-full max-w-3xl mx-auto px-gutter h-16 flex items-center justify-between">
+<button aria-label="Go back" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-variant/50 transition-colors text-on-surface">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400;">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-surface">পেমেন্ট পদ্ধতি</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-3xl mx-auto px-gutter py-stack-lg flex flex-col gap-stack-lg pb-32">
+<!-- Order Summary Card (Glassmorphism inspired clean look) -->
+<section class="bg-surface rounded-xl p-stack-md border border-outline-variant/30 shadow-[0_4px_20px_-4px_rgba(70,72,212,0.05)] relative overflow-hidden">
+<!-- Decorative blur blob -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
+<h2 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-4">Order Summary</h2>
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-indigo-soft flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface">Annual Premium Plan</p>
+<p class="font-caption text-caption text-on-surface-variant">Access to all AI Tutors &amp; Mock Tests</p>
+</div>
+</div>
+<p class="font-body-md text-body-md font-medium">৳৪৪৯৯</p>
+</div>
+<div class="h-px w-full bg-outline-variant/20 my-4"></div>
+<div class="flex justify-between items-center">
+<p class="font-body-lg text-body-lg text-on-surface">Total to Pay</p>
+<p class="font-headline-md text-headline-md text-primary">৳৪৪৯৯</p>
+</div>
+</section>
+<!-- Payment Options Form -->
+<section>
+<h3 class="font-headline-md text-headline-md-mobile text-on-surface mb-stack-md">Select Payment Option</h3>
+<form class="flex flex-col gap-stack-sm" id="payment-form">
+<!-- bKash Option -->
+<label class="group relative cursor-pointer block">
+<input checked="" class="peer sr-only" name="payment_method" type="radio" value="bkash"/>
+<div class="bg-surface rounded-xl border border-outline-variant/40 p-4 flex items-center justify-between transition-all duration-200 peer-checked:border-primary peer-checked:bg-indigo-soft peer-checked:shadow-[0_0_0_1px_rgba(70,72,212,1)] hover:border-outline">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg border border-outline-variant/20 overflow-hidden flex-shrink-0 flex items-center justify-center">
+<img class="w-8 h-8 object-contain" data-alt="The official bKash mobile financial service logo, featuring a pink bird origami style icon on a clean white background. High resolution, bright lighting, flat graphic design style suitable for UI integration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQniKa1Cwmq5Q2bqZUGvvyPDkVyYkNy6QuG9Rz5fGJ9-WNwJ4FLW2iFfbw7ZC2nO0Uu7aZ3bhvdb_eGI0DrKvwwpEm6zpeU89NTecyNkbAATdCswE45LOyGkV1LEyPCV4VXzo3MpbxRFkQMB09Ctuw0fKPHzMSn2siaSoTqhdwKVmD3bX5FSjRSZPGUp1cNKf8iyCbSbrSBpZIO1rMKPK-p-EPB1TuOt_Mb91MLhXtfOt7vJqTlA2w"/>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">bKash</span>
+</div>
+<!-- Custom Radio Indicator -->
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary flex items-center justify-center transition-colors">
+<div class="w-2.5 h-2.5 bg-primary rounded-full scale-0 peer-checked:scale-100 transition-transform"></div>
+</div>
+</div>
+</label>
+<!-- Nagad Option -->
+<label class="group relative cursor-pointer block">
+<input class="peer sr-only" name="payment_method" type="radio" value="nagad"/>
+<div class="bg-surface rounded-xl border border-outline-variant/40 p-4 flex items-center justify-between transition-all duration-200 peer-checked:border-primary peer-checked:bg-indigo-soft peer-checked:shadow-[0_0_0_1px_rgba(70,72,212,1)] hover:border-outline">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg border border-outline-variant/20 overflow-hidden flex-shrink-0 flex items-center justify-center">
+<img class="w-8 h-8 object-contain" data-alt="The official Nagad mobile financial service logo, featuring an orange teardrop shaped icon on a clean white background. High resolution, bright lighting, flat graphic design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAroQJMCrQltHZMC6JEFCZav-Cgq_oltBaNkBbhRY0lhpLEjtQ5Pj4OYjY2g-NFKwYfxc1OxUC3cIKmiF65rZN9pIFdubEmn4-jbaAnvwqNVPGJRFEAs6DyRydfMfUsn_8f5uVEzaSsEZccJplvJqqKLSboMQF38VFXlz9MkjKz0qAvhF5Hz2eZbNH4L4ybAbsLtFlMRgCwhBqTnMIaEWw4KxnxVwig-MlxHiudaJFt3y3KaZKgHJhn"/>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Nagad</span>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary flex items-center justify-center transition-colors">
+<div class="w-2.5 h-2.5 bg-primary rounded-full scale-0 peer-checked:scale-100 transition-transform"></div>
+</div>
+</div>
+</label>
+<!-- Rocket Option -->
+<label class="group relative cursor-pointer block">
+<input class="peer sr-only" name="payment_method" type="radio" value="rocket"/>
+<div class="bg-surface rounded-xl border border-outline-variant/40 p-4 flex items-center justify-between transition-all duration-200 peer-checked:border-primary peer-checked:bg-indigo-soft peer-checked:shadow-[0_0_0_1px_rgba(70,72,212,1)] hover:border-outline">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-lg border border-outline-variant/20 overflow-hidden flex-shrink-0 flex items-center justify-center">
+<img class="w-8 h-8 object-contain" data-alt="The official DBBL Rocket mobile financial service logo, featuring a purple rocket taking off on a clean white background. High resolution, bright lighting, flat UI graphic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEtX7ooQ3GtsI55WNG75aZ50griRbDDxcMNuBq_RLSMt_EIUbljrsyzLChZ1b0Nk5C6QmJLPl-8vmpVplCwgux-LtP1F8qNvocU3DcBf7ocWDGM_WNKtF_CJtnS-UQpTns7aBb5cL7HM6IIPJYcAOnnldRTaVpJVE3iDKKzA_p9IfEgVGGPVLNTfD4SjDXTOiTO27-R1E8NfeYou2VsK--1YLEVDRI6LXXXuGK51k8TARHXfqfL07z"/>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Rocket</span>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary flex items-center justify-center transition-colors">
+<div class="w-2.5 h-2.5 bg-primary rounded-full scale-0 peer-checked:scale-100 transition-transform"></div>
+</div>
+</div>
+</label>
+<!-- Cards Option -->
+<label class="group relative cursor-pointer block mt-2">
+<input class="peer sr-only" name="payment_method" type="radio" value="cards"/>
+<div class="bg-surface rounded-xl border border-outline-variant/40 p-4 flex flex-col transition-all duration-200 peer-checked:border-primary peer-checked:bg-indigo-soft peer-checked:shadow-[0_0_0_1px_rgba(70,72,212,1)] hover:border-outline">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-variant/30 rounded-lg border border-outline-variant/20 overflow-hidden flex-shrink-0 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">credit_card</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Credit / Debit Card</span>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary flex items-center justify-center transition-colors">
+<div class="w-2.5 h-2.5 bg-primary rounded-full scale-0 peer-checked:scale-100 transition-transform"></div>
+</div>
+</div>
+<!-- Collapsible content for cards -->
+<div class="grid grid-rows-[0fr] peer-checked:grid-rows-[1fr] transition-all duration-300 ease-in-out overflow-hidden">
+<div class="min-h-0 pt-0 opacity-0 peer-checked:pt-4 peer-checked:opacity-100 transition-all duration-300 delay-100">
+<div class="h-px w-full bg-outline-variant/20 mb-4"></div>
+<div class="flex gap-2 mb-2">
+<!-- Decorative card logos -->
+<div class="w-10 h-6 bg-white border border-outline-variant/30 rounded flex items-center justify-center">
+<img class="h-4 object-contain" data-alt="Visa credit card logo, flat blue typography on white background. Clean, minimal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuvU9P10B-H5wSbDq2Zke3FaKkeL6nobh9GY_I716pCF_Kzu-pNicvHu0G4S40SHHRKIFDzVMeqDMAS2U5JBKDPpBMy_ee-rHk_244qPv7UTty6CbRrq7xD-etaNJGgn3YFVHXQnysA997NRLVBhTwBlPFIM4Xz6WLsnga8Jtbq8fpSU8bYrk1CEI2SvSIHbof3r6zl_7mHpvczQTXX0GQLXpZazukc1vNdZr_x3z5AG5aWb3c5zWB"/>
+</div>
+<div class="w-10 h-6 bg-white border border-outline-variant/30 rounded flex items-center justify-center">
+<img class="h-4 object-contain" data-alt="Mastercard logo, overlapping red and yellow circles on white background. Clean, minimal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5hpXdxYElUr7HrYUd-_-EuWtVcEpkgxxNEXTh-AOtSgmUAN9-aze4ocHKVhig1kJkQ9EcZFC89cneXrF66koTj1pfjHxjvX5sbjgZsAMmS0gQEKNwPTafPoqG7s8B7Ar2J5Jar34RNEV0Db21r1OJ5bA0FZIxxcKYchfVzq1wbGCCrJqSC9wHNlUxtGXrku4S9Oo3MyMPUaPr--Yr4_aV9XP5o1D-WipGMWmNOmjbCDvfA2RzqiZa"/>
+</div>
+</div>
+<p class="font-caption text-caption text-on-surface-variant">You will be redirected to a secure payment gateway to enter your card details.</p>
+</div>
+</div>
+</div>
+</label>
+</form>
+</section>
+<!-- Security Reassurance -->
+<div class="flex items-center justify-center gap-2 mt-4 text-outline">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<p class="font-caption text-caption">Secured by SSL Encryption. 100% safe transaction.</p>
+</div>
+</main>
+<!-- Fixed Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full bg-surface/90 backdrop-blur-lg border-t border-outline-variant/20 p-stack-md z-50">
+<div class="max-w-3xl mx-auto flex flex-col gap-2">
+<button class="w-full h-12 bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-sm">
+                পেমেন্ট চালিয়ে যাও
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

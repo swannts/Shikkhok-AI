@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shikkhok AI - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#3d0026",
+                      "on-primary-fixed-variant": "#2f2ebe",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "secondary-container": "#97a9fd",
+                      "surface-container": "#e5eeff",
+                      "secondary": "#4659a7",
+                      "secondary-fixed": "#dde1ff",
+                      "indigo-soft": "#EEF2FF",
+                      "tertiary-fixed": "#ffd8e7",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#273b88",
+                      "outline-variant": "#c7c4d7",
+                      "surface": "#FFFFFF",
+                      "inverse-surface": "#213145",
+                      "outline": "#767586",
+                      "tertiary-container": "#d32b90",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-tint": "#494bd6",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container-high": "#dce9ff",
+                      "success": "#10B981",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#b10076",
+                      "tertiary-fixed-dim": "#ffafd3",
+                      "inverse-primary": "#c0c1ff",
+                      "primary-container": "#6063ee",
+                      "inverse-on-surface": "#eaf1ff",
+                      "warning": "#F59E0B",
+                      "background": "#F8FAFC",
+                      "on-tertiary-fixed-variant": "#8b005b",
+                      "on-secondary-fixed": "#001454",
+                      "error": "#EF4444",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#2d418d",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#e1e0ff",
+                      "primary": "#4648d4",
+                      "on-surface-variant": "#464554",
+                      "on-primary-fixed": "#07006c",
+                      "on-surface": "#0b1c30",
+                      "surface-variant": "#d3e4fe",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#eff4ff",
+                      "secondary-fixed-dim": "#b8c4ff",
+                      "on-background": "#0b1c30",
+                      "on-primary-container": "#fffbff",
+                      "on-tertiary": "#ffffff",
+                      "surface-bright": "#f8f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "stack-lg": "24px",
+                      "unit": "8px",
+                      "container-margin-mobile": "16px",
+                      "gutter": "16px",
+                      "stack-md": "16px",
+                      "container-margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "label-md": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ],
+                      "headline-xl": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ],
+                      "body-md": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ],
+                      "body-lg": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ],
+                      "caption": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ],
+                      "headline-xl-mobile": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ],
+                      "headline-md": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ],
+                      "headline-lg": [
+                              "Be Vietnam Pro", "sans-serif"
+                      ]
+              },
+              "fontSize": {
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-xl": [
+                              "40px",
+                              {
+                                      "lineHeight": "52px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "caption": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl-mobile": [
+                              "30px",
+                              {
+                                      "lineHeight": "38px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen text-on-surface pb-24 relative overflow-x-hidden">
+<!-- Top Navigation (Desktop) -->
+<header class="hidden md:flex justify-between items-center px-container-margin-desktop h-16 w-full bg-background dark:bg-background top-0 z-50 sticky mb-stack-lg border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A small, modern, abstract educational logo using indigo and soft blue tones, representing AI and learning, set against a pristine white background with bright, clear lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7sLCQ5uSbx97wAO2CjeUO8BJOFHoFNZTjSjQrXUG-czycwttlLjwuKmMWrB7TJDbLSzaQ0v8JgjTbLkRHDaFiQ8x35t7K4y-j_wiY0tKaFKVsS0pWd1MBRb7Yu94cTp-AI0ZvhJXy73N-b5XzJkttUpEqHQ9laUT9hzl3tBHMgvhJM4o3PwdlibJWom8bjufU4OOkUe-dsQj0zsmfvlKAfvl1gNKKeu1l2xC2Bnj1DliO7T61JTUU"/>
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim">Shikkhok AI</span>
+</div>
+<nav class="flex gap-8">
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim font-bold flex flex-col items-center group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+                Home
+                <div class="w-1 h-1 bg-primary rounded-full mt-1"></div>
+</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+                Learn
+            </a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+                AI Tutor
+            </a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+                Progress
+            </a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">person</span>
+                Profile
+            </a>
+</nav>
+<button class="text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="max-w-7xl mx-auto px-container-margin-mobile md:px-container-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-stack-lg">
+<!-- Mobile Header (Visible only on mobile) -->
+<div class="md:hidden flex justify-between items-start col-span-1 pt-6">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface">হ্যালো, রাফি 👋</h1>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">আজ কী শিখতে চাও?</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-indigo-soft text-primary px-3 py-1 rounded-full font-label-md text-label-md border border-primary-fixed">Class 8</span>
+<button class="w-10 h-10 bg-surface rounded-full flex items-center justify-center border border-outline-variant shadow-sm text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+<!-- Desktop Greeting (Visible only on desktop) -->
+<div class="hidden md:block col-span-12 mb-4">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-2">হ্যালো, রাফি 👋</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">আজ কী শিখতে চাও?</p>
+</div>
+<span class="bg-indigo-soft text-primary px-4 py-2 rounded-full font-label-md text-label-md border border-primary-fixed shadow-sm">Class 8 Student</span>
+</div>
+</div>
+<!-- Left Column / Main Content area -->
+<div class="col-span-1 md:col-span-8 flex flex-col gap-stack-lg">
+<!-- AI Tutor Search Card -->
+<section class="bg-surface rounded-xl border border-outline-variant p-6 shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] relative overflow-hidden group hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.1)] transition-shadow">
+<!-- Subtle decorative background element -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-soft rounded-full opacity-50 pointer-events-none group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex items-center gap-3 mb-4 relative z-10">
+<div class="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">AI শিক্ষককে জিজ্ঞেস করো</h2>
+</div>
+<div class="relative z-10 flex items-center bg-background border border-outline-variant rounded-lg p-2 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-outline ml-2">search</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md text-body-md px-3 text-on-surface placeholder:text-outline h-10" placeholder="কী জানতে চাও?" type="text"/>
+<div class="flex gap-2 mr-1">
+<button class="w-10 h-10 flex items-center justify-center text-primary bg-indigo-soft rounded-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">photo_camera</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-primary bg-indigo-soft rounded-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Continue Learning -->
+<section>
+<h3 class="font-headline-md text-headline-md-mobile md:text-headline-md text-on-surface mb-stack-md">চালিয়ে যাও</h3>
+<div class="bg-surface rounded-xl border border-outline-variant p-5 shadow-sm hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-shadow flex flex-col md:flex-row gap-4 items-center">
+<div class="w-16 h-16 bg-surface-container-low rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-4xl text-secondary">calculate</span>
+</div>
+<div class="flex-1 w-full">
+<div class="flex justify-between items-start mb-1">
+<div>
+<span class="font-caption text-caption text-secondary uppercase tracking-wider">গণিত</span>
+<h4 class="font-headline-md-mobile text-headline-md-mobile text-on-surface mt-1">সরল সমীকরণ</h4>
+</div>
+<span class="font-label-md text-label-md text-success bg-success/10 px-2 py-1 rounded">60%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-2 mt-3 overflow-hidden">
+<div class="bg-success h-2 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<button class="w-full md:w-auto mt-4 md:mt-0 bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+                        চালিয়ে যাও
+                    </button>
+</div>
+</section>
+<!-- Subjects Grid -->
+<section>
+<div class="flex justify-between items-center mb-stack-md">
+<h3 class="font-headline-md text-headline-md-mobile md:text-headline-md text-on-surface">বিষয়সমূহ</h3>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">সব দেখুন</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<!-- Subject: Math -->
+<a class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-all group" href="#">
+<div class="w-12 h-12 rounded-full bg-indigo-soft flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">calculate</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">গণিত</span>
+</a>
+<!-- Subject: Science -->
+<a class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-all group" href="#">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">science</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">বিজ্ঞান</span>
+</a>
+<!-- Subject: English -->
+<a class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-all group" href="#">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">language</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">ইংরেজি</span>
+</a>
+<!-- Subject: Bangla -->
+<a class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-all group" href="#">
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-on-error-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">menu_book</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">বাংলা</span>
+</a>
+<!-- Subject: ICT -->
+<a class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-all group" href="#">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-inverse-surface group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">computer</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">ICT</span>
+</a>
+</div>
+</section>
+</div>
+<!-- Right Column / Sidebar -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-stack-lg">
+<!-- Today's Plan Bento Box -->
+<section class="bg-surface rounded-xl border border-outline-variant p-6 shadow-sm h-full flex flex-col">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">today</span>
+<h3 class="font-headline-md text-headline-md-mobile md:text-headline-md text-on-surface">Today's Plan</h3>
+</div>
+<ul class="flex flex-col gap-4 flex-1">
+<li class="flex items-start gap-4 p-3 rounded-lg hover:bg-background transition-colors cursor-pointer group border border-transparent hover:border-outline-variant">
+<div class="w-10 h-10 rounded-full bg-indigo-soft flex items-center justify-center text-primary shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1 group-hover:text-primary transition-colors">10 min</p>
+<p class="font-headline-md-mobile text-headline-md-mobile text-on-surface font-medium">Algebra lesson</p>
+</div>
+</li>
+<li class="flex items-start gap-4 p-3 rounded-lg hover:bg-background transition-colors cursor-pointer group border border-transparent hover:border-outline-variant">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm">quiz</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1 group-hover:text-secondary transition-colors">5 questions</p>
+<p class="font-headline-md-mobile text-headline-md-mobile text-on-surface font-medium">Science practice</p>
+</div>
+</li>
+<li class="flex items-start gap-4 p-3 rounded-lg hover:bg-background transition-colors cursor-pointer group border border-transparent hover:border-outline-variant">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm">spellcheck</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1 group-hover:text-tertiary transition-colors">10 words</p>
+<p class="font-headline-md-mobile text-headline-md-mobile text-on-surface font-medium">English vocabulary</p>
+</div>
+</li>
+</ul>
+</section>
+</div>
+</main>
+<!-- Mobile Bottom Navigation (Visible only on mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 h-20 bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline rounded-t-xl shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-indigo-soft dark:bg-primary-container rounded-xl px-3 py-1 active:scale-90 duration-150 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 active:scale-90 duration-150 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-md text-label-md mt-1">Learn</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 active:scale-90 duration-150 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md mt-1">AI Tutor</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 active:scale-90 duration-150 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-md text-label-md mt-1">Progress</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 active:scale-90 duration-150 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</button>
+</nav>
+</body></html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>অ্যাকাউন্ট তৈরি করো - Shikkhok AI</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Be Vietnam Pro -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config Injection -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#213145",
+                    "on-tertiary-fixed-variant": "#8b005b",
+                    "on-surface-variant": "#464554",
+                    "secondary-container": "#97a9fd",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-dim": "#cbdbf5",
+                    "primary": "#4648d4",
+                    "on-tertiary-container": "#fffbff",
+                    "surface-variant": "#d3e4fe",
+                    "warning": "#F59E0B",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffafd3",
+                    "success": "#10B981",
+                    "tertiary-fixed": "#ffd8e7",
+                    "surface": "#FFFFFF",
+                    "on-tertiary-fixed": "#3d0026",
+                    "primary-fixed": "#e1e0ff",
+                    "tertiary-container": "#d32b90",
+                    "on-secondary-fixed-variant": "#2d418d",
+                    "on-background": "#0b1c30",
+                    "outline-variant": "#c7c4d7",
+                    "surface-container-low": "#eff4ff",
+                    "secondary-fixed": "#dde1ff",
+                    "surface-container-high": "#dce9ff",
+                    "secondary-fixed-dim": "#b8c4ff",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-secondary-container": "#273b88",
+                    "surface-bright": "#f8f9ff",
+                    "outline": "#767586",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#c0c1ff",
+                    "tertiary": "#b10076",
+                    "on-error-container": "#93000a",
+                    "background": "#F8FAFC",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-primary-fixed": "#07006c",
+                    "surface-container": "#e5eeff",
+                    "indigo-soft": "#EEF2FF",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-tint": "#494bd6",
+                    "on-primary-container": "#fffbff",
+                    "error": "#EF4444",
+                    "on-secondary-fixed": "#001454",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#6063ee",
+                    "secondary": "#4659a7",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#0b1c30"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "gutter": "16px",
+                    "container-margin-mobile": "16px",
+                    "container-margin-desktop": "64px",
+                    "stack-md": "16px",
+                    "unit": "8px",
+                    "stack-lg": "24px"
+            },
+            "fontFamily": {
+                    "caption": ["Be Vietnam Pro"],
+                    "headline-xl": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "headline-md": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "headline-xl-mobile": ["Be Vietnam Pro"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "headline-lg": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        /* Custom Styles to augment Tailwind */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Subtle focus ring for premium feel */
+        input:focus {
+            box-shadow: 0 0 0 2px rgba(70, 72, 212, 0.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex items-center justify-center font-body-md antialiased overflow-x-hidden p-container-margin-mobile md:p-container-margin-desktop">
+<!-- Main Container: Glass/Minimalist Card approach -->
+<main class="w-full max-w-[480px] bg-surface rounded-2xl border border-outline-variant/30 shadow-[0_10px_40px_-10px_rgba(70,72,212,0.08)] relative z-10 overflow-hidden flex flex-col transition-all duration-300">
+<!-- Header Section -->
+<header class="pt-10 px-8 pb-6 text-center">
+<h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-background mb-2">অ্যাকাউন্ট তৈরি করো</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Shikkhok AI-তে স্বাগতম! আপনার শেখার যাত্রা শুরু করুন।</p>
+</header>
+<!-- Form Section -->
+<section class="px-8 pb-10 flex-grow flex flex-col gap-stack-lg">
+<form action="#" class="flex flex-col gap-stack-md" method="POST">
+<!-- Name Field -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface" for="name">নাম</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">person</span>
+<input class="w-full h-12 pl-10 pr-3 rounded-lg border border-outline-variant bg-surface-bright focus:border-primary focus:bg-surface text-on-surface font-body-md text-body-md transition-colors outline-none" id="name" name="name" placeholder="আপনার পুরো নাম" required="" type="text"/>
+</div>
+</div>
+<!-- Email/Mobile Field -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface" for="contact">মোবাইল নম্বর বা ইমেইল</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">contact_mail</span>
+<input class="w-full h-12 pl-10 pr-3 rounded-lg border border-outline-variant bg-surface-bright focus:border-primary focus:bg-surface text-on-surface font-body-md text-body-md transition-colors outline-none" id="contact" name="contact" placeholder="01XXX-XXXXXX বা email@example.com" required="" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface" for="password">পাসওয়ার্ড</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full h-12 pl-10 pr-10 rounded-lg border border-outline-variant bg-surface-bright focus:border-primary focus:bg-surface text-on-surface font-body-md text-body-md transition-colors outline-none" id="password" name="password" placeholder="কমপক্ষে ৮ অক্ষরের পাসওয়ার্ড" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors focus:outline-none" type="button">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Confirm Password Field -->
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface" for="confirm_password">পাসওয়ার্ড নিশ্চিত করুন</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">lock_reset</span>
+<input class="w-full h-12 pl-10 pr-10 rounded-lg border border-outline-variant bg-surface-bright focus:border-primary focus:bg-surface text-on-surface font-body-md text-body-md transition-colors outline-none" id="confirm_password" name="confirm_password" placeholder="পাসওয়ার্ড পুনরায় লিখুন" required="" type="password"/>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="w-full h-12 mt-unit bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 hover:bg-primary-container transition-colors shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 active:scale-[0.98]" type="submit">
+                    অ্যাকাউন্ট তৈরি করো
+                    <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="flex items-center gap-4 my-2">
+<div class="flex-grow h-px bg-outline-variant/40"></div>
+<span class="font-caption text-caption text-outline">অথবা</span>
+<div class="flex-grow h-px bg-outline-variant/40"></div>
+</div>
+<!-- Alternative CTA: Google -->
+<button class="w-full h-12 bg-surface text-on-surface border border-outline-variant font-label-md text-label-md rounded-lg flex items-center justify-center gap-3 hover:bg-surface-container-low transition-colors shadow-sm" type="button">
+<!-- Google 'G' Icon SVG (simplified for literal design intent) -->
+<svg fill="none" height="20" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                Google দিয়ে চালিয়ে যাই
+            </button>
+<!-- Bottom Agreement -->
+<p class="font-caption text-caption text-center text-on-surface-variant mt-2 px-4 leading-relaxed">
+                অ্যাকাউন্ট তৈরি করার মাধ্যমে আপনি আমাদের 
+                <a class="text-primary hover:underline font-medium" href="#">Terms</a> 
+                এবং 
+                <a class="text-primary hover:underline font-medium" href="#">Privacy Policy</a>-তে সম্মত হচ্ছেন।
+            </p>
+<p class="font-label-md text-label-md text-center text-on-surface-variant mt-4">
+                ইতিমধ্যেই অ্যাকাউন্ট আছে? <a class="text-primary font-bold hover:underline ml-1" href="#">লগ ইন করুন</a>
+</p>
+</section>
+</main>
+<!-- Subtle Background Elements for depth (outside the card) -->
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+<div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-surface-container-high/40 blur-[100px]"></div>
+<div class="absolute bottom-[10%] -right-[10%] w-[60%] h-[60%] rounded-full bg-indigo-soft/60 blur-[120px]"></div>
+</div>
+</body></html>

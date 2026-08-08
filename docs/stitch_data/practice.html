@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>প্র্যাকটিস - Shikkhok AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#3d0026",
+                      "on-primary-fixed-variant": "#2f2ebe",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "secondary-container": "#97a9fd",
+                      "surface-container": "#e5eeff",
+                      "secondary": "#4659a7",
+                      "secondary-fixed": "#dde1ff",
+                      "indigo-soft": "#EEF2FF",
+                      "tertiary-fixed": "#ffd8e7",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#273b88",
+                      "outline-variant": "#c7c4d7",
+                      "surface": "#FFFFFF",
+                      "inverse-surface": "#213145",
+                      "outline": "#767586",
+                      "tertiary-container": "#d32b90",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-tint": "#494bd6",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container-high": "#dce9ff",
+                      "success": "#10B981",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#b10076",
+                      "tertiary-fixed-dim": "#ffafd3",
+                      "inverse-primary": "#c0c1ff",
+                      "primary-container": "#6063ee",
+                      "inverse-on-surface": "#eaf1ff",
+                      "warning": "#F59E0B",
+                      "background": "#F8FAFC",
+                      "on-tertiary-fixed-variant": "#8b005b",
+                      "on-secondary-fixed": "#001454",
+                      "error": "#EF4444",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#2d418d",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#e1e0ff",
+                      "primary": "#4648d4",
+                      "on-surface-variant": "#464554",
+                      "on-primary-fixed": "#07006c",
+                      "on-surface": "#0b1c30",
+                      "surface-variant": "#d3e4fe",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#eff4ff",
+                      "secondary-fixed-dim": "#b8c4ff",
+                      "on-background": "#0b1c30",
+                      "on-primary-container": "#fffbff",
+                      "on-tertiary": "#ffffff",
+                      "surface-bright": "#f8f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "stack-lg": "24px",
+                      "unit": "8px",
+                      "container-margin-mobile": "16px",
+                      "gutter": "16px",
+                      "stack-md": "16px",
+                      "container-margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "label-md": [
+                              "Be Vietnam Pro"
+                      ],
+                      "headline-xl": [
+                              "Be Vietnam Pro"
+                      ],
+                      "body-md": [
+                              "Be Vietnam Pro"
+                      ],
+                      "body-lg": [
+                              "Be Vietnam Pro"
+                      ],
+                      "caption": [
+                              "Be Vietnam Pro"
+                      ],
+                      "headline-xl-mobile": [
+                              "Be Vietnam Pro"
+                      ],
+                      "headline-md": [
+                              "Be Vietnam Pro"
+                      ],
+                      "headline-lg": [
+                              "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-xl": [
+                              "40px",
+                              {
+                                      "lineHeight": "52px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "caption": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl-mobile": [
+                              "30px",
+                              {
+                                      "lineHeight": "38px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #F8FAFC; /* background color from config */
+            color: #0b1c30; /* on-background color from config */
+        }
+        
+        /* Utility for ambient shadow */
+        .ambient-shadow {
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.05);
+        }
+        
+        .ambient-shadow-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md pb-24 md:pb-0">
+<!-- Top Navigation (Mobile & Desktop) -->
+<header class="flex justify-between items-center px-container-margin-mobile h-16 w-full bg-background dark:bg-background docked full-width top-0 sticky z-40 transition-shadow duration-300 shadow-sm md:px-container-margin-desktop md:shadow-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A small, friendly profile picture of a young Bangladeshi student in a clean, modern style, well-lit, isolated on a soft pastel background, matching the Empathetic Mentor brand vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6RzYOVrBo5XePnTUOOA9ISEOXI0V3ZM_7H3AAB-Y-DQj2de8Fsm2j261rX948iHedYr0LP2-vlw7DHpfk7tyGMQ3gJSq9ikosUHJP0V111vAaC8NbrPJ4_vLhRT1rgbTEk11kd7OcpGSx6SMfM1xryjZaVgSX6WBRaxpxaxdkhet4yVpts4vHxu9SdKUScP66Pkxo8kJYChXhKA-NAJbpjiXfpenBHoRllYW6IwG-b456hPJ1TGpB"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg font-bold text-primary dark:text-primary-fixed-dim">Shikkhok AI</h1>
+</div>
+<button class="p-2 rounded-full text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications" data-weight="regular">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-container-margin-mobile md:px-container-margin-desktop max-w-7xl mx-auto pt-6 flex flex-col gap-stack-lg">
+<!-- Header -->
+<section>
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile md:font-headline-xl md:text-headline-xl text-on-surface">প্র্যাকটিস হাব</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">তোমার দুর্বলতাগুলো কাটিয়ে উঠতে সাহায্য করবে</p>
+</section>
+<!-- Bento Grid Layout for Sections -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Daily Practice (Large Focus) -->
+<section class="md:col-span-8 bg-surface rounded-xl border border-outline-variant p-6 ambient-shadow ambient-shadow-hover transition-all duration-300 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-soft rounded-full blur-2xl opacity-50 group-hover:opacity-70 transition-opacity"></div>
+<div class="flex items-start justify-between relative z-10">
+<div>
+<div class="flex items-center gap-2 text-primary mb-3">
+<span class="material-symbols-outlined bg-indigo-soft p-2 rounded-lg" data-icon="calendar_month" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-label-md text-label-md text-secondary">দৈনিক প্র্যাকটিস</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">আজকের লক্ষ্য: পদার্থবিজ্ঞান</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-4">গতিবিদ্যা অধ্যায়ের গুরুত্বপূর্ণ প্রশ্ন</p>
+<div class="flex items-center gap-4 text-sm text-outline font-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">quiz</span> ২০ প্রশ্ন</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">timer</span> ৩০ মিনিট</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-surface-tint active:scale-95 transition-all shadow-sm">শুরু করো</button>
+</div>
+<!-- Progress visual -->
+<div class="mt-6 pt-4 border-t border-surface-container-highest relative z-10">
+<div class="flex justify-between font-caption text-caption text-on-surface-variant mb-2">
+<span>সাপ্তাহিক প্র্যাকটিস স্ট্রিক</span>
+<span class="text-primary font-medium">৩ দিন বাকি</span>
+</div>
+<div class="flex gap-2">
+<div class="h-2 flex-1 rounded-full bg-success"></div>
+<div class="h-2 flex-1 rounded-full bg-success"></div>
+<div class="h-2 flex-1 rounded-full bg-success"></div>
+<div class="h-2 flex-1 rounded-full bg-success"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container-highest"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container-highest"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container-highest"></div>
+</div>
+</div>
+</section>
+<!-- Weak Topics (Targeted Intervention) -->
+<section class="md:col-span-4 bg-error-container rounded-xl p-6 ambient-shadow ambient-shadow-hover transition-all duration-300 relative overflow-hidden">
+<div class="flex items-center gap-2 text-on-error-container mb-4">
+<span class="material-symbols-outlined bg-white/50 p-2 rounded-lg" data-icon="troubleshoot" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
+<span class="font-label-md text-label-md font-bold">দুর্বল টপিকস</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-error-container mb-4">যেখানে তোমার আরও নজর দেওয়া প্রয়োজন</h3>
+<div class="flex flex-col gap-3">
+<div class="bg-white/70 rounded-lg p-3 flex justify-between items-center hover:bg-white transition-colors cursor-pointer">
+<div>
+<p class="font-label-md text-label-md text-on-surface">জৈব রসায়ন</p>
+<p class="font-caption text-caption text-outline">রসায়ন - ১৫ প্রশ্ন</p>
+</div>
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</div>
+<div class="bg-white/70 rounded-lg p-3 flex justify-between items-center hover:bg-white transition-colors cursor-pointer">
+<div>
+<p class="font-label-md text-label-md text-on-surface">ভেক্টর</p>
+<p class="font-caption text-caption text-outline">গণিত - ১২ প্রশ্ন</p>
+</div>
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</div>
+</div>
+</section>
+<!-- By Subject -->
+<section class="md:col-span-6 bg-surface rounded-xl border border-outline-variant p-6 ambient-shadow ambient-shadow-hover transition-all duration-300">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-tertiary" data-icon="category">category</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">বিষয় অনুযায়ী প্র্যাকটিস</h3>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Subject Chips -->
+<button class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-lowest border border-surface-container hover:bg-indigo-soft hover:border-primary transition-all active:scale-95 group text-left">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="functions">functions</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface">গণিত</span>
+<span class="block font-caption text-caption text-outline">৫০+ প্রশ্ন</span>
+</div>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-lowest border border-surface-container hover:bg-indigo-soft hover:border-primary transition-all active:scale-95 group text-left">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="biotech">biotech</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface">পদার্থবিজ্ঞান</span>
+<span class="block font-caption text-caption text-outline">৩০+ প্রশ্ন</span>
+</div>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-lowest border border-surface-container hover:bg-indigo-soft hover:border-primary transition-all active:scale-95 group text-left">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="science">science</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface">রসায়ন</span>
+<span class="block font-caption text-caption text-outline">৪০+ প্রশ্ন</span>
+</div>
+</button>
+<button class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-lowest border border-surface-container hover:bg-indigo-soft hover:border-primary transition-all active:scale-95 group text-left">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="eco">eco</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface">জীববিজ্ঞান</span>
+<span class="block font-caption text-caption text-outline">২৫+ প্রশ্ন</span>
+</div>
+</button>
+</div>
+</section>
+<!-- Exam Preparation -->
+<section class="md:col-span-6 bg-surface-container-low rounded-xl border border-surface-container-high p-6 ambient-shadow ambient-shadow-hover transition-all duration-300 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-10 text-primary">
+<span class="material-symbols-outlined text-[120px]" data-icon="school">school</span>
+</div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined bg-white p-2 rounded-lg shadow-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<h3 class="font-headline-md text-headline-md">পরীক্ষার প্রস্তুতি</h3>
+</div>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6 relative z-10">বোর্ড পরীক্ষা এবং এডমিশন টেস্টের জন্য বিশেষ মক টেস্ট সিরিজ।</p>
+<div class="space-y-3 relative z-10">
+<div class="bg-white rounded-lg p-4 flex justify-between items-center shadow-sm border border-outline-variant">
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">HSC বোর্ড মডেল টেস্ট</h4>
+<p class="font-caption text-caption text-outline flex gap-3 mt-1">
+<span><span class="material-symbols-outlined text-[14px] align-middle">quiz</span> ১০০ প্রশ্ন</span>
+<span><span class="material-symbols-outlined text-[14px] align-middle">timer</span> ৩ ঘণ্টা</span>
+</p>
+</div>
+<button class="text-primary hover:bg-indigo-soft p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+<div class="bg-white rounded-lg p-4 flex justify-between items-center shadow-sm border border-outline-variant">
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">ইঞ্জিনিয়ারিং এডমিশন মক</h4>
+<p class="font-caption text-caption text-outline flex gap-3 mt-1">
+<span><span class="material-symbols-outlined text-[14px] align-middle">quiz</span> ৬০ প্রশ্ন</span>
+<span><span class="material-symbols-outlined text-[14px] align-middle">timer</span> ১.৫ ঘণ্টা</span>
+</p>
+</div>
+<button class="text-primary hover:bg-indigo-soft p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 h-20 bg-surface dark:bg-surface border-t border-outline-variant dark:border-outline shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:opacity-80 transition-opacity active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:opacity-80 transition-opacity active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-md text-label-md mt-1">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:opacity-80 transition-opacity active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md mt-1">AI Tutor</span>
+</a>
+<!-- Active Tab: Progress / Practice -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-indigo-soft dark:bg-primary-container rounded-xl px-3 py-1 hover:opacity-80 transition-opacity active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-label-md text-label-md mt-1">Progress</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1 hover:opacity-80 transition-opacity active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</a>
+</nav>
+<!-- Desktop Side Navigation (Hidden on Mobile, simplified representation for alignment) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-20 bg-surface border-r border-outline-variant items-center py-6 gap-6 z-30">
+<a class="p-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="home">home</span>
+</a>
+<a class="p-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="menu_book">menu_book</span>
+</a>
+<a class="p-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="smart_toy">smart_toy</span>
+</a>
+<!-- Active Tab -->
+<a class="p-3 text-primary bg-indigo-soft rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</a>
+<a class="p-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-colors group mt-auto mb-4" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="person">person</span>
+</a>
+</aside>
+<script>
+        // Simple script to handle interaction feedback if needed
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            btn.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

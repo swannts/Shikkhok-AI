@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>মতামত দিন - Shikkhok AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#3d0026",
+                        "warning": "#F59E0B",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed": "#e1e0ff",
+                        "primary-container": "#6063ee",
+                        "on-primary-container": "#fffbff",
+                        "indigo-soft": "#EEF2FF",
+                        "inverse-surface": "#213145",
+                        "outline-variant": "#c7c4d7",
+                        "outline": "#767586",
+                        "secondary-container": "#97a9fd",
+                        "on-background": "#0b1c30",
+                        "on-secondary-container": "#273b88",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "surface": "#FFFFFF",
+                        "secondary": "#4659a7",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary-fixed": "#07006c",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#b10076",
+                        "error": "#EF4444",
+                        "success": "#10B981",
+                        "surface-tint": "#494bd6",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#dde1ff",
+                        "tertiary-fixed-dim": "#ffafd3",
+                        "tertiary-container": "#d32b90",
+                        "on-tertiary-fixed-variant": "#8b005b",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface-variant": "#464554",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#001454",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed": "#ffd8e7",
+                        "on-secondary-fixed-variant": "#2d418d",
+                        "background": "#F8FAFC"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "container-margin-mobile": "16px",
+                        "container-margin-desktop": "64px",
+                        "gutter": "16px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-xl-mobile": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "caption": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .custom-radio:checked + div {
+            border-color: theme('colors.primary');
+            background-color: theme('colors.indigo-soft');
+            color: theme('colors.primary');
+        }
+        .custom-radio:checked + div .material-symbols-outlined {
+            color: theme('colors.primary');
+        }
+        .feedback-option-chip.selected {
+            background-color: theme('colors.indigo-soft');
+            border-color: theme('colors.primary');
+            color: theme('colors.primary');
+        }
+        /* Modal Animation */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-content {
+            animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen flex items-center justify-center font-body-md text-on-surface antialiased p-container-margin-mobile md:p-container-margin-desktop relative overflow-hidden">
+<!-- Decorative Background Elements -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-br from-primary-fixed to-surface-variant opacity-40 blur-3xl"></div>
+<div class="absolute -bottom-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-gradient-to-tr from-secondary-fixed to-surface-container opacity-40 blur-3xl"></div>
+</div>
+<!-- Modal Container -->
+<div class="w-full max-w-lg bg-surface rounded-xl border border-outline-variant/30 shadow-[0_10px_40px_-10px_rgba(70,72,212,0.15)] relative z-10 flex flex-col modal-content">
+<!-- Header -->
+<div class="flex items-center justify-between p-stack-lg pb-stack-md border-b border-outline-variant/20">
+<h1 class="font-headline-md text-headline-md text-on-surface">মতামত দিন</h1>
+<button aria-label="Close" class="text-on-surface-variant hover:text-on-surface transition-colors rounded-full p-1 hover:bg-surface-variant/50 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary/50">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Scrollable Content Area -->
+<div class="p-stack-lg flex-1 overflow-y-auto">
+<!-- Context / Question -->
+<div class="text-center mb-stack-lg">
+<p class="font-body-lg text-body-lg text-on-surface mb-stack-md">এই উত্তরটি কি সাহায্য করেছে?</p>
+<div class="flex justify-center gap-stack-md">
+<!-- Thumbs Up -->
+<label class="cursor-pointer group relative">
+<input class="sr-only peer custom-radio" name="helpful" type="radio" value="yes"/>
+<div class="w-16 h-16 rounded-full border border-outline-variant/50 flex items-center justify-center bg-surface transition-all duration-200 hover:border-primary/50 hover:bg-indigo-soft/50 shadow-sm">
+<span class="material-symbols-outlined text-[28px] text-on-surface-variant transition-colors" data-icon="thumb_up">thumb_up</span>
+</div>
+</label>
+<!-- Thumbs Down -->
+<label class="cursor-pointer group relative">
+<input checked="" class="sr-only peer custom-radio" id="thumbs-down-radio" name="helpful" type="radio" value="no"/>
+<div class="w-16 h-16 rounded-full border border-outline-variant/50 flex items-center justify-center bg-surface transition-all duration-200 hover:border-error/50 hover:bg-error-container/20 shadow-sm peer-checked:border-error peer-checked:bg-error-container/30 peer-checked:text-error">
+<span class="material-symbols-outlined text-[28px] text-on-surface-variant transition-colors peer-checked:text-error" data-icon="thumb_down">thumb_down</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Negative Feedback Section (Visible by default for demo, toggled via JS normally) -->
+<div class="space-y-stack-lg transition-all duration-300" id="negative-feedback-section">
+<!-- Issue Categories -->
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-stack-sm">কী সমস্যা হয়েছে?</p>
+<div class="flex flex-wrap gap-stack-sm">
+<button class="feedback-option-chip h-10 px-4 rounded-full border border-outline-variant/50 font-body-md text-body-md text-on-surface-variant hover:bg-surface-variant/30 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 selected">
+                            বুঝতে সমস্যা হচ্ছে
+                        </button>
+<button class="feedback-option-chip h-10 px-4 rounded-full border border-outline-variant/50 font-body-md text-body-md text-on-surface-variant hover:bg-surface-variant/30 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            ভুল তথ্য
+                        </button>
+<button class="feedback-option-chip h-10 px-4 rounded-full border border-outline-variant/50 font-body-md text-body-md text-on-surface-variant hover:bg-surface-variant/30 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            অপ্রাসঙ্গিক
+                        </button>
+</div>
+</div>
+<!-- Text Area -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-stack-sm" for="feedback-details">আপনার মতামত লিখুন (ঐচ্ছিক)</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant/50 rounded-lg p-3 font-body-md text-body-md text-on-surface placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none" id="feedback-details" placeholder="আপনার বিস্তারিত মতামত এখানে লিখুন..." rows="4"></textarea>
+</div>
+</div>
+</div>
+<!-- Footer / CTA -->
+<div class="p-stack-lg border-t border-outline-variant/20 bg-surface-bright rounded-b-xl flex justify-end gap-stack-md">
+<button class="h-12 px-6 rounded-lg font-label-md text-label-md text-primary bg-indigo-soft hover:bg-surface-variant/50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                বাতিল
+            </button>
+<button class="h-12 px-6 rounded-lg font-label-md text-label-md text-on-primary bg-primary hover:bg-surface-tint shadow-[0_4px_14px_0_rgba(70,72,212,0.39)] hover:shadow-[0_6px_20px_rgba(70,72,212,0.23)] transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 flex items-center gap-2">
+<span>রিপোর্ট পাঠান</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<script>
+        // Simple interaction for chips
+        document.querySelectorAll('.feedback-option-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                if (this.classList.contains('selected')) {
+                    this.classList.remove('text-on-surface-variant', 'border-outline-variant/50');
+                } else {
+                    this.classList.add('text-on-surface-variant', 'border-outline-variant/50');
+                }
+            });
+        });
+
+        // Toggle negative section based on thumbs (visual demo only)
+        const thumbsUp = document.querySelector('input[value="yes"]');
+        const thumbsDown = document.querySelector('input[value="no"]');
+        const negativeSection = document.getElementById('negative-feedback-section');
+
+        thumbsUp.addEventListener('change', () => {
+            if(thumbsUp.checked) {
+                negativeSection.style.opacity = '0.5';
+                negativeSection.style.pointerEvents = 'none';
+            }
+        });
+
+        thumbsDown.addEventListener('change', () => {
+            if(thumbsDown.checked) {
+                negativeSection.style.opacity = '1';
+                negativeSection.style.pointerEvents = 'auto';
+            }
+        });
+    </script>
+</body></html>

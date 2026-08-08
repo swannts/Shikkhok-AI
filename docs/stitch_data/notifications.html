@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="bn"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shikkhok AI - Notifications</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with custom configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#3d0026",
+                        "warning": "#F59E0B",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed": "#e1e0ff",
+                        "primary-container": "#6063ee",
+                        "on-primary-container": "#fffbff",
+                        "indigo-soft": "#EEF2FF",
+                        "inverse-surface": "#213145",
+                        "outline-variant": "#c7c4d7",
+                        "outline": "#767586",
+                        "secondary-container": "#97a9fd",
+                        "on-background": "#0b1c30",
+                        "on-secondary-container": "#273b88",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "surface": "#FFFFFF",
+                        "secondary": "#4659a7",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary-fixed": "#07006c",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#b10076",
+                        "error": "#EF4444",
+                        "success": "#10B981",
+                        "surface-tint": "#494bd6",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#dde1ff",
+                        "tertiary-fixed-dim": "#ffafd3",
+                        "tertiary-container": "#d32b90",
+                        "on-tertiary-fixed-variant": "#8b005b",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface-variant": "#464554",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#001454",
+                        "surface-container": "#e5eeff",
+                        "tertiary-fixed": "#ffd8e7",
+                        "on-secondary-fixed-variant": "#2d418d",
+                        "background": "#F8FAFC"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "container-margin-mobile": "16px",
+                        "container-margin-desktop": "64px",
+                        "gutter": "16px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-lg": ["Be Vietnam Pro", "sans-serif"],
+                        "body-lg": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-xl-mobile": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-xl": ["Be Vietnam Pro", "sans-serif"],
+                        "label-md": ["Be Vietnam Pro", "sans-serif"],
+                        "caption": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-background dark:bg-background flex justify-between items-center px-gutter h-16 max-w-7xl mx-auto flat no shadows">
+<button class="text-on-surface-variant hover:bg-surface-variant/20 rounded-full p-2 transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">
+            Shikkhok AI
+        </h1>
+<button class="text-primary hover:bg-surface-variant/20 rounded-full p-2 transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-stack-lg px-gutter max-w-3xl mx-auto w-full flex flex-col gap-stack-lg">
+<!-- Page Title -->
+<section class="flex items-center justify-between">
+<h2 class="font-headline-lg text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">
+                নোটিফিকেশন
+            </h2>
+<button class="font-label-md text-label-md text-primary hover:bg-indigo-soft px-3 py-1.5 rounded-full transition-colors">
+                সবগুলো পড়া হয়েছে
+            </button>
+</section>
+<!-- Notifications List -->
+<section class="flex flex-col gap-stack-md relative z-10">
+<!-- Item 1: Unread -->
+<div class="group relative bg-surface border border-outline-variant/30 rounded-xl p-4 flex gap-4 items-start shadow-sm hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-all duration-300 overflow-hidden">
+<!-- Unread Indicator Line -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-xl"></div>
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">target</span>
+</div>
+<div class="flex flex-col gap-1 flex-grow">
+<div class="flex justify-between items-start gap-2">
+<h3 class="font-label-md text-label-md text-on-surface">আজকের লক্ষ্য</h3>
+<span class="font-caption text-caption text-primary whitespace-nowrap">2h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        আজকের গণিত প্র্যাকটিস এখনও বাকি।
+                    </p>
+</div>
+</div>
+<!-- Item 2: Unread with Action -->
+<div class="group relative bg-surface border border-outline-variant/30 rounded-xl p-4 flex gap-4 items-start shadow-sm hover:shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] transition-all duration-300 overflow-hidden">
+<!-- Unread Indicator Line -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-xl"></div>
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+</div>
+<div class="flex flex-col gap-1 flex-grow">
+<div class="flex justify-between items-start gap-2">
+<h3 class="font-label-md text-label-md text-on-surface">পরীক্ষার ফল</h3>
+<span class="font-caption text-caption text-primary whitespace-nowrap">5h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-2">
+                        Science Chapter Test-এর ফল প্রস্তুত।
+                    </p>
+<div>
+<button class="inline-flex items-center gap-1 font-label-md text-label-md text-primary bg-indigo-soft hover:bg-surface-variant px-4 py-2 rounded-lg transition-colors">
+                            ফলাফল দেখো
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 3: Read -->
+<div class="group relative bg-surface border border-outline-variant/20 rounded-xl p-4 flex gap-4 items-start transition-all duration-300 opacity-80 hover:opacity-100">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-surface-variant/50 flex items-center justify-center mt-1">
+<span class="material-symbols-outlined text-outline">menu_book</span>
+</div>
+<div class="flex flex-col gap-1 flex-grow">
+<div class="flex justify-between items-start gap-2">
+<h3 class="font-label-md text-label-md text-on-surface">নতুন অধ্যায়</h3>
+<span class="font-caption text-caption text-outline whitespace-nowrap">1d ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        ইংরেজি বিষয়ে নতুন একটি পাঠ যুক্ত হয়েছে।
+                    </p>
+</div>
+</div>
+</section>
+</main>
+</body></html>

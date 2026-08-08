@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - Shikkhok AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#213145",
+                        "on-tertiary-fixed-variant": "#8b005b",
+                        "on-surface-variant": "#464554",
+                        "secondary-container": "#97a9fd",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-dim": "#cbdbf5",
+                        "primary": "#4648d4",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-variant": "#d3e4fe",
+                        "warning": "#F59E0B",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffafd3",
+                        "success": "#10B981",
+                        "tertiary-fixed": "#ffd8e7",
+                        "surface": "#FFFFFF",
+                        "on-tertiary-fixed": "#3d0026",
+                        "primary-fixed": "#e1e0ff",
+                        "tertiary-container": "#d32b90",
+                        "on-secondary-fixed-variant": "#2d418d",
+                        "on-background": "#0b1c30",
+                        "outline-variant": "#c7c4d7",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed": "#dde1ff",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed-dim": "#b8c4ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-secondary-container": "#273b88",
+                        "surface-bright": "#f8f9ff",
+                        "outline": "#767586",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#c0c1ff",
+                        "tertiary": "#b10076",
+                        "on-error-container": "#93000a",
+                        "background": "#F8FAFC",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container": "#e5eeff",
+                        "indigo-soft": "#EEF2FF",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-tint": "#494bd6",
+                        "on-primary-container": "#fffbff",
+                        "error": "#EF4444",
+                        "on-secondary-fixed": "#001454",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#6063ee",
+                        "secondary": "#4659a7",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#0b1c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "gutter": "16px",
+                        "container-margin-mobile": "16px",
+                        "container-margin-desktop": "64px",
+                        "stack-md": "16px",
+                        "unit": "8px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "caption": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-xl": ["Be Vietnam Pro", "sans-serif"],
+                        "label-md": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                        "body-md": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-xl-mobile": ["Be Vietnam Pro", "sans-serif"],
+                        "body-lg": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-lg": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-lg-mobile": ["Be Vietnam Pro", "sans-serif"],
+                        "body-md-mobile": ["Be Vietnam Pro", "sans-serif"],
+                        "label-md-mobile": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md-mobile": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md-mobile": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex items-center justify-center p-gutter">
+<main class="w-full max-w-md bg-surface rounded-xl border border-outline-variant/30 shadow-[0_10px_15px_-3px_rgba(99,102,241,0.05)] overflow-hidden">
+<div class="p-8">
+<div class="text-center mb-8">
+<!-- Simple Logo Placeholder -->
+<div class="w-16 h-16 bg-indigo-soft rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background mb-2">আবার স্বাগতম</h1>
+<p class="font-body-md-mobile text-body-md-mobile text-on-surface-variant">আপনার শেখার যাত্রা চালিয়ে যান</p>
+</div>
+<form action="#" class="space-y-stack-md" method="POST">
+<div class="space-y-stack-sm">
+<label class="block font-label-md text-label-md text-on-surface" for="identifier">Mobile number / email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant" data-icon="mail">mail</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-lg bg-surface text-on-surface placeholder-outline focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md transition-colors" id="identifier" name="identifier" placeholder="user@example.com / 01XXXXXXX" type="text"/>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<div class="flex items-center justify-between">
+<label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+<a class="font-label-md-mobile text-label-md-mobile text-primary hover:text-primary-container transition-colors" href="#">পাসওয়ার্ড ভুলে গেছ?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant" data-icon="lock">lock</span>
+</div>
+<input class="block w-full pl-10 pr-10 py-3 border border-outline-variant rounded-lg bg-surface text-on-surface placeholder-outline focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary font-body-md text-body-md transition-colors" id="password" name="password" placeholder="••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-outline-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="visibility_off">visibility_off</span>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm font-label-md text-label-md text-on-primary bg-primary hover:bg-primary-container focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors min-h-[48px]" type="submit">
+                        লগইন
+                    </button>
+</div>
+</form>
+<div class="mt-8">
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant/50"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="px-2 bg-surface font-label-md-mobile text-label-md-mobile text-outline">Alternative</span>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full flex justify-center items-center py-3 px-4 border border-outline-variant rounded-lg shadow-sm font-label-md text-label-md text-on-surface bg-surface hover:bg-surface-container-low focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors min-h-[48px] gap-2">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp4WeUF7vs0EVSLMCEWdO5z4XtduMivIbSMxCYq4R8tM823bmnksnBzgkZMcj-sCyqHU4qlFUozMCZL4TfbeH_pTmMPb-CrgJsTu7nWxTiqsQckWBB-T9Feq7LJZwB5X-jBhj9YpiHLigJ2pLX2ZywlYpvrTK_Da-Xc_jn7Y1GF5VsXw_ut3OcgTu0xNKegcBem_Sz_ZJWqurUA6j0d2CSjGdPRX8MpxUX_29B8vqjZrW_aisLe1tu"/>
+                        Google login
+                    </button>
+</div>
+</div>
+<div class="mt-8 text-center">
+<p class="font-body-md-mobile text-body-md-mobile text-on-surface-variant">
+<a class="font-label-md text-label-md text-primary hover:text-primary-container transition-colors" href="#">নতুন অ্যাকাউন্ট তৈরি করো</a>
+</p>
+</div>
+</div>
+</main>
+</body></html>
