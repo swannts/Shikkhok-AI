@@ -20,7 +20,12 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
       <AppText variant="cardTitle" weight="bold" color={colors.error} align="center">
         {title}
       </AppText>
-      <AppText variant="bodySmall" color={colors.textSecondary} align="center" style={styles.message}>
+      <AppText
+        variant="bodySmall"
+        color={colors.textSecondary}
+        align="center"
+        style={styles.message}
+      >
         {message}
       </AppText>
       {onRetry && (

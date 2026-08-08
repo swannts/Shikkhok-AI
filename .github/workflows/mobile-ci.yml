@@ -1,0 +1,48 @@
+name: Mobile App CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  mobile-ci:
+    name: Typecheck, Lint, and Test Mobile App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: apps/mobile/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          cd apps/mobile
+          npm ci
+
+      - name: TypeScript Check
+        run: |
+          cd apps/mobile
+          npm run typecheck
+
+      - name: ESLint Check
+        run: |
+          cd apps/mobile
+          npm run lint
+
+      - name: Prettier Format Check
+        run: |
+          cd apps/mobile
+          npm run format:check
+
+      - name: Run Jest Tests
+        run: |
+          cd apps/mobile
+          npm test

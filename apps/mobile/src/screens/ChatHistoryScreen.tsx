@@ -8,13 +8,15 @@ interface ChatHistoryScreenProps {
   onSelectChat?: () => void;
 }
 
-export const ChatHistoryScreen: React.FC<ChatHistoryScreenProps> = ({
-  onBack,
-  onSelectChat,
-}) => {
+export const ChatHistoryScreen: React.FC<ChatHistoryScreenProps> = ({ onBack, onSelectChat }) => {
   const history = [
     { id: '1', title: 'সরল সমীকরণের সমাধান কীভাবে করব?', date: 'আজ, ২:৩০ PM', category: 'গণিত' },
-    { id: '2', title: 'Photosynthesis বা সালোকসংশ্লেষণ ব্যাখ্যা করো', date: 'গতকাল', category: 'বিজ্ঞান' },
+    {
+      id: '2',
+      title: 'Photosynthesis বা সালোকসংশ্লেষণ ব্যাখ্যা করো',
+      date: 'গতকাল',
+      category: 'বিজ্ঞান',
+    },
     { id: '3', title: 'Right forms of verbs নিয়মাবলী', date: '৫ আগস্ট', category: 'ইংরেজি' },
   ];
 
@@ -42,7 +44,17 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   scrollContent: { padding: spacing.md },
   itemCard: { marginVertical: spacing.xs },
-  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing.xs },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.xs,
+  },
   dateText: { fontSize: typography.size.xs, color: colors.outline },
-  chatTitle: { fontSize: typography.size.md, fontWeight: '600', color: colors.onSurface, marginTop: 4 },
+  chatTitle: {
+    fontSize: typography.size.md,
+    fontWeight: '600',
+    color: colors.onSurface,
+    marginTop: 4,
+  },
 });

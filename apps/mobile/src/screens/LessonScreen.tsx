@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { colors, spacing, typography } from '../theme';
 import { Header, Card, Button, Badge, ProgressBar } from '../components';
 
@@ -14,10 +8,7 @@ interface LessonScreenProps {
   onAskAI?: () => void;
 }
 
-export const LessonScreen: React.FC<LessonScreenProps> = ({
-  onBack,
-  onAskAI,
-}) => {
+export const LessonScreen: React.FC<LessonScreenProps> = ({ onBack, onAskAI }) => {
   return (
     <View style={styles.container}>
       <Header onBack={onBack} title="পড়াশোনা" subtitle="গণিত • অধ্যায় ৩" />
@@ -37,8 +28,8 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({
 
         {/* Explanation paragraph */}
         <Text style={styles.paragraph}>
-          সমীকরণ হলো একটি গাণিতিক বাক্য যেখানে দুটি রাশি সমান চিহ্ন (=) দ্বারা যুক্ত থাকে।
-          অজ্ঞাত রাশির মান নির্ণয় করাই সমীকরণের মূল উদ্দেশ্য।
+          সমীকরণ হলো একটি গাণিতিক বাক্য যেখানে দুটি রাশি সমান চিহ্ন (=) দ্বারা যুক্ত থাকে। অজ্ঞাত
+          রাশির মান নির্ণয় করাই সমীকরণের মূল উদ্দেশ্য।
         </Text>
 
         {/* Key takeaway card */}
@@ -58,7 +49,8 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({
           <Text style={styles.sectionTitle}>উদাহরণ:</Text>
           <Card variant="outlined" style={styles.exampleCard}>
             <Text style={styles.exampleText}>
-              ধরি, একটি সংখ্যা <Text style={styles.highlightText}>x</Text>। সংখ্যাটির সাথে 5 যোগ করলে যোগফল 17 হয়। সমীকরণটি সমাধান করো।
+              ধরি, একটি সংখ্যা <Text style={styles.highlightText}>x</Text>। সংখ্যাটির সাথে 5 যোগ
+              করলে যোগফল 17 হয়। সমীকরণটি সমাধান করো।
             </Text>
 
             <View style={styles.formulaBox}>
@@ -66,7 +58,9 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({
             </View>
 
             <View style={styles.solutionStep}>
-              <Text style={styles.stepText}>বা, x + 5 - 5 = 17 - 5 (উভয় পক্ষ থেকে 5 বিয়োগ করে)</Text>
+              <Text style={styles.stepText}>
+                বা, x + 5 - 5 = 17 - 5 (উভয় পক্ষ থেকে 5 বিয়োগ করে)
+              </Text>
             </View>
 
             <View style={styles.resultBox}>
@@ -76,11 +70,7 @@ export const LessonScreen: React.FC<LessonScreenProps> = ({
         </View>
 
         {/* AI Tutor Floating CTA */}
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={onAskAI}
-          style={styles.aiButton}
-        >
+        <TouchableOpacity activeOpacity={0.8} onPress={onAskAI} style={styles.aiButton}>
           <Text style={{ fontSize: 20, marginRight: 8 }}>🤖</Text>
           <Text style={styles.aiButtonText}>AI শিক্ষককে জিজ্ঞেস করো</Text>
         </TouchableOpacity>

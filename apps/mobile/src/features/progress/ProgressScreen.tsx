@@ -15,7 +15,12 @@ interface ProgressScreenProps {
 }
 
 export const ProgressScreen: React.FC<ProgressScreenProps> = ({ onBack, onPracticeTopic }) => {
-  const { data: progress, isLoading, isError, refetch } = useQuery({
+  const {
+    data: progress,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['progressSummary'],
     queryFn: () => progressRepository.getProgressSummary(),
   });
@@ -40,7 +45,11 @@ export const ProgressScreen: React.FC<ProgressScreenProps> = ({ onBack, onPracti
     <Screen>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {onBack && (
-          <TouchableOpacity activeOpacity={0.7} onPress={onBack} style={{ marginBottom: spacing.xs }}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={onBack}
+            style={{ marginBottom: spacing.xs }}
+          >
             <AppText variant="bodySmall" color={colors.primary} weight="bold">
               ← ফিরে যাও
             </AppText>
@@ -50,7 +59,11 @@ export const ProgressScreen: React.FC<ProgressScreenProps> = ({ onBack, onPracti
         <AppText variant="pageTitle" weight="bold">
           {t('progress.title')}
         </AppText>
-        <AppText variant="bodySmall" color={colors.textSecondary} style={{ marginBottom: spacing.md }}>
+        <AppText
+          variant="bodySmall"
+          color={colors.textSecondary}
+          style={{ marginBottom: spacing.md }}
+        >
           তোমার পারদর্শিতা ও দুর্বল টপিকসমূহ
         </AppText>
 
@@ -59,7 +72,12 @@ export const ProgressScreen: React.FC<ProgressScreenProps> = ({ onBack, onPracti
           <AppText variant="caption" color={colors.textSecondary} weight="bold">
             {t('progress.overallMastery')}
           </AppText>
-          <AppText variant="display" color={colors.primary} weight="bold" style={{ marginVertical: 4 }}>
+          <AppText
+            variant="display"
+            color={colors.primary}
+            weight="bold"
+            style={{ marginVertical: 4 }}
+          >
             {progress.overallMastery}%
           </AppText>
           <View style={styles.statsRow}>

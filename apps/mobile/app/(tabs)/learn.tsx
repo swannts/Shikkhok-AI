@@ -5,9 +5,5 @@ import { LearnScreen } from '../../src/features/curriculum/LearnScreen';
 export default function LearnRoute() {
   const router = useRouter();
 
-  return (
-    <LearnScreen
-      onSelectSubject={(subjectId) => router.push(`/subject/${subjectId}`)}
-    />
-  );
+  return <LearnScreen onSelectSubject={(subjectId) => router.push(`/subject/${subjectId}`)} />;
 }

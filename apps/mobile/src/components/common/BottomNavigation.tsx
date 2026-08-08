@@ -9,10 +9,7 @@ interface BottomNavigationProps {
   onTabSelect: (tab: TabKey) => void;
 }
 
-export const BottomNavigation: React.FC<BottomNavigationProps> = ({
-  activeTab,
-  onTabSelect,
-}) => {
+export const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, onTabSelect }) => {
   const tabs: { key: TabKey; label: string; icon: string }[] = [
     { key: 'home', label: 'হোম', icon: '🏠' },
     { key: 'lesson', label: 'পড়াশোনা', icon: '📚' },

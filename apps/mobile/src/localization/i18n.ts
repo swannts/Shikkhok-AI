@@ -11,7 +11,7 @@ export const setLanguage = (lang: 'bn' | 'en') => {
   i18n.locale = lang;
 };
 
-export const t = (scope: string, options?: Record<string, any>): string => {
+export const t = (scope: string, options?: Record<string, unknown>): string => {
   return i18n.t(scope, options);
 };
 

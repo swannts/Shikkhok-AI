@@ -8,11 +8,7 @@ interface BadgeProps {
   style?: ViewStyle;
 }
 
-export const Badge: React.FC<BadgeProps> = ({
-  label,
-  variant = 'primary',
-  style,
-}) => {
+export const Badge: React.FC<BadgeProps> = ({ label, variant = 'primary', style }) => {
   const getBadgeColors = () => {
     switch (variant) {
       case 'secondary':

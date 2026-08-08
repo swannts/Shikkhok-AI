@@ -42,13 +42,10 @@ class HttpClient {
     };
 
     const timeoutController = new AbortController();
-    const timeoutId = setTimeout(
-      () => timeoutController.abort(),
-      options.timeoutMs || 15000
-    );
+    const timeoutId = setTimeout(() => timeoutController.abort(), options.timeoutMs || 15000);
 
     // Combine caller signal and timeout signal
-    let combinedSignal = timeoutController.signal;
+    const combinedSignal = timeoutController.signal;
     let removeCallerListener: (() => void) | undefined;
 
     if (options.signal) {
@@ -174,6 +171,7 @@ class HttpClient {
     let fullAccumulated = '';
     let buffer = '';
 
+    /* eslint-disable-next-line no-constant-condition */
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
@@ -181,13 +179,12 @@ class HttpClient {
       const chunkText = decoder.decode(value, { stream: true });
       buffer += chunkText;
 
-      // Parse SSE lines formatted as `data: {...}` or raw text
       const lines = buffer.split('\n');
-      buffer = lines.pop() || ''; // Keep incomplete trailing line in buffer
+      buffer = lines.pop() || '';
 
       for (const line of lines) {
         const trimmed = line.trim();
-        if (!trimmed || trimmed.startsWith(':')) continue; // Skip comments/empty lines
+        if (!trimmed || trimmed.startsWith(':')) continue;
 
         if (trimmed.startsWith('data:')) {
           const dataContent = trimmed.slice(5).trim();
@@ -201,12 +198,10 @@ class HttpClient {
               onDelta(deltaText);
             }
           } catch {
-            // Raw text inside data
             fullAccumulated += dataContent;
             onDelta(dataContent);
           }
         } else {
-          // Direct chunked text without SSE framing
           fullAccumulated += trimmed;
           onDelta(trimmed);
         }

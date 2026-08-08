@@ -32,10 +32,7 @@ interface OnboardingScreenProps {
   onLogin: () => void;
 }
 
-export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({
-  onStart,
-  onLogin,
-}) => {
+export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onStart, onLogin }) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleNext = () => {

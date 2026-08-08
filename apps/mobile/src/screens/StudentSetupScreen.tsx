@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { colors, spacing, typography } from '../theme';
 import { Button, Header, ProgressBar } from '../components';
 
@@ -30,16 +24,13 @@ interface StudentSetupScreenProps {
   onBack?: () => void;
 }
 
-export const StudentSetupScreen: React.FC<StudentSetupScreenProps> = ({
-  onContinue,
-  onBack,
-}) => {
+export const StudentSetupScreen: React.FC<StudentSetupScreenProps> = ({ onContinue, onBack }) => {
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
 
   return (
     <View style={styles.container}>
       <Header onBack={onBack} title="স্টুডেন্ট সেটআপ" />
-      
+
       <View style={styles.progressContainer}>
         <ProgressBar progress={0.4} />
       </View>
@@ -60,10 +51,7 @@ export const StudentSetupScreen: React.FC<StudentSetupScreenProps> = ({
                 key={item.id}
                 activeOpacity={0.8}
                 onPress={() => setSelectedClassId(item.id)}
-                style={[
-                  styles.classCard,
-                  isSelected ? styles.selectedCard : styles.unselectedCard,
-                ]}
+                style={[styles.classCard, isSelected ? styles.selectedCard : styles.unselectedCard]}
               >
                 <Text
                   style={[

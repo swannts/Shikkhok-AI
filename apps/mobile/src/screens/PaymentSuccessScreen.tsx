@@ -46,6 +46,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: spacing.lg,
   },
-  title: { fontSize: typography.size.headline, fontWeight: '800', color: colors.onSurface, marginBottom: spacing.xs },
-  subtitle: { fontSize: typography.size.md, color: colors.onSurfaceVariant, textAlign: 'center', lineHeight: 24 },
+  title: {
+    fontSize: typography.size.headline,
+    fontWeight: '800',
+    color: colors.onSurface,
+    marginBottom: spacing.xs,
+  },
+  subtitle: {
+    fontSize: typography.size.md,
+    color: colors.onSurfaceVariant,
+    textAlign: 'center',
+    lineHeight: 24,
+  },
 });

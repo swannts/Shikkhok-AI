@@ -9,11 +9,7 @@ interface TutorMessageProps {
   onActionPress?: (actionKey: string) => void;
 }
 
-export const TutorMessage: React.FC<TutorMessageProps> = ({
-  content,
-  actions,
-  onActionPress,
-}) => {
+export const TutorMessage: React.FC<TutorMessageProps> = ({ content, actions, onActionPress }) => {
   return (
     <View style={styles.container}>
       <View style={styles.avatarCircle}>

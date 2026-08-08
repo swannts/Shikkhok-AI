@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { colors, spacing, typography } from '../theme';
 import { Card, Button, Badge, ProgressBar, BottomNavigation, TabKey } from '../components';
 
@@ -55,11 +49,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             <Text style={styles.aiTitle}>AI শিক্ষককে জিজ্ঞেস করো</Text>
           </View>
 
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={onOpenLesson}
-            style={styles.searchBarMock}
-          >
+          <TouchableOpacity activeOpacity={0.8} onPress={onOpenLesson} style={styles.searchBarMock}>
             <Text style={{ fontSize: 18, marginRight: 8 }}>🔍</Text>
             <Text style={styles.searchPlaceholder}>কী জানতে চাও?</Text>
             <View style={styles.searchIconsRight}>

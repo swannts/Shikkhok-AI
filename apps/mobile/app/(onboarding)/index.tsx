@@ -5,9 +5,5 @@ import { OnboardingFlowScreen } from '../../src/features/onboarding/OnboardingFl
 export default function OnboardingRoute() {
   const router = useRouter();
 
-  return (
-    <OnboardingFlowScreen
-      onFinish={() => router.replace('/(tabs)')}
-    />
-  );
+  return <OnboardingFlowScreen onFinish={() => router.replace('/(tabs)')} />;
 }

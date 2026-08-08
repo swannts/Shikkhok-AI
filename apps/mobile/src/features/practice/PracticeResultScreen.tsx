@@ -26,7 +26,8 @@ export const PracticeResultScreen: React.FC<PracticeResultScreenProps> = ({
             প্র্যাকটিস রেজাল্ট!
           </AppText>
           <AppText variant="bodySmall" color={colors.textSecondary}>
-            সময়: {Math.floor(result.timeSpentSeconds / 60)} মিনিট {result.timeSpentSeconds % 60} সেকেন্ড
+            সময়: {Math.floor(result.timeSpentSeconds / 60)} মিনিট {result.timeSpentSeconds % 60}{' '}
+            সেকেন্ড
           </AppText>
         </View>
 
@@ -57,7 +58,12 @@ export const PracticeResultScreen: React.FC<PracticeResultScreenProps> = ({
             <AppText variant="bodySmall" weight="bold">
               Linear Equations Mastery:
             </AppText>
-            <AppText variant="cardTitle" color={colors.primary} weight="bold" style={{ marginTop: 2 }}>
+            <AppText
+              variant="cardTitle"
+              color={colors.primary}
+              weight="bold"
+              style={{ marginTop: 2 }}
+            >
               {result.initialMastery}% → {result.updatedMastery}% 📈
             </AppText>
           </View>
@@ -70,7 +76,12 @@ export const PracticeResultScreen: React.FC<PracticeResultScreenProps> = ({
               পুনরায় অনুশীলনের পরামর্শ:
             </AppText>
             {result.weakTopics.map((topic, idx) => (
-              <AppText key={idx} variant="bodySmall" color={colors.textPrimary} style={{ marginTop: 4 }}>
+              <AppText
+                key={idx}
+                variant="bodySmall"
+                color={colors.textPrimary}
+                style={{ marginTop: 4 }}
+              >
                 • {topic}
               </AppText>
             ))}

@@ -54,9 +54,19 @@ const styles = StyleSheet.create({
   scrollContent: { padding: spacing.md },
   summaryCard: { alignItems: 'center', marginVertical: spacing.md },
   summaryLabel: { fontSize: typography.size.xs, color: colors.outline },
-  amount: { fontSize: typography.size.display, fontWeight: '800', color: colors.primary, marginVertical: spacing.xs },
+  amount: {
+    fontSize: typography.size.display,
+    fontWeight: '800',
+    color: colors.primary,
+    marginVertical: spacing.xs,
+  },
   summarySub: { fontSize: typography.size.xs, color: colors.onSurfaceVariant },
-  sectionTitle: { fontSize: typography.size.md, fontWeight: '700', color: colors.onSurface, marginBottom: spacing.sm },
+  sectionTitle: {
+    fontSize: typography.size.md,
+    fontWeight: '700',
+    color: colors.onSurface,
+    marginBottom: spacing.sm,
+  },
   methodCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -67,6 +77,10 @@ const styles = StyleSheet.create({
     borderColor: colors.outlineVariant,
     marginBottom: spacing.sm,
   },
-  activeMethod: { borderColor: colors.primary, borderWidth: 2, backgroundColor: colors.surfaceContainerLow },
+  activeMethod: {
+    borderColor: colors.primary,
+    borderWidth: 2,
+    backgroundColor: colors.surfaceContainerLow,
+  },
   methodName: { fontSize: typography.size.md, fontWeight: '700', color: colors.onSurface },
 });

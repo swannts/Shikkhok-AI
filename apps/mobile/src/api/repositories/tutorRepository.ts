@@ -5,7 +5,8 @@ const initialMessages: TutorMessage[] = [
   {
     id: 'msg-1',
     role: 'assistant',
-    content: 'হ্যালো! আমি তোমার Shikkhok AI শিক্ষক। গণিত বা যেকোনো বিষয় সম্পর্কে তোমার কী প্রশ্ন আছে?',
+    content:
+      'হ্যালো! আমি তোমার Shikkhok AI শিক্ষক। গণিত বা যেকোনো বিষয় সম্পর্কে তোমার কী প্রশ্ন আছে?',
     createdAt: new Date().toISOString(),
     actions: [
       { label: 'একটি বিষয় বুঝিয়ে দাও', actionKey: 'explain' },

@@ -24,7 +24,9 @@ export const PracticeSetupScreen: React.FC<PracticeSetupScreenProps> = ({ onStar
               onPress={() => setSelectedSubject(sub)}
               style={[styles.chip, selectedSubject === sub ? styles.chipActive : null]}
             >
-              <Text style={[styles.chipText, selectedSubject === sub ? styles.chipTextActive : null]}>
+              <Text
+                style={[styles.chipText, selectedSubject === sub ? styles.chipTextActive : null]}
+              >
                 {sub === 'math' ? 'গণিত' : sub === 'science' ? 'বিজ্ঞান' : 'ইংরেজি'}
               </Text>
             </TouchableOpacity>
@@ -39,14 +41,21 @@ export const PracticeSetupScreen: React.FC<PracticeSetupScreenProps> = ({ onStar
               onPress={() => setQuestionCount(count)}
               style={[styles.countBox, questionCount === count ? styles.chipActive : null]}
             >
-              <Text style={[styles.chipText, questionCount === count ? styles.chipTextActive : null]}>
+              <Text
+                style={[styles.chipText, questionCount === count ? styles.chipTextActive : null]}
+              >
                 {count}টি
               </Text>
             </TouchableOpacity>
           ))}
         </View>
 
-        <Button title="প্র্যাকটিস শুরু করো" onPress={onStart || (() => {})} size="large" style={{ marginTop: spacing.xl }} />
+        <Button
+          title="প্র্যাকটিস শুরু করো"
+          onPress={onStart || (() => {})}
+          size="large"
+          style={{ marginTop: spacing.xl }}
+        />
       </ScrollView>
     </View>
   );
@@ -55,11 +64,32 @@ export const PracticeSetupScreen: React.FC<PracticeSetupScreenProps> = ({ onStar
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   scrollContent: { padding: spacing.md },
-  sectionTitle: { fontSize: typography.size.md, fontWeight: '700', color: colors.onSurface, marginTop: spacing.md, marginBottom: spacing.xs },
+  sectionTitle: {
+    fontSize: typography.size.md,
+    fontWeight: '700',
+    color: colors.onSurface,
+    marginTop: spacing.md,
+    marginBottom: spacing.xs,
+  },
   row: { flexDirection: 'row', flexWrap: 'wrap' },
-  chip: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: spacing.borderRadius.md, backgroundColor: colors.surfaceContainerLow, marginRight: spacing.sm, marginBottom: spacing.sm },
+  chip: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: spacing.borderRadius.md,
+    backgroundColor: colors.surfaceContainerLow,
+    marginRight: spacing.sm,
+    marginBottom: spacing.sm,
+  },
   chipActive: { backgroundColor: colors.primary },
   chipText: { fontSize: typography.size.sm, color: colors.onSurface, fontWeight: '600' },
   chipTextActive: { color: colors.white },
-  countBox: { width: 60, height: 48, borderRadius: spacing.borderRadius.md, backgroundColor: colors.surfaceContainerLow, alignItems: 'center', justifyContent: 'center', marginRight: spacing.sm },
+  countBox: {
+    width: 60,
+    height: 48,
+    borderRadius: spacing.borderRadius.md,
+    backgroundColor: colors.surfaceContainerLow,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.sm,
+  },
 });

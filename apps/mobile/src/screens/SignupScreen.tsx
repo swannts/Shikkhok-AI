@@ -16,10 +16,7 @@ interface SignupScreenProps {
   onLogin: () => void;
 }
 
-export const SignupScreen: React.FC<SignupScreenProps> = ({
-  onSignupSubmit,
-  onLogin,
-}) => {
+export const SignupScreen: React.FC<SignupScreenProps> = ({ onSignupSubmit, onLogin }) => {
   const [fullName, setFullName] = useState('');
   const [phoneOrEmail, setPhoneOrEmail] = useState('');
   const [password, setPassword] = useState('');

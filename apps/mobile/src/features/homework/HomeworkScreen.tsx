@@ -5,17 +5,17 @@ import { colors, spacing, radius } from '../../theme';
 import { Screen } from '../../components/ui/Screen';
 import { AppText } from '../../components/ui/AppText';
 import { LoadingState } from '../../components/ui/LoadingState';
-import { homeworkRepository, HomeworkDetectionResult } from '../../api/repositories/homeworkRepository';
+import {
+  homeworkRepository,
+  HomeworkDetectionResult,
+} from '../../api/repositories/homeworkRepository';
 
 interface HomeworkScreenProps {
   onAskTutorWithQuery: (query: string) => void;
   onBack?: () => void;
 }
 
-export const HomeworkScreen: React.FC<HomeworkScreenProps> = ({
-  onAskTutorWithQuery,
-  onBack,
-}) => {
+export const HomeworkScreen: React.FC<HomeworkScreenProps> = ({ onAskTutorWithQuery, onBack }) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [detection, setDetection] = useState<HomeworkDetectionResult | null>(null);
@@ -64,7 +64,11 @@ export const HomeworkScreen: React.FC<HomeworkScreenProps> = ({
     <Screen>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {onBack && (
-          <TouchableOpacity activeOpacity={0.7} onPress={onBack} style={{ marginBottom: spacing.xs }}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={onBack}
+            style={{ marginBottom: spacing.xs }}
+          >
             <AppText variant="bodySmall" color={colors.primary} weight="bold">
               ← ফিরে যাও
             </AppText>
@@ -74,7 +78,11 @@ export const HomeworkScreen: React.FC<HomeworkScreenProps> = ({
         <AppText variant="pageTitle" weight="bold">
           হোমওয়ার্ক সাহায্য 📸
         </AppText>
-        <AppText variant="bodySmall" color={colors.textSecondary} style={{ marginBottom: spacing.lg }}>
+        <AppText
+          variant="bodySmall"
+          color={colors.textSecondary}
+          style={{ marginBottom: spacing.lg }}
+        >
           তোমার প্রশ্ন বা অংকের ছবি তুলে পোস্ট করো
         </AppText>
 
@@ -112,7 +120,11 @@ export const HomeworkScreen: React.FC<HomeworkScreenProps> = ({
               </AppText>
             </View>
 
-            <AppText variant="sectionTitle" weight="bold" style={{ marginTop: spacing.md, marginBottom: spacing.xs }}>
+            <AppText
+              variant="sectionTitle"
+              weight="bold"
+              style={{ marginTop: spacing.md, marginBottom: spacing.xs }}
+            >
               কীভাবে সাহায্য করব?
             </AppText>
 

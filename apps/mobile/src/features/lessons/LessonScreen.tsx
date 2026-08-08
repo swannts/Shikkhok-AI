@@ -14,12 +14,13 @@ interface LessonScreenProps {
   onAskTutor: (contextQuery?: string) => void;
 }
 
-export const LessonScreen: React.FC<LessonScreenProps> = ({
-  lessonId,
-  onBack,
-  onAskTutor,
-}) => {
-  const { data: lesson, isLoading, isError, refetch } = useQuery({
+export const LessonScreen: React.FC<LessonScreenProps> = ({ lessonId, onBack, onAskTutor }) => {
+  const {
+    data: lesson,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['lesson', lessonId],
     queryFn: () => lessonRepository.getLessonById(lessonId),
   });

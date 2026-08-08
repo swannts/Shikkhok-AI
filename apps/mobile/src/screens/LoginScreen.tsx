@@ -64,12 +64,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
             <Text style={styles.forgotPassText}>পাসওয়ার্ড ভুলে গেছ?</Text>
           </TouchableOpacity>
 
-          <Button
-            title="লগইন"
-            onPress={onLogin}
-            size="large"
-            style={{ marginTop: spacing.md }}
-          />
+          <Button title="লগইন" onPress={onLogin} size="large" style={{ marginTop: spacing.md }} />
 
           <View style={styles.dividerContainer}>
             <View style={styles.dividerLine} />
@@ -77,12 +72,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
             <View style={styles.dividerLine} />
           </View>
 
-          <Button
-            title="Google দিয়ে লগইন করো"
-            onPress={() => {}}
-            variant="outline"
-            size="large"
-          />
+          <Button title="Google দিয়ে লগইন করো" onPress={() => {}} variant="outline" size="large" />
         </View>
 
         <View style={styles.footer}>

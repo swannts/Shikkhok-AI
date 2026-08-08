@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  StyleSheet,
-  TextInputProps,
-  ViewStyle,
-} from 'react-native';
+import { View, TextInput, Text, StyleSheet, TextInputProps, ViewStyle } from 'react-native';
 import { colors, spacing, typography } from '../../theme';
 
 interface InputProps extends TextInputProps {
@@ -31,11 +24,7 @@ export const Input: React.FC<InputProps> = ({
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={[styles.inputWrapper, error ? styles.inputError : null]}>
         {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
-        <TextInput
-          placeholderTextColor={colors.outline}
-          style={[styles.input, style]}
-          {...props}
-        />
+        <TextInput placeholderTextColor={colors.outline} style={[styles.input, style]} {...props} />
         {rightIcon && <View style={styles.iconContainer}>{rightIcon}</View>}
       </View>
       {error ? <Text style={styles.errorText}>{error}</Text> : null}

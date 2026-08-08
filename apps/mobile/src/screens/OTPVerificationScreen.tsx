@@ -46,7 +46,8 @@ export const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({
 
         <Text style={styles.title}>OTP কোড প্রদান করো</Text>
         <Text style={styles.subtitle}>
-          আমরা <Text style={styles.phoneHighlight}>{phoneNumber}</Text> নম্বরে একটি ৪ ডিজিটের ভেরিফিকেশন কোড পাঠিয়েছি।
+          আমরা <Text style={styles.phoneHighlight}>{phoneNumber}</Text> নম্বরে একটি ৪ ডিজিটের
+          ভেরিফিকেশন কোড পাঠিয়েছি।
         </Text>
 
         <View style={styles.otpInputContainer}>

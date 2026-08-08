@@ -22,7 +22,12 @@ export const PracticeSessionScreen: React.FC<PracticeSessionScreenProps> = ({
   const [showExplanation, setShowExplanation] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
-  const { data: session, isLoading, isError, refetch } = useQuery({
+  const {
+    data: session,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['practiceSession'],
     queryFn: () => practiceRepository.getPracticeSession(),
   });
@@ -79,7 +84,8 @@ export const PracticeSessionScreen: React.FC<PracticeSessionScreenProps> = ({
           </TouchableOpacity>
 
           <AppText variant="caption" color={colors.textSecondary} weight="bold">
-            প্রশ্ন {currentIndex + 1} / {session.questions.length} • ⏱️ {Math.floor(elapsedSeconds / 60)}:{(elapsedSeconds % 60).toString().padStart(2, '0')}
+            প্রশ্ন {currentIndex + 1} / {session.questions.length} • ⏱️{' '}
+            {Math.floor(elapsedSeconds / 60)}:{(elapsedSeconds % 60).toString().padStart(2, '0')}
           </AppText>
         </View>
 
@@ -109,11 +115,20 @@ export const PracticeSessionScreen: React.FC<PracticeSessionScreenProps> = ({
               style={[styles.optionCard, optionStyle]}
             >
               <View style={[styles.badge, isSelected ? styles.badgeSelected : null]}>
-                <AppText variant="button" color={isSelected ? colors.primary : colors.textPrimary} weight="bold">
+                <AppText
+                  variant="button"
+                  color={isSelected ? colors.primary : colors.textPrimary}
+                  weight="bold"
+                >
                   {opt.label}
                 </AppText>
               </View>
-              <AppText variant="body" color={labelColor} weight="medium" style={{ marginLeft: spacing.sm, flex: 1 }}>
+              <AppText
+                variant="body"
+                color={labelColor}
+                weight="medium"
+                style={{ marginLeft: spacing.sm, flex: 1 }}
+              >
                 {opt.text}
               </AppText>
             </TouchableOpacity>

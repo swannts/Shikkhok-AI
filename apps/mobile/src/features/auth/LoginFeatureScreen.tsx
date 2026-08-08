@@ -107,7 +107,10 @@ export const LoginFeatureScreen: React.FC<LoginFeatureScreenProps> = ({
           </AppText>
         )}
 
-        <TouchableOpacity onPress={onGoOTP} style={{ alignSelf: 'flex-end', marginVertical: spacing.xs }}>
+        <TouchableOpacity
+          onPress={onGoOTP}
+          style={{ alignSelf: 'flex-end', marginVertical: spacing.xs }}
+        >
           <AppText variant="caption" color={colors.primary} weight="bold">
             পাসওয়ার্ড ভুলে গেছ?
           </AppText>

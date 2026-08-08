@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { QueryProvider } from './src/providers/QueryProvider';
 import { colors, spacing, typography } from './src/theme';
 
@@ -136,10 +144,7 @@ function AppContent() {
         );
       case 'tutor':
         return (
-          <TutorScreen
-            initialPrompt={tutorPrompt}
-            onBack={() => setCurrentScreen('lesson')}
-          />
+          <TutorScreen initialPrompt={tutorPrompt} onBack={() => setCurrentScreen('lesson')} />
         );
       case 'practice_session':
         return (
@@ -170,8 +175,14 @@ function AppContent() {
         ) : (
           <HomeScreen
             onNavigateLearn={() => setCurrentScreen('learn')}
-            onOpenSubject={(id) => { setSelectedSubjectId(id); setCurrentScreen('subject'); }}
-            onOpenLesson={(id) => { setSelectedLessonId(id); setCurrentScreen('lesson'); }}
+            onOpenSubject={(id) => {
+              setSelectedSubjectId(id);
+              setCurrentScreen('subject');
+            }}
+            onOpenLesson={(id) => {
+              setSelectedLessonId(id);
+              setCurrentScreen('lesson');
+            }}
             onOpenTutor={() => setCurrentScreen('tutor')}
             onOpenProgress={() => setCurrentScreen('progress')}
           />
@@ -231,15 +242,30 @@ function AppContent() {
       case 'onboarding_flow':
         return <OnboardingFlowScreen onFinish={() => setCurrentScreen('home')} />;
       case 'practice_setup':
-        return <PracticeSetupScreen onStart={() => setCurrentScreen('practice_session')} onBack={() => setCurrentScreen('home')} />;
+        return (
+          <PracticeSetupScreen
+            onStart={() => setCurrentScreen('practice_session')}
+            onBack={() => setCurrentScreen('home')}
+          />
+        );
       case 'voice_tutor':
         return <VoiceTutorScreen onBack={() => setCurrentScreen('tutor')} />;
       case 'parent_dashboard':
         return <ParentDashboardScreen onBack={() => setCurrentScreen('profile')} />;
       case 'subscription':
-        return <SubscriptionScreen onSelectPlan={() => setCurrentScreen('payment')} onBack={() => setCurrentScreen('profile')} />;
+        return (
+          <SubscriptionScreen
+            onSelectPlan={() => setCurrentScreen('payment')}
+            onBack={() => setCurrentScreen('profile')}
+          />
+        );
       case 'payment':
-        return <PaymentScreen onPaySuccess={() => setCurrentScreen('payment_success')} onBack={() => setCurrentScreen('subscription')} />;
+        return (
+          <PaymentScreen
+            onPaySuccess={() => setCurrentScreen('payment_success')}
+            onBack={() => setCurrentScreen('subscription')}
+          />
+        );
       case 'payment_success':
         return <PaymentSuccessScreen onGoHome={() => setCurrentScreen('home')} />;
       case 'notifications':
@@ -373,11 +399,22 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     maxHeight: '70%',
   },
-  drawerHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing.md },
+  drawerHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.md,
+  },
   drawerTitle: { fontSize: typography.size.md, fontWeight: '800', color: colors.onSurface },
   closeText: { fontSize: typography.size.lg, color: colors.outline },
   drawerList: { marginBottom: spacing.md },
-  drawerItem: { paddingVertical: 12, paddingHorizontal: spacing.md, borderRadius: 12, marginBottom: spacing.xs, backgroundColor: colors.surfaceContainerLow },
+  drawerItem: {
+    paddingVertical: 12,
+    paddingHorizontal: spacing.md,
+    borderRadius: 12,
+    marginBottom: spacing.xs,
+    backgroundColor: colors.surfaceContainerLow,
+  },
   drawerItemActive: { backgroundColor: colors.primary },
   drawerItemText: { fontSize: typography.size.sm, color: colors.onSurface, fontWeight: '600' },
   drawerItemTextActive: { color: colors.white, fontWeight: '700' },

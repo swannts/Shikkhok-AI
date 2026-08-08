@@ -91,7 +91,10 @@ const mockSession: PracticeSession = {
 };
 
 export const practiceRepository = {
-  getPracticeSession: async (topicId?: string, questionCount: number = 5): Promise<PracticeSession> => {
+  getPracticeSession: async (
+    topicId?: string,
+    questionCount: number = 5
+  ): Promise<PracticeSession> => {
     await delay(350);
     return mockSession;
   },

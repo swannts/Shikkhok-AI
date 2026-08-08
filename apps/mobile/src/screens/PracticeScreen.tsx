@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { colors, spacing, typography } from '../theme';
 import { Card, Button, Badge, BottomNavigation, TabKey } from '../components';
 
@@ -14,19 +8,14 @@ interface PracticeScreenProps {
   onStartQuiz: () => void;
 }
 
-export const PracticeScreen: React.FC<PracticeScreenProps> = ({
-  onNavigateTab,
-  onStartQuiz,
-}) => {
+export const PracticeScreen: React.FC<PracticeScreenProps> = ({ onNavigateTab, onStartQuiz }) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Header */}
         <View style={styles.headerSection}>
           <Text style={styles.title}>প্র্যাকটিস হাব ⚡</Text>
-          <Text style={styles.subtitle}>
-            তোমার দুর্বলতাগুলো কাটিয়ে উঠতে সাহায্য করবে
-          </Text>
+          <Text style={styles.subtitle}>তোমার দুর্বলতাগুলো কাটিয়ে উঠতে সাহায্য করবে</Text>
         </View>
 
         {/* Daily Focus Practice */}

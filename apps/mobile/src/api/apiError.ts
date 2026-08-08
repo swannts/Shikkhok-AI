@@ -3,14 +3,14 @@ export interface ApiErrorResponse {
   errorCode: string;
   message: string;
   banglaMessage?: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 
 export class ApiError extends Error {
   public readonly statusCode: number;
   public readonly errorCode: string;
   public readonly banglaMessage: string;
-  public readonly details?: Record<string, any>;
+  public readonly details?: Record<string, unknown>;
 
   constructor(res: ApiErrorResponse) {
     super(res.message);

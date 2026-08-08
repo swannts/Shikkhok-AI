@@ -117,7 +117,9 @@ export const Button: React.FC<ButtonProps> = ({
       style={[getContainerStyle(), style]}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'outline' || variant === 'text' ? colors.primary : colors.white} />
+        <ActivityIndicator
+          color={variant === 'outline' || variant === 'text' ? colors.primary : colors.white}
+        />
       ) : (
         <>
           {icon}

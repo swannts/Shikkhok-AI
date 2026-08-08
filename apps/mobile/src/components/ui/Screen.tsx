@@ -18,9 +18,7 @@ export const Screen: React.FC<ScreenProps> = ({ children, style, padded = true }
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
       {isOffline && <OfflineBanner />}
-      <View style={[styles.container, padded ? styles.padded : null, style]}>
-        {children}
-      </View>
+      <View style={[styles.container, padded ? styles.padded : null, style]}>{children}</View>
     </SafeAreaView>
   );
 };

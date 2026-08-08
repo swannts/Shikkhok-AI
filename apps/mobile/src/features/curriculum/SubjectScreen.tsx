@@ -25,7 +25,12 @@ export const SubjectScreen: React.FC<SubjectScreenProps> = ({
     queryFn: () => subjectRepository.getSubjectById(subjectId),
   });
 
-  const { data: chapters, isLoading: isLoadingChapters, isError, refetch } = useQuery({
+  const {
+    data: chapters,
+    isLoading: isLoadingChapters,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['chapters', subjectId],
     queryFn: () => chapterRepository.getChaptersBySubject(subjectId),
   });

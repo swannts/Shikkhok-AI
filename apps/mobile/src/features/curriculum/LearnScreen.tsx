@@ -14,7 +14,12 @@ interface LearnScreenProps {
 }
 
 export const LearnScreen: React.FC<LearnScreenProps> = ({ onSelectSubject }) => {
-  const { data: subjects, isLoading, isError, refetch } = useQuery({
+  const {
+    data: subjects,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['subjects'],
     queryFn: () => subjectRepository.getSubjects(),
   });

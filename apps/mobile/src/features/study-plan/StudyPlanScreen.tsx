@@ -16,7 +16,12 @@ interface StudyPlanScreenProps {
 export const StudyPlanScreen: React.FC<StudyPlanScreenProps> = ({ onBack, onOpenLesson }) => {
   const queryClient = useQueryClient();
 
-  const { data: plan, isLoading, isError, refetch } = useQuery({
+  const {
+    data: plan,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['dailyStudyPlan'],
     queryFn: () => studyPlanRepository.getDailyStudyPlan(),
   });
@@ -60,7 +65,11 @@ export const StudyPlanScreen: React.FC<StudyPlanScreenProps> = ({ onBack, onOpen
         <AppText variant="pageTitle" weight="bold">
           আমার স্টাডি প্ল্যান 📅
         </AppText>
-        <AppText variant="bodySmall" color={colors.textSecondary} style={{ marginBottom: spacing.md }}>
+        <AppText
+          variant="bodySmall"
+          color={colors.textSecondary}
+          style={{ marginBottom: spacing.md }}
+        >
           আজকের টার্গেট: {plan.dailyGoalMinutes} মিনিট পড়াশোনা
         </AppText>
 
@@ -81,7 +90,9 @@ export const StudyPlanScreen: React.FC<StudyPlanScreenProps> = ({ onBack, onOpen
           </View>
 
           <View style={styles.progressBarBg}>
-            <View style={[styles.progressBarFill, { width: `${Math.min(100, progressPercent)}%` }]} />
+            <View
+              style={[styles.progressBarFill, { width: `${Math.min(100, progressPercent)}%` }]}
+            />
           </View>
         </View>
 
@@ -137,12 +148,43 @@ export const StudyPlanScreen: React.FC<StudyPlanScreenProps> = ({ onBack, onOpen
 
 const styles = StyleSheet.create({
   scrollContent: { paddingVertical: spacing.md, paddingBottom: spacing.xxl },
-  goalCard: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.md, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.md },
-  goalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing.sm },
-  progressBarBg: { height: 10, backgroundColor: colors.surfaceContainerHigh, borderRadius: 5, overflow: 'hidden' },
+  goalCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    marginBottom: spacing.md,
+  },
+  goalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.sm,
+  },
+  progressBarBg: {
+    height: 10,
+    backgroundColor: colors.surfaceContainerHigh,
+    borderRadius: 5,
+    overflow: 'hidden',
+  },
   progressBarFill: { height: 10, backgroundColor: colors.primary, borderRadius: 5 },
-  recomBox: { backgroundColor: colors.primaryLight, padding: spacing.md, borderRadius: radius.md, marginBottom: spacing.lg },
-  taskCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.surface, borderRadius: radius.md, padding: spacing.md, marginBottom: spacing.sm, borderWidth: 1, borderColor: colors.border },
+  recomBox: {
+    backgroundColor: colors.primaryLight,
+    padding: spacing.md,
+    borderRadius: radius.md,
+    marginBottom: spacing.lg,
+  },
+  taskCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    padding: spacing.md,
+    marginBottom: spacing.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
   taskCompleted: { backgroundColor: colors.surfaceContainerLow, opacity: 0.8 },
   completedText: { textDecorationLine: 'line-through', color: colors.textSecondary },
   startTaskBtn: { padding: spacing.xs },

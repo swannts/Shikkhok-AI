@@ -64,12 +64,7 @@ export const AppText: React.FC<AppTextProps> = ({
 
   return (
     <RNText
-      style={[
-        getVariantStyle(),
-        getFontWeight(),
-        { color, textAlign: align },
-        style,
-      ]}
+      style={[getVariantStyle(), getFontWeight(), { color, textAlign: align }, style]}
       {...props}
     >
       {children}

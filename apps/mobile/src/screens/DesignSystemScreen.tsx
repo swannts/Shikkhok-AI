@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { colors, spacing, typography } from '../theme';
 import { Header, Button, Input, Card, Badge, ProgressBar } from '../components';
 
@@ -40,10 +35,30 @@ export const DesignSystemScreen: React.FC = () => {
         {/* Buttons */}
         <Text style={styles.sectionTitle}>2. Buttons</Text>
         <Card variant="outlined" style={styles.groupCard}>
-          <Button title="Primary Button" onPress={() => {}} size="large" style={{ marginBottom: 8 }} />
-          <Button title="Secondary Button" onPress={() => {}} variant="secondary" style={{ marginBottom: 8 }} />
-          <Button title="Tertiary Button" onPress={() => {}} variant="tertiary" style={{ marginBottom: 8 }} />
-          <Button title="Outline Button" onPress={() => {}} variant="outline" style={{ marginBottom: 8 }} />
+          <Button
+            title="Primary Button"
+            onPress={() => {}}
+            size="large"
+            style={{ marginBottom: 8 }}
+          />
+          <Button
+            title="Secondary Button"
+            onPress={() => {}}
+            variant="secondary"
+            style={{ marginBottom: 8 }}
+          />
+          <Button
+            title="Tertiary Button"
+            onPress={() => {}}
+            variant="tertiary"
+            style={{ marginBottom: 8 }}
+          />
+          <Button
+            title="Outline Button"
+            onPress={() => {}}
+            variant="outline"
+            style={{ marginBottom: 8 }}
+          />
           <Button title="Disabled Button" onPress={() => {}} disabled />
         </Card>
 
@@ -66,7 +81,11 @@ export const DesignSystemScreen: React.FC = () => {
         <Text style={styles.sectionTitle}>4. Form Inputs</Text>
         <Card variant="outlined" style={styles.groupCard}>
           <Input label="Standard Input" placeholder="Type text here..." />
-          <Input label="Input with Error" placeholder="Enter valid data" error="This field is required" />
+          <Input
+            label="Input with Error"
+            placeholder="Enter valid data"
+            error="This field is required"
+          />
         </Card>
       </ScrollView>
     </View>

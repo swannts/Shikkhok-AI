@@ -50,7 +50,10 @@ export const SubjectDetailsScreen: React.FC<SubjectDetailsScreenProps> = ({
                 <Text style={styles.chapPercent}>{Math.round(chap.progress * 100)}%</Text>
               </View>
               <View style={{ marginTop: spacing.xs }}>
-                <ProgressBar progress={chap.progress} color={chap.progress === 1 ? colors.success : colors.primary} />
+                <ProgressBar
+                  progress={chap.progress}
+                  color={chap.progress === 1 ? colors.success : colors.primary}
+                />
               </View>
             </Card>
           </TouchableOpacity>
@@ -67,9 +70,19 @@ const styles = StyleSheet.create({
   bannerHeader: { flexDirection: 'row', alignItems: 'center' },
   bannerTitle: { fontSize: typography.size.lg, fontWeight: '800', color: colors.onSurface },
   bannerSubtitle: { fontSize: typography.size.xs, color: colors.onSurfaceVariant },
-  sectionTitle: { fontSize: typography.size.lg, fontWeight: '700', color: colors.onSurface, marginBottom: spacing.sm },
+  sectionTitle: {
+    fontSize: typography.size.lg,
+    fontWeight: '700',
+    color: colors.onSurface,
+    marginBottom: spacing.sm,
+  },
   chapterCard: { marginVertical: spacing.xs },
-  chapterRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing.xs },
+  chapterRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.xs,
+  },
   chapTitle: { fontSize: typography.size.md, fontWeight: '700', color: colors.onSurface },
   chapCount: { fontSize: typography.size.xs, color: colors.onSurfaceVariant },
   chapPercent: { fontSize: typography.size.sm, fontWeight: '700', color: colors.primary },

@@ -9,12 +9,7 @@ interface HeaderProps {
   subtitle?: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  title,
-  onBack,
-  rightAction,
-  subtitle,
-}) => {
+export const Header: React.FC<HeaderProps> = ({ title, onBack, rightAction, subtitle }) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftRow}>

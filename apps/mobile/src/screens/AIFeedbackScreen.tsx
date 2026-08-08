@@ -20,11 +20,17 @@ export const AIFeedbackScreen: React.FC<AIFeedbackScreenProps> = ({ onBack }) =>
         <Text style={styles.sectionTitle}>AI শিক্ষকের মূল্যায়ন</Text>
         <Card variant="filled" style={styles.card}>
           <Text style={styles.feedbackText}>
-            "তুমি সমীকরণ সমাধানের পদ্ধতি খুব ভালো বুঝেছ! পরবর্তীতে ভগ্নাংশের সমীকরণে সামান্য নজর দিলে ১০০% স্কোর অর্জন করতে পারবে।"
+            "তুমি সমীকরণ সমাধানের পদ্ধতি খুব ভালো বুঝেছ! পরবর্তীতে ভগ্নাংশের সমীকরণে সামান্য নজর
+            দিলে ১০০% স্কোর অর্জন করতে পারবে।"
           </Text>
         </Card>
 
-        <Button title="আরও প্র্যাকটিস করো →" onPress={() => {}} size="large" style={{ marginTop: spacing.md }} />
+        <Button
+          title="আরও প্র্যাকটিস করো →"
+          onPress={() => {}}
+          size="large"
+          style={{ marginTop: spacing.md }}
+        />
       </ScrollView>
     </View>
   );
@@ -36,6 +42,12 @@ const styles = StyleSheet.create({
   card: { marginVertical: spacing.xs },
   scoreTitle: { fontSize: typography.size.lg, fontWeight: '800', color: colors.primary },
   subText: { fontSize: typography.size.xs, color: colors.onSurfaceVariant, marginTop: 2 },
-  sectionTitle: { fontSize: typography.size.md, fontWeight: '700', color: colors.onSurface, marginTop: spacing.md, marginBottom: spacing.xs },
+  sectionTitle: {
+    fontSize: typography.size.md,
+    fontWeight: '700',
+    color: colors.onSurface,
+    marginTop: spacing.md,
+    marginBottom: spacing.xs,
+  },
   feedbackText: { fontSize: typography.size.sm, color: colors.onSurfaceVariant, lineHeight: 22 },
 });

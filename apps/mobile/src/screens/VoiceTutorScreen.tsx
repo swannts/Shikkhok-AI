@@ -39,7 +39,12 @@ export const VoiceTutorScreen: React.FC<VoiceTutorScreenProps> = ({ onBack }) =>
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   content: { flex: 1, alignItems: 'center', justifyContent: 'space-around', padding: spacing.xl },
-  statusText: { fontSize: typography.size.lg, fontWeight: '700', color: colors.onSurface, textAlign: 'center' },
+  statusText: {
+    fontSize: typography.size.lg,
+    fontWeight: '700',
+    color: colors.onSurface,
+    textAlign: 'center',
+  },
   visualizerContainer: { alignItems: 'center', justifyContent: 'center' },
   waveCircle: {
     width: 160,

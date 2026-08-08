@@ -2,10 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "lib": ["DOM", "ESNext"],
     "jsx": "react-native",
     "strict": true,
     "moduleResolution": "node",
@@ -14,15 +11,9 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "App.tsx",
-    "index.ts"
-  ],
+  "include": ["src/**/*", "App.tsx", "index.ts"],
   "extends": "expo/tsconfig.base"
 }

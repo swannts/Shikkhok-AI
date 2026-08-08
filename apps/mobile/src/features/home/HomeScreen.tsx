@@ -127,7 +127,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               <AppText variant="cardTitle" weight="bold">
                 সরল সমীকরণ ও সমাধান
               </AppText>
-              <AppText variant="caption" color={colors.success} weight="semiBold" style={{ marginTop: 2 }}>
+              <AppText
+                variant="caption"
+                color={colors.success}
+                weight="semiBold"
+                style={{ marginTop: 2 }}
+              >
                 Mastery: 42%
               </AppText>
             </View>

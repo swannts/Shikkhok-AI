@@ -8,11 +8,7 @@ interface CardProps {
   variant?: 'elevated' | 'outlined' | 'filled';
 }
 
-export const Card: React.FC<CardProps> = ({
-  children,
-  style,
-  variant = 'elevated',
-}) => {
+export const Card: React.FC<CardProps> = ({ children, style, variant = 'elevated' }) => {
   const getVariantStyle = (): ViewStyle => {
     switch (variant) {
       case 'outlined':

@@ -17,7 +17,12 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ icon = '📭', title, me
         {title}
       </AppText>
       {message && (
-        <AppText variant="bodySmall" color={colors.textSecondary} align="center" style={styles.message}>
+        <AppText
+          variant="bodySmall"
+          color={colors.textSecondary}
+          align="center"
+          style={styles.message}
+        >
           {message}
         </AppText>
       )}
