@@ -1,28 +1,27 @@
 import React from 'react';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useQuery } from '@tanstack/react-query';
 import { PracticeResultScreen } from '../../features/practice/PracticeResultScreen';
-import { PracticeResultData } from '../../api/repositories/practiceRepository';
+import { practiceRepository } from '../../api/repositories';
+import { LoadingState } from '../../components/ui/LoadingState';
 
 export default function PracticeResultRoute() {
   const router = useRouter();
-  const { data } = useLocalSearchParams<{ data?: string }>();
+  const { sessionId } = useLocalSearchParams<{ sessionId?: string }>();
 
-  const parsedData: PracticeResultData = data
-    ? JSON.parse(data)
-    : {
-        sessionId: 'session-1',
-        correctAnswers: 4,
-        totalQuestions: 5,
-        accuracyPercentage: 80,
-        timeSpentSeconds: 120,
-        initialMastery: 42,
-        updatedMastery: 58,
-        weakTopics: ['ভগ্নাংশের সমীকরণ'],
-      };
+  const { data: result, isLoading } = useQuery({
+    queryKey: ['practiceResult', sessionId],
+    queryFn: () => practiceRepository.submitPracticeResults(sessionId || 'session-1', {}, 120),
+    staleTime: 1000 * 60 * 10,
+  });
+
+  if (isLoading || !result) {
+    return <LoadingState message="ফলাফল লোড হচ্ছে..." />;
+  }
 
   return (
     <PracticeResultScreen
-      result={parsedData}
+      result={result}
       onGoHome={() => router.replace('/(tabs)')}
       onRetryWeak={() => router.replace('/practice')}
     />

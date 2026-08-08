@@ -6,20 +6,20 @@ Personalized AI-powered learning app for Bangladesh students (Class 1–12) buil
 
 ## 🏛️ Architecture Highlights
 
-- **File-Based Routing**: Clean directory tree under `app/` utilizing Expo Router layout groups (`(auth)`, `(onboarding)`, `(tabs)`, `subject/`, `lesson/`, `practice/`, `exam/`, `homework/`, `study-plan/`).
-- **Session Guards**: Automatic authentication & onboarding status redirection (`app/_layout.tsx`).
+- **File-Based Routing**: Clean directory tree under `src/app/` utilizing Expo Router layout groups (`(auth)`, `(onboarding)`, `(tabs)`, `subject/`, `lesson/`, `practice/`, `exam/`, `homework/`, `study-plan/`).
+- **Session Guards & SecureStore Restoration**: Automatic authentication & onboarding status restoration from `tokenStorage` on application startup (`src/app/_layout.tsx`).
 - **Domain Feature Separation**: Business logic and UI components isolated in feature modules (`src/features/`).
 - **Mock vs API Repositories**: Seamless zero-code switching between local mock data and real backend HTTP/streaming API endpoints via `EXPO_PUBLIC_USE_MOCK_API`.
-- **Typed HTTP Infrastructure**: `httpClient` with token resolution, combined cancellation/timeout handling, and SSE `data:` chunk streaming.
-- **Dynamic Assessment Evaluation**: Real option-checking and mastery update calculations in `practiceRepository`.
+- **Typed HTTP Infrastructure**: `httpClient` with token resolution, combined cancellation/timeout handling, SSE stream parsing, and distinct `REQUEST_ABORTED` vs `REQUEST_TIMEOUT` error codes.
+- **Dynamic Assessment Evaluation**: Real option-checking and mastery update calculations in `practiceRepository` using query cache by `sessionId`.
 
 ---
 
-## 📜 Route Tree
+## 📜 Route Tree (`src/app/`)
 
 ```text
-app/
-├── _layout.tsx (Root Stack & QueryProvider)
+src/app/
+├── _layout.tsx (Root Stack, QueryProvider & Session Guard)
 ├── index.tsx (Initial session redirect)
 ├── +not-found.tsx
 ├── (auth)/

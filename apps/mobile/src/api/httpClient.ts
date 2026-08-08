@@ -41,10 +41,13 @@ class HttpClient {
       ...options.headers,
     };
 
+    let isTimedOut = false;
     const timeoutController = new AbortController();
-    const timeoutId = setTimeout(() => timeoutController.abort(), options.timeoutMs || 15000);
+    const timeoutId = setTimeout(() => {
+      isTimedOut = true;
+      timeoutController.abort();
+    }, options.timeoutMs || 15000);
 
-    // Combine caller signal and timeout signal
     const combinedSignal = timeoutController.signal;
     let removeCallerListener: (() => void) | undefined;
 
@@ -92,11 +95,19 @@ class HttpClient {
       if (removeCallerListener) removeCallerListener();
 
       if (err instanceof Error && err.name === 'AbortError') {
+        if (isTimedOut) {
+          throw new ApiError({
+            statusCode: 408,
+            errorCode: 'REQUEST_TIMEOUT',
+            message: 'Request timed out',
+            banglaMessage: 'অনুরোধের সময় পার হয়ে গেছে। নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।',
+          });
+        }
         throw new ApiError({
-          statusCode: 408,
-          errorCode: 'REQUEST_TIMEOUT',
-          message: 'Request timed out or was cancelled',
-          banglaMessage: 'অনুরোধের সময় পার হয়ে গেছে। নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।',
+          statusCode: 499,
+          errorCode: 'REQUEST_ABORTED',
+          message: 'Request cancelled by user',
+          banglaMessage: 'অনুরোধটি বাতিল করা হয়েছে।',
         });
       }
       throw ApiError.fromUnknown(err);
@@ -140,75 +151,134 @@ class HttpClient {
     const url = endpoint.startsWith('http') ? endpoint : `${this.baseUrl}${endpoint}`;
     const authHeaders = await this.getAuthHeader(options?.token);
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'text/event-stream, application/json',
-        ...authHeaders,
-        ...options?.headers,
-      },
-      body: JSON.stringify(body),
-      signal: options?.signal,
-    });
+    let isTimedOut = false;
+    const timeoutController = new AbortController();
+    const timeoutId = setTimeout(() => {
+      isTimedOut = true;
+      timeoutController.abort();
+    }, options?.timeoutMs || 30000);
 
-    if (!response.ok) {
-      throw new ApiError({
-        statusCode: response.status,
-        errorCode: 'STREAM_ERROR',
-        message: 'Streaming request failed',
-      });
-    }
+    const combinedSignal = timeoutController.signal;
+    let removeCallerListener: (() => void) | undefined;
 
-    if (!response.body) {
-      const fullText = await response.text();
-      onDelta(fullText);
-      return fullText;
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder('utf-8');
-    let fullAccumulated = '';
-    let buffer = '';
-
-    /* eslint-disable-next-line no-constant-condition */
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      const chunkText = decoder.decode(value, { stream: true });
-      buffer += chunkText;
-
-      const lines = buffer.split('\n');
-      buffer = lines.pop() || '';
-
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed || trimmed.startsWith(':')) continue;
-
-        if (trimmed.startsWith('data:')) {
-          const dataContent = trimmed.slice(5).trim();
-          if (dataContent === '[DONE]') continue;
-
-          try {
-            const parsed = JSON.parse(dataContent);
-            const deltaText = parsed.text || parsed.delta || parsed.content || '';
-            if (deltaText) {
-              fullAccumulated += deltaText;
-              onDelta(deltaText);
-            }
-          } catch {
-            fullAccumulated += dataContent;
-            onDelta(dataContent);
-          }
-        } else {
-          fullAccumulated += trimmed;
-          onDelta(trimmed);
-        }
+    if (options?.signal) {
+      if (options.signal.aborted) {
+        timeoutController.abort();
+      } else {
+        const onCallerAbort = () => timeoutController.abort();
+        options.signal.addEventListener('abort', onCallerAbort);
+        removeCallerListener = () => options.signal?.removeEventListener('abort', onCallerAbort);
       }
     }
 
-    return fullAccumulated;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'text/event-stream, application/json',
+          ...authHeaders,
+          ...options?.headers,
+        },
+        body: JSON.stringify(body),
+        signal: combinedSignal,
+      });
+
+      if (!response.ok) {
+        clearTimeout(timeoutId);
+        if (removeCallerListener) removeCallerListener();
+        throw new ApiError({
+          statusCode: response.status,
+          errorCode: 'STREAM_ERROR',
+          message: 'Streaming request failed',
+        });
+      }
+
+      if (!response.body) {
+        clearTimeout(timeoutId);
+        if (removeCallerListener) removeCallerListener();
+        const fullText = await response.text();
+        onDelta(fullText);
+        return fullText;
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let fullAccumulated = '';
+      let buffer = '';
+      let isStreamCompleted = false;
+
+      /* eslint-disable-next-line no-constant-condition */
+      while (!isStreamCompleted) {
+        const { done, value } = await reader.read();
+        if (done) {
+          if (buffer.trim()) {
+            fullAccumulated += buffer.trim();
+            onDelta(buffer.trim());
+          }
+          break;
+        }
+
+        const chunkText = decoder.decode(value, { stream: true });
+        buffer += chunkText;
+
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith(':')) continue;
+
+          if (trimmed.startsWith('data:')) {
+            const dataContent = trimmed.slice(5).trim();
+            if (dataContent === '[DONE]') {
+              isStreamCompleted = true;
+              break;
+            }
+
+            try {
+              const parsed = JSON.parse(dataContent);
+              const deltaText = parsed.text || parsed.delta || parsed.content || '';
+              if (deltaText) {
+                fullAccumulated += deltaText;
+                onDelta(deltaText);
+              }
+            } catch {
+              fullAccumulated += dataContent;
+              onDelta(dataContent);
+            }
+          } else {
+            fullAccumulated += trimmed;
+            onDelta(trimmed);
+          }
+        }
+      }
+
+      clearTimeout(timeoutId);
+      if (removeCallerListener) removeCallerListener();
+      return fullAccumulated;
+    } catch (err: unknown) {
+      clearTimeout(timeoutId);
+      if (removeCallerListener) removeCallerListener();
+
+      if (err instanceof Error && err.name === 'AbortError') {
+        if (isTimedOut) {
+          throw new ApiError({
+            statusCode: 408,
+            errorCode: 'REQUEST_TIMEOUT',
+            message: 'Streaming timed out',
+            banglaMessage: 'স্ট্রিমিং সময় পার হয়ে গেছে।',
+          });
+        }
+        throw new ApiError({
+          statusCode: 499,
+          errorCode: 'REQUEST_ABORTED',
+          message: 'Streaming cancelled by user',
+          banglaMessage: 'স্ট্রিমিং বাতিল করা হয়েছে।',
+        });
+      }
+      throw ApiError.fromUnknown(err);
+    }
   }
 }
 

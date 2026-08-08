@@ -6,8 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { colors, spacing, radius } from '../../theme';
 import { Screen } from '../../components/ui/Screen';
 import { AppText } from '../../components/ui/AppText';
-import { authRepository } from '../../api/repositories/authRepository';
+import { authRepository } from '../../api/repositories';
 import { useAuthStore } from '../../store/useAuthStore';
+import { t } from '../../localization/i18n';
 
 const loginSchema = z.object({
   identifier: z.string().min(3, 'ফোন নম্বর বা ইমেইল প্রদান করুন'),
@@ -36,14 +37,14 @@ export const LoginFeatureScreen: React.FC<LoginFeatureScreenProps> = ({
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      identifier: '01712345678',
-      password: 'password123',
+      identifier: '',
+      password: '',
     },
   });
 
   const onSubmit = async (values: LoginFormValues) => {
     const res = await authRepository.login(values);
-    setAuthenticated(res.user);
+    await setAuthenticated(res.user, res.token);
     onSuccess();
   };
 
@@ -124,7 +125,7 @@ export const LoginFeatureScreen: React.FC<LoginFeatureScreenProps> = ({
           style={styles.submitBtn}
         >
           <AppText variant="button" color={colors.white} weight="bold">
-            {isSubmitting ? 'লগইন হচ্ছে...' : 'লগইন'}
+            {isSubmitting ? t('common.loading') : 'লগইন'}
           </AppText>
         </TouchableOpacity>
 

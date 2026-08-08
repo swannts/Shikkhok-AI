@@ -1,53 +1,67 @@
-describe('SSE Parser Contract Tests', () => {
-  function parseSseBuffer(buffer: string): { deltas: string[]; fullText: string } {
+describe('SSE Parser and Stream Termination Contract Tests', () => {
+  function parseSseStream(chunks: string[]): { deltas: string[]; fullText: string } {
     const deltas: string[] = [];
     let fullText = '';
-    const lines = buffer.split('\n');
+    let buffer = '';
+    let isStreamCompleted = false;
 
-    for (const line of lines) {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith(':')) continue;
+    for (const chunk of chunks) {
+      if (isStreamCompleted) break;
+      buffer += chunk;
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || '';
 
-      if (trimmed.startsWith('data:')) {
-        const dataContent = trimmed.slice(5).trim();
-        if (dataContent === '[DONE]') continue;
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith(':')) continue;
 
-        try {
-          const parsed = JSON.parse(dataContent);
-          const deltaText = parsed.text || parsed.delta || parsed.content || '';
-          if (deltaText) {
-            deltas.push(deltaText);
-            fullText += deltaText;
+        if (trimmed.startsWith('data:')) {
+          const dataContent = trimmed.slice(5).trim();
+          if (dataContent === '[DONE]') {
+            isStreamCompleted = true;
+            break;
           }
-        } catch {
-          deltas.push(dataContent);
-          fullText += dataContent;
+
+          try {
+            const parsed = JSON.parse(dataContent);
+            const deltaText = parsed.text || parsed.delta || parsed.content || '';
+            if (deltaText) {
+              deltas.push(deltaText);
+              fullText += deltaText;
+            }
+          } catch {
+            deltas.push(dataContent);
+            fullText += dataContent;
+          }
         }
       }
+    }
+
+    if (!isStreamCompleted && buffer.trim()) {
+      fullText += buffer.trim();
+      deltas.push(buffer.trim());
     }
 
     return { deltas, fullText };
   }
 
   test('correctly parses single event data line', () => {
-    const ssePayload = 'data: {"text": "চলো"}\n\n';
-    const result = parseSseBuffer(ssePayload);
+    const result = parseSseStream(['data: {"text": "চলো"}\n\n']);
     expect(result.deltas).toEqual(['চলো']);
     expect(result.fullText).toBe('চলো');
   });
 
-  test('correctly parses multiple data lines in single chunk', () => {
-    const ssePayload =
-      'data: {"text": "চলো"}\ndata: {"text": " ধাপে"}\ndata: {"text": " ধাপে"}\n\n';
-    const result = parseSseBuffer(ssePayload);
-    expect(result.deltas).toEqual(['চলো', ' ধাপে', ' ধাপে']);
-    expect(result.fullText).toBe('চলো ধাপে ধাপে');
+  test('correctly terminates stream on [DONE] event', () => {
+    const chunks = ['data: {"text": "উত্তর"}\n', 'data: [DONE]\n', 'data: {"text": "ignored"}\n'];
+    const result = parseSseStream(chunks);
+    expect(result.deltas).toEqual(['উত্তর']);
+    expect(result.fullText).toBe('উত্তর');
   });
 
-  test('ignores [DONE] streaming completion signal', () => {
-    const ssePayload = 'data: {"text": "সমাধান"}\ndata: [DONE]\n\n';
-    const result = parseSseBuffer(ssePayload);
-    expect(result.deltas).toEqual(['সমাধান']);
-    expect(result.fullText).toBe('সমাধান');
+  test('flushes trailing un-newline buffer content on stream end', () => {
+    const chunks = ['data: {"text": "শেষ"}\n', 'অবশিষ্টাংশ'];
+    const result = parseSseStream(chunks);
+    expect(result.deltas).toEqual(['শেষ', 'অবশিষ্টাংশ']);
+    expect(result.fullText).toBe('শেষঅবশিষ্টাংশ');
   });
 });

@@ -67,7 +67,16 @@ class ApiExamRepository implements IExamRepository {
 
 class ApiHomeworkRepository implements IHomeworkRepository {
   async analyzeHomeworkImage(imageUri: string): Promise<HomeworkDetectionResult> {
-    return httpClient.post<HomeworkDetectionResult>('/homework/analyze', { imageUri });
+    const formData = new FormData();
+    formData.append('file', {
+      uri: imageUri,
+      type: 'image/jpeg',
+      name: 'homework.jpg',
+    } as unknown as Blob);
+
+    return httpClient.post<HomeworkDetectionResult>('/homework/upload-and-analyze', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   }
 }
 

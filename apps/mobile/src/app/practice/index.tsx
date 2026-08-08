@@ -12,7 +12,7 @@ export default function PracticeIndexRoute() {
         const res = await practiceRepository.submitPracticeResults('session-1', answers, timeSpent);
         router.replace({
           pathname: '/practice/result',
-          params: { data: JSON.stringify(res) },
+          params: { sessionId: res.sessionId },
         });
       }}
       onBack={() => router.back()}

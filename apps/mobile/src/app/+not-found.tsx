@@ -15,11 +15,20 @@ export default function NotFoundScreen() {
         <AppText variant="pageTitle" weight="bold" align="center">
           পৃষ্ঠাটি পাওয়া যায়নি
         </AppText>
-        <AppText variant="bodySmall" color={colors.textSecondary} align="center" style={{ marginTop: spacing.xs, marginBottom: spacing.lg }}>
+        <AppText
+          variant="bodySmall"
+          color={colors.textSecondary}
+          align="center"
+          style={{ marginTop: spacing.xs, marginBottom: spacing.lg }}
+        >
           তুমি যে লিংকে এসেছো সেটি বিদ্যমান নেই।
         </AppText>
 
-        <TouchableOpacity activeOpacity={0.8} onPress={() => router.replace('/(tabs)')} style={styles.btn}>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => router.replace('/(tabs)')}
+          style={styles.btn}
+        >
           <AppText variant="button" color={colors.white} weight="bold">
             হোমে ফিরে যাও 🏠
           </AppText>
@@ -31,5 +40,10 @@ export default function NotFoundScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.lg },
-  btn: { backgroundColor: colors.primary, paddingHorizontal: spacing.lg, paddingVertical: spacing.md, borderRadius: radius.md },
+  btn: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    borderRadius: radius.md,
+  },
 });

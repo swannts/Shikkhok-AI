@@ -6,10 +6,5 @@ export default function TutorRoute() {
   const router = useRouter();
   const { prompt } = useLocalSearchParams<{ prompt?: string }>();
 
-  return (
-    <TutorScreen
-      initialPrompt={prompt}
-      onBack={() => router.back()}
-    />
-  );
+  return <TutorScreen initialPrompt={prompt} onBack={() => router.back()} />;
 }

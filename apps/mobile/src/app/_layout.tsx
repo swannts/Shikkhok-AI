@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { QueryProvider } from '../providers/QueryProvider';
 import { useAuthStore } from '../store/useAuthStore';
 import { LoadingState } from '../components/ui/LoadingState';
 
 function RootNavigationLayout() {
-  const { status, onboardingCompleted } = useAuthStore();
+  const { status, onboardingCompleted, restoreSession } = useAuthStore();
   const segments = useSegments();
   const router = useRouter();
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    setIsReady(true);
-  }, []);
+    restoreSession();
+  }, [restoreSession]);
 
   useEffect(() => {
-    if (!isReady) return;
+    if (status === 'unknown') return;
 
     const inAuthGroup = segments[0] === '(auth)';
     const inOnboardingGroup = segments[0] === '(onboarding)';
@@ -29,10 +28,10 @@ function RootNavigationLayout() {
         router.replace('/(tabs)');
       }
     }
-  }, [status, onboardingCompleted, segments, isReady, router]);
+  }, [status, onboardingCompleted, segments, router]);
 
-  if (!isReady) {
-    return <LoadingState message="অ্যাপ প্রস্তুত হচ্ছে..." />;
+  if (status === 'unknown') {
+    return <LoadingState message="সেশন যাচাই করা হচ্ছে..." />;
   }
 
   return (
