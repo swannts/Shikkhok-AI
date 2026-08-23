@@ -1,4 +1,6 @@
 import { Router, Request, Response } from 'express';
+import { practiceService } from '../modules/practice/practice.service';
+
 
 const router = Router();
 
@@ -69,12 +71,35 @@ const mockPracticeSession = {
   ],
 };
 
+
 router.get('/session', (req: Request, res: Response) => {
   return res.json(mockPracticeSession);
 });
 
-router.post('/submit', (req: Request, res: Response) => {
-  const { sessionId, answers, timeSpentSeconds } = req.body;
+router.post('/evaluate-answer', async (req: Request, res: Response) => {
+  const { studentId = 'default-student', practiceSessionId, questionId, selectedOptionId, topicId = 'linear-eq', topicTitle = 'সমীকরণ' } = req.body;
+  const question = mockPracticeSession.questions.find((q) => q.id === questionId);
+
+  if (!question) {
+    return res.status(404).json({ message: 'Question not found' });
+  }
+
+  const result = await practiceService.evaluateAndPersistAnswer({
+    studentId,
+    practiceSessionId,
+    questionId,
+    selectedOptionId,
+    correctOptionId: question.correctOptionId,
+    topicId,
+    topicTitle,
+    explanation: question.explanation,
+  });
+
+  return res.json(result);
+});
+
+router.post('/submit', async (req: Request, res: Response) => {
+  const { sessionId, answers, timeSpentSeconds, initialMastery = 42 } = req.body;
 
   let correctCount = 0;
   const userAnswers = answers || {};
@@ -86,18 +111,28 @@ router.post('/submit', (req: Request, res: Response) => {
   });
 
   const total = mockPracticeSession.questions.length;
-  const accuracy = Math.round((correctCount / total) * 100);
+  const summary = await practiceService.submitSessionSummary(
+    sessionId || mockPracticeSession.sessionId,
+    {
+      correctAnswers: correctCount,
+      totalQuestions: total,
+      timeSpentSeconds: timeSpentSeconds || 115,
+      initialMastery,
+      weakTopics: correctCount < total ? ['ভগ্নাংশের সমীকরণ'] : [],
+    }
+  );
 
   return res.json({
     sessionId: sessionId || mockPracticeSession.sessionId,
     correctAnswers: correctCount,
     totalQuestions: total,
-    accuracyPercentage: accuracy,
+    accuracyPercentage: summary.accuracyPercentage,
     timeSpentSeconds: timeSpentSeconds || 115,
-    initialMastery: 42,
-    updatedMastery: Math.min(100, 42 + Math.round(accuracy / 10)),
-    weakTopics: accuracy < 100 ? ['ভগ্নাংশের সমীকরণ'] : [],
+    initialMastery,
+    updatedMastery: summary.updatedMastery,
+    weakTopics: summary.weakTopics,
   });
 });
 
 export default router;
+

@@ -40,6 +40,7 @@ model StudentProfile {
   questionAttempts QuestionAttempt[]
   studyTasks       StudyTask[]
   tutorConversations TutorConversation[]
+  topicMasteries   TopicMastery[]
 }
 
 model RefreshTokenSession {
@@ -88,14 +89,26 @@ model Lesson {
   studentProgress  StudentLessonProgress[]
 }
 
+enum QuestionType {
+  MCQ
+  TRUE_FALSE
+  SHORT_ANSWER
+  NUMERIC
+  MATCHING
+  MULTI_SELECT
+}
+
 model Question {
   id           String            @id @default(uuid())
   topicId      String            @default("linear-equations")
+  type         QuestionType      @default(MCQ)
   questionText String
-  options      Json              // Native Json array of options
+  options      Json?             // Flexible Json structure per question type (options, pairs, expected answer, etc.)
+  answerConfig Json?             // Optional type-specific validation rules/acceptable tolerance/metadata
   explanation  String
   attempts     QuestionAttempt[]
 }
+
 
 model StudentSubjectProgress {
   id                String         @id @default(uuid())
@@ -158,10 +171,12 @@ model QuestionAttempt {
   practiceSession   PracticeSession? @relation(fields: [practiceSessionId], references: [id], onDelete: SetNull)
   questionId        String
   question          Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  selectedOptionId  String
+  selectedOptionId  String?
+  responsePayload   Json?           // Extensible response payload for non-MCQ types (strings, numeric values, matching pairs)
   isCorrect         Boolean
   createdAt         DateTime        @default(now())
 }
+
 
 model StudyTask {
   id              String         @id @default(uuid())
@@ -193,3 +208,18 @@ model TutorMessage {
   content        String
   createdAt      DateTime          @default(now())
 }
+
+model TopicMastery {
+  id                String         @id @default(uuid())
+  studentId         String
+  student           StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  topicId           String
+  topicTitle        String
+  masteryPercentage Int            @default(0)
+  totalAttempts     Int            @default(0)
+  correctAttempts   Int            @default(0)
+  updatedAt         DateTime       @updatedAt
+
+  @@unique([studentId, topicId])
+}
+
