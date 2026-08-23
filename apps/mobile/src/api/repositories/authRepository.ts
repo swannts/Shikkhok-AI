@@ -1,59 +1,79 @@
-import { delay } from '../client';
+import { IAuthRepository } from './interfaces/IRepositories';
 import { StudentProfile } from '../../store/useAuthStore';
 
 export interface LoginParams {
   identifier: string;
-  password?: string;
+  password: string;
 }
 
 export interface SignupParams {
-  fullName: string;
+  name: string;
   phoneOrEmail: string;
-  password?: string;
+  password: string;
+  classId: string;
 }
 
-export const authRepository = {
-  login: async (params: LoginParams): Promise<{ token: string; user: StudentProfile }> => {
-    await delay(400);
+class MockAuthRepository implements IAuthRepository {
+  async login(_params: LoginParams): Promise<{ token: string; refreshToken?: string; user: StudentProfile }> {
     return {
-      token: 'mock-jwt-token-12345',
+      token: 'mock-jwt-token-123',
+      refreshToken: 'mock-refresh-token-123',
       user: {
         id: 'student-1',
-        name: 'রাফি',
+        name: 'রাফি আহমেদ',
         classId: 'class-8',
         className: 'Class 8',
         language: 'bn',
       },
     };
-  },
+  }
 
-  signup: async (params: SignupParams): Promise<{ tempToken: string }> => {
-    await delay(400);
-    return { tempToken: 'temp-token-otp' };
-  },
-
-  verifyOTP: async (otp: string): Promise<{ token: string; user: StudentProfile }> => {
-    await delay(350);
+  async signup(_params: SignupParams): Promise<{ status: string; referenceId?: string }> {
     return {
-      token: 'mock-jwt-token-verified',
+      status: 'OTP_SENT',
+      referenceId: 'mock-ref-123',
+    };
+  }
+
+  async verifyOtp(_referenceId: string, _otp: string): Promise<{ token: string; refreshToken?: string; user: StudentProfile }> {
+    return {
+      token: 'mock-jwt-token-123',
+      refreshToken: 'mock-refresh-token-123',
       user: {
         id: 'student-1',
-        name: 'রাফি',
+        name: 'রাফি আহমেদ',
         classId: 'class-8',
         className: 'Class 8',
         language: 'bn',
       },
     };
-  },
+  }
 
-  updateProfile: async (updates: Partial<StudentProfile>): Promise<StudentProfile> => {
-    await delay(300);
+  async getCurrentUser(): Promise<StudentProfile> {
     return {
       id: 'student-1',
-      name: updates.name || 'রাফি',
-      classId: updates.classId || 'class-8',
-      className: updates.className || 'Class 8',
-      language: updates.language || 'bn',
+      name: 'রাফি আহমেদ',
+      classId: 'class-8',
+      className: 'Class 8',
+      language: 'bn',
     };
-  },
-};
+  }
+
+  async refreshToken(_refreshToken: string): Promise<{ token: string; refreshToken?: string }> {
+    return {
+      token: 'mock-refreshed-jwt-token-456',
+      refreshToken: 'mock-refreshed-refresh-token-456',
+    };
+  }
+
+  async logout(): Promise<void> {
+    return;
+  }
+
+  async updateProfile(updates: Partial<StudentProfile>): Promise<StudentProfile> {
+    const current = await this.getCurrentUser();
+    return { ...current, ...updates };
+  }
+}
+
+export const authRepository = new MockAuthRepository();

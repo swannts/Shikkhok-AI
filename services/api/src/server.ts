@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import authRoutes from './routes/auth';
+import { ZodError } from 'zod';
+import authRoutes from './modules/auth/auth.routes';
 import curriculumRoutes from './routes/curriculum';
 import practiceRoutes from './routes/practice';
 import progressRoutes from './routes/progress';
@@ -18,7 +19,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'Shikkhok AI Main API', timestamp: new Date() });
 });
 
-// API Routes Namespace
+// Domain API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/curriculum', curriculumRoutes);
 app.use('/api/v1/practice', practiceRoutes);
@@ -26,14 +27,33 @@ app.use('/api/v1/progress', progressRoutes);
 app.use('/api/v1/study-plan', studyPlanRoutes);
 app.use('/api/v1/homework', homeworkRoutes);
 
-// Global Error Handler
+// Structured Global Error Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('[API Error]:', err);
-  res.status(500).json({
-    statusCode: 500,
-    errorCode: 'INTERNAL_SERVER_ERROR',
-    message: err.message || 'An unexpected error occurred',
-    banglaMessage: 'একটি কারিগরি ত্রুটি হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+  if (err instanceof ZodError) {
+    return res.status(400).json({
+      statusCode: 400,
+      errorCode: 'VALIDATION_ERROR',
+      message: 'Invalid request data',
+      banglaMessage: 'প্রদত্ত তথ্য সঠিক নয়।',
+      details: err.flatten().fieldErrors,
+    });
+  }
+
+  const statusCode = err.statusCode || 500;
+  const errorCode = err.errorCode || 'INTERNAL_SERVER_ERROR';
+  const message = err.message || 'An unexpected error occurred';
+  const banglaMessage = err.banglaMessage || 'একটি কারিগরি ত্রুটি হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+
+  if (statusCode === 500) {
+    console.error('[Internal Error]:', err);
+  }
+
+  res.status(statusCode).json({
+    statusCode,
+    errorCode,
+    message,
+    banglaMessage,
+    details: err.details || undefined,
   });
 });
 

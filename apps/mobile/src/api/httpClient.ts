@@ -1,27 +1,35 @@
 import { ENV } from '../config/env';
 import { ApiError } from './apiError';
+import { tokenStorage } from '../services/tokenStorage';
 
 export interface RequestOptions {
   headers?: Record<string, string>;
   signal?: AbortSignal;
   timeoutMs?: number;
   token?: string;
+  skipAuth?: boolean;
 }
 
 class HttpClient {
   private baseUrl: string;
-  private tokenProvider?: () => Promise<string | null>;
+  private isRefreshing = false;
+  private refreshSubscribers: Array<(token: string | null) => void> = [];
 
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
   }
 
-  public setTokenProvider(provider: () => Promise<string | null>) {
-    this.tokenProvider = provider;
+  private subscribeTokenRefresh(cb: (token: string | null) => void) {
+    this.refreshSubscribers.push(cb);
+  }
+
+  private onRefreshed(token: string | null) {
+    this.refreshSubscribers.map((cb) => cb(token));
+    this.refreshSubscribers = [];
   }
 
   private async getAuthHeader(explicitToken?: string): Promise<Record<string, string>> {
-    const token = explicitToken || (this.tokenProvider ? await this.tokenProvider() : null);
+    const token = explicitToken || (await tokenStorage.getAccessToken());
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
@@ -32,7 +40,7 @@ class HttpClient {
     options: RequestOptions = {}
   ): Promise<TResponse> {
     const url = endpoint.startsWith('http') ? endpoint : `${this.baseUrl}${endpoint}`;
-    const authHeaders = await this.getAuthHeader(options.token);
+    const authHeaders = options.skipAuth ? {} : await this.getAuthHeader(options.token);
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -71,6 +79,11 @@ class HttpClient {
 
       clearTimeout(timeoutId);
       if (removeCallerListener) removeCallerListener();
+
+      // Handle 401 Unauthorized with single-flight refresh queue
+      if (response.status === 401 && !options.skipAuth && !endpoint.includes('/auth/login') && !endpoint.includes('/auth/refresh')) {
+        return this.handle401AndRetry<TResponse, TBody>(endpoint, method, body, options);
+      }
 
       if (!response.ok) {
         let errorData: Record<string, unknown> = {};
@@ -114,6 +127,62 @@ class HttpClient {
     }
   }
 
+  private async handle401AndRetry<TResponse, TBody>(
+    endpoint: string,
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+    body?: TBody,
+    options: RequestOptions = {}
+  ): Promise<TResponse> {
+    if (!this.isRefreshing) {
+      this.isRefreshing = true;
+      try {
+        const refreshToken = await tokenStorage.getRefreshToken();
+        if (!refreshToken) {
+          throw new Error('No refresh token');
+        }
+
+        const refreshRes = await this.request<{ token: string; refreshToken?: string }>(
+          '/auth/refresh',
+          'POST',
+          { refreshToken },
+          { skipAuth: true }
+        );
+
+        await tokenStorage.setAccessToken(refreshRes.token);
+        if (refreshRes.refreshToken) {
+          await tokenStorage.setRefreshToken(refreshRes.refreshToken);
+        }
+
+        this.isRefreshing = false;
+        this.onRefreshed(refreshRes.token);
+        return this.request<TResponse, TBody>(endpoint, method, body, options);
+      } catch (err) {
+        this.isRefreshing = false;
+        this.onRefreshed(null);
+        await tokenStorage.clearTokens();
+        throw ApiError.fromUnknown(err);
+      }
+    }
+
+    // Wait for the single active refresh request to finish
+    return new Promise((resolve, reject) => {
+      this.subscribeTokenRefresh((newToken) => {
+        if (newToken) {
+          resolve(this.request<TResponse, TBody>(endpoint, method, body, options));
+        } else {
+          reject(
+            new ApiError({
+              statusCode: 401,
+              errorCode: 'UNAUTHORIZED',
+              message: 'Session expired',
+              banglaMessage: 'আপনার সেশনের মেয়াদ পার হয়ে গেছে। পুনরায় লগইন করুন।',
+            })
+          );
+        }
+      });
+    });
+  }
+
   public get<TResponse>(endpoint: string, options?: RequestOptions): Promise<TResponse> {
     return this.request<TResponse>(endpoint, 'GET', undefined, options);
   }
@@ -138,10 +207,6 @@ class HttpClient {
     return this.request<TResponse>(endpoint, 'DELETE', undefined, options);
   }
 
-  /**
-   * Stream text responses over Server-Sent Events (SSE) or raw chunked transfer.
-   * Calls `onDelta(delta)` with each new string segment arrived.
-   */
   public async streamText(
     endpoint: string,
     body: unknown,
@@ -149,7 +214,7 @@ class HttpClient {
     options?: RequestOptions
   ): Promise<string> {
     const url = endpoint.startsWith('http') ? endpoint : `${this.baseUrl}${endpoint}`;
-    const authHeaders = await this.getAuthHeader(options?.token);
+    const authHeaders = options?.skipAuth ? {} : await this.getAuthHeader(options?.token);
 
     let isTimedOut = false;
     const timeoutController = new AbortController();

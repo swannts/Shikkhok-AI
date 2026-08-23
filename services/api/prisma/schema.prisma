@@ -8,77 +8,136 @@ generator client {
 }
 
 model User {
-  id           String          @id @default(uuid())
-  phoneOrEmail String          @unique
+  id           String                @id @default(uuid())
+  phoneOrEmail String                @unique
   passwordHash String
-  role         String          @default("STUDENT")
-  createdAt    DateTime        @default(now())
+  role         String                @default("STUDENT")
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
   profile      StudentProfile?
+  sessions     RefreshTokenSession[]
 }
 
 model StudentProfile {
-  id               String   @id @default(uuid())
-  userId           String   @unique
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id               String                   @id @default(uuid())
+  userId           String                   @unique
+  user             User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
   name             String
-  classId          String   @default("class-8")
-  className        String   @default("Class 8")
-  language         String   @default("bn")
-  medium           String   @default("bangla")
-  goal             String   @default("exam_prep")
-  overallMastery   Int      @default(72)
-  studyTimeHours   Float    @default(14.5)
-  accuracyRate     Int      @default(78)
-  createdAt        DateTime @default(now())
+  classId          String                   @default("class-8")
+  className        String                   @default("Class 8")
+  language         String                   @default("bn")
+  medium           String                   @default("bangla")
+  goal             String                   @default("exam_prep")
+  overallMastery   Int                      @default(72)
+  studyTimeHours   Float                    @default(14.5)
+  accuracyRate     Int                      @default(78)
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+  lessonProgress   StudentLessonProgress[]
+  chapterProgress  StudentChapterProgress[]
+  subjectProgress  StudentSubjectProgress[]
+  practiceSessions PracticeSession[]
+  questionAttempts QuestionAttempt[]
+  studyTasks       StudyTask[]
+  tutorConversations TutorConversation[]
+}
+
+model RefreshTokenSession {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  revoked   Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 model Subject {
-  id           String    @id
-  classId      String    @default("class-8")
-  bnName       String
-  enName       String
-  icon         String
-  chapterCount Int
-  lessonCount  Int
-  progress     Float     @default(0.5)
-  colorBg      String
-  chapters     Chapter[]
+  id              String                   @id
+  classId         String                   @default("class-8")
+  bnName          String
+  enName          String
+  icon            String
+  chapterCount    Int
+  lessonCount     Int
+  colorBg         String
+  chapters        Chapter[]
+  studentProgress StudentSubjectProgress[]
 }
 
 model Chapter {
-  id               String   @id
+  id               String                   @id
   subjectId        String
-  subject          Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  subject          Subject                  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   chapterNumber    Int
   bnTitle          String
   enTitle          String
   lessonCount      Int
   practiceSetCount Int
-  progress         Float    @default(0.42)
   lessons          Lesson[]
+  studentProgress  StudentChapterProgress[]
 }
 
 model Lesson {
-  id               String   @id
+  id               String                  @id
   chapterId        String
-  chapter          Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapter          Chapter                 @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   title            String
-  estimatedMinutes Int      @default(15)
-  progress         Float    @default(0.6)
-  blocksJson       String   // JSON stringified array of LessonContentBlock
+  estimatedMinutes Int                     @default(15)
+  blocks           Json                    // Native Json array of LessonContentBlock
+  studentProgress  StudentLessonProgress[]
 }
 
 model Question {
-  id           String @id @default(uuid())
-  topicId      String @default("linear-equations")
+  id           String            @id @default(uuid())
+  topicId      String            @default("linear-equations")
   questionText String
-  optionsJson  String // JSON stringified array of MCQ options
+  options      Json              // Native Json array of options
   explanation  String
+  attempts     QuestionAttempt[]
 }
 
-model PracticeSessionRecord {
-  id                 String   @id @default(uuid())
+model StudentSubjectProgress {
+  id                String         @id @default(uuid())
+  studentId         String
+  student           StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subjectId         String
+  subject           Subject        @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  masteryPercentage Int            @default(0)
+  updatedAt         DateTime       @updatedAt
+
+  @@unique([studentId, subjectId])
+}
+
+model StudentChapterProgress {
+  id         String         @id @default(uuid())
+  studentId  String
+  student    StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  chapterId  String
+  chapter    Chapter        @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  progress   Float          @default(0.0)
+  updatedAt  DateTime       @updatedAt
+
+  @@unique([studentId, chapterId])
+}
+
+model StudentLessonProgress {
+  id        String         @id @default(uuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  completed Boolean        @default(false)
+  progress  Float          @default(0.0)
+  updatedAt DateTime       @updatedAt
+
+  @@unique([studentId, lessonId])
+}
+
+model PracticeSession {
+  id                 String            @id @default(uuid())
   studentId          String
+  student            StudentProfile    @relation(fields: [studentId], references: [id], onDelete: Cascade)
   topicTitle         String
   totalQuestions     Int
   correctAnswers     Int
@@ -86,16 +145,51 @@ model PracticeSessionRecord {
   timeSpentSeconds   Int
   initialMastery     Int
   updatedMastery     Int
-  weakTopicsJson     String
-  createdAt          DateTime @default(now())
+  weakTopics         Json              // Native Json array of weak topic strings
+  createdAt          DateTime          @default(now())
+  attempts           QuestionAttempt[]
 }
 
-model StudyTaskRecord {
-  id              String   @id @default(uuid())
+model QuestionAttempt {
+  id                String          @id @default(uuid())
+  studentId         String
+  student           StudentProfile  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  practiceSessionId String?
+  practiceSession   PracticeSession? @relation(fields: [practiceSessionId], references: [id], onDelete: SetNull)
+  questionId        String
+  question          Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  selectedOptionId  String
+  isCorrect         Boolean
+  createdAt         DateTime        @default(now())
+}
+
+model StudyTask {
+  id              String         @id @default(uuid())
   studentId       String
+  student         StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
   title           String
   subject         String
   durationMinutes Int
-  completed       Boolean  @default(false)
-  createdAt       DateTime @default(now())
+  completed       Boolean        @default(false)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model TutorConversation {
+  id        String         @id @default(uuid())
+  studentId String
+  student   StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  title     String         @default("AI Tutor Chat")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  messages  TutorMessage[]
+}
+
+model TutorMessage {
+  id             String            @id @default(uuid())
+  conversationId String
+  conversation   TutorConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String            // 'user' | 'assistant' | 'system'
+  content        String
+  createdAt      DateTime          @default(now())
 }

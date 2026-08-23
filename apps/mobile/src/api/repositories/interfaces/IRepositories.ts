@@ -6,11 +6,22 @@ import { HomeworkDetectionResult } from '../homeworkRepository';
 import { StudyPlanData } from '../studyPlanRepository';
 import { StudentProfile } from '../../../store/useAuthStore';
 
+export { LoginParams, SignupParams };
+
+export interface AuthResponse {
+  token: string;
+  refreshToken?: string;
+  user: StudentProfile;
+}
+
 export interface IAuthRepository {
-  login(params: LoginParams): Promise<{ token: string; user: StudentProfile }>;
-  signup(params: SignupParams): Promise<{ tempToken: string }>;
-  verifyOTP(otp: string): Promise<{ token: string; user: StudentProfile }>;
-  updateProfile(updates: Partial<StudentProfile>): Promise<StudentProfile>;
+  login(params: LoginParams): Promise<AuthResponse>;
+  signup(params: SignupParams): Promise<{ status: string; referenceId?: string }>;
+  verifyOtp(referenceId: string, otp: string): Promise<AuthResponse>;
+  getCurrentUser(): Promise<StudentProfile>;
+  refreshToken(refreshToken: string): Promise<{ token: string; refreshToken?: string }>;
+  logout(): Promise<void>;
+  updateProfile?(updates: Partial<StudentProfile>): Promise<StudentProfile>;
 }
 
 export interface ISubjectRepository {
