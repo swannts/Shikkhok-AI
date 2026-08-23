@@ -55,6 +55,21 @@ services:
     depends_on:
       - api
 
+  worker:
+    build:
+      context: ./services/worker
+      dockerfile: Dockerfile
+    container_name: shikkhok-worker
+    restart: always
+    environment:
+      NODE_ENV: development
+      REDIS_URL: 'redis://redis:6379'
+      DATABASE_URL: 'postgresql://shikkhok_user:shikkhok_secure_password@postgres:5432/shikkhok_db?schema=public'
+    depends_on:
+      - postgres
+      - redis
+
 volumes:
   postgres_data:
   redis_data:
+
