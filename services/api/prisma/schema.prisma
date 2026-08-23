@@ -1,10 +1,12 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pgvector(map: "vector")]
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 model User {
@@ -195,6 +197,8 @@ model TutorConversation {
   studentId String
   student   StudentProfile @relation(fields: [studentId], references: [id], onDelete: Cascade)
   title     String         @default("AI Tutor Chat")
+  lessonId  String?
+  topicId   String?
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
   messages  TutorMessage[]
@@ -206,8 +210,12 @@ model TutorMessage {
   conversation   TutorConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   role           String            // 'user' | 'assistant' | 'system'
   content        String
+  provider       String?           // e.g. 'GeminiProvider'
+  model          String?           // e.g. 'gemini-1.5-flash'
+  tokenUsage     Json?             // { promptTokens: number, completionTokens: number, totalTokens: number }
   createdAt      DateTime          @default(now())
 }
+
 
 model TopicMastery {
   id                String         @id @default(uuid())
@@ -222,4 +230,13 @@ model TopicMastery {
 
   @@unique([studentId, topicId])
 }
+
+model CurriculumDocumentChunk {
+  id             String                    @id @default(uuid())
+  content        String
+  metadata       Json                      // Encapsulates class, subject, chapter, lesson, pageNumber, sourceBook, etc.
+  embedding      Unsupported("vector(768)")?
+  createdAt      DateTime                  @default(now())
+}
+
 
