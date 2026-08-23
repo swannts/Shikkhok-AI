@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { ZodError } from 'zod';
 import authRoutes from './modules/auth/auth.routes';
-import curriculumRoutes from './routes/curriculum';
+import curriculumRoutes from './modules/curriculum/curriculum.routes';
 import practiceRoutes from './routes/practice';
 import progressRoutes from './routes/progress';
 import studyPlanRoutes from './routes/studyPlan';
@@ -19,7 +19,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'Shikkhok AI Main API', timestamp: new Date() });
 });
 
-// Domain API Routes
+// Modular Monolith Domain API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/curriculum', curriculumRoutes);
 app.use('/api/v1/practice', practiceRoutes);
