@@ -1,0 +1,101 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String          @id @default(uuid())
+  phoneOrEmail String          @unique
+  passwordHash String
+  role         String          @default("STUDENT")
+  createdAt    DateTime        @default(now())
+  profile      StudentProfile?
+}
+
+model StudentProfile {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name             String
+  classId          String   @default("class-8")
+  className        String   @default("Class 8")
+  language         String   @default("bn")
+  medium           String   @default("bangla")
+  goal             String   @default("exam_prep")
+  overallMastery   Int      @default(72)
+  studyTimeHours   Float    @default(14.5)
+  accuracyRate     Int      @default(78)
+  createdAt        DateTime @default(now())
+}
+
+model Subject {
+  id           String    @id
+  classId      String    @default("class-8")
+  bnName       String
+  enName       String
+  icon         String
+  chapterCount Int
+  lessonCount  Int
+  progress     Float     @default(0.5)
+  colorBg      String
+  chapters     Chapter[]
+}
+
+model Chapter {
+  id               String   @id
+  subjectId        String
+  subject          Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  chapterNumber    Int
+  bnTitle          String
+  enTitle          String
+  lessonCount      Int
+  practiceSetCount Int
+  progress         Float    @default(0.42)
+  lessons          Lesson[]
+}
+
+model Lesson {
+  id               String   @id
+  chapterId        String
+  chapter          Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  title            String
+  estimatedMinutes Int      @default(15)
+  progress         Float    @default(0.6)
+  blocksJson       String   // JSON stringified array of LessonContentBlock
+}
+
+model Question {
+  id           String @id @default(uuid())
+  topicId      String @default("linear-equations")
+  questionText String
+  optionsJson  String // JSON stringified array of MCQ options
+  explanation  String
+}
+
+model PracticeSessionRecord {
+  id                 String   @id @default(uuid())
+  studentId          String
+  topicTitle         String
+  totalQuestions     Int
+  correctAnswers     Int
+  accuracyPercentage Int
+  timeSpentSeconds   Int
+  initialMastery     Int
+  updatedMastery     Int
+  weakTopicsJson     String
+  createdAt          DateTime @default(now())
+}
+
+model StudyTaskRecord {
+  id              String   @id @default(uuid())
+  studentId       String
+  title           String
+  subject         String
+  durationMinutes Int
+  completed       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+}

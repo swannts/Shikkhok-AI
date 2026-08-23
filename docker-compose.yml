@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: shikkhok-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: shikkhok_user
+      POSTGRES_PASSWORD: shikkhok_secure_password
+      POSTGRES_DB: shikkhok_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    container_name: shikkhok-api
+    restart: always
+    ports:
+      - '4000:4000'
+    environment:
+      PORT: 4000
+      DATABASE_URL: 'postgresql://shikkhok_user:shikkhok_secure_password@postgres:5432/shikkhok_db?schema=public'
+      JWT_SECRET: 'shikkhok-jwt-production-secret-key'
+    depends_on:
+      - postgres
+
+  ai-gateway:
+    build:
+      context: ./services/ai-gateway
+      dockerfile: Dockerfile
+    container_name: shikkhok-ai-gateway
+    restart: always
+    ports:
+      - '4001:4001'
+    environment:
+      PORT: 4001
+      GEMINI_API_KEY: '${GEMINI_API_KEY}'
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
