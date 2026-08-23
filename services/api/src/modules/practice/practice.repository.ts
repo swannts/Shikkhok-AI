@@ -138,6 +138,31 @@ export class PracticeRepository {
       return { id: sessionId, ...data };
     }
   }
+
+  /**
+   * Cursor-based paginated practice session history
+   */
+  async getPaginatedPracticeHistory(studentId: string, params: { cursor?: string; limit?: number }) {
+    try {
+      const take = (params.limit || 20) + 1;
+      const sessions = await prisma.practiceSession.findMany({
+        where: { studentId },
+        orderBy: { createdAt: 'desc' },
+        take,
+        cursor: params.cursor ? { id: params.cursor } : undefined,
+        skip: params.cursor ? 1 : 0,
+      });
+
+      const hasMore = sessions.length > (params.limit || 20);
+      const items = hasMore ? sessions.slice(0, params.limit || 20) : sessions;
+      const nextCursor = hasMore ? items[items.length - 1].id : null;
+
+      return { items, nextCursor, hasMore };
+    } catch {
+      return { items: [], nextCursor: null, hasMore: false };
+    }
+  }
 }
 
 export const practiceRepository = new PracticeRepository();
+

@@ -66,6 +66,7 @@ model Subject {
   colorBg         String
   chapters        Chapter[]
   studentProgress StudentSubjectProgress[]
+  @@index([classId])
 }
 
 model Chapter {
@@ -79,6 +80,8 @@ model Chapter {
   practiceSetCount Int
   lessons          Lesson[]
   studentProgress  StudentChapterProgress[]
+
+  @@index([subjectId])
 }
 
 model Lesson {
@@ -89,6 +92,8 @@ model Lesson {
   estimatedMinutes Int                     @default(15)
   blocks           Json                    // Native Json array of LessonContentBlock
   studentProgress  StudentLessonProgress[]
+
+  @@index([chapterId])
 }
 
 enum QuestionType {
@@ -109,8 +114,9 @@ model Question {
   answerConfig Json?             // Optional type-specific validation rules/acceptable tolerance/metadata
   explanation  String
   attempts     QuestionAttempt[]
-}
 
+  @@index([topicId])
+}
 
 model StudentSubjectProgress {
   id                String         @id @default(uuid())
@@ -147,6 +153,7 @@ model StudentLessonProgress {
   updatedAt DateTime       @updatedAt
 
   @@unique([studentId, lessonId])
+  @@index([studentId, lessonId])
 }
 
 model PracticeSession {
@@ -163,6 +170,8 @@ model PracticeSession {
   weakTopics         Json              // Native Json array of weak topic strings
   createdAt          DateTime          @default(now())
   attempts           QuestionAttempt[]
+
+  @@index([studentId, createdAt])
 }
 
 model QuestionAttempt {
@@ -177,6 +186,9 @@ model QuestionAttempt {
   responsePayload   Json?           // Extensible response payload for non-MCQ types (strings, numeric values, matching pairs)
   isCorrect         Boolean
   createdAt         DateTime        @default(now())
+
+  @@index([studentId, createdAt])
+  @@index([questionId])
 }
 
 
@@ -190,6 +202,8 @@ model StudyTask {
   completed       Boolean        @default(false)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
+
+  @@index([studentId, createdAt])
 }
 
 model TutorConversation {
@@ -202,6 +216,8 @@ model TutorConversation {
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
   messages  TutorMessage[]
+
+  @@index([studentId, createdAt])
 }
 
 model TutorMessage {
@@ -214,7 +230,10 @@ model TutorMessage {
   model          String?           // e.g. 'gemini-1.5-flash'
   tokenUsage     Json?             // { promptTokens: number, completionTokens: number, totalTokens: number }
   createdAt      DateTime          @default(now())
+
+  @@index([conversationId, createdAt])
 }
+
 
 
 model TopicMastery {
