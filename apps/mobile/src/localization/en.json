@@ -48,5 +48,14 @@
     "studyTime": "Study Time",
     "accuracy": "Accuracy Rate",
     "needsAttention": "Needs Attention"
+  },
+  "errors": {
+    "VALIDATION_ERROR": "Invalid request data.",
+    "UNAUTHENTICATED": "Authentication required. Please log in.",
+    "FORBIDDEN": "You do not have permission to access this resource.",
+    "IDOR_VIOLATION": "You are not authorized to access another student's record.",
+    "TOO_MANY_REQUESTS": "Too many requests. Please try again later.",
+    "INTERNAL_SERVER_ERROR": "A technical error occurred. Please try again."
   }
 }
+

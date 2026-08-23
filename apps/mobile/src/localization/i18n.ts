@@ -15,4 +15,14 @@ export const t = (scope: string, options?: Record<string, unknown>): string => {
   return i18n.t(scope, options);
 };
 
+export const translateErrorCode = (errorCode: string, defaultBanglaMessage?: string): string => {
+  const localTranslation = i18n.t(`errors.${errorCode}`);
+  if (localTranslation && !localTranslation.includes('missing translation')) {
+    return localTranslation;
+  }
+  return defaultBanglaMessage || i18n.t('common.error');
+};
+
 export default i18n;
+
+
