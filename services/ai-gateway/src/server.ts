@@ -1,5 +1,8 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { aiGatewayPipeline } from './pipeline';
+import { providerRegistry } from './providers/provider.registry';
+import { authenticateStudent, AuthenticatedRequest } from './middleware/auth.middleware';
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -12,33 +15,65 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'Shikkhok AI Gateway', timestamp: new Date() });
 });
 
-// SSE Streaming AI Tutor Endpoint
-app.post('/ai/v1/tutor/chat/stream', async (req: Request, res: Response) => {
-  const { messages, topicId } = req.body;
+// SSE Streaming AI Tutor Endpoint via Central Provider Abstraction & Authenticated Context
+app.post('/ai/v1/tutor/chat/stream', authenticateStudent, async (req: AuthenticatedRequest, res: Response) => {
+  const { conversationId, message, prompt, lessonId, topicId, language = 'bn', provider = 'gemini' } = req.body;
+  const userPrompt = message || prompt || '';
 
+  // Extract Student Identity strictly from authenticated server context (Never trust req.body studentId)
+  const authenticatedStudentId = req.user?.studentId;
+
+  if (!userPrompt) {
+    return res.status(400).json({ error: 'BAD_REQUEST', message: 'Message or prompt is required' });
+  }
+
+  // 1. Safety Check
+  const safety = aiGatewayPipeline.performSafetyCheck(userPrompt);
+  if (!safety.safe) {
+    return res.status(400).json({ error: 'Safety Check Failed', reason: safety.reason });
+  }
+
+  // 2. Resolve Provider via LLMProvider Abstraction
+  const activeProvider = providerRegistry.getProvider(provider);
+
+  // Set SSE Headers
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Shikkhok-Provider', activeProvider.name);
 
-  const simulatedDeltas = [
-    'খুব ভালো প্রশ্ন! ',
-    'এক চলক বিশিষ্ট সরল সমীকরণের ক্ষেত্রে ',
-    'বাম পাশের সমীকরণটি ডান পাশে নেওয়ার সময় ',
-    'যোগ থাকলে বিয়োগ এবং বিয়োগ থাকলে যোগ করতে হয়।\n\n',
-    'যেমন: 2x + 5 = 15 সমীকরণে 5 বিয়োগ করলে 2x = 10 হয়। ',
-    'অতএব, x = 5।\n\n',
-    'তুমি কি আরেকটি প্র্যাকটিস সমস্যা সমাধান করতে চাও?',
-  ];
+  let fullResponseText = '';
 
-  for (const delta of simulatedDeltas) {
-    res.write(`data: ${JSON.stringify({ text: delta })}\n\n`);
-    await new Promise((resolve) => setTimeout(resolve, 150));
+  try {
+    const stream = activeProvider.streamChat({
+      messages: [{ role: 'user', content: userPrompt }],
+      topicId,
+      model: req.body.model,
+    });
+
+    for await (const chunk of stream) {
+      fullResponseText += chunk;
+      res.write(`data: ${JSON.stringify({ text: chunk })}\n\n`);
+    }
+  } catch (err: any) {
+    console.error('[AI Gateway Stream Error]:', err);
+    res.write(`data: ${JSON.stringify({ error: 'Stream interrupted' })}\n\n`);
   }
 
+  // Usage Accounting linked to authenticated student identity
+  const usage = aiGatewayPipeline.calculateUsage(userPrompt, fullResponseText);
+  console.log(
+    `[AI Gateway Accounting] Student: ${authenticatedStudentId} | Conversation: ${conversationId || 'new'} | Provider: ${activeProvider.name} | Tokens: ${usage.totalTokens}`
+  );
+
+  res.write(`data: ${JSON.stringify({ type: 'usage', studentId: authenticatedStudentId, conversationId, ...usage })}\n\n`);
   res.write('data: [DONE]\n\n');
   res.end();
 });
 
+
 app.listen(PORT, () => {
   console.log(`🤖 Shikkhok AI Gateway running on http://localhost:${PORT}`);
 });
+
+
