@@ -1,6 +1,15 @@
 import { authService } from '../modules/auth/auth.service';
+import { redis } from '../shared/redis';
 
 describe('AuthService Production Verification', () => {
+  afterAll(async () => {
+    try {
+      await redis.quit();
+    } catch {
+      // Disconnect
+    }
+  });
+
   test('signup generates reference ID for OTP verification', async () => {
     const res = await authService.signup({
       name: 'হাসান রিফাত',
