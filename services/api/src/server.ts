@@ -69,6 +69,8 @@ app.get('/metrics', (req, res) => {
   res.send(observabilityRegistry.getPrometheusMetrics());
 });
 
+import adminRoutes from './routes/admin.routes';
+
 // Modular Monolith Domain API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/curriculum', curriculumRoutes);
@@ -76,6 +78,7 @@ app.use('/api/v1/progress', progressRoutes);
 app.use('/api/v1/practice', practiceRoutes);
 app.use('/api/v1/study-plan', studyPlanRoutes);
 app.use('/api/v1/homework', homeworkRoutes);
+app.use('/api/v1/admin', adminRoutes);
 
 // Structured Global Error Handler enforcing strict Error Contract & Zero Leakage
 app.use((err: any, req: RequestWithId, res: express.Response, next: express.NextFunction) => {
