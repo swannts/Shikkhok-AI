@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { authService } from './auth.service';
-import { signupSchema, verifyOtpSchema, loginSchema, refreshTokenSchema } from './auth.schemas';
+import {
+  signupSchema,
+  verifyOtpSchema,
+  loginSchema,
+  refreshTokenSchema,
+  resendOtpSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+} from './auth.schemas';
 import { AuthenticatedRequest } from '../../middleware/auth';
 
 export class AuthController {
@@ -18,6 +26,36 @@ export class AuthController {
     try {
       const input = verifyOtpSchema.parse(req.body);
       const result = await authService.verifyOtp(input);
+      return res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async resendOtp(req: Request, res: Response, next: NextFunction) {
+    try {
+      const input = resendOtpSchema.parse(req.body);
+      const result = await authService.resendOtp(input);
+      return res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async forgotPassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      const input = forgotPasswordSchema.parse(req.body);
+      const result = await authService.forgotPassword(input);
+      return res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async resetPassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      const input = resetPasswordSchema.parse(req.body);
+      const result = await authService.resetPassword(input);
       return res.json(result);
     } catch (err) {
       next(err);
