@@ -1,10 +1,8 @@
 name: Mobile App CI
 
+# GitHub Actions Workflow Disabled as Requested (Manual trigger only via workflow_dispatch)
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+  workflow_dispatch:
 
 jobs:
   mobile-ci:
