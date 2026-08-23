@@ -1,0 +1,202 @@
+openapi: 3.0.3
+info:
+  title: Shikkhok AI Platform API Specification
+  description: Official OpenAPI 3.0 specification for Shikkhok AI REST API and AI Gateway services.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4000/api/v1
+    description: Main API Service (Development)
+  - url: http://localhost:4001/ai/v1
+    description: AI Gateway Service (Development)
+
+paths:
+  /auth/login:
+    post:
+      summary: Student / User Login
+      description: Authenticate user with phone/email and password, returning JWT access & refresh tokens.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [phoneOrEmail, password]
+              properties:
+                phoneOrEmail:
+                  type: string
+                  example: "01700000000"
+                password:
+                  type: string
+                  example: "securePassword123"
+      responses:
+        '200':
+          description: Successfully authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimitError'
+
+  /practice/submit:
+    post:
+      summary: Submit Practice Question Attempt
+      security:
+        - BearerAuth: []
+      description: Submits a student's answer for backend evaluation and adaptive mastery scoring.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [studentId, questionId, selectedOptionId, correctOptionId, topicId, topicTitle, explanation]
+              properties:
+                studentId:
+                  type: string
+                  example: "student-101"
+                questionId:
+                  type: string
+                  example: "q-seed-1"
+                selectedOptionId:
+                  type: string
+                  example: "opt2"
+                correctOptionId:
+                  type: string
+                  example: "opt2"
+                topicId:
+                  type: string
+                  example: "linear-equations"
+                topicTitle:
+                  type: string
+                  example: "সরল সমীকরণ"
+                explanation:
+                  type: string
+                  example: "2x = 8 => x = 4"
+      responses:
+        '200':
+          description: Answer evaluated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PracticeResult'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+
+  /tutor/chat/stream:
+    post:
+      summary: AI Tutor SSE Token Stream
+      security:
+        - BearerAuth: []
+      description: Streams real-time NCTB tutor responses via Server-Sent Events (SSE).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [prompt]
+              properties:
+                prompt:
+                  type: string
+                  example: "বীজগাণিতিক সমীকরণ কীভাবে সমাধান করব?"
+                classLevel:
+                  type: string
+                  example: "Class 8"
+                subject:
+                  type: string
+                  example: "Mathematics"
+      responses:
+        '200':
+          description: SSE Token Stream (text/event-stream)
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                example: "event: delta\ndata: {\"text\": \"সমীকরণ হলো...\"}\n\n"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        accessToken:
+          type: string
+          example: "eyJhbGciOiJIUzI1Ni..."
+        user:
+          type: object
+          properties:
+            userId:
+              type: string
+              example: "usr-101"
+            role:
+              type: string
+              example: "STUDENT"
+
+    PracticeResult:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        isCorrect:
+          type: boolean
+          example: true
+        updatedTopicMastery:
+          type: integer
+          example: 75
+        adaptiveRecommendation:
+          type: object
+          properties:
+            recommendedDifficulty:
+              type: string
+              example: "HARD_CHALLENGE"
+            calculatedMastery:
+              type: integer
+              example: 75
+
+  responses:
+    ValidationError:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode: { type: integer, example: 400 }
+              errorCode: { type: string, example: "VALIDATION_ERROR" }
+              banglaMessage: { type: string, example: "প্রদত্ত তথ্য সঠিক নয়।" }
+
+    ForbiddenError:
+      description: Access denied or IDOR violation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode: { type: integer, example: 403 }
+              errorCode: { type: string, example: "IDOR_VIOLATION" }
+              banglaMessage: { type: string, example: "আপনি অন্য শিক্ষার্থীর তথ্য দেখতে পারবেন না।" }
+
+    RateLimitError:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode: { type: integer, example: 429 }
+              errorCode: { type: string, example: "TOO_MANY_REQUESTS" }
+              banglaMessage: { type: string, example: "অতিরিক্ত অনুরোধ করা হয়েছে।" }
