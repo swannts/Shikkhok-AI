@@ -12,6 +12,9 @@ import { requestIdMiddleware, RequestWithId } from './shared/requestId.middlewar
 
 import { securityHeadersMiddleware } from './shared/securityHeaders.middleware';
 
+import { logger } from './shared/logger';
+import { observabilityRegistry } from './shared/observability';
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -37,10 +40,33 @@ app.use(securityHeadersMiddleware);
 app.use(express.json());
 app.use(requestIdMiddleware);
 
+// Structured HTTP Request Logging Middleware
+app.use((req: RequestWithId, res: express.Response, next: express.NextFunction) => {
+  const startTime = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - startTime;
+    logger.info({
+      service: 'shikkhok-api',
+      requestId: req.requestId,
+      userId: (req as any).user?.userId,
+      route: req.originalUrl || req.url,
+      method: req.method,
+      status: res.statusCode,
+      duration,
+    });
+  });
+  next();
+});
 
 // Health Check Endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'Shikkhok AI Main API', timestamp: new Date() });
+});
+
+// Prometheus & OpenTelemetry Metrics Endpoint
+app.get('/metrics', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.send(observabilityRegistry.getPrometheusMetrics());
 });
 
 // Modular Monolith Domain API Routes
@@ -57,6 +83,15 @@ app.use((err: any, req: RequestWithId, res: express.Response, next: express.Next
   const isProduction = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging';
 
   if (err instanceof ZodError) {
+    logger.warn({
+      service: 'shikkhok-api',
+      requestId,
+      route: req.originalUrl,
+      method: req.method,
+      status: 400,
+      errorCode: 'VALIDATION_ERROR',
+      message: 'Invalid request data',
+    });
     return res.status(400).json({
       statusCode: 400,
       errorCode: 'VALIDATION_ERROR',
@@ -70,19 +105,26 @@ app.use((err: any, req: RequestWithId, res: express.Response, next: express.Next
   const statusCode = err.statusCode || 500;
   const errorCode = err.errorCode || (statusCode === 500 ? 'INTERNAL_SERVER_ERROR' : 'BAD_REQUEST');
   
-  // Mask sensitive database errors, credentials, SQL queries, or internal stack traces in production
   let message = err.message || 'An unexpected error occurred';
   let details = err.details || undefined;
 
   if (isProduction && (statusCode === 500 || err.code || err.sqlState)) {
     message = 'An internal server error occurred';
-    details = undefined; // Never leak stack traces, SQL, credentials, or internal URLs
+    details = undefined;
   }
 
   const banglaMessage = err.banglaMessage || 'একটি কারিগরি ত্রুটি হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
 
   if (statusCode === 500) {
-    console.error(`[Internal Error] [Request ID: ${requestId}]:`, err);
+    logger.error({
+      service: 'shikkhok-api',
+      requestId,
+      route: req.originalUrl,
+      method: req.method,
+      status: 500,
+      errorCode,
+      message: err.message,
+    });
   }
 
   res.status(statusCode).json({
