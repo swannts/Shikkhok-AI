@@ -3,8 +3,8 @@ import cors from 'cors';
 import { ZodError } from 'zod';
 import authRoutes from './modules/auth/auth.routes';
 import curriculumRoutes from './modules/curriculum/curriculum.routes';
+import progressRoutes from './modules/progress/progress.routes';
 import practiceRoutes from './routes/practice';
-import progressRoutes from './routes/progress';
 import studyPlanRoutes from './routes/studyPlan';
 import homeworkRoutes from './routes/homework';
 
@@ -22,8 +22,8 @@ app.get('/health', (req, res) => {
 // Modular Monolith Domain API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/curriculum', curriculumRoutes);
-app.use('/api/v1/practice', practiceRoutes);
 app.use('/api/v1/progress', progressRoutes);
+app.use('/api/v1/practice', practiceRoutes);
 app.use('/api/v1/study-plan', studyPlanRoutes);
 app.use('/api/v1/homework', homeworkRoutes);
 
