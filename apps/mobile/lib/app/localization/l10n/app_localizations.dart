@@ -164,6 +164,24 @@ abstract class AppLocalizations {
   /// **'গণিত, বিজ্ঞান, ইংরেজি বা অন্য যেকোনো বিষয়ে প্রশ্ন করো। AI শিক্ষক তোমাকে শুধু উত্তর নয়, বুঝতেও সাহায্য করবে।'**
   String get onboarding2Description;
 
+  /// No description provided for @onboarding3Title.
+  ///
+  /// In bn, this message translates to:
+  /// **'নিজের গতিতে এগিয়ে যাও'**
+  String get onboarding3Title;
+
+  /// No description provided for @onboarding3Description.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্র্যাকটিস, পরীক্ষা এবং AI বিশ্লেষণের মাধ্যমে দুর্বল বিষয় খুঁজে বের করো এবং প্রতিদিন উন্নতি করো।'**
+  String get onboarding3Description;
+
+  /// No description provided for @startLearning.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুরু করি'**
+  String get startLearning;
+
   /// No description provided for @chipStepByStep.
   ///
   /// In bn, this message translates to:
@@ -182,23 +200,107 @@ abstract class AppLocalizations {
   /// **'NCTB ভিত্তিক'**
   String get chipNctbBased;
 
+  /// No description provided for @chipProgress.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রগ্রেস'**
+  String get chipProgress;
+
+  /// No description provided for @chipPractice.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্র্যাকটিস'**
+  String get chipPractice;
+
+  /// No description provided for @chipStudyPlan.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্টাডি প্ল্যান'**
+  String get chipStudyPlan;
+
+  /// No description provided for @roleSelectionTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনি কীভাবে Shikkhok-AI ব্যবহার করবেন?'**
+  String get roleSelectionTitle;
+
+  /// No description provided for @roleSelectionSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনার ভূমিকা নির্বাচন করুন'**
+  String get roleSelectionSubtitle;
+
+  /// No description provided for @studentRole.
+  ///
+  /// In bn, this message translates to:
+  /// **'শিক্ষার্থী'**
+  String get studentRole;
+
+  /// No description provided for @studentRoleDesc.
+  ///
+  /// In bn, this message translates to:
+  /// **'পড়াশোনা, AI শিক্ষক, প্র্যাকটিস ও পরীক্ষা'**
+  String get studentRoleDesc;
+
+  /// No description provided for @parentRole.
+  ///
+  /// In bn, this message translates to:
+  /// **'অভিভাবক'**
+  String get parentRole;
+
+  /// No description provided for @parentRoleDesc.
+  ///
+  /// In bn, this message translates to:
+  /// **'সন্তানের শেখার অগ্রগতি দেখুন'**
+  String get parentRoleDesc;
+
+  /// No description provided for @teacherRole.
+  ///
+  /// In bn, this message translates to:
+  /// **'শিক্ষক'**
+  String get teacherRole;
+
+  /// No description provided for @teacherRoleDesc.
+  ///
+  /// In bn, this message translates to:
+  /// **'শিক্ষার্থীদের শেখার অগ্রগতি পরিচালনা করুন'**
+  String get teacherRoleDesc;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In bn, this message translates to:
+  /// **'চালিয়ে যান'**
+  String get continueButton;
+
   /// No description provided for @welcomeTitle.
   ///
   /// In bn, this message translates to:
-  /// **'স্বাগতম! 👋'**
+  /// **'স্বাগতম!'**
   String get welcomeTitle;
 
   /// No description provided for @welcomeSubtitle.
   ///
   /// In bn, this message translates to:
-  /// **'তোমার অ্যাকাউন্টে লগইন করো'**
+  /// **'পড়াশোনা চালিয়ে যেতে লগইন করুন'**
   String get welcomeSubtitle;
 
   /// No description provided for @identifierLabel.
   ///
   /// In bn, this message translates to:
-  /// **'ইমেইল বা ফোন নম্বর'**
+  /// **'মোবাইল নম্বর অথবা ইমেইল'**
   String get identifierLabel;
+
+  /// No description provided for @identifierPlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'01XXX-XXXXXX'**
+  String get identifierPlaceholder;
+
+  /// No description provided for @invalidIdentifier.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক মোবাইল নম্বর বা ইমেইল দিন'**
+  String get invalidIdentifier;
 
   /// No description provided for @passwordLabel.
   ///
@@ -206,23 +308,161 @@ abstract class AppLocalizations {
   /// **'পাসওয়ার্ড'**
   String get passwordLabel;
 
+  /// No description provided for @passwordPlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'••••••••'**
+  String get passwordPlaceholder;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In bn, this message translates to:
+  /// **'পাসওয়ার্ড ভুলে গেছেন?'**
+  String get forgotPassword;
+
   /// No description provided for @loginButton.
   ///
   /// In bn, this message translates to:
   /// **'লগইন'**
   String get loginButton;
 
+  /// No description provided for @orDivider.
+  ///
+  /// In bn, this message translates to:
+  /// **'অথবা'**
+  String get orDivider;
+
+  /// No description provided for @googleLogin.
+  ///
+  /// In bn, this message translates to:
+  /// **'Google দিয়ে চালিয়ে যান'**
+  String get googleLogin;
+
   /// No description provided for @noAccount.
   ///
   /// In bn, this message translates to:
-  /// **'অ্যাকাউন্ট নেই? '**
+  /// **'নতুন ব্যবহারকারী? '**
   String get noAccount;
 
   /// No description provided for @createAccount.
   ///
   /// In bn, this message translates to:
-  /// **'নতুন অ্যাকাউন্ট তৈরি করো'**
+  /// **'অ্যাকাউন্ট তৈরি করুন'**
   String get createAccount;
+
+  /// No description provided for @signupTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'অ্যাকাউন্ট তৈরি করুন'**
+  String get signupTitle;
+
+  /// No description provided for @signupSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাত্র কয়েকটি তথ্য দিয়ে শেখা শুরু করুন'**
+  String get signupSubtitle;
+
+  /// No description provided for @fullNameLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'পূর্ণ নাম'**
+  String get fullNameLabel;
+
+  /// No description provided for @fullNamePlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপনার নাম লিখুন'**
+  String get fullNamePlaceholder;
+
+  /// No description provided for @mobileNumberLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল নম্বর'**
+  String get mobileNumberLabel;
+
+  /// No description provided for @mobileNumberPlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'০১XXXXXXXXX'**
+  String get mobileNumberPlaceholder;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক নম্বর দিন'**
+  String get invalidPhone;
+
+  /// No description provided for @emailOptionalLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইমেইল (ঐচ্ছিক)'**
+  String get emailOptionalLabel;
+
+  /// No description provided for @emailPlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'example@mail.com'**
+  String get emailPlaceholder;
+
+  /// No description provided for @confirmPasswordLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'পাসওয়ার্ড নিশ্চিত করুন'**
+  String get confirmPasswordLabel;
+
+  /// No description provided for @termsAgreement.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমি ব্যবহারের শর্তাবলি ও গোপনীয়তা নীতি মেনে নিচ্ছি'**
+  String get termsAgreement;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In bn, this message translates to:
+  /// **'ইতোমধ্যে অ্যাকাউন্ট আছে? '**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @loginLink.
+  ///
+  /// In bn, this message translates to:
+  /// **'লগইন করুন'**
+  String get loginLink;
+
+  /// No description provided for @verifyMobileTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'মোবাইল নম্বর যাচাই করুন'**
+  String get verifyMobileTitle;
+
+  /// No description provided for @verifyMobileSub.
+  ///
+  /// In bn, this message translates to:
+  /// **'{phone} নম্বরে পাঠানো ৬ সংখ্যার কোডটি লিখুন'**
+  String verifyMobileSub(Object phone);
+
+  /// No description provided for @resendCodeTimer.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড আবার পাঠানো যাবে {seconds} সেকেন্ড পরে'**
+  String resendCodeTimer(Object seconds);
+
+  /// No description provided for @resendCodeNow.
+  ///
+  /// In bn, this message translates to:
+  /// **'কোড আবার পাঠান'**
+  String get resendCodeNow;
+
+  /// No description provided for @verifyButton.
+  ///
+  /// In bn, this message translates to:
+  /// **'যাচাই করুন'**
+  String get verifyButton;
+
+  /// No description provided for @changeNumber.
+  ///
+  /// In bn, this message translates to:
+  /// **'নম্বর পরিবর্তন করুন'**
+  String get changeNumber;
 }
 
 class _AppLocalizationsDelegate

@@ -44,6 +44,16 @@ class AppLocalizationsBn extends AppLocalizations {
       'গণিত, বিজ্ঞান, ইংরেজি বা অন্য যেকোনো বিষয়ে প্রশ্ন করো। AI শিক্ষক তোমাকে শুধু উত্তর নয়, বুঝতেও সাহায্য করবে।';
 
   @override
+  String get onboarding3Title => 'নিজের গতিতে এগিয়ে যাও';
+
+  @override
+  String get onboarding3Description =>
+      'প্র্যাকটিস, পরীক্ষা এবং AI বিশ্লেষণের মাধ্যমে দুর্বল বিষয় খুঁজে বের করো এবং প্রতিদিন উন্নতি করো।';
+
+  @override
+  String get startLearning => 'শুরু করি';
+
+  @override
   String get chipStepByStep => 'ধাপে ধাপে ব্যাখ্যা';
 
   @override
@@ -53,23 +63,139 @@ class AppLocalizationsBn extends AppLocalizations {
   String get chipNctbBased => 'NCTB ভিত্তিক';
 
   @override
-  String get welcomeTitle => 'স্বাগতম! 👋';
+  String get chipProgress => 'প্রগ্রেস';
 
   @override
-  String get welcomeSubtitle => 'তোমার অ্যাকাউন্টে লগইন করো';
+  String get chipPractice => 'প্র্যাকটিস';
 
   @override
-  String get identifierLabel => 'ইমেইল বা ফোন নম্বর';
+  String get chipStudyPlan => 'স্টাডি প্ল্যান';
+
+  @override
+  String get roleSelectionTitle => 'আপনি কীভাবে Shikkhok-AI ব্যবহার করবেন?';
+
+  @override
+  String get roleSelectionSubtitle => 'আপনার ভূমিকা নির্বাচন করুন';
+
+  @override
+  String get studentRole => 'শিক্ষার্থী';
+
+  @override
+  String get studentRoleDesc => 'পড়াশোনা, AI শিক্ষক, প্র্যাকটিস ও পরীক্ষা';
+
+  @override
+  String get parentRole => 'অভিভাবক';
+
+  @override
+  String get parentRoleDesc => 'সন্তানের শেখার অগ্রগতি দেখুন';
+
+  @override
+  String get teacherRole => 'শিক্ষক';
+
+  @override
+  String get teacherRoleDesc => 'শিক্ষার্থীদের শেখার অগ্রগতি পরিচালনা করুন';
+
+  @override
+  String get continueButton => 'চালিয়ে যান';
+
+  @override
+  String get welcomeTitle => 'স্বাগতম!';
+
+  @override
+  String get welcomeSubtitle => 'পড়াশোনা চালিয়ে যেতে লগইন করুন';
+
+  @override
+  String get identifierLabel => 'মোবাইল নম্বর অথবা ইমেইল';
+
+  @override
+  String get identifierPlaceholder => '01XXX-XXXXXX';
+
+  @override
+  String get invalidIdentifier => 'সঠিক মোবাইল নম্বর বা ইমেইল দিন';
 
   @override
   String get passwordLabel => 'পাসওয়ার্ড';
 
   @override
+  String get passwordPlaceholder => '••••••••';
+
+  @override
+  String get forgotPassword => 'পাসওয়ার্ড ভুলে গেছেন?';
+
+  @override
   String get loginButton => 'লগইন';
 
   @override
-  String get noAccount => 'অ্যাকাউন্ট নেই? ';
+  String get orDivider => 'অথবা';
 
   @override
-  String get createAccount => 'নতুন অ্যাকাউন্ট তৈরি করো';
+  String get googleLogin => 'Google দিয়ে চালিয়ে যান';
+
+  @override
+  String get noAccount => 'নতুন ব্যবহারকারী? ';
+
+  @override
+  String get createAccount => 'অ্যাকাউন্ট তৈরি করুন';
+
+  @override
+  String get signupTitle => 'অ্যাকাউন্ট তৈরি করুন';
+
+  @override
+  String get signupSubtitle => 'মাত্র কয়েকটি তথ্য দিয়ে শেখা শুরু করুন';
+
+  @override
+  String get fullNameLabel => 'পূর্ণ নাম';
+
+  @override
+  String get fullNamePlaceholder => 'আপনার নাম লিখুন';
+
+  @override
+  String get mobileNumberLabel => 'মোবাইল নম্বর';
+
+  @override
+  String get mobileNumberPlaceholder => '০১XXXXXXXXX';
+
+  @override
+  String get invalidPhone => 'সঠিক নম্বর দিন';
+
+  @override
+  String get emailOptionalLabel => 'ইমেইল (ঐচ্ছিক)';
+
+  @override
+  String get emailPlaceholder => 'example@mail.com';
+
+  @override
+  String get confirmPasswordLabel => 'পাসওয়ার্ড নিশ্চিত করুন';
+
+  @override
+  String get termsAgreement =>
+      'আমি ব্যবহারের শর্তাবলি ও গোপনীয়তা নীতি মেনে নিচ্ছি';
+
+  @override
+  String get alreadyHaveAccount => 'ইতোমধ্যে অ্যাকাউন্ট আছে? ';
+
+  @override
+  String get loginLink => 'লগইন করুন';
+
+  @override
+  String get verifyMobileTitle => 'মোবাইল নম্বর যাচাই করুন';
+
+  @override
+  String verifyMobileSub(Object phone) {
+    return '$phone নম্বরে পাঠানো ৬ সংখ্যার কোডটি লিখুন';
+  }
+
+  @override
+  String resendCodeTimer(Object seconds) {
+    return 'কোড আবার পাঠানো যাবে $seconds সেকেন্ড পরে';
+  }
+
+  @override
+  String get resendCodeNow => 'কোড আবার পাঠান';
+
+  @override
+  String get verifyButton => 'যাচাই করুন';
+
+  @override
+  String get changeNumber => 'নম্বর পরিবর্তন করুন';
 }

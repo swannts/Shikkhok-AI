@@ -25,7 +25,7 @@ class Onboarding2Page extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () => context.go('/login'),
+                  onPressed: () => context.go('/role-selection'),
                   child: Text(
                     l10n.skip,
                     style: const TextStyle(
@@ -164,7 +164,7 @@ class Onboarding2Page extends StatelessWidget {
                         child: SizedBox(
                           height: 52,
                           child: ElevatedButton(
-                            onPressed: () => context.go('/login'),
+                            onPressed: () => context.go('/onboarding-3'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

@@ -3,9 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/controllers/auth_controller.dart';
 import '../../features/auth/presentation/state/auth_state.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/role_selection_page.dart';
+import '../../features/auth/presentation/pages/signup_page.dart';
+import '../../features/auth/presentation/pages/verify_otp_page.dart';
 import '../../features/onboarding/presentation/pages/splash_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_1_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_2_page.dart';
+import '../../features/onboarding/presentation/pages/onboarding_3_page.dart';
 import '../theme/app_colors.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -17,6 +22,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final isAuth = authState is Authenticated;
       final isPublicRoute = state.matchedLocation.startsWith('/splash') ||
           state.matchedLocation.startsWith('/onboarding') ||
+          state.matchedLocation.startsWith('/role-selection') ||
           state.matchedLocation.startsWith('/login') ||
           state.matchedLocation.startsWith('/signup') ||
           state.matchedLocation.startsWith('/verify-otp');
@@ -39,22 +45,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const Onboarding2Page(),
       ),
       GoRoute(
+        path: '/onboarding-3',
+        builder: (context, state) => const Onboarding3Page(),
+      ),
+      GoRoute(
+        path: '/role-selection',
+        builder: (context, state) => const RoleSelectionPage(),
+      ),
+      GoRoute(
         path: '/login',
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Login Page Canvas')),
-        ),
+        builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
         path: '/signup',
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Signup Page Canvas')),
-        ),
+        builder: (context, state) => const SignupPage(),
       ),
       GoRoute(
         path: '/verify-otp',
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Verify OTP Canvas')),
-        ),
+        builder: (context, state) => const VerifyOtpPage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
