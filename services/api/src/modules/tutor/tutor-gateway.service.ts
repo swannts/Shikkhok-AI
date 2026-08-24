@@ -2,11 +2,16 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import { TutorCitation } from './types/tutor-citation.type';
 import { AiModerationService } from './services/ai-moderation.service';
+import { OutputSafetyService } from './services/output-safety.service';
+import { CitationValidatorService } from './services/citation-validator.service';
+import { AiMetricsService } from './services/ai-metrics.service';
 
 export interface TutorGatewayReply {
   content: string;
   citations: TutorCitation[];
   provider?: string;
+  fallbackUsed: boolean;
+  citationCount: number;
 }
 
 export interface TutorGatewayRequest {
@@ -36,21 +41,31 @@ export class TutorGatewayService {
   constructor(
     private readonly configService: ConfigService,
     private readonly moderationService: AiModerationService,
+    private readonly outputSafetyService: OutputSafetyService,
+    private readonly citationValidator: CitationValidatorService,
+    private readonly aiMetricsService: AiMetricsService,
   ) {}
 
   async generateReply(request: TutorGatewayRequest): Promise<TutorGatewayReply | null> {
     let content = '';
-    const citations: TutorCitation[] = [];
+    const rawCitations: any[] = [];
     let provider: string | undefined;
+    let fallbackUsed = false;
+    const startedAt = Date.now();
 
     try {
+      this.aiMetricsService.recordRequest(request.provider ?? 'gemini');
+
       for await (const chunk of this.streamReply(request)) {
         if (chunk.event === 'metadata' && chunk.data?.provider) {
           provider = chunk.data.provider;
+          if (chunk.data.fallbackUsed) {
+            fallbackUsed = true;
+          }
         } else if (chunk.event === 'delta' && typeof chunk.data?.text === 'string') {
           content += chunk.data.text;
         } else if (chunk.event === 'citation' && chunk.data) {
-          citations.push(chunk.data as TutorCitation);
+          rawCitations.push(chunk.data);
         }
       }
 
@@ -58,12 +73,24 @@ export class TutorGatewayService {
         return null;
       }
 
+      // Output Safety Validation Layer
+      const outputCheck = this.outputSafetyService.validateOutput(content);
+      const sanitizedContent = outputCheck.sanitizedContent;
+
+      // Typed Citation Validation Layer
+      const validatedCitations = this.citationValidator.validateAndSanitizeCitations(rawCitations);
+
+      this.aiMetricsService.recordLatency(Date.now() - startedAt);
+
       return {
-        content: content.trim(),
-        citations,
-        provider,
+        content: sanitizedContent,
+        citations: validatedCitations,
+        provider: provider ?? 'gemini',
+        fallbackUsed,
+        citationCount: validatedCitations.length,
       };
-    } catch {
+    } catch (err: any) {
+      this.aiMetricsService.recordFailure(request.provider ?? 'gemini', 'generation_exception');
       return null;
     }
   }
@@ -74,12 +101,15 @@ export class TutorGatewayService {
   ): AsyncIterable<TutorStreamEvent> {
     const moderation = this.moderationService.moderatePrompt(request.prompt);
     if (!moderation.isSafe) {
+      this.aiMetricsService.recordModerationBlock(moderation.category);
       yield {
         event: 'metadata',
         data: {
           provider: 'safety-guardrail',
-          model: 'shikkhok-moderation-v1',
+          model: 'shikkhok-moderation-v2',
+          category: moderation.category,
           conversationId: request.conversationId,
+          fallbackUsed: false,
         },
       };
       yield {
@@ -97,6 +127,7 @@ export class TutorGatewayService {
 
     // If no AI Gateway URL is configured, fall back to local educational stream generator
     if (!gatewayUrl) {
+      this.aiMetricsService.recordFallback('no_remote_gateway_configured');
       yield* this.generateLocalFallbackStream(request);
       return;
     }
@@ -155,6 +186,11 @@ export class TutorGatewayService {
       });
 
       if (!response.ok || !response.body) {
+        this.aiMetricsService.recordFailure(
+          request.provider ?? 'gemini',
+          'http_status_' + response.status,
+        );
+        this.aiMetricsService.recordFallback('gateway_http_error');
         this.logFailure(request, endpoint, startedAt, 'http_error', response.status);
         yield* this.generateLocalFallbackStream(request);
         return;
@@ -172,6 +208,7 @@ export class TutorGatewayService {
           conversationId: request.conversationId,
           classLevel: request.classLevel,
           subject: request.subject,
+          fallbackUsed: false,
         },
       };
 
@@ -214,6 +251,8 @@ export class TutorGatewayService {
       };
     } catch (error: any) {
       const failureType = error?.name === 'AbortError' ? 'timeout' : 'network_error';
+      this.aiMetricsService.recordFailure(request.provider ?? 'gemini', failureType);
+      this.aiMetricsService.recordFallback(failureType);
       this.logFailure(request, endpoint, startedAt, failureType, undefined, error);
       yield* this.generateLocalFallbackStream(request);
     } finally {
@@ -284,6 +323,7 @@ export class TutorGatewayService {
         conversationId: request.conversationId,
         classLevel: request.classLevel,
         subject: request.subject ?? 'General Studies',
+        fallbackUsed: true,
       },
     };
 
@@ -313,7 +353,6 @@ export class TutorGatewayService {
 
     for (const sentence of sentences) {
       if (!sentence) continue;
-      // Yield token / phrase deltas
       yield {
         event: 'delta',
         data: { text: sentence },

@@ -169,6 +169,8 @@ describe('TutorService', () => {
     tutorGatewayService.generateReply.mockResolvedValue({
       content: 'gateway reply',
       citations: [{ sourceBook: 'NCTB' }],
+      fallbackUsed: false,
+      citationCount: 1,
     });
     studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
     progressService.getMySummary.mockRejectedValue(new NotFoundException());
