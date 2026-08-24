@@ -26,6 +26,7 @@ import { SearchModule } from './modules/search/search.module';
 import { GamificationModule } from './modules/gamification/gamification.module';
 import { ClassroomsModule } from './modules/classrooms/classrooms.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { SubscriptionsModule } from './modules/subscriptions/subscriptions.modul
     GamificationModule,
     ClassroomsModule,
     SubscriptionsModule,
+    AdminModule,
   ],
   providers: [AppLoggerService],
 })
