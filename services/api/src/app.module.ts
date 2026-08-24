@@ -21,6 +21,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { SyncModule } from './modules/sync/sync.module';
 import { ExamsModule } from './modules/exams/exams.module';
 import { HomeworkModule } from './modules/homework/homework.module';
+import { TextbooksModule } from './modules/textbooks/textbooks.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { HomeworkModule } from './modules/homework/homework.module';
     SyncModule,
     ExamsModule,
     HomeworkModule,
+    TextbooksModule,
   ],
   providers: [AppLoggerService],
 })
