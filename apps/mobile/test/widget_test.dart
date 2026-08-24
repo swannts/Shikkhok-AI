@@ -1,10 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobile/core/network/http_client.dart';
-import 'package:mobile/models/user.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/features/auth/domain/entities/user.dart';
+import 'package:mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:mobile/features/auth/presentation/state/auth_state.dart';
+import 'package:mobile/core/errors/app_failure.dart';
 
 void main() {
-  test('StudentProfile model JSON serialization test', () {
-    final profile = StudentProfile(
+  test('User domain entity initialization test', () {
+    const user = User(
       id: 'student-1',
       userId: 'user-1',
       name: 'রাফি আহমেদ',
@@ -13,33 +16,23 @@ void main() {
       language: 'bn',
     );
 
-    final json = profile.toJson();
-    expect(json['name'], 'রাফি আহমেদ');
-    expect(json['classId'], 'class-8');
-
-    const rawJson = {
-      'id': 'student-2',
-      'userId': 'user-2',
-      'name': 'হাসান রিফাত',
-      'classId': 'class-9',
-      'className': 'Class 9',
-      'language': 'bn',
-    };
-    final deserialized = StudentProfile.fromJson(rawJson);
-    expect(deserialized.name, 'হাসান রিফাত');
-    expect(deserialized.classId, 'class-9');
+    expect(user.name, 'রাফি আহমেদ');
+    expect(user.classId, 'class-8');
   });
 
-  test('ApiError structured format test', () {
-    final error = ApiError(
-      statusCode: 401,
-      errorCode: 'UNAUTHORIZED',
-      message: 'Invalid credentials',
-      banglaMessage: 'ভুল লগইন তথ্য',
-    );
+  test('AppFailure error hierarchy test', () {
+    const failure = NetworkFailure();
+    expect(failure.errorCode, 'NETWORK_ERROR');
+    expect(failure.banglaMessage, contains('ইন্টারনেট'));
+  });
 
-    expect(error.statusCode, 401);
-    expect(error.errorCode, 'UNAUTHORIZED');
-    expect(error.banglaMessage, 'ভুল লগইন তথ্য');
+  testWidgets('AuthController state changes test', (WidgetTester tester) async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+
+    expect(container.read(authControllerProvider), isA<AuthInitial>());
+
+    await container.read(authControllerProvider.notifier).login('01711223344', 'password123');
+    expect(container.read(authControllerProvider), isA<Authenticated>());
   });
 }
