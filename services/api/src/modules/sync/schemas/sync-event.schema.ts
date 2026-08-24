@@ -51,6 +51,12 @@ export class SyncEvent {
   @Prop({ trim: true, default: null })
   errorMessage?: string | null;
 
+  @Prop({ type: Number, default: 0, min: 0 })
+  retryCount: number;
+
+  @Prop({ type: Date, default: null })
+  lastAttemptAt?: Date | null;
+
   @Prop({ type: Date, default: null })
   appliedAt?: Date | null;
 

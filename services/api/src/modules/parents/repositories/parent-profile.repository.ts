@@ -40,7 +40,10 @@ export class ParentProfileRepository {
       .exec();
   }
 
-  async removeLinkedStudent(userId: string, studentUserId: string): Promise<ParentProfileDocument | null> {
+  async removeLinkedStudent(
+    userId: string,
+    studentUserId: string,
+  ): Promise<ParentProfileDocument | null> {
     return this.parentProfileModel
       .findOneAndUpdate(
         { userId },

@@ -38,7 +38,10 @@ describe('StudyPlanRepository', () => {
     const plan = { toJSON: jest.fn().mockReturnValue({ title: 'Plan' }) };
     model.findOneAndUpdate().exec.mockResolvedValue(plan);
 
-    const result = await repository.upsertCurrentPlan('user-1', { title: 'Plan', status: 'active' as any });
+    const result = await repository.upsertCurrentPlan('user-1', {
+      title: 'Plan',
+      status: 'active' as any,
+    });
 
     expect(result).toEqual(plan);
   });

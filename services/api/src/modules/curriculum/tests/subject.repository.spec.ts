@@ -22,10 +22,7 @@ describe('SubjectRepository', () => {
     (MockModel as any).findById = mockFindById;
 
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        SubjectRepository,
-        { provide: getModelToken(Subject.name), useValue: MockModel },
-      ],
+      providers: [SubjectRepository, { provide: getModelToken(Subject.name), useValue: MockModel }],
     }).compile();
 
     repository = module.get(SubjectRepository);

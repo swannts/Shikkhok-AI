@@ -16,14 +16,19 @@ export class SyncEventRepository {
   }
 
   async findByOperationId(userId: string, operationId: string): Promise<SyncEventDocument | null> {
-    return this.syncEventModel.findOne({
-      userId: new Types.ObjectId(userId),
-      operationId,
-    }).exec();
+    return this.syncEventModel
+      .findOne({
+        userId: new Types.ObjectId(userId),
+        operationId,
+      })
+      .exec();
   }
 
   async findByUserId(userId: string): Promise<SyncEventDocument[]> {
-    return this.syncEventModel.find({ userId: new Types.ObjectId(userId) }).sort({ createdAt: -1 }).exec();
+    return this.syncEventModel
+      .find({ userId: new Types.ObjectId(userId) })
+      .sort({ createdAt: -1 })
+      .exec();
   }
 
   async getOrCreatePendingEvent(data: {
@@ -65,6 +70,7 @@ export class SyncEventRepository {
   }
 
   async claimForProcessing(userId: string, operationId: string): Promise<SyncEventDocument | null> {
+    const now = new Date();
     return this.syncEventModel
       .findOneAndUpdate(
         {
@@ -75,9 +81,13 @@ export class SyncEventRepository {
         {
           $set: {
             status: SyncEventStatus.PROCESSING,
-            startedAt: new Date(),
+            startedAt: now,
+            lastAttemptAt: now,
             errorCode: null,
             errorMessage: null,
+          },
+          $inc: {
+            retryCount: 1,
           },
         },
         { new: true },
@@ -127,6 +137,7 @@ export class SyncEventRepository {
             status: SyncEventStatus.FAILED,
             errorCode,
             errorMessage,
+            lastAttemptAt: new Date(),
           },
         },
         { new: true },

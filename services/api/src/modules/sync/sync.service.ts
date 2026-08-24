@@ -1,10 +1,21 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  Logger,
+} from '@nestjs/common';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UsersService } from '../users/users.service';
 import { UserRole } from '../users/enums/user-role.enum';
 import { SyncEventRepository } from './repositories/sync-event.repository';
 import { SyncDeviceCheckpointRepository } from './repositories/sync-device-checkpoint.repository';
-import { SubmitSyncBatchDto } from './dto/submit-sync-batch.dto';
+import {
+  SubmitSyncBatchDto,
+  SubmitSyncBatchResponseDto,
+  SyncOperationDto,
+  SyncOperationResultDto,
+} from './dto/submit-sync-batch.dto';
 import { SyncOperationType } from './enums/sync-operation-type.enum';
 import { SyncEventStatus } from './enums/sync-event-status.enum';
 import { ProgressService } from '../progress/progress.service';
@@ -13,6 +24,8 @@ import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class SyncService {
+  private readonly logger = new Logger(SyncService.name);
+
   constructor(
     private readonly syncEventRepository: SyncEventRepository,
     private readonly syncDeviceCheckpointRepository: SyncDeviceCheckpointRepository,
@@ -25,18 +38,44 @@ export class SyncService {
   async submitBatch(
     currentUser: AuthenticatedUser,
     dto: SubmitSyncBatchDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<SubmitSyncBatchResponseDto> {
     await this.assertAuthenticated(currentUser);
 
-    const results = [];
+    const results: SyncOperationResultDto[] = [];
+    let appliedCount = 0;
+    let replayedCount = 0;
+    let processingCount = 0;
+    let failedCount = 0;
+
     for (const operation of dto.operations) {
       try {
-        const existing = await this.syncEventRepository.findByOperationId(currentUser.userId, operation.operationId);
+        // 1. Check if event already exists
+        const existing = await this.syncEventRepository.findByOperationId(
+          currentUser.userId,
+          operation.operationId,
+        );
+
         if (existing?.status === SyncEventStatus.APPLIED) {
-          results.push(existing.toJSON());
+          replayedCount++;
+          results.push({
+            operationId: operation.operationId,
+            status: 'replayed',
+            result: existing.result ?? { ok: true },
+          });
           continue;
         }
 
+        if (existing?.status === SyncEventStatus.PROCESSING) {
+          processingCount++;
+          results.push({
+            operationId: operation.operationId,
+            status: 'processing',
+            result: null,
+          });
+          continue;
+        }
+
+        // 2. Get or create pending event record
         const created = await this.syncEventRepository.getOrCreatePendingEvent({
           userId: currentUser.userId,
           operationId: operation.operationId,
@@ -47,10 +86,16 @@ export class SyncService {
         });
 
         if (created.status === SyncEventStatus.APPLIED) {
-          results.push(created.toJSON());
+          replayedCount++;
+          results.push({
+            operationId: operation.operationId,
+            status: 'replayed',
+            result: created.result ?? { ok: true },
+          });
           continue;
         }
 
+        // 3. Atomically claim event for processing (resets errors, increments retryCount)
         const claimed = await this.syncEventRepository.claimForProcessing(
           currentUser.userId,
           operation.operationId,
@@ -61,30 +106,78 @@ export class SyncService {
             currentUser.userId,
             operation.operationId,
           );
-          if (current) {
-            results.push(current.toJSON());
+
+          if (current?.status === SyncEventStatus.APPLIED) {
+            replayedCount++;
+            results.push({
+              operationId: operation.operationId,
+              status: 'replayed',
+              result: current.result ?? { ok: true },
+            });
+          } else {
+            processingCount++;
+            results.push({
+              operationId: operation.operationId,
+              status: 'processing',
+              result: null,
+            });
           }
           continue;
         }
 
+        // 4. Operation-level Authorization Verification
+        this.assertOperationAuthorized(currentUser, operation);
+
+        // 5. Apply the domain operation
         const result = await this.applyOperation(currentUser, operation);
-        const updated = await this.syncEventRepository.markApplied(
+
+        // 6. Mark applied
+        await this.syncEventRepository.markApplied(
           currentUser.userId,
           operation.operationId,
           result,
         );
-        if (updated) {
-          results.push(updated.toJSON());
-        }
+
+        appliedCount++;
+        results.push({
+          operationId: operation.operationId,
+          status: 'applied',
+          result,
+        });
       } catch (error: any) {
-        const safeMessage = error?.message ?? 'Unknown sync error';
+        failedCount++;
+        const errorCode =
+          error?.response?.error?.code ||
+          (error instanceof ForbiddenException
+            ? 'FORBIDDEN'
+            : error instanceof BadRequestException
+              ? 'BAD_REQUEST'
+              : 'SYNC_OPERATION_FAILED');
+        const errorMessage = error?.message ?? 'Sync operation failed';
+
         await this.syncEventRepository.markFailed(
           currentUser.userId,
           operation.operationId,
-          error?.name === 'BadRequestException' ? 'bad_request' : 'sync_failed',
-          safeMessage,
+          errorCode,
+          errorMessage,
         );
-        throw new BadRequestException(`Sync operation failed for ${operation.operationId}: ${safeMessage}`);
+
+        results.push({
+          operationId: operation.operationId,
+          status: 'failed',
+          errorCode,
+          errorMessage,
+        });
+      }
+    }
+
+    // Determine checkpoint status: applied, partial, or failed
+    let checkpointStatus = 'applied';
+    if (failedCount > 0) {
+      if (appliedCount > 0 || replayedCount > 0) {
+        checkpointStatus = 'partial';
+      } else {
+        checkpointStatus = 'failed';
       }
     }
 
@@ -94,11 +187,17 @@ export class SyncService {
       lastSyncedAt: new Date(),
       lastOperationId: dto.operations[dto.operations.length - 1]?.operationId ?? null,
       lastBatchSize: dto.operations.length,
-      lastStatus: 'applied',
+      lastStatus: checkpointStatus,
     });
 
     return {
-      appliedOperations: dto.operations.length,
+      summary: {
+        received: dto.operations.length,
+        applied: appliedCount,
+        replayed: replayedCount,
+        processing: processingCount,
+        failed: failedCount,
+      },
       results,
     };
   }
@@ -109,9 +208,15 @@ export class SyncService {
     return events.map((event) => event.toJSON());
   }
 
-  async getMySyncCheckpoint(currentUser: AuthenticatedUser, deviceId: string): Promise<Record<string, any>> {
+  async getMySyncCheckpoint(
+    currentUser: AuthenticatedUser,
+    deviceId: string,
+  ): Promise<Record<string, any>> {
     await this.assertAuthenticated(currentUser);
-    const checkpoint = await this.syncDeviceCheckpointRepository.findByDeviceId(currentUser.userId, deviceId);
+    const checkpoint = await this.syncDeviceCheckpointRepository.findByDeviceId(
+      currentUser.userId,
+      deviceId,
+    );
     if (!checkpoint) {
       return {
         deviceId,
@@ -125,7 +230,33 @@ export class SyncService {
     return checkpoint.toJSON();
   }
 
-  private async applyOperation(currentUser: AuthenticatedUser, operation: any): Promise<Record<string, any>> {
+  private assertOperationAuthorized(
+    currentUser: AuthenticatedUser,
+    operation: SyncOperationDto,
+  ): void {
+    switch (operation.operationType) {
+      case SyncOperationType.LESSON_PROGRESS_UPSERT:
+        if (currentUser.role !== UserRole.STUDENT) {
+          throw new ForbiddenException('Only student accounts can update lesson progress');
+        }
+        break;
+      case SyncOperationType.STUDY_PLAN_UPSERT:
+        if (currentUser.role !== UserRole.STUDENT) {
+          throw new ForbiddenException('Only student accounts can update study plans');
+        }
+        break;
+      case SyncOperationType.NOTIFICATION_MARK_READ:
+        // Any authenticated user can mark their own notifications as read
+        break;
+      default:
+        throw new BadRequestException('Unsupported sync operation type');
+    }
+  }
+
+  private async applyOperation(
+    currentUser: AuthenticatedUser,
+    operation: SyncOperationDto,
+  ): Promise<Record<string, any>> {
     switch (operation.operationType) {
       case SyncOperationType.LESSON_PROGRESS_UPSERT:
         if (!operation.payload?.lessonId) {
@@ -137,7 +268,7 @@ export class SyncService {
           operation.payload,
         );
       case SyncOperationType.STUDY_PLAN_UPSERT:
-        return this.studyPlanService.upsertMyCurrentPlan(currentUser, operation.payload);
+        return this.studyPlanService.upsertMyCurrentPlan(currentUser, operation.payload as any);
       case SyncOperationType.NOTIFICATION_MARK_READ:
         if (!operation.payload?.notificationId) {
           throw new BadRequestException('notificationId is required for notification sync');
@@ -157,7 +288,11 @@ export class SyncService {
       throw new NotFoundException('User not found');
     }
 
-    if (user.role !== UserRole.STUDENT && user.role !== UserRole.PARENT && user.role !== UserRole.ADMIN) {
+    if (
+      user.role !== UserRole.STUDENT &&
+      user.role !== UserRole.PARENT &&
+      user.role !== UserRole.ADMIN
+    ) {
       throw new ForbiddenException('Authenticated account cannot sync data');
     }
   }

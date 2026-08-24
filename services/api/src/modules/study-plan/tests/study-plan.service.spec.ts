@@ -82,8 +82,8 @@ describe('StudyPlanService', () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
     repo.findCurrentByUserId.mockResolvedValue(null);
 
-    await expect(service.getMyCurrentPlan({ userId: 'user-1', role: UserRole.STUDENT })).rejects.toThrow(
-      NotFoundException,
-    );
+    await expect(
+      service.getMyCurrentPlan({ userId: 'user-1', role: UserRole.STUDENT }),
+    ).rejects.toThrow(NotFoundException);
   });
 });

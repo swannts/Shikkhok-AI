@@ -17,7 +17,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const requestId = (request as any).requestId || (request.headers['x-request-id'] as string) || '';
+    const requestId =
+      (request as any).requestId || (request.headers['x-request-id'] as string) || '';
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let errorCode = 'INTERNAL_ERROR';
@@ -34,7 +35,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         const resObj = exceptionResponse as any;
         message = resObj.message || message;
         details = resObj.error || resObj.details || {};
-        
+
         if (Array.isArray(resObj.message)) {
           errorCode = 'VALIDATION_ERROR';
           message = 'Validation failed for incoming request';

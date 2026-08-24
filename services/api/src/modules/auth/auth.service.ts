@@ -28,10 +28,10 @@ import { UserStatus } from '../users/enums/user-status.enum';
 import { PublicRegistrationRole } from './enums/public-registration-role.enum';
 
 // OTP configuration constants
-const OTP_TTL_SECONDS = 300;       // 5 minutes
+const OTP_TTL_SECONDS = 300; // 5 minutes
 const OTP_MAX_ATTEMPTS = 5;
-const OTP_COOLDOWN_SECONDS = 60;   // 1 minute between resends
-const PASSWORD_RESET_TTL = 900;    // 15 minutes
+const OTP_COOLDOWN_SECONDS = 60; // 1 minute between resends
+const PASSWORD_RESET_TTL = 900; // 15 minutes
 
 export interface TokenPair {
   accessToken: string;
@@ -177,7 +177,9 @@ export class AuthService {
     if (tokenHash !== session.tokenHash) {
       // Hash mismatch — token reuse detected
       await this.refreshSessionRepository.revokeAllByUserId(payload.sub);
-      throw new UnauthorizedException('Refresh token integrity check failed. All sessions revoked.');
+      throw new UnauthorizedException(
+        'Refresh token integrity check failed. All sessions revoked.',
+      );
     }
 
     // Revoke the old session
@@ -329,7 +331,10 @@ export class AuthService {
 
     // In production: send via email/SMS
     if (this.configService.get<string>('environment') === 'development') {
-      this.logger.debug(`[DEV ONLY] Password reset token for ${user._id}: ${resetToken}`, 'AuthService');
+      this.logger.debug(
+        `[DEV ONLY] Password reset token for ${user._id}: ${resetToken}`,
+        'AuthService',
+      );
     }
 
     return { message: 'If the account exists, a password reset link has been sent.' };
@@ -357,7 +362,9 @@ export class AuthService {
 
     this.logger.log(`Password reset completed for user: ${userId}`, 'AuthService');
 
-    return { message: 'Password has been reset successfully. Please login with your new password.' };
+    return {
+      message: 'Password has been reset successfully. Please login with your new password.',
+    };
   }
 
   // ──────────────────────────────────────────────
@@ -452,10 +459,18 @@ export class AuthService {
     const unit = match[2];
 
     switch (unit) {
-      case 's': now.setSeconds(now.getSeconds() + value); break;
-      case 'm': now.setMinutes(now.getMinutes() + value); break;
-      case 'h': now.setHours(now.getHours() + value); break;
-      case 'd': now.setDate(now.getDate() + value); break;
+      case 's':
+        now.setSeconds(now.getSeconds() + value);
+        break;
+      case 'm':
+        now.setMinutes(now.getMinutes() + value);
+        break;
+      case 'h':
+        now.setHours(now.getHours() + value);
+        break;
+      case 'd':
+        now.setDate(now.getDate() + value);
+        break;
     }
 
     return now;

@@ -44,10 +44,16 @@ describe('NotificationsService', () => {
   it('should list notifications', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
     repo.findPageByUserId.mockResolvedValue([
-      { toJSON: jest.fn().mockReturnValue({ title: 'Hello', createdAt: '2026-08-24T00:00:00.000Z', _id: 'n1' }) },
+      {
+        toJSON: jest
+          .fn()
+          .mockReturnValue({ title: 'Hello', createdAt: '2026-08-24T00:00:00.000Z', _id: 'n1' }),
+      },
     ] as any);
 
-    await expect(service.getMyNotifications({ userId: 'user-1', role: UserRole.STUDENT })).resolves.toEqual({
+    await expect(
+      service.getMyNotifications({ userId: 'user-1', role: UserRole.STUDENT }),
+    ).resolves.toEqual({
       data: [{ title: 'Hello', createdAt: '2026-08-24T00:00:00.000Z', _id: 'n1' }],
       meta: {
         nextCursor: null,

@@ -28,10 +28,7 @@ export class RefreshSessionRepository {
   /**
    * Find a specific session that has not been revoked and has not expired.
    */
-  async findActiveById(
-    sessionId: string,
-    userId: string,
-  ): Promise<RefreshSessionDocument | null> {
+  async findActiveById(sessionId: string, userId: string): Promise<RefreshSessionDocument | null> {
     return this.sessionModel
       .findOne({
         _id: sessionId,
@@ -47,9 +44,7 @@ export class RefreshSessionRepository {
    * Revoked sessions are kept for audit until TTL cleanup removes them.
    */
   async revokeSession(sessionId: string): Promise<void> {
-    await this.sessionModel
-      .updateOne({ _id: sessionId }, { revokedAt: new Date() })
-      .exec();
+    await this.sessionModel.updateOne({ _id: sessionId }, { revokedAt: new Date() }).exec();
   }
 
   /**

@@ -2,13 +2,10 @@ import 'reflect-metadata';
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import {
-  UnauthorizedException,
-  ConflictException,
-  BadRequestException,
-} from '@nestjs/common';
+import { UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common';
 import * as argon2 from 'argon2';
 import { Types } from 'mongoose';
+import * as crypto from 'crypto';
 
 import { AuthService } from '../auth.service';
 import { UserRepository } from '../../users/repositories/user.repository';
@@ -110,7 +107,7 @@ describe('AuthService', () => {
                 'jwt.refreshSecret': 'test-refresh-secret-at-least-32-chars-123456',
                 'jwt.accessTtl': '15m',
                 'jwt.refreshTtl': '7d',
-                'environment': 'test',
+                environment: 'test',
               };
               return config[key] || defaultValue;
             }),
@@ -342,7 +339,6 @@ describe('AuthService', () => {
       // Override tokenHash after we know what token the service will hash
       // For this test, we make findActiveById return the session and let the hash check work
       // by setting a matching tokenHash
-      const crypto = require('crypto');
       const tokenHash = crypto.createHash('sha256').update('valid.refresh.token').digest('hex');
       fakeSession.tokenHash = tokenHash;
 
@@ -370,9 +366,9 @@ describe('AuthService', () => {
       jwtService.verify.mockReturnValue({ sub: userId, sessionId });
       refreshSessionRepository.findActiveById.mockResolvedValue(null);
 
-      await expect(
-        authService.refreshTokens({ refreshToken: 'reused.token' }),
-      ).rejects.toThrow(UnauthorizedException);
+      await expect(authService.refreshTokens({ refreshToken: 'reused.token' })).rejects.toThrow(
+        UnauthorizedException,
+      );
 
       // Security: all sessions should be revoked on reuse detection
       expect(refreshSessionRepository.revokeAllByUserId).toHaveBeenCalledWith(userId);
@@ -383,9 +379,9 @@ describe('AuthService', () => {
         throw new Error('jwt expired');
       });
 
-      await expect(
-        authService.refreshTokens({ refreshToken: 'expired.token' }),
-      ).rejects.toThrow(UnauthorizedException);
+      await expect(authService.refreshTokens({ refreshToken: 'expired.token' })).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
   });
 
@@ -445,7 +441,6 @@ describe('AuthService', () => {
 
   describe('verifyOtp', () => {
     it('should verify correct OTP and delete from Redis', async () => {
-      const crypto = require('crypto');
       const hashedOtp = crypto.createHash('sha256').update('123456').digest('hex');
 
       const otpState = JSON.stringify({
@@ -469,7 +464,6 @@ describe('AuthService', () => {
     });
 
     it('should reject incorrect OTP and increment attempts', async () => {
-      const crypto = require('crypto');
       const hashedOtp = crypto.createHash('sha256').update('123456').digest('hex');
 
       const otpState = JSON.stringify({

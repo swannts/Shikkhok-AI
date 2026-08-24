@@ -135,7 +135,9 @@ describe('PracticeService', () => {
     expect(result.isCorrect).toBe(true);
     expect(progressService.upsertMyLessonProgress).toHaveBeenCalled();
     expect(masteryEngine.calculate).toHaveBeenCalled();
-    expect(progressService.upsertMyLessonProgress.mock.calls[0][2].status).not.toBe(ProgressStatus.COMPLETED);
+    expect(progressService.upsertMyLessonProgress.mock.calls[0][2].status).not.toBe(
+      ProgressStatus.COMPLETED,
+    );
   });
 
   it('should reject mismatched student ids', async () => {

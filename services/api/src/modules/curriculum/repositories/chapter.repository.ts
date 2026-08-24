@@ -5,9 +5,7 @@ import { Chapter, ChapterDocument } from '../schemas/chapter.schema';
 
 @Injectable()
 export class ChapterRepository {
-  constructor(
-    @InjectModel(Chapter.name) private readonly chapterModel: Model<ChapterDocument>,
-  ) {}
+  constructor(@InjectModel(Chapter.name) private readonly chapterModel: Model<ChapterDocument>) {}
 
   async findPublishedBySubjectId(subjectId: string): Promise<ChapterDocument[]> {
     return this.chapterModel

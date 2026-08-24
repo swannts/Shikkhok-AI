@@ -4,8 +4,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
 export interface JwtPayload {
-  sub: string;   // userId
-  role: string;  // UserRole value
+  sub: string; // userId
+  role: string; // UserRole value
 }
 
 export interface AuthenticatedUser {

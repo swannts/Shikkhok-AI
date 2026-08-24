@@ -43,10 +43,7 @@ export class ParentsController {
   @Post('me/children/link')
   @ApiOperation({ summary: 'Link a child account using ID, phone, or email' })
   @ApiResponse({ status: 200, description: 'Child linked successfully' })
-  async linkChild(
-    @CurrentUser() user: AuthenticatedUser,
-    @Body() dto: LinkChildDto,
-  ) {
+  async linkChild(@CurrentUser() user: AuthenticatedUser, @Body() dto: LinkChildDto) {
     return this.parentsService.linkChild(user, dto);
   }
 

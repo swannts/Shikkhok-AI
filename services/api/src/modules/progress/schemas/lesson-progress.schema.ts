@@ -32,7 +32,11 @@ export class LessonProgress {
   @Prop({ type: Types.ObjectId, required: true, index: true })
   lessonId: Types.ObjectId;
 
-  @Prop({ required: true, enum: Object.values(ProgressStatus), default: ProgressStatus.NOT_STARTED })
+  @Prop({
+    required: true,
+    enum: Object.values(ProgressStatus),
+    default: ProgressStatus.NOT_STARTED,
+  })
   status: ProgressStatus;
 
   @Prop({ type: Number, default: 0, min: 0, max: 100 })

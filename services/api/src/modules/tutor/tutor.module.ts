@@ -26,6 +26,11 @@ import { TutorGatewayService } from './tutor-gateway.service';
     ]),
   ],
   controllers: [TutorController],
-  providers: [TutorConversationRepository, TutorMessageRepository, TutorGatewayService, TutorService],
+  providers: [
+    TutorConversationRepository,
+    TutorMessageRepository,
+    TutorGatewayService,
+    TutorService,
+  ],
 })
 export class TutorModule {}

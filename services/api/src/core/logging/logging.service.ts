@@ -11,7 +11,12 @@ export interface LogPayload {
 
 @Injectable()
 export class AppLoggerService implements NestLoggerService {
-  private formatMessage(level: string, message: any, context?: string, payload?: LogPayload): string {
+  private formatMessage(
+    level: string,
+    message: any,
+    context?: string,
+    payload?: LogPayload,
+  ): string {
     const timestamp = new Date().toISOString();
     const sanitizedPayload = { ...payload };
 

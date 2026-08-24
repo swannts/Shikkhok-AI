@@ -16,7 +16,10 @@ describe('HealthService', () => {
         ping: jest.fn().mockResolvedValue('PONG'),
       }),
     };
-    service = new HealthService(mockMongoConnection as Connection, mockRedisService as RedisService);
+    service = new HealthService(
+      mockMongoConnection as Connection,
+      mockRedisService as RedisService,
+    );
   });
 
   it('should return live status for liveness probe', () => {

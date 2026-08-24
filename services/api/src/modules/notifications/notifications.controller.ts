@@ -54,10 +54,7 @@ export class NotificationsController {
   @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Create a notification for myself (admin only)' })
   @ApiResponse({ status: 403, description: 'Only admin accounts can use this endpoint' })
-  async createForMe(
-    @CurrentUser() user: AuthenticatedUser,
-    @Body() dto: CreateNotificationDto,
-  ) {
+  async createForMe(@CurrentUser() user: AuthenticatedUser, @Body() dto: CreateNotificationDto) {
     return this.notificationsService.createNotificationForCurrentUser(user, dto);
   }
 

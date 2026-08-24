@@ -21,10 +21,11 @@ async function bootstrap() {
   app.use(helmet());
 
   // CORS Configuration
-  const allowedOrigins = configService.get<string[]>(
-    'cors.origins',
-    ['http://localhost:3000', 'http://localhost:4000', 'http://localhost:8081'],
-  );
+  const allowedOrigins = configService.get<string[]>('cors.origins', [
+    'http://localhost:3000',
+    'http://localhost:4000',
+    'http://localhost:8081',
+  ]);
 
   app.enableCors({
     origin: (origin, callback) => {
@@ -67,7 +68,10 @@ async function bootstrap() {
 
   const logger = app.get(AppLoggerService);
   logger.log(`🚀 NestJS Shikkhok-AI API live on http://localhost:${port}/api/v1`, 'Bootstrap');
-  logger.log(`📚 Swagger OpenAPI Documentation live on http://localhost:${port}/api/docs`, 'Bootstrap');
+  logger.log(
+    `📚 Swagger OpenAPI Documentation live on http://localhost:${port}/api/docs`,
+    'Bootstrap',
+  );
 }
 
 bootstrap();

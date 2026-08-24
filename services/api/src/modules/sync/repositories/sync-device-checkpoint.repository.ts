@@ -44,7 +44,10 @@ export class SyncDeviceCheckpointRepository {
       .exec();
   }
 
-  async findByDeviceId(userId: string, deviceId: string): Promise<SyncDeviceCheckpointDocument | null> {
+  async findByDeviceId(
+    userId: string,
+    deviceId: string,
+  ): Promise<SyncDeviceCheckpointDocument | null> {
     return this.checkpointModel
       .findOne({
         userId: new Types.ObjectId(userId),

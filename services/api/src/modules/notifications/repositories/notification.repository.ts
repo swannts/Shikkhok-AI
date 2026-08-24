@@ -31,7 +31,10 @@ export class NotificationRepository {
   }
 
   async findByUserId(userId: string): Promise<NotificationDocument[]> {
-    return this.notificationModel.find({ userId: new Types.ObjectId(userId) }).sort({ createdAt: -1 }).exec();
+    return this.notificationModel
+      .find({ userId: new Types.ObjectId(userId) })
+      .sort({ createdAt: -1 })
+      .exec();
   }
 
   async findPageByUserId(
@@ -47,18 +50,16 @@ export class NotificationRepository {
       ];
     }
 
-    return this.notificationModel
-      .find(filter)
-      .sort({ createdAt: -1, _id: -1 })
-      .limit(limit)
-      .exec();
+    return this.notificationModel.find(filter).sort({ createdAt: -1, _id: -1 }).limit(limit).exec();
   }
 
   async countUnreadByUserId(userId: string): Promise<number> {
-    return this.notificationModel.countDocuments({
-      userId: new Types.ObjectId(userId),
-      isRead: false,
-    }).exec();
+    return this.notificationModel
+      .countDocuments({
+        userId: new Types.ObjectId(userId),
+        isRead: false,
+      })
+      .exec();
   }
 
   async markAsRead(userId: string, notificationId: string): Promise<NotificationDocument | null> {

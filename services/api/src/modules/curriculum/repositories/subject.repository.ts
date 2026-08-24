@@ -6,9 +6,7 @@ import { CurriculumMedium } from '../enums/curriculum-medium.enum';
 
 @Injectable()
 export class SubjectRepository {
-  constructor(
-    @InjectModel(Subject.name) private readonly subjectModel: Model<SubjectDocument>,
-  ) {}
+  constructor(@InjectModel(Subject.name) private readonly subjectModel: Model<SubjectDocument>) {}
 
   async findPublishedByFilter(filter: {
     classLevel: number;

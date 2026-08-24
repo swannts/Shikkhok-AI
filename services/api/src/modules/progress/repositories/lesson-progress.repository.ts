@@ -71,10 +71,12 @@ export class LessonProgressRepository {
   }
 
   async countCompletedByChapter(userId: string, chapterId: string): Promise<number> {
-    return this.lessonProgressModel.countDocuments({
-      userId: new Types.ObjectId(userId),
-      chapterId: new Types.ObjectId(chapterId),
-      status: ProgressStatus.COMPLETED,
-    }).exec();
+    return this.lessonProgressModel
+      .countDocuments({
+        userId: new Types.ObjectId(userId),
+        chapterId: new Types.ObjectId(chapterId),
+        status: ProgressStatus.COMPLETED,
+      })
+      .exec();
   }
 }

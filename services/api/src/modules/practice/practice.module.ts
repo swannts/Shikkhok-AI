@@ -22,6 +22,11 @@ import { MasteryEngineV1 } from './domain/mastery-engine-v1';
     ]),
   ],
   controllers: [PracticeController],
-  providers: [PracticeQuestionRepository, PracticeAttemptRepository, MasteryEngineV1, PracticeService],
+  providers: [
+    PracticeQuestionRepository,
+    PracticeAttemptRepository,
+    MasteryEngineV1,
+    PracticeService,
+  ],
 })
 export class PracticeModule {}

@@ -41,7 +41,12 @@ export class TutorController {
     @Query('limit') limit?: string,
     @Query('cursor') cursor?: string,
   ) {
-    return this.tutorService.getConversation(user, conversationId, limit ? Number(limit) : 30, cursor);
+    return this.tutorService.getConversation(
+      user,
+      conversationId,
+      limit ? Number(limit) : 30,
+      cursor,
+    );
   }
 
   @Get('me/conversations/:conversationId/messages')
@@ -54,7 +59,12 @@ export class TutorController {
     @Query('limit') limit?: string,
     @Query('cursor') cursor?: string,
   ) {
-    return this.tutorService.getConversationMessages(user, conversationId, limit ? Number(limit) : 30, cursor);
+    return this.tutorService.getConversationMessages(
+      user,
+      conversationId,
+      limit ? Number(limit) : 30,
+      cursor,
+    );
   }
 
   @Post('me/conversations/:conversationId/messages')

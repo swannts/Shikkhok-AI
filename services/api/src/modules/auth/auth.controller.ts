@@ -1,18 +1,5 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Body,
-  UseGuards,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-} from '@nestjs/swagger';
+import { Controller, Post, Get, Body, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 
 import { AuthService, TokenPair } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
@@ -65,10 +52,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Logout current session' })
   @ApiResponse({ status: 200, description: 'Session revoked' })
   @ApiResponse({ status: 401, description: 'Not authenticated' })
-  async logout(
-    @CurrentUser() user: AuthenticatedUser,
-    @Body() body: RefreshTokenDto,
-  ) {
+  async logout(@CurrentUser() user: AuthenticatedUser, @Body() body: RefreshTokenDto) {
     // Decode the refresh token to get sessionId for targeted revocation
     // For simplicity, we revoke all sessions. A more granular approach
     // would extract sessionId from the refresh token.

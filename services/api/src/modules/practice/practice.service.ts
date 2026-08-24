@@ -40,7 +40,11 @@ export class PracticeService {
     difficulty?: PracticeDifficulty,
   ): Promise<PracticeQuestionStudentResponse[]> {
     await this.assertStudentOrAdmin(currentUser);
-    const questions = await this.practiceQuestionRepository.findPublishedByLesson(lessonId, limit, difficulty);
+    const questions = await this.practiceQuestionRepository.findPublishedByLesson(
+      lessonId,
+      limit,
+      difficulty,
+    );
     return questions.map((question) => this.serializeQuestionForStudent(question));
   }
 
@@ -64,7 +68,7 @@ export class PracticeService {
     }
 
     const evaluation = this.evaluateAttempt(question.questionType, question, dto);
-    const score = evaluation.isCorrect ? 100 : evaluation.partialScore ?? 0;
+    const score = evaluation.isCorrect ? 100 : (evaluation.partialScore ?? 0);
 
     const attempt = await this.practiceAttemptRepository.createAttempt({
       userId: currentUser.userId,
@@ -92,8 +96,11 @@ export class PracticeService {
       throw new NotFoundException('Subject not found for practice question');
     }
 
-    const existingProgress = await this.progressService.getMyLessonProgress(currentUser, lesson._id.toString()).catch(() => null);
-    const previousMastery = typeof existingProgress?.masteryScore === 'number' ? existingProgress.masteryScore : 0;
+    const existingProgress = await this.progressService
+      .getMyLessonProgress(currentUser, lesson._id.toString())
+      .catch(() => null);
+    const previousMastery =
+      typeof existingProgress?.masteryScore === 'number' ? existingProgress.masteryScore : 0;
     const masteryResult = this.masteryEngine.calculate({
       previousMastery,
       isCorrect: evaluation.isCorrect,
@@ -122,7 +129,10 @@ export class PracticeService {
         masteryDelta: masteryResult.delta,
         masteryAlgorithmVersion: masteryResult.algorithmVersion,
       },
-      adaptiveRecommendation: this.getAdaptiveRecommendation(masteryResult.newMastery, evaluation.isCorrect),
+      adaptiveRecommendation: this.getAdaptiveRecommendation(
+        masteryResult.newMastery,
+        evaluation.isCorrect,
+      ),
     };
   }
 
@@ -151,7 +161,9 @@ export class PracticeService {
       }
       case PracticeQuestionType.SHORT_ANSWER: {
         const answer = this.normalizeText(dto.textAnswer ?? '');
-        const accepted = (question.acceptedAnswers ?? []).map((item: string) => this.normalizeText(item));
+        const accepted = (question.acceptedAnswers ?? []).map((item: string) =>
+          this.normalizeText(item),
+        );
         const isCorrect = accepted.includes(answer);
         return {
           isCorrect,

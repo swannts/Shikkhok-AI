@@ -9,8 +9,7 @@ import {
 } from './repositories/notification.repository';
 import { PaginatedResult } from '../../common/types/paginated-result.type';
 
-export interface PaginatedNotifications extends PaginatedResult<Record<string, unknown>> {
-}
+export interface PaginatedNotifications extends PaginatedResult<Record<string, unknown>> {}
 
 @Injectable()
 export class NotificationsService {
@@ -58,7 +57,10 @@ export class NotificationsService {
     notificationId: string,
   ): Promise<Record<string, any>> {
     await this.assertAuthenticated(currentUser);
-    const notification = await this.notificationRepository.markAsRead(currentUser.userId, notificationId);
+    const notification = await this.notificationRepository.markAsRead(
+      currentUser.userId,
+      notificationId,
+    );
     if (!notification) {
       throw new NotFoundException('Notification not found');
     }
@@ -106,7 +108,9 @@ export class NotificationsService {
     }
 
     try {
-      const decoded = JSON.parse(Buffer.from(cursor, 'base64url').toString('utf8')) as NotificationPageCursor;
+      const decoded = JSON.parse(
+        Buffer.from(cursor, 'base64url').toString('utf8'),
+      ) as NotificationPageCursor;
       if (decoded?.createdAt && decoded?.id) {
         return decoded;
       }

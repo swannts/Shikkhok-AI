@@ -37,7 +37,11 @@ export class PracticeQuestion {
   @Prop({ type: [String], default: [] })
   tags: string[];
 
-  @Prop({ required: true, enum: Object.values(PracticeDifficulty), default: PracticeDifficulty.MEDIUM })
+  @Prop({
+    required: true,
+    enum: Object.values(PracticeDifficulty),
+    default: PracticeDifficulty.MEDIUM,
+  })
   difficulty: PracticeDifficulty;
 
   @Prop({ type: [String], default: [] })

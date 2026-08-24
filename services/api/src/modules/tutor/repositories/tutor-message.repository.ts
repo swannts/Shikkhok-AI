@@ -49,6 +49,8 @@ export class TutorMessageRepository {
   }
 
   async countByConversation(conversationId: string): Promise<number> {
-    return this.messageModel.countDocuments({ conversationId: new Types.ObjectId(conversationId) }).exec();
+    return this.messageModel
+      .countDocuments({ conversationId: new Types.ObjectId(conversationId) })
+      .exec();
   }
 }

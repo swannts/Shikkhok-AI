@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "lint:check": "eslint \"{src,test}/**/*.ts\"",
     "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "start": "node dist/main.js",
     "migrate:tutor-messages": "ts-node --project ./tsconfig.json --transpile-only ./scripts/database/migrate-tutor-messages.ts",

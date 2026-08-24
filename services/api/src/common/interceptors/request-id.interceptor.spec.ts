@@ -30,7 +30,10 @@ describe('RequestIdInterceptor', () => {
 
     interceptor.intercept(mockExecutionContext, mockCallHandler).subscribe(() => {
       expect(mockRequest.requestId).toBe('custom-incoming-uuid-123');
-      expect(mockResponse.setHeader).toHaveBeenCalledWith('x-request-id', 'custom-incoming-uuid-123');
+      expect(mockResponse.setHeader).toHaveBeenCalledWith(
+        'x-request-id',
+        'custom-incoming-uuid-123',
+      );
       done();
     });
   });

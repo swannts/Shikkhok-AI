@@ -20,10 +20,16 @@ export class TutorConversationRepository {
   }
 
   async findByUserId(userId: string): Promise<TutorConversationDocument[]> {
-    return this.conversationModel.find({ userId: new Types.ObjectId(userId) }).sort({ updatedAt: -1 }).exec();
+    return this.conversationModel
+      .find({ userId: new Types.ObjectId(userId) })
+      .sort({ updatedAt: -1 })
+      .exec();
   }
 
-  async touchConversation(conversationId: string, messageCountIncrement = 0): Promise<TutorConversationDocument | null> {
+  async touchConversation(
+    conversationId: string,
+    messageCountIncrement = 0,
+  ): Promise<TutorConversationDocument | null> {
     return this.conversationModel
       .findByIdAndUpdate(
         conversationId,

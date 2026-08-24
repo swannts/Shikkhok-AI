@@ -221,7 +221,11 @@ describe('TutorService', () => {
       3,
     );
 
-    expect(result.messages?.map((message: any) => message._id)).toEqual(['msg-2', 'msg-3', 'msg-4']);
+    expect(result.messages?.map((message: any) => message._id)).toEqual([
+      'msg-2',
+      'msg-3',
+      'msg-4',
+    ]);
     expect(result.messageMeta?.hasNext).toBe(true);
 
     const nextCursor = result.messageMeta?.nextCursor;

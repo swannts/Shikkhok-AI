@@ -101,9 +101,9 @@ describe('ProgressService', () => {
   it('should reject non-student accounts', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.PARENT } as any);
 
-    await expect(
-      service.getMySummary({ userId: 'user-1', role: UserRole.PARENT }),
-    ).rejects.toThrow(ForbiddenException);
+    await expect(service.getMySummary({ userId: 'user-1', role: UserRole.PARENT })).rejects.toThrow(
+      ForbiddenException,
+    );
   });
 
   it('should throw when lesson is missing', async () => {
@@ -111,11 +111,7 @@ describe('ProgressService', () => {
     lessonRepository.findById.mockResolvedValue(null);
 
     await expect(
-      service.upsertMyLessonProgress(
-        { userId: 'user-1', role: UserRole.STUDENT },
-        'missing',
-        {},
-      ),
+      service.upsertMyLessonProgress({ userId: 'user-1', role: UserRole.STUDENT }, 'missing', {}),
     ).rejects.toThrow(NotFoundException);
   });
 

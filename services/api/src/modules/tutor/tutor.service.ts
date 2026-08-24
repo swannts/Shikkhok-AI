@@ -74,7 +74,8 @@ export class TutorService {
     }
 
     const messages = await this.getConversationMessagesInternal(conversationId, limit, cursor);
-    const conversationData = typeof conversation.toJSON === 'function' ? conversation.toJSON() : conversation;
+    const conversationData =
+      typeof conversation.toJSON === 'function' ? conversation.toJSON() : conversation;
     return {
       ...conversationData,
       messages: messages.data,
@@ -104,7 +105,11 @@ export class TutorService {
       throw new NotFoundException('Conversation not found');
     }
 
-    const assistantReply = await this.buildAssistantReply(currentUser.userId, dto.content, conversation);
+    const assistantReply = await this.buildAssistantReply(
+      currentUser.userId,
+      dto.content,
+      conversation,
+    );
 
     await this.messageRepository.createMessage({
       conversationId,
@@ -159,8 +164,12 @@ export class TutorService {
       }
     }
 
-    const plan = await this.studyPlanService.getMyCurrentPlan({ userId, role: UserRole.STUDENT }).catch(() => null);
-    const summary = await this.progressService.getMySummary({ userId, role: UserRole.STUDENT }).catch(() => null);
+    const plan = await this.studyPlanService
+      .getMyCurrentPlan({ userId, role: UserRole.STUDENT })
+      .catch(() => null);
+    const summary = await this.progressService
+      .getMySummary({ userId, role: UserRole.STUDENT })
+      .catch(() => null);
 
     if (plan?.title) {
       segments.push(`তোমার বর্তমান পরিকল্পনা: ${plan.title}`);
@@ -208,7 +217,10 @@ export class TutorService {
     conversationId: string,
     limit: number,
     cursor?: string,
-  ): Promise<{ data: Record<string, any>[]; meta: { nextCursor: string | null; hasNext: boolean } }> {
+  ): Promise<{
+    data: Record<string, any>[];
+    meta: { nextCursor: string | null; hasNext: boolean };
+  }> {
     const pageLimit = Math.max(1, Math.min(limit || 30, 50));
     const decodedCursor = this.decodeCursor(cursor);
     const messages = await this.messageRepository.findByConversationCursor(
@@ -217,14 +229,20 @@ export class TutorService {
       decodedCursor,
     );
     const hasNext = messages.length > pageLimit;
-    const data = messages.slice(0, pageLimit).map((message) => message.toJSON()).reverse();
+    const data = messages
+      .slice(0, pageLimit)
+      .map((message) => message.toJSON())
+      .reverse();
     const firstItem = data[0];
     return {
       data,
       meta: {
         nextCursor:
           hasNext && firstItem
-            ? this.encodeCursor(new Date(firstItem.createdAt).toISOString(), firstItem._id.toString())
+            ? this.encodeCursor(
+                new Date(firstItem.createdAt).toISOString(),
+                firstItem._id.toString(),
+              )
             : null,
         hasNext,
       },
@@ -263,7 +281,10 @@ export class TutorService {
     }
   }
 
-  private async assertOwnershipOrAdmin(currentUser: AuthenticatedUser, conversationId: string): Promise<void> {
+  private async assertOwnershipOrAdmin(
+    currentUser: AuthenticatedUser,
+    conversationId: string,
+  ): Promise<void> {
     const user = await this.usersService.findById(currentUser.userId);
     if (!user) {
       throw new NotFoundException('User not found');

@@ -72,7 +72,10 @@ export class ProgressService {
     return progress.toJSON();
   }
 
-  async getMyLessonProgress(currentUser: AuthenticatedUser, lessonId: string): Promise<Record<string, any>> {
+  async getMyLessonProgress(
+    currentUser: AuthenticatedUser,
+    lessonId: string,
+  ): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
     return this.getLessonProgressForUserId(currentUser.userId, lessonId);
   }
@@ -93,17 +96,27 @@ export class ProgressService {
   async getSummaryForUserId(userId: string): Promise<Record<string, any>> {
     const progressRecords = await this.lessonProgressRepository.findByUserId(userId);
     const totalLessons = progressRecords.length;
-    const completedLessons = progressRecords.filter((record) => record.status === ProgressStatus.COMPLETED).length;
-    const inProgressLessons = progressRecords.filter((record) => record.status === ProgressStatus.IN_PROGRESS).length;
+    const completedLessons = progressRecords.filter(
+      (record) => record.status === ProgressStatus.COMPLETED,
+    ).length;
+    const inProgressLessons = progressRecords.filter(
+      (record) => record.status === ProgressStatus.IN_PROGRESS,
+    ).length;
     const totalTimeSpentMinutes = progressRecords.reduce(
       (sum, record) => sum + (record.timeSpentMinutes ?? 0),
       0,
     );
     const averageMastery = totalLessons
-      ? Math.round(progressRecords.reduce((sum, record) => sum + (record.masteryScore ?? 0), 0) / totalLessons)
+      ? Math.round(
+          progressRecords.reduce((sum, record) => sum + (record.masteryScore ?? 0), 0) /
+            totalLessons,
+        )
       : 0;
 
-    const bySubject = new Map<string, { subjectId: string; completedLessons: number; totalLessons: number; averageMastery: number }>();
+    const bySubject = new Map<
+      string,
+      { subjectId: string; completedLessons: number; totalLessons: number; averageMastery: number }
+    >();
     for (const record of progressRecords) {
       const subjectId = record.subjectId.toString();
       const existing = bySubject.get(subjectId) ?? {
@@ -123,8 +136,12 @@ export class ProgressService {
 
     const subjects = Array.from(bySubject.values()).map((entry) => ({
       ...entry,
-      completionRate: entry.totalLessons ? Math.round((entry.completedLessons / entry.totalLessons) * 100) : 0,
-      averageMastery: entry.totalLessons ? Math.round(entry.averageMastery / entry.totalLessons) : 0,
+      completionRate: entry.totalLessons
+        ? Math.round((entry.completedLessons / entry.totalLessons) * 100)
+        : 0,
+      averageMastery: entry.totalLessons
+        ? Math.round(entry.averageMastery / entry.totalLessons)
+        : 0,
     }));
 
     return {
@@ -138,13 +155,22 @@ export class ProgressService {
     };
   }
 
-  async getMySubjectProgress(currentUser: AuthenticatedUser, subjectId: string): Promise<Record<string, any>> {
+  async getMySubjectProgress(
+    currentUser: AuthenticatedUser,
+    subjectId: string,
+  ): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
     return this.getSubjectProgressForUserId(currentUser.userId, subjectId);
   }
 
-  async getSubjectProgressForUserId(userId: string, subjectId: string): Promise<Record<string, any>> {
-    const progressRecords = await this.lessonProgressRepository.findByUserAndSubject(userId, subjectId);
+  async getSubjectProgressForUserId(
+    userId: string,
+    subjectId: string,
+  ): Promise<Record<string, any>> {
+    const progressRecords = await this.lessonProgressRepository.findByUserAndSubject(
+      userId,
+      subjectId,
+    );
 
     if (progressRecords.length === 0) {
       return {
@@ -180,16 +206,26 @@ export class ProgressService {
         completedLessons,
         completionRate: totalLessons ? Math.round((completedLessons / totalLessons) * 100) : 0,
         averageMastery: totalLessons
-          ? Math.round(chapterProgress.reduce((sum, record) => sum + (record.masteryScore ?? 0), 0) / totalLessons)
+          ? Math.round(
+              chapterProgress.reduce((sum, record) => sum + (record.masteryScore ?? 0), 0) /
+                totalLessons,
+            )
           : 0,
       });
     }
 
     const totalLessons = progressRecords.length;
-    const completedLessons = progressRecords.filter((record) => record.status === ProgressStatus.COMPLETED).length;
-    const inProgressLessons = progressRecords.filter((record) => record.status === ProgressStatus.IN_PROGRESS).length;
+    const completedLessons = progressRecords.filter(
+      (record) => record.status === ProgressStatus.COMPLETED,
+    ).length;
+    const inProgressLessons = progressRecords.filter(
+      (record) => record.status === ProgressStatus.IN_PROGRESS,
+    ).length;
     const averageMastery = totalLessons
-      ? Math.round(progressRecords.reduce((sum, record) => sum + (record.masteryScore ?? 0), 0) / totalLessons)
+      ? Math.round(
+          progressRecords.reduce((sum, record) => sum + (record.masteryScore ?? 0), 0) /
+            totalLessons,
+        )
       : 0;
 
     return {

@@ -54,10 +54,7 @@ export class ParentsService {
     return children;
   }
 
-  async linkChild(
-    currentUser: AuthenticatedUser,
-    dto: LinkChildDto,
-  ): Promise<Record<string, any>> {
+  async linkChild(currentUser: AuthenticatedUser, dto: LinkChildDto): Promise<Record<string, any>> {
     await this.assertParentOrAdmin(currentUser);
 
     const studentUser = await this.resolveStudentUser(dto.studentIdentifier);
@@ -77,10 +74,16 @@ export class ParentsService {
     return profile.toJSON();
   }
 
-  async unlinkChild(currentUser: AuthenticatedUser, childUserId: string): Promise<Record<string, any>> {
+  async unlinkChild(
+    currentUser: AuthenticatedUser,
+    childUserId: string,
+  ): Promise<Record<string, any>> {
     await this.assertParentOrAdmin(currentUser);
 
-    const profile = await this.parentProfileRepository.removeLinkedStudent(currentUser.userId, childUserId);
+    const profile = await this.parentProfileRepository.removeLinkedStudent(
+      currentUser.userId,
+      childUserId,
+    );
     if (!profile) {
       throw new NotFoundException('Parent profile not found');
     }

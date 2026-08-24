@@ -10,9 +10,7 @@ import { UserStatus } from '../enums/user-status.enum';
  */
 @Injectable()
 export class UserRepository {
-  constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
-  ) {}
+  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
 
   async createUser(data: {
     name: string;
@@ -45,14 +43,10 @@ export class UserRepository {
   }
 
   async updateStatus(userId: string, status: UserStatus): Promise<UserDocument | null> {
-    return this.userModel
-      .findByIdAndUpdate(userId, { status }, { new: true })
-      .exec();
+    return this.userModel.findByIdAndUpdate(userId, { status }, { new: true }).exec();
   }
 
   async updatePasswordHash(userId: string, passwordHash: string): Promise<UserDocument | null> {
-    return this.userModel
-      .findByIdAndUpdate(userId, { passwordHash }, { new: true })
-      .exec();
+    return this.userModel.findByIdAndUpdate(userId, { passwordHash }, { new: true }).exec();
   }
 }

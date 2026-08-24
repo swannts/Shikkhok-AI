@@ -5,9 +5,7 @@ import { Lesson, LessonDocument } from '../schemas/lesson.schema';
 
 @Injectable()
 export class LessonRepository {
-  constructor(
-    @InjectModel(Lesson.name) private readonly lessonModel: Model<LessonDocument>,
-  ) {}
+  constructor(@InjectModel(Lesson.name) private readonly lessonModel: Model<LessonDocument>) {}
 
   async findPublishedByChapterId(chapterId: string): Promise<LessonDocument[]> {
     return this.lessonModel

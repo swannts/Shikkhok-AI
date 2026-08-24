@@ -24,9 +24,7 @@ import { JwtAccessStrategy } from './strategies/jwt-access.strategy';
         },
       }),
     }),
-    MongooseModule.forFeature([
-      { name: RefreshSession.name, schema: RefreshSessionSchema },
-    ]),
+    MongooseModule.forFeature([{ name: RefreshSession.name, schema: RefreshSessionSchema }]),
   ],
   controllers: [AuthController],
   providers: [AuthService, RefreshSessionRepository, JwtAccessStrategy],
