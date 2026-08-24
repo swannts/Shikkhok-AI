@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
+import 'app_radius.dart';
+import 'app_spacing.dart';
+import 'app_typography.dart';
+import 'theme_extensions.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
@@ -9,7 +13,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       fontFamily: 'SutonnyMJ',
-      fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+      fontFamilyFallback: AppTypography.fontFallbacks,
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
         primary: AppColors.primary,
@@ -18,30 +22,28 @@ class AppTheme {
         error: AppColors.error,
       ),
       scaffoldBackgroundColor: AppColors.background,
-      textTheme: baseTextTheme.apply(
-        fontFamily: 'SutonnyMJ',
-        fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
-        bodyColor: AppColors.textPrimary,
-        displayColor: AppColors.textPrimary,
+      textTheme: baseTextTheme.copyWith(
+        displayLarge: AppTypography.display,
+        titleLarge: AppTypography.pageTitle,
+        titleMedium: AppTypography.sectionTitle,
+        titleSmall: AppTypography.cardTitle,
+        bodyMedium: AppTypography.body,
+        bodyLarge: AppTypography.bodyLarge,
+        bodySmall: AppTypography.caption,
+        labelLarge: AppTypography.button,
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surface,
         elevation: 0,
         scrolledUnderElevation: 0.5,
         iconTheme: IconThemeData(color: AppColors.textPrimary),
-        titleTextStyle: TextStyle(
-          color: AppColors.textPrimary,
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'SutonnyMJ',
-          fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
-        ),
+        titleTextStyle: AppTypography.sectionTitle,
       ),
       cardTheme: CardThemeData(
         color: AppColors.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: AppRadius.borderLg,
           side: const BorderSide(color: AppColors.border, width: 1),
         ),
       ),
@@ -50,66 +52,56 @@ class AppTheme {
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          textStyle: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'SutonnyMJ',
-            fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
-          ),
+          minimumSize: const Size.fromHeight(AppSpacing.xxxl),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.smd),
+          shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMd),
+          textStyle: AppTypography.button,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primary,
+          minimumSize: const Size.fromHeight(AppSpacing.xxxl),
           side: const BorderSide(color: AppColors.primary, width: 1.5),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          textStyle: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'SutonnyMJ',
-            fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.smd),
+          shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMd),
+          textStyle: AppTypography.button.copyWith(color: AppColors.primary),
         ),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.surfaceMuted,
         selectedColor: AppColors.primaryLight,
         side: BorderSide.none,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        labelStyle: const TextStyle(
-          fontSize: 13,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMd),
+        labelStyle: AppTypography.caption.copyWith(
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimary,
-          fontFamily: 'SutonnyMJ',
-          fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.smd),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: AppRadius.borderMd,
           borderSide: const BorderSide(color: AppColors.border, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: AppRadius.borderMd,
           borderSide: const BorderSide(color: AppColors.border, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: AppRadius.borderMd,
           borderSide: const BorderSide(color: AppColors.primary, width: 2),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: AppRadius.borderMd,
+          borderSide: const BorderSide(color: AppColors.error, width: 1),
+        ),
       ),
+      extensions: [
+        ShikkhokThemeExtension.light,
+      ],
     );
   }
 }
