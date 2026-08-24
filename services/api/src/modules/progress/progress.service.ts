@@ -1,7 +1,5 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { Types } from 'mongoose';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
-import { CurriculumService } from '../curriculum/curriculum.service';
 import { LessonRepository } from '../curriculum/repositories/lesson.repository';
 import { ChapterRepository } from '../curriculum/repositories/chapter.repository';
 import { SubjectRepository } from '../curriculum/repositories/subject.repository';
@@ -76,8 +74,11 @@ export class ProgressService {
 
   async getMyLessonProgress(currentUser: AuthenticatedUser, lessonId: string): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
+    return this.getLessonProgressForUserId(currentUser.userId, lessonId);
+  }
 
-    const progress = await this.lessonProgressRepository.findByLessonId(currentUser.userId, lessonId);
+  async getLessonProgressForUserId(userId: string, lessonId: string): Promise<Record<string, any>> {
+    const progress = await this.lessonProgressRepository.findByLessonId(userId, lessonId);
     if (!progress) {
       throw new NotFoundException('Lesson progress not found');
     }
@@ -86,8 +87,11 @@ export class ProgressService {
 
   async getMySummary(currentUser: AuthenticatedUser): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
+    return this.getSummaryForUserId(currentUser.userId);
+  }
 
-    const progressRecords = await this.lessonProgressRepository.findByUserId(currentUser.userId);
+  async getSummaryForUserId(userId: string): Promise<Record<string, any>> {
+    const progressRecords = await this.lessonProgressRepository.findByUserId(userId);
     const totalLessons = progressRecords.length;
     const completedLessons = progressRecords.filter((record) => record.status === ProgressStatus.COMPLETED).length;
     const inProgressLessons = progressRecords.filter((record) => record.status === ProgressStatus.IN_PROGRESS).length;
@@ -136,11 +140,11 @@ export class ProgressService {
 
   async getMySubjectProgress(currentUser: AuthenticatedUser, subjectId: string): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
+    return this.getSubjectProgressForUserId(currentUser.userId, subjectId);
+  }
 
-    const progressRecords = await this.lessonProgressRepository.findByUserAndSubject(
-      currentUser.userId,
-      subjectId,
-    );
+  async getSubjectProgressForUserId(userId: string, subjectId: string): Promise<Record<string, any>> {
+    const progressRecords = await this.lessonProgressRepository.findByUserAndSubject(userId, subjectId);
 
     if (progressRecords.length === 0) {
       return {

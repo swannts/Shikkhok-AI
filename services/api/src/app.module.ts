@@ -14,6 +14,7 @@ import { StudentsModule } from './modules/students/students.module';
 import { CurriculumModule } from './modules/curriculum/curriculum.module';
 import { ProgressModule } from './modules/progress/progress.module';
 import { PracticeModule } from './modules/practice/practice.module';
+import { ParentsModule } from './modules/parents/parents.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { PracticeModule } from './modules/practice/practice.module';
     CurriculumModule,
     ProgressModule,
     PracticeModule,
+    ParentsModule,
   ],
   providers: [AppLoggerService],
 })
