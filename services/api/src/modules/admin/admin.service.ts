@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { User, UserDocument } from '../users/schemas/user.schema';
@@ -25,9 +25,11 @@ import { AdminCreateChapterDto } from './dto/admin-create-chapter.dto';
 import { AdminCreateLessonDto } from './dto/admin-create-lesson.dto';
 import { SubscriptionStatus } from '../subscriptions/enums/subscription-status.enum';
 import { PaymentStatus } from '../subscriptions/enums/payment-status.enum';
+import { UserStatus } from '../users/enums/user-status.enum';
 
 import { PaymentTransactionRepository } from '../subscriptions/repositories/payment-transaction.repository';
 import { SubscriptionActivationService } from '../subscriptions/services/subscription-activation.service';
+import { AdminAuditService } from './admin-audit.service';
 
 @Injectable()
 export class AdminService {
@@ -46,6 +48,7 @@ export class AdminService {
     private readonly transactionModel: Model<PaymentTransactionDocument>,
     private readonly transactionRepository: PaymentTransactionRepository,
     private readonly activationService: SubscriptionActivationService,
+    private readonly auditService: AdminAuditService,
   ) {}
 
   async getMetricsOverview(): Promise<Record<string, any>> {
@@ -138,21 +141,48 @@ export class AdminService {
   }
 
   async updateUserStatus(
-    userId: string,
+    actorUserId: string,
+    targetUserId: string,
     dto: AdminUpdateUserStatusDto,
+    context?: { ip?: string; userAgent?: string },
   ): Promise<Record<string, any>> {
-    const user = await this.userModel
-      .findByIdAndUpdate(userId, { $set: { status: dto.status } }, { new: true })
-      .exec();
+    // Admin Self-Protection: Admins cannot suspend, deactivate, or delete their own account
+    if (actorUserId === targetUserId && dto.status !== UserStatus.ACTIVE) {
+      throw new BadRequestException(
+        'Administrators cannot suspend, deactivate, or delete their own account (Self-protection rule)',
+      );
+    }
 
-    if (!user) {
+    const existingUser = await this.userModel.findById(targetUserId).exec();
+    if (!existingUser) {
       throw new NotFoundException('User not found');
     }
 
-    return user.toJSON();
+    const previousStatus = existingUser.status;
+    existingUser.status = dto.status;
+    const updatedUser = await existingUser.save();
+
+    // Record audit log
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'UPDATE_USER_STATUS',
+      resourceType: 'USER',
+      resourceId: targetUserId,
+      before: { status: previousStatus },
+      after: { status: dto.status },
+      reason: dto.reason ?? 'Status updated by administrator',
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
+
+    return updatedUser.toJSON();
   }
 
-  async createSubject(dto: AdminCreateSubjectDto): Promise<Record<string, any>> {
+  async createSubject(
+    actorUserId: string,
+    dto: AdminCreateSubjectDto,
+    context?: { ip?: string; userAgent?: string },
+  ): Promise<Record<string, any>> {
     const subject = new this.subjectModel({
       classLevel: dto.classLevel,
       medium: dto.medium,
@@ -165,10 +195,25 @@ export class AdminService {
     });
 
     const saved = await subject.save();
+
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'CREATE_SUBJECT',
+      resourceType: 'CURRICULUM_SUBJECT',
+      resourceId: saved._id.toString(),
+      after: saved.toJSON(),
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
+
     return saved.toJSON();
   }
 
-  async createChapter(dto: AdminCreateChapterDto): Promise<Record<string, any>> {
+  async createChapter(
+    actorUserId: string,
+    dto: AdminCreateChapterDto,
+    context?: { ip?: string; userAgent?: string },
+  ): Promise<Record<string, any>> {
     const chapter = new this.chapterModel({
       subjectId: new Types.ObjectId(dto.subjectId),
       title: dto.title.trim(),
@@ -180,10 +225,25 @@ export class AdminService {
     });
 
     const saved = await chapter.save();
+
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'CREATE_CHAPTER',
+      resourceType: 'CURRICULUM_CHAPTER',
+      resourceId: saved._id.toString(),
+      after: saved.toJSON(),
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
+
     return saved.toJSON();
   }
 
-  async createLesson(dto: AdminCreateLessonDto): Promise<Record<string, any>> {
+  async createLesson(
+    actorUserId: string,
+    dto: AdminCreateLessonDto,
+    context?: { ip?: string; userAgent?: string },
+  ): Promise<Record<string, any>> {
     const lesson = new this.lessonModel({
       chapterId: new Types.ObjectId(dto.chapterId),
       title: dto.title.trim(),
@@ -197,10 +257,26 @@ export class AdminService {
     });
 
     const saved = await lesson.save();
+
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'CREATE_LESSON',
+      resourceType: 'CURRICULUM_LESSON',
+      resourceId: saved._id.toString(),
+      after: saved.toJSON(),
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
+
     return saved.toJSON();
   }
 
-  async toggleLessonPublish(lessonId: string, isPublished: boolean): Promise<Record<string, any>> {
+  async toggleLessonPublish(
+    actorUserId: string,
+    lessonId: string,
+    isPublished: boolean,
+    context?: { ip?: string; userAgent?: string },
+  ): Promise<Record<string, any>> {
     const lesson = await this.lessonModel
       .findByIdAndUpdate(lessonId, { $set: { isPublished } }, { new: true })
       .exec();
@@ -208,6 +284,16 @@ export class AdminService {
     if (!lesson) {
       throw new NotFoundException('Lesson not found');
     }
+
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'TOGGLE_LESSON_PUBLISH',
+      resourceType: 'CURRICULUM_LESSON',
+      resourceId: lessonId,
+      after: { isPublished },
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
 
     return lesson.toJSON();
   }
@@ -226,6 +312,7 @@ export class AdminService {
     adminUserId: string,
     transactionId: string,
     verificationNote?: string,
+    context?: { ip?: string; userAgent?: string },
   ): Promise<Record<string, any>> {
     const result = await this.activationService.activateFromPayment(
       transactionId,
@@ -233,6 +320,16 @@ export class AdminService {
       undefined,
       verificationNote || 'Approved manually by administrator',
     );
+
+    await this.auditService.recordAudit({
+      actorUserId: adminUserId,
+      action: 'APPROVE_PAYMENT',
+      resourceType: 'PAYMENT_TRANSACTION',
+      resourceId: transactionId,
+      after: { status: PaymentStatus.COMPLETED, note: verificationNote },
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
 
     return {
       message: 'Payment approved and subscription activated successfully',
@@ -246,12 +343,23 @@ export class AdminService {
     adminUserId: string,
     transactionId: string,
     rejectionReason: string,
+    context?: { ip?: string; userAgent?: string },
   ): Promise<Record<string, any>> {
     const rejectedTxn = await this.activationService.rejectPayment(
       transactionId,
       `admin:${adminUserId}`,
       rejectionReason,
     );
+
+    await this.auditService.recordAudit({
+      actorUserId: adminUserId,
+      action: 'REJECT_PAYMENT',
+      resourceType: 'PAYMENT_TRANSACTION',
+      resourceId: transactionId,
+      after: { status: PaymentStatus.FAILED, reason: rejectionReason },
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
 
     return {
       message: 'Payment rejected successfully',

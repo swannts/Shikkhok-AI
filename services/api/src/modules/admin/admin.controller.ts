@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -8,6 +9,7 @@ import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { UserRole } from '../users/enums/user-role.enum';
 import { AdminService } from './admin.service';
+import { AdminAuditService } from './admin-audit.service';
 import { AdminListUsersQueryDto } from './dto/admin-list-users-query.dto';
 import { AdminUpdateUserStatusDto } from './dto/admin-update-user-status.dto';
 import { AdminCreateSubjectDto } from './dto/admin-create-subject.dto';
@@ -20,7 +22,10 @@ import { AdminCreateLessonDto } from './dto/admin-create-lesson.dto';
 @Roles(UserRole.ADMIN)
 @Controller({ path: 'admin', version: '1' })
 export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+  constructor(
+    private readonly adminService: AdminService,
+    private readonly auditService: AdminAuditService,
+  ) {}
 
   @Get('metrics/overview')
   @ApiOperation({
@@ -41,44 +46,77 @@ export class AdminController {
   }
 
   @Put('users/:userId/status')
-  @ApiOperation({ summary: 'Update user account status (active, suspended, deleted)' })
+  @ApiOperation({
+    summary: 'Update user account status (active, suspended, deleted) - Self-protection enforced',
+  })
   @ApiResponse({ status: 200, description: 'User status updated successfully' })
   async updateUserStatus(
+    @CurrentUser() adminUser: AuthenticatedUser,
     @Param('userId', MongoObjectIdPipe) userId: string,
     @Body() dto: AdminUpdateUserStatusDto,
+    @Req() req: Request,
   ) {
-    return this.adminService.updateUserStatus(userId, dto);
+    return this.adminService.updateUserStatus(adminUser.userId, userId, dto, {
+      ip: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
   }
 
   @Post('curriculum/subjects')
   @ApiOperation({ summary: 'Create a new curriculum subject' })
   @ApiResponse({ status: 201, description: 'Subject created successfully' })
-  async createSubject(@Body() dto: AdminCreateSubjectDto) {
-    return this.adminService.createSubject(dto);
+  async createSubject(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Body() dto: AdminCreateSubjectDto,
+    @Req() req: Request,
+  ) {
+    return this.adminService.createSubject(adminUser.userId, dto, {
+      ip: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
   }
 
   @Post('curriculum/chapters')
   @ApiOperation({ summary: 'Create a new chapter under a subject' })
   @ApiResponse({ status: 201, description: 'Chapter created successfully' })
-  async createChapter(@Body() dto: AdminCreateChapterDto) {
-    return this.adminService.createChapter(dto);
+  async createChapter(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Body() dto: AdminCreateChapterDto,
+    @Req() req: Request,
+  ) {
+    return this.adminService.createChapter(adminUser.userId, dto, {
+      ip: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
   }
 
   @Post('curriculum/lessons')
   @ApiOperation({ summary: 'Create a new lesson under a chapter' })
   @ApiResponse({ status: 201, description: 'Lesson created successfully' })
-  async createLesson(@Body() dto: AdminCreateLessonDto) {
-    return this.adminService.createLesson(dto);
+  async createLesson(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Body() dto: AdminCreateLessonDto,
+    @Req() req: Request,
+  ) {
+    return this.adminService.createLesson(adminUser.userId, dto, {
+      ip: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
   }
 
   @Put('curriculum/lessons/:lessonId/publish')
   @ApiOperation({ summary: 'Toggle lesson publication status' })
   @ApiResponse({ status: 200, description: 'Lesson publication status updated' })
   async toggleLessonPublish(
+    @CurrentUser() adminUser: AuthenticatedUser,
     @Param('lessonId', MongoObjectIdPipe) lessonId: string,
     @Body('isPublished') isPublished: boolean,
+    @Req() req: Request,
   ) {
-    return this.adminService.toggleLessonPublish(lessonId, Boolean(isPublished));
+    return this.adminService.toggleLessonPublish(adminUser.userId, lessonId, Boolean(isPublished), {
+      ip: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
   }
 
   @Get('payments/pending')
@@ -98,8 +136,12 @@ export class AdminController {
     @CurrentUser() adminUser: AuthenticatedUser,
     @Param('transactionId') transactionId: string,
     @Body('verificationNote') verificationNote?: string,
+    @Req() req?: Request,
   ) {
-    return this.adminService.approvePayment(adminUser.userId, transactionId, verificationNote);
+    return this.adminService.approvePayment(adminUser.userId, transactionId, verificationNote, {
+      ip: req?.ip,
+      userAgent: req?.headers['user-agent'],
+    });
   }
 
   @Post('payments/:transactionId/reject')
@@ -109,11 +151,35 @@ export class AdminController {
     @CurrentUser() adminUser: AuthenticatedUser,
     @Param('transactionId') transactionId: string,
     @Body('rejectionReason') rejectionReason?: string,
+    @Req() req?: Request,
   ) {
     return this.adminService.rejectPayment(
       adminUser.userId,
       transactionId,
       rejectionReason || 'Rejected by administrator',
+      {
+        ip: req?.ip,
+        userAgent: req?.headers['user-agent'],
+      },
     );
+  }
+
+  @Get('audit-logs')
+  @ApiOperation({ summary: 'Query and paginate administrator audit trail logs' })
+  @ApiResponse({ status: 200, description: 'List of administrative audit logs' })
+  async listAuditLogs(
+    @Query('action') action?: string,
+    @Query('resourceType') resourceType?: string,
+    @Query('actorUserId') actorUserId?: string,
+    @Query('limit') limit?: number,
+    @Query('page') page?: number,
+  ) {
+    return this.auditService.listAuditLogs({
+      action,
+      resourceType,
+      actorUserId,
+      limit: limit ? Number(limit) : 50,
+      page: page ? Number(page) : 1,
+    });
   }
 }

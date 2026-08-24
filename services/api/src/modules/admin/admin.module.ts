@@ -23,6 +23,9 @@ import {
   PaymentTransaction,
   PaymentTransactionSchema,
 } from '../subscriptions/schemas/payment-transaction.schema';
+import { AdminAuditLog, AdminAuditLogSchema } from './schemas/admin-audit-log.schema';
+import { AdminAuditLogRepository } from './repositories/admin-audit-log.repository';
+import { AdminAuditService } from './admin-audit.service';
 import { AdminService } from './admin.service';
 import { AdminController } from './admin.controller';
 
@@ -43,10 +46,11 @@ import { AdminController } from './admin.controller';
       { name: HomeworkSubmission.name, schema: HomeworkSubmissionSchema },
       { name: StudentSubscription.name, schema: StudentSubscriptionSchema },
       { name: PaymentTransaction.name, schema: PaymentTransactionSchema },
+      { name: AdminAuditLog.name, schema: AdminAuditLogSchema },
     ]),
   ],
   controllers: [AdminController],
-  providers: [AdminService],
-  exports: [AdminService],
+  providers: [AdminAuditLogRepository, AdminAuditService, AdminService],
+  exports: [AdminAuditService, AdminService],
 })
 export class AdminModule {}

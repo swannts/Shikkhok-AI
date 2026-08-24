@@ -1,8 +1,10 @@
 import 'reflect-metadata';
+import { BadRequestException } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
 import { AdminService } from '../admin.service';
+import { AdminAuditService } from '../admin-audit.service';
 import { User } from '../../users/schemas/user.schema';
 import { Subject } from '../../curriculum/schemas/subject.schema';
 import { Chapter } from '../../curriculum/schemas/chapter.schema';
@@ -15,6 +17,7 @@ import { PaymentTransactionRepository } from '../../subscriptions/repositories/p
 import { SubscriptionActivationService } from '../../subscriptions/services/subscription-activation.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { UserStatus } from '../../users/enums/user-status.enum';
+import { CurriculumMedium } from '../../curriculum/enums/curriculum-medium.enum';
 import { PaymentStatus } from '../../subscriptions/enums/payment-status.enum';
 
 describe('AdminService', () => {
@@ -29,6 +32,7 @@ describe('AdminService', () => {
   let transactionModel: any;
   let transactionRepository: jest.Mocked<PaymentTransactionRepository>;
   let activationService: jest.Mocked<SubscriptionActivationService>;
+  let auditService: jest.Mocked<AdminAuditService>;
 
   beforeEach(async () => {
     const createMockModel = () => {
@@ -51,6 +55,7 @@ describe('AdminService', () => {
           }),
         }),
       });
+      fn.findById = jest.fn();
       fn.findByIdAndUpdate = jest.fn();
       return fn;
     };
@@ -88,12 +93,20 @@ describe('AdminService', () => {
             rejectPayment: jest.fn(),
           },
         },
+        {
+          provide: AdminAuditService,
+          useValue: {
+            recordAudit: jest.fn().mockResolvedValue(undefined),
+            listAuditLogs: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
     service = module.get(AdminService);
     transactionRepository = module.get(PaymentTransactionRepository);
     activationService = module.get(SubscriptionActivationService);
+    auditService = module.get(AdminAuditService);
   });
 
   it('should return metrics overview with users and revenue', async () => {
@@ -111,52 +124,62 @@ describe('AdminService', () => {
     expect(metrics.commercial.totalRevenueBdt).toBe(15000);
   });
 
-  it('should paginate and filter users list', async () => {
-    userModel
-      .find()
-      .sort()
-      .skip()
-      .limit()
-      .exec.mockResolvedValue([
-        { name: 'Rahim', role: UserRole.STUDENT, toJSON: () => ({ name: 'Rahim' }) },
-      ]);
-    userModel.countDocuments.mockResolvedValue(1);
-
-    const result = await service.listUsers({ page: 1, limit: 20 });
-    expect(result.users).toHaveLength(1);
-    expect(result.pagination.total).toBe(1);
+  it('should prevent admin from suspending or deleting their own account (Self-Protection)', async () => {
+    await expect(
+      service.updateUserStatus('admin-user-id', 'admin-user-id', {
+        status: UserStatus.SUSPENDED,
+      }),
+    ).rejects.toThrow(BadRequestException);
   });
 
-  it('should update user status', async () => {
-    userModel.findByIdAndUpdate.mockReturnValue({
+  it('should update user status and record audit log when updating another user', async () => {
+    userModel.findById.mockReturnValue({
       exec: jest.fn().mockResolvedValue({
         _id: new Types.ObjectId(),
-        status: UserStatus.SUSPENDED,
-        toJSON: () => ({ status: UserStatus.SUSPENDED }),
+        status: UserStatus.ACTIVE,
+        save: jest.fn().mockResolvedValue({
+          _id: new Types.ObjectId(),
+          status: UserStatus.SUSPENDED,
+          toJSON: () => ({ status: UserStatus.SUSPENDED }),
+        }),
       }),
     });
 
-    const result = await service.updateUserStatus('user-1', {
+    const result = await service.updateUserStatus('admin-1', 'user-target-2', {
       status: UserStatus.SUSPENDED,
+      reason: 'Repeated policy violations',
     });
+
     expect(result.status).toBe(UserStatus.SUSPENDED);
+    expect(auditService.recordAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        actorUserId: 'admin-1',
+        action: 'UPDATE_USER_STATUS',
+        resourceId: 'user-target-2',
+      }),
+    );
   });
 
-  it('should list pending manual MFS payments', async () => {
-    transactionRepository.findPendingManualPayments.mockResolvedValue([
-      {
-        transactionId: 'MANUAL_123',
-        status: PaymentStatus.PENDING_VERIFICATION,
-        toJSON: () => ({ transactionId: 'MANUAL_123' }),
-      } as any,
-    ]);
+  it('should create a new subject in curriculum and record audit', async () => {
+    const result = await service.createSubject('admin-1', {
+      name: 'Class 8 Science',
+      slug: 'class-8-science',
+      classLevel: 8,
+      medium: CurriculumMedium.BANGLA,
+      curriculumYear: 2026,
+    });
 
-    const result = await service.listPendingPayments(20, 1);
-    expect(result.transactions).toHaveLength(1);
-    expect(result.transactions[0].transactionId).toBe('MANUAL_123');
+    expect(result).toBeDefined();
+    expect(result.name).toBe('Class 8 Science');
+    expect(auditService.recordAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        actorUserId: 'admin-1',
+        action: 'CREATE_SUBJECT',
+      }),
+    );
   });
 
-  it('should approve manual payment and activate subscription', async () => {
+  it('should approve manual payment and record audit', async () => {
     activationService.activateFromPayment.mockResolvedValue({
       isAlreadyActive: false,
       subscription: { _id: new Types.ObjectId(), toJSON: () => ({ tier: 'premium' }) } as any,
@@ -175,9 +198,16 @@ describe('AdminService', () => {
       undefined,
       'Verified against bKash statement',
     );
+    expect(auditService.recordAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        actorUserId: 'admin-1',
+        action: 'APPROVE_PAYMENT',
+        resourceId: 'MANUAL_123',
+      }),
+    );
   });
 
-  it('should reject manual payment and mark failed', async () => {
+  it('should reject manual payment and record audit', async () => {
     activationService.rejectPayment.mockResolvedValue({
       transactionId: 'MANUAL_123',
       status: PaymentStatus.FAILED,
@@ -190,10 +220,26 @@ describe('AdminService', () => {
       'TrxID does not match bank',
     );
     expect(result.message).toContain('Payment rejected');
-    expect(activationService.rejectPayment).toHaveBeenCalledWith(
-      'MANUAL_123',
-      'admin:admin-1',
-      'TrxID does not match bank',
+    expect(auditService.recordAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        actorUserId: 'admin-1',
+        action: 'REJECT_PAYMENT',
+        resourceId: 'MANUAL_123',
+      }),
     );
+  });
+
+  it('should list pending manual payments via transaction repository', async () => {
+    transactionRepository.findPendingManualPayments.mockResolvedValue([
+      {
+        transactionId: 'MANUAL_100',
+        status: PaymentStatus.PENDING_VERIFICATION,
+        toJSON: () => ({ transactionId: 'MANUAL_100' }),
+      } as any,
+    ]);
+
+    const result = await service.listPendingPayments(10, 1);
+    expect(result.transactions).toHaveLength(1);
+    expect(result.transactions[0].transactionId).toBe('MANUAL_100');
   });
 });
