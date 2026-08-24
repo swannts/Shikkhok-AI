@@ -3,11 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/controllers/auth_controller.dart';
 import '../../features/auth/presentation/state/auth_state.dart';
-import '../../features/auth/presentation/pages/login_page.dart';
-import '../../features/auth/presentation/pages/signup_page.dart';
-import '../../features/auth/presentation/pages/verify_otp_page.dart';
-import '../../screens/home_screen.dart';
-import '../../screens/tutor_screen.dart';
 import '../theme/app_colors.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -28,18 +23,21 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) => const Scaffold(
+          body: Center(child: Text('Login Page Canvas')),
+        ),
       ),
       GoRoute(
         path: '/signup',
-        builder: (context, state) => const SignupPage(),
+        builder: (context, state) => const Scaffold(
+          body: Center(child: Text('Signup Page Canvas')),
+        ),
       ),
       GoRoute(
         path: '/verify-otp',
-        builder: (context, state) {
-          final refId = state.extra as String? ?? 'ref-123';
-          return VerifyOtpPage(referenceId: refId);
-        },
+        builder: (context, state) => const Scaffold(
+          body: Center(child: Text('Verify OTP Canvas')),
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -66,7 +64,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/',
-                builder: (context, state) => const HomeScreen(),
+                builder: (context, state) => const Scaffold(
+                  body: Center(child: Text('Home Page Canvas')),
+                ),
               ),
             ],
           ),
@@ -74,7 +74,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/curriculum',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('পাঠ্যক্রম (Curriculum)'))),
+                builder: (context, state) => const Scaffold(
+                  body: Center(child: Text('Curriculum Canvas')),
+                ),
               ),
             ],
           ),
@@ -82,7 +84,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/tutor',
-                builder: (context, state) => const TutorScreen(),
+                builder: (context, state) => const Scaffold(
+                  body: Center(child: Text('AI Tutor Canvas')),
+                ),
               ),
             ],
           ),
@@ -90,7 +94,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/progress',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('অগ্রগতি (Progress)'))),
+                builder: (context, state) => const Scaffold(
+                  body: Center(child: Text('Progress Canvas')),
+                ),
               ),
             ],
           ),
@@ -98,7 +104,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/profile',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('প্রোফাইল (Profile)'))),
+                builder: (context, state) => const Scaffold(
+                  body: Center(child: Text('Profile Canvas')),
+                ),
               ),
             ],
           ),
