@@ -12,7 +12,7 @@ import { LinkChildDto } from './dto/link-child.dto';
 @ApiTags('Parents')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('parents')
+@Controller({ path: 'parents', version: '1' })
 export class ParentsController {
   constructor(private readonly parentsService: ParentsService) {}
 

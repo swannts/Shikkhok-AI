@@ -10,7 +10,7 @@ import { SubmitSyncBatchDto, SubmitSyncBatchResponseDto } from './dto/submit-syn
 @ApiTags('Sync')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('sync')
+@Controller({ path: 'sync', version: '1' })
 export class SyncController {
   constructor(private readonly syncService: SyncService) {}
 

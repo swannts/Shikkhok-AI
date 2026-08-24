@@ -11,7 +11,7 @@ import { UpsertLessonProgressDto } from './dto/upsert-lesson-progress.dto';
 @ApiTags('Progress')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('progress')
+@Controller({ path: 'progress', version: '1' })
 export class ProgressController {
   constructor(private readonly progressService: ProgressService) {}
 

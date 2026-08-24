@@ -10,7 +10,7 @@ import { UpsertStudyPlanDto } from './dto/upsert-study-plan.dto';
 @ApiTags('Study Plan')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('study-plan')
+@Controller({ path: 'study-plan', version: '1' })
 export class StudyPlanController {
   constructor(private readonly studyPlanService: StudyPlanService) {}
 

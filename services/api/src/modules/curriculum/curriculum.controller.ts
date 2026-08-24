@@ -8,7 +8,7 @@ import { CurriculumQueryDto } from './dto/curriculum-query.dto';
 @ApiTags('Curriculum')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('curriculum')
+@Controller({ path: 'curriculum', version: '1' })
 export class CurriculumController {
   constructor(private readonly curriculumService: CurriculumService) {}
 

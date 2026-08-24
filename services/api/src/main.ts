@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
@@ -39,8 +39,12 @@ async function bootstrap() {
     credentials: true,
   });
 
-  // Global Prefix & Request Interceptors
-  app.setGlobalPrefix('api/v1');
+  // Global Prefix & URI API Versioning (/api/v1)
+  app.setGlobalPrefix('api');
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: '1',
+  });
   app.useGlobalInterceptors(new RequestIdInterceptor(), new TransformResponseInterceptor());
   app.useGlobalFilters(new GlobalExceptionFilter());
 

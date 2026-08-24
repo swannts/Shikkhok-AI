@@ -13,7 +13,7 @@ import { UpsertStudentProfileDto } from './dto/upsert-student-profile.dto';
 @ApiTags('Students')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('students')
+@Controller({ path: 'students', version: '1' })
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 

@@ -12,7 +12,7 @@ import { PracticeDifficulty } from './enums/practice-difficulty.enum';
 @ApiTags('Practice')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('practice')
+@Controller({ path: 'practice', version: '1' })
 export class PracticeController {
   constructor(private readonly practiceService: PracticeService) {}
 

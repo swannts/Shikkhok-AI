@@ -12,7 +12,7 @@ import { SendTutorMessageDto } from './dto/send-tutor-message.dto';
 @ApiTags('Tutor')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Controller('tutor')
+@Controller({ path: 'tutor', version: '1' })
 export class TutorController {
   constructor(private readonly tutorService: TutorService) {}
 

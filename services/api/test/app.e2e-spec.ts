@@ -13,7 +13,7 @@ process.env.JWT_REFRESH_TTL = '7d';
 process.env.CORS_ORIGINS = 'http://localhost:3000,http://localhost:4000';
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe, VersioningType } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { TransformResponseInterceptor } from '../src/common/interceptors/transform-response.interceptor';
@@ -29,7 +29,11 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.setGlobalPrefix('api/v1');
+    app.setGlobalPrefix('api');
+    app.enableVersioning({
+      type: VersioningType.URI,
+      defaultVersion: '1',
+    });
     app.useGlobalInterceptors(new RequestIdInterceptor(), new TransformResponseInterceptor());
     app.useGlobalFilters(new GlobalExceptionFilter());
     app.useGlobalPipes(
