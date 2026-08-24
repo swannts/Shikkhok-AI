@@ -1,6 +1,13 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './core/config/configuration';
+import { validateConfig } from './core/config/env.validation';
+import { DatabaseModule } from './core/database/database.module';
+import { RedisModule } from './core/redis/redis.module';
+import { QueueModule } from './core/queue/queue.module';
+import { HealthModule } from './core/health/health.module';
+import { AppLoggerService } from './core/logging/logging.service';
+import { HTTPLoggerMiddleware } from './core/logging/logger.middleware';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -8,20 +15,19 @@ import { AppService } from './app.service';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      load: [configuration],
+      validate: validateConfig,
     }),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>(
-          'DATABASE_URL',
-          'mongodb://shikkhok_admin:shikkhok_secure_password@localhost:27017/shikkhok_db?authSource=admin',
-        ),
-      }),
-    }),
+    DatabaseModule,
+    RedisModule,
+    QueueModule,
+    HealthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppLoggerService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(HTTPLoggerMiddleware).forRoutes('*');
+  }
+}
