@@ -369,4 +369,79 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get subjectSocial => 'বাংলাদেশ ও বিশ্বপরিচয়';
+
+  @override
+  String get chapterDetailsTitle => 'অধ্যায় বিস্তারিত';
+
+  @override
+  String get algebraFormulas => 'বীজগণিতীয় সূত্রাবলি';
+
+  @override
+  String get mathClass8 => 'গণিত • ৮ম শ্রেণি';
+
+  @override
+  String get chapterComplete => 'অধ্যায় সম্পন্ন';
+
+  @override
+  String get lessonsDone => '১০টির মধ্যে ৪টি পাঠ সম্পন্ন';
+
+  @override
+  String get practiceAction => 'প্র্যাকটিস করুন';
+
+  @override
+  String get chapterExam => 'অধ্যায় পরীক্ষা';
+
+  @override
+  String get lessonsList => 'পাঠসমূহ';
+
+  @override
+  String get lesson1 => 'বীজগণিতীয় রাশি';
+
+  @override
+  String get lesson2 => 'সূত্রের ধারণা';
+
+  @override
+  String get lesson3 => 'সূত্রের প্রয়োগ';
+
+  @override
+  String get lesson4 => 'সরল সমীকরণ';
+
+  @override
+  String get lesson5 => 'সমীকরণ সমাধান';
+
+  @override
+  String get lessonReaderTitle => 'সরল সমীকরণ';
+
+  @override
+  String get chapter4Math => 'গণিত • অধ্যায় ৪';
+
+  @override
+  String get whatIsSimpleEq => 'সরল সমীকরণ কী?';
+
+  @override
+  String get rememberBoxTitle => 'মনে রাখো';
+
+  @override
+  String get solutionProcess => 'সমাধান প্রক্রিয়া';
+
+  @override
+  String get prevLesson => 'আগের পাঠ';
+
+  @override
+  String get nextLesson => 'পরবর্তী পাঠ';
+
+  @override
+  String get aiTutorTitle => 'AI শিক্ষক';
+
+  @override
+  String get thinking => 'ভাবছি...';
+
+  @override
+  String get hintOption => 'একটু হিন্ট দিন';
+
+  @override
+  String get dontUnderstandOption => 'বুঝতে পারছি না';
+
+  @override
+  String get sourceCitation => 'উৎস: NCTB গণিত, ৮ম শ্রেণি, অধ্যায় ৪';
 }

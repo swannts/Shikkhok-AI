@@ -781,6 +781,156 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'বাংলাদেশ ও বিশ্বপরিচয়'**
   String get subjectSocial;
+
+  /// No description provided for @chapterDetailsTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'অধ্যায় বিস্তারিত'**
+  String get chapterDetailsTitle;
+
+  /// No description provided for @algebraFormulas.
+  ///
+  /// In bn, this message translates to:
+  /// **'বীজগণিতীয় সূত্রাবলি'**
+  String get algebraFormulas;
+
+  /// No description provided for @mathClass8.
+  ///
+  /// In bn, this message translates to:
+  /// **'গণিত • ৮ম শ্রেণি'**
+  String get mathClass8;
+
+  /// No description provided for @chapterComplete.
+  ///
+  /// In bn, this message translates to:
+  /// **'অধ্যায় সম্পন্ন'**
+  String get chapterComplete;
+
+  /// No description provided for @lessonsDone.
+  ///
+  /// In bn, this message translates to:
+  /// **'১০টির মধ্যে ৪টি পাঠ সম্পন্ন'**
+  String get lessonsDone;
+
+  /// No description provided for @practiceAction.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্র্যাকটিস করুন'**
+  String get practiceAction;
+
+  /// No description provided for @chapterExam.
+  ///
+  /// In bn, this message translates to:
+  /// **'অধ্যায় পরীক্ষা'**
+  String get chapterExam;
+
+  /// No description provided for @lessonsList.
+  ///
+  /// In bn, this message translates to:
+  /// **'পাঠসমূহ'**
+  String get lessonsList;
+
+  /// No description provided for @lesson1.
+  ///
+  /// In bn, this message translates to:
+  /// **'বীজগণিতীয় রাশি'**
+  String get lesson1;
+
+  /// No description provided for @lesson2.
+  ///
+  /// In bn, this message translates to:
+  /// **'সূত্রের ধারণা'**
+  String get lesson2;
+
+  /// No description provided for @lesson3.
+  ///
+  /// In bn, this message translates to:
+  /// **'সূত্রের প্রয়োগ'**
+  String get lesson3;
+
+  /// No description provided for @lesson4.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরল সমীকরণ'**
+  String get lesson4;
+
+  /// No description provided for @lesson5.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমীকরণ সমাধান'**
+  String get lesson5;
+
+  /// No description provided for @lessonReaderTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরল সমীকরণ'**
+  String get lessonReaderTitle;
+
+  /// No description provided for @chapter4Math.
+  ///
+  /// In bn, this message translates to:
+  /// **'গণিত • অধ্যায় ৪'**
+  String get chapter4Math;
+
+  /// No description provided for @whatIsSimpleEq.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরল সমীকরণ কী?'**
+  String get whatIsSimpleEq;
+
+  /// No description provided for @rememberBoxTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'মনে রাখো'**
+  String get rememberBoxTitle;
+
+  /// No description provided for @solutionProcess.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান প্রক্রিয়া'**
+  String get solutionProcess;
+
+  /// No description provided for @prevLesson.
+  ///
+  /// In bn, this message translates to:
+  /// **'আগের পাঠ'**
+  String get prevLesson;
+
+  /// No description provided for @nextLesson.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরবর্তী পাঠ'**
+  String get nextLesson;
+
+  /// No description provided for @aiTutorTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI শিক্ষক'**
+  String get aiTutorTitle;
+
+  /// No description provided for @thinking.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাবছি...'**
+  String get thinking;
+
+  /// No description provided for @hintOption.
+  ///
+  /// In bn, this message translates to:
+  /// **'একটু হিন্ট দিন'**
+  String get hintOption;
+
+  /// No description provided for @dontUnderstandOption.
+  ///
+  /// In bn, this message translates to:
+  /// **'বুঝতে পারছি না'**
+  String get dontUnderstandOption;
+
+  /// No description provided for @sourceCitation.
+  ///
+  /// In bn, this message translates to:
+  /// **'উৎস: NCTB গণিত, ৮ম শ্রেণি, অধ্যায় ৪'**
+  String get sourceCitation;
 }
 
 class _AppLocalizationsDelegate

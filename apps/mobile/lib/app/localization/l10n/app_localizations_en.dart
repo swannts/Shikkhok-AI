@@ -370,4 +370,79 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subjectSocial => 'Social Science';
+
+  @override
+  String get chapterDetailsTitle => 'Chapter Details';
+
+  @override
+  String get algebraFormulas => 'Algebraic Formulas';
+
+  @override
+  String get mathClass8 => 'Mathematics • Class 8';
+
+  @override
+  String get chapterComplete => 'Chapter Progress';
+
+  @override
+  String get lessonsDone => '4 of 10 lessons completed';
+
+  @override
+  String get practiceAction => 'Practice';
+
+  @override
+  String get chapterExam => 'Chapter Exam';
+
+  @override
+  String get lessonsList => 'Lessons';
+
+  @override
+  String get lesson1 => 'Algebraic Expressions';
+
+  @override
+  String get lesson2 => 'Concept of Formulas';
+
+  @override
+  String get lesson3 => 'Application of Formulas';
+
+  @override
+  String get lesson4 => 'Simple Equations';
+
+  @override
+  String get lesson5 => 'Solving Equations';
+
+  @override
+  String get lessonReaderTitle => 'Simple Equations';
+
+  @override
+  String get chapter4Math => 'Mathematics • Chapter 4';
+
+  @override
+  String get whatIsSimpleEq => 'What is a Simple Equation?';
+
+  @override
+  String get rememberBoxTitle => 'Keep in Mind';
+
+  @override
+  String get solutionProcess => 'Solution Process';
+
+  @override
+  String get prevLesson => 'Previous Lesson';
+
+  @override
+  String get nextLesson => 'Next Lesson';
+
+  @override
+  String get aiTutorTitle => 'AI Teacher';
+
+  @override
+  String get thinking => 'Thinking...';
+
+  @override
+  String get hintOption => 'Give a hint';
+
+  @override
+  String get dontUnderstandOption => 'I don\'t understand';
+
+  @override
+  String get sourceCitation => 'Source: NCTB Mathematics, Class 8, Chapter 4';
 }
