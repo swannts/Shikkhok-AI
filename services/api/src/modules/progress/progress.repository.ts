@@ -1,7 +1,10 @@
 import { prisma } from '../../db';
+import { toValidMongoObjectId } from '../../shared/utils/objectId';
 
 export class ProgressRepository {
-  async getStudentProgressSummary(studentId: string) {
+  async getStudentProgressSummary(rawStudentId: string) {
+    const studentId = toValidMongoObjectId(rawStudentId);
+
     try {
       const student = await prisma.studentProfile.findUnique({
         where: { id: studentId },
@@ -30,7 +33,7 @@ export class ProgressRepository {
         };
       }
     } catch {
-      // Fallback response for dev mode
+      // Fallback response for dev / demo mode
     }
 
     return {
@@ -39,9 +42,9 @@ export class ProgressRepository {
       accuracyRate: 82,
       streakDays: 5,
       subjectProgress: [
-        { subjectId: 'math', bnName: 'গণিত', masteryPercentage: 78, colorBg: '#4F46E5' },
-        { subjectId: 'science', bnName: 'বিজ্ঞান', masteryPercentage: 65, colorBg: '#10B981' },
-        { subjectId: 'english', bnName: 'ইংরেজি', masteryPercentage: 84, colorBg: '#F59E0B' },
+        { subjectId: 'math', bnName: 'গণিত', masteryPercentage: 78, colorBg: '#00A76F' },
+        { subjectId: 'science', bnName: 'বিজ্ঞান', masteryPercentage: 65, colorBg: '#22C55E' },
+        { subjectId: 'english', bnName: 'ইংরেজি', masteryPercentage: 84, colorBg: '#8E33FF' },
       ],
       weakTopics: [
         { id: 'wt1', title: 'ভগ্নাংশের সমীকরণ সমাধান', subject: 'গণিত', accuracy: 45 },
@@ -50,7 +53,9 @@ export class ProgressRepository {
     };
   }
 
-  async markLessonComplete(studentId: string, lessonId: string, progressValue: number) {
+  async markLessonComplete(rawStudentId: string, lessonId: string, progressValue: number) {
+    const studentId = toValidMongoObjectId(rawStudentId);
+
     try {
       return await prisma.studentLessonProgress.upsert({
         where: {
@@ -72,7 +77,9 @@ export class ProgressRepository {
     }
   }
 
-  async getLessonProgress(studentId: string, lessonId: string) {
+  async getLessonProgress(rawStudentId: string, lessonId: string) {
+    const studentId = toValidMongoObjectId(rawStudentId);
+
     try {
       const res = await prisma.studentLessonProgress.findUnique({
         where: { studentId_lessonId: { studentId, lessonId } },
