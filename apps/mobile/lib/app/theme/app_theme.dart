@@ -4,8 +4,12 @@ import 'app_colors.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
+    final baseTextTheme = GoogleFonts.anekBanglaTextTheme(ThemeData.light().textTheme);
+
     return ThemeData(
       useMaterial3: true,
+      fontFamily: 'SutonnyMJ',
+      fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
         primary: AppColors.primary,
@@ -14,7 +18,12 @@ class AppTheme {
         error: AppColors.error,
       ),
       scaffoldBackgroundColor: AppColors.background,
-      textTheme: GoogleFonts.hindSiliguriTextTheme(),
+      textTheme: baseTextTheme.apply(
+        fontFamily: 'SutonnyMJ',
+        fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+        bodyColor: AppColors.textPrimary,
+        displayColor: AppColors.textPrimary,
+      ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surface,
         elevation: 0,
@@ -24,6 +33,8 @@ class AppTheme {
           color: AppColors.textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w700,
+          fontFamily: 'SutonnyMJ',
+          fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
         ),
       ),
       cardTheme: CardThemeData(
@@ -46,6 +57,8 @@ class AppTheme {
           textStyle: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
+            fontFamily: 'SutonnyMJ',
+            fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
           ),
         ),
       ),
@@ -60,6 +73,8 @@ class AppTheme {
           textStyle: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
+            fontFamily: 'SutonnyMJ',
+            fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
           ),
         ),
       ),
@@ -74,6 +89,8 @@ class AppTheme {
           fontSize: 13,
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimary,
+          fontFamily: 'SutonnyMJ',
+          fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
