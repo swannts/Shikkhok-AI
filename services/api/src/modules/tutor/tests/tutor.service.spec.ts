@@ -9,6 +9,7 @@ import { StudyPlanService } from '../../study-plan/study-plan.service';
 import { StudentsService } from '../../students/students.service';
 import { UsersService } from '../../users/users.service';
 import { UserRole } from '../../users/enums/user-role.enum';
+import { TutorGatewayService } from '../tutor-gateway.service';
 
 describe('TutorService', () => {
   let service: TutorService;
@@ -16,6 +17,7 @@ describe('TutorService', () => {
   let curriculumService: jest.Mocked<CurriculumService>;
   let progressService: jest.Mocked<ProgressService>;
   let studyPlanService: jest.Mocked<StudyPlanService>;
+  let tutorGatewayService: jest.Mocked<TutorGatewayService>;
   let usersService: jest.Mocked<UsersService>;
 
   beforeEach(async () => {
@@ -63,6 +65,12 @@ describe('TutorService', () => {
             findById: jest.fn(),
           },
         },
+        {
+          provide: TutorGatewayService,
+          useValue: {
+            generateReply: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
@@ -73,6 +81,7 @@ describe('TutorService', () => {
     studyPlanService = module.get(StudyPlanService);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const studentsService = module.get(StudentsService);
+    tutorGatewayService = module.get(TutorGatewayService);
     usersService = module.get(UsersService);
   });
 
@@ -94,6 +103,7 @@ describe('TutorService', () => {
     } as any);
     studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
     progressService.getMySummary.mockRejectedValue(new NotFoundException());
+    tutorGatewayService.generateReply.mockResolvedValue(null);
 
     const result = await service.startConversation(
       { userId: 'user-1', role: UserRole.STUDENT },
@@ -111,5 +121,36 @@ describe('TutorService', () => {
     await expect(
       service.getConversation({ userId: 'user-1', role: UserRole.STUDENT }, 'missing'),
     ).rejects.toThrow(NotFoundException);
+  });
+
+  it('should use the tutor gateway reply when available', async () => {
+    usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    conversationRepository.findById.mockResolvedValue({
+      _id: { toString: () => 'conv-1' },
+      userId: { toString: () => 'user-1' },
+      lessonId: null,
+      chapterId: null,
+      subjectId: null,
+      classLevel: 8,
+      medium: 'bangla',
+    } as any);
+    conversationRepository.appendMessage.mockResolvedValue({
+      toJSON: jest.fn().mockReturnValue({ messages: [{ content: 'gateway reply' }] }),
+    } as any);
+    tutorGatewayService.generateReply.mockResolvedValue({
+      content: 'gateway reply',
+      citations: [{ sourceBook: 'NCTB' }],
+    });
+    studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
+    progressService.getMySummary.mockRejectedValue(new NotFoundException());
+
+    const result = await service.sendMessage(
+      { userId: 'user-1', role: UserRole.STUDENT },
+      'conv-1',
+      { content: 'Explain algebra' },
+    );
+
+    expect(tutorGatewayService.generateReply).toHaveBeenCalled();
+    expect(result.messages?.[0]?.content).toBe('gateway reply');
   });
 });

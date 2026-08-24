@@ -9,6 +9,7 @@ import { TutorConversation, TutorConversationSchema } from './schemas/tutor-conv
 import { TutorConversationRepository } from './repositories/tutor-conversation.repository';
 import { TutorService } from './tutor.service';
 import { TutorController } from './tutor.controller';
+import { TutorGatewayService } from './tutor-gateway.service';
 
 @Module({
   imports: [
@@ -20,6 +21,6 @@ import { TutorController } from './tutor.controller';
     MongooseModule.forFeature([{ name: TutorConversation.name, schema: TutorConversationSchema }]),
   ],
   controllers: [TutorController],
-  providers: [TutorConversationRepository, TutorService],
+  providers: [TutorConversationRepository, TutorGatewayService, TutorService],
 })
 export class TutorModule {}

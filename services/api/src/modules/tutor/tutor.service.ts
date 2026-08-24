@@ -10,6 +10,7 @@ import { StartTutorConversationDto } from './dto/start-tutor-conversation.dto';
 import { SendTutorMessageDto } from './dto/send-tutor-message.dto';
 import { TutorConversationRepository } from './repositories/tutor-conversation.repository';
 import { TutorMessageRole } from './enums/tutor-message-role.enum';
+import { TutorGatewayReply, TutorGatewayService } from './tutor-gateway.service';
 
 @Injectable()
 export class TutorService {
@@ -20,6 +21,7 @@ export class TutorService {
     private readonly studyPlanService: StudyPlanService,
     private readonly studentsService: StudentsService,
     private readonly usersService: UsersService,
+    private readonly tutorGatewayService: TutorGatewayService,
   ) {}
 
   async startConversation(
@@ -109,21 +111,27 @@ export class TutorService {
   ): Promise<{ content: string; citations: Array<Record<string, any>> }> {
     const citations: Array<Record<string, any>> = [];
     const segments: string[] = [];
+    let subjectTitle = 'General Studies';
+    let chapterTitle: string | undefined;
+    let lessonTitle: string | undefined;
 
     if (conversation.lessonId) {
       try {
         const lesson = await this.curriculumService.getLesson(conversation.lessonId.toString());
         const chapter = await this.curriculumService.getChapter(conversation.chapterId.toString());
         const subject = await this.curriculumService.getSubject(conversation.subjectId.toString());
+        subjectTitle = subject.title ?? subject.name ?? subject.title;
+        chapterTitle = chapter.title;
+        lessonTitle = lesson.title;
         citations.push({
           subjectId: conversation.subjectId.toString(),
           chapterId: conversation.chapterId.toString(),
           lessonId: conversation.lessonId.toString(),
-          subjectTitle: subject.title ?? subject.name ?? subject.title,
-          chapterTitle: chapter.title,
-          lessonTitle: lesson.title,
+          subjectTitle,
+          chapterTitle,
+          lessonTitle,
         });
-        segments.push(`এই পাঠ: ${lesson.title}`);
+        segments.push(`এই পাঠ: ${lessonTitle}`);
       } catch {
         // If curriculum context is missing, continue with generic support.
       }
@@ -137,6 +145,27 @@ export class TutorService {
     }
     if (summary?.averageMastery !== undefined) {
       segments.push(`গড় মাস্তারি: ${summary.averageMastery}%`);
+    }
+
+    const gatewayReply = await this.tutorGatewayService.generateReply({
+      conversationId: conversation._id?.toString?.(),
+      userId,
+      prompt,
+      lessonId: conversation.lessonId?.toString?.() ?? null,
+      topicId: conversation.chapterId?.toString?.() ?? conversation.subjectId?.toString?.() ?? null,
+      classLevel: conversation.classLevel ?? (await this.resolveClassLevel(userId)),
+      subject: subjectTitle,
+      language: conversation.medium === 'english' ? 'en' : 'bn',
+      medium: conversation.medium,
+      provider: 'gemini',
+      contextSegments: segments,
+    });
+
+    if (gatewayReply?.content) {
+      return {
+        content: gatewayReply.content,
+        citations: [...citations, ...(gatewayReply.citations ?? [])],
+      };
     }
 
     const reply = [
