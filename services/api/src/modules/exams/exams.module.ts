@@ -9,6 +9,8 @@ import { ExamAnswer, ExamAnswerSchema } from './schemas/exam-answer.schema';
 import { ExamRepository } from './repositories/exam.repository';
 import { ExamSessionRepository } from './repositories/exam-session.repository';
 import { ExamAnswerRepository } from './repositories/exam-answer.repository';
+import { ExamScoringService } from './services/exam-scoring.service';
+import { ExamStateMachineService } from './services/exam-state-machine.service';
 import { ExamsService } from './exams.service';
 import { ExamsController } from './exams.controller';
 
@@ -24,7 +26,21 @@ import { ExamsController } from './exams.controller';
     ]),
   ],
   controllers: [ExamsController],
-  providers: [ExamRepository, ExamSessionRepository, ExamAnswerRepository, ExamsService],
-  exports: [ExamsService, ExamRepository, ExamSessionRepository, ExamAnswerRepository],
+  providers: [
+    ExamRepository,
+    ExamSessionRepository,
+    ExamAnswerRepository,
+    ExamScoringService,
+    ExamStateMachineService,
+    ExamsService,
+  ],
+  exports: [
+    ExamsService,
+    ExamRepository,
+    ExamSessionRepository,
+    ExamAnswerRepository,
+    ExamScoringService,
+    ExamStateMachineService,
+  ],
 })
 export class ExamsModule {}

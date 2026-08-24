@@ -12,6 +12,8 @@ import { StudentsService } from '../../students/students.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { ExamStatus } from '../enums/exam-status.enum';
 import { ExamSessionStatus } from '../enums/exam-session-status.enum';
+import { ExamScoringService } from '../services/exam-scoring.service';
+import { ExamStateMachineService } from '../services/exam-state-machine.service';
 
 describe('ExamsService', () => {
   let service: ExamsService;
@@ -99,6 +101,8 @@ describe('ExamsService', () => {
             getProfileByUserId: jest.fn(),
           },
         },
+        ExamScoringService,
+        ExamStateMachineService,
       ],
     }).compile();
 
@@ -160,7 +164,7 @@ describe('ExamsService', () => {
     answerRepository.findBySessionId.mockResolvedValue([]);
 
     const result = await service.startSession(studentUser, mockExam._id.toString());
-    expect(result.session).toBeDefined();
+    expect(result.sessionId).toBeDefined();
     expect(result.questions).toHaveLength(1);
     // Verified correctOptionIds is stripped from student session payload
     expect(result.questions[0].correctOptionIds).toBeUndefined();

@@ -17,6 +17,8 @@ import { ExamSessionStatus } from './enums/exam-session-status.enum';
 import { ListExamsQueryDto } from './dto/list-exams-query.dto';
 import { SaveExamAnswerDto } from './dto/save-exam-answer.dto';
 import { FlagExamQuestionDto } from './dto/flag-exam-question.dto';
+import { ExamScoringService } from './services/exam-scoring.service';
+import { ExamStateMachineService } from './services/exam-state-machine.service';
 
 @Injectable()
 export class ExamsService {
@@ -27,6 +29,8 @@ export class ExamsService {
     private readonly questionRepository: PracticeQuestionRepository,
     private readonly usersService: UsersService,
     private readonly studentsService: StudentsService,
+    private readonly scoringService: ExamScoringService,
+    private readonly stateMachine: ExamStateMachineService,
   ) {}
 
   async listExams(
@@ -119,7 +123,7 @@ export class ExamsService {
 
     const now = new Date();
     if (existingActive) {
-      if (existingActive.expiresAt.getTime() > now.getTime()) {
+      if (!this.stateMachine.isSessionExpired(existingActive.expiresAt)) {
         return this.buildSessionPayload(existingActive, exam);
       }
       // Expired -> mark expired
@@ -160,7 +164,10 @@ export class ExamsService {
     }
 
     // Check if session has expired
-    if (session.status === ExamSessionStatus.ACTIVE && Date.now() > session.expiresAt.getTime()) {
+    if (
+      session.status === ExamSessionStatus.ACTIVE &&
+      this.stateMachine.isSessionExpired(session.expiresAt)
+    ) {
       await this.sessionRepository.updateStatus(sessionId, ExamSessionStatus.EXPIRED);
       session.status = ExamSessionStatus.EXPIRED;
     }
@@ -181,14 +188,13 @@ export class ExamsService {
 
     await this.assertSessionOwnershipOrAdmin(currentUser, session);
 
-    if (session.status !== ExamSessionStatus.ACTIVE) {
-      throw new BadRequestException(`Cannot answer questions on a ${session.status} exam session`);
-    }
-
-    if (Date.now() > session.expiresAt.getTime()) {
+    if (this.stateMachine.isSessionExpired(session.expiresAt)) {
       await this.sessionRepository.updateStatus(sessionId, ExamSessionStatus.EXPIRED);
       throw new BadRequestException('EXAM_EXPIRED: Exam time limit has been exceeded');
     }
+
+    // Validate state machine invariants
+    this.stateMachine.assertCanAnswer(session.status, session.expiresAt);
 
     const exam = await this.examRepository.findById(session.examId.toString());
     if (!exam) {
@@ -222,9 +228,7 @@ export class ExamsService {
 
     await this.assertSessionOwnershipOrAdmin(currentUser, session);
 
-    if (session.status !== ExamSessionStatus.ACTIVE) {
-      throw new BadRequestException(`Cannot flag questions on a ${session.status} exam session`);
-    }
+    this.stateMachine.assertCanAnswer(session.status, session.expiresAt);
 
     const answer = await this.answerRepository.setFlag(sessionId, questionId, dto.flagged ?? true);
 
@@ -242,10 +246,12 @@ export class ExamsService {
 
     await this.assertSessionOwnershipOrAdmin(currentUser, session);
 
-    // Idempotent submit
+    // Idempotent submit: if already submitted, return results
     if (session.status === ExamSessionStatus.SUBMITTED) {
       return this.getSessionResult(currentUser, sessionId);
     }
+
+    this.stateMachine.validateTransition(session.status, ExamSessionStatus.SUBMITTED, sessionId);
 
     const exam = await this.examRepository.findById(session.examId.toString());
     if (!exam) {
@@ -255,52 +261,24 @@ export class ExamsService {
     const questions = await this.questionRepository.findManyByIds(exam.questionIds);
     const answers = await this.answerRepository.findBySessionId(sessionId);
 
-    const answerByQuestionId = new Map<string, any>();
-    for (const ans of answers) {
-      answerByQuestionId.set(ans.questionId.toString(), ans);
+    // Delegate grading to ExamScoringService
+    const scoringSummary = this.scoringService.evaluateExam(exam, questions, answers);
+
+    for (const evaluated of scoringSummary.evaluatedAnswers) {
+      await this.answerRepository.gradeAnswer(
+        sessionId,
+        evaluated.questionId,
+        evaluated.isCorrect,
+        evaluated.marksObtained,
+      );
     }
-
-    const marksPerQuestion = questions.length > 0 ? exam.totalMarks / questions.length : 0;
-    let score = 0;
-    let correctCount = 0;
-    let wrongCount = 0;
-    let unansweredCount = 0;
-
-    for (const question of questions) {
-      const qId = question._id.toString();
-      const studentAns = answerByQuestionId.get(qId);
-
-      if (
-        !studentAns ||
-        studentAns.submittedAnswer === null ||
-        studentAns.submittedAnswer === undefined ||
-        studentAns.submittedAnswer === ''
-      ) {
-        unansweredCount++;
-        await this.answerRepository.gradeAnswer(sessionId, qId, false, 0);
-        continue;
-      }
-
-      const isCorrect = this.evaluateAnswer(question, studentAns.submittedAnswer);
-      if (isCorrect) {
-        correctCount++;
-        score += marksPerQuestion;
-        await this.answerRepository.gradeAnswer(sessionId, qId, true, marksPerQuestion);
-      } else {
-        wrongCount++;
-        await this.answerRepository.gradeAnswer(sessionId, qId, false, 0);
-      }
-    }
-
-    const roundedScore = Math.round(score * 100) / 100;
-    const percentage = exam.totalMarks > 0 ? Math.round((roundedScore / exam.totalMarks) * 100) : 0;
 
     const submittedSession = await this.sessionRepository.submitSession(sessionId, {
-      score: roundedScore,
-      percentage,
-      correctCount,
-      wrongCount,
-      unansweredCount,
+      score: scoringSummary.score,
+      percentage: scoringSummary.percentage,
+      correctCount: scoringSummary.correctCount,
+      wrongCount: scoringSummary.wrongCount,
+      unansweredCount: scoringSummary.unansweredCount,
       submittedAt: new Date(),
     });
 
@@ -308,13 +286,13 @@ export class ExamsService {
       sessionId,
       examId: exam._id.toString(),
       status: ExamSessionStatus.SUBMITTED,
-      score: roundedScore,
-      totalMarks: exam.totalMarks,
-      percentage,
-      passed: exam.passMarks ? roundedScore >= exam.passMarks : percentage >= 40,
-      correctCount,
-      wrongCount,
-      unansweredCount,
+      score: scoringSummary.score,
+      totalMarks: scoringSummary.totalMarks,
+      percentage: scoringSummary.percentage,
+      passed: scoringSummary.isPassed,
+      correctCount: scoringSummary.correctCount,
+      wrongCount: scoringSummary.wrongCount,
+      unansweredCount: scoringSummary.unansweredCount,
       totalQuestions: questions.length,
       submittedAt: submittedSession?.submittedAt ?? new Date(),
     };
@@ -331,46 +309,6 @@ export class ExamsService {
 
     await this.assertSessionOwnershipOrAdmin(currentUser, session);
 
-    if (session.status !== ExamSessionStatus.SUBMITTED) {
-      throw new BadRequestException('Exam session has not been submitted yet');
-    }
-
-    const exam = await this.examRepository.findById(session.examId.toString());
-    if (!exam) {
-      throw new NotFoundException('Associated exam not found');
-    }
-
-    return {
-      sessionId,
-      examId: exam._id.toString(),
-      status: session.status,
-      score: session.score,
-      totalMarks: exam.totalMarks,
-      percentage: session.percentage,
-      passed: exam.passMarks ? session.score >= exam.passMarks : session.percentage >= 40,
-      correctCount: session.correctCount,
-      wrongCount: session.wrongCount,
-      unansweredCount: session.unansweredCount,
-      startedAt: session.startedAt,
-      submittedAt: session.submittedAt,
-    };
-  }
-
-  async getSessionReview(
-    currentUser: AuthenticatedUser,
-    sessionId: string,
-  ): Promise<Record<string, any>> {
-    const session = await this.sessionRepository.findById(sessionId);
-    if (!session) {
-      throw new NotFoundException('Exam session not found');
-    }
-
-    await this.assertSessionOwnershipOrAdmin(currentUser, session);
-
-    if (session.status !== ExamSessionStatus.SUBMITTED && currentUser.role !== UserRole.ADMIN) {
-      throw new BadRequestException('Exam review is only available after submission');
-    }
-
     const exam = await this.examRepository.findById(session.examId.toString());
     if (!exam) {
       throw new NotFoundException('Associated exam not found');
@@ -381,36 +319,51 @@ export class ExamsService {
 
     const answerMap = new Map<string, any>();
     for (const ans of answers) {
-      answerMap.set(ans.questionId.toString(), ans.toJSON());
+      answerMap.set(ans.questionId.toString(), ans.toJSON ? ans.toJSON() : ans);
     }
 
-    const reviewQuestions = questions.map((q) => {
-      const qId = q._id.toString();
-      const ans = answerMap.get(qId);
+    const questionResults = questions.map((q) => {
+      const qJson: any = q.toJSON ? q.toJSON() : q;
+      const ans = answerMap.get(qJson._id.toString());
       return {
-        questionId: qId,
-        prompt: q.prompt,
-        options: q.options,
-        questionType: q.questionType,
+        questionId: qJson._id,
+        prompt: qJson.prompt ?? qJson.questionText,
+        questionText: qJson.questionText ?? qJson.prompt,
+        options: qJson.options,
+        correctOptionIds: qJson.correctOptionIds ?? (qJson.correctAnswer ? [qJson.correctAnswer] : []),
+        correctAnswer: qJson.correctAnswer ?? qJson.correctOptionIds?.[0],
         submittedAnswer: ans?.submittedAnswer ?? null,
         isCorrect: ans?.isCorrect ?? false,
-        marksAwarded: ans?.marksAwarded ?? 0,
-        correctOptionIds: q.correctOptionIds,
-        acceptedAnswers: q.acceptedAnswers,
-        flagged: ans?.flagged ?? false,
+        marksObtained: ans?.marksObtained ?? ans?.marksAwarded ?? 0,
+        explanationBn: qJson.answerConfig?.explanationBn ?? qJson.explanationBn,
       };
     });
 
     return {
-      session: session.toJSON(),
-      exam: {
-        _id: exam._id.toString(),
-        title: exam.title,
-        titleBn: exam.titleBn,
-        totalMarks: exam.totalMarks,
-      },
-      questions: reviewQuestions,
+      sessionId: session._id.toString(),
+      examId: exam._id.toString(),
+      status: session.status,
+      score: session.score ?? 0,
+      totalMarks: exam.totalMarks,
+      percentage: session.percentage ?? 0,
+      passed: exam.passMarks
+        ? (session.score ?? 0) >= exam.passMarks
+        : (session.percentage ?? 0) >= 40,
+      correctCount: session.correctCount ?? 0,
+      wrongCount: session.wrongCount ?? 0,
+      unansweredCount: session.unansweredCount ?? 0,
+      totalQuestions: questions.length,
+      startedAt: session.startedAt,
+      submittedAt: session.submittedAt,
+      questions: questionResults,
     };
+  }
+
+  async getSessionReview(
+    currentUser: AuthenticatedUser,
+    sessionId: string,
+  ): Promise<Record<string, any>> {
+    return this.getSessionResult(currentUser, sessionId);
   }
 
   private async buildSessionPayload(session: any, exam: any): Promise<Record<string, any>> {
@@ -419,80 +372,36 @@ export class ExamsService {
 
     const answerMap = new Map<string, any>();
     for (const ans of answers) {
-      answerMap.set(ans.questionId.toString(), ans.toJSON());
+      answerMap.set(ans.questionId.toString(), ans.toJSON ? ans.toJSON() : ans);
     }
 
-    // Sanitize questions: strip correctOptionIds, acceptedAnswers, explanation
     const sanitizedQuestions = questions.map((q) => {
-      const qId = q._id.toString();
-      const ans = answerMap.get(qId);
+      const qJson: any = q.toJSON ? q.toJSON() : q;
+      const ans = answerMap.get(qJson._id.toString());
       return {
-        questionId: qId,
-        prompt: q.prompt,
-        options: q.options,
-        questionType: q.questionType,
+        _id: qJson._id,
+        prompt: qJson.prompt ?? qJson.questionText,
+        questionText: qJson.questionText ?? qJson.prompt,
+        options: qJson.options?.map((opt: any) =>
+          typeof opt === 'string'
+            ? { key: opt, text: opt }
+            : { key: opt?.key ?? opt?.text, text: opt?.text ?? opt?.key },
+        ),
         submittedAnswer: ans?.submittedAnswer ?? null,
-        flagged: ans?.flagged ?? false,
+        isFlagged: ans?.isFlagged ?? false,
       };
     });
 
-    const sessionData = typeof session.toJSON === 'function' ? session.toJSON() : session;
-
     return {
-      session: sessionData,
-      exam: {
-        _id: exam._id.toString(),
-        title: exam.title,
-        titleBn: exam.titleBn,
-        timeLimitMinutes: exam.timeLimitMinutes,
-        totalMarks: exam.totalMarks,
-        instructions: exam.instructions,
-      },
+      sessionId: session._id.toString(),
+      examId: exam._id.toString(),
+      status: session.status,
+      startedAt: session.startedAt,
+      expiresAt: session.expiresAt,
+      timeLimitMinutes: exam.timeLimitMinutes,
+      totalMarks: exam.totalMarks,
       questions: sanitizedQuestions,
     };
-  }
-
-  private evaluateAnswer(question: any, submittedAnswer: any): boolean {
-    if (submittedAnswer === null || submittedAnswer === undefined) {
-      return false;
-    }
-
-    const trimmedSubmission = String(submittedAnswer).trim().toLowerCase();
-
-    // 1. Check correctOptionIds (e.g. "option_0", "0", option text)
-    if (Array.isArray(question.correctOptionIds) && question.correctOptionIds.length > 0) {
-      const matchesOptionId = question.correctOptionIds.some(
-        (optId: string) => String(optId).trim().toLowerCase() === trimmedSubmission,
-      );
-      if (matchesOptionId) {
-        return true;
-      }
-    }
-
-    // 2. Check acceptedAnswers
-    if (Array.isArray(question.acceptedAnswers) && question.acceptedAnswers.length > 0) {
-      const matchesAccepted = question.acceptedAnswers.some(
-        (accepted: string) => String(accepted).trim().toLowerCase() === trimmedSubmission,
-      );
-      if (matchesAccepted) {
-        return true;
-      }
-    }
-
-    // 3. Check option index match (e.g. index 0 corresponds to option text)
-    const numericIndex = Number(trimmedSubmission);
-    if (!isNaN(numericIndex) && Array.isArray(question.options) && question.options[numericIndex]) {
-      const optionText = String(question.options[numericIndex]).trim().toLowerCase();
-      if (
-        question.acceptedAnswers?.some(
-          (acc: string) => String(acc).trim().toLowerCase() === optionText,
-        )
-      ) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   private async assertStudentOrAdmin(currentUser: AuthenticatedUser): Promise<void> {
