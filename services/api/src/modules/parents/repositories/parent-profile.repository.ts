@@ -52,4 +52,24 @@ export class ParentProfileRepository {
       )
       .exec();
   }
+
+  async updateAlertSettings(
+    userId: string,
+    settings: Partial<ParentProfile['alertSettings']>,
+  ): Promise<ParentProfileDocument | null> {
+    const updateFields: Record<string, any> = {};
+    for (const [key, value] of Object.entries(settings)) {
+      if (value !== undefined) {
+        updateFields[`alertSettings.${key}`] = value;
+      }
+    }
+
+    return this.parentProfileModel
+      .findOneAndUpdate(
+        { userId },
+        { $set: updateFields },
+        { new: true, upsert: true, setDefaultsOnInsert: true },
+      )
+      .exec();
+  }
 }

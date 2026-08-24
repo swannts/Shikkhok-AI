@@ -35,6 +35,30 @@ export class ParentProfile {
   @Prop({ type: [Types.ObjectId], ref: User.name, default: [] })
   linkedStudentIds: Types.ObjectId[];
 
+  @Prop({
+    type: {
+      lowExamScoreAlert: { type: Boolean, default: true },
+      lowExamScoreThreshold: { type: Number, default: 50 },
+      brokenStreakAlert: { type: Boolean, default: true },
+      homeworkReminder: { type: Boolean, default: true },
+      weeklyDigestEmail: { type: Boolean, default: true },
+    },
+    default: {
+      lowExamScoreAlert: true,
+      lowExamScoreThreshold: 50,
+      brokenStreakAlert: true,
+      homeworkReminder: true,
+      weeklyDigestEmail: true,
+    },
+  })
+  alertSettings: {
+    lowExamScoreAlert: boolean;
+    lowExamScoreThreshold: number;
+    brokenStreakAlert: boolean;
+    homeworkReminder: boolean;
+    weeklyDigestEmail: boolean;
+  };
+
   createdAt: Date;
   updatedAt: Date;
 }

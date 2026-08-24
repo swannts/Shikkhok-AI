@@ -6,8 +6,11 @@ import { UserRole } from '../users/enums/user-role.enum';
 import { ParentProfileRepository } from './repositories/parent-profile.repository';
 import { UpsertParentProfileDto } from './dto/upsert-parent-profile.dto';
 import { LinkChildDto } from './dto/link-child.dto';
+import { UpdateParentAlertSettingsDto } from './dto/update-parent-alert-settings.dto';
+import { WeeklyReportQueryDto } from './dto/weekly-report-query.dto';
 import { StudentsService } from '../students/students.service';
 import { ProgressService } from '../progress/progress.service';
+import { GamificationService } from '../gamification/gamification.service';
 
 @Injectable()
 export class ParentsService {
@@ -16,6 +19,7 @@ export class ParentsService {
     private readonly usersService: UsersService,
     private readonly studentsService: StudentsService,
     private readonly progressService: ProgressService,
+    private readonly gamificationService: GamificationService,
   ) {}
 
   async getMyProfile(currentUser: AuthenticatedUser): Promise<Record<string, any>> {
@@ -105,6 +109,95 @@ export class ParentsService {
       childProfile,
       summary,
     };
+  }
+
+  async getChildAnalytics(
+    currentUser: AuthenticatedUser,
+    childUserId: string,
+  ): Promise<Record<string, any>> {
+    await this.assertParentOrAdmin(currentUser);
+    await this.assertLinkedChild(currentUser.userId, childUserId);
+
+    const [childProfile, progressSummary, gamificationSummary] = await Promise.all([
+      this.studentsService.getProfileByUserId(childUserId),
+      this.progressService.getSummaryForUserId(childUserId),
+      this.gamificationService.getMySummary({ userId: childUserId, role: UserRole.STUDENT }),
+    ]);
+
+    return {
+      childProfile,
+      progressSummary,
+      gamificationSummary,
+      generatedAt: new Date().toISOString(),
+    };
+  }
+
+  async getChildWeeklyReport(
+    currentUser: AuthenticatedUser,
+    childUserId: string,
+    query: WeeklyReportQueryDto,
+  ): Promise<Record<string, any>> {
+    await this.assertParentOrAdmin(currentUser);
+    await this.assertLinkedChild(currentUser.userId, childUserId);
+
+    const days = query.days ?? 7;
+    const [childProfile, progressSummary, gamificationSummary] = await Promise.all([
+      this.studentsService.getProfileByUserId(childUserId),
+      this.progressService.getSummaryForUserId(childUserId),
+      this.gamificationService.getMySummary({ userId: childUserId, role: UserRole.STUDENT }),
+    ]);
+
+    const completedLessons = progressSummary?.completedLessonsCount ?? 0;
+    const currentStreak = gamificationSummary?.streak?.currentStreak ?? 0;
+    const totalPoints = gamificationSummary?.points ?? 0;
+
+    const insightsBn =
+      currentStreak >= 3
+        ? `গত ${days} দিনে শিক্ষার্থী চমৎকার ধারাবাহিকতা বজায় রেখেছে (স্ট্রিক: ${currentStreak} দিন)। নিয়মিত পাঠ সম্পন্ন করায় তার শেখার গতি প্রশংসনীয়।`
+        : `গত ${days} দিনে শিক্ষার্থী কিছু পাঠ সম্পন্ন করেছে। তবে দৈনিক পড়াশোনার ধারাবাহিকতা বজায় রাখতে তাকে উৎসাহিত করুন।`;
+
+    return {
+      reportPeriodDays: days,
+      studentName: childProfile?.name ?? 'শিক্ষার্থী',
+      classLevel: childProfile?.classLevel ?? 8,
+      medium: childProfile?.medium ?? 'bangla',
+      completedLessonsCount: completedLessons,
+      currentStreakDays: currentStreak,
+      totalLearningPoints: totalPoints,
+      tier: gamificationSummary?.tier ?? 'bronze',
+      aiParentInsightsBn: insightsBn,
+      recommendationsBn: [
+        'প্রতিদিন অন্তত ১৫-২০ মিনিট পাঠ্যবই পড়ার অভ্যাস বজায় রাখুন।',
+        'প্রতিটি অধ্যায় শেষে কুইজ ও অনুশীলন সমাধান করতে উদ্বুদ্ধ করুন।',
+      ],
+      generatedAt: new Date().toISOString(),
+    };
+  }
+
+  async getAlertSettings(currentUser: AuthenticatedUser): Promise<Record<string, any>> {
+    await this.assertParentOrAdmin(currentUser);
+    const profile = await this.getOrCreateProfile(currentUser.userId);
+    return (
+      profile.alertSettings ?? {
+        lowExamScoreAlert: true,
+        lowExamScoreThreshold: 50,
+        brokenStreakAlert: true,
+        homeworkReminder: true,
+        weeklyDigestEmail: true,
+      }
+    );
+  }
+
+  async updateAlertSettings(
+    currentUser: AuthenticatedUser,
+    dto: UpdateParentAlertSettingsDto,
+  ): Promise<Record<string, any>> {
+    await this.assertParentOrAdmin(currentUser);
+    const profile = await this.parentProfileRepository.updateAlertSettings(currentUser.userId, dto);
+    if (!profile) {
+      throw new NotFoundException('Parent profile not found');
+    }
+    return profile.toJSON();
   }
 
   private async getOrCreateProfile(userId: string): Promise<Record<string, any>> {

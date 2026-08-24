@@ -46,4 +46,20 @@ describe('ParentProfileRepository', () => {
 
     expect(result).toEqual(profile);
   });
+
+  it('should update parent alert settings', async () => {
+    const profile = {
+      toJSON: jest.fn().mockReturnValue({
+        alertSettings: { lowExamScoreAlert: false, lowExamScoreThreshold: 40 },
+      }),
+    };
+    model.findOneAndUpdate().exec.mockResolvedValue(profile);
+
+    const result = await repository.updateAlertSettings('parent-1', {
+      lowExamScoreAlert: false,
+      lowExamScoreThreshold: 40,
+    });
+
+    expect(result).toEqual(profile);
+  });
 });

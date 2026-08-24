@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -8,6 +8,8 @@ import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { ParentsService } from './parents.service';
 import { UpsertParentProfileDto } from './dto/upsert-parent-profile.dto';
 import { LinkChildDto } from './dto/link-child.dto';
+import { UpdateParentAlertSettingsDto } from './dto/update-parent-alert-settings.dto';
+import { WeeklyReportQueryDto } from './dto/weekly-report-query.dto';
 
 @ApiTags('Parents')
 @ApiBearerAuth()
@@ -31,6 +33,23 @@ export class ParentsController {
     @Body() dto: UpsertParentProfileDto,
   ) {
     return this.parentsService.upsertMyProfile(user, dto);
+  }
+
+  @Get('me/alert-settings')
+  @ApiOperation({ summary: 'Get parent alert and notification settings' })
+  @ApiResponse({ status: 200, description: 'Parent alert settings returned' })
+  async getAlertSettings(@CurrentUser() user: AuthenticatedUser) {
+    return this.parentsService.getAlertSettings(user);
+  }
+
+  @Put('me/alert-settings')
+  @ApiOperation({ summary: 'Update parent alert thresholds and notification preferences' })
+  @ApiResponse({ status: 200, description: 'Updated parent alert settings' })
+  async updateAlertSettings(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: UpdateParentAlertSettingsDto,
+  ) {
+    return this.parentsService.updateAlertSettings(user, dto);
   }
 
   @Get('me/children')
@@ -65,5 +84,30 @@ export class ParentsController {
     @Param('childUserId', MongoObjectIdPipe) childUserId: string,
   ) {
     return this.parentsService.getChildDashboard(user, childUserId);
+  }
+
+  @Get('me/children/:childUserId/analytics')
+  @ApiOperation({
+    summary: 'Get comprehensive learning analytics and gamification status for a linked child',
+  })
+  @ApiResponse({ status: 200, description: 'Child learning analytics returned' })
+  async getChildAnalytics(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('childUserId', MongoObjectIdPipe) childUserId: string,
+  ) {
+    return this.parentsService.getChildAnalytics(user, childUserId);
+  }
+
+  @Get('me/children/:childUserId/reports/weekly')
+  @ApiOperation({
+    summary: 'Get automated weekly progress report with AI Bangla insights for parents',
+  })
+  @ApiResponse({ status: 200, description: 'Child weekly report and insights returned' })
+  async getChildWeeklyReport(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('childUserId', MongoObjectIdPipe) childUserId: string,
+    @Query() query: WeeklyReportQueryDto,
+  ) {
+    return this.parentsService.getChildWeeklyReport(user, childUserId, query);
   }
 }
