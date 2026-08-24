@@ -24,6 +24,7 @@ import { HomeworkModule } from './modules/homework/homework.module';
 import { TextbooksModule } from './modules/textbooks/textbooks.module';
 import { SearchModule } from './modules/search/search.module';
 import { GamificationModule } from './modules/gamification/gamification.module';
+import { ClassroomsModule } from './modules/classrooms/classrooms.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { GamificationModule } from './modules/gamification/gamification.module';
     TextbooksModule,
     SearchModule,
     GamificationModule,
+    ClassroomsModule,
   ],
   providers: [AppLoggerService],
 })
