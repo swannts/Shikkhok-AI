@@ -35,9 +35,11 @@ const parseEnv = () => {
     }
   }
 
+  const defaultMongoUrl = 'mongodb://shikkhok_admin:shikkhok_secure_password@localhost:27017/shikkhok_db?authSource=admin';
+
   const result = envSchema.safeParse({
     ...process.env,
-    DATABASE_URL: process.env.DATABASE_URL || 'postgresql://shikkhok_user:shikkhok_secure_password@localhost:5432/shikkhok_db?schema=public',
+    DATABASE_URL: process.env.DATABASE_URL || defaultMongoUrl,
     JWT_SECRET: rawJwtSecret || 'shikkhok-development-only-jwt-secret-key-2026',
   });
 
@@ -49,7 +51,7 @@ const parseEnv = () => {
     return {
       NODE_ENV: 'development' as const,
       PORT: 4000,
-      DATABASE_URL: 'postgresql://shikkhok_user:shikkhok_secure_password@localhost:5432/shikkhok_db?schema=public',
+      DATABASE_URL: defaultMongoUrl,
       REDIS_URL: 'redis://localhost:6379',
       JWT_SECRET: 'shikkhok-development-only-jwt-secret-key-2026',
       JWT_ACCESS_EXPIRES_IN: '15m',

@@ -2,25 +2,25 @@ version: '3.8'
 
 services:
   # -------------------------------------------------------------
-  # 1. POSTGRESQL + PGVECTOR DATABASE
+  # 1. MONGODB NOSQL DATABASE
   # -------------------------------------------------------------
-  postgres:
-    image: pgvector/pgvector:pg15
-    container_name: shikkhok-postgres
+  mongodb:
+    image: mongo:7.0
+    container_name: shikkhok-mongodb
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-shikkhok_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shikkhok_secure_password}
-      POSTGRES_DB: ${POSTGRES_DB:-shikkhok_db}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-shikkhok_admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-shikkhok_secure_password}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-shikkhok_db}
     ports:
-      - '5432:5432'
+      - '27017:27017'
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-shikkhok_user} -d ${POSTGRES_DB:-shikkhok_db}"]
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 5s
       timeout: 5s
       retries: 5
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mongodb_data:/data/db
 
   # -------------------------------------------------------------
   # 2. REDIS CACHE & JOB BROKER
@@ -53,7 +53,7 @@ services:
     environment:
       PORT: 4000
       NODE_ENV: ${NODE_ENV:-development}
-      DATABASE_URL: ${DATABASE_URL:-postgresql://shikkhok_user:shikkhok_secure_password@postgres:5432/shikkhok_db?schema=public}
+      DATABASE_URL: ${DATABASE_URL:-mongodb://shikkhok_admin:shikkhok_secure_password@mongodb:27017/shikkhok_db?authSource=admin}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       JWT_SECRET: ${JWT_SECRET:-shikkhok-development-only-jwt-secret-key-2026-min-32-chars}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:4000,http://localhost:8081}
@@ -63,7 +63,7 @@ services:
       timeout: 5s
       retries: 3
     depends_on:
-      postgres:
+      mongodb:
         condition: service_healthy
       redis:
         condition: service_healthy
@@ -104,13 +104,13 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
-      DATABASE_URL: ${DATABASE_URL:-postgresql://shikkhok_user:shikkhok_secure_password@postgres:5432/shikkhok_db?schema=public}
+      DATABASE_URL: ${DATABASE_URL:-mongodb://shikkhok_admin:shikkhok_secure_password@mongodb:27017/shikkhok_db?authSource=admin}
     depends_on:
-      postgres:
+      mongodb:
         condition: service_healthy
       redis:
         condition: service_healthy
 
 volumes:
-  postgres_data:
+  mongodb_data:
   redis_data:
