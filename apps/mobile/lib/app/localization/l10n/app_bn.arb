@@ -196,5 +196,12 @@
   "boardPrepTab": "বোর্ড প্রস্তুতি",
   "startExam": "শুরু করুন",
   "viewResult": "ফলাফল দেখুন",
-  "higherPrep": "উচ্চতর প্রস্তুতি"
+  "higherPrep": "উচ্চতর প্রস্তুতি",
+  "studyCalendarTitle": "অধ্যয়ন ক্যালেন্ডার",
+  "examInstructionsTitle": "পরীক্ষার নির্দেশাবলী",
+  "examSessionTitle": "পরীক্ষা সেশন",
+  "examResultTitle": "পরীক্ষার ফলাফল",
+  "submitExam": "পরীক্ষা জমা দিন",
+  "agreeRules": "আমি সকল নিয়ম মেনে চলতে সম্মত আছি",
+  "totalMarks": "পূর্ণমান: ৫০"
 }

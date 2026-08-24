@@ -1279,6 +1279,48 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'উচ্চতর প্রস্তুতি'**
   String get higherPrep;
+
+  /// No description provided for @studyCalendarTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'অধ্যয়ন ক্যালেন্ডার'**
+  String get studyCalendarTitle;
+
+  /// No description provided for @examInstructionsTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরীক্ষার নির্দেশাবলী'**
+  String get examInstructionsTitle;
+
+  /// No description provided for @examSessionTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরীক্ষা সেশন'**
+  String get examSessionTitle;
+
+  /// No description provided for @examResultTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরীক্ষার ফলাফল'**
+  String get examResultTitle;
+
+  /// No description provided for @submitExam.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরীক্ষা জমা দিন'**
+  String get submitExam;
+
+  /// No description provided for @agreeRules.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমি সকল নিয়ম মেনে চলতে সম্মত আছি'**
+  String get agreeRules;
+
+  /// No description provided for @totalMarks.
+  ///
+  /// In bn, this message translates to:
+  /// **'পূর্ণমান: ৫০'**
+  String get totalMarks;
 }
 
 class _AppLocalizationsDelegate

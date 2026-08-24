@@ -625,4 +625,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get higherPrep => 'Higher Preparation';
+
+  @override
+  String get studyCalendarTitle => 'Study Calendar';
+
+  @override
+  String get examInstructionsTitle => 'Exam Instructions';
+
+  @override
+  String get examSessionTitle => 'Exam Session';
+
+  @override
+  String get examResultTitle => 'Exam Result';
+
+  @override
+  String get submitExam => 'Submit Exam';
+
+  @override
+  String get agreeRules => 'I agree to follow all exam rules';
+
+  @override
+  String get totalMarks => 'Full Marks: 50';
 }

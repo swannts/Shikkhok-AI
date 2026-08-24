@@ -11,8 +11,13 @@ import '../../features/curriculum/presentation/pages/practice_mistake_review_pag
 import '../../features/curriculum/presentation/pages/practice_result_page.dart';
 import '../../features/curriculum/presentation/pages/practice_session_mcq_page.dart';
 import '../../features/curriculum/presentation/pages/practice_setup_page.dart';
+import '../../features/curriculum/presentation/pages/study_calendar_page.dart';
 import '../../features/curriculum/presentation/pages/subject_details_page.dart';
+import '../../features/curriculum/presentation/pages/todays_study_plan_page.dart';
+import '../../features/exam/presentation/pages/exam_instructions_page.dart';
 import '../../features/exam/presentation/pages/exam_library_page.dart';
+import '../../features/exam/presentation/pages/exam_result_page.dart';
+import '../../features/exam/presentation/pages/exam_session_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/homework/presentation/pages/captured_homework_review_page.dart';
 import '../../features/homework/presentation/pages/homework_ai_solution_page.dart';
@@ -148,6 +153,26 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/exam-library',
       builder: (context, state) => const ExamLibraryPage(),
+    ),
+    GoRoute(
+      path: '/study-calendar',
+      builder: (context, state) => const StudyCalendarPage(),
+    ),
+    GoRoute(
+      path: '/todays-study-plan',
+      builder: (context, state) => const TodaysStudyPlanPage(),
+    ),
+    GoRoute(
+      path: '/exam-instructions',
+      builder: (context, state) => const ExamInstructionsPage(),
+    ),
+    GoRoute(
+      path: '/exam-session',
+      builder: (context, state) => const ExamSessionPage(),
+    ),
+    GoRoute(
+      path: '/exam-result',
+      builder: (context, state) => const ExamResultPage(),
     ),
   ],
 );

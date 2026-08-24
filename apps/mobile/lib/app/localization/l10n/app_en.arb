@@ -196,5 +196,12 @@
   "boardPrepTab": "Board Prep",
   "startExam": "Start Exam",
   "viewResult": "View Result",
-  "higherPrep": "Higher Preparation"
+  "higherPrep": "Higher Preparation",
+  "studyCalendarTitle": "Study Calendar",
+  "examInstructionsTitle": "Exam Instructions",
+  "examSessionTitle": "Exam Session",
+  "examResultTitle": "Exam Result",
+  "submitExam": "Submit Exam",
+  "agreeRules": "I agree to follow all exam rules",
+  "totalMarks": "Full Marks: 50"
 }

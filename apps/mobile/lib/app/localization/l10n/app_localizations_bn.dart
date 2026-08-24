@@ -626,4 +626,25 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get higherPrep => 'উচ্চতর প্রস্তুতি';
+
+  @override
+  String get studyCalendarTitle => 'অধ্যয়ন ক্যালেন্ডার';
+
+  @override
+  String get examInstructionsTitle => 'পরীক্ষার নির্দেশাবলী';
+
+  @override
+  String get examSessionTitle => 'পরীক্ষা সেশন';
+
+  @override
+  String get examResultTitle => 'পরীক্ষার ফলাফল';
+
+  @override
+  String get submitExam => 'পরীক্ষা জমা দিন';
+
+  @override
+  String get agreeRules => 'আমি সকল নিয়ম মেনে চলতে সম্মত আছি';
+
+  @override
+  String get totalMarks => 'পূর্ণমান: ৫০';
 }
