@@ -3,24 +3,41 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/controllers/auth_controller.dart';
 import '../../features/auth/presentation/state/auth_state.dart';
+import '../../features/onboarding/presentation/pages/splash_page.dart';
+import '../../features/onboarding/presentation/pages/onboarding_1_page.dart';
+import '../../features/onboarding/presentation/pages/onboarding_2_page.dart';
 import '../theme/app_colors.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authControllerProvider);
 
   return GoRouter(
-    initialLocation: '/',
+    initialLocation: '/splash',
     redirect: (context, state) {
       final isAuth = authState is Authenticated;
-      final isAuthRoute = state.matchedLocation.startsWith('/login') ||
+      final isPublicRoute = state.matchedLocation.startsWith('/splash') ||
+          state.matchedLocation.startsWith('/onboarding') ||
+          state.matchedLocation.startsWith('/login') ||
           state.matchedLocation.startsWith('/signup') ||
           state.matchedLocation.startsWith('/verify-otp');
 
-      if (!isAuth && !isAuthRoute) return '/login';
-      if (isAuth && isAuthRoute) return '/';
+      if (!isAuth && !isPublicRoute) return '/login';
+      if (isAuth && isPublicRoute && !state.matchedLocation.startsWith('/splash')) return '/';
       return null;
     },
     routes: [
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => const SplashPage(),
+      ),
+      GoRoute(
+        path: '/onboarding-1',
+        builder: (context, state) => const Onboarding1Page(),
+      ),
+      GoRoute(
+        path: '/onboarding-2',
+        builder: (context, state) => const Onboarding2Page(),
+      ),
       GoRoute(
         path: '/login',
         builder: (context, state) => const Scaffold(
