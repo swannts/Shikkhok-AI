@@ -12,6 +12,7 @@ import { SubjectRepository } from '../../curriculum/repositories/subject.reposit
 import { UsersService } from '../../users/users.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { PracticeQuestionType } from '../enums/practice-question-type.enum';
+import { MasteryEngineV1 } from '../domain/mastery-engine-v1';
 
 describe('PracticeService', () => {
   let service: PracticeService;
@@ -22,6 +23,7 @@ describe('PracticeService', () => {
   let chapterRepository: jest.Mocked<ChapterRepository>;
   let subjectRepository: jest.Mocked<SubjectRepository>;
   let usersService: jest.Mocked<UsersService>;
+  let masteryEngine: jest.Mocked<MasteryEngineV1>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -66,6 +68,16 @@ describe('PracticeService', () => {
           provide: UsersService,
           useValue: { findById: jest.fn(), findByEmailOrPhone: jest.fn() },
         },
+        {
+          provide: MasteryEngineV1,
+          useValue: {
+            calculate: jest.fn().mockReturnValue({
+              newMastery: 78,
+              delta: 8,
+              algorithmVersion: 1,
+            }),
+          },
+        },
       ],
     }).compile();
 
@@ -77,6 +89,7 @@ describe('PracticeService', () => {
     chapterRepository = module.get(ChapterRepository);
     subjectRepository = module.get(SubjectRepository);
     usersService = module.get(UsersService);
+    masteryEngine = module.get(MasteryEngineV1);
   });
 
   it('should evaluate mcq attempts and update progress', async () => {
@@ -120,6 +133,7 @@ describe('PracticeService', () => {
 
     expect(result.isCorrect).toBe(true);
     expect(progressService.upsertMyLessonProgress).toHaveBeenCalled();
+    expect(masteryEngine.calculate).toHaveBeenCalled();
   });
 
   it('should reject mismatched student ids', async () => {
@@ -163,5 +177,40 @@ describe('PracticeService', () => {
         },
       ),
     ).rejects.toThrow(BadRequestException);
+  });
+
+  it('should not leak answer keys in student question listings', async () => {
+    usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    questionRepository.findPublishedByLesson.mockResolvedValue([
+      {
+        _id: new Types.ObjectId('64b8268b6cb348e3b53f4100'),
+        subjectId: new Types.ObjectId('64b8268b6cb348e3b53f4101'),
+        chapterId: new Types.ObjectId('64b8268b6cb348e3b53f4102'),
+        lessonId: new Types.ObjectId('64b8268b6cb348e3b53f4103'),
+        questionType: PracticeQuestionType.MCQ,
+        prompt: 'Question',
+        difficulty: 'medium',
+        options: ['A', 'B'],
+        tags: ['tag'],
+        correctOptionIds: ['A'],
+        acceptedAnswers: ['A'],
+        answerConfig: { expectedValue: 1 },
+        toJSON: jest.fn(),
+      } as any,
+    ]);
+
+    const questions = await service.listQuestions(
+      { userId: '64b8268b6cb348e3b53f3140', role: UserRole.STUDENT },
+      '64b8268b6cb348e3b53f3131',
+      10,
+    );
+
+    expect(questions[0]).not.toHaveProperty('correctOptionIds');
+    expect(questions[0]).not.toHaveProperty('acceptedAnswers');
+    expect(questions[0]).not.toHaveProperty('answerConfig');
+    expect(questions[0]).toMatchObject({
+      id: '64b8268b6cb348e3b53f4100',
+      prompt: 'Question',
+    });
   });
 });

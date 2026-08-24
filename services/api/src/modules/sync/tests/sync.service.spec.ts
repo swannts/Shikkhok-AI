@@ -27,6 +27,10 @@ describe('SyncService', () => {
             createEvent: jest.fn(),
             findByOperationId: jest.fn(),
             findByUserId: jest.fn(),
+            getOrCreatePendingEvent: jest.fn(),
+            claimForProcessing: jest.fn(),
+            markApplied: jest.fn(),
+            markFailed: jest.fn(),
           },
         },
         {
@@ -67,7 +71,9 @@ describe('SyncService', () => {
   it('should apply lesson progress sync', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
     repo.findByOperationId.mockResolvedValue(null);
-    repo.createEvent.mockResolvedValue({ toJSON: jest.fn().mockReturnValue({ status: 'applied' }) } as any);
+    repo.getOrCreatePendingEvent.mockResolvedValue({ status: 'pending' } as any);
+    repo.claimForProcessing.mockResolvedValue({ status: 'processing' } as any);
+    repo.markApplied.mockResolvedValue({ toJSON: jest.fn().mockReturnValue({ status: 'applied' }) } as any);
     progressService.upsertMyLessonProgress.mockResolvedValue({ ok: true } as any);
 
     const result = await service.submitBatch(

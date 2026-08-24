@@ -8,8 +8,10 @@ describe('Environment Variables Validation', () => {
       PORT: '4000',
       MONGODB_URI: 'mongodb://localhost:27017/test_db',
       REDIS_URL: 'redis://localhost:6379',
-      JWT_ACCESS_SECRET: 'super-secret-access-key-minimum-16-chars',
-      JWT_REFRESH_SECRET: 'super-secret-refresh-key-minimum-16-chars',
+      JWT_ACCESS_SECRET: 'super-secret-access-key-minimum-32-chars-123456',
+      JWT_REFRESH_SECRET: 'super-secret-refresh-key-minimum-32-chars-123456',
+      AI_GATEWAY_URL: 'http://localhost:4001',
+      AI_GATEWAY_TIMEOUT_MS: '12000',
     };
 
     const config = validateConfig(rawEnv);
@@ -24,8 +26,8 @@ describe('Environment Variables Validation', () => {
       PORT: '4000',
       MONGODB_URI: '',
       REDIS_URL: 'redis://localhost:6379',
-      JWT_ACCESS_SECRET: 'super-secret-access-key-minimum-16-chars',
-      JWT_REFRESH_SECRET: 'super-secret-refresh-key-minimum-16-chars',
+      JWT_ACCESS_SECRET: 'super-secret-access-key-minimum-32-chars-123456',
+      JWT_REFRESH_SECRET: 'super-secret-refresh-key-minimum-32-chars-123456',
     };
 
     expect(() => validateConfig(rawEnv)).toThrow();

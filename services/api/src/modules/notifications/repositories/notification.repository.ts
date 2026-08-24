@@ -4,6 +4,11 @@ import { Model, Types } from 'mongoose';
 import { Notification, NotificationDocument } from '../schemas/notification.schema';
 import { NotificationType } from '../enums/notification-type.enum';
 
+export interface NotificationPageCursor {
+  createdAt: string;
+  id: string;
+}
+
 @Injectable()
 export class NotificationRepository {
   constructor(
@@ -27,6 +32,26 @@ export class NotificationRepository {
 
   async findByUserId(userId: string): Promise<NotificationDocument[]> {
     return this.notificationModel.find({ userId: new Types.ObjectId(userId) }).sort({ createdAt: -1 }).exec();
+  }
+
+  async findPageByUserId(
+    userId: string,
+    limit: number,
+    cursor?: NotificationPageCursor,
+  ): Promise<NotificationDocument[]> {
+    const filter: Record<string, any> = { userId: new Types.ObjectId(userId) };
+    if (cursor) {
+      filter.$or = [
+        { createdAt: { $lt: new Date(cursor.createdAt) } },
+        { createdAt: new Date(cursor.createdAt), _id: { $lt: new Types.ObjectId(cursor.id) } },
+      ];
+    }
+
+    return this.notificationModel
+      .find(filter)
+      .sort({ createdAt: -1, _id: -1 })
+      .limit(limit)
+      .exec();
   }
 
   async countUnreadByUserId(userId: string): Promise<number> {

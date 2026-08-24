@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
 import { SyncOperationType } from '../enums/sync-operation-type.enum';
+import { SyncEventStatus } from '../enums/sync-event-status.enum';
 
 export type SyncEventDocument = HydratedDocument<SyncEvent>;
 
@@ -35,11 +36,17 @@ export class SyncEvent {
   @Prop({ type: Object, default: null })
   payload?: Record<string, any> | null;
 
-  @Prop({ required: true, trim: true, default: 'pending' })
-  status: string;
+  @Prop({ required: true, enum: Object.values(SyncEventStatus), default: SyncEventStatus.PENDING })
+  status: SyncEventStatus;
+
+  @Prop({ type: Date, default: null })
+  startedAt?: Date | null;
 
   @Prop({ type: Object, default: null })
   result?: Record<string, any> | null;
+
+  @Prop({ trim: true, default: null })
+  errorCode?: string | null;
 
   @Prop({ trim: true, default: null })
   errorMessage?: string | null;

@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Injectable, Logger } from '@nestjs/common';
+import { TutorCitation } from './types/tutor-citation.type';
 
 export interface TutorGatewayReply {
   content: string;
-  citations: Array<Record<string, any>>;
+  citations: TutorCitation[];
   provider?: string;
 }
 
 export interface TutorGatewayRequest {
   conversationId?: string;
+  requestId?: string;
   userId: string;
   prompt: string;
   lessonId?: string | null;
@@ -22,16 +25,21 @@ export interface TutorGatewayRequest {
 
 @Injectable()
 export class TutorGatewayService {
+  private readonly logger = new Logger(TutorGatewayService.name);
+
+  constructor(private readonly configService: ConfigService) {}
+
   async generateReply(request: TutorGatewayRequest): Promise<TutorGatewayReply | null> {
-    const gatewayUrl = process.env.AI_GATEWAY_URL?.trim();
+    const gatewayUrl = this.configService.get<string>('aiGateway.url')?.trim();
     if (!gatewayUrl) {
       return null;
     }
 
-    const endpoint = new URL('/ai/v1/tutor/chat/stream', gatewayUrl).toString();
+    const timeoutMs = this.configService.get<number>('aiGateway.timeoutMs') ?? 12000;
+    const endpoint = new URL('/ai/v1/tutor/chat/stream', gatewayUrl);
     const controller = new AbortController();
-    const timeoutMs = Number(process.env.AI_GATEWAY_TIMEOUT_MS || 12000);
-    const timeout = setTimeout(() => controller.abort(), Number.isFinite(timeoutMs) ? timeoutMs : 12000);
+    const startedAt = Date.now();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
     const contextText = request.contextSegments?.length
       ? request.contextSegments.map((segment) => `- ${segment}`).join('\n')
@@ -62,6 +70,7 @@ export class TutorGatewayService {
         },
         body: JSON.stringify({
           conversationId: request.conversationId,
+          requestId: request.requestId,
           message: composedPrompt,
           prompt: composedPrompt,
           lessonId: request.lessonId ?? undefined,
@@ -75,25 +84,44 @@ export class TutorGatewayService {
         signal: controller.signal,
       });
 
-      if (!response.ok || !response.body) {
+      if (!response.ok) {
+        this.logFailure(request, endpoint, startedAt, 'http_error', response.status);
         return null;
       }
 
-      return await this.parseSseResponse(response);
-    } catch {
+      if (!response.body) {
+        this.logFailure(request, endpoint, startedAt, 'empty_response');
+        return null;
+      }
+
+      const parsed = await this.parseSseResponse(response, request, endpoint, startedAt);
+      if (!parsed?.content) {
+        this.logFailure(request, endpoint, startedAt, 'invalid_stream');
+        return null;
+      }
+
+      return parsed;
+    } catch (error: any) {
+      const failureType = error?.name === 'AbortError' ? 'timeout' : 'network_error';
+      this.logFailure(request, endpoint, startedAt, failureType, undefined, error);
       return null;
     } finally {
       clearTimeout(timeout);
     }
   }
 
-  private async parseSseResponse(response: Response): Promise<TutorGatewayReply> {
+  private async parseSseResponse(
+    response: Response,
+    request: TutorGatewayRequest,
+    endpoint: URL,
+    startedAt: number,
+  ): Promise<TutorGatewayReply | null> {
     const reader = response.body!.getReader();
     const decoder = new TextDecoder('utf-8');
     let buffer = '';
     let content = '';
     let provider: string | undefined;
-    const citationsByKey = new Map<string, Record<string, any>>();
+    const citationsByKey = new Map<string, TutorCitation>();
 
     const processFrame = (frame: string) => {
       const lines = frame.split(/\r?\n/);
@@ -133,15 +161,16 @@ export class TutorGatewayService {
 
         if (Array.isArray(parsed.sources)) {
           for (const source of parsed.sources) {
+            const mapped = this.mapCitation(source);
             const key = [
-              source?.sourceBook ?? '',
-              source?.class ?? '',
-              source?.subject ?? '',
-              source?.chapter ?? '',
-              source?.pageNumber ?? '',
+              mapped.sourceBook,
+              mapped.classLevel ?? '',
+              mapped.subject ?? '',
+              mapped.chapter ?? '',
+              mapped.pageNumber ?? '',
             ].join('|');
-            if (key && !citationsByKey.has(key)) {
-              citationsByKey.set(key, source);
+            if (!citationsByKey.has(key)) {
+              citationsByKey.set(key, mapped);
             }
           }
         }
@@ -158,8 +187,8 @@ export class TutorGatewayService {
         }
 
         buffer += decoder.decode(value, { stream: true });
-
         let frameEnd = buffer.indexOf('\n\n');
+
         while (frameEnd !== -1) {
           const frame = buffer.slice(0, frameEnd).trim();
           buffer = buffer.slice(frameEnd + 2);
@@ -173,6 +202,9 @@ export class TutorGatewayService {
           frameEnd = buffer.indexOf('\n\n');
         }
       }
+    } catch (error: any) {
+      this.logFailure(request, endpoint, startedAt, 'invalid_stream', undefined, error);
+      return null;
     } finally {
       decoder.decode();
     }
@@ -182,5 +214,53 @@ export class TutorGatewayService {
       citations: Array.from(citationsByKey.values()),
       provider,
     };
+  }
+
+  private mapCitation(source: any): TutorCitation {
+    return {
+      sourceId: source?.sourceId ?? source?.id ?? undefined,
+      sourceBook: source?.sourceBook ?? source?.book ?? 'Unknown source',
+      classLevel: this.extractClassLevel(source?.class),
+      subject: source?.subject ?? undefined,
+      chapter: source?.chapter ?? undefined,
+      pageNumber: typeof source?.pageNumber === 'number' ? source.pageNumber : undefined,
+      excerpt: source?.excerpt ?? source?.content ?? undefined,
+      sourceUrl: source?.sourceUrl ?? undefined,
+    };
+  }
+
+  private extractClassLevel(value: unknown): number | undefined {
+    if (typeof value === 'number') {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      const match = value.match(/(\d{1,2})/);
+      return match ? Number(match[1]) : undefined;
+    }
+
+    return undefined;
+  }
+
+  private logFailure(
+    request: TutorGatewayRequest,
+    endpoint: URL,
+    startedAt: number,
+    failureType: string,
+    statusCode?: number,
+    error?: unknown,
+  ) {
+    this.logger.warn(
+      JSON.stringify({
+        event: 'tutor_gateway_failure',
+        failureType,
+        conversationId: request.conversationId,
+        requestId: request.requestId,
+        endpointHost: endpoint.host,
+        latencyMs: Date.now() - startedAt,
+        statusCode,
+        errorName: error instanceof Error ? error.name : undefined,
+      }),
+    );
   }
 }

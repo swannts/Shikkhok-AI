@@ -21,6 +21,7 @@ describe('NotificationsService', () => {
           useValue: {
             createNotification: jest.fn(),
             findByUserId: jest.fn(),
+            findPageByUserId: jest.fn(),
             countUnreadByUserId: jest.fn(),
             markAsRead: jest.fn(),
             markAllAsRead: jest.fn(),
@@ -42,11 +43,17 @@ describe('NotificationsService', () => {
 
   it('should list notifications', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
-    repo.findByUserId.mockResolvedValue([{ toJSON: jest.fn().mockReturnValue({ title: 'Hello' }) }] as any);
+    repo.findPageByUserId.mockResolvedValue([
+      { toJSON: jest.fn().mockReturnValue({ title: 'Hello', createdAt: '2026-08-24T00:00:00.000Z', _id: 'n1' }) },
+    ] as any);
 
-    await expect(
-      service.getMyNotifications({ userId: 'user-1', role: UserRole.STUDENT }),
-    ).resolves.toEqual([{ title: 'Hello' }]);
+    await expect(service.getMyNotifications({ userId: 'user-1', role: UserRole.STUDENT })).resolves.toEqual({
+      data: [{ title: 'Hello', createdAt: '2026-08-24T00:00:00.000Z', _id: 'n1' }],
+      meta: {
+        nextCursor: null,
+        hasNext: false,
+      },
+    });
   });
 
   it('should throw when marking missing notification as read', async () => {

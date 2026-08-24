@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -18,8 +18,12 @@ export class NotificationsController {
 
   @Get('me')
   @ApiOperation({ summary: 'List my notifications' })
-  async getMyNotifications(@CurrentUser() user: AuthenticatedUser) {
-    return this.notificationsService.getMyNotifications(user);
+  async getMyNotifications(
+    @CurrentUser() user: AuthenticatedUser,
+    @Query('limit') limit?: string,
+    @Query('cursor') cursor?: string,
+  ) {
+    return this.notificationsService.getMyNotifications(user, limit ? Number(limit) : 20, cursor);
   }
 
   @Get('me/unread-count')
@@ -44,6 +48,7 @@ export class NotificationsController {
   }
 
   @Post('me')
+  @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Create a notification for myself' })
   async createForMe(
     @CurrentUser() user: AuthenticatedUser,

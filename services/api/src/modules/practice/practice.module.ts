@@ -9,6 +9,7 @@ import { PracticeQuestionRepository } from './repositories/practice-question.rep
 import { PracticeAttemptRepository } from './repositories/practice-attempt.repository';
 import { PracticeService } from './practice.service';
 import { PracticeController } from './practice.controller';
+import { MasteryEngineV1 } from './domain/mastery-engine-v1';
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { PracticeController } from './practice.controller';
     ]),
   ],
   controllers: [PracticeController],
-  providers: [PracticeQuestionRepository, PracticeAttemptRepository, PracticeService],
+  providers: [PracticeQuestionRepository, PracticeAttemptRepository, MasteryEngineV1, PracticeService],
 })
 export class PracticeModule {}

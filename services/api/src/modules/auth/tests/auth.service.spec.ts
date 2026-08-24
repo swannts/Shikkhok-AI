@@ -16,6 +16,7 @@ import { RefreshSessionRepository } from '../repositories/refresh-session.reposi
 import { RedisService } from '../../../core/redis/redis.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { UserStatus } from '../../users/enums/user-status.enum';
+import { PublicRegistrationRole } from '../enums/public-registration-role.enum';
 
 // ─────────────────────────────────────────────────
 // Fake implementations (not mocking every internal)
@@ -105,8 +106,8 @@ describe('AuthService', () => {
           useValue: {
             get: jest.fn((key: string, defaultValue?: any) => {
               const config: Record<string, string> = {
-                'jwt.accessSecret': 'test-access-secret-at-least-16-chars',
-                'jwt.refreshSecret': 'test-refresh-secret-at-least-16-chars',
+                'jwt.accessSecret': 'test-access-secret-at-least-32-chars-123456',
+                'jwt.refreshSecret': 'test-refresh-secret-at-least-32-chars-123456',
                 'jwt.accessTtl': '15m',
                 'jwt.refreshTtl': '7d',
                 'environment': 'test',
@@ -165,6 +166,62 @@ describe('AuthService', () => {
       // Verify argon2 hash was passed (not raw password)
       const createCall = userRepository.createUser.mock.calls[0][0];
       expect(createCall.passwordHash).not.toBe('SecureP@ss123');
+    });
+
+    it('should allow student public registration', async () => {
+      const fakeUser = createFakeUser({ role: UserRole.STUDENT });
+      const fakeSession = createFakeSession({ userId: fakeUser._id });
+
+      userRepository.findByEmail.mockResolvedValue(null);
+      userRepository.findByPhone.mockResolvedValue(null);
+      userRepository.createUser.mockResolvedValue(fakeUser as any);
+      refreshSessionRepository.createSession.mockResolvedValue(fakeSession as any);
+
+      await authService.register({
+        name: 'Test Student',
+        email: 'student@example.com',
+        password: 'SecureP@ss123',
+        role: PublicRegistrationRole.STUDENT,
+      });
+
+      expect(userRepository.createUser).toHaveBeenCalledWith(
+        expect.objectContaining({ role: UserRole.STUDENT }),
+      );
+    });
+
+    it('should allow parent public registration', async () => {
+      const fakeUser = createFakeUser({ role: UserRole.PARENT });
+      const fakeSession = createFakeSession({ userId: fakeUser._id });
+
+      userRepository.findByEmail.mockResolvedValue(null);
+      userRepository.findByPhone.mockResolvedValue(null);
+      userRepository.createUser.mockResolvedValue(fakeUser as any);
+      refreshSessionRepository.createSession.mockResolvedValue(fakeSession as any);
+
+      await authService.register({
+        name: 'Test Parent',
+        email: 'parent@example.com',
+        password: 'SecureP@ss123',
+        role: PublicRegistrationRole.PARENT,
+      });
+
+      expect(userRepository.createUser).toHaveBeenCalledWith(
+        expect.objectContaining({ role: UserRole.PARENT }),
+      );
+    });
+
+    it('should reject elevated roles through public registration', async () => {
+      userRepository.findByEmail.mockResolvedValue(null);
+      userRepository.findByPhone.mockResolvedValue(null);
+
+      await expect(
+        authService.register({
+          name: 'Malicious User',
+          email: 'admin@example.com',
+          password: 'SecureP@ss123',
+          role: 'admin' as any,
+        }),
+      ).rejects.toThrow(BadRequestException);
     });
 
     it('should reject registration if neither email nor phone is provided', async () => {

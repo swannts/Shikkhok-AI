@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { TutorConversation, TutorConversationDocument } from '../schemas/tutor-conversation.schema';
-import { TutorMessageRole } from '../enums/tutor-message-role.enum';
 
 @Injectable()
 export class TutorConversationRepository {
@@ -24,24 +23,12 @@ export class TutorConversationRepository {
     return this.conversationModel.find({ userId: new Types.ObjectId(userId) }).sort({ updatedAt: -1 }).exec();
   }
 
-  async appendMessage(
-    conversationId: string,
-    message: {
-      role: TutorMessageRole;
-      content: string;
-      citations?: Array<Record<string, any>>;
-    },
-  ): Promise<TutorConversationDocument | null> {
+  async touchConversation(conversationId: string, messageCountIncrement = 0): Promise<TutorConversationDocument | null> {
     return this.conversationModel
       .findByIdAndUpdate(
         conversationId,
         {
-          $push: {
-            messages: {
-              ...message,
-              createdAt: new Date(),
-            },
-          },
+          $inc: { messageCount: messageCountIncrement },
           $set: { lastMessageAt: new Date() },
         },
         { new: true },

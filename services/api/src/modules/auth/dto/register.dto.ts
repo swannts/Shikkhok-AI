@@ -9,7 +9,7 @@ import {
   ValidateIf,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { UserRole } from '../../users/enums/user-role.enum';
+import { PublicRegistrationRole } from '../enums/public-registration-role.enum';
 
 /**
  * Registration DTO.
@@ -45,11 +45,11 @@ export class RegisterDto {
   password: string;
 
   @ApiPropertyOptional({
-    enum: UserRole,
-    default: UserRole.STUDENT,
-    description: 'User role (defaults to student)',
+    enum: PublicRegistrationRole,
+    default: PublicRegistrationRole.STUDENT,
+    description: 'Public signup role (student or parent only)',
   })
   @IsOptional()
-  @IsEnum(UserRole)
-  role?: UserRole;
+  @IsEnum(PublicRegistrationRole)
+  role?: PublicRegistrationRole;
 }

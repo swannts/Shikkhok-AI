@@ -3,7 +3,18 @@ import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UserRole } from '../users/enums/user-role.enum';
 import { UsersService } from '../users/users.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
-import { NotificationRepository } from './repositories/notification.repository';
+import {
+  NotificationPageCursor,
+  NotificationRepository,
+} from './repositories/notification.repository';
+
+export interface PaginatedNotifications {
+  data: Record<string, any>[];
+  meta: {
+    nextCursor: string | null;
+    hasNext: boolean;
+  };
+}
 
 @Injectable()
 export class NotificationsService {
@@ -12,10 +23,29 @@ export class NotificationsService {
     private readonly usersService: UsersService,
   ) {}
 
-  async getMyNotifications(currentUser: AuthenticatedUser): Promise<Record<string, any>[]> {
+  async getMyNotifications(
+    currentUser: AuthenticatedUser,
+    limit = 20,
+    cursor?: string,
+  ): Promise<PaginatedNotifications> {
     await this.assertAuthenticated(currentUser);
-    const notifications = await this.notificationRepository.findByUserId(currentUser.userId);
-    return notifications.map((notification) => notification.toJSON());
+    const pageLimit = Math.max(1, Math.min(limit || 20, 50));
+    const decodedCursor = this.decodeCursor(cursor);
+    const notifications = await this.notificationRepository.findPageByUserId(
+      currentUser.userId,
+      pageLimit + 1,
+      decodedCursor,
+    );
+    const hasNext = notifications.length > pageLimit;
+    const data = notifications.slice(0, pageLimit).map((notification) => notification.toJSON());
+    const lastItem = data[data.length - 1];
+    return {
+      data,
+      meta: {
+        nextCursor: hasNext && lastItem ? this.encodeCursor(lastItem.createdAt, lastItem._id) : null,
+        hasNext,
+      },
+    };
   }
 
   async getMyUnreadCount(currentUser: AuthenticatedUser): Promise<{ unreadCount: number }> {
@@ -62,6 +92,27 @@ export class NotificationsService {
   ): Promise<Record<string, any>> {
     await this.assertAuthenticated(currentUser);
     return this.createNotificationForUser(currentUser.userId, dto);
+  }
+
+  private encodeCursor(createdAt: string, id: string): string {
+    return Buffer.from(JSON.stringify({ createdAt, id }), 'utf8').toString('base64url');
+  }
+
+  private decodeCursor(cursor?: string): NotificationPageCursor | undefined {
+    if (!cursor) {
+      return undefined;
+    }
+
+    try {
+      const decoded = JSON.parse(Buffer.from(cursor, 'base64url').toString('utf8')) as NotificationPageCursor;
+      if (decoded?.createdAt && decoded?.id) {
+        return decoded;
+      }
+    } catch {
+      return undefined;
+    }
+
+    return undefined;
   }
 
   private async assertAuthenticated(currentUser: AuthenticatedUser): Promise<void> {

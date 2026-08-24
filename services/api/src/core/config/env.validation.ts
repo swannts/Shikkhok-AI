@@ -1,5 +1,14 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsNumber, IsString, IsUrl, validateSync, MinLength } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUrl,
+  validateSync,
+  MinLength,
+  Matches,
+} from 'class-validator';
 
 export enum Environment {
   Development = 'development',
@@ -24,11 +33,11 @@ export class EnvironmentVariables {
   REDIS_URL: string;
 
   @IsString()
-  @MinLength(16, { message: 'JWT_ACCESS_SECRET must be at least 16 characters' })
+  @MinLength(32, { message: 'JWT_ACCESS_SECRET must be at least 32 characters' })
   JWT_ACCESS_SECRET: string;
 
   @IsString()
-  @MinLength(16, { message: 'JWT_REFRESH_SECRET must be at least 16 characters' })
+  @MinLength(32, { message: 'JWT_REFRESH_SECRET must be at least 32 characters' })
   JWT_REFRESH_SECRET: string;
 
   @IsString()
@@ -39,6 +48,14 @@ export class EnvironmentVariables {
 
   @IsString()
   CORS_ORIGINS: string = 'http://localhost:3000,http://localhost:4000,http://localhost:8081';
+
+  @IsOptional()
+  @IsUrl({ require_tld: false }, { message: 'AI_GATEWAY_URL must be a valid URL' })
+  AI_GATEWAY_URL?: string;
+
+  @IsOptional()
+  @Matches(/^\d+$/, { message: 'AI_GATEWAY_TIMEOUT_MS must be a positive integer' })
+  AI_GATEWAY_TIMEOUT_MS?: string;
 }
 
 export function validateConfig(config: Record<string, unknown>) {

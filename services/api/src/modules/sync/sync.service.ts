@@ -5,6 +5,7 @@ import { UserRole } from '../users/enums/user-role.enum';
 import { SyncEventRepository } from './repositories/sync-event.repository';
 import { SubmitSyncBatchDto } from './dto/submit-sync-batch.dto';
 import { SyncOperationType } from './enums/sync-operation-type.enum';
+import { SyncEventStatus } from './enums/sync-event-status.enum';
 import { ProgressService } from '../progress/progress.service';
 import { StudyPlanService } from '../study-plan/study-plan.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -27,41 +28,61 @@ export class SyncService {
 
     const results = [];
     for (const operation of dto.operations) {
-      const existing = await this.syncEventRepository.findByOperationId(
-        currentUser.userId,
-        operation.operationId,
-      );
-      if (existing) {
-        results.push(existing.toJSON());
-        continue;
-      }
-
-      const event = await this.syncEventRepository.createEvent({
-        userId: currentUser.userId as any,
-        operationId: operation.operationId,
-        operationType: operation.operationType,
-        entityType: operation.entityType,
-        entityId: operation.entityId ?? null,
-        payload: operation.payload,
-        status: 'pending',
-      });
-
       try {
-        const result = await this.applyOperation(currentUser, operation);
-        const updated = await this.syncEventRepository.createEvent({
-          userId: currentUser.userId as any,
-          operationId: `${operation.operationId}:applied`,
+        const existing = await this.syncEventRepository.findByOperationId(currentUser.userId, operation.operationId);
+        if (existing?.status === SyncEventStatus.APPLIED) {
+          results.push(existing.toJSON());
+          continue;
+        }
+
+        const created = await this.syncEventRepository.getOrCreatePendingEvent({
+          userId: currentUser.userId,
+          operationId: operation.operationId,
           operationType: operation.operationType,
           entityType: operation.entityType,
           entityId: operation.entityId ?? null,
           payload: operation.payload,
-          status: 'applied',
-          result,
-          appliedAt: new Date(),
         });
-        results.push(updated.toJSON());
+
+        if (created.status === SyncEventStatus.APPLIED) {
+          results.push(created.toJSON());
+          continue;
+        }
+
+        const claimed = await this.syncEventRepository.claimForProcessing(
+          currentUser.userId,
+          operation.operationId,
+        );
+
+        if (!claimed) {
+          const current = await this.syncEventRepository.findByOperationId(
+            currentUser.userId,
+            operation.operationId,
+          );
+          if (current) {
+            results.push(current.toJSON());
+          }
+          continue;
+        }
+
+        const result = await this.applyOperation(currentUser, operation);
+        const updated = await this.syncEventRepository.markApplied(
+          currentUser.userId,
+          operation.operationId,
+          result,
+        );
+        if (updated) {
+          results.push(updated.toJSON());
+        }
       } catch (error: any) {
-        throw new BadRequestException(`Sync operation failed for ${operation.operationId}: ${error?.message ?? error}`);
+        const safeMessage = error?.message ?? 'Unknown sync error';
+        await this.syncEventRepository.markFailed(
+          currentUser.userId,
+          operation.operationId,
+          error?.name === 'BadRequestException' ? 'bad_request' : 'sync_failed',
+          safeMessage,
+        );
+        throw new BadRequestException(`Sync operation failed for ${operation.operationId}: ${safeMessage}`);
       }
     }
 

@@ -17,6 +17,8 @@ import { ProgressStatus } from '../progress/enums/progress-status.enum';
 import { LessonRepository } from '../curriculum/repositories/lesson.repository';
 import { ChapterRepository } from '../curriculum/repositories/chapter.repository';
 import { SubjectRepository } from '../curriculum/repositories/subject.repository';
+import { MasteryEngineV1 } from './domain/mastery-engine-v1';
+import { PracticeQuestionStudentResponse } from './types/practice-question-student-response';
 
 @Injectable()
 export class PracticeService {
@@ -28,6 +30,7 @@ export class PracticeService {
     private readonly chapterRepository: ChapterRepository,
     private readonly subjectRepository: SubjectRepository,
     private readonly usersService: UsersService,
+    private readonly masteryEngine: MasteryEngineV1 = new MasteryEngineV1(),
   ) {}
 
   async listQuestions(
@@ -35,10 +38,10 @@ export class PracticeService {
     lessonId: string,
     limit = 10,
     difficulty?: PracticeDifficulty,
-  ): Promise<Record<string, any>[]> {
+  ): Promise<PracticeQuestionStudentResponse[]> {
     await this.assertStudentOrAdmin(currentUser);
     const questions = await this.practiceQuestionRepository.findPublishedByLesson(lessonId, limit, difficulty);
-    return questions.map((question) => this.serializeQuestion(question));
+    return questions.map((question) => this.serializeQuestionForStudent(question));
   }
 
   async submitAttempt(
@@ -91,14 +94,19 @@ export class PracticeService {
 
     const existingProgress = await this.progressService.getMyLessonProgress(currentUser, lesson._id.toString()).catch(() => null);
     const previousMastery = typeof existingProgress?.masteryScore === 'number' ? existingProgress.masteryScore : 0;
-    const updatedMastery = this.calculateUpdatedMastery(previousMastery, evaluation.isCorrect, score);
+    const masteryResult = this.masteryEngine.calculate({
+      previousMastery,
+      isCorrect: evaluation.isCorrect,
+      score,
+      difficulty: question.difficulty,
+    });
 
     await this.progressService.upsertMyLessonProgress(currentUser, lesson._id.toString(), {
-      status: evaluation.isCorrect ? ProgressStatus.COMPLETED : ProgressStatus.IN_PROGRESS,
-      progressPercent: evaluation.isCorrect ? 100 : Math.max(previousMastery, 25),
+      status: existingProgress?.status ?? ProgressStatus.IN_PROGRESS,
+      progressPercent: existingProgress?.progressPercent ?? 0,
       timeSpentMinutes: Math.ceil((dto.timeSpentSeconds ?? 0) / 60),
       attemptCount: (existingProgress?.attemptCount ?? 0) + 1,
-      masteryScore: updatedMastery,
+      masteryScore: masteryResult.newMastery,
     });
 
     return {
@@ -110,9 +118,11 @@ export class PracticeService {
         lessonId: lesson._id.toString(),
         chapterId: chapter._id.toString(),
         subjectId: subject._id.toString(),
-        masteryScore: updatedMastery,
+        masteryScore: masteryResult.newMastery,
+        masteryDelta: masteryResult.delta,
+        masteryAlgorithmVersion: masteryResult.algorithmVersion,
       },
-      adaptiveRecommendation: this.getAdaptiveRecommendation(updatedMastery, evaluation.isCorrect),
+      adaptiveRecommendation: this.getAdaptiveRecommendation(masteryResult.newMastery, evaluation.isCorrect),
     };
   }
 
@@ -201,11 +211,6 @@ export class PracticeService {
     }
   }
 
-  private calculateUpdatedMastery(previousMastery: number, isCorrect: boolean, score: number): number {
-    const delta = isCorrect ? Math.max(8, Math.round(score / 20)) : -10;
-    return Math.max(0, Math.min(100, previousMastery + delta));
-  }
-
   private getAdaptiveRecommendation(masteryScore: number, isCorrect: boolean): Record<string, any> {
     if (isCorrect && masteryScore >= 80) {
       return {
@@ -231,8 +236,18 @@ export class PracticeService {
     return value.toLowerCase().trim().replace(/\s+/g, ' ');
   }
 
-  private serializeQuestion(question: any): Record<string, any> {
-    return question.toJSON();
+  private serializeQuestionForStudent(question: any): PracticeQuestionStudentResponse {
+    return {
+      id: question._id.toString(),
+      subjectId: question.subjectId.toString(),
+      chapterId: question.chapterId.toString(),
+      lessonId: question.lessonId.toString(),
+      questionType: question.questionType,
+      prompt: question.prompt,
+      difficulty: question.difficulty,
+      options: Array.isArray(question.options) ? [...question.options] : [],
+      tags: Array.isArray(question.tags) ? [...question.tags] : [],
+    };
   }
 
   private async assertStudentOrAdmin(currentUser: AuthenticatedUser): Promise<void> {

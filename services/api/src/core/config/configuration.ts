@@ -18,4 +18,8 @@ export default () => ({
       .split(',')
       .map((origin) => origin.trim()),
   },
+  aiGateway: {
+    url: process.env.AI_GATEWAY_URL || '',
+    timeoutMs: parseInt(process.env.AI_GATEWAY_TIMEOUT_MS || '12000', 10),
+  },
 });

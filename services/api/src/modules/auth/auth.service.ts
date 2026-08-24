@@ -25,6 +25,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UserRole } from '../users/enums/user-role.enum';
 import { UserStatus } from '../users/enums/user-status.enum';
+import { PublicRegistrationRole } from './enums/public-registration-role.enum';
 
 // OTP configuration constants
 const OTP_TTL_SECONDS = 300;       // 5 minutes
@@ -91,7 +92,7 @@ export class AuthService {
       email: dto.email,
       phone: dto.phone,
       passwordHash,
-      role: dto.role || UserRole.STUDENT,
+      role: this.mapPublicRegistrationRole(dto.role),
     });
 
     const tokens = await this.issueTokenPair(user._id.toString(), user.role);
@@ -263,7 +264,7 @@ export class AuthService {
 
     // In production: send OTP via SMS gateway
     // For development: log for testing (OTP is never logged in production)
-    if (this.configService.get<string>('environment') !== 'production') {
+    if (this.configService.get<string>('environment') === 'development') {
       this.logger.debug(`[DEV ONLY] OTP for ${dto.phone}: ${otp}`, 'AuthService');
     }
 
@@ -327,7 +328,7 @@ export class AuthService {
     await this.redisService.set(redisKey, user._id.toString(), PASSWORD_RESET_TTL);
 
     // In production: send via email/SMS
-    if (this.configService.get<string>('environment') !== 'production') {
+    if (this.configService.get<string>('environment') === 'development') {
       this.logger.debug(`[DEV ONLY] Password reset token for ${user._id}: ${resetToken}`, 'AuthService');
     }
 
@@ -406,6 +407,17 @@ export class AuthService {
     await sessionDoc.save();
 
     return { accessToken, refreshToken };
+  }
+
+  private mapPublicRegistrationRole(role?: PublicRegistrationRole): UserRole {
+    switch (role ?? PublicRegistrationRole.STUDENT) {
+      case PublicRegistrationRole.STUDENT:
+        return UserRole.STUDENT;
+      case PublicRegistrationRole.PARENT:
+        return UserRole.PARENT;
+      default:
+        throw new BadRequestException('Public registration only allows student or parent accounts');
+    }
   }
 
   /**

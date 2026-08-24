@@ -1,24 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
-import { TutorMessageRole } from '../enums/tutor-message-role.enum';
-
-@Schema({ _id: false })
-class TutorMessage {
-  @Prop({ required: true, enum: Object.values(TutorMessageRole) })
-  role: TutorMessageRole;
-
-  @Prop({ required: true, trim: true })
-  content: string;
-
-  @Prop({ type: [Object], default: [] })
-  citations: Array<Record<string, any>>;
-
-  @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
-}
-
-const TutorMessageSchema = SchemaFactory.createForClass(TutorMessage);
 
 export type TutorConversationDocument = HydratedDocument<TutorConversation>;
 
@@ -58,8 +40,8 @@ export class TutorConversation {
   @Prop({ required: true, trim: true })
   curriculumYear: string;
 
-  @Prop({ type: [TutorMessageSchema], default: [] })
-  messages: TutorMessage[];
+  @Prop({ type: Number, default: 0, min: 0 })
+  messageCount: number;
 
   @Prop({ type: Date, default: Date.now })
   lastMessageAt: Date;
