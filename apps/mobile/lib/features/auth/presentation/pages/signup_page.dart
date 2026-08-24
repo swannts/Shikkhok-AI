@@ -9,7 +9,12 @@ import '../controllers/auth_controller.dart';
 import '../state/auth_state.dart';
 
 class SignupPage extends ConsumerStatefulWidget {
-  const SignupPage({super.key});
+  const SignupPage({
+    super.key,
+    this.initialRole,
+  });
+
+  final UserRole? initialRole;
 
   @override
   ConsumerState<SignupPage> createState() => _SignupPageState();
@@ -26,7 +31,13 @@ class _SignupPageState extends ConsumerState<SignupPage> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _acceptedTerms = true;
-  UserRole _selectedRole = UserRole.student;
+  late UserRole _selectedRole;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedRole = widget.initialRole ?? UserRole.student;
+  }
 
   @override
   void dispose() {

@@ -79,12 +79,13 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                     subtitle: l10n.parentRoleDesc,
                   ),
                   const SizedBox(height: AppSpacing.md),
-                  // Role Card 3: Teacher
-                  _buildRoleCard(
-                    roleKey: 'teacher',
-                    icon: Icons.co_present_rounded,
-                    title: l10n.teacherRole,
-                    subtitle: l10n.teacherRoleDesc,
+                  const Text(
+                    'শিক্ষক অ্যাকাউন্ট এখন আলাদা অনুমোদিত workflow দিয়ে তৈরি হয়।',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: AppColors.textSecondary,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: AppSpacing.xl),
                   // Continue Button
@@ -93,7 +94,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                     height: 52,
                     child: ElevatedButton(
                       onPressed: () {
-                        context.go('/signup');
+                        context.go('/signup?role=$_selectedRole');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,

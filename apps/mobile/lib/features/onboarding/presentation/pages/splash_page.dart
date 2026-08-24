@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
-import '../../../auth/domain/entities/user.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
-import '../../../auth/presentation/state/auth_state.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
@@ -42,19 +39,6 @@ class _SplashPageState extends ConsumerState<SplashPage>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-
-    // Listen to session restore result
-    ref.listen<AuthState>(authControllerProvider, (previous, next) {
-      if (next is Authenticated) {
-        if (next.user.role == UserRole.parent) {
-          context.go('/parent-dashboard');
-        } else {
-          context.go('/home');
-        }
-      } else if (next is Unauthenticated) {
-        context.go('/onboarding-1');
-      }
-    });
 
     return Scaffold(
       backgroundColor: AppColors.background,

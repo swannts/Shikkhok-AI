@@ -14,6 +14,17 @@ class ApiEndpoints {
   // Students & Profile
   static const String studentProfile = '/students/profile';
 
+  // Notifications
+  static const String notifications = '/notifications/me';
+  static const String notificationsUnreadCount = '/notifications/me/unread-count';
+  static const String notificationsMarkAllRead = '/notifications/me/read-all';
+  static String notificationMarkRead(String notificationId) =>
+      '/notifications/me/$notificationId/read';
+
+  // Study Plan
+  static const String studyPlanCurrent = '/study-plan/me/current';
+  static const String studyPlanGenerate = '/study-plan/me/generate';
+
   // Health
   static const String healthLive = '/health/live';
   static const String healthReady = '/health/ready';

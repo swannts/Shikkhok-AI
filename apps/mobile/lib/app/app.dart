@@ -5,8 +5,6 @@ import 'localization/l10n/app_localizations.dart';
 import 'router/app_router.dart';
 import 'theme/app_theme.dart';
 
-final appRouterProvider = Provider((ref) => appRouter);
-
 class ShikkhokApp extends ConsumerWidget {
   const ShikkhokApp({super.key});
 
