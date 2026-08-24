@@ -28,5 +28,6 @@ import { MasteryEngineV1 } from './domain/mastery-engine-v1';
     MasteryEngineV1,
     PracticeService,
   ],
+  exports: [PracticeService, PracticeQuestionRepository],
 })
 export class PracticeModule {}

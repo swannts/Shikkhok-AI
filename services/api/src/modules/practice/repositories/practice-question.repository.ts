@@ -35,4 +35,9 @@ export class PracticeQuestionRepository {
       .limit(limit)
       .exec();
   }
+
+  async findManyByIds(ids: (string | Types.ObjectId)[]): Promise<PracticeQuestionDocument[]> {
+    const objectIds = ids.map((id) => (typeof id === 'string' ? new Types.ObjectId(id) : id));
+    return this.practiceQuestionModel.find({ _id: { $in: objectIds } }).exec();
+  }
 }
