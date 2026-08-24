@@ -71,4 +71,14 @@ describe('AppController (e2e)', () => {
         expect(res.body.requestId).toBeDefined();
       });
   });
+
+  it('GET /api/v1/health/metrics (Prometheus Metrics)', () => {
+    return request(app.getHttpServer())
+      .get('/api/v1/health/metrics')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.data).toContain('process_resident_memory_bytes');
+        expect(res.body.data).toContain('shikkhok_mongodb_connected');
+      });
+  });
 });

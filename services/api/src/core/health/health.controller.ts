@@ -20,4 +20,11 @@ export class HealthController {
   getReadiness() {
     return this.healthService.getReadiness();
   }
+
+  @Get('metrics')
+  @ApiOperation({ summary: 'Prometheus / OpenMetrics telemetry scraping endpoint' })
+  @ApiResponse({ status: 200, description: 'OpenMetrics Prometheus telemetry data' })
+  getMetrics() {
+    return this.healthService.getMetrics();
+  }
 }

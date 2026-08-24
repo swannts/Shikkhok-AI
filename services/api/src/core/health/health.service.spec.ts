@@ -45,4 +45,11 @@ describe('HealthService', () => {
     expect(readiness.services.mongodb).toBe('up');
     expect(readiness.services.redis).toBe('down');
   });
+
+  it('should return Prometheus formatted metrics string', async () => {
+    const metrics = await service.getMetrics();
+    expect(metrics).toContain('process_resident_memory_bytes');
+    expect(metrics).toContain('shikkhok_mongodb_connected 1');
+    expect(metrics).toContain('shikkhok_redis_connected 1');
+  });
 });
