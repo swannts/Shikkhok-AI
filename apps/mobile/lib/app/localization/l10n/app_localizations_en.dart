@@ -563,4 +563,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startPractice => 'Start Practice';
+
+  @override
+  String questionProgress(Object current, Object total) {
+    return 'Question $current / $total';
+  }
+
+  @override
+  String get wrongAnswer => 'Wrong Answer';
+
+  @override
+  String get correctAnswer => 'Correct Answer';
+
+  @override
+  String get resultTitle => 'Result';
+
+  @override
+  String get greatEffortTitle => 'Great Effort!';
+
+  @override
+  String get scoreLabel => 'Score';
+
+  @override
+  String get accuracyLabel => 'Accuracy';
+
+  @override
+  String get needReviewTitle => 'Needs Review';
+
+  @override
+  String get practiceMistakes => 'Practice Mistakes';
+
+  @override
+  String get reviewResults => 'Review Results';
+
+  @override
+  String get backToHome => 'Back to Home';
+
+  @override
+  String get mistakeReviewTitle => 'Mistake Review';
+
+  @override
+  String get yourAnswer => 'Your Answer';
+
+  @override
+  String get examLibraryTitle => 'Exam Library';
+
+  @override
+  String get modelTestTab => 'Model Tests';
+
+  @override
+  String get chapterExamTab => 'Chapter Exams';
+
+  @override
+  String get boardPrepTab => 'Board Prep';
+
+  @override
+  String get startExam => 'Start Exam';
+
+  @override
+  String get viewResult => 'View Result';
+
+  @override
+  String get higherPrep => 'Higher Preparation';
 }

@@ -1159,6 +1159,126 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'প্র্যাকটিস শুরু করুন'**
   String get startPractice;
+
+  /// No description provided for @questionProgress.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্ন {current} / {total}'**
+  String questionProgress(Object current, Object total);
+
+  /// No description provided for @wrongAnswer.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভুল উত্তর'**
+  String get wrongAnswer;
+
+  /// No description provided for @correctAnswer.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক উত্তর'**
+  String get correctAnswer;
+
+  /// No description provided for @resultTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফলাফল'**
+  String get resultTitle;
+
+  /// No description provided for @greatEffortTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'দারুণ চেষ্টা!'**
+  String get greatEffortTitle;
+
+  /// No description provided for @scoreLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্কোর'**
+  String get scoreLabel;
+
+  /// No description provided for @accuracyLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিকতা'**
+  String get accuracyLabel;
+
+  /// No description provided for @needReviewTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'যেগুলো আবার দেখা দরকার'**
+  String get needReviewTitle;
+
+  /// No description provided for @practiceMistakes.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভুলগুলো আবার প্র্যাকটিস করুন'**
+  String get practiceMistakes;
+
+  /// No description provided for @reviewResults.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফলাফল পর্যালোচনা'**
+  String get reviewResults;
+
+  /// No description provided for @backToHome.
+  ///
+  /// In bn, this message translates to:
+  /// **'হোমে ফিরে যান'**
+  String get backToHome;
+
+  /// No description provided for @mistakeReviewTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভুল পর্যালোচনা'**
+  String get mistakeReviewTitle;
+
+  /// No description provided for @yourAnswer.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার উত্তর'**
+  String get yourAnswer;
+
+  /// No description provided for @examLibraryTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরীক্ষা লাইব্রেরি'**
+  String get examLibraryTitle;
+
+  /// No description provided for @modelTestTab.
+  ///
+  /// In bn, this message translates to:
+  /// **'মডেল টেস্ট'**
+  String get modelTestTab;
+
+  /// No description provided for @chapterExamTab.
+  ///
+  /// In bn, this message translates to:
+  /// **'অধ্যায় পরীক্ষা'**
+  String get chapterExamTab;
+
+  /// No description provided for @boardPrepTab.
+  ///
+  /// In bn, this message translates to:
+  /// **'বোর্ড প্রস্তুতি'**
+  String get boardPrepTab;
+
+  /// No description provided for @startExam.
+  ///
+  /// In bn, this message translates to:
+  /// **'শুরু করুন'**
+  String get startExam;
+
+  /// No description provided for @viewResult.
+  ///
+  /// In bn, this message translates to:
+  /// **'ফলাফল দেখুন'**
+  String get viewResult;
+
+  /// No description provided for @higherPrep.
+  ///
+  /// In bn, this message translates to:
+  /// **'উচ্চতর প্রস্তুতি'**
+  String get higherPrep;
 }
 
 class _AppLocalizationsDelegate

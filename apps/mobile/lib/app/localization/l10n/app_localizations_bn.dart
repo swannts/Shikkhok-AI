@@ -564,4 +564,66 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get startPractice => 'প্র্যাকটিস শুরু করুন';
+
+  @override
+  String questionProgress(Object current, Object total) {
+    return 'প্রশ্ন $current / $total';
+  }
+
+  @override
+  String get wrongAnswer => 'ভুল উত্তর';
+
+  @override
+  String get correctAnswer => 'সঠিক উত্তর';
+
+  @override
+  String get resultTitle => 'ফলাফল';
+
+  @override
+  String get greatEffortTitle => 'দারুণ চেষ্টা!';
+
+  @override
+  String get scoreLabel => 'স্কোর';
+
+  @override
+  String get accuracyLabel => 'সঠিকতা';
+
+  @override
+  String get needReviewTitle => 'যেগুলো আবার দেখা দরকার';
+
+  @override
+  String get practiceMistakes => 'ভুলগুলো আবার প্র্যাকটিস করুন';
+
+  @override
+  String get reviewResults => 'ফলাফল পর্যালোচনা';
+
+  @override
+  String get backToHome => 'হোমে ফিরে যান';
+
+  @override
+  String get mistakeReviewTitle => 'ভুল পর্যালোচনা';
+
+  @override
+  String get yourAnswer => 'তোমার উত্তর';
+
+  @override
+  String get examLibraryTitle => 'পরীক্ষা লাইব্রেরি';
+
+  @override
+  String get modelTestTab => 'মডেল টেস্ট';
+
+  @override
+  String get chapterExamTab => 'অধ্যায় পরীক্ষা';
+
+  @override
+  String get boardPrepTab => 'বোর্ড প্রস্তুতি';
+
+  @override
+  String get startExam => 'শুরু করুন';
+
+  @override
+  String get viewResult => 'ফলাফল দেখুন';
+
+  @override
+  String get higherPrep => 'উচ্চতর প্রস্তুতি';
 }

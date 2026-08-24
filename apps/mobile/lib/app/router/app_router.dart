@@ -7,8 +7,12 @@ import '../../features/auth/presentation/pages/verify_otp_page.dart';
 import '../../features/curriculum/presentation/pages/chapter_details_page.dart';
 import '../../features/curriculum/presentation/pages/learn_page.dart';
 import '../../features/curriculum/presentation/pages/lesson_reader_page.dart';
+import '../../features/curriculum/presentation/pages/practice_mistake_review_page.dart';
+import '../../features/curriculum/presentation/pages/practice_result_page.dart';
+import '../../features/curriculum/presentation/pages/practice_session_mcq_page.dart';
 import '../../features/curriculum/presentation/pages/practice_setup_page.dart';
 import '../../features/curriculum/presentation/pages/subject_details_page.dart';
+import '../../features/exam/presentation/pages/exam_library_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/homework/presentation/pages/captured_homework_review_page.dart';
 import '../../features/homework/presentation/pages/homework_ai_solution_page.dart';
@@ -128,6 +132,22 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/practice-setup',
       builder: (context, state) => const PracticeSetupPage(),
+    ),
+    GoRoute(
+      path: '/practice-session-mcq',
+      builder: (context, state) => const PracticeSessionMcqPage(),
+    ),
+    GoRoute(
+      path: '/practice-result',
+      builder: (context, state) => const PracticeResultPage(),
+    ),
+    GoRoute(
+      path: '/practice-mistake-review',
+      builder: (context, state) => const PracticeMistakeReviewPage(),
+    ),
+    GoRoute(
+      path: '/exam-library',
+      builder: (context, state) => const ExamLibraryPage(),
     ),
   ],
 );
