@@ -138,5 +138,17 @@
   "thinking": "ভাবছি...",
   "hintOption": "একটু হিন্ট দিন",
   "dontUnderstandOption": "বুঝতে পারছি না",
-  "sourceCitation": "উৎস: NCTB গণিত, ৮ম শ্রেণি, অধ্যায় ৪"
+  "sourceCitation": "উৎস: NCTB গণিত, ৮ম শ্রেণি, অধ্যায় ৪",
+  "voiceTutorTitle": "ভয়েস শিক্ষক",
+  "listeningMode": "আমি শুনছি...",
+  "thinkingMode": "ভাবছি...",
+  "speakingMode": "বলছি...",
+  "typeQuestion": "টাইপ করে প্রশ্ন করুন",
+  "chatHistoryTitle": "কথোপকথনের ইতিহাস",
+  "searchHistoryPlaceholder": "পুরোনো প্রশ্ন খুঁজুন",
+  "today": "আজ",
+  "yesterday": "গতকাল",
+  "noHistoryTitle": "এখনও কোনো কথোপকথন নেই",
+  "noHistorySubtitle": "তোমার যেকোনো প্রশ্ন লিখে বা ছবি তুলে AI শিক্ষককে জিজ্ঞেস করতে পারো।",
+  "askAiButton": "AI শিক্ষককে প্রশ্ন করো"
 }

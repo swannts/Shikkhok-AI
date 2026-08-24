@@ -444,4 +444,41 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get sourceCitation => 'উৎস: NCTB গণিত, ৮ম শ্রেণি, অধ্যায় ৪';
+
+  @override
+  String get voiceTutorTitle => 'ভয়েস শিক্ষক';
+
+  @override
+  String get listeningMode => 'আমি শুনছি...';
+
+  @override
+  String get thinkingMode => 'ভাবছি...';
+
+  @override
+  String get speakingMode => 'বলছি...';
+
+  @override
+  String get typeQuestion => 'টাইপ করে প্রশ্ন করুন';
+
+  @override
+  String get chatHistoryTitle => 'কথোপকথনের ইতিহাস';
+
+  @override
+  String get searchHistoryPlaceholder => 'পুরোনো প্রশ্ন খুঁজুন';
+
+  @override
+  String get today => 'আজ';
+
+  @override
+  String get yesterday => 'গতকাল';
+
+  @override
+  String get noHistoryTitle => 'এখনও কোনো কথোপকথন নেই';
+
+  @override
+  String get noHistorySubtitle =>
+      'তোমার যেকোনো প্রশ্ন লিখে বা ছবি তুলে AI শিক্ষককে জিজ্ঞেস করতে পারো।';
+
+  @override
+  String get askAiButton => 'AI শিক্ষককে প্রশ্ন করো';
 }

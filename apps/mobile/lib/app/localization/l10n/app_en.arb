@@ -138,5 +138,17 @@
   "thinking": "Thinking...",
   "hintOption": "Give a hint",
   "dontUnderstandOption": "I don't understand",
-  "sourceCitation": "Source: NCTB Mathematics, Class 8, Chapter 4"
+  "sourceCitation": "Source: NCTB Mathematics, Class 8, Chapter 4",
+  "voiceTutorTitle": "Voice Tutor",
+  "listeningMode": "Listening...",
+  "thinkingMode": "Thinking...",
+  "speakingMode": "Speaking...",
+  "typeQuestion": "Type your question",
+  "chatHistoryTitle": "Chat History",
+  "searchHistoryPlaceholder": "Search past questions",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "noHistoryTitle": "No Chat History Yet",
+  "noHistorySubtitle": "Ask the AI Teacher any question by typing or snapping a photo.",
+  "askAiButton": "Ask AI Teacher"
 }

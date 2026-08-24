@@ -18,6 +18,9 @@ import '../../features/setup/presentation/pages/curriculum_selection_page.dart';
 import '../../features/setup/presentation/pages/goal_setting_page.dart';
 import '../../features/tutor/presentation/pages/ai_tutor_chat_page.dart';
 import '../../features/tutor/presentation/pages/ai_tutor_chat_variant_page.dart';
+import '../../features/tutor/presentation/pages/ai_tutor_history_empty_page.dart';
+import '../../features/tutor/presentation/pages/ai_tutor_history_page.dart';
+import '../../features/tutor/presentation/pages/voice_ai_tutor_page.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/splash',
@@ -93,6 +96,18 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/ai-tutor-chat-variant',
       builder: (context, state) => const AiTutorChatVariantPage(),
+    ),
+    GoRoute(
+      path: '/voice-ai-tutor',
+      builder: (context, state) => const VoiceAiTutorPage(),
+    ),
+    GoRoute(
+      path: '/ai-tutor-history',
+      builder: (context, state) => const AiTutorHistoryPage(),
+    ),
+    GoRoute(
+      path: '/ai-tutor-history-empty',
+      builder: (context, state) => const AiTutorHistoryEmptyPage(),
     ),
   ],
 );

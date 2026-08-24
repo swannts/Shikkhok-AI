@@ -445,4 +445,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourceCitation => 'Source: NCTB Mathematics, Class 8, Chapter 4';
+
+  @override
+  String get voiceTutorTitle => 'Voice Tutor';
+
+  @override
+  String get listeningMode => 'Listening...';
+
+  @override
+  String get thinkingMode => 'Thinking...';
+
+  @override
+  String get speakingMode => 'Speaking...';
+
+  @override
+  String get typeQuestion => 'Type your question';
+
+  @override
+  String get chatHistoryTitle => 'Chat History';
+
+  @override
+  String get searchHistoryPlaceholder => 'Search past questions';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get yesterday => 'Yesterday';
+
+  @override
+  String get noHistoryTitle => 'No Chat History Yet';
+
+  @override
+  String get noHistorySubtitle =>
+      'Ask the AI Teacher any question by typing or snapping a photo.';
+
+  @override
+  String get askAiButton => 'Ask AI Teacher';
 }

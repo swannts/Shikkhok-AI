@@ -931,6 +931,78 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'উৎস: NCTB গণিত, ৮ম শ্রেণি, অধ্যায় ৪'**
   String get sourceCitation;
+
+  /// No description provided for @voiceTutorTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভয়েস শিক্ষক'**
+  String get voiceTutorTitle;
+
+  /// No description provided for @listeningMode.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমি শুনছি...'**
+  String get listeningMode;
+
+  /// No description provided for @thinkingMode.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভাবছি...'**
+  String get thinkingMode;
+
+  /// No description provided for @speakingMode.
+  ///
+  /// In bn, this message translates to:
+  /// **'বলছি...'**
+  String get speakingMode;
+
+  /// No description provided for @typeQuestion.
+  ///
+  /// In bn, this message translates to:
+  /// **'টাইপ করে প্রশ্ন করুন'**
+  String get typeQuestion;
+
+  /// No description provided for @chatHistoryTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'কথোপকথনের ইতিহাস'**
+  String get chatHistoryTitle;
+
+  /// No description provided for @searchHistoryPlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'পুরোনো প্রশ্ন খুঁজুন'**
+  String get searchHistoryPlaceholder;
+
+  /// No description provided for @today.
+  ///
+  /// In bn, this message translates to:
+  /// **'আজ'**
+  String get today;
+
+  /// No description provided for @yesterday.
+  ///
+  /// In bn, this message translates to:
+  /// **'গতকাল'**
+  String get yesterday;
+
+  /// No description provided for @noHistoryTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'এখনও কোনো কথোপকথন নেই'**
+  String get noHistoryTitle;
+
+  /// No description provided for @noHistorySubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার যেকোনো প্রশ্ন লিখে বা ছবি তুলে AI শিক্ষককে জিজ্ঞেস করতে পারো।'**
+  String get noHistorySubtitle;
+
+  /// No description provided for @askAiButton.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI শিক্ষককে প্রশ্ন করো'**
+  String get askAiButton;
 }
 
 class _AppLocalizationsDelegate
