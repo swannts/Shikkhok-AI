@@ -647,4 +647,30 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get totalMarks => 'পূর্ণমান: ৫০';
+
+  @override
+  String get globalSearchTitle => 'খুঁজুন';
+
+  @override
+  String get offlineDownloadsTitle => 'অফলাইন ডাউনলোড';
+
+  @override
+  String get notificationsTitle => 'নোটিফিকেশন';
+
+  @override
+  String get mathProgressTitle => 'গণিতের অগ্রগতি';
+
+  @override
+  String get myProgressTitle => 'আমার অগ্রগতি';
+
+  @override
+  String get recentSearches => 'সাম্প্রতিক অনুসন্ধান';
+
+  @override
+  String get markAllRead => 'সব পড়া হয়েছে চিহ্নিত করুন';
+
+  @override
+  String storageUsage(Object total, Object used) {
+    return 'স্টোরেজ ব্যবহার: $used / $total';
+  }
 }

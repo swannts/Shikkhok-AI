@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 
+import '../../features/analytics/presentation/pages/math_progress_detail_page.dart';
+import '../../features/analytics/presentation/pages/student_progress_dashboard_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/role_selection_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
@@ -7,6 +9,7 @@ import '../../features/auth/presentation/pages/verify_otp_page.dart';
 import '../../features/curriculum/presentation/pages/chapter_details_page.dart';
 import '../../features/curriculum/presentation/pages/learn_page.dart';
 import '../../features/curriculum/presentation/pages/lesson_reader_page.dart';
+import '../../features/curriculum/presentation/pages/offline_downloads_page.dart';
 import '../../features/curriculum/presentation/pages/practice_mistake_review_page.dart';
 import '../../features/curriculum/presentation/pages/practice_result_page.dart';
 import '../../features/curriculum/presentation/pages/practice_session_mcq_page.dart';
@@ -18,7 +21,9 @@ import '../../features/exam/presentation/pages/exam_instructions_page.dart';
 import '../../features/exam/presentation/pages/exam_library_page.dart';
 import '../../features/exam/presentation/pages/exam_result_page.dart';
 import '../../features/exam/presentation/pages/exam_session_page.dart';
+import '../../features/home/presentation/pages/global_search_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/home/presentation/pages/notifications_page.dart';
 import '../../features/homework/presentation/pages/captured_homework_review_page.dart';
 import '../../features/homework/presentation/pages/homework_ai_solution_page.dart';
 import '../../features/homework/presentation/pages/homework_help_landing_page.dart';
@@ -173,6 +178,26 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/exam-result',
       builder: (context, state) => const ExamResultPage(),
+    ),
+    GoRoute(
+      path: '/global-search',
+      builder: (context, state) => const GlobalSearchPage(),
+    ),
+    GoRoute(
+      path: '/offline-downloads',
+      builder: (context, state) => const OfflineDownloadsPage(),
+    ),
+    GoRoute(
+      path: '/notifications',
+      builder: (context, state) => const NotificationsPage(),
+    ),
+    GoRoute(
+      path: '/math-progress-detail',
+      builder: (context, state) => const MathProgressDetailPage(),
+    ),
+    GoRoute(
+      path: '/student-progress-dashboard',
+      builder: (context, state) => const StudentProgressDashboardPage(),
     ),
   ],
 );

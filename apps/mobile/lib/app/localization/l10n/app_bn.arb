@@ -203,5 +203,13 @@
   "examResultTitle": "পরীক্ষার ফলাফল",
   "submitExam": "পরীক্ষা জমা দিন",
   "agreeRules": "আমি সকল নিয়ম মেনে চলতে সম্মত আছি",
-  "totalMarks": "পূর্ণমান: ৫০"
+  "totalMarks": "পূর্ণমান: ৫০",
+  "globalSearchTitle": "খুঁজুন",
+  "offlineDownloadsTitle": "অফলাইন ডাউনলোড",
+  "notificationsTitle": "নোটিফিকেশন",
+  "mathProgressTitle": "গণিতের অগ্রগতি",
+  "myProgressTitle": "আমার অগ্রগতি",
+  "recentSearches": "সাম্প্রতিক অনুসন্ধান",
+  "markAllRead": "সব পড়া হয়েছে চিহ্নিত করুন",
+  "storageUsage": "স্টোরেজ ব্যবহার: {used} / {total}"
 }

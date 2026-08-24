@@ -1321,6 +1321,54 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'পূর্ণমান: ৫০'**
   String get totalMarks;
+
+  /// No description provided for @globalSearchTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'খুঁজুন'**
+  String get globalSearchTitle;
+
+  /// No description provided for @offlineDownloadsTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'অফলাইন ডাউনলোড'**
+  String get offlineDownloadsTitle;
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'নোটিফিকেশন'**
+  String get notificationsTitle;
+
+  /// No description provided for @mathProgressTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'গণিতের অগ্রগতি'**
+  String get mathProgressTitle;
+
+  /// No description provided for @myProgressTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমার অগ্রগতি'**
+  String get myProgressTitle;
+
+  /// No description provided for @recentSearches.
+  ///
+  /// In bn, this message translates to:
+  /// **'সাম্প্রতিক অনুসন্ধান'**
+  String get recentSearches;
+
+  /// No description provided for @markAllRead.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব পড়া হয়েছে চিহ্নিত করুন'**
+  String get markAllRead;
+
+  /// No description provided for @storageUsage.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্টোরেজ ব্যবহার: {used} / {total}'**
+  String storageUsage(Object total, Object used);
 }
 
 class _AppLocalizationsDelegate

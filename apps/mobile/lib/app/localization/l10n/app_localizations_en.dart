@@ -646,4 +646,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalMarks => 'Full Marks: 50';
+
+  @override
+  String get globalSearchTitle => 'Search';
+
+  @override
+  String get offlineDownloadsTitle => 'Offline Downloads';
+
+  @override
+  String get notificationsTitle => 'Notifications';
+
+  @override
+  String get mathProgressTitle => 'Mathematics Progress';
+
+  @override
+  String get myProgressTitle => 'My Progress';
+
+  @override
+  String get recentSearches => 'Recent Searches';
+
+  @override
+  String get markAllRead => 'Mark all as read';
+
+  @override
+  String storageUsage(Object total, Object used) {
+    return 'Storage Usage: $used / $total';
+  }
 }

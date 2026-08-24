@@ -203,5 +203,13 @@
   "examResultTitle": "Exam Result",
   "submitExam": "Submit Exam",
   "agreeRules": "I agree to follow all exam rules",
-  "totalMarks": "Full Marks: 50"
+  "totalMarks": "Full Marks: 50",
+  "globalSearchTitle": "Search",
+  "offlineDownloadsTitle": "Offline Downloads",
+  "notificationsTitle": "Notifications",
+  "mathProgressTitle": "Mathematics Progress",
+  "myProgressTitle": "My Progress",
+  "recentSearches": "Recent Searches",
+  "markAllRead": "Mark all as read",
+  "storageUsage": "Storage Usage: {used} / {total}"
 }
