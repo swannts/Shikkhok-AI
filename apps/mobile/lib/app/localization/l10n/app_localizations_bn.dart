@@ -481,4 +481,87 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get askAiButton => 'AI শিক্ষককে প্রশ্ন করো';
+
+  @override
+  String get homeworkHelpTitle => 'হোমওয়ার্ক সাহায্য';
+
+  @override
+  String get snapQuestionTitle => 'প্রশ্নের ছবি তুলুন';
+
+  @override
+  String get snapQuestionSub =>
+      'বই, খাতা বা প্রশ্নপত্রের ছবি দিলে AI শিক্ষক ধাপে ধাপে বুঝতে সাহায্য করবে।';
+
+  @override
+  String get openCamera => 'ক্যামেরা খুলুন';
+
+  @override
+  String get pickFromGallery => 'গ্যালারি থেকে নিন';
+
+  @override
+  String get typeQuestionAction => 'প্রশ্ন লিখুন';
+
+  @override
+  String get bestResultsTitle => 'ভালো ফলাফলের জন্য';
+
+  @override
+  String get tip1 => 'পরিষ্কার ছবি তুলুন';
+
+  @override
+  String get tip2 => 'সম্পূর্ণ প্রশ্ন রাখুন';
+
+  @override
+  String get tip3 => 'পর্যাপ্ত আলো ব্যবহার করুন';
+
+  @override
+  String get privacyNote =>
+      'তোমার ছবি শুধু প্রশ্ন বিশ্লেষণের জন্য ব্যবহার করা হবে।';
+
+  @override
+  String get reviewImageTitle => 'ছবি যাচাই করুন';
+
+  @override
+  String uploadingProgress(Object percent) {
+    return 'আপলোড হচ্ছে... $percent%';
+  }
+
+  @override
+  String get isQuestionClear => 'প্রশ্নটি পরিষ্কার দেখা যাচ্ছে?';
+
+  @override
+  String get unclearWarning =>
+      'লেখা স্পষ্ট না হলে কৃত্রিম বুদ্ধিমত্তার উত্তর দিতে সমস্যা হতে পারে।';
+
+  @override
+  String get analyzeQuestion => 'প্রশ্ন বিশ্লেষণ করুন';
+
+  @override
+  String get retakePhoto => 'আবার ছবি তুলুন';
+
+  @override
+  String get solutionTitle => 'সমাধান';
+
+  @override
+  String get letsTrySelf => 'চলো নিজে চেষ্টা করি।';
+
+  @override
+  String get showAnswer => 'উত্তর দেখান';
+
+  @override
+  String get moreHints => 'আরও হিন্ট';
+
+  @override
+  String get practiceTitle => 'প্র্যাকটিস সেটআপ';
+
+  @override
+  String get questionCountLabel => 'প্রশ্নের সংখ্যা';
+
+  @override
+  String get difficultyLabel => 'কঠিন্যের মাত্রা';
+
+  @override
+  String get questionTypeLabel => 'প্রশ্নের ধরন';
+
+  @override
+  String get startPractice => 'প্র্যাকটিস শুরু করুন';
 }

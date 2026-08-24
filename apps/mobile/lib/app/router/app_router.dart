@@ -7,8 +7,12 @@ import '../../features/auth/presentation/pages/verify_otp_page.dart';
 import '../../features/curriculum/presentation/pages/chapter_details_page.dart';
 import '../../features/curriculum/presentation/pages/learn_page.dart';
 import '../../features/curriculum/presentation/pages/lesson_reader_page.dart';
+import '../../features/curriculum/presentation/pages/practice_setup_page.dart';
 import '../../features/curriculum/presentation/pages/subject_details_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/homework/presentation/pages/captured_homework_review_page.dart';
+import '../../features/homework/presentation/pages/homework_ai_solution_page.dart';
+import '../../features/homework/presentation/pages/homework_help_landing_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_1_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_2_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_3_page.dart';
@@ -108,6 +112,22 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/ai-tutor-history-empty',
       builder: (context, state) => const AiTutorHistoryEmptyPage(),
+    ),
+    GoRoute(
+      path: '/homework-help',
+      builder: (context, state) => const HomeworkHelpLandingPage(),
+    ),
+    GoRoute(
+      path: '/captured-homework-review',
+      builder: (context, state) => const CapturedHomeworkReviewPage(),
+    ),
+    GoRoute(
+      path: '/homework-ai-solution',
+      builder: (context, state) => const HomeworkAiSolutionPage(),
+    ),
+    GoRoute(
+      path: '/practice-setup',
+      builder: (context, state) => const PracticeSetupPage(),
     ),
   ],
 );

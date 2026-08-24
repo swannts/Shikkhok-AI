@@ -1003,6 +1003,162 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'AI শিক্ষককে প্রশ্ন করো'**
   String get askAiButton;
+
+  /// No description provided for @homeworkHelpTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'হোমওয়ার্ক সাহায্য'**
+  String get homeworkHelpTitle;
+
+  /// No description provided for @snapQuestionTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্নের ছবি তুলুন'**
+  String get snapQuestionTitle;
+
+  /// No description provided for @snapQuestionSub.
+  ///
+  /// In bn, this message translates to:
+  /// **'বই, খাতা বা প্রশ্নপত্রের ছবি দিলে AI শিক্ষক ধাপে ধাপে বুঝতে সাহায্য করবে।'**
+  String get snapQuestionSub;
+
+  /// No description provided for @openCamera.
+  ///
+  /// In bn, this message translates to:
+  /// **'ক্যামেরা খুলুন'**
+  String get openCamera;
+
+  /// No description provided for @pickFromGallery.
+  ///
+  /// In bn, this message translates to:
+  /// **'গ্যালারি থেকে নিন'**
+  String get pickFromGallery;
+
+  /// No description provided for @typeQuestionAction.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্ন লিখুন'**
+  String get typeQuestionAction;
+
+  /// No description provided for @bestResultsTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'ভালো ফলাফলের জন্য'**
+  String get bestResultsTitle;
+
+  /// No description provided for @tip1.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরিষ্কার ছবি তুলুন'**
+  String get tip1;
+
+  /// No description provided for @tip2.
+  ///
+  /// In bn, this message translates to:
+  /// **'সম্পূর্ণ প্রশ্ন রাখুন'**
+  String get tip2;
+
+  /// No description provided for @tip3.
+  ///
+  /// In bn, this message translates to:
+  /// **'পর্যাপ্ত আলো ব্যবহার করুন'**
+  String get tip3;
+
+  /// No description provided for @privacyNote.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার ছবি শুধু প্রশ্ন বিশ্লেষণের জন্য ব্যবহার করা হবে।'**
+  String get privacyNote;
+
+  /// No description provided for @reviewImageTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'ছবি যাচাই করুন'**
+  String get reviewImageTitle;
+
+  /// No description provided for @uploadingProgress.
+  ///
+  /// In bn, this message translates to:
+  /// **'আপলোড হচ্ছে... {percent}%'**
+  String uploadingProgress(Object percent);
+
+  /// No description provided for @isQuestionClear.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্নটি পরিষ্কার দেখা যাচ্ছে?'**
+  String get isQuestionClear;
+
+  /// No description provided for @unclearWarning.
+  ///
+  /// In bn, this message translates to:
+  /// **'লেখা স্পষ্ট না হলে কৃত্রিম বুদ্ধিমত্তার উত্তর দিতে সমস্যা হতে পারে।'**
+  String get unclearWarning;
+
+  /// No description provided for @analyzeQuestion.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্ন বিশ্লেষণ করুন'**
+  String get analyzeQuestion;
+
+  /// No description provided for @retakePhoto.
+  ///
+  /// In bn, this message translates to:
+  /// **'আবার ছবি তুলুন'**
+  String get retakePhoto;
+
+  /// No description provided for @solutionTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'সমাধান'**
+  String get solutionTitle;
+
+  /// No description provided for @letsTrySelf.
+  ///
+  /// In bn, this message translates to:
+  /// **'চলো নিজে চেষ্টা করি।'**
+  String get letsTrySelf;
+
+  /// No description provided for @showAnswer.
+  ///
+  /// In bn, this message translates to:
+  /// **'উত্তর দেখান'**
+  String get showAnswer;
+
+  /// No description provided for @moreHints.
+  ///
+  /// In bn, this message translates to:
+  /// **'আরও হিন্ট'**
+  String get moreHints;
+
+  /// No description provided for @practiceTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্র্যাকটিস সেটআপ'**
+  String get practiceTitle;
+
+  /// No description provided for @questionCountLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্নের সংখ্যা'**
+  String get questionCountLabel;
+
+  /// No description provided for @difficultyLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'কঠিন্যের মাত্রা'**
+  String get difficultyLabel;
+
+  /// No description provided for @questionTypeLabel.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্নের ধরন'**
+  String get questionTypeLabel;
+
+  /// No description provided for @startPractice.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্র্যাকটিস শুরু করুন'**
+  String get startPractice;
 }
 
 class _AppLocalizationsDelegate

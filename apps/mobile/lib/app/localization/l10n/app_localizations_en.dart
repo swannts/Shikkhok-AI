@@ -482,4 +482,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get askAiButton => 'Ask AI Teacher';
+
+  @override
+  String get homeworkHelpTitle => 'Homework Help';
+
+  @override
+  String get snapQuestionTitle => 'Take a photo of the question';
+
+  @override
+  String get snapQuestionSub =>
+      'Snap your textbook or notebook to get step-by-step AI guidance.';
+
+  @override
+  String get openCamera => 'Open Camera';
+
+  @override
+  String get pickFromGallery => 'Pick from Gallery';
+
+  @override
+  String get typeQuestionAction => 'Type Question';
+
+  @override
+  String get bestResultsTitle => 'For Best Results';
+
+  @override
+  String get tip1 => 'Take a clear, sharp photo';
+
+  @override
+  String get tip2 => 'Include the full question';
+
+  @override
+  String get tip3 => 'Use sufficient lighting';
+
+  @override
+  String get privacyNote => 'Your photo is used solely for question analysis.';
+
+  @override
+  String get reviewImageTitle => 'Review Photo';
+
+  @override
+  String uploadingProgress(Object percent) {
+    return 'Uploading... $percent%';
+  }
+
+  @override
+  String get isQuestionClear => 'Is the question clearly visible?';
+
+  @override
+  String get unclearWarning => 'Blurry text may impact AI accuracy.';
+
+  @override
+  String get analyzeQuestion => 'Analyze Question';
+
+  @override
+  String get retakePhoto => 'Retake Photo';
+
+  @override
+  String get solutionTitle => 'Solution';
+
+  @override
+  String get letsTrySelf => 'Let\'s try together.';
+
+  @override
+  String get showAnswer => 'Show Answer';
+
+  @override
+  String get moreHints => 'More Hints';
+
+  @override
+  String get practiceTitle => 'Practice Setup';
+
+  @override
+  String get questionCountLabel => 'Number of Questions';
+
+  @override
+  String get difficultyLabel => 'Difficulty Level';
+
+  @override
+  String get questionTypeLabel => 'Question Type';
+
+  @override
+  String get startPractice => 'Start Practice';
 }
