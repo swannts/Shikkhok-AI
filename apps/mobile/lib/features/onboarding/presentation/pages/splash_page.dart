@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -36,6 +37,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -79,9 +82,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     ),
                   ),
                   const SizedBox(height: AppSpacing.lg),
-                  const Text(
-                    'শিক্ষক AI',
-                    style: TextStyle(
+                  Text(
+                    l10n.appName,
+                    style: const TextStyle(
                       fontSize: 34,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primary,
@@ -89,9 +92,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     ),
                   ),
                   const SizedBox(height: AppSpacing.xs),
-                  const Text(
-                    'তোমার ব্যক্তিগত AI শিক্ষক',
-                    style: TextStyle(
+                  Text(
+                    l10n.appSubtitle,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: AppColors.textSecondary,
                     ),
@@ -103,9 +106,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       color: AppColors.primary.withAlpha(15),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
-                      'শিখো • বুঝো • এগিয়ে যাও',
-                      style: TextStyle(
+                    child: Text(
+                      l10n.appTagline,
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primary,
@@ -141,9 +144,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     ),
                   ),
                   const SizedBox(height: AppSpacing.sm),
-                  const Text(
-                    'শেখার জগৎ প্রস্তুত হচ্ছে...',
-                    style: TextStyle(
+                  Text(
+                    l10n.loadingApp,
+                    style: const TextStyle(
                       fontSize: 13,
                       color: AppColors.textSecondary,
                     ),

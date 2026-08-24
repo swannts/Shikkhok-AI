@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -11,6 +12,8 @@ class Onboarding2Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -23,9 +26,9 @@ class Onboarding2Page extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () => context.go('/login'),
-                  child: const Text(
-                    'এড়িয়ে যান',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.skip,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
@@ -59,9 +62,9 @@ class Onboarding2Page extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
               child: Column(
                 children: [
-                  const Text(
-                    'প্রশ্ন করো AI শিক্ষককে',
-                    style: TextStyle(
+                  Text(
+                    l10n.onboarding2Title,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -70,9 +73,9 @@ class Onboarding2Page extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: AppSpacing.sm),
-                  const Text(
-                    'গণিত, বিজ্ঞান, ইংরেজি বা অন্য যেকোনো বিষয়ে প্রশ্ন করো। AI শিক্ষক তোমাকে শুধু উত্তর নয়, বুঝতেও সাহায্য করবে।',
-                    style: TextStyle(
+                  Text(
+                    l10n.onboarding2Description,
+                    style: const TextStyle(
                       fontSize: 15,
                       color: AppColors.textSecondary,
                       height: 1.5,
@@ -86,9 +89,9 @@ class Onboarding2Page extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 8,
                     children: [
-                      _buildChip('ধাপে ধাপে ব্যাখ্যা'),
-                      _buildChip('হিন্ট'),
-                      _buildChip('NCTB ভিত্তিক'),
+                      _buildChip(l10n.chipStepByStep),
+                      _buildChip(l10n.chipHint),
+                      _buildChip(l10n.chipNctbBased),
                     ],
                   ),
                 ],
@@ -145,9 +148,9 @@ class Onboarding2Page extends StatelessWidget {
                               side: const BorderSide(color: AppColors.primary, width: 1.5),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                             ),
-                            child: const Text(
-                              'পেছনে',
-                              style: TextStyle(
+                            child: Text(
+                              l10n.back,
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primary,
@@ -169,17 +172,17 @@ class Onboarding2Page extends StatelessWidget {
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
-                                  'পরবর্তী',
-                                  style: TextStyle(
+                                  l10n.next,
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
                                 ),
-                                SizedBox(width: 4),
-                                Icon(Icons.arrow_forward_rounded, size: 20, color: Colors.white),
+                                const SizedBox(width: 4),
+                                const Icon(Icons.arrow_forward_rounded, size: 20, color: Colors.white),
                               ],
                             ),
                           ),

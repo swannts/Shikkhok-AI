@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -11,6 +12,8 @@ class Onboarding1Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -23,9 +26,9 @@ class Onboarding1Page extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () => context.go('/login'),
-                  child: const Text(
-                    'এড়িয়ে যান',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.skip,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
@@ -54,14 +57,14 @@ class Onboarding1Page extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            // Headline & Body Typography
+            // Headline & Body Typography (Multilingual setup: BN default, EN supported)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
               child: Column(
-                children: const [
+                children: [
                   Text(
-                    'কঠিন বিষয় এখন সহজ',
-                    style: TextStyle(
+                    l10n.onboarding1Title,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -69,10 +72,10 @@ class Onboarding1Page extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: AppSpacing.sm),
+                  const SizedBox(height: AppSpacing.sm),
                   Text(
-                    'তোমার ক্লাস ও পাঠ্যবই অনুযায়ী সহজ ভাষায় ধাপে ধাপে শিখো।',
-                    style: TextStyle(
+                    l10n.onboarding1Description,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: AppColors.textSecondary,
                       height: 1.5,
@@ -132,9 +135,9 @@ class Onboarding1Page extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         elevation: 0,
                       ),
-                      child: const Text(
-                        'পরবর্তী',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.next,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
