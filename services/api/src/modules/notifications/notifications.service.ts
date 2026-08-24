@@ -7,13 +7,9 @@ import {
   NotificationPageCursor,
   NotificationRepository,
 } from './repositories/notification.repository';
+import { PaginatedResult } from '../../common/types/paginated-result.type';
 
-export interface PaginatedNotifications {
-  data: Record<string, any>[];
-  meta: {
-    nextCursor: string | null;
-    hasNext: boolean;
-  };
+export interface PaginatedNotifications extends PaginatedResult<Record<string, unknown>> {
 }
 
 @Injectable()
@@ -42,7 +38,10 @@ export class NotificationsService {
     return {
       data,
       meta: {
-        nextCursor: hasNext && lastItem ? this.encodeCursor(lastItem.createdAt, lastItem._id) : null,
+        nextCursor:
+          hasNext && lastItem
+            ? this.encodeCursor(new Date(lastItem.createdAt).toISOString(), lastItem._id.toString())
+            : null,
         hasNext,
       },
     };
@@ -91,6 +90,9 @@ export class NotificationsService {
     dto: CreateNotificationDto,
   ): Promise<Record<string, any>> {
     await this.assertAuthenticated(currentUser);
+    if (currentUser.role !== UserRole.ADMIN) {
+      throw new ForbiddenException('Only admin accounts can create notifications for themselves');
+    }
     return this.createNotificationForUser(currentUser.userId, dto);
   }
 

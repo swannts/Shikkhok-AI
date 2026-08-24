@@ -8,6 +8,7 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { UsersService } from '../../users/users.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { SyncOperationType } from '../enums/sync-operation-type.enum';
+import { SyncDeviceCheckpointRepository } from '../repositories/sync-device-checkpoint.repository';
 
 describe('SyncService', () => {
   let service: SyncService;
@@ -16,6 +17,7 @@ describe('SyncService', () => {
   let studyPlanService: jest.Mocked<StudyPlanService>;
   let notificationsService: jest.Mocked<NotificationsService>;
   let usersService: jest.Mocked<UsersService>;
+  let checkpointRepo: jest.Mocked<SyncDeviceCheckpointRepository>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -57,6 +59,13 @@ describe('SyncService', () => {
             findById: jest.fn(),
           },
         },
+        {
+          provide: SyncDeviceCheckpointRepository,
+          useValue: {
+            upsertCheckpoint: jest.fn(),
+            findByDeviceId: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
@@ -66,6 +75,7 @@ describe('SyncService', () => {
     studyPlanService = module.get(StudyPlanService);
     notificationsService = module.get(NotificationsService);
     usersService = module.get(UsersService);
+    checkpointRepo = module.get(SyncDeviceCheckpointRepository);
   });
 
   it('should apply lesson progress sync', async () => {
@@ -74,6 +84,7 @@ describe('SyncService', () => {
     repo.getOrCreatePendingEvent.mockResolvedValue({ status: 'pending' } as any);
     repo.claimForProcessing.mockResolvedValue({ status: 'processing' } as any);
     repo.markApplied.mockResolvedValue({ toJSON: jest.fn().mockReturnValue({ status: 'applied' }) } as any);
+    checkpointRepo.upsertCheckpoint.mockResolvedValue({} as any);
     progressService.upsertMyLessonProgress.mockResolvedValue({ ok: true } as any);
 
     const result = await service.submitBatch(
@@ -93,5 +104,11 @@ describe('SyncService', () => {
 
     expect(result.appliedOperations).toBe(1);
     expect(progressService.upsertMyLessonProgress).toHaveBeenCalled();
+    expect(checkpointRepo.upsertCheckpoint).toHaveBeenCalledWith(
+      expect.objectContaining({
+        deviceId: 'device-1',
+        lastStatus: 'applied',
+      }),
+    );
   });
 });

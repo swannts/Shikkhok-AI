@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { CurriculumService } from './curriculum.service';
 import { CurriculumQueryDto } from './dto/curriculum-query.dto';
 
@@ -22,14 +23,14 @@ export class CurriculumController {
   @ApiOperation({ summary: 'Get a subject by ID' })
   @ApiResponse({ status: 200, description: 'Subject returned' })
   @ApiResponse({ status: 404, description: 'Subject not found' })
-  async getSubject(@Param('subjectId') subjectId: string) {
+  async getSubject(@Param('subjectId', MongoObjectIdPipe) subjectId: string) {
     return this.curriculumService.getSubject(subjectId);
   }
 
   @Get('subjects/:subjectId/chapters')
   @ApiOperation({ summary: 'List published chapters for a subject' })
   @ApiResponse({ status: 200, description: 'Chapter list returned' })
-  async listChapters(@Param('subjectId') subjectId: string) {
+  async listChapters(@Param('subjectId', MongoObjectIdPipe) subjectId: string) {
     return this.curriculumService.listChapters(subjectId);
   }
 
@@ -37,14 +38,14 @@ export class CurriculumController {
   @ApiOperation({ summary: 'Get a chapter by ID' })
   @ApiResponse({ status: 200, description: 'Chapter returned' })
   @ApiResponse({ status: 404, description: 'Chapter not found' })
-  async getChapter(@Param('chapterId') chapterId: string) {
+  async getChapter(@Param('chapterId', MongoObjectIdPipe) chapterId: string) {
     return this.curriculumService.getChapter(chapterId);
   }
 
   @Get('chapters/:chapterId/lessons')
   @ApiOperation({ summary: 'List published lessons for a chapter' })
   @ApiResponse({ status: 200, description: 'Lesson list returned' })
-  async listLessons(@Param('chapterId') chapterId: string) {
+  async listLessons(@Param('chapterId', MongoObjectIdPipe) chapterId: string) {
     return this.curriculumService.listLessons(chapterId);
   }
 
@@ -52,7 +53,7 @@ export class CurriculumController {
   @ApiOperation({ summary: 'Get a lesson by ID' })
   @ApiResponse({ status: 200, description: 'Lesson returned' })
   @ApiResponse({ status: 404, description: 'Lesson not found' })
-  async getLesson(@Param('lessonId') lessonId: string) {
+  async getLesson(@Param('lessonId', MongoObjectIdPipe) lessonId: string) {
     return this.curriculumService.getLesson(lessonId);
   }
 }

@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { User } from '../../users/schemas/user.schema';
 import { TutorMessageRole } from '../enums/tutor-message-role.enum';
 import { TutorCitation } from '../types/tutor-citation.type';
 
@@ -33,10 +32,10 @@ export type TutorMessageDocument = HydratedDocument<TutorMessage>;
   },
 })
 export class TutorMessage {
-  @Prop({ type: Types.ObjectId, ref: User.name, required: true, index: true })
+  @Prop({ type: Types.ObjectId, required: true, index: true })
   conversationId: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: User.name, required: true, index: true })
+  @Prop({ type: Types.ObjectId, required: true, index: true })
   userId: Types.ObjectId;
 
   @Prop({ required: true, enum: Object.values(TutorMessageRole), index: true })
@@ -79,5 +78,5 @@ export class TutorMessage {
 }
 
 export const TutorMessageSchema = SchemaFactory.createForClass(TutorMessage);
-TutorMessageSchema.index({ conversationId: 1, createdAt: 1 });
-TutorMessageSchema.index({ userId: 1, createdAt: -1 });
+TutorMessageSchema.index({ conversationId: 1, createdAt: 1, _id: 1 });
+TutorMessageSchema.index({ userId: 1, createdAt: -1, _id: -1 });

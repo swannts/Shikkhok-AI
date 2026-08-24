@@ -9,6 +9,7 @@
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
     "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
     "start": "node dist/main.js",
+    "migrate:tutor-messages": "ts-node --project ./tsconfig.json --transpile-only ./scripts/database/migrate-tutor-messages.ts",
     "test": "jest --config jest.config.js",
     "test:e2e": "jest --config test/jest-e2e.json"
   },

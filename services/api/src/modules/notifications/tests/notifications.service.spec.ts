@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Test, TestingModule } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
+import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { NotificationsService } from '../notifications.service';
 import { NotificationRepository } from '../repositories/notification.repository';
 import { UsersService } from '../../users/users.service';
@@ -66,16 +66,27 @@ describe('NotificationsService', () => {
   });
 
   it('should create a notification', async () => {
-    usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    usersService.findById.mockResolvedValue({ role: UserRole.ADMIN } as any);
     repo.createNotification.mockResolvedValue({
       toJSON: jest.fn().mockReturnValue({ type: NotificationType.SYSTEM }),
     } as any);
 
     const result = await service.createNotificationForCurrentUser(
-      { userId: 'user-1', role: UserRole.STUDENT },
+      { userId: 'user-1', role: UserRole.ADMIN },
       { type: NotificationType.SYSTEM, title: 'Hi', body: 'Body' },
     );
 
     expect(result.type).toBe(NotificationType.SYSTEM);
+  });
+
+  it('should reject self notification creation for non-admin users', async () => {
+    usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+
+    await expect(
+      service.createNotificationForCurrentUser(
+        { userId: 'user-1', role: UserRole.STUDENT },
+        { type: NotificationType.SYSTEM, title: 'Hi', body: 'Body' },
+      ),
+    ).rejects.toThrow(ForbiddenException);
   });
 });

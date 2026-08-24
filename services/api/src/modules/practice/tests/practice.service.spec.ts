@@ -13,6 +13,7 @@ import { UsersService } from '../../users/users.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { PracticeQuestionType } from '../enums/practice-question-type.enum';
 import { MasteryEngineV1 } from '../domain/mastery-engine-v1';
+import { ProgressStatus } from '../../progress/enums/progress-status.enum';
 
 describe('PracticeService', () => {
   let service: PracticeService;
@@ -134,6 +135,7 @@ describe('PracticeService', () => {
     expect(result.isCorrect).toBe(true);
     expect(progressService.upsertMyLessonProgress).toHaveBeenCalled();
     expect(masteryEngine.calculate).toHaveBeenCalled();
+    expect(progressService.upsertMyLessonProgress.mock.calls[0][2].status).not.toBe(ProgressStatus.COMPLETED);
   });
 
   it('should reject mismatched student ids', async () => {

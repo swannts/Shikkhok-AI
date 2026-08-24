@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -18,6 +18,15 @@ export class SyncController {
   @ApiOperation({ summary: 'List my sync events' })
   async getMyEvents(@CurrentUser() user: AuthenticatedUser) {
     return this.syncService.getMySyncEvents(user);
+  }
+
+  @Get('me/checkpoints/:deviceId')
+  @ApiOperation({ summary: 'Get my sync checkpoint for a device' })
+  async getMyCheckpoint(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('deviceId') deviceId: string,
+  ) {
+    return this.syncService.getMySyncCheckpoint(user, deviceId);
   }
 
   @Post('me/batches')

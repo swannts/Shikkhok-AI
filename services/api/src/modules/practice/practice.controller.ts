@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { PracticeService } from './practice.service';
 import { SubmitPracticeAttemptDto } from './dto/submit-practice-attempt.dto';
@@ -20,7 +21,7 @@ export class PracticeController {
   @ApiResponse({ status: 200, description: 'Practice questions returned' })
   async listQuestions(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('lessonId') lessonId: string,
+    @Param('lessonId', MongoObjectIdPipe) lessonId: string,
     @Query('limit') limit?: string,
     @Query('difficulty') difficulty?: PracticeDifficulty,
   ) {

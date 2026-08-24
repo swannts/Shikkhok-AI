@@ -35,23 +35,33 @@ export class SyncEventRepository {
     payload?: Record<string, any> | null;
   }): Promise<SyncEventDocument> {
     const userObjectId = new Types.ObjectId(data.userId);
-    return this.syncEventModel
-      .findOneAndUpdate(
-        { userId: userObjectId, operationId: data.operationId },
-        {
-          $setOnInsert: {
-            userId: userObjectId,
-            operationId: data.operationId,
-            operationType: data.operationType,
-            entityType: data.entityType,
-            entityId: data.entityId ?? null,
-            payload: data.payload ?? null,
-            status: SyncEventStatus.PENDING,
+    try {
+      return await this.syncEventModel
+        .findOneAndUpdate(
+          { userId: userObjectId, operationId: data.operationId },
+          {
+            $setOnInsert: {
+              userId: userObjectId,
+              operationId: data.operationId,
+              operationType: data.operationType,
+              entityType: data.entityType,
+              entityId: data.entityId ?? null,
+              payload: data.payload ?? null,
+              status: SyncEventStatus.PENDING,
+            },
           },
-        },
-        { upsert: true, new: true, setDefaultsOnInsert: true },
-      )
-      .exec();
+          { upsert: true, new: true, setDefaultsOnInsert: true },
+        )
+        .exec();
+    } catch (error: any) {
+      if (error?.code === 11000) {
+        const existing = await this.findByOperationId(data.userId, data.operationId);
+        if (existing) {
+          return existing;
+        }
+      }
+      throw error;
+    }
   }
 
   async claimForProcessing(userId: string, operationId: string): Promise<SyncEventDocument | null> {

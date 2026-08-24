@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
+import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UserRole } from '../users/enums/user-role.enum';
 import { NotificationsService } from './notifications.service';
@@ -18,6 +19,8 @@ export class NotificationsController {
 
   @Get('me')
   @ApiOperation({ summary: 'List my notifications' })
+  @ApiQuery({ name: 'limit', required: false, description: 'Page size, max 50' })
+  @ApiQuery({ name: 'cursor', required: false, description: 'Opaque pagination cursor' })
   async getMyNotifications(
     @CurrentUser() user: AuthenticatedUser,
     @Query('limit') limit?: string,
@@ -42,14 +45,15 @@ export class NotificationsController {
   @ApiOperation({ summary: 'Mark a notification as read' })
   async markAsRead(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('notificationId') notificationId: string,
+    @Param('notificationId', MongoObjectIdPipe) notificationId: string,
   ) {
     return this.notificationsService.markMyNotificationAsRead(user, notificationId);
   }
 
   @Post('me')
   @Roles(UserRole.ADMIN)
-  @ApiOperation({ summary: 'Create a notification for myself' })
+  @ApiOperation({ summary: 'Create a notification for myself (admin only)' })
+  @ApiResponse({ status: 403, description: 'Only admin accounts can use this endpoint' })
   async createForMe(
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: CreateNotificationDto,
@@ -61,7 +65,7 @@ export class NotificationsController {
   @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Create a notification for a user' })
   async createForUser(
-    @Param('userId') userId: string,
+    @Param('userId', MongoObjectIdPipe) userId: string,
     @Body() dto: CreateNotificationDto,
   ) {
     return this.notificationsService.createNotificationForUser(userId, dto);

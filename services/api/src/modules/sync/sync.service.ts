@@ -3,6 +3,7 @@ import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UsersService } from '../users/users.service';
 import { UserRole } from '../users/enums/user-role.enum';
 import { SyncEventRepository } from './repositories/sync-event.repository';
+import { SyncDeviceCheckpointRepository } from './repositories/sync-device-checkpoint.repository';
 import { SubmitSyncBatchDto } from './dto/submit-sync-batch.dto';
 import { SyncOperationType } from './enums/sync-operation-type.enum';
 import { SyncEventStatus } from './enums/sync-event-status.enum';
@@ -14,6 +15,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 export class SyncService {
   constructor(
     private readonly syncEventRepository: SyncEventRepository,
+    private readonly syncDeviceCheckpointRepository: SyncDeviceCheckpointRepository,
     private readonly progressService: ProgressService,
     private readonly studyPlanService: StudyPlanService,
     private readonly notificationsService: NotificationsService,
@@ -86,6 +88,15 @@ export class SyncService {
       }
     }
 
+    await this.syncDeviceCheckpointRepository.upsertCheckpoint({
+      userId: currentUser.userId,
+      deviceId: dto.deviceId,
+      lastSyncedAt: new Date(),
+      lastOperationId: dto.operations[dto.operations.length - 1]?.operationId ?? null,
+      lastBatchSize: dto.operations.length,
+      lastStatus: 'applied',
+    });
+
     return {
       appliedOperations: dto.operations.length,
       results,
@@ -96,6 +107,22 @@ export class SyncService {
     await this.assertAuthenticated(currentUser);
     const events = await this.syncEventRepository.findByUserId(currentUser.userId);
     return events.map((event) => event.toJSON());
+  }
+
+  async getMySyncCheckpoint(currentUser: AuthenticatedUser, deviceId: string): Promise<Record<string, any>> {
+    await this.assertAuthenticated(currentUser);
+    const checkpoint = await this.syncDeviceCheckpointRepository.findByDeviceId(currentUser.userId, deviceId);
+    if (!checkpoint) {
+      return {
+        deviceId,
+        lastSyncedAt: null,
+        lastOperationId: null,
+        lastBatchSize: 0,
+        lastStatus: 'unknown',
+      };
+    }
+
+    return checkpoint.toJSON();
   }
 
   private async applyOperation(currentUser: AuthenticatedUser, operation: any): Promise<Record<string, any>> {

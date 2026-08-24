@@ -4,6 +4,7 @@ import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UserRole } from '../users/enums/user-role.enum';
 import { StudentsService } from './students.service';
@@ -40,7 +41,7 @@ export class StudentsController {
   @ApiOperation({ summary: 'Get a student profile by user ID' })
   @ApiResponse({ status: 200, description: 'Student profile returned' })
   @ApiResponse({ status: 404, description: 'Student profile not found' })
-  async getProfileByUserId(@Param('userId') userId: string) {
+  async getProfileByUserId(@Param('userId', MongoObjectIdPipe) userId: string) {
     return this.studentsService.getProfileByUserId(userId);
   }
 }

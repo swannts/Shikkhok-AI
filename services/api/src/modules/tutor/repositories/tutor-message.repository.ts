@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { FilterQuery, Model, Types } from 'mongoose';
 import { TutorMessage, TutorMessageDocument } from '../schemas/tutor-message.schema';
 import { TutorMessageRole } from '../enums/tutor-message-role.enum';
 import { TutorCitation } from '../types/tutor-citation.type';
@@ -34,7 +34,7 @@ export class TutorMessageRepository {
     limit: number,
     cursor?: { createdAt: string; id: string },
   ): Promise<TutorMessageDocument[]> {
-    const filter: Record<string, any> = {
+    const filter: FilterQuery<TutorMessageDocument> = {
       conversationId: new Types.ObjectId(conversationId),
     };
 

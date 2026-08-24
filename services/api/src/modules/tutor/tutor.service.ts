@@ -10,7 +10,9 @@ import { StartTutorConversationDto } from './dto/start-tutor-conversation.dto';
 import { SendTutorMessageDto } from './dto/send-tutor-message.dto';
 import { TutorConversationRepository } from './repositories/tutor-conversation.repository';
 import { TutorMessageRole } from './enums/tutor-message-role.enum';
-import { TutorGatewayReply, TutorGatewayService } from './tutor-gateway.service';
+import { TutorGatewayService } from './tutor-gateway.service';
+import { TutorMessageRepository } from './repositories/tutor-message.repository';
+import { TutorCitation } from './types/tutor-citation.type';
 
 @Injectable()
 export class TutorService {
@@ -21,6 +23,7 @@ export class TutorService {
     private readonly studyPlanService: StudyPlanService,
     private readonly studentsService: StudentsService,
     private readonly usersService: UsersService,
+    private readonly messageRepository: TutorMessageRepository,
     private readonly tutorGatewayService: TutorGatewayService,
   ) {}
 
@@ -39,7 +42,7 @@ export class TutorService {
       classLevel: await this.resolveClassLevel(currentUser.userId),
       medium: await this.resolveMedium(currentUser.userId),
       curriculumYear: String(await this.resolveCurriculumYear(currentUser.userId)),
-      messages: [],
+      messageCount: 0,
       lastMessageAt: new Date(),
     });
 
@@ -61,13 +64,32 @@ export class TutorService {
   async getConversation(
     currentUser: AuthenticatedUser,
     conversationId: string,
+    limit = 30,
+    cursor?: string,
   ): Promise<Record<string, any>> {
     await this.assertOwnershipOrAdmin(currentUser, conversationId);
     const conversation = await this.conversationRepository.findById(conversationId);
     if (!conversation) {
       throw new NotFoundException('Conversation not found');
     }
-    return conversation.toJSON();
+
+    const messages = await this.getConversationMessagesInternal(conversationId, limit, cursor);
+    const conversationData = typeof conversation.toJSON === 'function' ? conversation.toJSON() : conversation;
+    return {
+      ...conversationData,
+      messages: messages.data,
+      messageMeta: messages.meta,
+    };
+  }
+
+  async getConversationMessages(
+    currentUser: AuthenticatedUser,
+    conversationId: string,
+    limit = 30,
+    cursor?: string,
+  ): Promise<Record<string, any>> {
+    await this.assertOwnershipOrAdmin(currentUser, conversationId);
+    return this.getConversationMessagesInternal(conversationId, limit, cursor);
   }
 
   async sendMessage(
@@ -84,32 +106,32 @@ export class TutorService {
 
     const assistantReply = await this.buildAssistantReply(currentUser.userId, dto.content, conversation);
 
-    const withUserMessage = await this.conversationRepository.appendMessage(conversationId, {
+    await this.messageRepository.createMessage({
+      conversationId,
+      userId: currentUser.userId,
       role: TutorMessageRole.USER,
       content: dto.content.trim(),
     });
-    if (!withUserMessage) {
-      throw new NotFoundException('Conversation not found');
-    }
 
-    const withAssistantMessage = await this.conversationRepository.appendMessage(conversationId, {
+    await this.messageRepository.createMessage({
+      conversationId,
+      userId: currentUser.userId,
       role: TutorMessageRole.ASSISTANT,
       content: assistantReply.content,
       citations: assistantReply.citations,
+      provider: assistantReply.provider,
     });
-    if (!withAssistantMessage) {
-      throw new NotFoundException('Conversation not found');
-    }
+    await this.conversationRepository.touchConversation(conversationId, 2);
 
-    return withAssistantMessage.toJSON();
+    return this.getConversation(currentUser, conversationId);
   }
 
   private async buildAssistantReply(
     userId: string,
     prompt: string,
     conversation: any,
-  ): Promise<{ content: string; citations: Array<Record<string, any>> }> {
-    const citations: Array<Record<string, any>> = [];
+  ): Promise<{ content: string; citations: TutorCitation[]; provider?: string }> {
+    const citations: TutorCitation[] = [];
     const segments: string[] = [];
     let subjectTitle = 'General Studies';
     let chapterTitle: string | undefined;
@@ -124,12 +146,12 @@ export class TutorService {
         chapterTitle = chapter.title;
         lessonTitle = lesson.title;
         citations.push({
-          subjectId: conversation.subjectId.toString(),
-          chapterId: conversation.chapterId.toString(),
-          lessonId: conversation.lessonId.toString(),
-          subjectTitle,
-          chapterTitle,
-          lessonTitle,
+          sourceId: conversation.lessonId.toString(),
+          sourceBook: 'curriculum-context',
+          classLevel: conversation.classLevel,
+          subject: subjectTitle,
+          chapter: chapterTitle,
+          excerpt: lessonTitle,
         });
         segments.push(`এই পাঠ: ${lessonTitle}`);
       } catch {
@@ -165,6 +187,7 @@ export class TutorService {
       return {
         content: gatewayReply.content,
         citations: [...citations, ...(gatewayReply.citations ?? [])],
+        provider: gatewayReply.provider,
       };
     }
 
@@ -179,6 +202,54 @@ export class TutorService {
       content: reply,
       citations,
     };
+  }
+
+  private async getConversationMessagesInternal(
+    conversationId: string,
+    limit: number,
+    cursor?: string,
+  ): Promise<{ data: Record<string, any>[]; meta: { nextCursor: string | null; hasNext: boolean } }> {
+    const pageLimit = Math.max(1, Math.min(limit || 30, 50));
+    const decodedCursor = this.decodeCursor(cursor);
+    const messages = await this.messageRepository.findByConversationCursor(
+      conversationId,
+      pageLimit + 1,
+      decodedCursor,
+    );
+    const hasNext = messages.length > pageLimit;
+    const data = messages.slice(0, pageLimit).map((message) => message.toJSON()).reverse();
+    const firstItem = data[0];
+    return {
+      data,
+      meta: {
+        nextCursor:
+          hasNext && firstItem
+            ? this.encodeCursor(new Date(firstItem.createdAt).toISOString(), firstItem._id.toString())
+            : null,
+        hasNext,
+      },
+    };
+  }
+
+  private encodeCursor(createdAt: string, id: string): string {
+    return Buffer.from(JSON.stringify({ createdAt, id }), 'utf8').toString('base64url');
+  }
+
+  private decodeCursor(cursor?: string): { createdAt: string; id: string } | undefined {
+    if (!cursor) {
+      return undefined;
+    }
+
+    try {
+      const decoded = JSON.parse(Buffer.from(cursor, 'base64url').toString('utf8'));
+      if (decoded?.createdAt && decoded?.id) {
+        return decoded;
+      }
+    } catch {
+      return undefined;
+    }
+
+    return undefined;
   }
 
   private async assertStudentOrAdmin(currentUser: AuthenticatedUser): Promise<void> {

@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { ProgressService } from './progress.service';
 import { UpsertLessonProgressDto } from './dto/upsert-lesson-progress.dto';
@@ -26,7 +27,7 @@ export class ProgressController {
   @ApiResponse({ status: 200, description: 'Subject progress returned' })
   async getMySubjectProgress(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('subjectId') subjectId: string,
+    @Param('subjectId', MongoObjectIdPipe) subjectId: string,
   ) {
     return this.progressService.getMySubjectProgress(user, subjectId);
   }
@@ -36,7 +37,7 @@ export class ProgressController {
   @ApiResponse({ status: 200, description: 'Lesson progress returned' })
   async getMyLessonProgress(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('lessonId') lessonId: string,
+    @Param('lessonId', MongoObjectIdPipe) lessonId: string,
   ) {
     return this.progressService.getMyLessonProgress(user, lessonId);
   }
@@ -46,7 +47,7 @@ export class ProgressController {
   @ApiResponse({ status: 200, description: 'Lesson progress saved successfully' })
   async upsertMyLessonProgress(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('lessonId') lessonId: string,
+    @Param('lessonId', MongoObjectIdPipe) lessonId: string,
     @Body() dto: UpsertLessonProgressDto,
   ) {
     return this.progressService.upsertMyLessonProgress(user, lessonId, dto);

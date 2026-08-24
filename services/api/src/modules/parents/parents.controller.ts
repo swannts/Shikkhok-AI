@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { ParentsService } from './parents.service';
 import { UpsertParentProfileDto } from './dto/upsert-parent-profile.dto';
@@ -54,7 +55,7 @@ export class ParentsController {
   @ApiResponse({ status: 200, description: 'Child unlinked successfully' })
   async unlinkChild(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('childUserId') childUserId: string,
+    @Param('childUserId', MongoObjectIdPipe) childUserId: string,
   ) {
     return this.parentsService.unlinkChild(user, childUserId);
   }
@@ -64,7 +65,7 @@ export class ParentsController {
   @ApiResponse({ status: 200, description: 'Child dashboard returned' })
   async getChildDashboard(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('childUserId') childUserId: string,
+    @Param('childUserId', MongoObjectIdPipe) childUserId: string,
   ) {
     return this.parentsService.getChildDashboard(user, childUserId);
   }

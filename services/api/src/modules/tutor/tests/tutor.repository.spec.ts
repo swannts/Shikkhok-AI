@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { TutorConversation } from '../schemas/tutor-conversation.schema';
 import { TutorConversationRepository } from '../repositories/tutor-conversation.repository';
-import { TutorMessageRole } from '../enums/tutor-message-role.enum';
 
 describe('TutorConversationRepository', () => {
   let repository: TutorConversationRepository;
@@ -15,15 +14,13 @@ describe('TutorConversationRepository', () => {
       sort: jest.fn().mockReturnValue({ exec: mockExec }),
     });
     const mockFindById = jest.fn().mockReturnValue({ exec: mockExec });
-    const mockFindByIdAndUpdate = jest.fn().mockReturnValue({ exec: mockExec });
-
     const MockModel = jest.fn().mockImplementation((data) => ({
       ...data,
       save: jest.fn().mockResolvedValue(data),
     }));
     (MockModel as any).find = mockFind;
     (MockModel as any).findById = mockFindById;
-    (MockModel as any).findByIdAndUpdate = mockFindByIdAndUpdate;
+    (MockModel as any).findByIdAndUpdate = jest.fn().mockReturnValue({ exec: mockExec });
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -36,15 +33,12 @@ describe('TutorConversationRepository', () => {
     model = module.get(getModelToken(TutorConversation.name));
   });
 
-  it('should append a tutor message', async () => {
+  it('should touch a tutor conversation', async () => {
     model.findByIdAndUpdate().exec.mockResolvedValue({
       _id: 'conv-1',
     });
 
-    const result = await repository.appendMessage('conv-1', {
-      role: TutorMessageRole.USER,
-      content: 'Hello',
-    });
+    const result = await repository.touchConversation('conv-1', 2);
 
     expect(result).toBeDefined();
   });
