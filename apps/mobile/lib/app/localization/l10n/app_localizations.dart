@@ -791,7 +791,7 @@ abstract class AppLocalizations {
   /// No description provided for @algebraFormulas.
   ///
   /// In bn, this message translates to:
-  /// **'বীজগণিতীয় सूत्रাবলি'**
+  /// **'বীজগণিতীয় সূত্রাবলি'**
   String get algebraFormulas;
 
   /// No description provided for @mathClass8.
@@ -1405,6 +1405,42 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'লগআউট'**
   String get logout;
+
+  /// No description provided for @weeklyReportTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'সাপ্তাহিক রিপোর্ট'**
+  String get weeklyReportTitle;
+
+  /// No description provided for @helpSupportTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'সাহায্য ও সহায়তা'**
+  String get helpSupportTitle;
+
+  /// No description provided for @sourceCitationTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'উত্তরের উৎস'**
+  String get sourceCitationTitle;
+
+  /// No description provided for @textbookLibraryTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'পাঠ্যবই লাইব্রেরি'**
+  String get textbookLibraryTitle;
+
+  /// No description provided for @textbookReaderTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'পাঠ্যবই রিডার'**
+  String get textbookReaderTitle;
+
+  /// No description provided for @parentDashboardTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'অভিভাবক ড্যাশবোর্ড'**
+  String get parentDashboardTitle;
 }
 
 class _AppLocalizationsDelegate

@@ -690,4 +690,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get weeklyReportTitle => 'Weekly Learning Report';
+
+  @override
+  String get helpSupportTitle => 'Help & Support';
+
+  @override
+  String get sourceCitationTitle => 'Source Citation';
+
+  @override
+  String get textbookLibraryTitle => 'NCTB Textbook Library';
+
+  @override
+  String get textbookReaderTitle => 'Textbook Reader';
+
+  @override
+  String get parentDashboardTitle => 'Parent Dashboard';
 }

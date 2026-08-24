@@ -374,7 +374,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get chapterDetailsTitle => 'অধ্যায় বিস্তারিত';
 
   @override
-  String get algebraFormulas => 'বীজগণিতীয় सूत्रাবলি';
+  String get algebraFormulas => 'বীজগণিতীয় সূত্রাবলি';
 
   @override
   String get mathClass8 => 'গণিত • ৮ম শ্রেণি';
@@ -691,4 +691,22 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get logout => 'লগআউট';
+
+  @override
+  String get weeklyReportTitle => 'সাপ্তাহিক রিপোর্ট';
+
+  @override
+  String get helpSupportTitle => 'সাহায্য ও সহায়তা';
+
+  @override
+  String get sourceCitationTitle => 'উত্তরের উৎস';
+
+  @override
+  String get textbookLibraryTitle => 'পাঠ্যবই লাইব্রেরি';
+
+  @override
+  String get textbookReaderTitle => 'পাঠ্যবই রিডার';
+
+  @override
+  String get parentDashboardTitle => 'অভিভাবক ড্যাশবোর্ড';
 }

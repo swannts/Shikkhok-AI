@@ -217,5 +217,11 @@
   "checkoutTitle": "Checkout",
   "paymentSuccessTitle": "Payment Success",
   "settingsTitle": "Settings & Accessibility",
-  "logout": "Logout"
+  "logout": "Logout",
+  "weeklyReportTitle": "Weekly Learning Report",
+  "helpSupportTitle": "Help & Support",
+  "sourceCitationTitle": "Source Citation",
+  "textbookLibraryTitle": "NCTB Textbook Library",
+  "textbookReaderTitle": "Textbook Reader",
+  "parentDashboardTitle": "Parent Dashboard"
 }

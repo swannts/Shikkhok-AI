@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/analytics/presentation/pages/math_progress_detail_page.dart';
 import '../../features/analytics/presentation/pages/student_progress_dashboard_page.dart';
+import '../../features/analytics/presentation/pages/weekly_learning_report_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/role_selection_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
@@ -16,8 +17,11 @@ import '../../features/curriculum/presentation/pages/practice_mistake_review_pag
 import '../../features/curriculum/presentation/pages/practice_result_page.dart';
 import '../../features/curriculum/presentation/pages/practice_session_mcq_page.dart';
 import '../../features/curriculum/presentation/pages/practice_setup_page.dart';
+import '../../features/curriculum/presentation/pages/source_citation_page.dart';
 import '../../features/curriculum/presentation/pages/study_calendar_page.dart';
 import '../../features/curriculum/presentation/pages/subject_details_page.dart';
+import '../../features/curriculum/presentation/pages/textbook_library_page.dart';
+import '../../features/curriculum/presentation/pages/textbook_reader_page.dart';
 import '../../features/curriculum/presentation/pages/todays_study_plan_page.dart';
 import '../../features/exam/presentation/pages/exam_instructions_page.dart';
 import '../../features/exam/presentation/pages/exam_library_page.dart';
@@ -33,7 +37,9 @@ import '../../features/onboarding/presentation/pages/onboarding_1_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_2_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_3_page.dart';
 import '../../features/onboarding/presentation/pages/splash_page.dart';
+import '../../features/parent/presentation/pages/parent_dashboard_page.dart';
 import '../../features/profile/presentation/pages/student_profile_page.dart';
+import '../../features/settings/presentation/pages/help_support_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/setup/presentation/pages/class_selection_page.dart';
 import '../../features/setup/presentation/pages/curriculum_selection_page.dart';
@@ -223,6 +229,30 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/settings',
       builder: (context, state) => const SettingsPage(),
+    ),
+    GoRoute(
+      path: '/weekly-report',
+      builder: (context, state) => const WeeklyLearningReportPage(),
+    ),
+    GoRoute(
+      path: '/help-support',
+      builder: (context, state) => const HelpSupportPage(),
+    ),
+    GoRoute(
+      path: '/source-citation',
+      builder: (context, state) => const SourceCitationPage(),
+    ),
+    GoRoute(
+      path: '/textbook-library',
+      builder: (context, state) => const TextbookLibraryPage(),
+    ),
+    GoRoute(
+      path: '/textbook-reader',
+      builder: (context, state) => const TextbookReaderPage(),
+    ),
+    GoRoute(
+      path: '/parent-dashboard',
+      builder: (context, state) => const ParentDashboardPage(),
     ),
   ],
 );

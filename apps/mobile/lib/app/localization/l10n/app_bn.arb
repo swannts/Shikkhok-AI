@@ -115,7 +115,7 @@
   "subjectIct": "ICT",
   "subjectSocial": "বাংলাদেশ ও বিশ্বপরিচয়",
   "chapterDetailsTitle": "অধ্যায় বিস্তারিত",
-  "algebraFormulas": "বীজগণিতীয় सूत्रাবলি",
+  "algebraFormulas": "বীজগণিতীয় সূত্রাবলি",
   "mathClass8": "গণিত • ৮ম শ্রেণি",
   "chapterComplete": "অধ্যায় সম্পন্ন",
   "lessonsDone": "১০টির মধ্যে ৪টি পাঠ সম্পন্ন",
@@ -217,5 +217,11 @@
   "checkoutTitle": "চেকআউট",
   "paymentSuccessTitle": "পেমেন্ট সফল",
   "settingsTitle": "সেটিংস ও অ্যাক্সেসিবিলিটি",
-  "logout": "লগআউট"
+  "logout": "লগআউট",
+  "weeklyReportTitle": "সাপ্তাহিক রিপোর্ট",
+  "helpSupportTitle": "সাহায্য ও সহায়তা",
+  "sourceCitationTitle": "উত্তরের উৎস",
+  "textbookLibraryTitle": "পাঠ্যবই লাইব্রেরি",
+  "textbookReaderTitle": "পাঠ্যবই রিডার",
+  "parentDashboardTitle": "অভিভাবক ড্যাশবোর্ড"
 }
