@@ -1,142 +1,73 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/auth/presentation/controllers/auth_controller.dart';
-import '../../features/auth/presentation/state/auth_state.dart';
+
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/role_selection_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/auth/presentation/pages/verify_otp_page.dart';
-import '../../features/onboarding/presentation/pages/splash_page.dart';
+import '../../features/curriculum/presentation/pages/learn_page.dart';
+import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_1_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_2_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_3_page.dart';
-import '../theme/app_colors.dart';
+import '../../features/onboarding/presentation/pages/splash_page.dart';
+import '../../features/setup/presentation/pages/class_selection_page.dart';
+import '../../features/setup/presentation/pages/curriculum_selection_page.dart';
+import '../../features/setup/presentation/pages/goal_setting_page.dart';
 
-final appRouterProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authControllerProvider);
-
-  return GoRouter(
-    initialLocation: '/splash',
-    redirect: (context, state) {
-      final isAuth = authState is Authenticated;
-      final isPublicRoute = state.matchedLocation.startsWith('/splash') ||
-          state.matchedLocation.startsWith('/onboarding') ||
-          state.matchedLocation.startsWith('/role-selection') ||
-          state.matchedLocation.startsWith('/login') ||
-          state.matchedLocation.startsWith('/signup') ||
-          state.matchedLocation.startsWith('/verify-otp');
-
-      if (!isAuth && !isPublicRoute) return '/login';
-      if (isAuth && isPublicRoute && !state.matchedLocation.startsWith('/splash')) return '/';
-      return null;
-    },
-    routes: [
-      GoRoute(
-        path: '/splash',
-        builder: (context, state) => const SplashPage(),
-      ),
-      GoRoute(
-        path: '/onboarding-1',
-        builder: (context, state) => const Onboarding1Page(),
-      ),
-      GoRoute(
-        path: '/onboarding-2',
-        builder: (context, state) => const Onboarding2Page(),
-      ),
-      GoRoute(
-        path: '/onboarding-3',
-        builder: (context, state) => const Onboarding3Page(),
-      ),
-      GoRoute(
-        path: '/role-selection',
-        builder: (context, state) => const RoleSelectionPage(),
-      ),
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: '/signup',
-        builder: (context, state) => const SignupPage(),
-      ),
-      GoRoute(
-        path: '/verify-otp',
-        builder: (context, state) => const VerifyOtpPage(),
-      ),
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return Scaffold(
-            body: navigationShell,
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: navigationShell.currentIndex,
-              onTap: (index) => navigationShell.goBranch(index),
-              selectedItemColor: AppColors.primary,
-              unselectedItemColor: AppColors.textSecondary,
-              type: BottomNavigationBarType.fixed,
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'হোম'),
-                BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'পাঠ্যক্রম'),
-                BottomNavigationBarItem(icon: Icon(Icons.smart_toy), label: 'শিক্ষক AI'),
-                BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'অগ্রগতি'),
-                BottomNavigationBarItem(icon: Icon(Icons.person), label: 'প্রোফাইল'),
-              ],
-            ),
-          );
-        },
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/',
-                builder: (context, state) => const Scaffold(
-                  body: Center(child: Text('Home Page Canvas')),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/curriculum',
-                builder: (context, state) => const Scaffold(
-                  body: Center(child: Text('Curriculum Canvas')),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/tutor',
-                builder: (context, state) => const Scaffold(
-                  body: Center(child: Text('AI Tutor Canvas')),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/progress',
-                builder: (context, state) => const Scaffold(
-                  body: Center(child: Text('Progress Canvas')),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/profile',
-                builder: (context, state) => const Scaffold(
-                  body: Center(child: Text('Profile Canvas')),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ],
-  );
-});
+final appRouter = GoRouter(
+  initialLocation: '/splash',
+  routes: [
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) => const SplashPage(),
+    ),
+    GoRoute(
+      path: '/onboarding-1',
+      builder: (context, state) => const Onboarding1Page(),
+    ),
+    GoRoute(
+      path: '/onboarding-2',
+      builder: (context, state) => const Onboarding2Page(),
+    ),
+    GoRoute(
+      path: '/onboarding-3',
+      builder: (context, state) => const Onboarding3Page(),
+    ),
+    GoRoute(
+      path: '/role-selection',
+      builder: (context, state) => const RoleSelectionPage(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => const SignupPage(),
+    ),
+    GoRoute(
+      path: '/verify-otp',
+      builder: (context, state) => const VerifyOtpPage(),
+    ),
+    GoRoute(
+      path: '/class-selection',
+      builder: (context, state) => const ClassSelectionPage(),
+    ),
+    GoRoute(
+      path: '/curriculum-selection',
+      builder: (context, state) => const CurriculumSelectionPage(),
+    ),
+    GoRoute(
+      path: '/goal-setting',
+      builder: (context, state) => const GoalSettingPage(),
+    ),
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/learn',
+      builder: (context, state) => const LearnPage(),
+    ),
+  ],
+);

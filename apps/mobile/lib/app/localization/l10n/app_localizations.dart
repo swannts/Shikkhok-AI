@@ -463,6 +463,324 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'নম্বর পরিবর্তন করুন'**
   String get changeNumber;
+
+  /// No description provided for @stepProgress.
+  ///
+  /// In bn, this message translates to:
+  /// **'ধাপ {step} / ৩'**
+  String stepProgress(Object step);
+
+  /// No description provided for @selectClassTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার পড়াশোনা সম্পর্কে বলো'**
+  String get selectClassTitle;
+
+  /// No description provided for @selectClassSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'তুমি কোন ক্লাসে পড়ো?'**
+  String get selectClassSubtitle;
+
+  /// No description provided for @selectGroupTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার বিভাগ নির্বাচন করো'**
+  String get selectGroupTitle;
+
+  /// No description provided for @groupScience.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিজ্ঞান (Science)'**
+  String get groupScience;
+
+  /// No description provided for @groupBusiness.
+  ///
+  /// In bn, this message translates to:
+  /// **'ব্যবসায় শিক্ষা (Business)'**
+  String get groupBusiness;
+
+  /// No description provided for @groupHumanities.
+  ///
+  /// In bn, this message translates to:
+  /// **'মানবিক (Humanities)'**
+  String get groupHumanities;
+
+  /// No description provided for @selectCurriculumTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার পাঠ্যক্রম নির্বাচন করো'**
+  String get selectCurriculumTitle;
+
+  /// No description provided for @nctbTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'NCTB বাংলাদেশ'**
+  String get nctbTitle;
+
+  /// No description provided for @nctbSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড'**
+  String get nctbSubtitle;
+
+  /// No description provided for @academicYear.
+  ///
+  /// In bn, this message translates to:
+  /// **'শিক্ষাবর্ষ ২০২৬'**
+  String get academicYear;
+
+  /// No description provided for @curriculumSubjects.
+  ///
+  /// In bn, this message translates to:
+  /// **'এই পাঠ্যক্রমের বিষয়সমূহ:'**
+  String get curriculumSubjects;
+
+  /// No description provided for @selectGoalTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার শেখার লক্ষ্য কী?'**
+  String get selectGoalTitle;
+
+  /// No description provided for @selectGoalSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'একাধিক নির্বাচন করতে পারো'**
+  String get selectGoalSubtitle;
+
+  /// No description provided for @goalSchool.
+  ///
+  /// In bn, this message translates to:
+  /// **'স্কুলের পড়া বুঝতে চাই'**
+  String get goalSchool;
+
+  /// No description provided for @goalExam.
+  ///
+  /// In bn, this message translates to:
+  /// **'পরীক্ষার প্রস্তুতি নিতে চাই'**
+  String get goalExam;
+
+  /// No description provided for @goalWeakness.
+  ///
+  /// In bn, this message translates to:
+  /// **'দুর্বল বিষয় ভালো করতে চাই'**
+  String get goalWeakness;
+
+  /// No description provided for @goalPractice.
+  ///
+  /// In bn, this message translates to:
+  /// **'নিয়মিত প্র্যাকটিস করতে চাই'**
+  String get goalPractice;
+
+  /// No description provided for @goalAiTutor.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI শিক্ষকের সাহায্য চাই'**
+  String get goalAiTutor;
+
+  /// No description provided for @dailyTimeTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রতিদিন কতক্ষণ পড়তে চাও?'**
+  String get dailyTimeTitle;
+
+  /// No description provided for @minutesUnit.
+  ///
+  /// In bn, this message translates to:
+  /// **'মিনিট'**
+  String get minutesUnit;
+
+  /// No description provided for @startLearningGoal.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমার শেখা শুরু করুন'**
+  String get startLearningGoal;
+
+  /// No description provided for @greetingMorning.
+  ///
+  /// In bn, this message translates to:
+  /// **'সুপ্রভাত, {name} 👋'**
+  String greetingMorning(Object name);
+
+  /// No description provided for @greetingSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'আজ কী শিখতে চাও?'**
+  String get greetingSubtitle;
+
+  /// No description provided for @streakDays.
+  ///
+  /// In bn, this message translates to:
+  /// **'{days} দিন টানা'**
+  String streakDays(Object days);
+
+  /// No description provided for @askAiTutorTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'AI শিক্ষককে জিজ্ঞেস করো'**
+  String get askAiTutorTitle;
+
+  /// No description provided for @askAiTutorSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'যে প্রশ্ন বুঝতে পারছ না, আমাকে বলো'**
+  String get askAiTutorSubtitle;
+
+  /// No description provided for @askPlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'তোমার প্রশ্ন লিখো...'**
+  String get askPlaceholder;
+
+  /// No description provided for @todaysStudyPlan.
+  ///
+  /// In bn, this message translates to:
+  /// **'আজকের পড়াশোনা'**
+  String get todaysStudyPlan;
+
+  /// No description provided for @simpleEquation.
+  ///
+  /// In bn, this message translates to:
+  /// **'সরল সমীকরণ'**
+  String get simpleEquation;
+
+  /// No description provided for @continueLearning.
+  ///
+  /// In bn, this message translates to:
+  /// **'যেখান থেকে থেমেছিলে'**
+  String get continueLearning;
+
+  /// No description provided for @mastery.
+  ///
+  /// In bn, this message translates to:
+  /// **'মাস্তারি {percent}%'**
+  String mastery(Object percent);
+
+  /// No description provided for @subjectsHeader.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিষয়সমূহ'**
+  String get subjectsHeader;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব দেখুন'**
+  String get seeAll;
+
+  /// No description provided for @todaysProgress.
+  ///
+  /// In bn, this message translates to:
+  /// **'আজকের অগ্রগতি'**
+  String get todaysProgress;
+
+  /// No description provided for @greatProgress.
+  ///
+  /// In bn, this message translates to:
+  /// **'দারুণ উন্নতি করছো!'**
+  String get greatProgress;
+
+  /// No description provided for @progressSubtitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'আজকের লক্ষ্যমাত্রার {percent}% পূর্ণ হয়েছে'**
+  String progressSubtitle(Object percent);
+
+  /// No description provided for @timeSpent.
+  ///
+  /// In bn, this message translates to:
+  /// **'সময়'**
+  String get timeSpent;
+
+  /// No description provided for @questionsAnswered.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রশ্ন'**
+  String get questionsAnswered;
+
+  /// No description provided for @accuracy.
+  ///
+  /// In bn, this message translates to:
+  /// **'সঠিক'**
+  String get accuracy;
+
+  /// No description provided for @learnHeader.
+  ///
+  /// In bn, this message translates to:
+  /// **'শিখন'**
+  String get learnHeader;
+
+  /// No description provided for @searchSubjectPlaceholder.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিষয় বা অধ্যায় খুঁজুন'**
+  String get searchSubjectPlaceholder;
+
+  /// No description provided for @allSubjects.
+  ///
+  /// In bn, this message translates to:
+  /// **'সব বিষয়'**
+  String get allSubjects;
+
+  /// No description provided for @scienceGroup.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিজ্ঞান বিভাগ'**
+  String get scienceGroup;
+
+  /// No description provided for @humanitiesGroup.
+  ///
+  /// In bn, this message translates to:
+  /// **'মানবিক বিভাগ'**
+  String get humanitiesGroup;
+
+  /// No description provided for @businessGroup.
+  ///
+  /// In bn, this message translates to:
+  /// **'ব্যবসায় শিক্ষা'**
+  String get businessGroup;
+
+  /// No description provided for @chapterCount.
+  ///
+  /// In bn, this message translates to:
+  /// **'{chapters} অধ্যায় • {lessons} পাঠ'**
+  String chapterCount(Object chapters, Object lessons);
+
+  /// No description provided for @subjectMath.
+  ///
+  /// In bn, this message translates to:
+  /// **'গণিত'**
+  String get subjectMath;
+
+  /// No description provided for @subjectScience.
+  ///
+  /// In bn, this message translates to:
+  /// **'বিজ্ঞান'**
+  String get subjectScience;
+
+  /// No description provided for @subjectBangla.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাংলা'**
+  String get subjectBangla;
+
+  /// No description provided for @subjectEnglish.
+  ///
+  /// In bn, this message translates to:
+  /// **'English'**
+  String get subjectEnglish;
+
+  /// No description provided for @subjectIct.
+  ///
+  /// In bn, this message translates to:
+  /// **'ICT'**
+  String get subjectIct;
+
+  /// No description provided for @subjectSocial.
+  ///
+  /// In bn, this message translates to:
+  /// **'বাংলাদেশ ও বিশ্বপরিচয়'**
+  String get subjectSocial;
 }
 
 class _AppLocalizationsDelegate

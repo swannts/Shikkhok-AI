@@ -198,4 +198,176 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get changeNumber => 'Change Number';
+
+  @override
+  String stepProgress(Object step) {
+    return 'Step $step / 3';
+  }
+
+  @override
+  String get selectClassTitle => 'Tell us about your studies';
+
+  @override
+  String get selectClassSubtitle => 'Which class are you in?';
+
+  @override
+  String get selectGroupTitle => 'Select your stream';
+
+  @override
+  String get groupScience => 'Science';
+
+  @override
+  String get groupBusiness => 'Business Studies';
+
+  @override
+  String get groupHumanities => 'Humanities';
+
+  @override
+  String get selectCurriculumTitle => 'Select your curriculum';
+
+  @override
+  String get nctbTitle => 'NCTB Bangladesh';
+
+  @override
+  String get nctbSubtitle => 'National Curriculum and Textbook Board';
+
+  @override
+  String get academicYear => 'Academic Year 2026';
+
+  @override
+  String get curriculumSubjects => 'Subjects in this curriculum:';
+
+  @override
+  String get selectGoalTitle => 'What is your learning goal?';
+
+  @override
+  String get selectGoalSubtitle => 'You can select multiple options';
+
+  @override
+  String get goalSchool => 'Understand school lessons';
+
+  @override
+  String get goalExam => 'Prepare for exams';
+
+  @override
+  String get goalWeakness => 'Improve weak subjects';
+
+  @override
+  String get goalPractice => 'Practice regularly';
+
+  @override
+  String get goalAiTutor => 'Get help from AI Teacher';
+
+  @override
+  String get dailyTimeTitle => 'How long do you want to study daily?';
+
+  @override
+  String get minutesUnit => 'min';
+
+  @override
+  String get startLearningGoal => 'Start My Learning';
+
+  @override
+  String greetingMorning(Object name) {
+    return 'Good morning, $name 👋';
+  }
+
+  @override
+  String get greetingSubtitle => 'What do you want to learn today?';
+
+  @override
+  String streakDays(Object days) {
+    return '$days day streak';
+  }
+
+  @override
+  String get askAiTutorTitle => 'Ask the AI Teacher';
+
+  @override
+  String get askAiTutorSubtitle =>
+      'Tell me what question you don\'t understand';
+
+  @override
+  String get askPlaceholder => 'Type your question...';
+
+  @override
+  String get todaysStudyPlan => 'Today\'s Study Plan';
+
+  @override
+  String get simpleEquation => 'Simple Equations';
+
+  @override
+  String get continueLearning => 'Pick up where you left off';
+
+  @override
+  String mastery(Object percent) {
+    return 'Mastery $percent%';
+  }
+
+  @override
+  String get subjectsHeader => 'Subjects';
+
+  @override
+  String get seeAll => 'See All';
+
+  @override
+  String get todaysProgress => 'Today\'s Progress';
+
+  @override
+  String get greatProgress => 'Great progress!';
+
+  @override
+  String progressSubtitle(Object percent) {
+    return '$percent% of today\'s goal completed';
+  }
+
+  @override
+  String get timeSpent => 'Time';
+
+  @override
+  String get questionsAnswered => 'Questions';
+
+  @override
+  String get accuracy => 'Accuracy';
+
+  @override
+  String get learnHeader => 'Learn';
+
+  @override
+  String get searchSubjectPlaceholder => 'Search subject or chapter';
+
+  @override
+  String get allSubjects => 'All Subjects';
+
+  @override
+  String get scienceGroup => 'Science';
+
+  @override
+  String get humanitiesGroup => 'Humanities';
+
+  @override
+  String get businessGroup => 'Business Studies';
+
+  @override
+  String chapterCount(Object chapters, Object lessons) {
+    return '$chapters Chapters • $lessons Lessons';
+  }
+
+  @override
+  String get subjectMath => 'Mathematics';
+
+  @override
+  String get subjectScience => 'Science';
+
+  @override
+  String get subjectBangla => 'Bangla';
+
+  @override
+  String get subjectEnglish => 'English';
+
+  @override
+  String get subjectIct => 'ICT';
+
+  @override
+  String get subjectSocial => 'Social Science';
 }

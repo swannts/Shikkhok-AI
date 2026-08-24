@@ -198,4 +198,175 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get changeNumber => 'নম্বর পরিবর্তন করুন';
+
+  @override
+  String stepProgress(Object step) {
+    return 'ধাপ $step / ৩';
+  }
+
+  @override
+  String get selectClassTitle => 'তোমার পড়াশোনা সম্পর্কে বলো';
+
+  @override
+  String get selectClassSubtitle => 'তুমি কোন ক্লাসে পড়ো?';
+
+  @override
+  String get selectGroupTitle => 'তোমার বিভাগ নির্বাচন করো';
+
+  @override
+  String get groupScience => 'বিজ্ঞান (Science)';
+
+  @override
+  String get groupBusiness => 'ব্যবসায় শিক্ষা (Business)';
+
+  @override
+  String get groupHumanities => 'মানবিক (Humanities)';
+
+  @override
+  String get selectCurriculumTitle => 'তোমার পাঠ্যক্রম নির্বাচন করো';
+
+  @override
+  String get nctbTitle => 'NCTB বাংলাদেশ';
+
+  @override
+  String get nctbSubtitle => 'জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড';
+
+  @override
+  String get academicYear => 'শিক্ষাবর্ষ ২০২৬';
+
+  @override
+  String get curriculumSubjects => 'এই পাঠ্যক্রমের বিষয়সমূহ:';
+
+  @override
+  String get selectGoalTitle => 'তোমার শেখার লক্ষ্য কী?';
+
+  @override
+  String get selectGoalSubtitle => 'একাধিক নির্বাচন করতে পারো';
+
+  @override
+  String get goalSchool => 'স্কুলের পড়া বুঝতে চাই';
+
+  @override
+  String get goalExam => 'পরীক্ষার প্রস্তুতি নিতে চাই';
+
+  @override
+  String get goalWeakness => 'দুর্বল বিষয় ভালো করতে চাই';
+
+  @override
+  String get goalPractice => 'নিয়মিত প্র্যাকটিস করতে চাই';
+
+  @override
+  String get goalAiTutor => 'AI শিক্ষকের সাহায্য চাই';
+
+  @override
+  String get dailyTimeTitle => 'প্রতিদিন কতক্ষণ পড়তে চাও?';
+
+  @override
+  String get minutesUnit => 'মিনিট';
+
+  @override
+  String get startLearningGoal => 'আমার শেখা শুরু করুন';
+
+  @override
+  String greetingMorning(Object name) {
+    return 'সুপ্রভাত, $name 👋';
+  }
+
+  @override
+  String get greetingSubtitle => 'আজ কী শিখতে চাও?';
+
+  @override
+  String streakDays(Object days) {
+    return '$days দিন টানা';
+  }
+
+  @override
+  String get askAiTutorTitle => 'AI শিক্ষককে জিজ্ঞেস করো';
+
+  @override
+  String get askAiTutorSubtitle => 'যে প্রশ্ন বুঝতে পারছ না, আমাকে বলো';
+
+  @override
+  String get askPlaceholder => 'তোমার প্রশ্ন লিখো...';
+
+  @override
+  String get todaysStudyPlan => 'আজকের পড়াশোনা';
+
+  @override
+  String get simpleEquation => 'সরল সমীকরণ';
+
+  @override
+  String get continueLearning => 'যেখান থেকে থেমেছিলে';
+
+  @override
+  String mastery(Object percent) {
+    return 'মাস্তারি $percent%';
+  }
+
+  @override
+  String get subjectsHeader => 'বিষয়সমূহ';
+
+  @override
+  String get seeAll => 'সব দেখুন';
+
+  @override
+  String get todaysProgress => 'আজকের অগ্রগতি';
+
+  @override
+  String get greatProgress => 'দারুণ উন্নতি করছো!';
+
+  @override
+  String progressSubtitle(Object percent) {
+    return 'আজকের লক্ষ্যমাত্রার $percent% পূর্ণ হয়েছে';
+  }
+
+  @override
+  String get timeSpent => 'সময়';
+
+  @override
+  String get questionsAnswered => 'প্রশ্ন';
+
+  @override
+  String get accuracy => 'সঠিক';
+
+  @override
+  String get learnHeader => 'শিখন';
+
+  @override
+  String get searchSubjectPlaceholder => 'বিষয় বা অধ্যায় খুঁজুন';
+
+  @override
+  String get allSubjects => 'সব বিষয়';
+
+  @override
+  String get scienceGroup => 'বিজ্ঞান বিভাগ';
+
+  @override
+  String get humanitiesGroup => 'মানবিক বিভাগ';
+
+  @override
+  String get businessGroup => 'ব্যবসায় শিক্ষা';
+
+  @override
+  String chapterCount(Object chapters, Object lessons) {
+    return '$chapters অধ্যায় • $lessons পাঠ';
+  }
+
+  @override
+  String get subjectMath => 'গণিত';
+
+  @override
+  String get subjectScience => 'বিজ্ঞান';
+
+  @override
+  String get subjectBangla => 'বাংলা';
+
+  @override
+  String get subjectEnglish => 'English';
+
+  @override
+  String get subjectIct => 'ICT';
+
+  @override
+  String get subjectSocial => 'বাংলাদেশ ও বিশ্বপরিচয়';
 }
