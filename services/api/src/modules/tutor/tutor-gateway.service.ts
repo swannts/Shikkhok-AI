@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import { TutorCitation } from './types/tutor-citation.type';
+import { AiModerationService } from './services/ai-moderation.service';
 
 export interface TutorGatewayReply {
   content: string;
@@ -32,7 +33,10 @@ export interface TutorStreamEvent {
 export class TutorGatewayService {
   private readonly logger = new Logger(TutorGatewayService.name);
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly moderationService: AiModerationService,
+  ) {}
 
   async generateReply(request: TutorGatewayRequest): Promise<TutorGatewayReply | null> {
     let content = '';
@@ -68,6 +72,27 @@ export class TutorGatewayService {
     request: TutorGatewayRequest,
     abortSignal?: AbortSignal,
   ): AsyncIterable<TutorStreamEvent> {
+    const moderation = this.moderationService.moderatePrompt(request.prompt);
+    if (!moderation.isSafe) {
+      yield {
+        event: 'metadata',
+        data: {
+          provider: 'safety-guardrail',
+          model: 'shikkhok-moderation-v1',
+          conversationId: request.conversationId,
+        },
+      };
+      yield {
+        event: 'delta',
+        data: { text: moderation.safeResponseBn ?? 'বিষয়টি অনুমোদিত নয়।' },
+      };
+      yield {
+        event: 'done',
+        data: { latencyMs: 10 },
+      };
+      return;
+    }
+
     const gatewayUrl = this.configService.get<string>('aiGateway.url')?.trim();
 
     // If no AI Gateway URL is configured, fall back to local educational stream generator

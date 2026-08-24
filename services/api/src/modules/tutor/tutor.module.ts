@@ -12,6 +12,7 @@ import { TutorMessageRepository } from './repositories/tutor-message.repository'
 import { TutorService } from './tutor.service';
 import { TutorController } from './tutor.controller';
 import { TutorGatewayService } from './tutor-gateway.service';
+import { AiModerationService } from './services/ai-moderation.service';
 
 @Module({
   imports: [
@@ -29,8 +30,10 @@ import { TutorGatewayService } from './tutor-gateway.service';
   providers: [
     TutorConversationRepository,
     TutorMessageRepository,
+    AiModerationService,
     TutorGatewayService,
     TutorService,
   ],
+  exports: [AiModerationService, TutorGatewayService, TutorService],
 })
 export class TutorModule {}
