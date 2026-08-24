@@ -15,6 +15,10 @@ import { CurriculumModule } from './modules/curriculum/curriculum.module';
 import { ProgressModule } from './modules/progress/progress.module';
 import { PracticeModule } from './modules/practice/practice.module';
 import { ParentsModule } from './modules/parents/parents.module';
+import { StudyPlanModule } from './modules/study-plan/study-plan.module';
+import { TutorModule } from './modules/tutor/tutor.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
+import { SyncModule } from './modules/sync/sync.module';
 
 @Module({
   imports: [
@@ -34,6 +38,10 @@ import { ParentsModule } from './modules/parents/parents.module';
     ProgressModule,
     PracticeModule,
     ParentsModule,
+    StudyPlanModule,
+    TutorModule,
+    NotificationsModule,
+    SyncModule,
   ],
   providers: [AppLoggerService],
 })
