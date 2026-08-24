@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -68,7 +69,7 @@ export class TutorController {
   }
 
   @Post('me/conversations/:conversationId/messages')
-  @ApiOperation({ summary: 'Send a tutor message' })
+  @ApiOperation({ summary: 'Send a tutor message (JSON reply)' })
   @ApiResponse({ status: 200, description: 'Tutor reply returned' })
   async sendMessage(
     @CurrentUser() user: AuthenticatedUser,
@@ -76,5 +77,23 @@ export class TutorController {
     @Body() dto: SendTutorMessageDto,
   ) {
     return this.tutorService.sendMessage(user, conversationId, dto);
+  }
+
+  @Post('me/conversations/:conversationId/messages/stream')
+  @ApiOperation({
+    summary: 'Send a tutor message and stream the AI response using Server-Sent Events (SSE)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Server-Sent Events stream with metadata, delta, citation, and done frames',
+  })
+  async streamMessage(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('conversationId', MongoObjectIdPipe) conversationId: string,
+    @Body() dto: SendTutorMessageDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    return this.tutorService.streamMessage(user, conversationId, dto, res, req);
   }
 }
