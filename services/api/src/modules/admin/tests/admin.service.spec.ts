@@ -11,9 +11,11 @@ import { ExamSession } from '../../exams/schemas/exam-session.schema';
 import { HomeworkSubmission } from '../../homework/schemas/homework-submission.schema';
 import { StudentSubscription } from '../../subscriptions/schemas/student-subscription.schema';
 import { PaymentTransaction } from '../../subscriptions/schemas/payment-transaction.schema';
+import { PaymentTransactionRepository } from '../../subscriptions/repositories/payment-transaction.repository';
+import { SubscriptionActivationService } from '../../subscriptions/services/subscription-activation.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { UserStatus } from '../../users/enums/user-status.enum';
-import { CurriculumMedium } from '../../curriculum/enums/curriculum-medium.enum';
+import { PaymentStatus } from '../../subscriptions/enums/payment-status.enum';
 
 describe('AdminService', () => {
   let service: AdminService;
@@ -25,6 +27,8 @@ describe('AdminService', () => {
   let homeworkSubmissionModel: any;
   let subscriptionModel: any;
   let transactionModel: any;
+  let transactionRepository: jest.Mocked<PaymentTransactionRepository>;
+  let activationService: jest.Mocked<SubscriptionActivationService>;
 
   beforeEach(async () => {
     const createMockModel = () => {
@@ -71,10 +75,25 @@ describe('AdminService', () => {
         { provide: getModelToken(HomeworkSubmission.name), useValue: homeworkSubmissionModel },
         { provide: getModelToken(StudentSubscription.name), useValue: subscriptionModel },
         { provide: getModelToken(PaymentTransaction.name), useValue: transactionModel },
+        {
+          provide: PaymentTransactionRepository,
+          useValue: {
+            findPendingManualPayments: jest.fn(),
+          },
+        },
+        {
+          provide: SubscriptionActivationService,
+          useValue: {
+            activateFromPayment: jest.fn(),
+            rejectPayment: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
     service = module.get(AdminService);
+    transactionRepository = module.get(PaymentTransactionRepository);
+    activationService = module.get(SubscriptionActivationService);
   });
 
   it('should return metrics overview with users and revenue', async () => {
@@ -123,29 +142,58 @@ describe('AdminService', () => {
     expect(result.status).toBe(UserStatus.SUSPENDED);
   });
 
-  it('should create a new subject in curriculum', async () => {
-    const result = await service.createSubject({
-      name: 'Class 8 Science',
-      slug: 'class-8-science',
-      classLevel: 8,
-      medium: CurriculumMedium.BANGLA,
-      curriculumYear: 2026,
-    });
+  it('should list pending manual MFS payments', async () => {
+    transactionRepository.findPendingManualPayments.mockResolvedValue([
+      {
+        transactionId: 'MANUAL_123',
+        status: PaymentStatus.PENDING_VERIFICATION,
+        toJSON: () => ({ transactionId: 'MANUAL_123' }),
+      } as any,
+    ]);
 
-    expect(result).toBeDefined();
-    expect(result.name).toBe('Class 8 Science');
+    const result = await service.listPendingPayments(20, 1);
+    expect(result.transactions).toHaveLength(1);
+    expect(result.transactions[0].transactionId).toBe('MANUAL_123');
   });
 
-  it('should toggle lesson publication status', async () => {
-    lessonModel.findByIdAndUpdate.mockReturnValue({
-      exec: jest.fn().mockResolvedValue({
-        _id: new Types.ObjectId(),
-        isPublished: false,
-        toJSON: () => ({ isPublished: false }),
-      }),
+  it('should approve manual payment and activate subscription', async () => {
+    activationService.activateFromPayment.mockResolvedValue({
+      isAlreadyActive: false,
+      subscription: { _id: new Types.ObjectId(), toJSON: () => ({ tier: 'premium' }) } as any,
+      transaction: { transactionId: 'MANUAL_123', toJSON: () => ({ status: 'completed' }) } as any,
     });
 
-    const result = await service.toggleLessonPublish('lesson-1', false);
-    expect(result.isPublished).toBe(false);
+    const result = await service.approvePayment(
+      'admin-1',
+      'MANUAL_123',
+      'Verified against bKash statement',
+    );
+    expect(result.message).toContain('Payment approved');
+    expect(activationService.activateFromPayment).toHaveBeenCalledWith(
+      'MANUAL_123',
+      'admin:admin-1',
+      undefined,
+      'Verified against bKash statement',
+    );
+  });
+
+  it('should reject manual payment and mark failed', async () => {
+    activationService.rejectPayment.mockResolvedValue({
+      transactionId: 'MANUAL_123',
+      status: PaymentStatus.FAILED,
+      toJSON: () => ({ transactionId: 'MANUAL_123', status: 'failed' }),
+    } as any);
+
+    const result = await service.rejectPayment(
+      'admin-1',
+      'MANUAL_123',
+      'TrxID does not match bank',
+    );
+    expect(result.message).toContain('Payment rejected');
+    expect(activationService.rejectPayment).toHaveBeenCalledWith(
+      'MANUAL_123',
+      'admin:admin-1',
+      'TrxID does not match bank',
+    );
   });
 });

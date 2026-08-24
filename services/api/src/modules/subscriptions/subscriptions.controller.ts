@@ -42,17 +42,23 @@ export class SubscriptionsController {
   }
 
   @Post('payments/verify')
-  @ApiOperation({ summary: 'Verify payment gateway callback/IPN and activate subscription' })
-  @ApiResponse({ status: 200, description: 'Payment verified and subscription activated' })
+  @ApiOperation({
+    summary: 'Check or sync payment transaction status against gateway (Strict ownership enforced)',
+  })
+  @ApiResponse({ status: 200, description: 'Payment verification status returned' })
   async verifyPayment(@CurrentUser() user: AuthenticatedUser, @Body() dto: VerifyPaymentDto) {
     return this.subscriptionsService.verifyPayment(user, dto);
   }
 
   @Post('payments/manual-submit')
   @ApiOperation({
-    summary: 'Submit manual bKash/Nagad wallet number and TrxID for instant activation',
+    summary:
+      'Submit manual bKash/Nagad wallet number and TrxID for admin verification (Starts as PENDING_VERIFICATION)',
   })
-  @ApiResponse({ status: 200, description: 'Manual payment submitted and subscription activated' })
+  @ApiResponse({
+    status: 201,
+    description: 'Manual payment submitted and queued for admin verification',
+  })
   async submitManualPayment(
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: ManualPaymentSubmitDto,

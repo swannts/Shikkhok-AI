@@ -29,6 +29,9 @@ export class PaymentTransaction {
   @Prop({ required: true, unique: true, trim: true, uppercase: true, index: true })
   transactionId: string;
 
+  @Prop({ trim: true, default: null, index: true })
+  providerTransactionId?: string | null;
+
   @Prop({
     required: true,
     enum: Object.values(PaymentMethod),
@@ -39,6 +42,9 @@ export class PaymentTransaction {
 
   @Prop({ type: Number, required: true, min: 0 })
   amountBdt: number;
+
+  @Prop({ type: String, required: true, default: 'BDT', uppercase: true })
+  currency: string;
 
   @Prop({
     required: true,
@@ -57,11 +63,26 @@ export class PaymentTransaction {
   @Prop({ trim: true, default: null })
   senderNumber?: string | null;
 
-  @Prop({ trim: true, default: null })
+  @Prop({ trim: true, uppercase: true, default: null })
   manualTrxId?: string | null;
 
   @Prop({ type: Date, default: null })
   paidAt?: Date | null;
+
+  @Prop({ type: Date, default: null })
+  verifiedAt?: Date | null;
+
+  @Prop({ trim: true, default: null })
+  verifiedBy?: string | null;
+
+  @Prop({ trim: true, default: null })
+  verificationNote?: string | null;
+
+  @Prop({ trim: true, default: null })
+  failureCode?: string | null;
+
+  @Prop({ trim: true, default: null })
+  failureMessage?: string | null;
 
   @Prop({ type: Object, default: {} })
   metadata: Record<string, any>;
@@ -72,4 +93,9 @@ export class PaymentTransaction {
 
 export const PaymentTransactionSchema = SchemaFactory.createForClass(PaymentTransaction);
 PaymentTransactionSchema.index({ userId: 1, createdAt: -1 });
+PaymentTransactionSchema.index({ userId: 1, status: 1 });
 PaymentTransactionSchema.index({ status: 1, paymentMethod: 1 });
+PaymentTransactionSchema.index(
+  { paymentMethod: 1, manualTrxId: 1 },
+  { unique: true, sparse: true },
+);

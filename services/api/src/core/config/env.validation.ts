@@ -56,6 +56,27 @@ export class EnvironmentVariables {
   @IsOptional()
   @Matches(/^\d+$/, { message: 'AI_GATEWAY_TIMEOUT_MS must be a positive integer' })
   AI_GATEWAY_TIMEOUT_MS?: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(16, { message: 'PAYMENT_WEBHOOK_SECRET must be at least 16 characters' })
+  PAYMENT_WEBHOOK_SECRET?: string;
+
+  @IsOptional()
+  @IsString()
+  BKASH_APP_KEY?: string;
+
+  @IsOptional()
+  @IsString()
+  BKASH_APP_SECRET?: string;
+
+  @IsOptional()
+  @IsString()
+  NAGAD_MERCHANT_ID?: string;
+
+  @IsOptional()
+  @IsString()
+  SSLCOMMERZ_STORE_ID?: string;
 }
 
 export function validateConfig(config: Record<string, unknown>) {

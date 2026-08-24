@@ -1,9 +1,18 @@
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  OnModuleInit,
+} from '@nestjs/common';
 import { Types } from 'mongoose';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { SubscriptionPlanRepository } from './repositories/subscription-plan.repository';
 import { StudentSubscriptionRepository } from './repositories/student-subscription.repository';
 import { PaymentTransactionRepository } from './repositories/payment-transaction.repository';
+import { PaymentProviderRegistry } from './providers/payment-provider.registry';
+import { SubscriptionActivationService } from './services/subscription-activation.service';
+import { PaymentStateMachineService } from './services/payment-state-machine.service';
 import { SubscriptionTier } from './enums/subscription-tier.enum';
 import { BillingCycle } from './enums/billing-cycle.enum';
 import { PaymentStatus } from './enums/payment-status.enum';
@@ -18,6 +27,9 @@ export class SubscriptionsService implements OnModuleInit {
     private readonly planRepository: SubscriptionPlanRepository,
     private readonly subscriptionRepository: StudentSubscriptionRepository,
     private readonly transactionRepository: PaymentTransactionRepository,
+    private readonly providerRegistry: PaymentProviderRegistry,
+    private readonly activationService: SubscriptionActivationService,
+    private readonly stateMachine: PaymentStateMachineService,
   ) {}
 
   async onModuleInit(): Promise<void> {
@@ -75,28 +87,36 @@ export class SubscriptionsService implements OnModuleInit {
     }
 
     const transactionId = `TXN_SHK_${Date.now()}_${Math.random().toString(36).substring(2, 7).toUpperCase()}`;
-    const gatewayUrl = `https://payment.shikkhok.ai/checkout/${dto.paymentMethod}?txnId=${transactionId}&amount=${plan.priceBdt}`;
 
+    // Create pending transaction record
     const transaction = await this.transactionRepository.createTransaction({
       userId: new Types.ObjectId(currentUser.userId),
       planId: plan._id,
       transactionId,
       paymentMethod: dto.paymentMethod,
       amountBdt: plan.priceBdt,
+      currency: 'BDT',
       status: PaymentStatus.PENDING,
-      gatewayPaymentUrl: gatewayUrl,
       metadata: {
         callbackUrl: dto.callbackUrl,
         planCode: plan.code,
       },
     });
 
+    const provider = this.providerRegistry.getProvider(dto.paymentMethod);
+    const initiationResult = await provider.initiatePayment(transaction, plan, dto.callbackUrl);
+
+    transaction.gatewayPaymentUrl = initiationResult.gatewayPaymentUrl;
+    transaction.gatewayReference = initiationResult.gatewayReference;
+    await transaction.save();
+
     return {
       transactionId,
       amountBdt: plan.priceBdt,
+      currency: 'BDT',
       paymentMethod: dto.paymentMethod,
-      gatewayPaymentUrl: gatewayUrl,
-      transaction: transaction.toJSON(),
+      gatewayPaymentUrl: initiationResult.gatewayPaymentUrl,
+      status: PaymentStatus.PENDING,
     };
   }
 
@@ -109,46 +129,57 @@ export class SubscriptionsService implements OnModuleInit {
       throw new NotFoundException('Transaction not found');
     }
 
+    // Strict ownership enforcement
+    if (txn.userId.toString() !== currentUser.userId) {
+      throw new ForbiddenException('You can only access and verify your own payment transactions');
+    }
+
+    // If already completed, return status
     if (txn.status === PaymentStatus.COMPLETED) {
+      const activeSub = await this.subscriptionRepository.findActiveByUserId(currentUser.userId);
       return {
-        message: 'Payment already verified and subscription is active',
+        status: PaymentStatus.COMPLETED,
+        message: 'Payment is already verified and subscription is active',
+        transaction: txn.toJSON(),
+        subscription: activeSub?.toJSON(),
+      };
+    }
+
+    if (txn.status === PaymentStatus.PENDING_VERIFICATION) {
+      return {
+        status: PaymentStatus.PENDING_VERIFICATION,
+        message: 'Manual payment is awaiting admin verification',
         transaction: txn.toJSON(),
       };
     }
 
-    const plan = await this.planRepository.findById(txn.planId.toString());
-    if (!plan) {
-      throw new NotFoundException('Subscription plan not found');
+    // Call server-side provider verification
+    const provider = this.providerRegistry.getProvider(txn.paymentMethod);
+    const verification = await provider.verifyPayment(txn);
+
+    if (!verification.isSuccess) {
+      return {
+        status: txn.status,
+        isVerified: false,
+        message: verification.failureReason ?? 'Payment is not yet confirmed by gateway',
+        transaction: txn.toJSON(),
+      };
     }
 
-    // Mark transaction as completed
-    const completedTxn = await this.transactionRepository.updateStatus(
+    // Activate subscription through idempotent activation service
+    const activation = await this.activationService.activateFromPayment(
       dto.transactionId,
-      PaymentStatus.COMPLETED,
-      new Date(),
+      `provider:${txn.paymentMethod}`,
+      verification.providerTransactionId,
+      'Verified via server-side status synchronization',
     );
 
-    // Deactivate existing subscriptions and activate new
-    await this.subscriptionRepository.deactivatePreviousSubscriptions(currentUser.userId);
-
-    const startDate = new Date();
-    const endDate = new Date(startDate.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
-
-    const subscription = await this.subscriptionRepository.activateSubscription({
-      userId: new Types.ObjectId(currentUser.userId),
-      planId: plan._id,
-      tier: plan.tier,
-      status: SubscriptionStatus.ACTIVE,
-      startDate,
-      endDate,
-      paymentTransactionId: dto.transactionId,
-      autoRenew: false,
-    });
-
     return {
-      message: 'Subscription successfully activated',
-      subscription: subscription.toJSON(),
-      transaction: completedTxn?.toJSON(),
+      status: PaymentStatus.COMPLETED,
+      isVerified: true,
+      message: 'Payment verified and subscription activated',
+      subscription: activation.subscription.toJSON(),
+      transaction: activation.transaction.toJSON(),
     };
   }
 
@@ -161,40 +192,39 @@ export class SubscriptionsService implements OnModuleInit {
       throw new NotFoundException('Subscription plan not found');
     }
 
+    const normalizedTrxId = dto.manualTrxId.trim().toUpperCase();
+
+    // Duplicate manual TrxID validation
+    const existingTxn = await this.transactionRepository.findByManualTrxId(
+      dto.paymentMethod,
+      normalizedTrxId,
+    );
+    if (existingTxn) {
+      throw new ConflictException(
+        `Transaction ID ${normalizedTrxId} has already been submitted for ${dto.paymentMethod}.`,
+      );
+    }
+
     const transactionId = `MANUAL_SHK_${Date.now()}_${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
+    // Record as PENDING_VERIFICATION (Do NOT activate subscription yet!)
     const transaction = await this.transactionRepository.createTransaction({
       userId: new Types.ObjectId(currentUser.userId),
       planId: plan._id,
       transactionId,
       paymentMethod: dto.paymentMethod,
       amountBdt: plan.priceBdt,
-      status: PaymentStatus.COMPLETED,
+      currency: 'BDT',
+      status: PaymentStatus.PENDING_VERIFICATION,
       senderNumber: dto.senderNumber.trim(),
-      manualTrxId: dto.manualTrxId.trim().toUpperCase(),
-      paidAt: new Date(),
+      manualTrxId: normalizedTrxId,
       metadata: { source: 'manual_mfs_submit' },
     });
 
-    await this.subscriptionRepository.deactivatePreviousSubscriptions(currentUser.userId);
-
-    const startDate = new Date();
-    const endDate = new Date(startDate.getTime() + plan.durationDays * 24 * 60 * 60 * 1000);
-
-    const subscription = await this.subscriptionRepository.activateSubscription({
-      userId: new Types.ObjectId(currentUser.userId),
-      planId: plan._id,
-      tier: plan.tier,
-      status: SubscriptionStatus.ACTIVE,
-      startDate,
-      endDate,
-      paymentTransactionId: transactionId,
-      autoRenew: false,
-    });
-
     return {
-      message: 'Manual MFS payment submitted and subscription activated',
-      subscription: subscription.toJSON(),
+      status: PaymentStatus.PENDING_VERIFICATION,
+      message:
+        'ম্যানুয়াল পেমেন্ট তথ্য সফলভাবে জমা হয়েছে। অ্যাডমিন ভেরিফিকেশনের পর আপনার সাবস্ক্রিপশন সক্রিয় হবে।',
       transaction: transaction.toJSON(),
     };
   }

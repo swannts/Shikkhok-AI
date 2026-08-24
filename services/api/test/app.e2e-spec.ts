@@ -81,4 +81,12 @@ describe('AppController (e2e)', () => {
         expect(res.body.data).toContain('shikkhok_mongodb_connected');
       });
   });
+
+  it('POST /api/v1/webhooks/payments/bkash (Rejects invalid webhook signature with 401)', () => {
+    return request(app.getHttpServer())
+      .post('/api/v1/webhooks/payments/bkash')
+      .set('x-bkash-signature', 'forged_fake_signature')
+      .send({ eventId: 'EV_FAKE', transactionId: 'TXN_FAKE' })
+      .expect(401);
+  });
 });

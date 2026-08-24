@@ -28,4 +28,27 @@ export default () => ({
     url: process.env.AI_GATEWAY_URL || '',
     timeoutMs: parseInt(process.env.AI_GATEWAY_TIMEOUT_MS || '12000', 10),
   },
+  payments: {
+    webhookSecret: process.env.PAYMENT_WEBHOOK_SECRET || 'dev-payment-webhook-secret-32chars',
+    bkash: {
+      appKey: process.env.BKASH_APP_KEY || '',
+      appSecret: process.env.BKASH_APP_SECRET || '',
+      username: process.env.BKASH_USERNAME || '',
+      password: process.env.BKASH_PASSWORD || '',
+      baseUrl: process.env.BKASH_BASE_URL || 'https://tokenized.sandbox.bka.sh/v1.2.0-beta',
+    },
+    nagad: {
+      merchantId: process.env.NAGAD_MERCHANT_ID || '',
+      publicKey: process.env.NAGAD_PUBLIC_KEY || '',
+      privateKey: process.env.NAGAD_PRIVATE_KEY || '',
+      baseUrl:
+        process.env.NAGAD_BASE_URL ||
+        'https://sandbox.mynagad.com:10080/remote-payment-gateway-1.0/api/dfs',
+    },
+    sslcommerz: {
+      storeId: process.env.SSLCOMMERZ_STORE_ID || '',
+      storePassword: process.env.SSLCOMMERZ_STORE_PASSWORD || '',
+      baseUrl: process.env.SSLCOMMERZ_BASE_URL || 'https://sandbox.sslcommerz.com',
+    },
+  },
 });

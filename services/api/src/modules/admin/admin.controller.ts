@@ -3,6 +3,8 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { UserRole } from '../users/enums/user-role.enum';
 import { AdminService } from './admin.service';
@@ -77,5 +79,41 @@ export class AdminController {
     @Body('isPublished') isPublished: boolean,
   ) {
     return this.adminService.toggleLessonPublish(lessonId, Boolean(isPublished));
+  }
+
+  @Get('payments/pending')
+  @ApiOperation({ summary: 'List manual MFS payments pending administrator verification' })
+  @ApiResponse({ status: 200, description: 'List of pending manual transactions' })
+  async listPendingPayments(@Query('limit') limit?: number, @Query('page') page?: number) {
+    return this.adminService.listPendingPayments(
+      limit ? Number(limit) : 20,
+      page ? Number(page) : 1,
+    );
+  }
+
+  @Post('payments/:transactionId/approve')
+  @ApiOperation({ summary: 'Approve manual MFS payment and activate student subscription' })
+  @ApiResponse({ status: 200, description: 'Payment approved and subscription activated' })
+  async approvePayment(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Param('transactionId') transactionId: string,
+    @Body('verificationNote') verificationNote?: string,
+  ) {
+    return this.adminService.approvePayment(adminUser.userId, transactionId, verificationNote);
+  }
+
+  @Post('payments/:transactionId/reject')
+  @ApiOperation({ summary: 'Reject manual MFS payment with rejection reason' })
+  @ApiResponse({ status: 200, description: 'Payment rejected and marked failed' })
+  async rejectPayment(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Param('transactionId') transactionId: string,
+    @Body('rejectionReason') rejectionReason?: string,
+  ) {
+    return this.adminService.rejectPayment(
+      adminUser.userId,
+      transactionId,
+      rejectionReason || 'Rejected by administrator',
+    );
   }
 }

@@ -26,6 +26,9 @@ import { AdminCreateLessonDto } from './dto/admin-create-lesson.dto';
 import { SubscriptionStatus } from '../subscriptions/enums/subscription-status.enum';
 import { PaymentStatus } from '../subscriptions/enums/payment-status.enum';
 
+import { PaymentTransactionRepository } from '../subscriptions/repositories/payment-transaction.repository';
+import { SubscriptionActivationService } from '../subscriptions/services/subscription-activation.service';
+
 @Injectable()
 export class AdminService {
   constructor(
@@ -41,6 +44,8 @@ export class AdminService {
     private readonly subscriptionModel: Model<StudentSubscriptionDocument>,
     @InjectModel(PaymentTransaction.name)
     private readonly transactionModel: Model<PaymentTransactionDocument>,
+    private readonly transactionRepository: PaymentTransactionRepository,
+    private readonly activationService: SubscriptionActivationService,
   ) {}
 
   async getMetricsOverview(): Promise<Record<string, any>> {
@@ -205,5 +210,52 @@ export class AdminService {
     }
 
     return lesson.toJSON();
+  }
+
+  async listPendingPayments(limit = 20, page = 1): Promise<Record<string, any>> {
+    const skip = (Math.max(1, page) - 1) * limit;
+    const transactions = await this.transactionRepository.findPendingManualPayments(limit, skip);
+    return {
+      transactions: transactions.map((t) => t.toJSON()),
+      limit,
+      page,
+    };
+  }
+
+  async approvePayment(
+    adminUserId: string,
+    transactionId: string,
+    verificationNote?: string,
+  ): Promise<Record<string, any>> {
+    const result = await this.activationService.activateFromPayment(
+      transactionId,
+      `admin:${adminUserId}`,
+      undefined,
+      verificationNote || 'Approved manually by administrator',
+    );
+
+    return {
+      message: 'Payment approved and subscription activated successfully',
+      isAlreadyActive: result.isAlreadyActive,
+      subscription: result.subscription.toJSON(),
+      transaction: result.transaction.toJSON(),
+    };
+  }
+
+  async rejectPayment(
+    adminUserId: string,
+    transactionId: string,
+    rejectionReason: string,
+  ): Promise<Record<string, any>> {
+    const rejectedTxn = await this.activationService.rejectPayment(
+      transactionId,
+      `admin:${adminUserId}`,
+      rejectionReason,
+    );
+
+    return {
+      message: 'Payment rejected successfully',
+      transaction: rejectedTxn.toJSON(),
+    };
   }
 }
