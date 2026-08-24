@@ -23,6 +23,7 @@ import { ExamsModule } from './modules/exams/exams.module';
 import { HomeworkModule } from './modules/homework/homework.module';
 import { TextbooksModule } from './modules/textbooks/textbooks.module';
 import { SearchModule } from './modules/search/search.module';
+import { GamificationModule } from './modules/gamification/gamification.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { SearchModule } from './modules/search/search.module';
     HomeworkModule,
     TextbooksModule,
     SearchModule,
+    GamificationModule,
   ],
   providers: [AppLoggerService],
 })

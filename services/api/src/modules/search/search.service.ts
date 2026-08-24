@@ -64,7 +64,6 @@ export class SearchService {
       .limit(limit)
       .exec();
 
-    const chapterIds = chapters.map((c) => c._id);
     const allGradeChapters = await this.chapterModel
       .find({ subjectId: { $in: gradeSubjectIds }, isPublished: true }, { _id: 1 })
       .exec();
