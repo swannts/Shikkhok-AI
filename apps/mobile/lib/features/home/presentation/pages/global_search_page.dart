@@ -108,7 +108,7 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
               // Search Results List
               const Text(
                 'ফলাফলসমূহ',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.md),
               _buildSearchResultCard(
