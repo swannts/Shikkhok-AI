@@ -1,0 +1,73 @@
+name: CI / Verification Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  api-service-ci:
+    name: Backend API (Lint, Unit Tests, E2E Tests, Build)
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+
+    defaults:
+      run:
+        working-directory: services/api
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: services/api/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint Check
+        run: npm run lint:check
+
+      - name: Unit Tests
+        run: npm test
+        env:
+          NODE_ENV: test
+          PORT: 3000
+          MONGODB_URI: mongodb://localhost:27017/shikkhok_test
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          JWT_SECRET: test_jwt_access_secret_key_32_characters_minimum
+          JWT_REFRESH_SECRET: test_jwt_refresh_secret_key_32_characters_minimum
+          GEMINI_API_KEY: test_gemini_api_key_dummy
+          PAYMENT_SANDBOX_ENABLED: "true"
+
+      - name: E2E Tests
+        run: npm run test:e2e
+        env:
+          NODE_ENV: test
+          PORT: 3000
+          MONGODB_URI: mongodb://localhost:27017/shikkhok_e2e
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          JWT_SECRET: test_jwt_access_secret_key_32_characters_minimum
+          JWT_REFRESH_SECRET: test_jwt_refresh_secret_key_32_characters_minimum
+          GEMINI_API_KEY: test_gemini_api_key_dummy
+          PAYMENT_SANDBOX_ENABLED: "true"
+
+      - name: Production TypeScript Build
+        run: npm run build
