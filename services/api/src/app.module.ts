@@ -10,6 +10,9 @@ import { AppLoggerService } from './core/logging/logging.service';
 import { HTTPLoggerMiddleware } from './core/logging/logger.middleware';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { StudentsModule } from './modules/students/students.module';
+import { CurriculumModule } from './modules/curriculum/curriculum.module';
+import { ProgressModule } from './modules/progress/progress.module';
 
 @Module({
   imports: [
@@ -24,6 +27,9 @@ import { AuthModule } from './modules/auth/auth.module';
     HealthModule,
     UsersModule,
     AuthModule,
+    StudentsModule,
+    CurriculumModule,
+    ProgressModule,
   ],
   providers: [AppLoggerService],
 })
