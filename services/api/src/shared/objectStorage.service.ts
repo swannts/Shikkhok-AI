@@ -52,7 +52,7 @@ export class ObjectStorageService {
   }
 
   /**
-   * Upload file to Object Storage (S3 / GCS / MinIO) and return metadata reference for PostgreSQL storage
+   * Upload file to Object Storage (S3 / GCS / MinIO) and return metadata reference for MongoDB storage
    */
   public async uploadFile(options: UploadFileOptions): Promise<StoredFileReference> {
     const prefix = this.getCategoryPrefix(options.category);

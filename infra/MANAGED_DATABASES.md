@@ -1,6 +1,6 @@
 # Production Managed Database Architecture Strategy
 
-> **Core Infrastructure Policy**: Do NOT host stateful database workloads (PostgreSQL/Redis) inside Kubernetes StatefulSets for production. State belongs in managed cloud database services.
+> **Core Infrastructure Policy**: Do NOT host stateful database workloads (MongoDB/Redis) inside Kubernetes StatefulSets for production. State belongs in managed cloud database services.
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -8,32 +8,32 @@
 │             (Kubernetes / GKE / EKS)                   │
 │                                                        │
 │   shikkhok-api    shikkhok-ai-gateway  shikkhok-worker │
-└───────────┬────────────────────────────────┬───────────┘
-            │ (TLS Database Connection)      │ (Redis Protocol)
+11: └───────────┬────────────────────────────────┬───────────┘
+            │ (TLS MongoDB Connection)       │ (Redis Protocol)
             ▼                                ▼
 ┌────────────────────────┐      ┌────────────────────────┐
-│   Managed PostgreSQL   │      │     Managed Redis      │
-│  (GCP Cloud SQL / RDS) │      │  (Memorystore / Elasti)│
+│     Managed MongoDB    │      │     Managed Redis      │
+│ (MongoDB Atlas/DocDB)  │      │  (Memorystore / Elasti)│
 │                        │      │                        │
-│  - pgvector enabled    │      │  - In-memory cache     │
+│  - NoSQL Document DB   │      │  - In-memory cache     │
 │  - Automated backups   │      │  - BullMQ job broker   │
-│  - Multi-AZ failover   │      │  - Rate limiting       │
+│  - Multi-AZ sharding   │      │  - Rate limiting       │
 └────────────────────────┘      └────────────────────────┘
 ```
 
 ## Recommended Production Cloud Providers
 
-| Cloud Provider | Managed PostgreSQL Service (with `pgvector`) | Managed Redis Service |
+| Cloud Provider | Managed MongoDB NoSQL Service | Managed Redis Service |
 | :--- | :--- | :--- |
-| **Google Cloud (GCP)** | **Cloud SQL for PostgreSQL** (`pgvector` flag enabled) | **Memorystore for Redis** |
-| **AWS** | **Amazon RDS for PostgreSQL** / **Aurora PostgreSQL** | **Amazon ElastiCache for Redis** / **MemoryDB** |
-| **Azure** | **Azure Database for PostgreSQL Flexible Server** | **Azure Cache for Redis** |
+| **Google Cloud (GCP)** | **MongoDB Atlas on GCP** | **Memorystore for Redis** |
+| **AWS** | **Amazon DocumentDB / MongoDB Atlas** | **Amazon ElastiCache for Redis** / **MemoryDB** |
+| **Azure** | **Azure Cosmos DB for MongoDB / Atlas** | **Azure Cache for Redis** |
 
 ## Production Advantages over In-Cluster Database Hosting
 
-1. **High Availability & Automated Failover**: Managed services provide multi-AZ automatic failover without requiring complex PostgreSQL HA operators (Stolon/Patroni/CloudNativePG) inside Kubernetes.
+1. **High Availability & Automated Failover**: Managed services provide multi-region automatic replica set failover.
 2. **Automated Point-in-Time Recovery (PITR)**: Automated continuous backups and storage encryption at rest.
-3. **Dedicated Compute & Storage Scaling**: Storage auto-expansion without risking Kubernetes node disk pressure evictions (`disk-pressure`).
+3. **Dedicated Compute & Storage Scaling**: Horizontal sharding and auto-scaling.
 4. **Maintenance & Security Patching**: Cloud provider handles OS and database engine security patching seamlessly.
 
 ## Environment Secret Injection Policy
@@ -41,8 +41,8 @@
 Database connection strings for managed instances are injected via Kubernetes Secrets:
 
 ```bash
-# GCP Cloud SQL / RDS Connection String Format
-DATABASE_URL="postgresql://shikkhok_admin:<SECURE_PASSWORD>@10.x.x.x:5432/shikkhok_prod?schema=public&sslmode=require"
+# MongoDB Atlas / Managed Connection String Format
+DATABASE_URL="mongodb+srv://shikkhok_admin:<SECURE_PASSWORD>@cluster.mongodb.net/shikkhok_prod?retryWrites=true&w=majority"
 
 # Managed Redis Connection String Format
 REDIS_URL="rediss://:<SECURE_PASSWORD>@10.x.x.x:6379"
