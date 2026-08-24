@@ -709,4 +709,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get parentDashboardTitle => 'অভিভাবক ড্যাশবোর্ড';
+
+  @override
+  String get achievementsTitle => 'আমার অর্জন';
 }

@@ -708,4 +708,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get parentDashboardTitle => 'Parent Dashboard';
+
+  @override
+  String get achievementsTitle => 'My Achievements';
 }

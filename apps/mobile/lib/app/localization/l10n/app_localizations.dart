@@ -1441,6 +1441,12 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'অভিভাবক ড্যাশবোর্ড'**
   String get parentDashboardTitle;
+
+  /// No description provided for @achievementsTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'আমার অর্জন'**
+  String get achievementsTitle;
 }
 
 class _AppLocalizationsDelegate

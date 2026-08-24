@@ -38,6 +38,7 @@ import '../../features/onboarding/presentation/pages/onboarding_2_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_3_page.dart';
 import '../../features/onboarding/presentation/pages/splash_page.dart';
 import '../../features/parent/presentation/pages/parent_dashboard_page.dart';
+import '../../features/profile/presentation/pages/student_achievements_page.dart';
 import '../../features/profile/presentation/pages/student_profile_page.dart';
 import '../../features/settings/presentation/pages/help_support_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
@@ -253,6 +254,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/parent-dashboard',
       builder: (context, state) => const ParentDashboardPage(),
+    ),
+    GoRoute(
+      path: '/student-achievements',
+      builder: (context, state) => const StudentAchievementsPage(),
     ),
   ],
 );

@@ -223,5 +223,6 @@
   "sourceCitationTitle": "Source Citation",
   "textbookLibraryTitle": "NCTB Textbook Library",
   "textbookReaderTitle": "Textbook Reader",
-  "parentDashboardTitle": "Parent Dashboard"
+  "parentDashboardTitle": "Parent Dashboard",
+  "achievementsTitle": "My Achievements"
 }
