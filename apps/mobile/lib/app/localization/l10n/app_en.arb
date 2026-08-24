@@ -211,5 +211,11 @@
   "myProgressTitle": "My Progress",
   "recentSearches": "Recent Searches",
   "markAllRead": "Mark all as read",
-  "storageUsage": "Storage Usage: {used} / {total}"
+  "storageUsage": "Storage Usage: {used} / {total}",
+  "profileTitle": "Profile",
+  "subscriptionTitle": "Shikkhok Plus",
+  "checkoutTitle": "Checkout",
+  "paymentSuccessTitle": "Payment Success",
+  "settingsTitle": "Settings & Accessibility",
+  "logout": "Logout"
 }

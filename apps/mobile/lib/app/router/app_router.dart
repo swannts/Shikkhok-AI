@@ -6,6 +6,8 @@ import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/role_selection_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/auth/presentation/pages/verify_otp_page.dart';
+import '../../features/checkout/presentation/pages/checkout_page.dart';
+import '../../features/checkout/presentation/pages/payment_success_page.dart';
 import '../../features/curriculum/presentation/pages/chapter_details_page.dart';
 import '../../features/curriculum/presentation/pages/learn_page.dart';
 import '../../features/curriculum/presentation/pages/lesson_reader_page.dart';
@@ -31,9 +33,12 @@ import '../../features/onboarding/presentation/pages/onboarding_1_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_2_page.dart';
 import '../../features/onboarding/presentation/pages/onboarding_3_page.dart';
 import '../../features/onboarding/presentation/pages/splash_page.dart';
+import '../../features/profile/presentation/pages/student_profile_page.dart';
+import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/setup/presentation/pages/class_selection_page.dart';
 import '../../features/setup/presentation/pages/curriculum_selection_page.dart';
 import '../../features/setup/presentation/pages/goal_setting_page.dart';
+import '../../features/subscription/presentation/pages/subscription_page.dart';
 import '../../features/tutor/presentation/pages/ai_tutor_chat_page.dart';
 import '../../features/tutor/presentation/pages/ai_tutor_chat_variant_page.dart';
 import '../../features/tutor/presentation/pages/ai_tutor_history_empty_page.dart';
@@ -198,6 +203,26 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/student-progress-dashboard',
       builder: (context, state) => const StudentProgressDashboardPage(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const StudentProfilePage(),
+    ),
+    GoRoute(
+      path: '/subscription',
+      builder: (context, state) => const SubscriptionPage(),
+    ),
+    GoRoute(
+      path: '/checkout',
+      builder: (context, state) => const CheckoutPage(),
+    ),
+    GoRoute(
+      path: '/payment-success',
+      builder: (context, state) => const PaymentSuccessPage(),
+    ),
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => const SettingsPage(),
     ),
   ],
 );

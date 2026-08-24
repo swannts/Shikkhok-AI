@@ -115,7 +115,7 @@
   "subjectIct": "ICT",
   "subjectSocial": "বাংলাদেশ ও বিশ্বপরিচয়",
   "chapterDetailsTitle": "অধ্যায় বিস্তারিত",
-  "algebraFormulas": "বীজগণিতীয় সূত্রাবলি",
+  "algebraFormulas": "বীজগণিতীয় सूत्रাবলি",
   "mathClass8": "গণিত • ৮ম শ্রেণি",
   "chapterComplete": "অধ্যায় সম্পন্ন",
   "lessonsDone": "১০টির মধ্যে ৪টি পাঠ সম্পন্ন",
@@ -211,5 +211,11 @@
   "myProgressTitle": "আমার অগ্রগতি",
   "recentSearches": "সাম্প্রতিক অনুসন্ধান",
   "markAllRead": "সব পড়া হয়েছে চিহ্নিত করুন",
-  "storageUsage": "স্টোরেজ ব্যবহার: {used} / {total}"
+  "storageUsage": "স্টোরেজ ব্যবহার: {used} / {total}",
+  "profileTitle": "প্রোফাইল",
+  "subscriptionTitle": "Shikkhok Plus",
+  "checkoutTitle": "চেকআউট",
+  "paymentSuccessTitle": "পেমেন্ট সফল",
+  "settingsTitle": "সেটিংস ও অ্যাক্সেসিবিলিটি",
+  "logout": "লগআউট"
 }

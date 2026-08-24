@@ -672,4 +672,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String storageUsage(Object total, Object used) {
     return 'Storage Usage: $used / $total';
   }
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get subscriptionTitle => 'Shikkhok Plus';
+
+  @override
+  String get checkoutTitle => 'Checkout';
+
+  @override
+  String get paymentSuccessTitle => 'Payment Success';
+
+  @override
+  String get settingsTitle => 'Settings & Accessibility';
+
+  @override
+  String get logout => 'Logout';
 }

@@ -791,7 +791,7 @@ abstract class AppLocalizations {
   /// No description provided for @algebraFormulas.
   ///
   /// In bn, this message translates to:
-  /// **'বীজগণিতীয় সূত্রাবলি'**
+  /// **'বীজগণিতীয় सूत्रাবলি'**
   String get algebraFormulas;
 
   /// No description provided for @mathClass8.
@@ -1369,6 +1369,42 @@ abstract class AppLocalizations {
   /// In bn, this message translates to:
   /// **'স্টোরেজ ব্যবহার: {used} / {total}'**
   String storageUsage(Object total, Object used);
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'প্রোফাইল'**
+  String get profileTitle;
+
+  /// No description provided for @subscriptionTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'Shikkhok Plus'**
+  String get subscriptionTitle;
+
+  /// No description provided for @checkoutTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'চেকআউট'**
+  String get checkoutTitle;
+
+  /// No description provided for @paymentSuccessTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'পেমেন্ট সফল'**
+  String get paymentSuccessTitle;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In bn, this message translates to:
+  /// **'সেটিংস ও অ্যাক্সেসিবিলিটি'**
+  String get settingsTitle;
+
+  /// No description provided for @logout.
+  ///
+  /// In bn, this message translates to:
+  /// **'লগআউট'**
+  String get logout;
 }
 
 class _AppLocalizationsDelegate

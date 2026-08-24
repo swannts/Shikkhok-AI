@@ -374,7 +374,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get chapterDetailsTitle => 'অধ্যায় বিস্তারিত';
 
   @override
-  String get algebraFormulas => 'বীজগণিতীয় সূত্রাবলি';
+  String get algebraFormulas => 'বীজগণিতীয় सूत्रাবলি';
 
   @override
   String get mathClass8 => 'গণিত • ৮ম শ্রেণি';
@@ -673,4 +673,22 @@ class AppLocalizationsBn extends AppLocalizations {
   String storageUsage(Object total, Object used) {
     return 'স্টোরেজ ব্যবহার: $used / $total';
   }
+
+  @override
+  String get profileTitle => 'প্রোফাইল';
+
+  @override
+  String get subscriptionTitle => 'Shikkhok Plus';
+
+  @override
+  String get checkoutTitle => 'চেকআউট';
+
+  @override
+  String get paymentSuccessTitle => 'পেমেন্ট সফল';
+
+  @override
+  String get settingsTitle => 'সেটিংস ও অ্যাক্সেসিবিলিটি';
+
+  @override
+  String get logout => 'লগআউট';
 }
