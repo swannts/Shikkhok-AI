@@ -12,7 +12,14 @@ class StudentProgressDashboardPage extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     final subjects = [
-      ('গণিত', '৭৮%', 0.78, AppColors.primary, Icons.calculate_rounded, '/math-progress-detail'),
+      (
+        'গণিত',
+        '৭৮%',
+        0.78,
+        AppColors.primary,
+        Icons.calculate_rounded,
+        '/math-progress-detail'
+      ),
       ('বিজ্ঞান', '৮২%', 0.82, Colors.green, Icons.science_rounded, '/learn'),
       ('English', '৬৫%', 0.65, Colors.orange, Icons.language_rounded, '/learn'),
       ('বাংলা', '৯০%', 0.90, Colors.teal, Icons.menu_book_rounded, '/learn'),
@@ -24,12 +31,16 @@ class StudentProgressDashboardPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.myProgressTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -46,11 +57,11 @@ class StudentProgressDashboardPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(color: AppColors.border),
                 ),
-                child: Row(
+                child: const Row(
                   children: [
                     Stack(
                       alignment: Alignment.center,
-                      children: const [
+                      children: [
                         SizedBox(
                           width: 80,
                           height: 80,
@@ -58,22 +69,38 @@ class StudentProgressDashboardPage extends StatelessWidget {
                             value: 0.75,
                             strokeWidth: 8,
                             backgroundColor: AppColors.border,
-                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                AppColors.primary),
                           ),
                         ),
-                        Text('৭৫%', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                        Text('৭৫%',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary)),
                       ],
                     ),
-                    const SizedBox(width: AppSpacing.lg),
+                    SizedBox(width: AppSpacing.lg),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('গড় শিখনের অগ্রগতি', style: TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+                        children: [
+                          Text('গড় শিখনের অগ্রগতি',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.textSecondary)),
                           SizedBox(height: 2),
-                          Text('দারুণ পারফরম্যান্স!', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                          Text('দারুণ পারফরম্যান্স!',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textPrimary)),
                           SizedBox(height: 4),
-                          Text('🔥 ৭ দিন টানা পড়ার রেকর্ড', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                          Text('🔥 ৭ দিন টানা পড়ার রেকর্ড',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.deepOrange)),
                         ],
                       ),
                     ),
@@ -92,9 +119,11 @@ class StudentProgressDashboardPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildTimeMetric('আজকের সময়', '৪৫ মিনিট', AppColors.primary),
+                    _buildTimeMetric(
+                        'আজকের সময়', '৪৫ মিনিট', AppColors.primary),
                     const VerticalDivider(width: 1, color: AppColors.border),
-                    _buildTimeMetric('এই সপ্তাহে', '৫ ঘণ্টা ৩০ মি', Colors.green),
+                    _buildTimeMetric(
+                        'এই সপ্তাহে', '৫ ঘণ্টা ৩০ মি', Colors.green),
                   ],
                 ),
               ),
@@ -102,7 +131,10 @@ class StudentProgressDashboardPage extends StatelessWidget {
               // Subject Mastery Cards
               const Text(
                 'বিষয়ভিত্তিক অগ্রগতি',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.md),
               GridView.builder(
@@ -135,20 +167,29 @@ class StudentProgressDashboardPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Icon(sub.$5, color: sub.$4, size: 28),
-                              Text(sub.$2, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: sub.$4)),
+                              Text(sub.$2,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: sub.$4)),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(sub.$1, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                              Text(sub.$1,
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary)),
                               const SizedBox(height: 6),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(4),
                                 child: LinearProgressIndicator(
                                   value: sub.$3,
                                   backgroundColor: AppColors.border,
-                                  valueColor: AlwaysStoppedAnimation<Color>(sub.$4),
+                                  valueColor:
+                                      AlwaysStoppedAnimation<Color>(sub.$4),
                                   minHeight: 6,
                                 ),
                               ),
@@ -170,9 +211,13 @@ class StudentProgressDashboardPage extends StatelessWidget {
   Widget _buildTimeMetric(String title, String time, Color color) {
     return Column(
       children: [
-        Text(title, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+        Text(title,
+            style:
+                const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
-        Text(time, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
+        Text(time,
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: color)),
       ],
     );
   }

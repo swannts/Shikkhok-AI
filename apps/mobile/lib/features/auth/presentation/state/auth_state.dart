@@ -1,4 +1,5 @@
 import '../../domain/entities/user.dart';
+import '../../domain/entities/otp_purpose.dart';
 import '../../../../core/errors/app_failure.dart';
 
 sealed class AuthState {
@@ -10,7 +11,8 @@ class AuthInitial extends AuthState {
 }
 
 class AuthLoading extends AuthState {
-  const AuthLoading();
+  final String? loadingMessage;
+  const AuthLoading([this.loadingMessage]);
 }
 
 class Authenticated extends AuthState {
@@ -19,7 +21,25 @@ class Authenticated extends AuthState {
 }
 
 class Unauthenticated extends AuthState {
-  const Unauthenticated();
+  final String? message;
+  const Unauthenticated([this.message]);
+}
+
+class OtpSentState extends AuthState {
+  final String phone;
+  final OtpPurpose purpose;
+  final String message;
+
+  const OtpSentState({
+    required this.phone,
+    required this.purpose,
+    required this.message,
+  });
+}
+
+class PasswordResetSentState extends AuthState {
+  final String message;
+  const PasswordResetSentState(this.message);
 }
 
 class AuthFailureState extends AuthState {

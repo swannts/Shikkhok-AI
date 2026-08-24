@@ -25,12 +25,16 @@ class MathProgressDetailPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/student-progress-dashboard'),
         ),
         title: Text(
           l10n.mathProgressTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -56,18 +60,30 @@ class MathProgressDetailPage extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       alignment: Alignment.center,
-                      child: const Text('৭৮%', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+                      child: const Text('৭৮%',
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
                     ),
                     const SizedBox(width: AppSpacing.lg),
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('গণিত বিষয় মাস্তারি', style: TextStyle(fontSize: 14, color: Colors.white70)),
+                        children: [
+                          Text('গণিত বিষয় মাস্তারি',
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.white70)),
                           SizedBox(height: 2),
-                          Text('১২ ঘণ্টা ৪৫ মিনিট পড়া হয়েছে', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                          Text('১২ ঘণ্টা ৪৫ মিনিট পড়া হয়েছে',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
                           SizedBox(height: 4),
-                          Text('১০টির মধ্যে ৪টি অধ্যায় সম্পন্ন', style: TextStyle(fontSize: 12, color: Colors.white70)),
+                          Text('১০টির মধ্যে ৪টি অধ্যায় সম্পন্ন',
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.white70)),
                         ],
                       ),
                     ),
@@ -78,14 +94,18 @@ class MathProgressDetailPage extends StatelessWidget {
               // Chapter Breakdown
               const Text(
                 'অধ্যায়ভিত্তিক অগ্রগতি',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.md),
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: chapters.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 12),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final ch = chapters[index];
                   return Container(
@@ -101,8 +121,16 @@ class MathProgressDetailPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(ch.$1, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                            Text(ch.$2, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: ch.$4)),
+                            Text(ch.$1,
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textPrimary)),
+                            Text(ch.$2,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: ch.$4)),
                           ],
                         ),
                         const SizedBox(height: 8),
@@ -129,17 +157,25 @@ class MathProgressDetailPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: Colors.red.shade200),
                 ),
-                child: Row(
+                child: const Row(
                   children: [
-                    const Icon(Icons.warning_amber_rounded, color: Colors.red, size: 28),
-                    const SizedBox(width: AppSpacing.md),
+                    Icon(Icons.warning_amber_rounded,
+                        color: Colors.red, size: 28),
+                    SizedBox(width: AppSpacing.md),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('দুর্বল বিষয় পাওয়া গেছে', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.red)),
+                        children: [
+                          Text('দুর্বল বিষয় পাওয়া গেছে',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red)),
                           SizedBox(height: 2),
-                          Text('ভগ্নাংশের সমীকরণে তোমার মাস্তারি মাত্র ৩৫%। প্র্যাকটিস বাড়ানো প্রয়োজন।', style: TextStyle(fontSize: 12, color: AppColors.textPrimary)),
+                          Text(
+                              'ভগ্নাংশের সমীকরণে তোমার মাস্তারি মাত্র ৩৫%। প্র্যাকটিস বাড়ানো প্রয়োজন।',
+                              style: TextStyle(
+                                  fontSize: 12, color: AppColors.textPrimary)),
                         ],
                       ),
                     ),

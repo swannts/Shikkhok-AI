@@ -29,12 +29,16 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/learn'),
         ),
         title: Text(
           l10n.practiceTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -49,11 +53,15 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                     // Subject Selector
                     Text(
                       l10n.subjectsHeader,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                       decoration: BoxDecoration(
                         color: AppColors.surface,
                         borderRadius: BorderRadius.circular(14),
@@ -64,12 +72,17 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                           value: _selectedSubject,
                           isExpanded: true,
                           items: const [
-                            DropdownMenuItem(value: 'math', child: Text('গণিত')),
-                            DropdownMenuItem(value: 'science', child: Text('বিজ্ঞান')),
-                            DropdownMenuItem(value: 'english', child: Text('ইংরেজি')),
+                            DropdownMenuItem(
+                                value: 'math', child: Text('গণিত')),
+                            DropdownMenuItem(
+                                value: 'science', child: Text('বিজ্ঞান')),
+                            DropdownMenuItem(
+                                value: 'english', child: Text('ইংরেজি')),
                           ],
                           onChanged: (val) {
-                            if (val != null) setState(() => _selectedSubject = val);
+                            if (val != null) {
+                              setState(() => _selectedSubject = val);
+                            }
                           },
                         ),
                       ),
@@ -78,11 +91,15 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                     // Chapter Selector
                     Text(
                       l10n.chapterDetailsTitle,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                       decoration: BoxDecoration(
                         color: AppColors.surface,
                         borderRadius: BorderRadius.circular(14),
@@ -93,11 +110,18 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                           value: _selectedChapter,
                           isExpanded: true,
                           items: const [
-                            DropdownMenuItem(value: 'ch4', child: Text('অধ্যায় ৪ • সরল সমীকরণ')),
-                            DropdownMenuItem(value: 'ch5', child: Text('অধ্যায় ৫ • বীজগণিতীয় সূত্রাবলি ও প্রয়োগ')),
+                            DropdownMenuItem(
+                                value: 'ch4',
+                                child: Text('অধ্যায় ৪ • সরল সমীকরণ')),
+                            DropdownMenuItem(
+                                value: 'ch5',
+                                child: Text(
+                                    'অধ্যায় ৫ • বীজগণিতীয় সূত্রাবলি ও প্রয়োগ')),
                           ],
                           onChanged: (val) {
-                            if (val != null) setState(() => _selectedChapter = val);
+                            if (val != null) {
+                              setState(() => _selectedChapter = val);
+                            }
                           },
                         ),
                       ),
@@ -106,7 +130,10 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                     // Question Count Chips
                     Text(
                       l10n.questionCountLabel,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Row(
@@ -119,13 +146,18 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                               onTap: () => setState(() => _selectedCount = cnt),
                               borderRadius: BorderRadius.circular(12),
                               child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: isSelected ? AppColors.primary.withAlpha(20) : AppColors.surface,
+                                  color: isSelected
+                                      ? AppColors.primary.withAlpha(20)
+                                      : AppColors.surface,
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(
-                                    color: isSelected ? AppColors.primary : AppColors.border,
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.border,
                                     width: isSelected ? 2 : 1,
                                   ),
                                 ),
@@ -134,7 +166,9 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.textPrimary,
                                   ),
                                 ),
                               ),
@@ -147,7 +181,10 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                     // Difficulty Selector
                     Text(
                       l10n.difficultyLabel,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Wrap(
@@ -157,14 +194,18 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                         _buildDifficultyChip('easy', 'সহজ'),
                         _buildDifficultyChip('medium', 'মাঝারি'),
                         _buildDifficultyChip('hard', 'কঠিন'),
-                        _buildDifficultyChip('adaptive', 'Adaptive ✦', isSpecial: true),
+                        _buildDifficultyChip('adaptive', 'Adaptive ✦',
+                            isSpecial: true),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     // Question Type
                     Text(
                       l10n.questionTypeLabel,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     _buildTypeTile('mcq', 'MCQ (বহুনির্বাচনী)'),
@@ -184,17 +225,23 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: const [
-                              Icon(Icons.timer_outlined, color: AppColors.primary),
+                          const Row(
+                            children: [
+                              Icon(Icons.timer_outlined,
+                                  color: AppColors.primary),
                               SizedBox(width: 10),
-                              Text('সময়সীমা (Timer)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                              Text('সময়সীমা (Timer)',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary)),
                             ],
                           ),
                           Switch(
                             value: _enableTimer,
                             activeTrackColor: AppColors.primary,
-                            onChanged: (val) => setState(() => _enableTimer = val),
+                            onChanged: (val) =>
+                                setState(() => _enableTimer = val),
                           ),
                         ],
                       ),
@@ -215,14 +262,19 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                 height: 52,
                 child: ElevatedButton.icon(
                   onPressed: () => context.go('/lesson-reader'),
-                  icon: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 24),
+                  icon: const Icon(Icons.play_arrow_rounded,
+                      color: Colors.white, size: 24),
                   label: Text(
                     l10n.startPractice,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
@@ -233,15 +285,19 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     );
   }
 
-  Widget _buildDifficultyChip(String key, String label, {bool isSpecial = false}) {
+  Widget _buildDifficultyChip(String key, String label,
+      {bool isSpecial = false}) {
     final isSelected = _selectedDifficulty == key;
     return ChoiceChip(
       label: Text(label),
       selected: isSelected,
-      selectedColor: isSpecial ? AppColors.primary : AppColors.primary.withAlpha(40),
+      selectedColor:
+          isSpecial ? AppColors.primary : AppColors.primary.withAlpha(40),
       backgroundColor: AppColors.surface,
       labelStyle: TextStyle(
-        color: isSelected ? (isSpecial ? Colors.white : AppColors.primary) : AppColors.textSecondary,
+        color: isSelected
+            ? (isSpecial ? Colors.white : AppColors.primary)
+            : AppColors.textSecondary,
         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
       ),
       onSelected: (val) {
@@ -258,7 +314,8 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withAlpha(15) : AppColors.surface,
+          color:
+              isSelected ? AppColors.primary.withAlpha(15) : AppColors.surface,
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: isSelected ? AppColors.primary : AppColors.border,
@@ -268,7 +325,9 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
         child: Row(
           children: [
             Icon(
-              isSelected ? Icons.radio_button_checked_rounded : Icons.radio_button_off_rounded,
+              isSelected
+                  ? Icons.radio_button_checked_rounded
+                  : Icons.radio_button_off_rounded,
               color: isSelected ? AppColors.primary : AppColors.textSecondary,
             ),
             const SizedBox(width: 12),

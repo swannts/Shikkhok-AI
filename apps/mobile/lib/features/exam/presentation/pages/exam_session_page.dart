@@ -32,19 +32,25 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
         ),
         title: Text(
           l10n.questionProgress(_currentQuestionIndex + 1, 30),
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+          style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary),
         ),
         centerTitle: true,
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: AppSpacing.md),
+            padding: EdgeInsets.only(right: AppSpacing.md),
             child: Row(
-              children: const [
+              children: [
                 Icon(Icons.timer_outlined, color: AppColors.primary, size: 18),
                 SizedBox(width: 4),
                 Text(
                   '৩৯:৪৫',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.primary),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary),
                 ),
               ],
             ),
@@ -68,7 +74,8 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
               height: 48,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.md, vertical: 8),
                 itemCount: 30,
                 itemBuilder: (context, index) {
                   final isCurrent = index == _currentQuestionIndex;
@@ -77,7 +84,8 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 6),
                     child: InkWell(
-                      onTap: () => setState(() => _currentQuestionIndex = index),
+                      onTap: () =>
+                          setState(() => _currentQuestionIndex = index),
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
                         width: 32,
@@ -86,10 +94,14 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                         decoration: BoxDecoration(
                           color: isCurrent
                               ? AppColors.primary
-                              : (isAnswered ? AppColors.primary.withAlpha(30) : AppColors.surface),
+                              : (isAnswered
+                                  ? AppColors.primary.withAlpha(30)
+                                  : AppColors.surface),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: isCurrent ? AppColors.primary : AppColors.border,
+                            color: isCurrent
+                                ? AppColors.primary
+                                : AppColors.border,
                           ),
                         ),
                         child: Text(
@@ -97,7 +109,9 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: isCurrent ? Colors.white : AppColors.textPrimary,
+                            color: isCurrent
+                                ? Colors.white
+                                : AppColors.textPrimary,
                           ),
                         ),
                       ),
@@ -116,12 +130,18 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                   children: [
                     Text(
                       'প্রশ্ন ${_currentQuestionIndex + 1}',
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: 8),
                     const Text(
                       'যদি ২x + ৫ = ১৫ হয়, তবে x এর মান নিচের কোনটি সঠিক?',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xl),
                     // MCQ Options
@@ -129,20 +149,27 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: options.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 12),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
                       itemBuilder: (context, index) {
-                        final isSelected = _userAnswers[_currentQuestionIndex] == index;
+                        final isSelected =
+                            _userAnswers[_currentQuestionIndex] == index;
 
                         return InkWell(
-                          onTap: () => setState(() => _userAnswers[_currentQuestionIndex] = index),
+                          onTap: () => setState(() =>
+                              _userAnswers[_currentQuestionIndex] = index),
                           borderRadius: BorderRadius.circular(16),
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: isSelected ? AppColors.primary.withAlpha(20) : AppColors.surface,
+                              color: isSelected
+                                  ? AppColors.primary.withAlpha(20)
+                                  : AppColors.surface,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: isSelected ? AppColors.primary : AppColors.border,
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : AppColors.border,
                                 width: isSelected ? 2 : 1,
                               ),
                             ),
@@ -153,7 +180,9 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.textPrimary,
                                   ),
                                 ),
                                 const SizedBox(width: 14),
@@ -163,12 +192,15 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                                      color: isSelected
+                                          ? AppColors.primary
+                                          : AppColors.textPrimary,
                                     ),
                                   ),
                                 ),
                                 if (isSelected)
-                                  const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 22),
+                                  const Icon(Icons.check_circle_rounded,
+                                      color: AppColors.primary, size: 22),
                               ],
                             ),
                           ),
@@ -194,10 +226,13 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                         : null,
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: AppColors.border),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
                     ),
-                    child: Text(l10n.prevLesson, style: const TextStyle(color: AppColors.textSecondary)),
+                    child: Text(l10n.prevLesson,
+                        style: const TextStyle(color: AppColors.textSecondary)),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -205,12 +240,16 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                       onPressed: () => context.go('/exam-result'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Text(
                         l10n.submitExam,
-                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                   ),
@@ -221,10 +260,15 @@ class _ExamSessionPageState extends State<ExamSessionPage> {
                         : null,
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: AppColors.primary),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
                     ),
-                    child: Text(l10n.nextLesson, style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                    child: Text(l10n.nextLesson,
+                        style: const TextStyle(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),

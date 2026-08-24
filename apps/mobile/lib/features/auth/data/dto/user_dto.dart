@@ -1,37 +1,49 @@
 class UserDto {
   final String id;
-  final String userId;
   final String name;
-  final String classId;
-  final String className;
-  final String language;
+  final String? email;
+  final String? phone;
+  final String role;
+  final String status;
+  final String? avatarUrl;
+  final String? createdAt;
+  final String? updatedAt;
 
   const UserDto({
     required this.id,
-    required this.userId,
     required this.name,
-    required this.classId,
-    required this.className,
-    required this.language,
+    this.email,
+    this.phone,
+    this.role = 'student',
+    this.status = 'active',
+    this.avatarUrl,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory UserDto.fromJson(Map<String, dynamic> json) {
     return UserDto(
-      id: json['id'] ?? 'student-1',
-      userId: json['userId'] ?? 'user-1',
-      name: json['name'] ?? 'রাফি আহমেদ',
-      classId: json['classId'] ?? 'class-8',
-      className: json['className'] ?? 'Class 8',
-      language: json['language'] ?? 'bn',
+      id: (json['_id'] ?? json['id'] ?? '').toString(),
+      name: json['name'] as String? ?? '',
+      email: json['email'] as String?,
+      phone: json['phone'] as String?,
+      role: json['role'] as String? ?? 'student',
+      status: json['status'] as String? ?? 'active',
+      avatarUrl: json['avatarUrl'] as String?,
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'userId': userId,
+        '_id': id,
         'name': name,
-        'classId': classId,
-        'className': className,
-        'language': language,
+        'email': email,
+        'phone': phone,
+        'role': role,
+        'status': status,
+        'avatarUrl': avatarUrl,
+        'createdAt': createdAt,
+        'updatedAt': updatedAt,
       };
 }

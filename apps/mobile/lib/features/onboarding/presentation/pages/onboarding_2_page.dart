@@ -21,7 +21,8 @@ class Onboarding2Page extends StatelessWidget {
           children: [
             // Top App Bar with Skip button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.md, vertical: AppSpacing.sm),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -52,7 +53,8 @@ class Onboarding2Page extends StatelessWidget {
                     color: AppColors.primary.withAlpha(15),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: const Icon(Icons.smart_toy_rounded, size: 80, color: AppColors.primary),
+                  child: const Icon(Icons.smart_toy_rounded,
+                      size: 80, color: AppColors.primary),
                 ),
               ),
             ),
@@ -110,7 +112,7 @@ class Onboarding2Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -128,7 +130,7 @@ class Onboarding2Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -145,8 +147,10 @@ class Onboarding2Page extends StatelessWidget {
                           child: OutlinedButton(
                             onPressed: () => context.go('/onboarding-1'),
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: AppColors.primary, width: 1.5),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                              side: const BorderSide(
+                                  color: AppColors.primary, width: 1.5),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
                             ),
                             child: Text(
                               l10n.back,
@@ -167,7 +171,8 @@ class Onboarding2Page extends StatelessWidget {
                             onPressed: () => context.go('/onboarding-3'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
                               elevation: 0,
                             ),
                             child: Row(
@@ -182,7 +187,8 @@ class Onboarding2Page extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 4),
-                                const Icon(Icons.arrow_forward_rounded, size: 20, color: Colors.white),
+                                const Icon(Icons.arrow_forward_rounded,
+                                    size: 20, color: Colors.white),
                               ],
                             ),
                           ),

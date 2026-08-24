@@ -31,12 +31,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/subscription'),
         ),
         title: Text(
           l10n.checkoutTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -56,59 +60,93 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: AppColors.border),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('অর্ডার বিবরণ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                          const SizedBox(height: AppSpacing.sm),
+                          Text('অর্ডার বিবরণ',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textPrimary)),
+                          SizedBox(height: AppSpacing.sm),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text('Shikkhok Plus (বার্ষিক প্যাক)', style: TextStyle(fontSize: 14, color: AppColors.textSecondary)),
-                              Text('৳২৪৯৯', style: TextStyle(fontSize: 14, color: AppColors.textPrimary)),
+                            children: [
+                              Text('Shikkhok Plus (বার্ষিক প্যাক)',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: AppColors.textSecondary)),
+                              Text('৳২৪৯৯',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: AppColors.textPrimary)),
                             ],
                           ),
-                          const SizedBox(height: 6),
+                          SizedBox(height: 6),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text('প্রোমো কোড ডিসকাউন্ট', style: TextStyle(fontSize: 14, color: Colors.green)),
-                              Text('-৳৫০০', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green)),
+                            children: [
+                              Text('প্রোমো কোড ডিসকাউন্ট',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.green)),
+                              Text('-৳৫০০',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green)),
                             ],
                           ),
-                          const Divider(height: 20, color: AppColors.border),
+                          Divider(height: 20, color: AppColors.border),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text('মোট প্রদেয়', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                              Text('৳১৯৯৯', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                            children: [
+                              Text('মোট প্রদেয়',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary)),
+                              Text('৳১৯৯৯',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.primary)),
                             ],
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    const Text('পেমেন্ট মাধ্যম নির্বাচন করুন', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    const Text('পেমেন্ট মাধ্যম নির্বাচন করুন',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary)),
                     const SizedBox(height: AppSpacing.md),
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: paymentMethods.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 10),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 10),
                       itemBuilder: (context, index) {
                         final pm = paymentMethods[index];
                         final isSelected = _selectedPaymentMethod == index;
 
                         return InkWell(
-                          onTap: () => setState(() => _selectedPaymentMethod = index),
+                          onTap: () =>
+                              setState(() => _selectedPaymentMethod = index),
                           borderRadius: BorderRadius.circular(16),
                           child: Container(
                             padding: const EdgeInsets.all(AppSpacing.md),
                             decoration: BoxDecoration(
-                              color: isSelected ? AppColors.primary.withAlpha(15) : AppColors.surface,
+                              color: isSelected
+                                  ? AppColors.primary.withAlpha(15)
+                                  : AppColors.surface,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: isSelected ? AppColors.primary : AppColors.border,
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : AppColors.border,
                                 width: isSelected ? 2 : 1,
                               ),
                             ),
@@ -117,11 +155,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 Icon(pm.$2, color: pm.$3, size: 24),
                                 const SizedBox(width: AppSpacing.md),
                                 Expanded(
-                                  child: Text(pm.$1, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                                  child: Text(pm.$1,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.textPrimary)),
                                 ),
                                 Icon(
-                                  isSelected ? Icons.radio_button_checked_rounded : Icons.radio_button_off_rounded,
-                                  color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                                  isSelected
+                                      ? Icons.radio_button_checked_rounded
+                                      : Icons.radio_button_off_rounded,
+                                  color: isSelected
+                                      ? AppColors.primary
+                                      : AppColors.textSecondary,
                                 ),
                               ],
                             ),
@@ -147,11 +193,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   onPressed: () => context.go('/payment-success'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                   child: const Text(
                     'পেমেন্ট সম্পন্ন করুন (৳১৯৯৯)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
               ),

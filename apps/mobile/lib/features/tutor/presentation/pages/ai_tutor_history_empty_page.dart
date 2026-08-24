@@ -17,12 +17,16 @@ class AiTutorHistoryEmptyPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/ai-tutor-history'),
         ),
         title: Text(
           l10n.chatHistoryTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -72,14 +76,19 @@ class AiTutorHistoryEmptyPage extends StatelessWidget {
                   height: 52,
                   child: ElevatedButton.icon(
                     onPressed: () => context.go('/ai-tutor-chat'),
-                    icon: const Icon(Icons.chat_bubble_rounded, color: Colors.white, size: 20),
+                    icon: const Icon(Icons.chat_bubble_rounded,
+                        color: Colors.white, size: 20),
                     label: Text(
                       l10n.askAiButton,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
                       elevation: 0,
                     ),
                   ),

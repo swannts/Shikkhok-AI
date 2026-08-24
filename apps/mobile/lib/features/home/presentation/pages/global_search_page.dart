@@ -26,7 +26,12 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
     final l10n = AppLocalizations.of(context)!;
 
     final filters = ['সব', 'অধ্যায়', 'ভিডিও', 'প্র্যাকটিস', 'নোট'];
-    final recentSearches = ['সরল সমীকরণ', 'বীজগণিতীয় সূত্রাবলি', 'Photosynthesis', 'Right form of verbs'];
+    final recentSearches = [
+      'সরল সমীকরণ',
+      'বীজগণিতীয় সূত্রাবলি',
+      'Photosynthesis',
+      'Right form of verbs'
+    ];
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -34,7 +39,8 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: TextField(
@@ -45,7 +51,8 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
             border: InputBorder.none,
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
-                    icon: const Icon(Icons.clear_rounded, color: AppColors.textSecondary),
+                    icon: const Icon(Icons.clear_rounded,
+                        color: AppColors.textSecondary),
                     onPressed: () => setState(() => _searchController.clear()),
                   )
                 : null,
@@ -75,11 +82,16 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
                         selectedColor: AppColors.primary,
                         backgroundColor: AppColors.surface,
                         labelStyle: TextStyle(
-                          color: isSelected ? Colors.white : AppColors.textSecondary,
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          color: isSelected
+                              ? Colors.white
+                              : AppColors.textSecondary,
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.normal,
                         ),
                         onSelected: (selected) {
-                          if (selected) setState(() => _selectedFilterIndex = index);
+                          if (selected) {
+                            setState(() => _selectedFilterIndex = index);
+                          }
                         },
                       ),
                     );
@@ -90,17 +102,24 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
               // Recent Searches Tag List
               Text(
                 l10n.recentSearches,
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textSecondary),
               ),
               const SizedBox(height: AppSpacing.xs),
               Wrap(
                 spacing: 8,
                 children: recentSearches.map((tag) {
                   return ActionChip(
-                    avatar: const Icon(Icons.history_rounded, size: 16, color: AppColors.textSecondary),
-                    label: Text(tag, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary)),
+                    avatar: const Icon(Icons.history_rounded,
+                        size: 16, color: AppColors.textSecondary),
+                    label: Text(tag,
+                        style: const TextStyle(
+                            fontSize: 13, color: AppColors.textPrimary)),
                     backgroundColor: AppColors.surface,
-                    onPressed: () => setState(() => _searchController.text = tag),
+                    onPressed: () =>
+                        setState(() => _searchController.text = tag),
                   );
                 }).toList(),
               ),
@@ -108,7 +127,10 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
               // Search Results List
               const Text(
                 'ফলাফলসমূহ',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.md),
               _buildSearchResultCard(
@@ -174,8 +196,14 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                  Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                  Text(title,
+                      style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary)),
+                  Text(subtitle,
+                      style: const TextStyle(
+                          fontSize: 12, color: AppColors.textSecondary)),
                 ],
               ),
             ),
@@ -185,7 +213,9 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
                 color: AppColors.background,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text(tag, style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+              child: Text(tag,
+                  style: const TextStyle(
+                      fontSize: 11, color: AppColors.textSecondary)),
             ),
           ],
         ),

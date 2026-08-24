@@ -52,19 +52,26 @@ class _NotificationsPageState extends State<NotificationsPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.notificationsTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
         actions: [
           TextButton(
             onPressed: () {},
             child: Text(
               l10n.markAllRead,
-              style: const TextStyle(fontSize: 12, color: AppColors.primary, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -75,7 +82,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
             // Filter Pills Bar
             Container(
               height: 48,
-              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: AppSpacing.md),
+              padding: const EdgeInsets.symmetric(
+                  vertical: 6, horizontal: AppSpacing.md),
               color: AppColors.surface,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -90,9 +98,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
                       selectedColor: AppColors.primary,
                       backgroundColor: AppColors.background,
                       labelStyle: TextStyle(
-                        color: isSelected ? Colors.white : AppColors.textSecondary,
+                        color:
+                            isSelected ? Colors.white : AppColors.textSecondary,
                         fontSize: 12,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
                       ),
                       onSelected: (val) {
                         if (val) setState(() => _selectedFilter = index);
@@ -108,16 +118,21 @@ class _NotificationsPageState extends State<NotificationsPage> {
               child: ListView.separated(
                 padding: const EdgeInsets.all(AppSpacing.md),
                 itemCount: notifications.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 10),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
                 itemBuilder: (context, index) {
                   final item = notifications[index];
                   return Container(
                     padding: const EdgeInsets.all(AppSpacing.md),
                     decoration: BoxDecoration(
-                      color: item.$6 ? AppColors.surface : AppColors.primary.withAlpha(10),
+                      color: item.$6
+                          ? AppColors.surface
+                          : AppColors.primary.withAlpha(10),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: item.$6 ? AppColors.border : AppColors.primary.withAlpha(30),
+                        color: item.$6
+                            ? AppColors.border
+                            : AppColors.primary.withAlpha(30),
                       ),
                     ),
                     child: Row(
@@ -138,24 +153,33 @@ class _NotificationsPageState extends State<NotificationsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Text(
                                       item.$1,
-                                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.textPrimary),
                                     ),
                                   ),
                                   Text(
                                     item.$3,
-                                    style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                                    style: const TextStyle(
+                                        fontSize: 11,
+                                        color: AppColors.textSecondary),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 item.$2,
-                                style: const TextStyle(fontSize: 13, height: 1.4, color: AppColors.textSecondary),
+                                style: const TextStyle(
+                                    fontSize: 13,
+                                    height: 1.4,
+                                    color: AppColors.textSecondary),
                               ),
                             ],
                           ),

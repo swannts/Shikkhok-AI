@@ -10,16 +10,19 @@ class AppOfflineBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.xs + 2),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md, vertical: AppSpacing.xs + 2),
       color: AppColors.warningLight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.wifi_off_rounded, size: 16, color: AppColors.warning),
+          const Icon(Icons.wifi_off_rounded,
+              size: 16, color: AppColors.warning),
           const SizedBox(width: AppSpacing.xs),
           Text(
             'অফলাইনে আছেন (সংরক্ষিত কনটেন্ট দেখা যাচ্ছে)',
-            style: AppTypography.caption.copyWith(fontWeight: FontWeight.bold, color: AppColors.warning),
+            style: AppTypography.caption.copyWith(
+                fontWeight: FontWeight.bold, color: AppColors.warning),
           ),
         ],
       ),

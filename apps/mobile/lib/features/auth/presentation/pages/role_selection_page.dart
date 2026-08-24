@@ -97,7 +97,8 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                         elevation: 0,
                       ),
                       child: Text(
@@ -134,7 +135,8 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(AppSpacing.md),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withAlpha(15) : AppColors.surface,
+          color:
+              isSelected ? AppColors.primary.withAlpha(15) : AppColors.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected ? AppColors.primary : AppColors.border,
@@ -147,7 +149,9 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
               width: 48,
               height: 48,
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.primary.withAlpha(25) : AppColors.background,
+                color: isSelected
+                    ? AppColors.primary.withAlpha(25)
+                    : AppColors.background,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -166,7 +170,9 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 2),

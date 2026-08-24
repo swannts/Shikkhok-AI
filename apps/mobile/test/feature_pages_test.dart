@@ -29,7 +29,8 @@ Widget createTestApp(Widget home) {
 
 void main() {
   group('Core Feature Pages Widget Tests', () {
-    testWidgets('HomePage renders greeting and progress overview card', (WidgetTester tester) async {
+    testWidgets('HomePage renders greeting and progress overview card',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createTestApp(const HomePage()));
       await tester.pumpAndSettle();
 
@@ -38,7 +39,8 @@ void main() {
       expect(find.text('আজকের পড়াশোনা'), findsOneWidget);
     });
 
-    testWidgets('LearnPage renders search input and subject cards', (WidgetTester tester) async {
+    testWidgets('LearnPage renders search input and subject cards',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createTestApp(const LearnPage()));
       await tester.pumpAndSettle();
 
@@ -47,7 +49,8 @@ void main() {
       expect(find.text('বিজ্ঞান'), findsOneWidget);
     });
 
-    testWidgets('AiTutorChatPage renders header and message bubbles', (WidgetTester tester) async {
+    testWidgets('AiTutorChatPage renders header and message bubbles',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createTestApp(const AiTutorChatPage()));
       await tester.pumpAndSettle();
 
@@ -55,7 +58,8 @@ void main() {
       expect(find.byType(TextField), findsOneWidget);
     });
 
-    testWidgets('StudentProfilePage renders student avatar and menu items', (WidgetTester tester) async {
+    testWidgets('StudentProfilePage renders student avatar and menu items',
+        (WidgetTester tester) async {
       await tester.pumpWidget(createTestApp(const StudentProfilePage()));
       await tester.pumpAndSettle();
 
@@ -63,8 +67,10 @@ void main() {
       expect(find.text('Shikkhok Plus (প্রিমিয়াম)'), findsOneWidget);
     });
 
-    testWidgets('StudentProgressDashboardPage renders mastery overview', (WidgetTester tester) async {
-      await tester.pumpWidget(createTestApp(const StudentProgressDashboardPage()));
+    testWidgets('StudentProgressDashboardPage renders mastery overview',
+        (WidgetTester tester) async {
+      await tester
+          .pumpWidget(createTestApp(const StudentProgressDashboardPage()));
       await tester.pumpAndSettle();
 
       expect(find.text('আমার অগ্রগতি'), findsOneWidget);

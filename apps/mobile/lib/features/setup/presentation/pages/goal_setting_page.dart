@@ -35,12 +35,16 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/curriculum-selection'),
         ),
         title: const Text(
           'Shikkhok-AI',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -56,8 +60,14 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.stepProgress('৩'), style: const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
-                        const Text('100%', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green)),
+                        Text(l10n.stepProgress('৩'),
+                            style: const TextStyle(
+                                fontSize: 14, color: AppColors.textSecondary)),
+                        const Text('100%',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green)),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.xs),
@@ -73,12 +83,16 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                     const SizedBox(height: AppSpacing.xl),
                     Text(
                       l10n.selectGoalTitle,
-                      style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.selectGoalSubtitle,
-                      style: const TextStyle(fontSize: 15, color: AppColors.textSecondary),
+                      style: const TextStyle(
+                          fontSize: 15, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     // Multi-Select Goal Cards
@@ -86,7 +100,8 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: goals.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 10),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 10),
                       itemBuilder: (context, index) {
                         final isSelected = _selectedGoals.contains(index);
                         final goal = goals[index];
@@ -106,10 +121,14 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                             duration: const Duration(milliseconds: 150),
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
-                              color: isSelected ? AppColors.primary.withAlpha(15) : AppColors.surface,
+                              color: isSelected
+                                  ? AppColors.primary.withAlpha(15)
+                                  : AppColors.surface,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: isSelected ? AppColors.primary : AppColors.border,
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : AppColors.border,
                                 width: isSelected ? 2 : 1,
                               ),
                             ),
@@ -119,13 +138,17 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                                   width: 40,
                                   height: 40,
                                   decoration: BoxDecoration(
-                                    color: isSelected ? AppColors.primary : AppColors.background,
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.background,
                                     shape: BoxShape.circle,
                                   ),
                                   child: Icon(
                                     goal.$1,
                                     size: 22,
-                                    color: isSelected ? Colors.white : AppColors.primary,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : AppColors.primary,
                                   ),
                                 ),
                                 const SizedBox(width: AppSpacing.md),
@@ -135,12 +158,15 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                                      color: isSelected
+                                          ? AppColors.primary
+                                          : AppColors.textPrimary,
                                     ),
                                   ),
                                 ),
                                 if (isSelected)
-                                  const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 24),
+                                  const Icon(Icons.check_circle_rounded,
+                                      color: AppColors.primary, size: 24),
                               ],
                             ),
                           ),
@@ -151,7 +177,10 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                     // Daily Time Section
                     Text(
                       l10n.dailyTimeTitle,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.md),
                     Row(
@@ -162,15 +191,20 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: InkWell(
-                              onTap: () => setState(() => _selectedMinutes = mins),
+                              onTap: () =>
+                                  setState(() => _selectedMinutes = mins),
                               borderRadius: BorderRadius.circular(16),
                               child: Container(
                                 height: 68,
                                 decoration: BoxDecoration(
-                                  color: isSelected ? AppColors.primary : AppColors.surface,
+                                  color: isSelected
+                                      ? AppColors.primary
+                                      : AppColors.surface,
                                   borderRadius: BorderRadius.circular(16),
                                   border: Border.all(
-                                    color: isSelected ? AppColors.primary : AppColors.border,
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.border,
                                   ),
                                 ),
                                 child: Column(
@@ -181,14 +215,18 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
-                                        color: isSelected ? Colors.white : AppColors.textPrimary,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : AppColors.textPrimary,
                                       ),
                                     ),
                                     Text(
                                       l10n.minutesUnit,
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: isSelected ? Colors.white70 : AppColors.textSecondary,
+                                        color: isSelected
+                                            ? Colors.white70
+                                            : AppColors.textSecondary,
                                       ),
                                     ),
                                   ],
@@ -217,7 +255,8 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                   onPressed: () => context.go('/'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                     elevation: 0,
                   ),
                   child: Row(
@@ -225,10 +264,14 @@ class _GoalSettingPageState extends State<GoalSettingPage> {
                     children: [
                       Text(
                         l10n.startLearningGoal,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                       const SizedBox(width: 6),
-                      const Icon(Icons.arrow_forward_rounded, size: 20, color: Colors.white),
+                      const Icon(Icons.arrow_forward_rounded,
+                          size: 20, color: Colors.white),
                     ],
                   ),
                 ),

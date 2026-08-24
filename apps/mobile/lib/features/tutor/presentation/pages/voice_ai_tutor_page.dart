@@ -13,7 +13,8 @@ class VoiceAiTutorPage extends StatefulWidget {
   State<VoiceAiTutorPage> createState() => _VoiceAiTutorPageState();
 }
 
-class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerProviderStateMixin {
+class _VoiceAiTutorPageState extends State<VoiceAiTutorPage>
+    with SingleTickerProviderStateMixin {
   VoiceState _voiceState = VoiceState.listening;
   late AnimationController _pulseController;
 
@@ -53,16 +54,21 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/ai-tutor-chat'),
         ),
         title: Text(
           l10n.voiceTutorTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.more_vert_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.more_vert_rounded,
+                color: AppColors.textSecondary),
             onPressed: () {},
           ),
         ],
@@ -88,7 +94,10 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
                   const SizedBox(width: 8),
                   const Text(
                     'গণিত • সরল সমীকরণ',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary),
                   ),
                 ],
               ),
@@ -119,7 +128,8 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
                             width: 160 + (_pulseController.value * 20),
                             height: 160 + (_pulseController.value * 20),
                             decoration: BoxDecoration(
-                              color: AppColors.primary.withAlpha(20 + (_pulseController.value * 30).toInt()),
+                              color: AppColors.primary.withAlpha(
+                                  20 + (_pulseController.value * 30).toInt()),
                               shape: BoxShape.circle,
                             ),
                             alignment: Alignment.center,
@@ -140,7 +150,9 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
                               child: Icon(
                                 _voiceState == VoiceState.speaking
                                     ? Icons.volume_up_rounded
-                                    : (_voiceState == VoiceState.thinking ? Icons.psychology_rounded : Icons.mic_rounded),
+                                    : (_voiceState == VoiceState.thinking
+                                        ? Icons.psychology_rounded
+                                        : Icons.mic_rounded),
                                 color: Colors.white,
                                 size: 48,
                               ),
@@ -152,26 +164,35 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
                     const SizedBox(height: AppSpacing.xl),
                     Text(
                       _getStateTitle(l10n),
-                      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.primary),
+                      style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary),
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     const Text(
                       'মাইক বাটন ট্যাপ করে পরিবর্তন করুন',
-                      style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      style: TextStyle(
+                          fontSize: 13, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.xl),
                     // Live Transcription Bubble
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                      margin:
+                          const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
                       padding: const EdgeInsets.all(AppSpacing.md),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withAlpha(15),
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: AppColors.primary.withAlpha(40)),
+                        border:
+                            Border.all(color: AppColors.primary.withAlpha(40)),
                       ),
                       child: const Text(
                         'স্যার, এই সমীকরণটা কীভাবে সমাধান করবো?',
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -186,12 +207,19 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
                 children: [
                   OutlinedButton.icon(
                     onPressed: () => context.go('/ai-tutor-chat'),
-                    icon: const Icon(Icons.keyboard_outlined, color: AppColors.primary),
-                    label: Text(l10n.typeQuestion, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
+                    icon: const Icon(Icons.keyboard_outlined,
+                        color: AppColors.primary),
+                    label: Text(l10n.typeQuestion,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary)),
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: AppColors.primary, width: 1.5),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      side: const BorderSide(
+                          color: AppColors.primary, width: 1.5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
                     ),
                   ),
                   const SizedBox(height: AppSpacing.md),
@@ -218,13 +246,17 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
-                            icon: const Icon(Icons.mic_rounded, color: Colors.white),
-                            onPressed: () => setState(() => _voiceState = VoiceState.listening),
+                            icon: const Icon(Icons.mic_rounded,
+                                color: Colors.white),
+                            onPressed: () => setState(
+                                () => _voiceState = VoiceState.listening),
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.volume_up_rounded, color: AppColors.primary),
-                          onPressed: () => setState(() => _voiceState = VoiceState.speaking),
+                          icon: const Icon(Icons.volume_up_rounded,
+                              color: AppColors.primary),
+                          onPressed: () =>
+                              setState(() => _voiceState = VoiceState.speaking),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -232,7 +264,8 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage> with SingleTickerPr
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
-                            icon: const Icon(Icons.close_rounded, color: Colors.red),
+                            icon: const Icon(Icons.close_rounded,
+                                color: Colors.red),
                             onPressed: () => context.go('/ai-tutor-chat'),
                           ),
                         ),

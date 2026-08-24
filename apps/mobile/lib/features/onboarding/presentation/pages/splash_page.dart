@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../auth/domain/entities/user.dart';
+import '../../../auth/presentation/controllers/auth_controller.dart';
+import '../../../auth/presentation/state/auth_state.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  ConsumerState<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+class _SplashPageState extends ConsumerState<SplashPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   @override
@@ -22,10 +27,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       duration: const Duration(milliseconds: 1200),
     )..repeat(reverse: true);
 
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        context.go('/onboarding-1');
-      }
+    // Trigger session restoration
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(authControllerProvider.notifier).restoreSession();
     });
   }
 
@@ -38,6 +42,19 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
+    // Listen to session restore result
+    ref.listen<AuthState>(authControllerProvider, (previous, next) {
+      if (next is Authenticated) {
+        if (next.user.role == UserRole.parent) {
+          context.go('/parent-dashboard');
+        } else {
+          context.go('/home');
+        }
+      } else if (next is Unauthenticated) {
+        context.go('/onboarding-1');
+      }
+    });
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -101,7 +118,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withAlpha(15),
                       borderRadius: BorderRadius.circular(20),

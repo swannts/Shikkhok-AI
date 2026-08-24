@@ -5,7 +5,17 @@ class LoginUseCase {
   final AuthRepository _repository;
   LoginUseCase(this._repository);
 
-  Future<User> execute({required String identifier, required String password}) {
-    return _repository.login(identifier: identifier, password: password);
+  Future<User> execute({
+    required String identifier,
+    required String password,
+    String? deviceId,
+    String? deviceName,
+  }) {
+    return _repository.login(
+      identifier: identifier,
+      password: password,
+      deviceId: deviceId,
+      deviceName: deviceName,
+    );
   }
 }

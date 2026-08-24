@@ -45,7 +45,8 @@ class _LearnPageState extends State<LearnPage> {
         elevation: 0,
         scrolledUnderElevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(l10n.learnHeader, style: AppTypography.sectionTitle),
@@ -87,11 +88,16 @@ class _LearnPageState extends State<LearnPage> {
                         selectedColor: AppColors.primaryLight,
                         backgroundColor: AppColors.surfaceMuted,
                         labelStyle: AppTypography.caption.copyWith(
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                          color: isSelected ? AppColors.primaryDark : AppColors.textSecondary,
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.normal,
+                          color: isSelected
+                              ? AppColors.primaryDark
+                              : AppColors.textSecondary,
                         ),
                         onSelected: (selected) {
-                          if (selected) setState(() => _selectedFilterIndex = index);
+                          if (selected) {
+                            setState(() => _selectedFilterIndex = index);
+                          }
                         },
                       ),
                     );
@@ -187,11 +193,26 @@ class _LearnPageState extends State<LearnPage> {
           if (index == 4) context.go('/profile');
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home_rounded), label: 'হোম'),
-          BottomNavigationBarItem(icon: Icon(Icons.menu_book_outlined), activeIcon: Icon(Icons.menu_book_rounded), label: 'শিখুন'),
-          BottomNavigationBarItem(icon: Icon(Icons.quiz_outlined), activeIcon: Icon(Icons.quiz_rounded), label: 'প্র্যাকটিস'),
-          BottomNavigationBarItem(icon: Icon(Icons.smart_toy_outlined), activeIcon: Icon(Icons.smart_toy_rounded), label: 'AI শিক্ষক'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline_rounded), activeIcon: Icon(Icons.person_rounded), label: 'প্রোফাইল'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home_rounded),
+              label: 'হোম'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.menu_book_outlined),
+              activeIcon: Icon(Icons.menu_book_rounded),
+              label: 'শিখুন'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.quiz_outlined),
+              activeIcon: Icon(Icons.quiz_rounded),
+              label: 'প্র্যাকটিস'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.smart_toy_outlined),
+              activeIcon: Icon(Icons.smart_toy_rounded),
+              label: 'AI শিক্ষক'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline_rounded),
+              activeIcon: Icon(Icons.person_rounded),
+              label: 'প্রোফাইল'),
         ],
       ),
     );
@@ -230,7 +251,8 @@ class _LearnPageState extends State<LearnPage> {
           ),
           Text(subtitle, style: AppTypography.caption),
           const Spacer(),
-          Text('$chapters অধ্যায় • $lessons পাঠ', style: AppTypography.caption.copyWith(fontSize: 11)),
+          Text('$chapters অধ্যায় • $lessons পাঠ',
+              style: AppTypography.caption.copyWith(fontSize: 11)),
           const SizedBox(height: AppSpacing.xs),
           Row(
             children: [
@@ -238,7 +260,8 @@ class _LearnPageState extends State<LearnPage> {
               const SizedBox(width: AppSpacing.xs),
               Text(
                 '${(progress * 100).toInt()}%',
-                style: AppTypography.caption.copyWith(fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: AppTypography.caption.copyWith(
+                    fontWeight: FontWeight.bold, color: AppColors.textPrimary),
               ),
             ],
           ),

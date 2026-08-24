@@ -17,12 +17,16 @@ class HomeworkAiSolutionPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/captured-homework-review'),
         ),
         title: Text(
           l10n.solutionTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -46,19 +50,24 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
                               color: AppColors.primary.withAlpha(15),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Icon(Icons.calculate_rounded, size: 14, color: AppColors.primary),
+                              children: [
+                                Icon(Icons.calculate_rounded,
+                                    size: 14, color: AppColors.primary),
                                 SizedBox(width: 4),
                                 Text(
                                   'গণিত • বীজগণিত',
-                                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.primary),
                                 ),
                               ],
                             ),
@@ -77,14 +86,20 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: const Text(
                                   '2x+5',
-                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.primary),
                                 ),
                               ),
                               const SizedBox(width: AppSpacing.md),
                               const Expanded(
                                 child: Text(
                                   '"2x + 5 = 15 হলে x এর মান কত?"',
-                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary),
                                 ),
                               ),
                             ],
@@ -99,12 +114,16 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                         CircleAvatar(
                           radius: 20,
                           backgroundColor: AppColors.primary.withAlpha(20),
-                          child: const Icon(Icons.smart_toy_rounded, color: AppColors.primary, size: 24),
+                          child: const Icon(Icons.smart_toy_rounded,
+                              color: AppColors.primary, size: 24),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           l10n.letsTrySelf,
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary),
                         ),
                       ],
                     ),
@@ -123,12 +142,16 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                         children: [
                           const Text(
                             'ধাপ ১',
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textSecondary),
                           ),
                           const SizedBox(height: 4),
                           const Text(
                             'প্রথমে উভয় পাশ থেকে ৫ বিয়োগ করো।',
-                            style: TextStyle(fontSize: 15, color: AppColors.textPrimary),
+                            style: TextStyle(
+                                fontSize: 15, color: AppColors.textPrimary),
                           ),
                           const SizedBox(height: AppSpacing.md),
                           Container(
@@ -141,12 +164,19 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                             alignment: Alignment.center,
                             child: RichText(
                               text: const TextSpan(
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary),
                                 children: [
                                   TextSpan(text: '2x + 5 '),
-                                  TextSpan(text: '- 5', style: TextStyle(color: Colors.red)),
+                                  TextSpan(
+                                      text: '- 5',
+                                      style: TextStyle(color: Colors.red)),
                                   TextSpan(text: ' = 15 '),
-                                  TextSpan(text: '- 5', style: TextStyle(color: Colors.red)),
+                                  TextSpan(
+                                      text: '- 5',
+                                      style: TextStyle(color: Colors.red)),
                                 ],
                               ),
                             ),
@@ -154,7 +184,10 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                           const SizedBox(height: AppSpacing.md),
                           const Text(
                             'এখন কী পেলাম?',
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary),
                           ),
                         ],
                       ),
@@ -172,9 +205,14 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primary,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14)),
                               ),
-                              child: const Text('2x = 10', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                              child: const Text('2x = 10',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white)),
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -183,12 +221,22 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                               Expanded(
                                 child: OutlinedButton.icon(
                                   onPressed: () {},
-                                  icon: const Icon(Icons.lightbulb_outline_rounded, size: 18, color: AppColors.primary),
-                                  label: Text(l10n.moreHints, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
+                                  icon: const Icon(
+                                      Icons.lightbulb_outline_rounded,
+                                      size: 18,
+                                      color: AppColors.primary),
+                                  label: Text(l10n.moreHints,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.primary)),
                                   style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: AppColors.primary),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                                    padding: const EdgeInsets.symmetric(vertical: 12),
+                                    side: const BorderSide(
+                                        color: AppColors.primary),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(14)),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
                                   ),
                                 ),
                               ),
@@ -197,11 +245,18 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                                 child: OutlinedButton(
                                   onPressed: () {},
                                   style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(color: AppColors.primary),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                                    padding: const EdgeInsets.symmetric(vertical: 12),
+                                    side: const BorderSide(
+                                        color: AppColors.primary),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(14)),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
                                   ),
-                                  child: Text(l10n.showAnswer, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
+                                  child: Text(l10n.showAnswer,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.primary)),
                                 ),
                               ),
                             ],
@@ -226,28 +281,36 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                     onTap: () => context.go('/ai-tutor-chat'),
                     borderRadius: BorderRadius.circular(14),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
                       decoration: BoxDecoration(
                         color: AppColors.background,
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(color: AppColors.border),
                       ),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.chat_bubble_outline_rounded, color: AppColors.textSecondary, size: 20),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.chat_bubble_outline_rounded,
+                              color: AppColors.textSecondary, size: 20),
                           SizedBox(width: 10),
-                          Text('AI শিক্ষককে আরও জিজ্ঞেস করো...', style: TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+                          Text('AI শিক্ষককে আরও জিজ্ঞেস করো...',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.textSecondary)),
                         ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.menu_book_rounded, size: 12, color: AppColors.textSecondary),
+                    children: [
+                      Icon(Icons.menu_book_rounded,
+                          size: 12, color: AppColors.textSecondary),
                       SizedBox(width: 4),
-                      Text('উৎস: NCTB গণিত, ৮ম শ্রেণি, পৃষ্ঠা ৫২', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                      Text('উৎস: NCTB গণিত, ৮ম শ্রেণি, পৃষ্ঠা ৫২',
+                          style: TextStyle(
+                              fontSize: 11, color: AppColors.textSecondary)),
                     ],
                   ),
                 ],

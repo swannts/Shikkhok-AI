@@ -21,7 +21,8 @@ class Onboarding3Page extends StatelessWidget {
           children: [
             // Top App Bar with Skip button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.md, vertical: AppSpacing.sm),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -52,7 +53,8 @@ class Onboarding3Page extends StatelessWidget {
                     color: AppColors.primary.withAlpha(15),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: const Icon(Icons.bar_chart_rounded, size: 80, color: AppColors.primary),
+                  child: const Icon(Icons.bar_chart_rounded,
+                      size: 80, color: AppColors.primary),
                 ),
               ),
             ),
@@ -89,9 +91,12 @@ class Onboarding3Page extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 8,
                     children: [
-                      _buildIconChip(Icons.bar_chart_rounded, l10n.chipProgress),
-                      _buildIconChip(Icons.fitness_center_rounded, l10n.chipPractice),
-                      _buildIconChip(Icons.calendar_today_rounded, l10n.chipStudyPlan),
+                      _buildIconChip(
+                          Icons.bar_chart_rounded, l10n.chipProgress),
+                      _buildIconChip(
+                          Icons.fitness_center_rounded, l10n.chipPractice),
+                      _buildIconChip(
+                          Icons.calendar_today_rounded, l10n.chipStudyPlan),
                     ],
                   ),
                 ],
@@ -110,7 +115,7 @@ class Onboarding3Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -119,7 +124,7 @@ class Onboarding3Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -144,7 +149,8 @@ class Onboarding3Page extends StatelessWidget {
                       onPressed: () => context.go('/role-selection'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                         elevation: 0,
                       ),
                       child: Text(

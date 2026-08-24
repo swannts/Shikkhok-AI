@@ -20,9 +20,27 @@ class _TextbookLibraryPageState extends State<TextbookLibraryPage> {
 
     final classTabs = ['৮ম শ্রেণি', '৯ম-১০ম শ্রেণি', '১১দশ-১২দশ শ্রেণি'];
     final textbooks = [
-      ('গণিত (NCTB 2026)', '৪৮ MB', Icons.calculate_rounded, AppColors.primary, true),
-      ('বিজ্ঞান (NCTB 2026)', '৪৫ MB', Icons.science_rounded, Colors.green, false),
-      ('English for Today', '৩২ MB', Icons.language_rounded, Colors.orange, false),
+      (
+        'গণিত (NCTB 2026)',
+        '৪৮ MB',
+        Icons.calculate_rounded,
+        AppColors.primary,
+        true
+      ),
+      (
+        'বিজ্ঞান (NCTB 2026)',
+        '৪৫ MB',
+        Icons.science_rounded,
+        Colors.green,
+        false
+      ),
+      (
+        'English for Today',
+        '৩২ MB',
+        Icons.language_rounded,
+        Colors.orange,
+        false
+      ),
       ('বাংলা সাহিত্য', '২৮ MB', Icons.menu_book_rounded, Colors.teal, false),
     ];
 
@@ -32,12 +50,16 @@ class _TextbookLibraryPageState extends State<TextbookLibraryPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.textbookLibraryTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -58,7 +80,9 @@ class _TextbookLibraryPageState extends State<TextbookLibraryPage> {
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: isSelected ? AppColors.primary : Colors.transparent,
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.transparent,
                               width: 3,
                             ),
                           ),
@@ -67,8 +91,12 @@ class _TextbookLibraryPageState extends State<TextbookLibraryPage> {
                           classTabs[index],
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.textSecondary,
                           ),
                         ),
                       ),
@@ -117,15 +145,27 @@ class _TextbookLibraryPageState extends State<TextbookLibraryPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(book.$1, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                              Text(book.$1,
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary)),
                               const SizedBox(height: 4),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(book.$2, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                  Text(book.$2,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.textSecondary)),
                                   Icon(
-                                    book.$5 ? Icons.check_circle_rounded : Icons.file_download_outlined,
-                                    color: book.$5 ? Colors.green : AppColors.primary,
+                                    book.$5
+                                        ? Icons.check_circle_rounded
+                                        : Icons.file_download_outlined,
+                                    color: book.$5
+                                        ? Colors.green
+                                        : AppColors.primary,
                                     size: 20,
                                   ),
                                 ],

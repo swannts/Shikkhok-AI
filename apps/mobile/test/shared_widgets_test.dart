@@ -9,7 +9,8 @@ import 'package:mobile/shared/widgets/app_text_field.dart';
 
 void main() {
   group('Shared Widgets Unit & Render Tests', () {
-    testWidgets('AppButton renders label and handles tap correctly', (WidgetTester tester) async {
+    testWidgets('AppButton renders label and handles tap correctly',
+        (WidgetTester tester) async {
       bool tapped = false;
 
       await tester.pumpWidget(
@@ -29,7 +30,8 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    testWidgets('AppCard renders child and padding correctly', (WidgetTester tester) async {
+    testWidgets('AppCard renders child and padding correctly',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.lightTheme,
@@ -45,7 +47,8 @@ void main() {
       expect(find.byType(AppCard), findsOneWidget);
     });
 
-    testWidgets('AppBadge renders variant badge correctly', (WidgetTester tester) async {
+    testWidgets('AppBadge renders variant badge correctly',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.lightTheme,
@@ -61,7 +64,8 @@ void main() {
       expect(find.text('সফল'), findsOneWidget);
     });
 
-    testWidgets('AppTextField handles text input correctly', (WidgetTester tester) async {
+    testWidgets('AppTextField handles text input correctly',
+        (WidgetTester tester) async {
       final controller = TextEditingController();
 
       await tester.pumpWidget(
@@ -81,7 +85,8 @@ void main() {
       expect(controller.text, 'user@test.com');
     });
 
-    testWidgets('AppSearchField clear button clears query text', (WidgetTester tester) async {
+    testWidgets('AppSearchField clear button clears query text',
+        (WidgetTester tester) async {
       final controller = TextEditingController(text: 'বীজগণিত');
 
       await tester.pumpWidget(

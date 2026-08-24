@@ -27,7 +27,8 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
     },
     {
       'isUser': false,
-      'text': 'একদম ঠিক! আমরা ৫ বিয়োগ করলে পাই 2x = 10। এখন x এর মান বের করতে দুই পক্ষকে ২ দিয়ে ভাগ করতে হবে।',
+      'text':
+          'একদম ঠিক! আমরা ৫ বিয়োগ করলে পাই 2x = 10। এখন x এর মান বের করতে দুই পক্ষকে ২ দিয়ে ভাগ করতে হবে।',
       'citation': 'উৎস: NCTB গণিত, ৮ম শ্রেণি, অধ্যায় ৪',
     },
   ];
@@ -60,7 +61,8 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/lesson-reader'),
         ),
         title: Row(
@@ -70,7 +72,8 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
                 CircleAvatar(
                   radius: 18,
                   backgroundColor: AppColors.primary.withAlpha(20),
-                  child: const Icon(Icons.school_rounded, color: AppColors.primary, size: 22),
+                  child: const Icon(Icons.school_rounded,
+                      color: AppColors.primary, size: 22),
                 ),
                 Positioned(
                   right: 0,
@@ -93,11 +96,15 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
               children: [
                 Text(
                   l10n.aiTutorTitle,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary),
                 ),
                 const Text(
                   '৮ম শ্রেণি • গণিত',
-                  style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                  style:
+                      TextStyle(fontSize: 12, color: AppColors.textSecondary),
                 ),
               ],
             ),
@@ -105,7 +112,8 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.history_rounded,
+                color: AppColors.textSecondary),
             onPressed: () {},
           ),
         ],
@@ -115,24 +123,31 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
           children: [
             // Context Chip Banner
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.md, vertical: 8),
               color: AppColors.surface,
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withAlpha(20),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: AppColors.primary.withAlpha(40)),
+                      border:
+                          Border.all(color: AppColors.primary.withAlpha(40)),
                     ),
-                    child: Row(
-                      children: const [
-                        Icon(Icons.calculate_rounded, size: 14, color: AppColors.primary),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.calculate_rounded,
+                            size: 14, color: AppColors.primary),
                         SizedBox(width: 4),
                         Text(
                           'সরল সমীকরণ',
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary),
                         ),
                       ],
                     ),
@@ -166,7 +181,8 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
                         ),
                         child: Text(
                           msg['text'],
-                          style: const TextStyle(fontSize: 15, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 15, color: Colors.white),
                         ),
                       ),
                     );
@@ -191,7 +207,10 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
                         children: [
                           Text(
                             msg['text'],
-                            style: const TextStyle(fontSize: 15, height: 1.5, color: AppColors.textPrimary),
+                            style: const TextStyle(
+                                fontSize: 15,
+                                height: 1.5,
+                                color: AppColors.textPrimary),
                           ),
                           if (msg['formula'] != null) ...[
                             const SizedBox(height: 10),
@@ -205,7 +224,10 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
                               alignment: Alignment.center,
                               child: Text(
                                 msg['formula'],
-                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary),
                               ),
                             ),
                           ],
@@ -213,18 +235,24 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
                             const SizedBox(height: 10),
                             Text(
                               msg['question'],
-                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textPrimary),
                             ),
                           ],
                           if (msg['citation'] != null) ...[
                             const SizedBox(height: 10),
                             Row(
                               children: [
-                                const Icon(Icons.menu_book_rounded, size: 14, color: AppColors.textSecondary),
+                                const Icon(Icons.menu_book_rounded,
+                                    size: 14, color: AppColors.textSecondary),
                                 const SizedBox(width: 4),
                                 Text(
                                   msg['citation'],
-                                  style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                                  style: const TextStyle(
+                                      fontSize: 11,
+                                      color: AppColors.textSecondary),
                                 ),
                               ],
                             ),
@@ -260,11 +288,13 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.textSecondary),
+                    icon: const Icon(Icons.add_circle_outline_rounded,
+                        color: AppColors.textSecondary),
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: const Icon(Icons.photo_camera_outlined, color: AppColors.textSecondary),
+                    icon: const Icon(Icons.photo_camera_outlined,
+                        color: AppColors.textSecondary),
                     onPressed: () {},
                   ),
                   Expanded(
@@ -276,13 +306,15 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
                           borderRadius: BorderRadius.circular(24),
                           borderSide: const BorderSide(color: AppColors.border),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 10),
                       ),
                       onSubmitted: _sendMessage,
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.mic_none_rounded, color: AppColors.textSecondary),
+                    icon: const Icon(Icons.mic_none_rounded,
+                        color: AppColors.textSecondary),
                     onPressed: () {},
                   ),
                   Container(
@@ -292,7 +324,8 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
-                      icon: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                      icon: const Icon(Icons.send_rounded,
+                          color: Colors.white, size: 20),
                       onPressed: () => _sendMessage(_messageController.text),
                     ),
                   ),
@@ -309,7 +342,11 @@ class _AiTutorChatPageState extends State<AiTutorChatPage> {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: ActionChip(
-        label: Text(label, style: const TextStyle(fontSize: 13, color: AppColors.primary, fontWeight: FontWeight.w600)),
+        label: Text(label,
+            style: const TextStyle(
+                fontSize: 13,
+                color: AppColors.primary,
+                fontWeight: FontWeight.w600)),
         backgroundColor: AppColors.primary.withAlpha(15),
         side: const BorderSide(color: AppColors.primary),
         onPressed: () => _sendMessage(label),

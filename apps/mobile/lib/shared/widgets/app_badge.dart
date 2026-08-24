@@ -47,7 +47,8 @@ class AppBadge extends StatelessWidget {
                         : AppColors.textSecondary;
 
     final widget = Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm + 2, vertical: AppSpacing.xs + 2),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.sm + 2, vertical: AppSpacing.xs + 2),
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: AppRadius.borderMd,

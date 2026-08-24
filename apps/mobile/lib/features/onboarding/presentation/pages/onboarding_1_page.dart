@@ -21,7 +21,8 @@ class Onboarding1Page extends StatelessWidget {
           children: [
             // Top App Bar with Skip button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.md, vertical: AppSpacing.sm),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -52,7 +53,8 @@ class Onboarding1Page extends StatelessWidget {
                     color: AppColors.primary.withAlpha(15),
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: const Icon(Icons.menu_book_rounded, size: 80, color: AppColors.primary),
+                  child: const Icon(Icons.menu_book_rounded,
+                      size: 80, color: AppColors.primary),
                 ),
               ),
             ),
@@ -107,7 +109,7 @@ class Onboarding1Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -116,7 +118,7 @@ class Onboarding1Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -132,7 +134,8 @@ class Onboarding1Page extends StatelessWidget {
                       onPressed: () => context.go('/onboarding-2'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                         elevation: 0,
                       ),
                       child: Text(

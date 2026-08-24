@@ -39,7 +39,8 @@ class AppTextField extends StatelessWidget {
         if (labelText != null) ...[
           Text(
             labelText!,
-            style: AppTypography.caption.copyWith(fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+            style: AppTypography.caption.copyWith(
+                fontWeight: FontWeight.w600, color: AppColors.textPrimary),
           ),
           const SizedBox(height: AppSpacing.xs),
         ],
@@ -51,12 +52,14 @@ class AppTextField extends StatelessWidget {
           style: AppTypography.body,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: AppTypography.body.copyWith(color: AppColors.textSecondary),
+            hintStyle:
+                AppTypography.body.copyWith(color: AppColors.textSecondary),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             filled: true,
             fillColor: enabled ? AppColors.surface : AppColors.surfaceMuted,
-            contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.smd),
+            contentPadding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md, vertical: AppSpacing.smd),
             errorText: errorText,
             border: OutlineInputBorder(
               borderRadius: AppRadius.borderMd,

@@ -27,12 +27,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
   }
 
-  void _submitLogin() {
+  Future<void> _submitLogin() async {
     if (_formKey.currentState!.validate()) {
-      ref.read(authControllerProvider.notifier).login(
-            _identifierController.text.trim(),
-            _passwordController.text.trim(),
+      final success = await ref.read(authControllerProvider.notifier).login(
+            identifier: _identifierController.text.trim(),
+            password: _passwordController.text.trim(),
           );
+      if (success && mounted) {
+        context.go('/home');
+      }
     }
   }
 
@@ -54,11 +57,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 color: AppColors.surface,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(color: AppColors.border),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.black.withAlpha(8),
+                    color: Color(0x0A000000),
                     blurRadius: 16,
-                    offset: const Offset(0, 4),
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
@@ -98,7 +101,39 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         color: AppColors.textSecondary,
                       ),
                     ),
-                    const SizedBox(height: AppSpacing.xl),
+                    const SizedBox(height: AppSpacing.lg),
+
+                    // Failure Alert Banner
+                    if (authState is AuthFailureState) ...[
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(AppSpacing.sm),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFEE2E2),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: const Color(0xFFEF4444)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.error_outline,
+                                color: Color(0xFFDC2626), size: 20),
+                            const SizedBox(width: AppSpacing.xs),
+                            Expanded(
+                              child: Text(
+                                authState.failure.banglaMessage,
+                                style: const TextStyle(
+                                  color: Color(0xFF991B1B),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                    ],
+
                     // Identifier Input
                     Align(
                       alignment: Alignment.centerLeft,
@@ -117,7 +152,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         hintText: l10n.identifierPlaceholder,
-                        prefixIcon: const Icon(Icons.phone_android_rounded, color: AppColors.textSecondary),
+                        prefixIcon: const Icon(Icons.phone_android_rounded,
+                            color: AppColors.textSecondary),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: const BorderSide(color: AppColors.border),
@@ -128,13 +164,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                          borderSide: const BorderSide(
+                              color: AppColors.primary, width: 2),
                         ),
                       ),
                       validator: (value) =>
-                          value == null || value.trim().isEmpty ? l10n.invalidIdentifier : null,
+                          value == null || value.trim().isEmpty
+                              ? l10n.invalidIdentifier
+                              : null,
                     ),
                     const SizedBox(height: AppSpacing.md),
+
                     // Password Input
                     Align(
                       alignment: Alignment.centerLeft,
@@ -153,13 +193,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: l10n.passwordPlaceholder,
-                        prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.textSecondary),
+                        prefixIcon: const Icon(Icons.lock_outline_rounded,
+                            color: AppColors.textSecondary),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                            _obscurePassword
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
                             color: AppColors.textSecondary,
                           ),
-                          onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                          onPressed: () => setState(
+                              () => _obscurePassword = !_obscurePassword),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -171,16 +215,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                          borderSide: const BorderSide(
+                              color: AppColors.primary, width: 2),
                         ),
                       ),
-                      validator: (value) =>
-                          value == null || value.isEmpty ? l10n.passwordLabel : null,
+                      validator: (value) => value == null || value.isEmpty
+                          ? l10n.passwordLabel
+                          : null,
                     ),
+
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => context.push('/forgot-password'),
                         child: Text(
                           l10n.forgotPassword,
                           style: const TextStyle(
@@ -192,22 +239,26 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.sm),
+
                     // Login Button
                     SizedBox(
                       width: double.infinity,
                       height: 52,
                       child: ElevatedButton(
-                        onPressed: authState is AuthLoading ? null : _submitLogin,
+                        onPressed:
+                            authState is AuthLoading ? null : _submitLogin,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                           elevation: 0,
                         ),
                         child: authState is AuthLoading
                             ? const SizedBox(
                                 width: 24,
                                 height: 24,
-                                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                                child: CircularProgressIndicator(
+                                    color: Colors.white, strokeWidth: 2.5),
                               )
                             : Text(
                                 l10n.loginButton,
@@ -220,57 +271,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.md),
-                    // Divider
-                    Row(
-                      children: [
-                        const Expanded(child: Divider(color: AppColors.border)),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-                          child: Text(
-                            l10n.orDivider,
-                            style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
-                          ),
-                        ),
-                        const Expanded(child: Divider(color: AppColors.border)),
-                      ],
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    // Google Login Button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 52,
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: AppColors.border, width: 1.5),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.g_mobiledata_rounded, size: 28, color: AppColors.primary),
-                            const SizedBox(width: 6),
-                            Text(
-                              l10n.googleLogin,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.textPrimary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
+
                     // Footer Link
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Text(
                           l10n.noAccount,
                           style: const TextStyle(fontSize: 14, color: AppColors.textSecondary),
                         ),
+                        const SizedBox(width: 4),
                         GestureDetector(
                           onTap: () => context.go('/signup'),
                           child: Text(

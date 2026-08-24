@@ -18,7 +18,13 @@ class _AiTutorHistoryPageState extends State<AiTutorHistoryPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final filters = ['সব', l10n.subjectMath, l10n.subjectScience, l10n.subjectEnglish, l10n.subjectBangla];
+    final filters = [
+      'সব',
+      l10n.subjectMath,
+      l10n.subjectScience,
+      l10n.subjectEnglish,
+      l10n.subjectBangla
+    ];
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -26,16 +32,21 @@ class _AiTutorHistoryPageState extends State<AiTutorHistoryPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/ai-tutor-chat'),
         ),
         title: Text(
           l10n.chatHistoryTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete_outline_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.delete_outline_rounded,
+                color: AppColors.textSecondary),
             onPressed: () => context.go('/ai-tutor-history-empty'),
           ),
         ],
@@ -50,8 +61,10 @@ class _AiTutorHistoryPageState extends State<AiTutorHistoryPage> {
               TextField(
                 decoration: InputDecoration(
                   hintText: l10n.searchHistoryPlaceholder,
-                  prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textSecondary),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                  prefixIcon: const Icon(Icons.search_rounded,
+                      color: AppColors.textSecondary),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16)),
                   contentPadding: const EdgeInsets.symmetric(vertical: 12),
                 ),
               ),
@@ -72,11 +85,16 @@ class _AiTutorHistoryPageState extends State<AiTutorHistoryPage> {
                         selectedColor: AppColors.primary,
                         backgroundColor: AppColors.surface,
                         labelStyle: TextStyle(
-                          color: isSelected ? Colors.white : AppColors.textSecondary,
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          color: isSelected
+                              ? Colors.white
+                              : AppColors.textSecondary,
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.normal,
                         ),
                         onSelected: (selected) {
-                          if (selected) setState(() => _selectedFilterIndex = index);
+                          if (selected) {
+                            setState(() => _selectedFilterIndex = index);
+                          }
                         },
                       ),
                     );
@@ -87,7 +105,10 @@ class _AiTutorHistoryPageState extends State<AiTutorHistoryPage> {
               // Today Section
               Text(
                 l10n.today,
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textSecondary),
               ),
               const SizedBox(height: AppSpacing.sm),
               _buildHistoryCard(
@@ -111,7 +132,10 @@ class _AiTutorHistoryPageState extends State<AiTutorHistoryPage> {
               // Yesterday Section
               Text(
                 l10n.yesterday,
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textSecondary),
               ),
               const SizedBox(height: AppSpacing.sm),
               _buildHistoryCard(
@@ -165,16 +189,22 @@ class _AiTutorHistoryPageState extends State<AiTutorHistoryPage> {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                    style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 2),
-                  Text(meta, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                  Text(meta,
+                      style: const TextStyle(
+                          fontSize: 12, color: AppColors.textSecondary)),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
+            const Icon(Icons.chevron_right_rounded,
+                color: AppColors.textSecondary),
           ],
         ),
       ),

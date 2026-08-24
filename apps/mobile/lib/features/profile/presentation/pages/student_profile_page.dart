@@ -17,12 +17,16 @@ class StudentProfilePage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.profileTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
         actions: [
           IconButton(
@@ -46,12 +50,19 @@ class StudentProfilePage extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
-                child: const Text('আ', style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white)),
+                child: const Text('আ',
+                    style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
               ),
               const SizedBox(height: AppSpacing.sm),
               const Text(
                 'আরিফুর রহমান',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: 2),
               const Text(
@@ -137,9 +148,13 @@ class StudentProfilePage extends StatelessWidget {
   Widget _buildStatCol(String title, String val, Color color) {
     return Column(
       children: [
-        Text(title, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+        Text(title,
+            style:
+                const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
-        Text(val, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color)),
+        Text(val,
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold, color: color)),
       ],
     );
   }
@@ -164,10 +179,18 @@ class StudentProfilePage extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: textColor ?? AppColors.textPrimary),
+        style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: textColor ?? AppColors.textPrimary),
       ),
-      subtitle: subtitle != null ? Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)) : null,
-      trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
+      subtitle: subtitle != null
+          ? Text(subtitle,
+              style:
+                  const TextStyle(fontSize: 12, color: AppColors.textSecondary))
+          : null,
+      trailing: const Icon(Icons.chevron_right_rounded,
+          color: AppColors.textSecondary),
     );
   }
 }

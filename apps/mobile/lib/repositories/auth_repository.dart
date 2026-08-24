@@ -18,21 +18,28 @@ class AuthRepository {
         ).toJson(),
       };
     }
-    return await httpClient.request('/auth/login', method: 'POST', body: {
-      'identifier': identifier,
-      'password': password,
-    }, skipAuth: true);
+    return await httpClient.request('/auth/login',
+        method: 'POST',
+        body: {
+          'identifier': identifier,
+          'password': password,
+        },
+        skipAuth: true);
   }
 
-  Future<Map<String, dynamic>> signup(String name, String phoneOrEmail, String password) async {
+  Future<Map<String, dynamic>> signup(
+      String name, String phoneOrEmail, String password) async {
     if (ENV.useMockApi) {
       return {'status': 'OTP_SENT', 'referenceId': 'mock-ref-123'};
     }
-    return await httpClient.request('/auth/signup', method: 'POST', body: {
-      'name': name,
-      'phoneOrEmail': phoneOrEmail,
-      'password': password,
-    }, skipAuth: true);
+    return await httpClient.request('/auth/signup',
+        method: 'POST',
+        body: {
+          'name': name,
+          'phoneOrEmail': phoneOrEmail,
+          'password': password,
+        },
+        skipAuth: true);
   }
 
   Future<Map<String, dynamic>> verifyOtp(String referenceId, String otp) async {
@@ -50,10 +57,13 @@ class AuthRepository {
         ).toJson(),
       };
     }
-    return await httpClient.request('/auth/verify-otp', method: 'POST', body: {
-      'referenceId': referenceId,
-      'otp': otp,
-    }, skipAuth: true);
+    return await httpClient.request('/auth/verify-otp',
+        method: 'POST',
+        body: {
+          'referenceId': referenceId,
+          'otp': otp,
+        },
+        skipAuth: true);
   }
 
   Future<StudentProfile> getCurrentUser() async {

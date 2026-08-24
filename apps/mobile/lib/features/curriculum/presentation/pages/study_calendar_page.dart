@@ -26,12 +26,16 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.studyCalendarTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -54,15 +58,20 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.chevron_left_rounded, color: AppColors.textPrimary),
+                          icon: const Icon(Icons.chevron_left_rounded,
+                              color: AppColors.textPrimary),
                           onPressed: () {},
                         ),
                         const Text(
                           'মে ২০২৬',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textPrimary),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.chevron_right_rounded, color: AppColors.textPrimary),
+                          icon: const Icon(Icons.chevron_right_rounded,
+                              color: AppColors.textPrimary),
                           onPressed: () {},
                         ),
                       ],
@@ -76,7 +85,10 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                           width: 36,
                           child: Text(
                             day,
-                            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textSecondary),
                             textAlign: TextAlign.center,
                           ),
                         );
@@ -87,7 +99,8 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                     GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 7,
                         mainAxisSpacing: 8,
                         crossAxisSpacing: 8,
@@ -106,10 +119,14 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                             decoration: BoxDecoration(
                               color: isSelected
                                   ? AppColors.primary
-                                  : (isCompleted ? Colors.green.shade100 : AppColors.background),
+                                  : (isCompleted
+                                      ? Colors.green.shade100
+                                      : AppColors.background),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: isSelected ? AppColors.primary : AppColors.border,
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : AppColors.border,
                               ),
                             ),
                             child: Column(
@@ -122,11 +139,14 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                                     fontWeight: FontWeight.bold,
                                     color: isSelected
                                         ? Colors.white
-                                        : (isCompleted ? Colors.green.shade900 : AppColors.textPrimary),
+                                        : (isCompleted
+                                            ? Colors.green.shade900
+                                            : AppColors.textPrimary),
                                   ),
                                 ),
                                 if (isCompleted && !isSelected)
-                                  const Icon(Icons.check_rounded, size: 10, color: Colors.green),
+                                  const Icon(Icons.check_rounded,
+                                      size: 10, color: Colors.green),
                               ],
                             ),
                           ),
@@ -145,16 +165,24 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(color: AppColors.primary.withAlpha(40)),
                 ),
-                child: Row(
+                child: const Row(
                   children: [
-                    const Icon(Icons.local_fire_department_rounded, color: Colors.deepOrange, size: 32),
-                    const SizedBox(width: AppSpacing.md),
+                    Icon(Icons.local_fire_department_rounded,
+                        color: Colors.deepOrange, size: 32),
+                    SizedBox(width: AppSpacing.md),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('৭ দিন টানা পড়ালেখা!', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary)),
-                          Text('ধারাবাহিকতা বজায় রাখতে আজ অন্তত ৩০ মিনিট পড়ুন।', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                        children: [
+                          Text('৭ দিন টানা পড়ালেখা!',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primary)),
+                          Text('ধারাবাহিকতা বজায় রাখতে আজ অন্তত ৩০ মিনিট পড়ুন।',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.textSecondary)),
                         ],
                       ),
                     ),
@@ -165,14 +193,19 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
               // Tasks for selected day
               Text(
                 '$_selectedDay মে-র নির্ধারিত পাঠ',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.md),
               _buildTaskCard('সরল সমীকরণ প্র্যাকটিস', 'গণিত • ২০ মিনিট', true),
               const SizedBox(height: 10),
-              _buildTaskCard('বিজ্ঞান মডেল টেস্ট ১', 'বিজ্ঞান • ১৫ মিনিট', false),
+              _buildTaskCard(
+                  'বিজ্ঞান মডেল টেস্ট ১', 'বিজ্ঞান • ১৫ মিনিট', false),
               const SizedBox(height: 10),
-              _buildTaskCard('ইংরেজি ব্যাকরণ রিভিশন', 'English • ১০ মিনিট', false),
+              _buildTaskCard(
+                  'ইংরেজি ব্যাকরণ রিভিশন', 'English • ১০ মিনিট', false),
             ],
           ),
         ),
@@ -191,7 +224,9 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
       child: Row(
         children: [
           Icon(
-            isDone ? Icons.check_circle_rounded : Icons.radio_button_unchecked_rounded,
+            isDone
+                ? Icons.check_circle_rounded
+                : Icons.radio_button_unchecked_rounded,
             color: isDone ? Colors.green : AppColors.textSecondary,
           ),
           const SizedBox(width: AppSpacing.md),
@@ -205,11 +240,15 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     decoration: isDone ? TextDecoration.lineThrough : null,
-                    color: isDone ? AppColors.textSecondary : AppColors.textPrimary,
+                    color: isDone
+                        ? AppColors.textSecondary
+                        : AppColors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                Text(subtitle,
+                    style: const TextStyle(
+                        fontSize: 12, color: AppColors.textSecondary)),
               ],
             ),
           ),

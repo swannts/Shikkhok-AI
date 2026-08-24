@@ -32,19 +32,25 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
         ),
         title: Text(
           l10n.questionProgress(3, 10),
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+          style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textPrimary),
         ),
         centerTitle: true,
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: AppSpacing.md),
+            padding: EdgeInsets.only(right: AppSpacing.md),
             child: Row(
-              children: const [
+              children: [
                 Icon(Icons.timer_outlined, color: Colors.red, size: 18),
                 SizedBox(width: 4),
                 Text(
                   '০৪:২৮',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
                 ),
               ],
             ),
@@ -70,21 +76,29 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withAlpha(15),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.primary.withAlpha(30)),
+                        border:
+                            Border.all(color: AppColors.primary.withAlpha(30)),
                       ),
                       child: const Text(
                         'গণিত • সরল সমীকরণ',
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary),
                       ),
                     ),
                     const SizedBox(height: AppSpacing.md),
                     const Text(
                       '২x + ৬ = ১৪ হলে x এর মান কত?',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xl),
                     // Options List
@@ -92,7 +106,8 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: options.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 12),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
                       itemBuilder: (context, index) {
                         final isSelected = _selectedOption == index;
                         final isCorrect = index == 2; // C is correct answer
@@ -110,18 +125,23 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                             suffixIcon = Row(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: Colors.green,
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
                                     l10n.correctAnswer,
-                                    style: const TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontSize: 11,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 const SizedBox(width: 6),
-                                const Icon(Icons.check_rounded, color: Colors.green),
+                                const Icon(Icons.check_rounded,
+                                    color: Colors.green),
                               ],
                             );
                           } else if (isSelected && !isCorrect) {
@@ -131,18 +151,23 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                             suffixIcon = Row(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: Colors.red,
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
                                     l10n.wrongAnswer,
-                                    style: const TextStyle(fontSize: 11, color: Colors.white, fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontSize: 11,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 const SizedBox(width: 6),
-                                const Icon(Icons.close_rounded, color: Colors.red),
+                                const Icon(Icons.close_rounded,
+                                    color: Colors.red),
                               ],
                             );
                           }
@@ -152,26 +177,39 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                         }
 
                         return InkWell(
-                          onTap: _submitted ? null : () => setState(() => _selectedOption = index),
+                          onTap: _submitted
+                              ? null
+                              : () => setState(() => _selectedOption = index),
                           borderRadius: BorderRadius.circular(16),
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               color: bgColor,
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: borderColor, width: (isSelected || (_submitted && isCorrect)) ? 2 : 1),
+                              border: Border.all(
+                                  color: borderColor,
+                                  width:
+                                      (isSelected || (_submitted && isCorrect))
+                                          ? 2
+                                          : 1),
                             ),
                             child: Row(
                               children: [
                                 Text(
                                   '${String.fromCharCode(65 + index)}.',
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: textColor),
                                 ),
                                 const SizedBox(width: 14),
                                 Expanded(
                                   child: Text(
                                     options[index],
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: textColor),
                                   ),
                                 ),
                                 if (suffixIcon != null) suffixIcon,
@@ -191,23 +229,31 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: AppColors.border),
                         ),
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              children: const [
-                                Icon(Icons.lightbulb_rounded, color: Colors.amber, size: 22),
+                              children: [
+                                Icon(Icons.lightbulb_rounded,
+                                    color: Colors.amber, size: 22),
                                 SizedBox(width: 8),
                                 Text(
                                   'সমাধান ও ব্যাখ্যা',
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.primary),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
-                            const Text(
+                            SizedBox(height: 8),
+                            Text(
                               '২x + ৬ = ১৪\n➔ ২x = ১৪ - ৬ (পক্ষান্তর করে)\n➔ ২x = ৮\n➔ x = ৪',
-                              style: TextStyle(fontSize: 14, height: 1.6, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  height: 1.6,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textPrimary),
                             ),
                           ],
                         ),
@@ -238,11 +284,15 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                         },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                   child: Text(
                     _submitted ? l10n.next : 'যাচাই করুন',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
               ),

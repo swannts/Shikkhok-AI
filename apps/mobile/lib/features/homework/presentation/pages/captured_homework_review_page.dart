@@ -23,12 +23,16 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back_rounded,
+                        color: Colors.white),
                     onPressed: () => context.go('/homework-help'),
                   ),
                   Text(
                     l10n.reviewImageTitle,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   const SizedBox(width: 48),
                 ],
@@ -47,17 +51,24 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     // Math Snippet Mock Text Container
-                    Column(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.menu_book_rounded, color: Colors.white54, size: 48),
+                      children: [
+                        Icon(Icons.menu_book_rounded,
+                            color: Colors.white54, size: 48),
                         SizedBox(height: 12),
                         Text(
                           '2x + 5 = 15',
-                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 2),
+                          style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 2),
                         ),
                         SizedBox(height: 6),
-                        Text('x এর মান কত?', style: TextStyle(fontSize: 18, color: Colors.white70)),
+                        Text('x এর মান কত?',
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.white70)),
                       ],
                     ),
                     // Crop Box Corner Overlay
@@ -100,7 +111,8 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                           children: [
                             Text(
                               l10n.uploadingProgress(40),
-                              style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                              style: const TextStyle(
+                                  fontSize: 13, color: AppColors.textSecondary),
                             ),
                           ],
                         ),
@@ -110,7 +122,8 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                           child: const LinearProgressIndicator(
                             value: 0.40,
                             backgroundColor: AppColors.border,
-                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                AppColors.primary),
                             minHeight: 6,
                           ),
                         ),
@@ -120,25 +133,33 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                   const SizedBox(height: AppSpacing.md),
                   // Subject Chip
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withAlpha(20),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
                       l10n.subjectMath,
-                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary),
+                      style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary),
                     ),
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     l10n.isQuestionClear,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     l10n.unclearWarning,
-                    style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                    style: const TextStyle(
+                        fontSize: 13, color: AppColors.textSecondary),
                   ),
                   const SizedBox(height: AppSpacing.lg),
                   // Action Buttons
@@ -147,14 +168,19 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                     height: 52,
                     child: ElevatedButton.icon(
                       onPressed: () => context.go('/homework-ai-solution'),
-                      icon: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 20),
+                      icon: const Icon(Icons.auto_awesome_rounded,
+                          color: Colors.white, size: 20),
                       label: Text(
                         l10n.analyzeQuestion,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                       ),
                     ),
                   ),
@@ -164,14 +190,19 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                     height: 50,
                     child: OutlinedButton.icon(
                       onPressed: () => context.go('/homework-help'),
-                      icon: const Icon(Icons.refresh_rounded, color: AppColors.primary),
+                      icon: const Icon(Icons.refresh_rounded,
+                          color: AppColors.primary),
                       label: Text(
                         l10n.retakePhoto,
-                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.primary),
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary),
                       ),
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: AppColors.primary),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                       ),
                     ),
                   ),

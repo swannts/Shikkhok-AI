@@ -49,15 +49,20 @@ class HttpClient {
     bool skipAuth = false,
     Duration timeout = const Duration(seconds: 15),
   }) async {
-    final url = Uri.parse(endpoint.startsWith('http') ? endpoint : '$baseUrl$endpoint');
+    final url =
+        Uri.parse(endpoint.startsWith('http') ? endpoint : '$baseUrl$endpoint');
     final headers = await _getHeaders(skipAuth: skipAuth);
 
     try {
       http.Response response;
       if (method == 'POST') {
-        response = await http.post(url, headers: headers, body: jsonEncode(body)).timeout(timeout);
+        response = await http
+            .post(url, headers: headers, body: jsonEncode(body))
+            .timeout(timeout);
       } else if (method == 'PUT') {
-        response = await http.put(url, headers: headers, body: jsonEncode(body)).timeout(timeout);
+        response = await http
+            .put(url, headers: headers, body: jsonEncode(body))
+            .timeout(timeout);
       } else if (method == 'DELETE') {
         response = await http.delete(url, headers: headers).timeout(timeout);
       } else {
@@ -65,8 +70,12 @@ class HttpClient {
       }
 
       // Single-flight 401 Refresh Token Queue
-      if (response.statusCode == 401 && !skipAuth && !endpoint.contains('/auth/login') && !endpoint.contains('/auth/refresh')) {
-        return await _handle401AndRetry(endpoint, method: method, body: body, timeout: timeout);
+      if (response.statusCode == 401 &&
+          !skipAuth &&
+          !endpoint.contains('/auth/login') &&
+          !endpoint.contains('/auth/refresh')) {
+        return await _handle401AndRetry(endpoint,
+            method: method, body: body, timeout: timeout);
       }
 
       if (response.statusCode < 200 || response.statusCode >= 300) {
@@ -78,7 +87,8 @@ class HttpClient {
           statusCode: response.statusCode,
           errorCode: errorJson['errorCode'] ?? 'HTTP_${response.statusCode}',
           message: errorJson['message'] ?? 'Request failed',
-          banglaMessage: errorJson['banglaMessage'] ?? 'একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।',
+          banglaMessage: errorJson['banglaMessage'] ??
+              'একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।',
         );
       }
 
@@ -128,7 +138,8 @@ class HttpClient {
 
         _isRefreshing = false;
         _resolveQueue(newToken);
-        return await request(endpoint, method: method, body: body, timeout: timeout);
+        return await request(endpoint,
+            method: method, body: body, timeout: timeout);
       } catch (e) {
         _isRefreshing = false;
         _resolveQueue(null);
@@ -147,7 +158,8 @@ class HttpClient {
     final newToken = await completer.future;
 
     if (newToken != null) {
-      return await request(endpoint, method: method, body: body, timeout: timeout);
+      return await request(endpoint,
+          method: method, body: body, timeout: timeout);
     } else {
       throw ApiError(
         statusCode: 401,
@@ -170,7 +182,8 @@ class HttpClient {
     dynamic body,
     void Function(String delta) onDelta,
   ) async {
-    final url = Uri.parse(endpoint.startsWith('http') ? endpoint : '$baseUrl$endpoint');
+    final url =
+        Uri.parse(endpoint.startsWith('http') ? endpoint : '$baseUrl$endpoint');
     final headers = await _getHeaders();
     headers['Accept'] = 'text/event-stream, application/json';
 

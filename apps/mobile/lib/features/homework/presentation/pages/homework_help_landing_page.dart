@@ -17,16 +17,21 @@ class HomeworkHelpLandingPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.homeworkHelpTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.info_outline_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.info_outline_rounded,
+                color: AppColors.textSecondary),
             onPressed: () {},
           ),
         ],
@@ -39,13 +44,17 @@ class HomeworkHelpLandingPage extends StatelessWidget {
             children: [
               Text(
                 l10n.snapQuestionTitle,
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(
                 l10n.snapQuestionSub,
-                style: const TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.5),
+                style: const TextStyle(
+                    fontSize: 14, color: AppColors.textSecondary, height: 1.5),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: AppSpacing.xl),
@@ -80,12 +89,17 @@ class HomeworkHelpLandingPage extends StatelessWidget {
                               color: AppColors.primary.withAlpha(20),
                               shape: BoxShape.circle,
                             ),
-                            child: const Icon(Icons.camera_alt_rounded, color: AppColors.primary, size: 36),
+                            child: const Icon(Icons.camera_alt_rounded,
+                                color: AppColors.primary, size: 36),
                           ),
                           const SizedBox(height: AppSpacing.sm),
                           const Text(
                             'LIVE VIEWFINDER',
-                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary, letterSpacing: 1.5),
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary,
+                                letterSpacing: 1.5),
                           ),
                         ],
                       ),
@@ -100,14 +114,19 @@ class HomeworkHelpLandingPage extends StatelessWidget {
                 height: 52,
                 child: ElevatedButton.icon(
                   onPressed: () => context.go('/captured-homework-review'),
-                  icon: const Icon(Icons.photo_camera_rounded, color: Colors.white),
+                  icon: const Icon(Icons.photo_camera_rounded,
+                      color: Colors.white),
                   label: Text(
                     l10n.openCamera,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
@@ -117,23 +136,31 @@ class HomeworkHelpLandingPage extends StatelessWidget {
                 height: 52,
                 child: ElevatedButton.icon(
                   onPressed: () => context.go('/captured-homework-review'),
-                  icon: const Icon(Icons.image_outlined, color: AppColors.primary),
+                  icon: const Icon(Icons.image_outlined,
+                      color: AppColors.primary),
                   label: Text(
                     l10n.pickFromGallery,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary.withAlpha(20),
                     elevation: 0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
               const SizedBox(height: 12),
               TextButton.icon(
                 onPressed: () => context.go('/ai-tutor-chat'),
-                icon: const Icon(Icons.edit_note_rounded, color: AppColors.primary),
-                label: Text(l10n.typeQuestionAction, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
+                icon: const Icon(Icons.edit_note_rounded,
+                    color: AppColors.primary),
+                label: Text(l10n.typeQuestionAction,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: AppColors.primary)),
               ),
               const SizedBox(height: AppSpacing.xl),
               // Tips Card
@@ -149,11 +176,15 @@ class HomeworkHelpLandingPage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.lightbulb_rounded, color: Colors.amber, size: 22),
+                        const Icon(Icons.lightbulb_rounded,
+                            color: Colors.amber, size: 22),
                         const SizedBox(width: 8),
                         Text(
                           l10n.bestResultsTitle,
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textPrimary),
                         ),
                       ],
                     ),
@@ -169,7 +200,8 @@ class HomeworkHelpLandingPage extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               Text(
                 l10n.privacyNote,
-                style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                style: const TextStyle(
+                    fontSize: 12, color: AppColors.textSecondary),
                 textAlign: TextAlign.center,
               ),
             ],
@@ -189,10 +221,13 @@ class HomeworkHelpLandingPage extends StatelessWidget {
             color: Colors.green.withAlpha(20),
             shape: BoxShape.circle,
           ),
-          child: const Icon(Icons.check_circle_rounded, color: Colors.green, size: 16),
+          child: const Icon(Icons.check_circle_rounded,
+              color: Colors.green, size: 16),
         ),
         const SizedBox(width: 10),
-        Text(text, style: const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
+        Text(text,
+            style:
+                const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
       ],
     );
   }

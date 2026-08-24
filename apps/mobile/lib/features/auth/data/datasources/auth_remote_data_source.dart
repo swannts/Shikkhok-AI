@@ -1,103 +1,224 @@
 import 'package:dio/dio.dart';
 import '../../../../core/network/api_client.dart';
-import '../../../../core/config/env.dart';
+import '../../../../core/network/api_endpoints.dart';
+import '../dto/auth_response_dto.dart';
+import '../dto/token_pair_dto.dart';
 import '../dto/user_dto.dart';
+import '../dto/message_response_dto.dart';
 
-abstract class AuthRemoteDataSource {
-  Future<Map<String, dynamic>> login(String identifier, String password);
-  Future<Map<String, dynamic>> signup(String name, String phoneOrEmail, String password);
-  Future<Map<String, dynamic>> verifyOtp(String referenceId, String otp);
-  Future<UserDto> getCurrentUser();
+abstract interface class AuthRemoteDataSource {
+  Future<AuthResponseDto> register({
+    required String name,
+    String? email,
+    String? phone,
+    required String password,
+    String? role,
+  });
+
+  Future<AuthResponseDto> login({
+    required String identifier,
+    required String password,
+    String? deviceId,
+    String? deviceName,
+  });
+
+  Future<TokenPairDto> refreshTokens({required String refreshToken});
+
   Future<void> logout();
+
+  Future<void> logoutAll();
+
+  Future<UserDto> getCurrentUser();
+
+  Future<MessageResponseDto> requestOtp({
+    required String phone,
+    required String purpose,
+  });
+
+  Future<MessageResponseDto> verifyOtp({
+    required String phone,
+    required String otp,
+    required String purpose,
+  });
+
+  Future<MessageResponseDto> forgotPassword({required String identifier});
+
+  Future<MessageResponseDto> resetPassword({
+    required String token,
+    required String newPassword,
+  });
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final ApiClient _client;
+
   AuthRemoteDataSourceImpl(this._client);
 
   @override
-  Future<Map<String, dynamic>> login(String identifier, String password) async {
-    if (ENV.useMockApi) {
-      return {
-        'token': 'mock-jwt-access-token',
-        'refreshToken': 'mock-refresh-token',
-        'user': const UserDto(
-          id: 'student-1',
-          userId: 'user-1',
-          name: 'রাফি আহমেদ',
-          classId: 'class-8',
-          className: 'Class 8',
-          language: 'bn',
-        ).toJson(),
-      };
-    }
+  Future<AuthResponseDto> register({
+    required String name,
+    String? email,
+    String? phone,
+    required String password,
+    String? role,
+  }) async {
+    final payload = <String, dynamic>{
+      'name': name,
+      'password': password,
+      if (email != null && email.isNotEmpty) 'email': email,
+      if (phone != null && phone.isNotEmpty) 'phone': phone,
+      if (role != null && role.isNotEmpty) 'role': role,
+    };
+
     final res = await _client.dio.post(
-      '/auth/login',
-      data: {'identifier': identifier, 'password': password},
+      ApiEndpoints.register,
+      data: payload,
       options: Options(extra: {'skipAuth': true}),
     );
-    return res.data;
+
+    final data = _extractData(res.data);
+    return AuthResponseDto.fromJson(data as Map<String, dynamic>);
   }
 
   @override
-  Future<Map<String, dynamic>> signup(String name, String phoneOrEmail, String password) async {
-    if (ENV.useMockApi) {
-      return {'status': 'OTP_SENT', 'referenceId': 'mock-ref-123'};
-    }
+  Future<AuthResponseDto> login({
+    required String identifier,
+    required String password,
+    String? deviceId,
+    String? deviceName,
+  }) async {
+    final payload = <String, dynamic>{
+      'identifier': identifier,
+      'password': password,
+      if (deviceId != null && deviceId.isNotEmpty) 'deviceId': deviceId,
+      if (deviceName != null && deviceName.isNotEmpty) 'deviceName': deviceName,
+    };
+
     final res = await _client.dio.post(
-      '/auth/signup',
-      data: {'name': name, 'phoneOrEmail': phoneOrEmail, 'password': password},
+      ApiEndpoints.login,
+      data: payload,
       options: Options(extra: {'skipAuth': true}),
     );
-    return res.data;
+
+    final data = _extractData(res.data);
+    return AuthResponseDto.fromJson(data as Map<String, dynamic>);
   }
 
   @override
-  Future<Map<String, dynamic>> verifyOtp(String referenceId, String otp) async {
-    if (ENV.useMockApi) {
-      return {
-        'token': 'mock-jwt-access-token',
-        'refreshToken': 'mock-refresh-token',
-        'user': const UserDto(
-          id: 'student-1',
-          userId: 'user-1',
-          name: 'রাফি আহমেদ',
-          classId: 'class-8',
-          className: 'Class 8',
-          language: 'bn',
-        ).toJson(),
-      };
-    }
+  Future<TokenPairDto> refreshTokens({required String refreshToken}) async {
     final res = await _client.dio.post(
-      '/auth/verify-otp',
-      data: {'referenceId': referenceId, 'otp': otp},
+      ApiEndpoints.refresh,
+      data: {'refreshToken': refreshToken},
       options: Options(extra: {'skipAuth': true}),
     );
-    return res.data;
-  }
 
-  @override
-  Future<UserDto> getCurrentUser() async {
-    if (ENV.useMockApi) {
-      return const UserDto(
-        id: 'student-1',
-        userId: 'user-1',
-        name: 'রাফি আহমেদ',
-        classId: 'class-8',
-        className: 'Class 8',
-        language: 'bn',
-      );
-    }
-    final res = await _client.dio.get('/auth/me');
-    return UserDto.fromJson(res.data);
+    final data = _extractData(res.data);
+    return TokenPairDto.fromJson(data as Map<String, dynamic>);
   }
 
   @override
   Future<void> logout() async {
-    if (!ENV.useMockApi) {
-      try {
-        await _client.dio.post('/auth/logout');
-      } catch (_) {}
+    await _client.dio.post(ApiEndpoints.logout);
+  }
+
+  @override
+  Future<void> logoutAll() async {
+    await _client.dio.post(ApiEndpoints.logoutAll);
+  }
+
+  @override
+  Future<UserDto> getCurrentUser() async {
+    final res = await _client.dio.get(ApiEndpoints.me);
+    final data = _extractData(res.data);
+    return UserDto.fromJson(data as Map<String, dynamic>);
+  }
+
+  @override
+  Future<MessageResponseDto> requestOtp({
+    required String phone,
+    required String purpose,
+  }) async {
+    final res = await _client.dio.post(
+      ApiEndpoints.requestOtp,
+      data: {
+        'phone': phone,
+        'purpose': purpose,
+      },
+      options: Options(extra: {'skipAuth': true}),
+    );
+
+    final data = _extractData(res.data);
+    return MessageResponseDto.fromJson(
+      data is Map<String, dynamic> ? data : {'message': 'OTP sent'},
+    );
+  }
+
+  @override
+  Future<MessageResponseDto> verifyOtp({
+    required String phone,
+    required String otp,
+    required String purpose,
+  }) async {
+    final res = await _client.dio.post(
+      ApiEndpoints.verifyOtp,
+      data: {
+        'phone': phone,
+        'otp': otp,
+        'purpose': purpose,
+      },
+      options: Options(extra: {'skipAuth': true}),
+    );
+
+    final data = _extractData(res.data);
+    return MessageResponseDto.fromJson(
+      data is Map<String, dynamic> ? data : {'message': 'OTP verified'},
+    );
+  }
+
+  @override
+  Future<MessageResponseDto> forgotPassword(
+      {required String identifier}) async {
+    final res = await _client.dio.post(
+      ApiEndpoints.forgotPassword,
+      data: {'identifier': identifier},
+      options: Options(extra: {'skipAuth': true}),
+    );
+
+    final data = _extractData(res.data);
+    return MessageResponseDto.fromJson(
+      data is Map<String, dynamic>
+          ? data
+          : {'message': 'Reset instructions sent if account exists'},
+    );
+  }
+
+  @override
+  Future<MessageResponseDto> resetPassword({
+    required String token,
+    required String newPassword,
+  }) async {
+    final res = await _client.dio.post(
+      ApiEndpoints.resetPassword,
+      data: {
+        'token': token,
+        'newPassword': newPassword,
+      },
+      options: Options(extra: {'skipAuth': true}),
+    );
+
+    final data = _extractData(res.data);
+    return MessageResponseDto.fromJson(
+      data is Map<String, dynamic>
+          ? data
+          : {'message': 'Password reset successfully'},
+    );
+  }
+
+  dynamic _extractData(dynamic responseData) {
+    if (responseData is Map<String, dynamic> &&
+        responseData.containsKey('data')) {
+      return responseData['data'];
     }
+    return responseData;
   }
 }

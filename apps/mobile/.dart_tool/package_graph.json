@@ -18,6 +18,7 @@
         "freezed_annotation",
         "go_router",
         "google_fonts",
+        "http",
         "intl",
         "json_annotation",
         "riverpod_annotation",
@@ -179,6 +180,16 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "http",
+      "version": "1.6.0",
+      "dependencies": [
+        "async",
+        "http_parser",
+        "meta",
+        "web"
       ]
     },
     {
@@ -691,16 +702,6 @@
       ]
     },
     {
-      "name": "http",
-      "version": "1.6.0",
-      "dependencies": [
-        "async",
-        "http_parser",
-        "meta",
-        "web"
-      ]
-    },
-    {
       "name": "graphs",
       "version": "2.3.2",
       "dependencies": [
@@ -854,6 +855,16 @@
       ]
     },
     {
+      "name": "http_parser",
+      "version": "4.1.2",
+      "dependencies": [
+        "collection",
+        "source_span",
+        "string_scanner",
+        "typed_data"
+      ]
+    },
+    {
       "name": "path_provider",
       "version": "2.1.6",
       "dependencies": [
@@ -949,16 +960,6 @@
         "http_parser",
         "meta",
         "web"
-      ]
-    },
-    {
-      "name": "http_parser",
-      "version": "4.1.2",
-      "dependencies": [
-        "collection",
-        "source_span",
-        "string_scanner",
-        "typed_data"
       ]
     },
     {

@@ -33,4 +33,13 @@ class AppColors {
   // Secondary Accents
   static const Color secondary = Color(0xFF8E33FF);
   static const Color secondaryLight = Color(0xFFF2E7FE);
+
+  // Elevation & Shadows
+  static const List<BoxShadow> minimalsShadow = [
+    BoxShadow(
+      color: Color(0x0A000000),
+      blurRadius: 16,
+      offset: Offset(0, 4),
+    ),
+  ];
 }

@@ -28,7 +28,8 @@ class AppTheme {
         backgroundColor: surface,
         elevation: 0,
         iconTheme: IconThemeData(color: textPrimary),
-        titleTextStyle: TextStyle(color: textPrimary, fontSize: 18, fontWeight: FontWeight.bold),
+        titleTextStyle: TextStyle(
+            color: textPrimary, fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }

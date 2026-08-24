@@ -13,7 +13,11 @@ class OfflineDownloadsPage extends StatelessWidget {
 
     final downloads = [
       ('সরল সমীকরণ (অধ্যায় ৪)', '৪২ MB • গণিত', Icons.play_circle_fill_rounded),
-      ('বীজগণিতীয় সূত্রাবলি (অধ্যায় ৫)', '৫৮ MB • গণিত', Icons.menu_book_rounded),
+      (
+        'বীজগণিতীয় সূত্রাবলি (অধ্যায় ৫)',
+        '৫৮ MB • গণিত',
+        Icons.menu_book_rounded
+      ),
       ('Photosynthesis পাঠ', '২৫ MB • বিজ্ঞান', Icons.video_library_rounded),
     ];
 
@@ -23,12 +27,16 @@ class OfflineDownloadsPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.offlineDownloadsTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -51,14 +59,21 @@ class OfflineDownloadsPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.sd_storage_rounded, color: AppColors.primary, size: 20),
+                        const Row(
+                          children: [
+                            Icon(Icons.sd_storage_rounded,
+                                color: AppColors.primary, size: 20),
                             SizedBox(width: 8),
-                            Text('স্টোরেজ ব্যবহার', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                            Text('স্টোরেজ ব্যবহার',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textPrimary)),
                           ],
                         ),
-                        Text(l10n.storageUsage('১.২ GB', '৮.০ GB'), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                        Text(l10n.storageUsage('১.২ GB', '৮.০ GB'),
+                            style: const TextStyle(
+                                fontSize: 12, color: AppColors.textSecondary)),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.sm),
@@ -67,7 +82,8 @@ class OfflineDownloadsPage extends StatelessWidget {
                       child: const LinearProgressIndicator(
                         value: 0.15,
                         backgroundColor: AppColors.border,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.primary),
                         minHeight: 8,
                       ),
                     ),
@@ -77,14 +93,18 @@ class OfflineDownloadsPage extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               const Text(
                 'সংরক্ষিত ফাইলসমূহ (৩টি)',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.md),
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: downloads.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 12),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final item = downloads[index];
                   return Container(
@@ -110,14 +130,22 @@ class OfflineDownloadsPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item.$1, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                              Text(item.$1,
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary)),
                               const SizedBox(height: 2),
-                              Text(item.$2, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                              Text(item.$2,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.textSecondary)),
                             ],
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.delete_outline_rounded, color: Colors.red),
+                          icon: const Icon(Icons.delete_outline_rounded,
+                              color: Colors.red),
                           onPressed: () {},
                         ),
                       ],

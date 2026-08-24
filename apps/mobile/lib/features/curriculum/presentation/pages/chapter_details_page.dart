@@ -17,12 +17,16 @@ class ChapterDetailsPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/subject-details'),
         ),
         title: Text(
           l10n.chapterDetailsTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -37,12 +41,16 @@ class ChapterDetailsPage extends StatelessWidget {
                     // Hero Title
                     Text(
                       l10n.algebraFormulas,
-                      style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       l10n.mathClass8,
-                      style: const TextStyle(fontSize: 14, color: AppColors.textSecondary),
+                      style: const TextStyle(
+                          fontSize: 14, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     // Chapter Progress Card
@@ -69,12 +77,22 @@ class ChapterDetailsPage extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(l10n.chapterComplete, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                  Text(l10n.chapterComplete,
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.textSecondary)),
                                   const SizedBox(height: 2),
-                                  const Text('৪২%', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                                  const Text('৪২%',
+                                      style: TextStyle(
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.primary)),
                                 ],
                               ),
-                              Text(l10n.lessonsDone, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                              Text(l10n.lessonsDone,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.textSecondary)),
                             ],
                           ),
                           const SizedBox(height: AppSpacing.sm),
@@ -83,7 +101,8 @@ class ChapterDetailsPage extends StatelessWidget {
                             child: const LinearProgressIndicator(
                               value: 0.42,
                               backgroundColor: AppColors.border,
-                              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColors.primary),
                               minHeight: 8,
                             ),
                           ),
@@ -93,12 +112,19 @@ class ChapterDetailsPage extends StatelessWidget {
                               Expanded(
                                 child: ElevatedButton.icon(
                                   onPressed: () {},
-                                  icon: const Icon(Icons.edit_note_rounded, size: 20, color: Colors.white),
-                                  label: Text(l10n.practiceAction, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                                  icon: const Icon(Icons.edit_note_rounded,
+                                      size: 20, color: Colors.white),
+                                  label: Text(l10n.practiceAction,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.primary,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                                    padding: const EdgeInsets.symmetric(vertical: 12),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(14)),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
                                   ),
                                 ),
                               ),
@@ -111,7 +137,8 @@ class ChapterDetailsPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(14),
                                   border: Border.all(color: AppColors.primary),
                                 ),
-                                child: const Icon(Icons.download_rounded, color: AppColors.primary),
+                                child: const Icon(Icons.download_rounded,
+                                    color: AppColors.primary),
                               ),
                             ],
                           ),
@@ -121,7 +148,10 @@ class ChapterDetailsPage extends StatelessWidget {
                     const SizedBox(height: AppSpacing.xl),
                     Text(
                       l10n.lessonsList,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.md),
                     // Lesson Items
@@ -179,14 +209,19 @@ class ChapterDetailsPage extends StatelessWidget {
                 height: 50,
                 child: OutlinedButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.assignment_outlined, color: AppColors.primary),
+                  icon: const Icon(Icons.assignment_outlined,
+                      color: AppColors.primary),
                   label: Text(
                     l10n.chapterExam,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary),
                   ),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: AppColors.primary, width: 2),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
@@ -230,7 +265,9 @@ class ChapterDetailsPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: isLocked ? AppColors.textSecondary : AppColors.textPrimary,
+                  color: isLocked
+                      ? AppColors.textSecondary
+                      : AppColors.textPrimary,
                 ),
               ),
             ),
@@ -244,7 +281,8 @@ class ChapterDetailsPage extends StatelessWidget {
                 ),
                 child: Text(
                   timeBadge,
-                  style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                  style: const TextStyle(
+                      fontSize: 11, color: AppColors.textSecondary),
                 ),
               ),
           ],

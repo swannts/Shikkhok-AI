@@ -22,7 +22,10 @@ class PracticeResultPage extends StatelessWidget {
         ),
         title: Text(
           l10n.resultTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -39,12 +42,16 @@ class PracticeResultPage extends StatelessWidget {
                   color: AppColors.primary.withAlpha(20),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.emoji_events_rounded, color: AppColors.primary, size: 48),
+                child: const Icon(Icons.emoji_events_rounded,
+                    color: AppColors.primary, size: 48),
               ),
               const SizedBox(height: AppSpacing.sm),
               Text(
                 l10n.greatEffortTitle,
-                style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.xl),
               // Score Metrics Summary Card
@@ -58,11 +65,13 @@ class PracticeResultPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildMetricCol(l10n.scoreLabel, '৮ / ১০', AppColors.primary),
+                    _buildMetricCol(
+                        l10n.scoreLabel, '৮ / ১০', AppColors.primary),
                     const VerticalDivider(width: 1, color: AppColors.border),
                     _buildMetricCol(l10n.accuracyLabel, '৮০%', Colors.green),
                     const VerticalDivider(width: 1, color: AppColors.border),
-                    _buildMetricCol(l10n.timeSpent, '৮মি ৪২সে', AppColors.textPrimary),
+                    _buildMetricCol(
+                        l10n.timeSpent, '৮মি ৪২সে', AppColors.textPrimary),
                   ],
                 ),
               ),
@@ -81,29 +90,45 @@ class PracticeResultPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: const [
-                            Icon(Icons.calculate_rounded, color: AppColors.primary),
+                        const Row(
+                          children: [
+                            Icon(Icons.calculate_rounded,
+                                color: AppColors.primary),
                             SizedBox(width: 8),
-                            Text('সরল সমীকরণ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                            Text('সরল সমীকরণ',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textPrimary)),
                           ],
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
                             color: Colors.green.shade100,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const Text('+১৬% উন্নতি', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.green)),
+                          child: const Text('+১৬% উন্নতি',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green)),
                         ),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.sm),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text('আগে: ৪২%', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                        Text('বর্তমান: ৫৮%', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                      children: [
+                        Text('আগে: ৪২%',
+                            style: TextStyle(
+                                fontSize: 12, color: AppColors.textSecondary)),
+                        Text('বর্তমান: ৫৮%',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary)),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -112,7 +137,8 @@ class PracticeResultPage extends StatelessWidget {
                       child: const LinearProgressIndicator(
                         value: 0.58,
                         backgroundColor: AppColors.border,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.primary),
                         minHeight: 8,
                       ),
                     ),
@@ -133,7 +159,10 @@ class PracticeResultPage extends StatelessWidget {
                   children: [
                     Text(
                       l10n.needReviewTitle,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Row(
@@ -145,20 +174,29 @@ class PracticeResultPage extends StatelessWidget {
                             color: Colors.red.shade100,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Icon(Icons.functions_rounded, color: Colors.red),
+                          child: const Icon(Icons.functions_rounded,
+                              color: Colors.red),
                         ),
                         const SizedBox(width: AppSpacing.md),
-                        Expanded(
+                        const Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('ভগ্নাংশের সমীকরণ', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                              Text('মাস্টারি: ৩৫%', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                            children: [
+                              Text('ভগ্নাংশের সমীকরণ',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary)),
+                              Text('মাস্টারি: ৩৫%',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.textSecondary)),
                             ],
                           ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.play_arrow_rounded, color: AppColors.primary),
+                          icon: const Icon(Icons.play_arrow_rounded,
+                              color: AppColors.primary),
                           onPressed: () => context.go('/lesson-reader'),
                         ),
                       ],
@@ -176,11 +214,15 @@ class PracticeResultPage extends StatelessWidget {
                   icon: const Icon(Icons.refresh_rounded, color: Colors.white),
                   label: Text(
                     l10n.practiceMistakes,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
@@ -190,22 +232,29 @@ class PracticeResultPage extends StatelessWidget {
                 height: 50,
                 child: OutlinedButton.icon(
                   onPressed: () => context.go('/practice-session-mcq'),
-                  icon: const Icon(Icons.fact_check_outlined, color: AppColors.primary),
+                  icon: const Icon(Icons.fact_check_outlined,
+                      color: AppColors.primary),
                   label: Text(
                     l10n.reviewResults,
-                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.primary),
+                    style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary),
                   ),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: AppColors.primary),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               TextButton.icon(
                 onPressed: () => context.go('/'),
-                icon: const Icon(Icons.home_outlined, color: AppColors.textSecondary),
-                label: Text(l10n.backToHome, style: const TextStyle(color: AppColors.textSecondary)),
+                icon: const Icon(Icons.home_outlined,
+                    color: AppColors.textSecondary),
+                label: Text(l10n.backToHome,
+                    style: const TextStyle(color: AppColors.textSecondary)),
               ),
             ],
           ),
@@ -217,9 +266,13 @@ class PracticeResultPage extends StatelessWidget {
   Widget _buildMetricCol(String title, String val, Color valColor) {
     return Column(
       children: [
-        Text(title, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+        Text(title,
+            style:
+                const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
         const SizedBox(height: 2),
-        Text(val, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: valColor)),
+        Text(val,
+            style: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: valColor)),
       ],
     );
   }

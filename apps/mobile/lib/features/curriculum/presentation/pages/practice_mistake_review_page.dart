@@ -32,12 +32,16 @@ class PracticeMistakeReviewPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/practice-result'),
         ),
         title: Text(
           l10n.mistakeReviewTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -47,7 +51,8 @@ class PracticeMistakeReviewPage extends StatelessWidget {
               child: ListView.separated(
                 padding: const EdgeInsets.all(AppSpacing.md),
                 itemCount: mistakes.length,
-                separatorBuilder: (context, index) => const SizedBox(height: AppSpacing.md),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: AppSpacing.md),
                 itemBuilder: (context, index) {
                   final m = mistakes[index];
                   return Container(
@@ -63,14 +68,18 @@ class PracticeMistakeReviewPage extends StatelessWidget {
                         Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 2),
                               decoration: BoxDecoration(
                                 color: Colors.red.shade100,
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
                                 'প্রশ্ন ${index + 1}',
-                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.red),
+                                style: const TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red),
                               ),
                             ),
                           ],
@@ -78,7 +87,10 @@ class PracticeMistakeReviewPage extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           m.$1,
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textPrimary),
                         ),
                         const SizedBox(height: AppSpacing.md),
                         // Answers Comparison Box
@@ -92,26 +104,44 @@ class PracticeMistakeReviewPage extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(Icons.close_rounded, color: Colors.red, size: 18),
+                                  const Icon(Icons.close_rounded,
+                                      color: Colors.red, size: 18),
                                   const SizedBox(width: 6),
-                                  Text('${l10n.yourAnswer}: ', style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
-                                  Text(m.$2, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red)),
+                                  Text('${l10n.yourAnswer}: ',
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          color: AppColors.textSecondary)),
+                                  Text(m.$2,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red)),
                                 ],
                               ),
                               const SizedBox(height: 6),
                               Row(
                                 children: [
-                                  const Icon(Icons.check_rounded, color: Colors.green, size: 18),
+                                  const Icon(Icons.check_rounded,
+                                      color: Colors.green, size: 18),
                                   const SizedBox(width: 6),
-                                  Text('${l10n.correctAnswer}: ', style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
-                                  Text(m.$3, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green)),
+                                  Text('${l10n.correctAnswer}: ',
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          color: AppColors.textSecondary)),
+                                  Text(m.$3,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green)),
                                 ],
                               ),
                             ],
                           ),
                         ),
                         const SizedBox(height: AppSpacing.sm),
-                        Text('ব্যাখ্যা: ${m.$4}', style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+                        Text('ব্যাখ্যা: ${m.$4}',
+                            style: const TextStyle(
+                                fontSize: 13, color: AppColors.textSecondary)),
                       ],
                     ),
                   );
@@ -133,11 +163,15 @@ class PracticeMistakeReviewPage extends StatelessWidget {
                   icon: const Icon(Icons.refresh_rounded, color: Colors.white),
                   label: const Text(
                     'আবার প্র্যাকটিস শুরু করুন',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),

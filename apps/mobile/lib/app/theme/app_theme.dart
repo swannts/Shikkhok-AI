@@ -8,7 +8,8 @@ import 'theme_extensions.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
-    final baseTextTheme = GoogleFonts.anekBanglaTextTheme(ThemeData.light().textTheme);
+    final baseTextTheme =
+        GoogleFonts.anekBanglaTextTheme(ThemeData.light().textTheme);
 
     return ThemeData(
       useMaterial3: true,
@@ -53,7 +54,8 @@ class AppTheme {
           foregroundColor: Colors.white,
           elevation: 0,
           minimumSize: const Size.fromHeight(AppSpacing.xxxl),
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.smd),
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.lg, vertical: AppSpacing.smd),
           shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMd),
           textStyle: AppTypography.button,
         ),
@@ -63,7 +65,8 @@ class AppTheme {
           foregroundColor: AppColors.primary,
           minimumSize: const Size.fromHeight(AppSpacing.xxxl),
           side: const BorderSide(color: AppColors.primary, width: 1.5),
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.smd),
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.lg, vertical: AppSpacing.smd),
           shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMd),
           textStyle: AppTypography.button.copyWith(color: AppColors.primary),
         ),
@@ -81,7 +84,8 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.smd),
+        contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md, vertical: AppSpacing.smd),
         border: OutlineInputBorder(
           borderRadius: AppRadius.borderMd,
           borderSide: const BorderSide(color: AppColors.border, width: 1),

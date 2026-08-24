@@ -55,7 +55,8 @@ class AppBottomSheet extends StatelessWidget {
             children: [
               Text(title, style: AppTypography.sectionTitle),
               IconButton(
-                icon: const Icon(Icons.close_rounded, color: AppColors.textSecondary),
+                icon: const Icon(Icons.close_rounded,
+                    color: AppColors.textSecondary),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ],

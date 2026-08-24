@@ -32,12 +32,16 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/profile'),
         ),
         title: Text(
           l10n.subscriptionTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -55,44 +59,67 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       padding: const EdgeInsets.all(AppSpacing.lg),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [AppColors.primary, AppColors.primary.withAlpha(200)],
+                          colors: [
+                            AppColors.primary,
+                            AppColors.primary.withAlpha(200)
+                          ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(24),
                       ),
-                      child: Column(
-                        children: const [
-                          Icon(Icons.workspace_premium_rounded, color: Colors.amber, size: 48),
+                      child: const Column(
+                        children: [
+                          Icon(Icons.workspace_premium_rounded,
+                              color: Colors.amber, size: 48),
                           SizedBox(height: 8),
-                          Text('Shikkhok Plus', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+                          Text('Shikkhok Plus',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
                           SizedBox(height: 4),
-                          Text('তোমার পড়াশোনার সেরা সঙ্গী', style: TextStyle(fontSize: 14, color: Colors.white70)),
+                          Text('তোমার পড়াশোনার সেরা সঙ্গী',
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.white70)),
                         ],
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    const Text('প্লাসের সুবিধাসমূহ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    const Text('প্লাসের সুবিধাসমূহ',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary)),
                     const SizedBox(height: AppSpacing.md),
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: features.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 10),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 10),
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
-                            const Icon(Icons.check_circle_rounded, color: Colors.amber, size: 20),
+                            const Icon(Icons.check_circle_rounded,
+                                color: Colors.amber, size: 20),
                             const SizedBox(width: AppSpacing.md),
                             Expanded(
-                              child: Text(features[index], style: const TextStyle(fontSize: 14, color: AppColors.textPrimary)),
+                              child: Text(features[index],
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      color: AppColors.textPrimary)),
                             ),
                           ],
                         );
                       },
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    const Text('প্যাক নির্বাচন করুন', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    const Text('প্যাক নির্বাচন করুন',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary)),
                     const SizedBox(height: AppSpacing.md),
                     // Monthly Plan
                     InkWell(
@@ -104,15 +131,25 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                           color: AppColors.surface,
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: _selectedPlanIndex == 0 ? AppColors.primary : AppColors.border,
+                            color: _selectedPlanIndex == 0
+                                ? AppColors.primary
+                                : AppColors.border,
                             width: _selectedPlanIndex == 0 ? 2 : 1,
                           ),
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('মাসিক প্যাক', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                            Text('৳২৯৯ / মাস', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                          children: [
+                            Text('মাসিক প্যাক',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textPrimary)),
+                            Text('৳২৯৯ / মাস',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary)),
                           ],
                         ),
                       ),
@@ -125,10 +162,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                       child: Container(
                         padding: const EdgeInsets.all(AppSpacing.md),
                         decoration: BoxDecoration(
-                          color: _selectedPlanIndex == 1 ? AppColors.primary.withAlpha(15) : AppColors.surface,
+                          color: _selectedPlanIndex == 1
+                              ? AppColors.primary.withAlpha(15)
+                              : AppColors.surface,
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
-                            color: _selectedPlanIndex == 1 ? AppColors.primary : AppColors.border,
+                            color: _selectedPlanIndex == 1
+                                ? AppColors.primary
+                                : AppColors.border,
                             width: _selectedPlanIndex == 1 ? 2 : 1,
                           ),
                         ),
@@ -140,24 +181,41 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text('বার্ষিক প্যাক', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                                      const Text('বার্ষিক প্যাক',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.textPrimary)),
                                       const SizedBox(width: 8),
                                       Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 6, vertical: 2),
                                         decoration: BoxDecoration(
                                           color: Colors.green,
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
                                         ),
-                                        child: const Text('৩০% ছাড়', style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)),
+                                        child: const Text('৩০% ছাড়',
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold)),
                                       ),
                                     ],
                                   ),
                                   const SizedBox(height: 2),
-                                  const Text('৳২০৮ / মাস হিসাবে হিসাবকৃত', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                  const Text('৳২০৮ / মাস হিসাবে হিসাবকৃত',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.textSecondary)),
                                 ],
                               ),
                             ),
-                            const Text('৳২৪৯৯ / বছর', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                            const Text('৳২৪৯৯ / বছর',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary)),
                           ],
                         ),
                       ),
@@ -180,11 +238,15 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                   onPressed: () => context.go('/checkout'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                   child: const Text(
                     'সাবস্ক্রিপশন নিন',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
               ),

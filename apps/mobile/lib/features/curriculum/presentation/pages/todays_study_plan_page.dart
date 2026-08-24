@@ -17,12 +17,16 @@ class TodaysStudyPlanPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.todaysStudyPlan,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -51,16 +55,23 @@ class TodaysStudyPlanPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('আজকের লক্ষ্য: ৪৫ মিনিট', style: TextStyle(fontSize: 14, color: Colors.white70)),
+                          const Text('আজকের লক্ষ্য: ৪৫ মিনিট',
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.white70)),
                           const SizedBox(height: 4),
-                          const Text('৩০ মিনিট সম্পন্ন (৬৬%)', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+                          const Text('৩০ মিনিট সম্পন্ন (৬৬%)',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
                           const SizedBox(height: AppSpacing.md),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(6),
                             child: const LinearProgressIndicator(
                               value: 0.66,
                               backgroundColor: Colors.white24,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
                               minHeight: 8,
                             ),
                           ),
@@ -70,7 +81,10 @@ class TodaysStudyPlanPage extends StatelessWidget {
                     const SizedBox(height: AppSpacing.xl),
                     const Text(
                       'আজকের নির্ধারিত টাস্কসমূহ',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.md),
                     _buildPlanTaskTile(
@@ -114,14 +128,19 @@ class TodaysStudyPlanPage extends StatelessWidget {
                 height: 52,
                 child: ElevatedButton.icon(
                   onPressed: () => context.go('/lesson-reader'),
-                  icon: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 24),
+                  icon: const Icon(Icons.play_arrow_rounded,
+                      color: Colors.white, size: 24),
                   label: const Text(
                     'পড়াশোনা শুরু করুন',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
@@ -168,16 +187,22 @@ class TodaysStudyPlanPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      decoration: isCompleted ? TextDecoration.lineThrough : null,
-                      color: isLocked ? AppColors.textSecondary : AppColors.textPrimary,
+                      decoration:
+                          isCompleted ? TextDecoration.lineThrough : null,
+                      color: isLocked
+                          ? AppColors.textSecondary
+                          : AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 2),
-                  Text(subtitle, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                  Text(subtitle,
+                      style: const TextStyle(
+                          fontSize: 12, color: AppColors.textSecondary)),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
+            const Icon(Icons.chevron_right_rounded,
+                color: AppColors.textSecondary),
           ],
         ),
       ),

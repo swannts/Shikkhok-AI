@@ -26,12 +26,16 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.examLibraryTitle,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -52,7 +56,9 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: isSelected ? AppColors.primary : Colors.transparent,
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.transparent,
                               width: 3,
                             ),
                           ),
@@ -61,8 +67,12 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                           tabs[index],
                           style: TextStyle(
                             fontSize: 14,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.textSecondary,
                           ),
                         ),
                       ),
@@ -99,16 +109,24 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                                   color: AppColors.primary.withAlpha(20),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: const Icon(Icons.calculate_rounded, color: AppColors.primary),
+                                child: const Icon(Icons.calculate_rounded,
+                                    color: AppColors.primary),
                               ),
                               const SizedBox(width: AppSpacing.md),
-                              Expanded(
+                              const Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text('গণিত মডেল টেস্ট ১', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                                  children: [
+                                    Text('গণিত মডেল টেস্ট ১',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.textPrimary)),
                                     SizedBox(height: 2),
-                                    Text('৩০টি প্রশ্ন • ৪০ মিনিট • ৮ম শ্রেণি', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                    Text('৩০টি প্রশ্ন • ৪০ মিনিট • ৮ম শ্রেণি',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.textSecondary)),
                                   ],
                                 ),
                               ),
@@ -119,21 +137,32 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 4),
                                 decoration: BoxDecoration(
                                   color: AppColors.background,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: const Text('Not attempted', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                                child: const Text('Not attempted',
+                                    style: TextStyle(
+                                        fontSize: 11,
+                                        color: AppColors.textSecondary)),
                               ),
                               ElevatedButton.icon(
-                                onPressed: () => context.go('/practice-session-mcq'),
-                                icon: Text(l10n.startExam, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                                label: const Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 18),
+                                onPressed: () =>
+                                    context.go('/practice-session-mcq'),
+                                icon: Text(l10n.startExam,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)),
+                                label: const Icon(Icons.arrow_forward_rounded,
+                                    color: Colors.white, size: 18),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.primary,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
                                 ),
                               ),
                             ],
@@ -162,16 +191,24 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                                   color: Colors.green.shade100,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: Icon(Icons.science_rounded, color: Colors.green.shade800),
+                                child: Icon(Icons.science_rounded,
+                                    color: Colors.green.shade800),
                               ),
                               const SizedBox(width: AppSpacing.md),
-                              Expanded(
+                              const Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
-                                    Text('বিজ্ঞান মডেল টেস্ট ২', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                                  children: [
+                                    Text('বিজ্ঞান মডেল টেস্ট ২',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.textPrimary)),
                                     SizedBox(height: 2),
-                                    Text('২৫টি প্রশ্ন • ৩০ মিনিট • ৮ম শ্রেণি', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                    Text('২৫টি প্রশ্ন • ৩০ মিনিট • ৮ম শ্রেণি',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.textSecondary)),
                                   ],
                                 ),
                               ),
@@ -181,28 +218,40 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: const [
-                                  Text('৮২%', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green)),
+                              const Row(
+                                children: [
+                                  Text('৮২%',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green)),
                                   SizedBox(width: 8),
                                   SizedBox(
                                     width: 100,
                                     child: LinearProgressIndicator(
                                       value: 0.82,
                                       backgroundColor: AppColors.border,
-                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.green),
                                     ),
                                   ),
                                 ],
                               ),
                               OutlinedButton.icon(
                                 onPressed: () => context.go('/practice-result'),
-                                icon: Text(l10n.viewResult, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
-                                label: const Icon(Icons.analytics_outlined, color: AppColors.primary, size: 18),
+                                icon: Text(l10n.viewResult,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primary)),
+                                label: const Icon(Icons.analytics_outlined,
+                                    color: AppColors.primary, size: 18),
                                 style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: AppColors.primary),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                  side: const BorderSide(
+                                      color: AppColors.primary),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
                                 ),
                               ),
                             ],
@@ -214,7 +263,10 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                     // Higher Prep Section
                     Text(
                       l10n.higherPrep,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.md),
                     Row(
@@ -227,13 +279,21 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(color: AppColors.border),
                             ),
-                            child: Column(
+                            child: const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Icon(Icons.school_rounded, color: AppColors.primary, size: 28),
+                              children: [
+                                Icon(Icons.school_rounded,
+                                    color: AppColors.primary, size: 28),
                                 SizedBox(height: 8),
-                                Text('SSC প্রস্তুতি', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                                Text('Class 9-10', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                Text('SSC প্রস্তুতি',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.textPrimary)),
+                                Text('Class 9-10',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textSecondary)),
                               ],
                             ),
                           ),
@@ -247,13 +307,21 @@ class _ExamLibraryPageState extends State<ExamLibraryPage> {
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(color: AppColors.border),
                             ),
-                            child: Column(
+                            child: const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Icon(Icons.workspace_premium_rounded, color: Colors.amber, size: 28),
+                              children: [
+                                Icon(Icons.workspace_premium_rounded,
+                                    color: Colors.amber, size: 28),
                                 SizedBox(height: 8),
-                                Text('HSC প্রস্তুতি', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                                Text('Class 11-12', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                                Text('HSC প্রস্তুতি',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.textPrimary)),
+                                Text('Class 11-12',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textSecondary)),
                               ],
                             ),
                           ),

@@ -33,7 +33,8 @@ class ShikkhokThemeExtension extends ThemeExtension<ShikkhokThemeExtension> {
   }
 
   @override
-  ShikkhokThemeExtension lerp(ThemeExtension<ShikkhokThemeExtension>? other, double t) {
+  ShikkhokThemeExtension lerp(
+      ThemeExtension<ShikkhokThemeExtension>? other, double t) {
     if (other is! ShikkhokThemeExtension) return this;
     return ShikkhokThemeExtension(
       softShadow: t < 0.5 ? softShadow : other.softShadow,

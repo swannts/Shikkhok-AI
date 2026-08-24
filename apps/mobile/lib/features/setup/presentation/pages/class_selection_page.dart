@@ -16,14 +16,26 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
   String? _selectedGroup;
 
   final List<String> _classList = [
-    '১ম শ্রেণি', '২য় শ্রেণি', '৩য় শ্রেণি', '৪র্থ শ্রেণি',
-    '৫ম শ্রেণি', '৬ষ্ঠ শ্রেণি', '৭ম শ্রেণি', '৮ম শ্রেণি',
-    '৯ম শ্রেণি', '১০ম শ্রেণি', 'একাদশ', 'দ্বাদশ'
+    '১ম শ্রেণি',
+    '২য় শ্রেণি',
+    '৩য় শ্রেণি',
+    '৪র্থ শ্রেণি',
+    '৫ম শ্রেণি',
+    '৬ষ্ঠ শ্রেণি',
+    '৭ম শ্রেণি',
+    '৮ম শ্রেণি',
+    '৯ম শ্রেণি',
+    '১০ম শ্রেণি',
+    'একাদশ',
+    'দ্বাদশ'
   ];
 
-  bool get _requiresGroup => _selectedClassIndex != null && _selectedClassIndex! >= 8;
+  bool get _requiresGroup =>
+      _selectedClassIndex != null && _selectedClassIndex! >= 8;
 
-  bool get _canProceed => _selectedClassIndex != null && (!_requiresGroup || _selectedGroup != null);
+  bool get _canProceed =>
+      _selectedClassIndex != null &&
+      (!_requiresGroup || _selectedGroup != null);
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +47,16 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/verify-otp'),
         ),
         title: const Text(
           'Shikkhok-AI',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -56,8 +72,14 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(l10n.stepProgress('১'), style: const TextStyle(fontSize: 14, color: AppColors.textSecondary)),
-                        const Text('33%', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                        Text(l10n.stepProgress('১'),
+                            style: const TextStyle(
+                                fontSize: 14, color: AppColors.textSecondary)),
+                        const Text('33%',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary)),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.xs),
@@ -66,26 +88,32 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                       child: const LinearProgressIndicator(
                         value: 0.33,
                         backgroundColor: AppColors.border,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.primary),
                         minHeight: 8,
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xl),
                     Text(
                       l10n.selectClassTitle,
-                      style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.selectClassSubtitle,
-                      style: const TextStyle(fontSize: 16, color: AppColors.textSecondary),
+                      style: const TextStyle(
+                          fontSize: 16, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     // Class Selection Grid
                     GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 2.3,
                         crossAxisSpacing: 12,
@@ -106,10 +134,14 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                             duration: const Duration(milliseconds: 150),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: isSelected ? AppColors.primary.withAlpha(20) : AppColors.surface,
+                              color: isSelected
+                                  ? AppColors.primary.withAlpha(20)
+                                  : AppColors.surface,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: isSelected ? AppColors.primary : AppColors.border,
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : AppColors.border,
                                 width: isSelected ? 2 : 1,
                               ),
                             ),
@@ -118,7 +150,9 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
-                                color: isSelected ? AppColors.primary : AppColors.textPrimary,
+                                color: isSelected
+                                    ? AppColors.primary
+                                    : AppColors.textPrimary,
                               ),
                             ),
                           ),
@@ -130,14 +164,20 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                       const SizedBox(height: AppSpacing.xl),
                       Text(
                         l10n.selectGroupTitle,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                        style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary),
                       ),
                       const SizedBox(height: AppSpacing.md),
-                      _buildGroupChip('science', Icons.science_rounded, l10n.groupScience, Colors.green),
+                      _buildGroupChip('science', Icons.science_rounded,
+                          l10n.groupScience, Colors.green),
                       const SizedBox(height: AppSpacing.sm),
-                      _buildGroupChip('business', Icons.storefront_rounded, l10n.groupBusiness, Colors.amber),
+                      _buildGroupChip('business', Icons.storefront_rounded,
+                          l10n.groupBusiness, Colors.amber),
                       const SizedBox(height: AppSpacing.sm),
-                      _buildGroupChip('humanities', Icons.menu_book_rounded, l10n.groupHumanities, Colors.purple),
+                      _buildGroupChip('humanities', Icons.menu_book_rounded,
+                          l10n.groupHumanities, Colors.purple),
                     ],
                   ],
                 ),
@@ -154,10 +194,13 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: _canProceed ? () => context.go('/curriculum-selection') : null,
+                  onPressed: _canProceed
+                      ? () => context.go('/curriculum-selection')
+                      : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                     elevation: 0,
                   ),
                   child: Row(
@@ -165,10 +208,14 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                     children: [
                       Text(
                         l10n.next,
-                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                       const SizedBox(width: 6),
-                      const Icon(Icons.arrow_forward_rounded, size: 20, color: Colors.white),
+                      const Icon(Icons.arrow_forward_rounded,
+                          size: 20, color: Colors.white),
                     ],
                   ),
                 ),
@@ -180,7 +227,8 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
     );
   }
 
-  Widget _buildGroupChip(String groupKey, IconData icon, String label, Color accentColor) {
+  Widget _buildGroupChip(
+      String groupKey, IconData icon, String label, Color accentColor) {
     final isSelected = _selectedGroup == groupKey;
 
     return InkWell(
@@ -190,7 +238,8 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
         height: 60,
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary.withAlpha(20) : AppColors.surface,
+          color:
+              isSelected ? AppColors.primary.withAlpha(20) : AppColors.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected ? AppColors.primary : AppColors.border,
@@ -219,7 +268,8 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
             ),
             const Spacer(),
             if (isSelected)
-              const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 22),
+              const Icon(Icons.check_circle_rounded,
+                  color: AppColors.primary, size: 22),
           ],
         ),
       ),

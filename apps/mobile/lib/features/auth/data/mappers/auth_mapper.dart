@@ -1,15 +1,9 @@
 import '../../domain/entities/user.dart';
 import '../dto/user_dto.dart';
+import 'user_mapper.dart';
 
 extension UserDtoMapper on UserDto {
   User toDomain() {
-    return User(
-      id: id,
-      userId: userId,
-      name: name,
-      classId: classId,
-      className: className,
-      language: language,
-    );
+    return UserMapper.toDomain(this);
   }
 }

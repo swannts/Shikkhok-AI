@@ -22,7 +22,8 @@ class PaymentSuccessPage extends StatelessWidget {
         ),
         title: Text(
           l10n.paymentSuccessTitle,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+          style: const TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
         ),
       ),
       body: SafeArea(
@@ -40,12 +41,16 @@ class PaymentSuccessPage extends StatelessWidget {
                   color: Colors.green.shade100,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.check_circle_rounded, color: Colors.green, size: 64),
+                child: const Icon(Icons.check_circle_rounded,
+                    color: Colors.green, size: 64),
               ),
               const SizedBox(height: AppSpacing.md),
               const Text(
                 'পেমেন্ট সফল হয়েছে!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: 4),
               const Text(
@@ -81,14 +86,19 @@ class PaymentSuccessPage extends StatelessWidget {
                 height: 52,
                 child: ElevatedButton.icon(
                   onPressed: () => context.go('/'),
-                  icon: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 24),
+                  icon: const Icon(Icons.play_arrow_rounded,
+                      color: Colors.white, size: 24),
                   label: const Text(
                     'পড়াশোনা শুরু করুন',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
@@ -98,14 +108,19 @@ class PaymentSuccessPage extends StatelessWidget {
                 height: 50,
                 child: OutlinedButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.download_rounded, color: AppColors.primary),
+                  icon: const Icon(Icons.download_rounded,
+                      color: AppColors.primary),
                   label: const Text(
                     'রশিদ ডাউনলোড করুন',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.primary),
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary),
                   ),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: AppColors.primary),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
               ),
@@ -120,8 +135,14 @@ class PaymentSuccessPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
-        Text(val, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text(title,
+            style:
+                const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+        Text(val,
+            style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textPrimary)),
       ],
     );
   }

@@ -27,10 +27,12 @@ class AppSearchField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: AppTypography.body.copyWith(color: AppColors.textSecondary),
-        prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textSecondary, size: 20),
+        prefixIcon: const Icon(Icons.search_rounded,
+            color: AppColors.textSecondary, size: 20),
         suffixIcon: controller != null && controller!.text.isNotEmpty
             ? IconButton(
-                icon: const Icon(Icons.close_rounded, color: AppColors.textSecondary, size: 18),
+                icon: const Icon(Icons.close_rounded,
+                    color: AppColors.textSecondary, size: 18),
                 onPressed: () {
                   controller?.clear();
                   if (onClear != null) onClear!();
@@ -39,7 +41,8 @@ class AppSearchField extends StatelessWidget {
             : null,
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.smd),
+        contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.md, vertical: AppSpacing.smd),
         border: OutlineInputBorder(
           borderRadius: AppRadius.borderMd,
           borderSide: const BorderSide(color: AppColors.border, width: 1),

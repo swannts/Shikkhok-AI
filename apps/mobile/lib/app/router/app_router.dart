@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/analytics/presentation/pages/math_progress_detail_page.dart';
 import '../../features/analytics/presentation/pages/student_progress_dashboard_page.dart';
 import '../../features/analytics/presentation/pages/weekly_learning_report_page.dart';
+import '../../features/auth/presentation/pages/forgot_password_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/role_selection_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
@@ -88,6 +89,10 @@ final appRouter = GoRouter(
       builder: (context, state) => const VerifyOtpPage(),
     ),
     GoRoute(
+      path: '/forgot-password',
+      builder: (context, state) => const ForgotPasswordPage(),
+    ),
+    GoRoute(
       path: '/class-selection',
       builder: (context, state) => const ClassSelectionPage(),
     ),
@@ -101,6 +106,10 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/',
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/home',
       builder: (context, state) => const HomePage(),
     ),
     GoRoute(
@@ -120,36 +129,12 @@ final appRouter = GoRouter(
       builder: (context, state) => const LessonReaderPage(),
     ),
     GoRoute(
-      path: '/ai-tutor-chat',
-      builder: (context, state) => const AiTutorChatPage(),
+      path: '/textbook-library',
+      builder: (context, state) => const TextbookLibraryPage(),
     ),
     GoRoute(
-      path: '/ai-tutor-chat-variant',
-      builder: (context, state) => const AiTutorChatVariantPage(),
-    ),
-    GoRoute(
-      path: '/voice-ai-tutor',
-      builder: (context, state) => const VoiceAiTutorPage(),
-    ),
-    GoRoute(
-      path: '/ai-tutor-history',
-      builder: (context, state) => const AiTutorHistoryPage(),
-    ),
-    GoRoute(
-      path: '/ai-tutor-history-empty',
-      builder: (context, state) => const AiTutorHistoryEmptyPage(),
-    ),
-    GoRoute(
-      path: '/homework-help',
-      builder: (context, state) => const HomeworkHelpLandingPage(),
-    ),
-    GoRoute(
-      path: '/captured-homework-review',
-      builder: (context, state) => const CapturedHomeworkReviewPage(),
-    ),
-    GoRoute(
-      path: '/homework-ai-solution',
-      builder: (context, state) => const HomeworkAiSolutionPage(),
+      path: '/textbook-reader',
+      builder: (context, state) => const TextbookReaderPage(),
     ),
     GoRoute(
       path: '/practice-setup',
@@ -172,14 +157,6 @@ final appRouter = GoRouter(
       builder: (context, state) => const ExamLibraryPage(),
     ),
     GoRoute(
-      path: '/study-calendar',
-      builder: (context, state) => const StudyCalendarPage(),
-    ),
-    GoRoute(
-      path: '/todays-study-plan',
-      builder: (context, state) => const TodaysStudyPlanPage(),
-    ),
-    GoRoute(
       path: '/exam-instructions',
       builder: (context, state) => const ExamInstructionsPage(),
     ),
@@ -192,28 +169,68 @@ final appRouter = GoRouter(
       builder: (context, state) => const ExamResultPage(),
     ),
     GoRoute(
-      path: '/global-search',
-      builder: (context, state) => const GlobalSearchPage(),
+      path: '/todays-study-plan',
+      builder: (context, state) => const TodaysStudyPlanPage(),
     ),
     GoRoute(
-      path: '/offline-downloads',
-      builder: (context, state) => const OfflineDownloadsPage(),
+      path: '/study-calendar',
+      builder: (context, state) => const StudyCalendarPage(),
     ),
     GoRoute(
-      path: '/notifications',
-      builder: (context, state) => const NotificationsPage(),
+      path: '/homework-help-landing',
+      builder: (context, state) => const HomeworkHelpLandingPage(),
     ),
     GoRoute(
-      path: '/math-progress-detail',
-      builder: (context, state) => const MathProgressDetailPage(),
+      path: '/captured-homework-review',
+      builder: (context, state) => const CapturedHomeworkReviewPage(),
+    ),
+    GoRoute(
+      path: '/homework-ai-solution',
+      builder: (context, state) => const HomeworkAiSolutionPage(),
+    ),
+    GoRoute(
+      path: '/ai-tutor-chat',
+      builder: (context, state) => const AiTutorChatPage(),
+    ),
+    GoRoute(
+      path: '/ai-tutor-chat-variant',
+      builder: (context, state) => const AiTutorChatVariantPage(),
+    ),
+    GoRoute(
+      path: '/ai-tutor-history',
+      builder: (context, state) => const AiTutorHistoryPage(),
+    ),
+    GoRoute(
+      path: '/ai-tutor-history-empty',
+      builder: (context, state) => const AiTutorHistoryEmptyPage(),
+    ),
+    GoRoute(
+      path: '/voice-ai-tutor',
+      builder: (context, state) => const VoiceAiTutorPage(),
     ),
     GoRoute(
       path: '/student-progress-dashboard',
       builder: (context, state) => const StudentProgressDashboardPage(),
     ),
     GoRoute(
-      path: '/profile',
+      path: '/weekly-learning-report',
+      builder: (context, state) => const WeeklyLearningReportPage(),
+    ),
+    GoRoute(
+      path: '/math-progress-detail',
+      builder: (context, state) => const MathProgressDetailPage(),
+    ),
+    GoRoute(
+      path: '/student-achievements',
+      builder: (context, state) => const StudentAchievementsPage(),
+    ),
+    GoRoute(
+      path: '/student-profile',
       builder: (context, state) => const StudentProfilePage(),
+    ),
+    GoRoute(
+      path: '/parent-dashboard',
+      builder: (context, state) => const ParentDashboardPage(),
     ),
     GoRoute(
       path: '/subscription',
@@ -228,36 +245,28 @@ final appRouter = GoRouter(
       builder: (context, state) => const PaymentSuccessPage(),
     ),
     GoRoute(
-      path: '/settings',
-      builder: (context, state) => const SettingsPage(),
+      path: '/global-search',
+      builder: (context, state) => const GlobalSearchPage(),
     ),
     GoRoute(
-      path: '/weekly-report',
-      builder: (context, state) => const WeeklyLearningReportPage(),
+      path: '/notifications',
+      builder: (context, state) => const NotificationsPage(),
     ),
     GoRoute(
-      path: '/help-support',
-      builder: (context, state) => const HelpSupportPage(),
+      path: '/offline-downloads',
+      builder: (context, state) => const OfflineDownloadsPage(),
     ),
     GoRoute(
       path: '/source-citation',
       builder: (context, state) => const SourceCitationPage(),
     ),
     GoRoute(
-      path: '/textbook-library',
-      builder: (context, state) => const TextbookLibraryPage(),
+      path: '/settings',
+      builder: (context, state) => const SettingsPage(),
     ),
     GoRoute(
-      path: '/textbook-reader',
-      builder: (context, state) => const TextbookReaderPage(),
-    ),
-    GoRoute(
-      path: '/parent-dashboard',
-      builder: (context, state) => const ParentDashboardPage(),
-    ),
-    GoRoute(
-      path: '/student-achievements',
-      builder: (context, state) => const StudentAchievementsPage(),
+      path: '/help-support',
+      builder: (context, state) => const HelpSupportPage(),
     ),
   ],
 );

@@ -30,10 +30,16 @@ class AppAvatar extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     fontFamily: 'SutonnyMJ',
-                    fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+                    fontFamilyFallback: const [
+                      'SutonnyMJ',
+                      'Anek Bangla',
+                      'Hind Siliguri',
+                      'sans-serif'
+                    ],
                   ),
                 )
-              : Icon(Icons.person_rounded, size: radius * 1.1, color: Colors.white),
+              : Icon(Icons.person_rounded,
+                  size: radius * 1.1, color: Colors.white),
         ),
         if (isOnline)
           Positioned(

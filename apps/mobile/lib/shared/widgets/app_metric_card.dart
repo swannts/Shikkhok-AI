@@ -36,7 +36,8 @@ class AppMetricCard extends StatelessWidget {
               color: iconBackgroundColor ?? AppColors.primaryLight,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: iconColor ?? AppColors.primaryDark, size: 24),
+            child:
+                Icon(icon, color: iconColor ?? AppColors.primaryDark, size: 24),
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(
@@ -46,10 +47,15 @@ class AppMetricCard extends StatelessWidget {
               children: [
                 Text(title, style: AppTypography.caption),
                 const SizedBox(height: 2),
-                Text(value, style: AppTypography.cardTitle.copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(value,
+                    style: AppTypography.cardTitle
+                        .copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
                 if (subtitle != null) ...[
                   const SizedBox(height: 2),
-                  Text(subtitle!, style: AppTypography.caption.copyWith(color: AppColors.primaryDark, fontWeight: FontWeight.w600)),
+                  Text(subtitle!,
+                      style: AppTypography.caption.copyWith(
+                          color: AppColors.primaryDark,
+                          fontWeight: FontWeight.w600)),
                 ],
               ],
             ),

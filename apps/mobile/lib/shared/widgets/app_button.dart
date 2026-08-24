@@ -5,6 +5,7 @@ import '../../app/theme/app_spacing.dart';
 import '../../app/theme/app_typography.dart';
 
 enum AppButtonVariant { primary, secondary, outlined, text, danger }
+
 enum AppButtonSize { small, medium, large }
 
 class AppButton extends StatelessWidget {

@@ -84,7 +84,12 @@ class MinimalsChip extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: textColor ?? AppColors.primaryDark,
               fontFamily: 'SutonnyMJ',
-              fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+              fontFamilyFallback: const [
+                'SutonnyMJ',
+                'Anek Bangla',
+                'Hind Siliguri',
+                'sans-serif'
+              ],
             ),
           ),
         ],
@@ -130,8 +135,10 @@ class MinimalsButton extends StatelessWidget {
         child: OutlinedButton(
           onPressed: onPressed,
           style: OutlinedButton.styleFrom(
-            side: BorderSide(color: backgroundColor ?? AppColors.primary, width: 1.5),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            side: BorderSide(
+                color: backgroundColor ?? AppColors.primary, width: 1.5),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -147,7 +154,12 @@ class MinimalsButton extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: textColor ?? AppColors.primary,
                   fontFamily: 'SutonnyMJ',
-                  fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+                  fontFamilyFallback: const [
+                    'SutonnyMJ',
+                    'Anek Bangla',
+                    'Hind Siliguri',
+                    'sans-serif'
+                  ],
                 ),
               ),
             ],
@@ -163,7 +175,8 @@ class MinimalsButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor ?? AppColors.primary,
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -179,7 +192,12 @@ class MinimalsButton extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: textColor ?? Colors.white,
                 fontFamily: 'SutonnyMJ',
-                fontFamilyFallback: const ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+                fontFamilyFallback: const [
+                  'SutonnyMJ',
+                  'Anek Bangla',
+                  'Hind Siliguri',
+                  'sans-serif'
+                ],
               ),
             ),
           ],
@@ -218,7 +236,12 @@ class MinimalsInput extends StatelessWidget {
         fontSize: 14,
         color: AppColors.textPrimary,
         fontFamily: 'SutonnyMJ',
-        fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+        fontFamilyFallback: [
+          'SutonnyMJ',
+          'Anek Bangla',
+          'Hind Siliguri',
+          'sans-serif'
+        ],
       ),
       decoration: InputDecoration(
         hintText: hintText,
@@ -226,13 +249,19 @@ class MinimalsInput extends StatelessWidget {
           fontSize: 14,
           color: AppColors.textSecondary,
           fontFamily: 'SutonnyMJ',
-          fontFamilyFallback: ['SutonnyMJ', 'Anek Bangla', 'Hind Siliguri', 'sans-serif'],
+          fontFamilyFallback: [
+            'SutonnyMJ',
+            'Anek Bangla',
+            'Hind Siliguri',
+            'sans-serif'
+          ],
         ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.border, width: 1),

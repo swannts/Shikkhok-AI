@@ -26,12 +26,16 @@ class SubjectDetailsPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/learn'),
         ),
         title: Text(
           l10n.subjectMath,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
+          style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary),
         ),
       ),
       body: SafeArea(
@@ -57,7 +61,8 @@ class SubjectDetailsPage extends StatelessWidget {
                         color: AppColors.primary,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.calculate_rounded, color: Colors.white, size: 32),
+                      child: const Icon(Icons.calculate_rounded,
+                          color: Colors.white, size: 32),
                     ),
                     const SizedBox(width: AppSpacing.md),
                     Expanded(
@@ -66,11 +71,21 @@ class SubjectDetailsPage extends StatelessWidget {
                         children: [
                           Text(
                             l10n.subjectMath,
-                            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                            style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary),
                           ),
-                          const Text('Mathematics • Class 8', style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+                          const Text('Mathematics • Class 8',
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: AppColors.textSecondary)),
                           const SizedBox(height: 6),
-                          const Text('১২টি অধ্যায় • ৪৮টি পাঠ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.primary)),
+                          const Text('১২টি অধ্যায় • ৪৮টি পাঠ',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.primary)),
                         ],
                       ),
                     ),
@@ -80,14 +95,18 @@ class SubjectDetailsPage extends StatelessWidget {
               const SizedBox(height: AppSpacing.xl),
               Text(
                 l10n.chapterDetailsTitle,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary),
               ),
               const SizedBox(height: AppSpacing.md),
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: chapters.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 12),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final ch = chapters[index];
                   return InkWell(
@@ -106,11 +125,15 @@ class SubjectDetailsPage extends StatelessWidget {
                             width: 44,
                             height: 44,
                             decoration: BoxDecoration(
-                              color: ch.$5 ? Colors.green.withAlpha(20) : AppColors.primary.withAlpha(20),
+                              color: ch.$5
+                                  ? Colors.green.withAlpha(20)
+                                  : AppColors.primary.withAlpha(20),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
-                              ch.$5 ? Icons.check_circle_rounded : Icons.play_arrow_rounded,
+                              ch.$5
+                                  ? Icons.check_circle_rounded
+                                  : Icons.play_arrow_rounded,
                               color: ch.$5 ? Colors.green : AppColors.primary,
                             ),
                           ),
@@ -119,8 +142,15 @@ class SubjectDetailsPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(ch.$1, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                                Text(ch.$2, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                                Text(ch.$1,
+                                    style: const TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textSecondary)),
+                                Text(ch.$2,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.textPrimary)),
                                 const SizedBox(height: 4),
                                 Row(
                                   children: [
@@ -130,19 +160,28 @@ class SubjectDetailsPage extends StatelessWidget {
                                         child: LinearProgressIndicator(
                                           value: ch.$4,
                                           backgroundColor: AppColors.border,
-                                          valueColor: AlwaysStoppedAnimation<Color>(ch.$5 ? Colors.green : AppColors.primary),
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  ch.$5
+                                                      ? Colors.green
+                                                      : AppColors.primary),
                                           minHeight: 5,
                                         ),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
-                                    Text('${(ch.$4 * 100).toInt()}%', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+                                    Text('${(ch.$4 * 100).toInt()}%',
+                                        style: const TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.textSecondary)),
                                   ],
                                 ),
                               ],
                             ),
                           ),
-                          const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
+                          const Icon(Icons.chevron_right_rounded,
+                              color: AppColors.textSecondary),
                         ],
                       ),
                     ),
