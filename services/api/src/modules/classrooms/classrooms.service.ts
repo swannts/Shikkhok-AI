@@ -1,8 +1,4 @@
-import {
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UserRole } from '../users/enums/user-role.enum';
