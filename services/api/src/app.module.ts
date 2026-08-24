@@ -22,6 +22,7 @@ import { SyncModule } from './modules/sync/sync.module';
 import { ExamsModule } from './modules/exams/exams.module';
 import { HomeworkModule } from './modules/homework/homework.module';
 import { TextbooksModule } from './modules/textbooks/textbooks.module';
+import { SearchModule } from './modules/search/search.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { TextbooksModule } from './modules/textbooks/textbooks.module';
     ExamsModule,
     HomeworkModule,
     TextbooksModule,
+    SearchModule,
   ],
   providers: [AppLoggerService],
 })
