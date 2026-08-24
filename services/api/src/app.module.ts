@@ -8,8 +8,8 @@ import { QueueModule } from './core/queue/queue.module';
 import { HealthModule } from './core/health/health.module';
 import { AppLoggerService } from './core/logging/logging.service';
 import { HTTPLoggerMiddleware } from './core/logging/logger.middleware';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -22,9 +22,10 @@ import { AppService } from './app.service';
     RedisModule,
     QueueModule,
     HealthModule,
+    UsersModule,
+    AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, AppLoggerService],
+  providers: [AppLoggerService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
