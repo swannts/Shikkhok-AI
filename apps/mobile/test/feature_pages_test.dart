@@ -95,7 +95,8 @@ Widget createTestApp(
 }) {
   return ProviderScope(
     overrides: [
-      curriculumRepositoryProvider.overrideWithValue(FakeCurriculumRepository()),
+      curriculumRepositoryProvider
+          .overrideWithValue(FakeCurriculumRepository()),
       homeDashboardProvider.overrideWith((ref) => Future.value(
             const HomeDashboardData(
               profile: StudentProfile(
@@ -120,7 +121,8 @@ Widget createTestApp(
                   medium: 'bangla',
                 ),
               ],
-              gamification: GamificationSummary(streakDays: 7, totalPoints: 350),
+              gamification:
+                  GamificationSummary(streakDays: 7, totalPoints: 350),
             ),
           )),
       ...overrides,

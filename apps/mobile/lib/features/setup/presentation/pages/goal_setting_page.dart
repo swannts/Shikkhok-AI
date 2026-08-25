@@ -272,13 +272,9 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
                           ref
                               .read(studentProfileControllerProvider.notifier)
                               .setDraftGoalsAndSubjects(
-                                goals: goalLabels,
-                                subjects: const [
-                                  'math',
-                                  'science',
-                                  'english'
-                                ],
-                              );
+                            goals: goalLabels,
+                            subjects: const ['math', 'science', 'english'],
+                          );
                           await ref
                               .read(studentProfileControllerProvider.notifier)
                               .saveCompleteProfile();

@@ -35,6 +35,12 @@ class ApiEndpoints {
   static String progressLesson(String lessonId) =>
       '/progress/me/lessons/$lessonId';
 
+  // Practice & Question Bank
+  static String practiceLessonQuestions(String lessonId) =>
+      '/practice/lessons/$lessonId/questions';
+  static const String practiceSubmit = '/practice/submit';
+  static const String practiceMyAttempts = '/practice/me/attempts';
+
   // Study Plan
   static const String studyPlanCurrent = '/study-plan/me/current';
   static const String studyPlanHistory = '/study-plan/me/history';
@@ -42,7 +48,8 @@ class ApiEndpoints {
 
   // Gamification
   static const String gamificationSummary = '/gamification/me/summary';
-  static const String gamificationAchievements = '/gamification/me/achievements';
+  static const String gamificationAchievements =
+      '/gamification/me/achievements';
   static const String gamificationRecordStreak =
       '/gamification/me/streak/record';
   static const String gamificationLeaderboard = '/gamification/leaderboard';

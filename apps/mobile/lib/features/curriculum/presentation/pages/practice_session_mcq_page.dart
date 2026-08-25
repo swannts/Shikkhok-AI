@@ -1,25 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../practice/presentation/controllers/practice_controller.dart';
 
-class PracticeSessionMcqPage extends StatefulWidget {
+class PracticeSessionMcqPage extends ConsumerStatefulWidget {
   const PracticeSessionMcqPage({super.key});
 
   @override
-  State<PracticeSessionMcqPage> createState() => _PracticeSessionMcqPageState();
+  ConsumerState<PracticeSessionMcqPage> createState() =>
+      _PracticeSessionMcqPageState();
 }
 
-class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
-  int? _selectedOption; // 0: A, 1: B (Wrong), 2: C (Correct), 3: D
-  bool _submitted = false;
-
+class _PracticeSessionMcqPageState
+    extends ConsumerState<PracticeSessionMcqPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final practiceState = ref.watch(practiceControllerProvider);
+    final notifier = ref.read(practiceControllerProvider.notifier);
 
-    final options = ['২', '৩', '৪', '৫'];
+    if (practiceState is PracticeLoading) {
+      return const Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
+      );
+    }
+
+    if (practiceState is PracticeSessionCompleted) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.check_circle_rounded,
+                    color: AppColors.primary, size: 64),
+                const SizedBox(height: AppSpacing.md),
+                const Text(
+                  'অনুশীলন সম্পন্ন হয়েছে!',
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary),
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  'সঠিক উত্তর: ${practiceState.correctCount} / ${practiceState.totalQuestions}',
+                  style: const TextStyle(
+                      fontSize: 16, color: AppColors.textSecondary),
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    onPressed: () => context.go('/practice-result'),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary),
+                    child: const Text('ফলাফল দেখুন',
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    final activeSession =
+        practiceState is PracticeActiveSession ? practiceState : null;
+
+    final currentQuestion = activeSession?.currentQuestion;
+    final questionText =
+        currentQuestion?.prompt ?? 'যদি 2x + 6 = 12 হয়, তবে x এর মান কত?';
+    final options = (currentQuestion?.options.isNotEmpty ?? false)
+        ? currentQuestion!.options
+        : const ['২', '৩', '৪', '৫'];
+
+    final currentNumber = (activeSession?.currentIndex ?? 0) + 1;
+    final totalCount = activeSession?.totalQuestions ?? 10;
+    final progressValue = totalCount > 0 ? currentNumber / totalCount : 0.3;
+
+    final selectedOption = activeSession?.selectedOptionId;
+    final submittedResult = activeSession?.currentResult;
+    final isSubmitted = submittedResult != null;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -31,7 +103,7 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
           onPressed: () => context.go('/practice-setup'),
         ),
         title: Text(
-          l10n.questionProgress(3, 10),
+          l10n.questionProgress(currentNumber, totalCount),
           style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -56,12 +128,12 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
             ),
           ),
         ],
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(4),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4),
           child: LinearProgressIndicator(
-            value: 0.3,
+            value: progressValue,
             backgroundColor: AppColors.border,
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
             minHeight: 4,
           ),
         ),
@@ -75,196 +147,160 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Question Card
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 4),
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(AppSpacing.lg),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withAlpha(15),
-                        borderRadius: BorderRadius.circular(12),
-                        border:
-                            Border.all(color: AppColors.primary.withAlpha(30)),
+                        color: AppColors.surface,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColors.border),
                       ),
-                      child: const Text(
-                        'গণিত • সরল সমীকরণ',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primary),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary.withAlpha(20),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  'প্রশ্ন $currentNumber',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                              ),
+                              const Icon(Icons.bookmark_border_rounded,
+                                  color: AppColors.textSecondary),
+                            ],
+                          ),
+                          const SizedBox(height: AppSpacing.md),
+                          Text(
+                            questionText,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              height: 1.5,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    const Text(
-                      '২x + ৬ = ১৪ হলে x এর মান কত?',
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xl),
+
                     // Options List
-                    ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: options.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 12),
-                      itemBuilder: (context, index) {
-                        final isSelected = _selectedOption == index;
-                        final isCorrect = index == 2; // C is correct answer
+                    ...List.generate(options.length, (index) {
+                      final optionId = 'option-$index';
+                      final optionLabel =
+                          String.fromCharCode(65 + index); // A, B, C, D
+                      final optionText = options[index];
+                      final isSelected = selectedOption == optionId ||
+                          selectedOption == optionText;
 
-                        Color bgColor = AppColors.surface;
-                        Color borderColor = AppColors.border;
-                        Color textColor = AppColors.textPrimary;
-                        Widget? suffixIcon;
+                      Color borderColor = AppColors.border;
+                      Color bgColor = AppColors.surface;
+                      Widget? trailingIcon;
 
-                        if (_submitted) {
-                          if (isCorrect) {
-                            bgColor = Colors.green.shade100;
+                      if (isSubmitted) {
+                        if (isSelected) {
+                          if (submittedResult.isCorrect) {
                             borderColor = Colors.green;
-                            textColor = Colors.green.shade900;
-                            suffixIcon = Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 2),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Text(
-                                    l10n.correctAnswer,
-                                    style: const TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                const Icon(Icons.check_rounded,
-                                    color: Colors.green),
-                              ],
-                            );
-                          } else if (isSelected && !isCorrect) {
-                            bgColor = Colors.red.shade100;
+                            bgColor = Colors.green.withAlpha(20);
+                            trailingIcon = const Icon(
+                                Icons.check_circle_rounded,
+                                color: Colors.green);
+                          } else {
                             borderColor = Colors.red;
-                            textColor = Colors.red.shade900;
-                            suffixIcon = Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 2),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Text(
-                                    l10n.wrongAnswer,
-                                    style: const TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                const Icon(Icons.close_rounded,
-                                    color: Colors.red),
-                              ],
-                            );
+                            bgColor = Colors.red.withAlpha(20);
+                            trailingIcon = const Icon(Icons.cancel_rounded,
+                                color: Colors.red);
                           }
-                        } else if (isSelected) {
-                          borderColor = AppColors.primary;
-                          bgColor = AppColors.primary.withAlpha(20);
                         }
+                      } else if (isSelected) {
+                        borderColor = AppColors.primary;
+                        bgColor = AppColors.primary.withAlpha(20);
+                        trailingIcon = const Icon(
+                            Icons.radio_button_checked_rounded,
+                            color: AppColors.primary);
+                      }
 
-                        return InkWell(
-                          onTap: _submitted
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                        child: InkWell(
+                          onTap: isSubmitted
                               ? null
-                              : () => setState(() => _selectedOption = index),
+                              : () => notifier.selectOption(optionId),
                           borderRadius: BorderRadius.circular(16),
                           child: Container(
-                            padding: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(AppSpacing.md),
                             decoration: BoxDecoration(
                               color: bgColor,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
                                   color: borderColor,
-                                  width:
-                                      (isSelected || (_submitted && isCorrect))
-                                          ? 2
-                                          : 1),
+                                  width: isSelected ? 2 : 1),
                             ),
                             child: Row(
                               children: [
-                                Text(
-                                  '${String.fromCharCode(65 + index)}.',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor),
-                                ),
-                                const SizedBox(width: 14),
-                                Expanded(
-                                  child: Text(
-                                    options[index],
-                                    style: TextStyle(
-                                        fontSize: 16,
+                                Container(
+                                  width: 32,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.surfaceMuted,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      optionLabel,
+                                      style: TextStyle(
+                                        fontSize: 14,
                                         fontWeight: FontWeight.bold,
-                                        color: textColor),
+                                        color: isSelected
+                                            ? Colors.white
+                                            : AppColors.textSecondary,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                if (suffixIcon != null) suffixIcon,
+                                const SizedBox(width: AppSpacing.md),
+                                Expanded(
+                                  child: Text(
+                                    optionText,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: isSelected
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                ),
+                                if (trailingIcon != null) trailingIcon,
                               ],
                             ),
                           ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    // Explanation Sheet when submitted
-                    if (_submitted)
-                      Container(
-                        padding: const EdgeInsets.all(AppSpacing.md),
-                        decoration: BoxDecoration(
-                          color: AppColors.surface,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: AppColors.border),
                         ),
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(Icons.lightbulb_rounded,
-                                    color: Colors.amber, size: 22),
-                                SizedBox(width: 8),
-                                Text(
-                                  'সমাধান ও ব্যাখ্যা',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.primary),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              '২x + ৬ = ১৪\n➔ ২x = ১৪ - ৬ (পক্ষান্তর করে)\n➔ ২x = ৮\n➔ x = ৪',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  height: 1.6,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textPrimary),
-                            ),
-                          ],
-                        ),
-                      ),
+                      );
+                    }),
                   ],
                 ),
               ),
             ),
-            // Bottom Sticky Action
+
+            // Bottom Verification Action Bar
             Container(
-              padding: const EdgeInsets.all(AppSpacing.md),
+              padding: const EdgeInsets.all(AppSpacing.lg),
               decoration: const BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
@@ -273,22 +309,22 @@ class _PracticeSessionMcqPageState extends State<PracticeSessionMcqPage> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: _selectedOption == null
-                      ? null
-                      : () {
-                          if (!_submitted) {
-                            setState(() => _submitted = true);
-                          } else {
-                            context.go('/practice-result');
-                          }
-                        },
+                  onPressed: isSubmitted
+                      ? () => notifier.nextQuestion()
+                      : (selectedOption != null
+                          ? () => notifier.submitCurrentAnswer()
+                          : null),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                   ),
                   child: Text(
-                    _submitted ? l10n.next : 'যাচাই করুন',
+                    isSubmitted
+                        ? (activeSession?.isLastQuestion ?? false
+                            ? 'ফলাফল দেখুন'
+                            : 'পরবর্তী প্রশ্ন')
+                        : 'উত্তর যাচাই করুন',
                     style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
