@@ -1,36 +1,64 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/features/sync/domain/entities/sync_operation.dart';
 import 'package:mobile/features/sync/domain/entities/sync_batch_result.dart';
+import 'package:mobile/features/sync/domain/entities/sync_checkpoint.dart';
 import 'package:mobile/features/sync/domain/repositories/sync_repository.dart';
 import 'package:mobile/features/sync/presentation/controllers/sync_controller.dart';
 
 class FakeSyncRepository implements SyncRepository {
+  final List<SyncOperation> _queue = [];
+
   @override
-  Future<SyncBatchResult> submitBatch({
+  Future<void> enqueueOperation(SyncOperation operation) async {
+    _queue.add(operation);
+  }
+
+  @override
+  Future<SyncBatchResult> flushPending({
     required String deviceId,
-    required List<SyncOperation> operations,
+    int limit = 50,
   }) async {
+    final count = _queue.length;
+    final results = _queue
+        .map((op) =>
+            SyncOperationResult(operationId: op.operationId, status: 'applied'))
+        .toList();
+    _queue.clear();
     return SyncBatchResult(
-      received: operations.length,
-      applied: operations.length,
+      received: count,
+      applied: count,
       failed: 0,
-      results: operations
-          .map((op) => SyncOperationResult(
-                operationId: op.operationId,
-                status: 'applied',
-              ))
-          .toList(),
+      results: results,
     );
   }
 
   @override
-  Future<int> getMyCheckpoint(String deviceId) async => 1;
+  Future<SyncCheckpoint> getCheckpoint(String deviceId) async {
+    return SyncCheckpoint(
+      deviceId: deviceId,
+      lastSyncedAt: DateTime.now(),
+      lastOperationId: 'op-1',
+      lastBatchSize: 1,
+      status: SyncCheckpointStatus.applied,
+    );
+  }
+
+  @override
+  Future<int> restoreStuckProcessing(
+          {Duration timeout = const Duration(minutes: 5)}) async =>
+      0;
+
+  @override
+  Future<int> countPending() async => _queue.length;
+
+  @override
+  Future<List<SyncOperation>> listPending() async => List.unmodifiable(_queue);
 }
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('SyncController Unit Tests', () {
+  group('SyncController Tests', () {
     late SyncController controller;
     late FakeSyncRepository repository;
 
@@ -39,36 +67,37 @@ void main() {
       controller = SyncController(repository);
     });
 
-    test('Initial state is SyncInitial and queue is empty', () {
+    test('Initial state is SyncInitial', () {
       expect(controller.state, isA<SyncInitial>());
-      expect(controller.pendingOperations.isEmpty, isTrue);
     });
 
-    test('enqueueOperation adds operation to pending queue', () {
-      controller.enqueueOperation(const SyncOperation(
-        operationId: 'op-1',
-        operationType: SyncOperationType.lessonProgressUpsert,
-        entityType: 'lesson_progress',
-        payload: {'lessonId': 'les-1'},
+    test('enqueueLessonProgress queues typed operation', () async {
+      await controller.enqueueLessonProgress(const LessonProgressSyncPayload(
+        lessonId: 'les-1',
+        progressPercent: 100,
+        isCompleted: true,
       ));
 
-      expect(controller.pendingOperations.length, 1);
+      expect(await repository.countPending(), 1);
+      final pending = await repository.listPending();
+      expect(
+          pending.first.operationType, SyncOperationType.lessonProgressUpsert);
+      expect(pending.first.entityType, 'lesson_progress');
     });
 
-    test('flushQueue sends batch and empties queue on success', () async {
-      controller.enqueueOperation(const SyncOperation(
-        operationId: 'op-1',
-        operationType: SyncOperationType.lessonProgressUpsert,
-        entityType: 'lesson_progress',
-        payload: {'lessonId': 'les-1'},
+    test('flushQueue sends batch and sets SyncSuccess state', () async {
+      await controller.enqueueStudyPlan(const StudyPlanSyncPayload(
+        weekStartDate: '2026-08-25',
       ));
 
-      final result = await controller.flushQueue(deviceId: 'device-1');
+      final result = await controller.flushQueue(deviceId: 'dev-1');
 
       expect(result, isNotNull);
       expect(result!.applied, 1);
       expect(controller.state, isA<SyncSuccess>());
-      expect(controller.pendingOperations.isEmpty, isTrue);
+      final success = controller.state as SyncSuccess;
+      expect(success.checkpoint?.deviceId, 'dev-1');
+      expect(await repository.countPending(), 0);
     });
   });
 }

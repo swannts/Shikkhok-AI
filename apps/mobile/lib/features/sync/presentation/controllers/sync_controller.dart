@@ -1,19 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/database/app_database.dart';
 import '../../../../core/errors/app_failure.dart';
 import '../../../../core/network/api_client.dart';
 import '../../domain/entities/sync_operation.dart';
 import '../../domain/entities/sync_batch_result.dart';
+import '../../domain/entities/sync_checkpoint.dart';
 import '../../domain/repositories/sync_repository.dart';
+import '../../data/datasources/sync_local_data_source.dart';
 import '../../data/datasources/sync_remote_data_source.dart';
 import '../../data/repositories/sync_repository_impl.dart';
+
+final syncLocalDataSourceProvider = Provider<SyncLocalDataSource>((ref) {
+  return SyncLocalDataSourceImpl(appDatabase);
+});
 
 final syncRemoteDataSourceProvider = Provider<SyncRemoteDataSource>((ref) {
   return SyncRemoteDataSourceImpl(apiClient);
 });
 
 final syncRepositoryProvider = Provider<SyncRepository>((ref) {
+  final localDataSource = ref.watch(syncLocalDataSourceProvider);
   final remoteDataSource = ref.watch(syncRemoteDataSourceProvider);
-  return SyncRepositoryImpl(remoteDataSource, apiClient);
+  return SyncRepositoryImpl(localDataSource, remoteDataSource, apiClient);
 });
 
 sealed class SyncState {
@@ -31,7 +39,8 @@ class SyncInProgress extends SyncState {
 
 class SyncSuccess extends SyncState {
   final SyncBatchResult result;
-  const SyncSuccess(this.result);
+  final SyncCheckpoint? checkpoint;
+  const SyncSuccess(this.result, {this.checkpoint});
 }
 
 class SyncFailureState extends SyncState {
@@ -41,40 +50,83 @@ class SyncFailureState extends SyncState {
 
 class SyncController extends StateNotifier<SyncState> {
   final SyncRepository _repository;
-  final List<SyncOperation> _offlineQueue = [];
 
-  SyncController(this._repository) : super(const SyncInitial());
+  SyncController(this._repository) : super(const SyncInitial()) {
+    _initialize();
+  }
 
-  List<SyncOperation> get pendingOperations => List.unmodifiable(_offlineQueue);
+  Future<void> _initialize() async {
+    try {
+      await _repository.restoreStuckProcessing();
+    } catch (_) {}
+  }
 
-  void enqueueOperation(SyncOperation operation) {
-    _offlineQueue.add(operation);
+  Future<void> enqueueOperation(SyncOperation operation) async {
+    await _repository.enqueueOperation(operation);
+  }
+
+  Future<void> enqueueLessonProgress(LessonProgressSyncPayload payload) async {
+    final now = DateTime.now();
+    final op = SyncOperation(
+      operationId:
+          'op_lesson_${payload.lessonId}_${now.millisecondsSinceEpoch}',
+      operationType: SyncOperationType.lessonProgressUpsert,
+      entityType: 'lesson_progress',
+      entityId: payload.lessonId,
+      payload: payload,
+      createdAt: now,
+      updatedAt: now,
+    );
+    await enqueueOperation(op);
+  }
+
+  Future<void> enqueueStudyPlan(StudyPlanSyncPayload payload) async {
+    final now = DateTime.now();
+    final op = SyncOperation(
+      operationId: 'op_study_plan_${now.millisecondsSinceEpoch}',
+      operationType: SyncOperationType.studyPlanUpsert,
+      entityType: 'study_plan',
+      payload: payload,
+      createdAt: now,
+      updatedAt: now,
+    );
+    await enqueueOperation(op);
+  }
+
+  Future<void> enqueueNotificationRead(
+      NotificationReadSyncPayload payload) async {
+    final now = DateTime.now();
+    final op = SyncOperation(
+      operationId:
+          'op_notif_${payload.notificationId}_${now.millisecondsSinceEpoch}',
+      operationType: SyncOperationType.notificationMarkRead,
+      entityType: 'notification',
+      entityId: payload.notificationId,
+      payload: payload,
+      createdAt: now,
+      updatedAt: now,
+    );
+    await enqueueOperation(op);
   }
 
   Future<SyncBatchResult?> flushQueue({required String deviceId}) async {
-    if (_offlineQueue.isEmpty) {
-      return const SyncBatchResult();
+    final count = await _repository.countPending();
+    if (count == 0) {
+      const emptyResult = SyncBatchResult();
+      state = const SyncSuccess(emptyResult);
+      return emptyResult;
     }
 
-    final operationsToSync = List<SyncOperation>.from(_offlineQueue);
-    state = SyncInProgress(operationsToSync.length);
+    state = SyncInProgress(count);
 
     try {
-      final result = await _repository.submitBatch(
-        deviceId: deviceId,
-        operations: operationsToSync,
-      );
+      final result = await _repository.flushPending(deviceId: deviceId);
+      SyncCheckpoint? checkpoint;
+      try {
+        checkpoint = await _repository.getCheckpoint(deviceId);
+      } catch (_) {}
 
-      // Remove successfully processed operations from queue
-      final successfulOpIds = result.results
-          .where((r) => r.isSuccessful)
-          .map((r) => r.operationId)
-          .toSet();
-
-      _offlineQueue
-          .removeWhere((op) => successfulOpIds.contains(op.operationId));
-
-      state = SyncSuccess(result);
+      state = SyncSuccess(result, checkpoint: checkpoint);
       return result;
     } on AppFailure catch (failure) {
       state = SyncFailureState(failure.message);
@@ -83,6 +135,10 @@ class SyncController extends StateNotifier<SyncState> {
       state = const SyncFailureState('অফলাইন সিঙ্ক সম্পন্ন করা যায়নি');
       return null;
     }
+  }
+
+  Future<int> getPendingCount() async {
+    return _repository.countPending();
   }
 }
 

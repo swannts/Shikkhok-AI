@@ -1,6 +1,7 @@
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_endpoints.dart';
 import '../dto/sync_dto.dart';
+import '../dto/sync_checkpoint_dto.dart';
 import '../../domain/entities/sync_operation.dart';
 
 abstract class SyncRemoteDataSource {
@@ -9,7 +10,7 @@ abstract class SyncRemoteDataSource {
     required List<SyncOperation> operations,
   });
 
-  Future<int> getMyCheckpoint(String deviceId);
+  Future<SyncCheckpointDto> getMyCheckpoint(String deviceId);
 }
 
 class SyncRemoteDataSourceImpl implements SyncRemoteDataSource {
@@ -33,7 +34,7 @@ class SyncRemoteDataSourceImpl implements SyncRemoteDataSource {
             'operationType': op.operationType.toApiString(),
             'entityType': op.entityType,
             if (op.entityId != null) 'entityId': op.entityId,
-            'payload': op.payload,
+            'payload': op.payload.toJson(),
           };
         }).toList(),
       },
@@ -48,7 +49,7 @@ class SyncRemoteDataSourceImpl implements SyncRemoteDataSource {
   }
 
   @override
-  Future<int> getMyCheckpoint(String deviceId) async {
+  Future<SyncCheckpointDto> getMyCheckpoint(String deviceId) async {
     final response =
         await _apiClient.dio.get(ApiEndpoints.syncCheckpoint(deviceId));
     final raw = response.data;
@@ -56,6 +57,6 @@ class SyncRemoteDataSourceImpl implements SyncRemoteDataSource {
         ? raw['data'] as Map<String, dynamic>
         : raw as Map<String, dynamic>;
 
-    return (map['checkpointVersion'] as num?)?.toInt() ?? 0;
+    return SyncCheckpointDto.fromJson(map);
   }
 }
