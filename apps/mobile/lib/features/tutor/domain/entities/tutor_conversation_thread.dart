@@ -10,7 +10,7 @@ class TutorConversationThread {
   const TutorConversationThread({
     required this.conversation,
     required this.messages,
-    required this.nextCursor,
-    required this.hasNext,
+    this.nextCursor,
+    this.hasNext = false,
   });
 }

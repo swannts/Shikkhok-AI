@@ -1,8 +1,13 @@
+import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/errors/app_failure.dart';
 import '../../../../core/network/api_client.dart';
 import '../../data/repositories/tutor_repository_impl.dart';
+import '../../domain/entities/tutor_message.dart';
+import '../../domain/entities/tutor_citation.dart';
+import '../../domain/entities/tutor_stream_event.dart';
 import '../../domain/repositories/tutor_repository.dart';
 import '../state/tutor_state.dart';
 
@@ -19,8 +24,26 @@ final tutorControllerProvider =
 
 class TutorController extends StateNotifier<TutorState> {
   final TutorRepository _repository;
+  StreamSubscription<TutorStreamEvent>? _streamSubscription;
+  CancelToken? _cancelToken;
 
   TutorController(this._repository) : super(const TutorState.initial());
+
+  @override
+  void dispose() {
+    stopGeneration();
+    super.dispose();
+  }
+
+  void stopGeneration() {
+    _streamSubscription?.cancel();
+    _streamSubscription = null;
+    _cancelToken?.cancel('User cancelled generation');
+    _cancelToken = null;
+    if (state.isStreaming) {
+      state = state.copyWith(isStreaming: false);
+    }
+  }
 
   Future<void> loadInitial({String? conversationId}) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
@@ -159,6 +182,124 @@ class TutorController extends StateNotifier<TutorState> {
       state = state.copyWith(isSending: false, errorMessage: e.banglaMessage);
     } catch (e) {
       state = state.copyWith(isSending: false, errorMessage: e.toString());
+    }
+  }
+
+  Future<void> streamMessage(String content) async {
+    final trimmed = content.trim();
+    if (trimmed.isEmpty) return;
+
+    final activeConversation = state.activeConversation;
+    if (activeConversation == null) {
+      await startConversation(initialMessage: trimmed);
+      return;
+    }
+
+    stopGeneration();
+
+    final userMessage = TutorMessage(
+      id: 'msg_user_${DateTime.now().millisecondsSinceEpoch}',
+      role: TutorMessageRole.user,
+      content: trimmed,
+      createdAt: DateTime.now(),
+      citations: const [],
+    );
+
+    final assistantTempId =
+        'msg_assistant_${DateTime.now().millisecondsSinceEpoch}';
+    final assistantMessage = TutorMessage(
+      id: assistantTempId,
+      role: TutorMessageRole.assistant,
+      content: '',
+      createdAt: DateTime.now(),
+      citations: const [],
+    );
+
+    final updatedMessages = [
+      ...state.messages,
+      userMessage,
+      assistantMessage,
+    ];
+
+    state = state.copyWith(
+      messages: updatedMessages,
+      isStreaming: true,
+      errorMessage: null,
+      activeCitations: const [],
+    );
+
+    _cancelToken = CancelToken();
+    final citations = <TutorCitation>[];
+    String accumulatedText = '';
+
+    try {
+      final stream = _repository.streamMessage(
+        activeConversation.id,
+        trimmed,
+        cancelToken: _cancelToken,
+      );
+
+      final completer = Completer<void>();
+
+      _streamSubscription = stream.listen(
+        (event) {
+          switch (event) {
+            case TutorTextDeltaEvent(:final text):
+              accumulatedText += text;
+              final latestMessages = state.messages.map((m) {
+                if (m.id == assistantTempId) {
+                  return TutorMessage(
+                    id: m.id,
+                    role: m.role,
+                    content: accumulatedText,
+                    createdAt: m.createdAt,
+                    citations: citations,
+                  );
+                }
+                return m;
+              }).toList();
+              state = state.copyWith(messages: latestMessages);
+              break;
+            case TutorCitationEvent(:final citation):
+              citations.add(citation);
+              state = state.copyWith(activeCitations: List.of(citations));
+              break;
+            case TutorDoneEvent():
+              if (!completer.isCompleted) completer.complete();
+              stopGeneration();
+              break;
+            case TutorErrorEvent(:final message):
+              state = state.copyWith(
+                isStreaming: false,
+                errorMessage: message,
+              );
+              if (!completer.isCompleted) completer.complete();
+              stopGeneration();
+              break;
+            case TutorMetadataEvent():
+              break;
+          }
+        },
+        onError: (err) {
+          state = state.copyWith(
+            isStreaming: false,
+            errorMessage: 'স্ট্রিমিং সংযোগে ত্রুটি হয়েছে।',
+          );
+          if (!completer.isCompleted) completer.complete();
+        },
+        onDone: () {
+          state = state.copyWith(isStreaming: false);
+          if (!completer.isCompleted) completer.complete();
+        },
+        cancelOnError: true,
+      );
+
+      await completer.future;
+    } catch (e) {
+      state = state.copyWith(
+        isStreaming: false,
+        errorMessage: 'বার্তা পাঠানোর সময় সমস্যা হয়েছে।',
+      );
     }
   }
 }

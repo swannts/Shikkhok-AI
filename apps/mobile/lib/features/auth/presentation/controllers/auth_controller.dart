@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/entities/otp_purpose.dart';
@@ -6,11 +7,12 @@ import '../../data/datasources/auth_remote_data_source.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/storage/token_storage.dart';
+import '../../../../core/session/session_manager.dart';
 import '../../../../core/errors/app_failure.dart';
 import '../state/auth_state.dart';
 
 final authApiClientProvider = Provider<ApiClient>((ref) {
-  return apiClient;
+  return ref.watch(apiClientProvider);
 });
 
 final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>((ref) {
@@ -26,8 +28,27 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 
 class AuthController extends StateNotifier<AuthState> {
   final AuthRepository _authRepository;
+  final SessionManager _sessionManager;
+  StreamSubscription<SessionEvent>? _sessionSubscription;
 
-  AuthController(this._authRepository) : super(const AuthInitial());
+  AuthController(
+    this._authRepository, [
+    SessionManager? sessionMgr,
+  ])  : _sessionManager = sessionMgr ?? sessionManager,
+        super(const AuthInitial()) {
+    _sessionSubscription = _sessionManager.events.listen((event) {
+      if (event == SessionEvent.expired || event == SessionEvent.loggedOut) {
+        state =
+            const Unauthenticated('সেশনের মেয়াদ শেষ হয়েছে। আবার লগইন করুন।');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _sessionSubscription?.cancel();
+    super.dispose();
+  }
 
   Future<void> restoreSession() async {
     state = const AuthLoading('সেশন যাচাই করা হচ্ছে...');
@@ -60,7 +81,6 @@ class AuthController extends StateNotifier<AuthState> {
         }
       }
     } catch (_) {
-      await TokenStorage.clearTokens();
       state = const Unauthenticated();
     }
   }
@@ -84,7 +104,7 @@ class AuthController extends StateNotifier<AuthState> {
       state = AuthFailureState(
         ServerFailure(
           message: e.toString(),
-          banglaMessage: 'লগইন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।',
+          banglaMessage: 'লগইন ব্যর্থ হয়েছে। কিছুক্ষণ পর চেষ্টা করুন।',
         ),
       );
       return false;
@@ -116,7 +136,7 @@ class AuthController extends StateNotifier<AuthState> {
       state = AuthFailureState(
         ServerFailure(
           message: e.toString(),
-          banglaMessage: 'অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।',
+          banglaMessage: 'অ্যাকাউন্ট তৈরি ব্যর্থ হয়েছে।',
         ),
       );
       return false;
@@ -133,7 +153,11 @@ class AuthController extends StateNotifier<AuthState> {
         phone: phone,
         purpose: purpose,
       );
-      state = OtpSentState(phone: phone, purpose: purpose, message: message);
+      state = OtpSentState(
+        phone: phone,
+        purpose: purpose,
+        message: message,
+      );
       return true;
     } on AppFailure catch (e) {
       state = AuthFailureState(e);
@@ -142,7 +166,7 @@ class AuthController extends StateNotifier<AuthState> {
       state = AuthFailureState(
         ServerFailure(
           message: e.toString(),
-          banglaMessage: 'ওটিপি পাঠানো সম্ভব হয়নি।',
+          banglaMessage: 'ওটিপি পাঠাতে সমস্যা হয়েছে।',
         ),
       );
       return false;
@@ -178,11 +202,11 @@ class AuthController extends StateNotifier<AuthState> {
   }
 
   Future<bool> forgotPassword({required String identifier}) async {
-    state = const AuthLoading('পাসওয়ার্ড রিসেট পাঠানো হচ্ছে...');
+    state = const AuthLoading('পাসওয়ার্ড রিসেট লিংক পাঠানো হচ্ছে...');
     try {
       final message =
           await _authRepository.forgotPassword(identifier: identifier);
-      state = PasswordResetSentState(message);
+      state = Unauthenticated(message);
       return true;
     } on AppFailure catch (e) {
       state = AuthFailureState(e);
@@ -251,5 +275,8 @@ class AuthController extends StateNotifier<AuthState> {
 
 final authControllerProvider =
     StateNotifierProvider<AuthController, AuthState>((ref) {
-  return AuthController(ref.read(authRepositoryProvider));
+  return AuthController(
+    ref.read(authRepositoryProvider),
+    ref.read(sessionManagerProvider),
+  );
 });

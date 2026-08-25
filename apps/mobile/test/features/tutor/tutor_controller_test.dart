@@ -1,34 +1,27 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/features/tutor/domain/entities/tutor_citation.dart';
 import 'package:mobile/features/tutor/domain/entities/tutor_conversation.dart';
 import 'package:mobile/features/tutor/domain/entities/tutor_conversation_thread.dart';
 import 'package:mobile/features/tutor/domain/entities/tutor_message.dart';
+import 'package:mobile/features/tutor/domain/entities/tutor_stream_event.dart';
 import 'package:mobile/features/tutor/domain/repositories/tutor_repository.dart';
 import 'package:mobile/features/tutor/presentation/controllers/tutor_controller.dart';
-import 'package:mobile/features/tutor/presentation/state/tutor_state.dart';
 
 class FakeTutorRepository implements TutorRepository {
-  FakeTutorRepository()
-      : _conversation = const TutorConversation(
-          id: 'conv-1',
-          title: 'বীজগণিত',
-          subjectId: 'sub-1',
-          chapterId: null,
-          lessonId: null,
-          classLevel: 8,
-          medium: 'bangla',
-          curriculumYear: '2026',
-          messageCount: 0,
-          lastMessageAt: null,
-          createdAt: null,
-          updatedAt: null,
-        );
-
-  final TutorConversation _conversation;
-  final List<TutorMessage> _messages = [];
-
   @override
-  Future<List<TutorConversation>> getMyConversations() async => [_conversation];
+  Future<List<TutorConversation>> getMyConversations() async {
+    return [
+      TutorConversation(
+        id: 'conv-1',
+        title: 'বীজগণিত প্রস্তুতি',
+        classLevel: 8,
+        curriculumYear: '2026',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ),
+    ];
+  }
 
   @override
   Future<TutorConversationThread> getConversation(
@@ -37,10 +30,23 @@ class FakeTutorRepository implements TutorRepository {
     String? cursor,
   }) async {
     return TutorConversationThread(
-      conversation: _conversation,
-      messages: List<TutorMessage>.from(_messages),
-      nextCursor: null,
-      hasNext: false,
+      conversation: TutorConversation(
+        id: conversationId,
+        title: 'বীজগণিত প্রস্তুতি',
+        classLevel: 8,
+        curriculumYear: '2026',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ),
+      messages: [
+        TutorMessage(
+          id: 'msg-1',
+          role: TutorMessageRole.user,
+          content: 'সমীকরণ কীভাবে সমাধান করব?',
+          createdAt: DateTime.now(),
+          citations: const [],
+        ),
+      ],
     );
   }
 
@@ -50,7 +56,7 @@ class FakeTutorRepository implements TutorRepository {
     int limit = 30,
     String? cursor,
   }) async {
-    return getConversation(conversationId, limit: limit, cursor: cursor);
+    return getConversation(conversationId);
   }
 
   @override
@@ -58,47 +64,31 @@ class FakeTutorRepository implements TutorRepository {
     String conversationId,
     String content,
   ) async {
-    final now = DateTime.parse('2026-08-24T12:00:00.000Z');
-    _messages.add(
-      TutorMessage(
-        id: 'msg-user-1',
-        conversationId: conversationId,
-        userId: 'user-1',
-        role: TutorMessageRole.user,
-        content: content,
-        citations: const [],
-        provider: null,
-        createdAt: now,
-      ),
-    );
-    _messages.add(
-      TutorMessage(
-        id: 'msg-assistant-1',
-        conversationId: conversationId,
-        userId: 'user-1',
-        role: TutorMessageRole.assistant,
-        content: 'চলো ধাপে ধাপে করি।',
-        citations: const [
-          TutorCitation(
-            sourceId: 'lesson-1',
-            sourceBook: 'NCTB',
-            classLevel: 8,
-            subject: 'Math',
-            chapter: 'Algebra',
-            pageNumber: 42,
-            excerpt: 'Linear equations',
-            sourceUrl: null,
-          ),
-        ],
-        provider: 'gemini',
-        createdAt: now,
-      ),
-    );
     return TutorConversationThread(
-      conversation: _conversation,
-      messages: List<TutorMessage>.from(_messages),
-      nextCursor: null,
-      hasNext: false,
+      conversation: TutorConversation(
+        id: conversationId,
+        title: 'বীজগণিত প্রস্তুতি',
+        classLevel: 8,
+        curriculumYear: '2026',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ),
+      messages: [
+        TutorMessage(
+          id: 'msg-1',
+          role: TutorMessageRole.user,
+          content: content,
+          createdAt: DateTime.now(),
+          citations: const [],
+        ),
+        TutorMessage(
+          id: 'msg-2',
+          role: TutorMessageRole.assistant,
+          content: 'উভয় পক্ষে সংখ্যা যোগ বা বিয়োগ করে সমাধান করুন।',
+          createdAt: DateTime.now(),
+          citations: const [],
+        ),
+      ],
     );
   }
 
@@ -110,42 +100,83 @@ class FakeTutorRepository implements TutorRepository {
     String? lessonId,
     String? initialMessage,
   }) async {
-    if (initialMessage != null && initialMessage.isNotEmpty) {
-      return sendMessage(_conversation.id, initialMessage);
-    }
+    return getConversation('conv-1');
+  }
 
-    return TutorConversationThread(
-      conversation: _conversation,
-      messages: const [],
-      nextCursor: null,
-      hasNext: false,
+  @override
+  Stream<TutorStreamEvent> streamMessage(
+    String conversationId,
+    String content, {
+    CancelToken? cancelToken,
+  }) async* {
+    yield const TutorTextDeltaEvent('উভয় ');
+    yield const TutorTextDeltaEvent('পক্ষে যোগ করুন।');
+    yield const TutorCitationEvent(
+      TutorCitation(
+        sourceId: 'src-1',
+        sourceBook: 'গণিত ৮ম শ্রেণি',
+        classLevel: 8,
+        subject: 'গণিত',
+        chapter: 'সমীকরণ',
+        pageNumber: 45,
+        excerpt: 'সমীকরণের উভয় পক্ষে সমান সংখ্যা যোগ করা যায়',
+        sourceUrl: null,
+      ),
     );
+    yield const TutorDoneEvent();
   }
 }
 
 void main() {
-  group('TutorController', () {
-    test('loads conversations and opens the latest thread', () async {
-      final controller = TutorController(FakeTutorRepository());
+  TestWidgetsFlutterBinding.ensureInitialized();
 
-      await controller.loadInitial();
+  group('TutorController Unit Tests', () {
+    late TutorController controller;
+    late FakeTutorRepository repository;
 
-      expect(controller.state, isA<TutorState>());
-      expect(controller.state.activeConversation?.id, 'conv-1');
-      expect(controller.state.conversations, hasLength(1));
-      expect(controller.state.isLoading, isFalse);
+    setUp(() {
+      repository = FakeTutorRepository();
+      controller = TutorController(repository);
     });
 
-    test('sends a message and appends assistant reply', () async {
-      final controller = TutorController(FakeTutorRepository());
-
+    test('TutorController loads conversations and opens the latest thread',
+        () async {
       await controller.loadInitial();
-      await controller.sendMessage('2x + 5 = 15 কীভাবে সমাধান করবো?');
 
-      expect(controller.state.messages, hasLength(2));
-      expect(controller.state.messages.last.role, TutorMessageRole.assistant);
-      expect(controller.state.messages.last.citations, hasLength(1));
+      expect(controller.state.isLoading, isFalse);
+      expect(controller.state.conversations.length, 1);
+      expect(controller.state.activeConversation?.id, 'conv-1');
+      expect(controller.state.messages.length, 1);
+    });
+
+    test('TutorController sends a message and appends assistant reply',
+        () async {
+      await controller.loadInitial();
+      await controller.sendMessage('সমীকরণ কীভাবে করব?');
+
       expect(controller.state.isSending, isFalse);
+      expect(controller.state.messages.length, 2);
+      expect(controller.state.messages.last.role, TutorMessageRole.assistant);
+    });
+
+    test('streamMessage streams text deltas and preserves citations', () async {
+      await controller.loadInitial();
+      await controller.streamMessage('কিভাবে সমীকরণ সমাধান করব?');
+
+      expect(controller.state.isStreaming, isFalse);
+      expect(controller.state.activeCitations.length, 1);
+      expect(
+          controller.state.activeCitations.first.sourceBook, contains('গণিত'));
+      expect(controller.state.messages.last.content,
+          contains('উভয় পক্ষে যোগ করুন।'));
+    });
+
+    test('stopGeneration cancels active streaming', () async {
+      await controller.loadInitial();
+      controller.streamMessage('পরীক্ষা');
+      controller.stopGeneration();
+
+      expect(controller.state.isStreaming, isFalse);
     });
   });
 }

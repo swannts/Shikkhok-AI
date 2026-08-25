@@ -1,10 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../config/env.dart';
 import '../storage/token_storage.dart';
+import '../session/session_manager.dart';
 import '../errors/app_failure.dart';
 import 'api_endpoints.dart';
+import 'sse_event.dart';
+import 'sse_parser.dart';
 
 class ApiClient {
   late final Dio dio;
@@ -47,19 +50,42 @@ class ApiClient {
                   err.requestOptions.path.contains('/auth/register') ||
                   err.requestOptions.path.contains('/auth/refresh');
           final skipAuth = err.requestOptions.extra['skipAuth'] == true;
+          final alreadyRetried =
+              err.requestOptions.extra['retriedAfterRefresh'] == true;
 
-          // Single-Flight 401 Refresh Token Concurrency Queue
-          if (err.response?.statusCode == 401 && !skipAuth && !isAuthEndpoint) {
+          // Single-Flight 401 Refresh Token Concurrency Queue with Loop Protection
+          if (err.response?.statusCode == 401 &&
+              !skipAuth &&
+              !isAuthEndpoint &&
+              !alreadyRetried) {
             try {
               final newToken = await _handleSingleFlightRefresh();
               if (newToken != null && newToken.isNotEmpty) {
                 final retryOptions = err.requestOptions;
                 retryOptions.headers['Authorization'] = 'Bearer $newToken';
-                final response = await dio.fetch(retryOptions);
+                retryOptions.extra['retriedAfterRefresh'] = true;
+
+                final response = await dio.request(
+                  retryOptions.path,
+                  data: retryOptions.data,
+                  queryParameters: retryOptions.queryParameters,
+                  cancelToken: retryOptions.cancelToken,
+                  options: Options(
+                    method: retryOptions.method,
+                    headers: retryOptions.headers,
+                    extra: retryOptions.extra,
+                    responseType: retryOptions.responseType,
+                    contentType: retryOptions.contentType,
+                    validateStatus: retryOptions.validateStatus,
+                    receiveTimeout: retryOptions.receiveTimeout,
+                    sendTimeout: retryOptions.sendTimeout,
+                  ),
+                );
                 return handler.resolve(response);
               }
             } catch (_) {
               await TokenStorage.clearTokens();
+              sessionManager.notifySessionExpired();
             }
           }
           return handler.next(err);
@@ -105,6 +131,7 @@ class ApiClient {
         _isRefreshing = false;
         _resolveQueue(null);
         await TokenStorage.clearTokens();
+        sessionManager.notifySessionExpired();
         rethrow;
       }
     }
@@ -225,11 +252,16 @@ class ApiClient {
     return const NetworkFailure();
   }
 
-  Stream<String> streamText(String endpoint, Map<String, dynamic> body) async* {
+  Stream<SseEvent> streamSse(
+    String endpoint, {
+    Map<String, dynamic>? data,
+    CancelToken? cancelToken,
+  }) async* {
     final token = await TokenStorage.getAccessToken();
     final response = await dio.post<ResponseBody>(
       endpoint,
-      data: body,
+      data: data,
+      cancelToken: cancelToken,
       options: Options(
         responseType: ResponseType.stream,
         headers: {
@@ -239,29 +271,20 @@ class ApiClient {
       ),
     );
 
-    final stream = response.data!.stream;
-    await for (final chunk
-        in stream.cast<List<int>>().transform(utf8.decoder)) {
-      final lines = chunk.split('\n');
-      for (final line in lines) {
-        final trimmed = line.trim();
-        if (trimmed.startsWith('data:')) {
-          final dataContent = trimmed.substring(5).trim();
-          if (dataContent == '[DONE]') break;
-          try {
-            final parsed = jsonDecode(dataContent);
-            final delta = parsed['text'] ?? parsed['delta'] ?? '';
-            if (delta.isNotEmpty) {
-              yield delta as String;
-            }
-          } catch (_) {
-            yield dataContent;
-          }
-        }
-      }
+    final rawStream = response.data!.stream;
+    yield* rawStream.cast<List<int>>().transform(const SseParser());
+  }
+
+  Stream<String> streamText(String endpoint, Map<String, dynamic> body) async* {
+    await for (final event in streamSse(endpoint, data: body)) {
+      if (event.data == '[DONE]') break;
+      yield event.data;
     }
   }
 }
 
 final apiClient = ApiClient();
 final aiGatewayClient = ApiClient(baseUrl: ENV.aiGatewayUrl);
+
+final apiClientProvider = Provider<ApiClient>((ref) => apiClient);
+final aiGatewayClientProvider = Provider<ApiClient>((ref) => aiGatewayClient);

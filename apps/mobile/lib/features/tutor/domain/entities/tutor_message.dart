@@ -18,12 +18,12 @@ class TutorMessage {
 
   const TutorMessage({
     required this.id,
-    required this.conversationId,
-    required this.userId,
+    this.conversationId = '',
+    this.userId = '',
     required this.role,
     required this.content,
-    required this.citations,
-    required this.provider,
+    this.citations = const [],
+    this.provider = 'gemini',
     required this.createdAt,
   });
 

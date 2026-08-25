@@ -40,13 +40,13 @@ class TutorMapper {
       userId: dto.userId,
       role: _parseRole(dto.role),
       content: dto.content,
-      citations: dto.citations.map(_toCitation).toList(),
+      citations: dto.citations.map(toCitation).toList(),
       provider: dto.provider,
       createdAt: _parseDate(dto.createdAt) ?? DateTime.now(),
     );
   }
 
-  static TutorCitation _toCitation(TutorCitationDto dto) {
+  static TutorCitation toCitation(TutorCitationDto dto) {
     return TutorCitation(
       sourceId: dto.sourceId,
       sourceBook: dto.sourceBook,

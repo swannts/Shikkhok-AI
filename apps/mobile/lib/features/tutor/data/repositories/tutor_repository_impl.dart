@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_endpoints.dart';
 import '../../domain/entities/tutor_conversation.dart';
 import '../../domain/entities/tutor_conversation_thread.dart';
+import '../../domain/entities/tutor_stream_event.dart';
 import '../../domain/repositories/tutor_repository.dart';
+import '../dto/tutor_citation_dto.dart';
 import '../dto/tutor_conversation_dto.dart';
 import '../mappers/tutor_mapper.dart';
 
@@ -121,6 +124,78 @@ class TutorRepositoryImpl implements TutorRepository {
       return _toThread(response.data);
     } on DioException catch (e) {
       throw _apiClient.mapDioException(e);
+    }
+  }
+
+  @override
+  Stream<TutorStreamEvent> streamMessage(
+    String conversationId,
+    String content, {
+    CancelToken? cancelToken,
+  }) async* {
+    final sseStream = _apiClient.streamSse(
+      ApiEndpoints.tutorStreamMessage(conversationId),
+      data: {'content': content.trim()},
+      cancelToken: cancelToken,
+    );
+
+    await for (final event in sseStream) {
+      final eventType = event.event?.toLowerCase() ?? 'delta';
+      final dataStr = event.data.trim();
+
+      if (dataStr == '[DONE]') {
+        yield const TutorDoneEvent();
+        break;
+      }
+
+      try {
+        final decoded = jsonDecode(dataStr);
+        if (decoded is Map<String, dynamic>) {
+          switch (eventType) {
+            case 'metadata':
+              yield TutorMetadataEvent(
+                provider: (decoded['provider'] ?? 'gemini').toString(),
+                grounded: decoded['grounded'] as bool?,
+                raw: decoded,
+              );
+              break;
+            case 'delta':
+              final text =
+                  (decoded['text'] ?? decoded['delta'] ?? '').toString();
+              if (text.isNotEmpty) {
+                yield TutorTextDeltaEvent(text);
+              }
+              break;
+            case 'citation':
+              final citationDto = TutorCitationDto.fromJson(decoded);
+              yield TutorCitationEvent(TutorMapper.toCitation(citationDto));
+              break;
+            case 'error':
+              yield TutorErrorEvent(
+                code: (decoded['code'] ?? 'STREAM_ERROR').toString(),
+                message: (decoded['message'] ?? 'Streaming error').toString(),
+              );
+              break;
+            case 'done':
+              yield TutorDoneEvent(
+                messageId: decoded['messageId']?.toString(),
+                conversationId: decoded['conversationId']?.toString(),
+              );
+              break;
+            default:
+              final text = decoded['text']?.toString();
+              if (text != null && text.isNotEmpty) {
+                yield TutorTextDeltaEvent(text);
+              }
+          }
+        } else if (decoded is String) {
+          yield TutorTextDeltaEvent(decoded);
+        }
+      } catch (_) {
+        if (dataStr.isNotEmpty) {
+          yield TutorTextDeltaEvent(dataStr);
+        }
+      }
     }
   }
 

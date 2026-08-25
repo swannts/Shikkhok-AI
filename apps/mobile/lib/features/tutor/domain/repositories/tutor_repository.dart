@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import '../entities/tutor_conversation.dart';
 import '../entities/tutor_conversation_thread.dart';
+import '../entities/tutor_stream_event.dart';
 
 abstract interface class TutorRepository {
   Future<List<TutorConversation>> getMyConversations();
@@ -28,4 +30,10 @@ abstract interface class TutorRepository {
     String conversationId,
     String content,
   );
+
+  Stream<TutorStreamEvent> streamMessage(
+    String conversationId,
+    String content, {
+    CancelToken? cancelToken,
+  });
 }

@@ -154,8 +154,10 @@ void main() {
     test('register success transitions state to Authenticated', () async {
       final success = await controller.register(
         name: 'ফারহান করিম',
-        phone: '01911223344',
+        email: 'farhan@example.com',
         password: 'SecurePassword123',
+        role: UserRole.student,
+        phone: '01911223344',
       );
 
       expect(success, isTrue);
