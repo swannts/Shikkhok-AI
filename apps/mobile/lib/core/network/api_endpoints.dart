@@ -41,6 +41,22 @@ class ApiEndpoints {
   static const String practiceSubmit = '/practice/submit';
   static const String practiceMyAttempts = '/practice/me/attempts';
 
+  // Exams & Assessment
+  static const String exams = '/exams';
+  static String exam(String examId) => '/exams/$examId';
+  static String examStart(String examId) => '/exams/$examId/start';
+  static String examSession(String sessionId) => '/exams/sessions/$sessionId';
+  static String examSessionAnswer(String sessionId, String questionId) =>
+      '/exams/sessions/$sessionId/answers/$questionId';
+  static String examSessionFlag(String sessionId, String questionId) =>
+      '/exams/sessions/$sessionId/flag/$questionId';
+  static String examSessionSubmit(String sessionId) =>
+      '/exams/sessions/$sessionId/submit';
+  static String examSessionResult(String sessionId) =>
+      '/exams/sessions/$sessionId/result';
+  static String examSessionReview(String sessionId) =>
+      '/exams/sessions/$sessionId/review';
+
   // Study Plan
   static const String studyPlanCurrent = '/study-plan/me/current';
   static const String studyPlanHistory = '/study-plan/me/history';
@@ -61,12 +77,12 @@ class ApiEndpoints {
   static String notificationMarkRead(String id) => '/notifications/$id/read';
 
   // AI Tutor
-  static const String tutorConversations = '/tutor/conversations';
-  static String tutorConversation(String id) => '/tutor/conversations/$id';
+  static const String tutorConversations = '/tutor/me/conversations';
+  static String tutorConversation(String id) => '/tutor/me/conversations/$id';
   static String tutorConversationMessages(String id) =>
-      '/tutor/conversations/$id/messages';
-  static const String tutorChat = '/tutor/chat';
-  static const String tutorStream = '/tutor/chat/stream';
+      '/tutor/me/conversations/$id/messages';
+  static String tutorStreamMessage(String id) =>
+      '/tutor/me/conversations/$id/messages/stream';
 
   // Health
   static const String healthLive = '/health/live';
