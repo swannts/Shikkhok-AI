@@ -57,6 +57,28 @@ class ApiEndpoints {
   static String examSessionReview(String sessionId) =>
       '/exams/sessions/$sessionId/review';
 
+  // Homework Help
+  static const String homeworkSubmissions = '/homework/submissions';
+  static const String homeworkMySubmissions = '/homework/me/submissions';
+  static String homeworkSubmission(String id) => '/homework/submissions/$id';
+  static String homeworkFeedback(String id) =>
+      '/homework/submissions/$id/feedback';
+  static String homeworkRateFeedback(String id) =>
+      '/homework/submissions/$id/feedback/rate';
+  static String homeworkRetry(String id) => '/homework/submissions/$id/retry';
+
+  // Parents
+  static const String parentsChildren = '/parents/me/children';
+  static String parentChildProgress(String studentId) =>
+      '/parents/me/children/$studentId/progress';
+  static const String parentsLinkRequest = '/parents/link/request';
+  static const String parentsLinkConfirm = '/parents/link/confirm';
+
+  // Subscriptions & Payments
+  static const String subscriptionPlans = '/subscriptions/plans';
+  static const String subscriptionMy = '/subscriptions/me';
+  static const String subscriptionCheckout = '/subscriptions/checkout';
+
   // Study Plan
   static const String studyPlanCurrent = '/study-plan/me/current';
   static const String studyPlanHistory = '/study-plan/me/history';
