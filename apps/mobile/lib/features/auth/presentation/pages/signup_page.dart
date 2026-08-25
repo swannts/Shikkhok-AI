@@ -84,7 +84,8 @@ class _SignupPageState extends ConsumerState<SignupPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/role-selection'),
         ),
       ),
@@ -142,7 +143,8 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.error_outline, color: Color(0xFFDC2626), size: 20),
+                            const Icon(Icons.error_outline,
+                                color: Color(0xFFDC2626), size: 20),
                             const SizedBox(width: AppSpacing.xs),
                             Expanded(
                               child: Text(
@@ -165,11 +167,13 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       children: [
                         Expanded(
                           child: ChoiceChip(
-                            label: const Center(child: Text('শিক্ষার্থী (Student)')),
+                            label: const Center(
+                                child: Text('শিক্ষার্থী (Student)')),
                             selected: _selectedRole == UserRole.student,
                             onSelected: (selected) {
                               if (selected) {
-                                setState(() => _selectedRole = UserRole.student);
+                                setState(
+                                    () => _selectedRole = UserRole.student);
                               }
                             },
                             selectedColor: AppColors.primary.withAlpha(30),
@@ -178,7 +182,8 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                         const SizedBox(width: AppSpacing.sm),
                         Expanded(
                           child: ChoiceChip(
-                            label: const Center(child: Text('অভিভাবক (Parent)')),
+                            label:
+                                const Center(child: Text('অভিভাবক (Parent)')),
                             selected: _selectedRole == UserRole.parent,
                             onSelected: (selected) {
                               if (selected) {
@@ -209,11 +214,15 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       controller: _nameController,
                       decoration: InputDecoration(
                         hintText: l10n.fullNamePlaceholder,
-                        prefixIcon: const Icon(Icons.person_outline_rounded, color: AppColors.textSecondary),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                        prefixIcon: const Icon(Icons.person_outline_rounded,
+                            color: AppColors.textSecondary),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
                       ),
                       validator: (value) =>
-                          value == null || value.trim().length < 2 ? 'সঠিক নাম দিন' : null,
+                          value == null || value.trim().length < 2
+                              ? 'সঠিক নাম দিন'
+                              : null,
                     ),
                     const SizedBox(height: AppSpacing.md),
 
@@ -235,8 +244,10 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         hintText: l10n.mobileNumberPlaceholder,
-                        prefixIcon: const Icon(Icons.phone_android_rounded, color: AppColors.textSecondary),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                        prefixIcon: const Icon(Icons.phone_android_rounded,
+                            color: AppColors.textSecondary),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
                       ),
                       validator: (value) {
                         if ((value == null || value.trim().isEmpty) &&
@@ -266,15 +277,21 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: l10n.passwordPlaceholder,
-                        prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.textSecondary),
+                        prefixIcon: const Icon(Icons.lock_outline_rounded,
+                            color: AppColors.textSecondary),
                         suffixIcon: IconButton(
-                          icon: Icon(_obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined),
-                          onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                          icon: Icon(_obscurePassword
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined),
+                          onPressed: () => setState(
+                              () => _obscurePassword = !_obscurePassword),
                         ),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
                       ),
-                      validator: (value) =>
-                          value == null || value.length < 8 ? 'পাসওয়ার্ড কমপক্ষে ৮ অক্ষর হতে হবে' : null,
+                      validator: (value) => value == null || value.length < 8
+                          ? 'পাসওয়ার্ড কমপক্ষে ৮ অক্ষর হতে হবে'
+                          : null,
                     ),
                     const SizedBox(height: AppSpacing.md),
 
@@ -296,15 +313,22 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       obscureText: _obscureConfirmPassword,
                       decoration: InputDecoration(
                         hintText: l10n.passwordPlaceholder,
-                        prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.textSecondary),
+                        prefixIcon: const Icon(Icons.lock_outline_rounded,
+                            color: AppColors.textSecondary),
                         suffixIcon: IconButton(
-                          icon: Icon(_obscureConfirmPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined),
-                          onPressed: () => setState(() => _obscureConfirmPassword = !_obscureConfirmPassword),
+                          icon: Icon(_obscureConfirmPassword
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined),
+                          onPressed: () => setState(() =>
+                              _obscureConfirmPassword =
+                                  !_obscureConfirmPassword),
                         ),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16)),
                       ),
-                      validator: (value) =>
-                          value != _passwordController.text ? 'পাসওয়ার্ড দুটি মিলছে না' : null,
+                      validator: (value) => value != _passwordController.text
+                          ? 'পাসওয়ার্ড দুটি মিলছে না'
+                          : null,
                     ),
                     const SizedBox(height: AppSpacing.md),
 
@@ -313,13 +337,15 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       children: [
                         Checkbox(
                           value: _acceptedTerms,
-                          onChanged: (val) => setState(() => _acceptedTerms = val ?? false),
+                          onChanged: (val) =>
+                              setState(() => _acceptedTerms = val ?? false),
                           activeColor: AppColors.primary,
                         ),
                         Expanded(
                           child: Text(
                             l10n.termsAgreement,
-                            style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                            style: const TextStyle(
+                                fontSize: 13, color: AppColors.textSecondary),
                           ),
                         ),
                       ],
@@ -336,14 +362,16 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                             : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
                           elevation: 0,
                         ),
                         child: authState is AuthLoading
                             ? const SizedBox(
                                 width: 24,
                                 height: 24,
-                                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                                child: CircularProgressIndicator(
+                                    color: Colors.white, strokeWidth: 2.5),
                               )
                             : Text(
                                 l10n.signupTitle,
@@ -364,7 +392,8 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       children: [
                         Text(
                           l10n.alreadyHaveAccount,
-                          style: const TextStyle(fontSize: 14, color: AppColors.textSecondary),
+                          style: const TextStyle(
+                              fontSize: 14, color: AppColors.textSecondary),
                         ),
                         const SizedBox(width: 4),
                         GestureDetector(

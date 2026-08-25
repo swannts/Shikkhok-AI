@@ -62,7 +62,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final refreshNotifier = _GoRouterRefreshNotifier();
   ref.listen<AuthState>(
     authControllerProvider,
-    (_, __) => refreshNotifier.notifyListeners(),
+    (_, __) => refreshNotifier.refresh(),
   );
   ref.onDispose(refreshNotifier.dispose);
 
@@ -331,6 +331,12 @@ String? resolveAppRedirect({
       }
 
       return null;
+    case OtpSentState():
+      return '/verify-otp';
+    case PasswordResetSentState():
+      return '/forgot-password';
+    case AuthFailureState():
+      return isPublicRoute ? null : '/login';
     case Unauthenticated():
       if (location == '/splash') {
         return '/login';
@@ -360,4 +366,8 @@ const Set<String> _publicRoutes = {
   '/forgot-password',
 };
 
-class _GoRouterRefreshNotifier extends ChangeNotifier {}
+class _GoRouterRefreshNotifier extends ChangeNotifier {
+  void refresh() {
+    notifyListeners();
+  }
+}

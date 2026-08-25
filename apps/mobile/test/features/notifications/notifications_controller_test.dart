@@ -13,7 +13,8 @@ class FakeNotificationsRepository implements NotificationsRepository {
   final List<NotificationItem> _items;
 
   @override
-  Future<int> getUnreadCount() async => _items.where((item) => !item.isRead).length;
+  Future<int> getUnreadCount() async =>
+      _items.where((item) => !item.isRead).length;
 
   @override
   Future<NotificationPage> getMyNotifications({
@@ -88,13 +89,15 @@ void main() {
       expect(controller.state.isInitialLoading, isFalse);
     });
 
-    test('markAsRead updates a notification locally and decrements unread count',
+    test(
+        'markAsRead updates a notification locally and decrements unread count',
         () async {
       await controller.loadInitial();
 
       await controller.markAsRead('notif-1');
 
-      final updated = controller.state.items.firstWhere((item) => item.id == 'notif-1');
+      final updated =
+          controller.state.items.firstWhere((item) => item.id == 'notif-1');
       expect(updated.isRead, isTrue);
       expect(controller.state.unreadCount, 0);
     });

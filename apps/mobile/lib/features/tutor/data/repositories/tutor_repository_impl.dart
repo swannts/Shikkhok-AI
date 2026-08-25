@@ -16,11 +16,15 @@ class TutorRepositoryImpl implements TutorRepository {
   @override
   Future<List<TutorConversation>> getMyConversations() async {
     try {
-      final response = await _apiClient.dio.get(ApiEndpoints.tutorConversations);
-      final data = response.data is List<dynamic> ? response.data as List<dynamic> : const [];
+      final response =
+          await _apiClient.dio.get(ApiEndpoints.tutorConversations);
+      final data = response.data is List<dynamic>
+          ? response.data as List<dynamic>
+          : const [];
       return data
           .whereType<Map<String, dynamic>>()
-          .map((json) => TutorMapper.toConversation(TutorConversationDto.fromJson(json)))
+          .map((json) =>
+              TutorMapper.toConversation(TutorConversationDto.fromJson(json)))
           .toList();
     } on DioException catch (e) {
       throw _apiClient.mapDioException(e);
@@ -111,7 +115,7 @@ class TutorRepositoryImpl implements TutorRepository {
   ) async {
     try {
       final response = await _apiClient.dio.post(
-        ApiEndpoints.tutorConversation(conversationId) + '/messages',
+        ApiEndpoints.tutorConversationMessages(conversationId),
         data: {'content': content.trim()},
       );
       return _toThread(response.data);
@@ -122,7 +126,7 @@ class TutorRepositoryImpl implements TutorRepository {
 
   TutorConversationThread _toThread(dynamic responseData) {
     final data = responseData is Map<String, dynamic>
-        ? responseData as Map<String, dynamic>
+        ? responseData
         : <String, dynamic>{};
     return TutorMapper.toThread(TutorConversationDto.fromJson(data));
   }

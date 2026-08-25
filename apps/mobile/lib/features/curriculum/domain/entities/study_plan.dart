@@ -41,8 +41,9 @@ class StudyPlan {
     required this.updatedAt,
   });
 
-  int get completedMinutes =>
-      items.where((item) => item.completed).fold<int>(0, (sum, item) => sum + item.targetMinutes);
+  int get completedMinutes => items
+      .where((item) => item.completed)
+      .fold<int>(0, (sum, item) => sum + item.targetMinutes);
 
   int get totalMinutes =>
       items.fold<int>(0, (sum, item) => sum + item.targetMinutes);

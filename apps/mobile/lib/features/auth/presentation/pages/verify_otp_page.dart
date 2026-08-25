@@ -90,10 +90,11 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
 
   Future<void> _resendOtp() async {
     if (_startSeconds == 0) {
-      final success = await ref.read(authControllerProvider.notifier).requestOtp(
-            phone: _phone,
-            purpose: widget.purpose,
-          );
+      final success =
+          await ref.read(authControllerProvider.notifier).requestOtp(
+                phone: _phone,
+                purpose: widget.purpose,
+              );
       if (success && mounted) {
         _startCountdown();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -114,7 +115,8 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.pop(),
         ),
       ),
@@ -185,7 +187,8 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.error_outline, color: Color(0xFFDC2626), size: 20),
+                          const Icon(Icons.error_outline,
+                              color: Color(0xFFDC2626), size: 20),
                           const SizedBox(width: AppSpacing.xs),
                           Expanded(
                             child: Text(
@@ -216,16 +219,19 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                           keyboardType: TextInputType.number,
                           textAlign: TextAlign.center,
                           maxLength: 1,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
                             counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: const BorderSide(color: AppColors.border),
+                              borderSide:
+                                  const BorderSide(color: AppColors.border),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                              borderSide: const BorderSide(
+                                  color: AppColors.primary, width: 2),
                             ),
                           ),
                           onChanged: (val) => _onDigitEntered(index, val),
@@ -243,14 +249,16 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                       onPressed: authState is AuthLoading ? null : _verifyOtp,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
                         elevation: 0,
                       ),
                       child: authState is AuthLoading
                           ? const SizedBox(
                               width: 24,
                               height: 24,
-                              child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
+                              child: CircularProgressIndicator(
+                                  color: Colors.white, strokeWidth: 2.5),
                             )
                           : Text(
                               l10n.verifyButton,
@@ -272,7 +280,8 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                         _startSeconds > 0
                             ? 'পুনরায় পাঠান ($_startSeconds সেকেন্ড)'
                             : 'কোড পাননি?',
-                        style: const TextStyle(fontSize: 14, color: AppColors.textSecondary),
+                        style: const TextStyle(
+                            fontSize: 14, color: AppColors.textSecondary),
                       ),
                       if (_startSeconds == 0) ...[
                         const SizedBox(width: 4),

@@ -45,7 +45,8 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
   @override
   Future<int> getUnreadCount() async {
     try {
-      final response = await _apiClient.dio.get(ApiEndpoints.notificationsUnreadCount);
+      final response =
+          await _apiClient.dio.get(ApiEndpoints.notificationsUnreadCount);
       final data = response.data;
       if (data is Map<String, dynamic>) {
         final unreadCount = data['unreadCount'];

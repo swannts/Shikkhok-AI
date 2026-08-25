@@ -279,7 +279,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       children: [
                         Text(
                           l10n.noAccount,
-                          style: const TextStyle(fontSize: 14, color: AppColors.textSecondary),
+                          style: const TextStyle(
+                              fontSize: 14, color: AppColors.textSecondary),
                         ),
                         const SizedBox(width: 4),
                         GestureDetector(

@@ -98,7 +98,8 @@ class MockAuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<MessageResponseDto> forgotPassword({required String identifier}) async {
+  Future<MessageResponseDto> forgotPassword(
+      {required String identifier}) async {
     return const MessageResponseDto(message: 'Instructions sent');
   }
 

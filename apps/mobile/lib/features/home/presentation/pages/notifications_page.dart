@@ -159,7 +159,8 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
                     AppEmptyState(
                       icon: Icons.notifications_none_rounded,
                       title: 'কোনো নোটিফিকেশন নেই',
-                      description: 'নতুন আপডেট, স্টাডি প্ল্যান বা বার্তা এলে এখানে দেখা যাবে।',
+                      description:
+                          'নতুন আপডেট, স্টাডি প্ল্যান বা বার্তা এলে এখানে দেখা যাবে।',
                     ),
                   ],
                 );
@@ -170,7 +171,8 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(AppSpacing.md),
                 itemCount: state.items.length + (state.isLoadingMore ? 1 : 0),
-                separatorBuilder: (context, index) => const SizedBox(height: 10),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 10),
                 itemBuilder: (context, index) {
                   if (index >= state.items.length) {
                     return const Padding(
@@ -219,7 +221,8 @@ class _NotificationTile extends StatelessWidget {
 
     return AppCard(
       onTap: onTap,
-      backgroundColor: isRead ? AppColors.surface : AppColors.primary.withAlpha(8),
+      backgroundColor:
+          isRead ? AppColors.surface : AppColors.primary.withAlpha(8),
       border: Border.all(
         color: isRead ? AppColors.border : AppColors.primary.withAlpha(24),
       ),
@@ -248,7 +251,8 @@ class _NotificationTile extends StatelessWidget {
                         notification.title,
                         style: TextStyle(
                           fontSize: 15,
-                          fontWeight: isRead ? FontWeight.w600 : FontWeight.bold,
+                          fontWeight:
+                              isRead ? FontWeight.w600 : FontWeight.bold,
                           color: AppColors.textPrimary,
                         ),
                       ),

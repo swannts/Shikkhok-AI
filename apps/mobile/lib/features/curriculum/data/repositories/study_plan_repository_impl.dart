@@ -28,7 +28,8 @@ class StudyPlanRepositoryImpl implements StudyPlanRepository {
   @override
   Future<StudyPlan> generateRecommendedPlan() async {
     try {
-      final response = await _apiClient.dio.post(ApiEndpoints.studyPlanGenerate);
+      final response =
+          await _apiClient.dio.post(ApiEndpoints.studyPlanGenerate);
       final data = response.data is Map<String, dynamic>
           ? response.data as Map<String, dynamic>
           : <String, dynamic>{};

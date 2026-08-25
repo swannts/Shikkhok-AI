@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../profile/domain/entities/student_profile.dart';
+import '../../../profile/presentation/controllers/student_profile_controller.dart';
 
-class CurriculumSelectionPage extends StatelessWidget {
+class CurriculumSelectionPage extends ConsumerStatefulWidget {
   const CurriculumSelectionPage({super.key});
+
+  @override
+  ConsumerState<CurriculumSelectionPage> createState() =>
+      _CurriculumSelectionPageState();
+}
+
+class _CurriculumSelectionPageState
+    extends ConsumerState<CurriculumSelectionPage> {
+  StudentMediumType _selectedMedium = StudentMediumType.bangla;
 
   @override
   Widget build(BuildContext context) {
@@ -60,67 +72,94 @@ class CurriculumSelectionPage extends StatelessWidget {
                         backgroundColor: AppColors.border,
                         valueColor:
                             AlwaysStoppedAnimation<Color>(AppColors.primary),
-                        minHeight: 8,
+                        minHeight: 6,
                       ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    // Selected Class Badge Pill
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withAlpha(20),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.check_circle_rounded,
-                              size: 18, color: AppColors.primary),
-                          SizedBox(width: 6),
-                          Text(
-                            '৮ম শ্রেণি',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
+
+                    // Headings
                     Text(
                       l10n.selectCurriculumTitle,
                       style: const TextStyle(
-                          fontSize: 26,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary),
                     ),
+                    const SizedBox(height: AppSpacing.xs),
+                    const Text(
+                      'জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) অনুমোদিত',
+                      style: TextStyle(
+                          fontSize: 15, color: AppColors.textSecondary),
+                    ),
                     const SizedBox(height: AppSpacing.lg),
-                    // NCTB Curriculum Main Card
+
+                    // Medium Selector
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ChoiceChip(
+                            label: const Center(child: Text('বাংলা ভার্সন')),
+                            selected:
+                                _selectedMedium == StudentMediumType.bangla,
+                            onSelected: (selected) {
+                              if (selected) {
+                                setState(() =>
+                                    _selectedMedium = StudentMediumType.bangla);
+                              }
+                            },
+                            selectedColor: AppColors.primary.withAlpha(30),
+                          ),
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
+                        Expanded(
+                          child: ChoiceChip(
+                            label: const Center(child: Text('English Version')),
+                            selected:
+                                _selectedMedium == StudentMediumType.english,
+                            onSelected: (selected) {
+                              if (selected) {
+                                setState(() => _selectedMedium =
+                                    StudentMediumType.english);
+                              }
+                            },
+                            selectedColor: AppColors.primary.withAlpha(30),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+
+                    // Curriculum Featured Card
                     Container(
                       padding: const EdgeInsets.all(AppSpacing.md),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withAlpha(15),
+                        color: AppColors.surface,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: AppColors.primary, width: 2),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primary.withAlpha(20),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
                               Container(
-                                width: 48,
-                                height: 48,
+                                width: 44,
+                                height: 44,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: AppColors.border),
+                                  color: AppColors.primary.withAlpha(20),
+                                  shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.menu_book_rounded,
-                                    size: 28, color: AppColors.primary),
+                                child: const Icon(Icons.school_rounded,
+                                    color: AppColors.primary),
                               ),
-                              const SizedBox(width: AppSpacing.md),
+                              const SizedBox(width: AppSpacing.sm),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,61 +167,48 @@ class CurriculumSelectionPage extends StatelessWidget {
                                     Text(
                                       l10n.nctbTitle,
                                       style: const TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.textPrimary),
                                     ),
-                                    const SizedBox(height: 2),
                                     Text(
                                       l10n.nctbSubtitle,
                                       style: const TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 12,
                                           color: AppColors.textSecondary),
                                     ),
                                   ],
                                 ),
                               ),
-                              const Icon(Icons.check_circle_rounded,
-                                  color: AppColors.primary, size: 26),
+                              const Icon(Icons.verified_rounded,
+                                  color: AppColors.primary, size: 24),
                             ],
                           ),
-                          const SizedBox(height: AppSpacing.md),
-                          // Academic Year Selector Box
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: AppSpacing.md, vertical: 12),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: AppColors.border),
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.calendar_month_rounded,
-                                    size: 20, color: AppColors.textSecondary),
-                                const SizedBox(width: 8),
-                                Text(
-                                  l10n.academicYear,
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary),
-                                ),
-                                const Spacer(),
-                                const Icon(Icons.expand_more_rounded,
+                          const Divider(height: 24, color: AppColors.divider),
+                          Row(
+                            children: [
+                              const Icon(Icons.calendar_today_outlined,
+                                  size: 16, color: AppColors.textSecondary),
+                              const SizedBox(width: 6),
+                              Text(
+                                l10n.academicYear,
+                                style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
                                     color: AppColors.textSecondary),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    // Subjects Preview Header & Grid
+
+                    // Subjects Preview Grid
                     Text(
                       l10n.curriculumSubjects,
                       style: const TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary),
                     ),
@@ -191,12 +217,12 @@ class CurriculumSelectionPage extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: 2,
-                      childAspectRatio: 2.5,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
+                      mainAxisSpacing: AppSpacing.sm,
+                      crossAxisSpacing: AppSpacing.sm,
+                      childAspectRatio: 2.6,
                       children: [
                         _buildSubjectChip(
-                            Icons.language_rounded,
+                            Icons.menu_book_rounded,
                             l10n.subjectBangla,
                             Colors.pink.shade100,
                             Colors.pink.shade700),
@@ -242,7 +268,15 @@ class CurriculumSelectionPage extends StatelessWidget {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: () => context.go('/goal-setting'),
+                  onPressed: () {
+                    ref
+                        .read(studentProfileControllerProvider.notifier)
+                        .setDraftCurriculum(
+                          medium: _selectedMedium,
+                          year: 2026,
+                        );
+                    context.go('/goal-setting');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(

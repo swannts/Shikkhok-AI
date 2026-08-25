@@ -74,6 +74,15 @@ class AppTypography {
     fontFamilyFallback: fontFallbacks,
   );
 
+  static const TextStyle captionBold = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    height: 1.4,
+    color: AppColors.textPrimary,
+    fontFamily: 'SutonnyMJ',
+    fontFamilyFallback: fontFallbacks,
+  );
+
   static const TextStyle button = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w600,

@@ -8,7 +8,8 @@ import '../state/notifications_state.dart';
 
 final notificationsApiClientProvider = Provider<ApiClient>((ref) => apiClient);
 
-final notificationsRepositoryProvider = Provider<NotificationsRepository>((ref) {
+final notificationsRepositoryProvider =
+    Provider<NotificationsRepository>((ref) {
   return NotificationsRepositoryImpl(ref.read(notificationsApiClientProvider));
 });
 
@@ -74,7 +75,8 @@ class NotificationsController extends StateNotifier<NotificationsState> {
         isLoadingMore: false,
       );
     } on AppFailure catch (e) {
-      state = state.copyWith(isLoadingMore: false, errorMessage: e.banglaMessage);
+      state =
+          state.copyWith(isLoadingMore: false, errorMessage: e.banglaMessage);
     } catch (e) {
       state = state.copyWith(isLoadingMore: false, errorMessage: e.toString());
     }
@@ -96,7 +98,8 @@ class NotificationsController extends StateNotifier<NotificationsState> {
 
   Future<void> markAsRead(String notificationId) async {
     final current = state.items;
-    final selected = current.where((item) => item.id == notificationId).toList();
+    final selected =
+        current.where((item) => item.id == notificationId).toList();
     if (selected.isEmpty) {
       return;
     }
@@ -108,7 +111,9 @@ class NotificationsController extends StateNotifier<NotificationsState> {
       final updated = await _repository.markAsRead(notificationId);
       final nextItems = current
           .map(
-            (item) => item.id == notificationId ? updated.copyWith(isRead: true) : item,
+            (item) => item.id == notificationId
+                ? updated.copyWith(isRead: true)
+                : item,
           )
           .toList();
       final nextUnreadCount = state.unreadCount > 0 ? state.unreadCount - 1 : 0;

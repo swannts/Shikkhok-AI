@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../profile/presentation/controllers/student_profile_controller.dart';
 
-class ClassSelectionPage extends StatefulWidget {
+class ClassSelectionPage extends ConsumerStatefulWidget {
   const ClassSelectionPage({super.key});
 
   @override
-  State<ClassSelectionPage> createState() => _ClassSelectionPageState();
+  ConsumerState<ClassSelectionPage> createState() => _ClassSelectionPageState();
 }
 
-class _ClassSelectionPageState extends State<ClassSelectionPage> {
+class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
   int? _selectedClassIndex = 7; // Default 8th class (index 7)
   String? _selectedGroup;
 
@@ -49,7 +51,7 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go('/verify-otp'),
+          onPressed: () => context.go('/role-selection'),
         ),
         title: const Text(
           'Shikkhok-AI',
@@ -68,7 +70,7 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Step Progress
+                    // Step Progress Indicator
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -90,14 +92,16 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                         backgroundColor: AppColors.border,
                         valueColor:
                             AlwaysStoppedAnimation<Color>(AppColors.primary),
-                        minHeight: 8,
+                        minHeight: 6,
                       ),
                     ),
-                    const SizedBox(height: AppSpacing.xl),
+                    const SizedBox(height: AppSpacing.lg),
+
+                    // Headings
                     Text(
                       l10n.selectClassTitle,
                       style: const TextStyle(
-                          fontSize: 26,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary),
                     ),
@@ -105,34 +109,37 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                     Text(
                       l10n.selectClassSubtitle,
                       style: const TextStyle(
-                          fontSize: 16, color: AppColors.textSecondary),
+                          fontSize: 15, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    // Class Selection Grid
+
+                    // 12-Class Grid
                     GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 2.3,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
+                        crossAxisCount: 3,
+                        crossAxisSpacing: AppSpacing.md,
+                        mainAxisSpacing: AppSpacing.md,
+                        childAspectRatio: 1.1,
                       ),
                       itemCount: _classList.length,
                       itemBuilder: (context, index) {
                         final isSelected = _selectedClassIndex == index;
+                        final classNumber = index + 1;
+
                         return InkWell(
                           onTap: () {
                             setState(() {
                               _selectedClassIndex = index;
-                              if (!_requiresGroup) _selectedGroup = null;
+                              if (index < 8) {
+                                _selectedGroup = null;
+                              }
                             });
                           },
                           borderRadius: BorderRadius.circular(16),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 150),
-                            alignment: Alignment.center,
+                          child: Container(
                             decoration: BoxDecoration(
                               color: isSelected
                                   ? AppColors.primary.withAlpha(20)
@@ -144,22 +151,62 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                                     : AppColors.border,
                                 width: isSelected ? 2 : 1,
                               ),
+                              boxShadow: isSelected
+                                  ? [
+                                      BoxShadow(
+                                        color: AppColors.primary.withAlpha(30),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ]
+                                  : null,
                             ),
-                            child: Text(
-                              _classList[index],
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: isSelected
-                                    ? AppColors.primary
-                                    : AppColors.textPrimary,
-                              ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 32,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.surfaceMuted,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '$classNumber',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : AppColors.textSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: AppSpacing.xs),
+                                Text(
+                                  _classList[index],
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: isSelected
+                                        ? FontWeight.bold
+                                        : FontWeight.w500,
+                                    color: isSelected
+                                        ? AppColors.primary
+                                        : AppColors.textPrimary,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         );
                       },
                     ),
-                    // Group Selection Section (Optional for 9-12)
+
+                    // Academic Stream Selection for Class 9-12
                     if (_requiresGroup) ...[
                       const SizedBox(height: AppSpacing.xl),
                       Text(
@@ -170,32 +217,46 @@ class _ClassSelectionPageState extends State<ClassSelectionPage> {
                             color: AppColors.textPrimary),
                       ),
                       const SizedBox(height: AppSpacing.md),
-                      _buildGroupChip('science', Icons.science_rounded,
-                          l10n.groupScience, Colors.green),
+                      _buildGroupChip('science', Icons.biotech_rounded,
+                          l10n.groupScience, const Color(0xFF00A76F)),
                       const SizedBox(height: AppSpacing.sm),
-                      _buildGroupChip('business', Icons.storefront_rounded,
-                          l10n.groupBusiness, Colors.amber),
+                      _buildGroupChip('business', Icons.trending_up_rounded,
+                          l10n.groupBusiness, const Color(0xFF00B8D9)),
                       const SizedBox(height: AppSpacing.sm),
                       _buildGroupChip('humanities', Icons.menu_book_rounded,
-                          l10n.groupHumanities, Colors.purple),
+                          l10n.groupHumanities, const Color(0xFFFFAB00)),
                     ],
                   ],
                 ),
               ),
             ),
-            // Bottom Sticky Next CTA
+
+            // Fixed Bottom CTA
             Container(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
-                border: Border(top: BorderSide(color: AppColors.border)),
+                border: const Border(top: BorderSide(color: AppColors.border)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withAlpha(8),
+                    blurRadius: 10,
+                    offset: const Offset(0, -4),
+                  ),
+                ],
               ),
               child: SizedBox(
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
                   onPressed: _canProceed
-                      ? () => context.go('/curriculum-selection')
+                      ? () {
+                          final classLevel = (_selectedClassIndex ?? 7) + 1;
+                          ref
+                              .read(studentProfileControllerProvider.notifier)
+                              .setDraftClass(classLevel);
+                          context.go('/curriculum-selection');
+                        }
                       : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,

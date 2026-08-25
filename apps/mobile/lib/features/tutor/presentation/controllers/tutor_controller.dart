@@ -39,7 +39,8 @@ class TutorController extends StateNotifier<TutorState> {
       }
 
       if (conversations.isNotEmpty) {
-        final thread = await _repository.getConversation(conversations.first.id);
+        final thread =
+            await _repository.getConversation(conversations.first.id);
         state = state.copyWith(
           conversations: conversations,
           activeConversation: thread.conversation,
@@ -50,7 +51,8 @@ class TutorController extends StateNotifier<TutorState> {
         return;
       }
 
-      final thread = await _repository.startConversation(title: 'নতুন AI টিউটর আলাপ');
+      final thread =
+          await _repository.startConversation(title: 'নতুন AI টিউটর আলাপ');
       state = state.copyWith(
         conversations: conversations,
         activeConversation: thread.conversation,
@@ -75,9 +77,11 @@ class TutorController extends StateNotifier<TutorState> {
         errorMessage: null,
       );
     } on AppFailure catch (e) {
-      state = state.copyWith(isLoadingHistory: false, errorMessage: e.banglaMessage);
+      state = state.copyWith(
+          isLoadingHistory: false, errorMessage: e.banglaMessage);
     } catch (e) {
-      state = state.copyWith(isLoadingHistory: false, errorMessage: e.toString());
+      state =
+          state.copyWith(isLoadingHistory: false, errorMessage: e.toString());
     }
   }
 
@@ -121,9 +125,11 @@ class TutorController extends StateNotifier<TutorState> {
         errorMessage: null,
       );
     } on AppFailure catch (e) {
-      state = state.copyWith(isStartingConversation: false, errorMessage: e.banglaMessage);
+      state = state.copyWith(
+          isStartingConversation: false, errorMessage: e.banglaMessage);
     } catch (e) {
-      state = state.copyWith(isStartingConversation: false, errorMessage: e.toString());
+      state = state.copyWith(
+          isStartingConversation: false, errorMessage: e.toString());
     }
   }
 
@@ -141,7 +147,8 @@ class TutorController extends StateNotifier<TutorState> {
 
     state = state.copyWith(isSending: true, errorMessage: null);
     try {
-      final thread = await _repository.sendMessage(activeConversation.id, trimmed);
+      final thread =
+          await _repository.sendMessage(activeConversation.id, trimmed);
       state = state.copyWith(
         activeConversation: thread.conversation,
         messages: thread.messages,

@@ -53,7 +53,8 @@ class StudyPlanController extends StateNotifier<StudyPlanState> {
         errorMessage: null,
       );
     } on AppFailure catch (e) {
-      state = state.copyWith(isGenerating: false, errorMessage: e.banglaMessage);
+      state =
+          state.copyWith(isGenerating: false, errorMessage: e.banglaMessage);
     } catch (e) {
       state = state.copyWith(isGenerating: false, errorMessage: e.toString());
     }

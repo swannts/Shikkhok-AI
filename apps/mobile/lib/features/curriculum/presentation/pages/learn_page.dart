@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -8,18 +9,32 @@ import '../../../../shared/widgets/app_badge.dart';
 import '../../../../shared/widgets/app_card.dart';
 import '../../../../shared/widgets/app_progress_bar.dart';
 import '../../../../shared/widgets/app_search_field.dart';
+import '../controllers/curriculum_controller.dart';
+import '../../domain/entities/subject.dart';
 
-class LearnPage extends StatefulWidget {
+class LearnPage extends ConsumerStatefulWidget {
   const LearnPage({super.key});
 
   @override
-  State<LearnPage> createState() => _LearnPageState();
+  ConsumerState<LearnPage> createState() => _LearnPageState();
 }
 
-class _LearnPageState extends State<LearnPage> {
+class _LearnPageState extends ConsumerState<LearnPage> {
   int _selectedFilterIndex = 0;
   int _currentNavIndex = 1;
   final _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(curriculumControllerProvider.notifier).loadSubjects(
+            classLevel: 8,
+            medium: 'bangla',
+            curriculumYear: 2026,
+          );
+    });
+  }
 
   @override
   void dispose() {
@@ -30,6 +45,7 @@ class _LearnPageState extends State<LearnPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final curriculumState = ref.watch(curriculumControllerProvider);
 
     final filters = [
       l10n.allSubjects,
@@ -105,114 +121,169 @@ class _LearnPageState extends State<LearnPage> {
                 ),
               ),
               const SizedBox(height: AppSpacing.lg),
-              GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                childAspectRatio: 0.88,
-                crossAxisSpacing: AppSpacing.smd,
-                mainAxisSpacing: AppSpacing.smd,
-                children: [
-                  _buildSubjectCard(
-                    title: l10n.subjectMath,
-                    subtitle: 'Mathematics',
-                    icon: Icons.calculate_rounded,
-                    bgColor: AppColors.primaryLight,
-                    iconColor: AppColors.primaryDark,
-                    chapters: 12,
-                    lessons: 48,
-                    progress: 0.62,
+              if (curriculumState is CurriculumLoading) ...[
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(AppSpacing.xl),
+                    child: CircularProgressIndicator(color: AppColors.primary),
                   ),
-                  _buildSubjectCard(
-                    title: l10n.subjectScience,
-                    subtitle: 'Science',
-                    icon: Icons.science_rounded,
-                    bgColor: AppColors.successLight,
-                    iconColor: AppColors.success,
-                    chapters: 14,
-                    lessons: 52,
-                    progress: 0.48,
+                ),
+              ] else if (curriculumState is CurriculumSubjectsLoaded &&
+                  curriculumState.subjects.isNotEmpty) ...[
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.88,
+                    crossAxisSpacing: AppSpacing.smd,
+                    mainAxisSpacing: AppSpacing.smd,
                   ),
-                  _buildSubjectCard(
-                    title: l10n.subjectBangla,
-                    subtitle: 'Bangla',
-                    icon: Icons.menu_book_rounded,
-                    bgColor: AppColors.warningLight,
-                    iconColor: AppColors.warning,
-                    chapters: 10,
-                    lessons: 40,
-                    progress: 0.75,
-                  ),
-                  _buildSubjectCard(
-                    title: l10n.subjectEnglish,
-                    subtitle: 'English',
-                    icon: Icons.language_rounded,
-                    bgColor: AppColors.secondaryLight,
-                    iconColor: AppColors.secondary,
-                    chapters: 15,
-                    lessons: 60,
-                    progress: 0.30,
-                  ),
-                  _buildSubjectCard(
-                    title: l10n.subjectIct,
-                    subtitle: 'Information Tech',
-                    icon: Icons.computer_rounded,
-                    bgColor: AppColors.infoLight,
-                    iconColor: AppColors.info,
-                    chapters: 8,
-                    lessons: 32,
-                    progress: 0.90,
-                  ),
-                  _buildSubjectCard(
-                    title: l10n.subjectSocial,
-                    subtitle: 'Social Science',
-                    icon: Icons.public_rounded,
-                    bgColor: AppColors.surfaceMuted,
-                    iconColor: AppColors.textSecondary,
-                    chapters: 12,
-                    lessons: 45,
-                    progress: 0.55,
-                  ),
-                ],
-              ),
+                  itemCount: curriculumState.subjects.length,
+                  itemBuilder: (context, index) {
+                    final subject = curriculumState.subjects[index];
+                    return _buildDynamicSubjectCard(subject);
+                  },
+                ),
+              ] else ...[
+                GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.88,
+                  crossAxisSpacing: AppSpacing.smd,
+                  mainAxisSpacing: AppSpacing.smd,
+                  children: [
+                    _buildSubjectCard(
+                      title: l10n.subjectMath,
+                      subtitle: 'Mathematics',
+                      icon: Icons.calculate_rounded,
+                      bgColor: AppColors.primaryLight,
+                      iconColor: AppColors.primaryDark,
+                      chapters: 12,
+                      lessons: 48,
+                      progress: 0.62,
+                    ),
+                    _buildSubjectCard(
+                      title: l10n.subjectScience,
+                      subtitle: 'Science',
+                      icon: Icons.science_rounded,
+                      bgColor: AppColors.successLight,
+                      iconColor: AppColors.success,
+                      chapters: 14,
+                      lessons: 52,
+                      progress: 0.48,
+                    ),
+                    _buildSubjectCard(
+                      title: l10n.subjectBangla,
+                      subtitle: 'Bangla',
+                      icon: Icons.menu_book_rounded,
+                      bgColor: AppColors.warningLight,
+                      iconColor: AppColors.warning,
+                      chapters: 10,
+                      lessons: 40,
+                      progress: 0.75,
+                    ),
+                    _buildSubjectCard(
+                      title: l10n.subjectEnglish,
+                      subtitle: 'English',
+                      icon: Icons.language_rounded,
+                      bgColor: AppColors.secondaryLight,
+                      iconColor: AppColors.secondary,
+                      chapters: 15,
+                      lessons: 60,
+                      progress: 0.30,
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentNavIndex,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textDisabled,
-        backgroundColor: AppColors.surface,
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentNavIndex,
+        onDestinationSelected: (index) {
           setState(() => _currentNavIndex = index);
-          if (index == 0) context.go('/');
-          if (index == 2) context.go('/practice-setup');
-          if (index == 3) context.go('/ai-tutor-chat');
-          if (index == 4) context.go('/profile');
+          switch (index) {
+            case 0:
+              context.go('/');
+              break;
+            case 1:
+              break;
+            case 2:
+              context.go('/ai-tutor-chat');
+              break;
+            case 3:
+              context.go('/practice-setup');
+              break;
+            case 4:
+              context.go('/student-profile');
+              break;
+          }
         },
-        items: const [
-          BottomNavigationBarItem(
+        destinations: const [
+          NavigationDestination(
               icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home_rounded),
+              selectedIcon: Icon(Icons.home_rounded),
               label: 'হোম'),
-          BottomNavigationBarItem(
+          NavigationDestination(
               icon: Icon(Icons.menu_book_outlined),
-              activeIcon: Icon(Icons.menu_book_rounded),
-              label: 'শিখুন'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.quiz_outlined),
-              activeIcon: Icon(Icons.quiz_rounded),
-              label: 'প্র্যাকটিস'),
-          BottomNavigationBarItem(
+              selectedIcon: Icon(Icons.menu_book_rounded),
+              label: 'শিক্ষা'),
+          NavigationDestination(
               icon: Icon(Icons.smart_toy_outlined),
-              activeIcon: Icon(Icons.smart_toy_rounded),
-              label: 'AI শিক্ষক'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_rounded),
-              activeIcon: Icon(Icons.person_rounded),
+              selectedIcon: Icon(Icons.smart_toy_rounded),
+              label: 'টিউটর'),
+          NavigationDestination(
+              icon: Icon(Icons.quiz_outlined),
+              selectedIcon: Icon(Icons.quiz_rounded),
+              label: 'অনুশীলন'),
+          NavigationDestination(
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person_rounded),
               label: 'প্রোফাইল'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDynamicSubjectCard(Subject subject) {
+    return AppCard(
+      onTap: () => context.go('/subject-details'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryLight,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.menu_book_rounded,
+                    color: AppColors.primaryDark),
+              ),
+              const Icon(Icons.chevron_right_rounded,
+                  color: AppColors.textSecondary, size: 20),
+            ],
+          ),
+          const Spacer(),
+          Text(subject.name,
+              style: AppTypography.cardTitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis),
+          Text(
+            subject.slug.toUpperCase(),
+            style: AppTypography.caption,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: AppSpacing.xs + 2),
+          const AppProgressBar(value: 0.5),
         ],
       ),
     );
@@ -233,38 +304,38 @@ class _LearnPageState extends State<LearnPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: bgColor,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(icon, color: iconColor, size: 22),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, color: iconColor),
+              ),
+              const Icon(Icons.chevron_right_rounded,
+                  color: AppColors.textSecondary, size: 20),
+            ],
           ),
-          const SizedBox(height: AppSpacing.sm),
+          const Spacer(),
+          Text(title,
+              style: AppTypography.cardTitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis),
           Text(
-            title,
-            style: AppTypography.cardTitle,
+            subtitle,
+            style: AppTypography.caption,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          Text(subtitle, style: AppTypography.caption),
-          const Spacer(),
-          Text('$chapters অধ্যায় • $lessons পাঠ',
-              style: AppTypography.caption.copyWith(fontSize: 11)),
           const SizedBox(height: AppSpacing.xs),
-          Row(
-            children: [
-              Expanded(child: AppProgressBar(value: progress, height: 6)),
-              const SizedBox(width: AppSpacing.xs),
-              Text(
-                '${(progress * 100).toInt()}%',
-                style: AppTypography.caption.copyWith(
-                    fontWeight: FontWeight.bold, color: AppColors.textPrimary),
-              ),
-            ],
-          ),
+          Text('$chaptersটি অধ্যায় • $lessonsটি পাঠ',
+              style: AppTypography.caption),
+          const SizedBox(height: AppSpacing.xs + 2),
+          AppProgressBar(value: progress),
         ],
       ),
     );

@@ -16,7 +16,8 @@ class TodaysStudyPlanPage extends ConsumerStatefulWidget {
   const TodaysStudyPlanPage({super.key});
 
   @override
-  ConsumerState<TodaysStudyPlanPage> createState() => _TodaysStudyPlanPageState();
+  ConsumerState<TodaysStudyPlanPage> createState() =>
+      _TodaysStudyPlanPageState();
 }
 
 class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
@@ -33,7 +34,9 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
   }
 
   Future<void> _generatePlan() async {
-    await ref.read(studyPlanControllerProvider.notifier).generateRecommendedPlan();
+    await ref
+        .read(studyPlanControllerProvider.notifier)
+        .generateRecommendedPlan();
   }
 
   @override
@@ -67,7 +70,8 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
           IconButton(
             tooltip: 'Refresh',
             onPressed: state.isLoading ? null : notifier.refresh,
-            icon: const Icon(Icons.refresh_rounded, color: AppColors.textPrimary),
+            icon:
+                const Icon(Icons.refresh_rounded, color: AppColors.textPrimary),
           ),
         ],
       ),
@@ -148,7 +152,8 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
                         padding: EdgeInsets.only(
                           bottom: index == plan.items.length - 1 ? 0 : 12,
                         ),
-                        child: _PlanTaskTile(item: item, subjectLabel: subjectLabel),
+                        child: _PlanTaskTile(
+                            item: item, subjectLabel: subjectLabel),
                       );
                     }),
                   const SizedBox(height: AppSpacing.lg),
@@ -165,9 +170,12 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
                                 color: Colors.white,
                               ),
                             )
-                          : const Icon(Icons.auto_awesome_rounded, color: Colors.white),
+                          : const Icon(Icons.auto_awesome_rounded,
+                              color: Colors.white),
                       label: Text(
-                        state.isGenerating ? 'নতুন পরিকল্পনা তৈরি হচ্ছে...' : 'নতুন পরিকল্পনা তৈরি করুন',
+                        state.isGenerating
+                            ? 'নতুন পরিকল্পনা তৈরি হচ্ছে...'
+                            : 'নতুন পরিকল্পনা তৈরি করুন',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -296,7 +304,9 @@ class _PlanTaskTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(
-            isCompleted ? Icons.check_circle_rounded : Icons.play_circle_fill_rounded,
+            isCompleted
+                ? Icons.check_circle_rounded
+                : Icons.play_circle_fill_rounded,
             color: color,
             size: 28,
           ),
@@ -311,7 +321,9 @@ class _PlanTaskTile extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     decoration: isCompleted ? TextDecoration.lineThrough : null,
-                    color: isCompleted ? AppColors.textSecondary : AppColors.textPrimary,
+                    color: isCompleted
+                        ? AppColors.textSecondary
+                        : AppColors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 2),

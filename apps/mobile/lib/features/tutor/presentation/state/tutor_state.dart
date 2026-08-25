@@ -49,7 +49,8 @@ class TutorState {
       isLoading: isLoading ?? this.isLoading,
       isLoadingHistory: isLoadingHistory ?? this.isLoadingHistory,
       isSending: isSending ?? this.isSending,
-      isStartingConversation: isStartingConversation ?? this.isStartingConversation,
+      isStartingConversation:
+          isStartingConversation ?? this.isStartingConversation,
       errorMessage: errorMessage,
     );
   }

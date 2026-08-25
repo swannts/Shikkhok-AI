@@ -76,7 +76,8 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
     final notifier = ref.read(tutorControllerProvider.notifier);
     final activeConversation = state.activeConversation;
 
-    if (_lastMessageCount != state.messages.length && state.messages.isNotEmpty) {
+    if (_lastMessageCount != state.messages.length &&
+        state.messages.isNotEmpty) {
       _lastMessageCount = state.messages.length;
       _scrollToBottom();
     }
@@ -91,7 +92,8 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/home'),
         ),
         title: Row(
@@ -147,7 +149,8 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.history_rounded,
+                color: AppColors.textSecondary),
             onPressed: () => context.go('/ai-tutor-history'),
           ),
         ],
@@ -164,15 +167,18 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withAlpha(20),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: AppColors.primary.withAlpha(40)),
+                      border:
+                          Border.all(color: AppColors.primary.withAlpha(40)),
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.auto_awesome_rounded, size: 14, color: AppColors.primary),
+                        const Icon(Icons.auto_awesome_rounded,
+                            size: 14, color: AppColors.primary),
                         const SizedBox(width: 4),
                         Text(
                           activeConversation?.title ?? 'AI Tutor',
@@ -199,8 +205,9 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                       itemCount: 5,
                       separatorBuilder: (_, __) => const SizedBox(height: 12),
                       itemBuilder: (context, index) => Align(
-                        alignment:
-                            index.isEven ? Alignment.centerRight : Alignment.centerLeft,
+                        alignment: index.isEven
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
                         child: const AppCard(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,8 +233,8 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                           title: 'AI টিউটর লোড হয়নি',
                           description: state.errorMessage!,
                           actionLabel: 'আবার চেষ্টা করুন',
-                          onActionTap: () =>
-                              notifier.loadInitial(conversationId: widget.initialConversationId),
+                          onActionTap: () => notifier.loadInitial(
+                              conversationId: widget.initialConversationId),
                         ),
                       ],
                     );
@@ -236,7 +243,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                   if (state.messages.isEmpty) {
                     return ListView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      children: [
+                      children: const [
                         AppEmptyState(
                           icon: Icons.chat_bubble_outline_rounded,
                           title: 'এখনও কোনো আলাপ নেই',
@@ -251,7 +258,8 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                     controller: _scrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(AppSpacing.md),
-                    itemCount: state.messages.length + (state.isSending ? 1 : 0),
+                    itemCount:
+                        state.messages.length + (state.isSending ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index >= state.messages.length) {
                         return const Padding(
@@ -265,12 +273,14 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                                   SizedBox(
                                     width: 14,
                                     height: 14,
-                                    child: CircularProgressIndicator(strokeWidth: 2),
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2),
                                   ),
                                   SizedBox(width: 10),
                                   Text(
                                     'AI উত্তর লিখছে...',
-                                    style: TextStyle(color: AppColors.textSecondary),
+                                    style: TextStyle(
+                                        color: AppColors.textSecondary),
                                   ),
                                 ],
                               ),
@@ -328,15 +338,18 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                             fillColor: AppColors.background,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(color: AppColors.border),
+                              borderSide:
+                                  const BorderSide(color: AppColors.border),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(color: AppColors.border),
+                              borderSide:
+                                  const BorderSide(color: AppColors.border),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide: const BorderSide(color: AppColors.primary),
+                              borderSide:
+                                  const BorderSide(color: AppColors.primary),
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 16,
@@ -368,7 +381,8 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                                     color: Colors.white,
                                   ),
                                 )
-                              : const Icon(Icons.send_rounded, color: Colors.white),
+                              : const Icon(Icons.send_rounded,
+                                  color: Colors.white),
                         ),
                       ),
                     ],
@@ -447,7 +461,8 @@ class _ChatBubble extends StatelessWidget {
             children: [
               Text(
                 message.content,
-                style: const TextStyle(fontSize: 15, color: Colors.white, height: 1.5),
+                style: const TextStyle(
+                    fontSize: 15, color: Colors.white, height: 1.5),
               ),
               const SizedBox(height: 6),
               Text(
@@ -507,7 +522,8 @@ class _ChatBubble extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               _formatTime(createdAt),
-              style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+              style:
+                  const TextStyle(fontSize: 11, color: AppColors.textSecondary),
             ),
           ],
         ),

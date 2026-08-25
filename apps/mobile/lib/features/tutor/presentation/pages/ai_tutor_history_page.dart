@@ -71,7 +71,8 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/ai-tutor-chat'),
         ),
         title: Text(
@@ -84,7 +85,8 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.chat_bubble_outline_rounded, color: AppColors.textSecondary),
+            icon: const Icon(Icons.chat_bubble_outline_rounded,
+                color: AppColors.textSecondary),
             onPressed: () => context.go('/ai-tutor-chat'),
           ),
         ],
@@ -101,7 +103,8 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
                 onChanged: (_) => setState(() {}),
                 decoration: InputDecoration(
                   hintText: l10n.searchHistoryPlaceholder,
-                  prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textSecondary),
+                  prefixIcon: const Icon(Icons.search_rounded,
+                      color: AppColors.textSecondary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -188,10 +191,13 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
                                       color: AppColors.textSecondary,
                                     ),
                                   ),
-                                  if (_formatRelative(conversation.lastMessageAt).isNotEmpty) ...[
+                                  if (_formatRelative(
+                                          conversation.lastMessageAt)
+                                      .isNotEmpty) ...[
                                     const SizedBox(height: 2),
                                     Text(
-                                      _formatRelative(conversation.lastMessageAt),
+                                      _formatRelative(
+                                          conversation.lastMessageAt),
                                       style: const TextStyle(
                                         fontSize: 11,
                                         color: AppColors.textSecondary,
