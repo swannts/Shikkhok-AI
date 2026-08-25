@@ -68,16 +68,25 @@ class ApiEndpoints {
   static String homeworkRetry(String id) => '/homework/submissions/$id/retry';
 
   // Parents
+  static const String parentsMe = '/parents/me';
   static const String parentsChildren = '/parents/me/children';
-  static String parentChildProgress(String studentId) =>
-      '/parents/me/children/$studentId/progress';
-  static const String parentsLinkRequest = '/parents/link/request';
-  static const String parentsLinkConfirm = '/parents/link/confirm';
+  static const String parentsLinkChild = '/parents/me/children/link';
+  static String parentChild(String childUserId) =>
+      '/parents/me/children/$childUserId';
+  static String parentChildDashboard(String childUserId) =>
+      '/parents/me/children/$childUserId/dashboard';
+  static String parentChildAnalytics(String childUserId) =>
+      '/parents/me/children/$childUserId/analytics';
+  static String parentChildWeeklyReport(String childUserId) =>
+      '/parents/me/children/$childUserId/reports/weekly';
 
   // Subscriptions & Payments
   static const String subscriptionPlans = '/subscriptions/plans';
   static const String subscriptionMy = '/subscriptions/me';
-  static const String subscriptionCheckout = '/subscriptions/checkout';
+  static const String subscriptionInitiate = '/subscriptions/payments/initiate';
+  static const String subscriptionVerify = '/subscriptions/payments/verify';
+  static const String subscriptionManualSubmit =
+      '/subscriptions/payments/manual-submit';
 
   // Study Plan
   static const String studyPlanCurrent = '/study-plan/me/current';

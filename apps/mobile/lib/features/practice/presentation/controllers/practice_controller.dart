@@ -167,7 +167,7 @@ class PracticeController extends StateNotifier<PracticeState> {
         currentResult: result,
         results: updatedResults,
       );
-    } on AppFailure catch (failure) {
+    } on AppFailure {
       state = current.copyWith(isSubmitting: false);
     } catch (_) {
       state = current.copyWith(isSubmitting: false);
