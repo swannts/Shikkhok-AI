@@ -220,7 +220,9 @@ final List<RouteBase> _routes = [
   ),
   GoRoute(
     path: '/ai-tutor-chat',
-    builder: (context, state) => const AiTutorChatPage(),
+    builder: (context, state) => AiTutorChatPage(
+      initialConversationId: state.uri.queryParameters['conversationId'],
+    ),
   ),
   GoRoute(
     path: '/ai-tutor-chat-variant',

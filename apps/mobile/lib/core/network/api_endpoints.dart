@@ -21,6 +21,15 @@ class ApiEndpoints {
   static String notificationMarkRead(String notificationId) =>
       '/notifications/me/$notificationId/read';
 
+  // Tutor
+  static const String tutorConversations = '/tutor/me/conversations';
+  static String tutorConversation(String conversationId) =>
+      '/tutor/me/conversations/$conversationId';
+  static String tutorConversationMessages(String conversationId) =>
+      '/tutor/me/conversations/$conversationId/messages';
+  static String tutorConversationStream(String conversationId) =>
+      '/tutor/me/conversations/$conversationId/messages/stream';
+
   // Study Plan
   static const String studyPlanCurrent = '/study-plan/me/current';
   static const String studyPlanGenerate = '/study-plan/me/generate';
