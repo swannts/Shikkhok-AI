@@ -88,6 +88,12 @@ class ApiEndpoints {
   static const String subscriptionManualSubmit =
       '/subscriptions/payments/manual-submit';
 
+  // Offline Sync
+  static const String syncBatches = '/sync/me/batches';
+  static const String syncEvents = '/sync/me/events';
+  static String syncCheckpoint(String deviceId) =>
+      '/sync/me/checkpoints/$deviceId';
+
   // Study Plan
   static const String studyPlanCurrent = '/study-plan/me/current';
   static const String studyPlanHistory = '/study-plan/me/history';
