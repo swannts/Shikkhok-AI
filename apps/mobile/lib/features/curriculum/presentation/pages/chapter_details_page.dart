@@ -173,7 +173,9 @@ class ChapterDetailsPage extends ConsumerWidget {
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
-                                        '${viewData.completedLessons}/${viewData.totalLessons} পাঠ সম্পন্ন',
+                                        viewData.progressAvailable
+                                            ? '${viewData.completedLessons}/${viewData.totalLessons} পাঠ সম্পন্ন'
+                                            : 'অগ্রগতি পাওয়া যাচ্ছে না',
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -182,32 +184,52 @@ class ChapterDetailsPage extends ConsumerWidget {
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                    '${viewData.progressPercent.round()}%',
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.primary,
+                                  if (viewData.progressPercent != null)
+                                    Text(
+                                      '${viewData.progressPercent!.round()}%',
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.primary,
+                                      ),
+                                    )
+                                  else
+                                    TextButton.icon(
+                                      onPressed: () => ref.refresh(
+                                          chapterDetailsProvider(chapterId!)),
+                                      icon: const Icon(Icons.refresh_rounded),
+                                      label: const Text('পুনরায় চেষ্টা করুন'),
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: AppColors.primary,
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                               const SizedBox(height: 8),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: LinearProgressIndicator(
-                                  value: viewData.totalLessons > 0
-                                      ? (viewData.completedLessons /
-                                              viewData.totalLessons)
-                                          .clamp(0.0, 1.0)
-                                      : 0.0,
-                                  backgroundColor: AppColors.border,
-                                  valueColor:
-                                      const AlwaysStoppedAnimation<Color>(
-                                          AppColors.primary),
-                                  minHeight: 6,
+                              if (viewData.progressPercent != null)
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: LinearProgressIndicator(
+                                    value: viewData.totalLessons > 0
+                                        ? (viewData.completedLessons /
+                                                viewData.totalLessons)
+                                            .clamp(0.0, 1.0)
+                                        : 0.0,
+                                    backgroundColor: AppColors.border,
+                                    valueColor:
+                                        const AlwaysStoppedAnimation<Color>(
+                                            AppColors.primary),
+                                    minHeight: 6,
+                                  ),
+                                )
+                              else
+                                Container(
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.border.withAlpha(90),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
                                 ),
-                              ),
                               const SizedBox(height: AppSpacing.md),
                               Row(
                                 mainAxisAlignment:

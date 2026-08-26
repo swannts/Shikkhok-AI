@@ -15,10 +15,14 @@ abstract class LessonContentBlockDto {
 
   Map<String, dynamic> toJson();
 
-  factory LessonContentBlockDto.fromJson(Map<String, dynamic> json) {
+  static LessonContentBlockDto? tryFromJson(Map<String, dynamic> json) {
     final type = lessonContentBlockTypeFromApiValue(
-      (json['type'] ?? 'paragraph').toString(),
+      (json['type'] ?? '').toString(),
     );
+    if (type == null) {
+      return null;
+    }
+
     final id = (json['id'] ?? '').toString();
     final order = (json['order'] as num?)?.toInt() ?? 0;
 
@@ -101,6 +105,16 @@ abstract class LessonContentBlockDto {
           attribution: json['attribution']?.toString(),
         ),
     };
+  }
+
+  factory LessonContentBlockDto.fromJson(Map<String, dynamic> json) {
+    final dto = tryFromJson(json);
+    if (dto == null) {
+      throw FormatException(
+        'Unsupported lesson content block type: ${json['type']}',
+      );
+    }
+    return dto;
   }
 }
 

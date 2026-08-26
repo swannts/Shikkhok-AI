@@ -19,8 +19,15 @@ import 'package:mobile/features/curriculum/presentation/pages/lesson_reader_page
 class MockCurriculumRepo implements CurriculumRepository {
   final bool returnEmpty;
   final bool shouldThrow;
+  final bool progressShouldThrow;
+  final bool progressReturnsEmpty;
 
-  MockCurriculumRepo({this.returnEmpty = false, this.shouldThrow = false});
+  MockCurriculumRepo({
+    this.returnEmpty = false,
+    this.shouldThrow = false,
+    this.progressShouldThrow = false,
+    this.progressReturnsEmpty = false,
+  });
 
   @override
   Future<List<Subject>> listSubjects({
@@ -178,7 +185,8 @@ class MockCurriculumRepo implements CurriculumRepository {
 
   @override
   Future<List<ChapterProgress>> getMySubjectProgress(String subjectId) async {
-    if (shouldThrow) throw Exception('Network error');
+    if (progressShouldThrow) throw Exception('Network error');
+    if (progressReturnsEmpty) return [];
     return [
       const ChapterProgress(
         chapterId: 'real_chap_201',
@@ -264,6 +272,50 @@ void main() {
       expect(find.text('সেট ও ফাংশন'), findsWidgets);
       expect(find.text('সার্বিক সেট ও উপসেট'), findsOneWidget);
       expect(find.text('পৃষ্ঠা 5-12'), findsOneWidget);
+      expect(find.text('0/1 পাঠ সম্পন্ন'), findsOneWidget);
+      expect(find.text('0%'), findsOneWidget);
+      expect(find.text('অগ্রগতি পাওয়া যাচ্ছে না'), findsNothing);
+    });
+
+    testWidgets(
+        'ChapterDetailsPage shows unavailable progress when progress API fails',
+        (tester) async {
+      final mockRepo = MockCurriculumRepo(progressShouldThrow: true);
+      await tester.pumpWidget(
+        wrapPage(
+          const ChapterDetailsPage(chapterId: 'real_chap_201'),
+          repo: mockRepo,
+        ),
+      );
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(find.text('সেট ও ফাংশন'), findsWidgets);
+      expect(find.text('সার্বিক সেট ও উপসেট'), findsOneWidget);
+      expect(find.text('অগ্রগতি পাওয়া যাচ্ছে না'), findsOneWidget);
+      expect(find.text('0%'), findsNothing);
+      expect(find.text('পুনরায় চেষ্টা করুন'), findsWidgets);
+    });
+
+    testWidgets(
+        'ChapterDetailsPage treats an empty progress response as real zero progress',
+        (tester) async {
+      final mockRepo = MockCurriculumRepo(progressReturnsEmpty: true);
+      await tester.pumpWidget(
+        wrapPage(
+          const ChapterDetailsPage(chapterId: 'real_chap_201'),
+          repo: mockRepo,
+        ),
+      );
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(find.text('সেট ও ফাংশন'), findsWidgets);
+      expect(find.text('সার্বিক সেট ও উপসেট'), findsOneWidget);
+      expect(find.text('0/1 পাঠ সম্পন্ন'), findsOneWidget);
+      expect(find.text('0%'), findsOneWidget);
+      expect(find.text('অগ্রগতি পাওয়া যাচ্ছে না'), findsNothing);
+      expect(find.text('পুনরায় চেষ্টা করুন'), findsNothing);
     });
 
     testWidgets('ChapterDetailsPage handles invalid ID gracefully',

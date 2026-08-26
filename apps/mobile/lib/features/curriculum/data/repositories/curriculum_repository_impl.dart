@@ -139,8 +139,14 @@ class CurriculumRepositoryImpl implements CurriculumRepository {
     try {
       final dtos = await _remoteDataSource.getMySubjectProgress(subjectId);
       return dtos.map((d) => d.toDomain()).toList();
-    } catch (_) {
-      return [];
+    } on DioException catch (e) {
+      throw _apiClient.mapDioException(e);
+    } catch (e) {
+      if (e is AppFailure) rethrow;
+      throw UnknownFailure(
+        message: e.toString(),
+        banglaMessage: 'অধ্যায়ের অগ্রগতি আনা যায়নি।',
+      );
     }
   }
 

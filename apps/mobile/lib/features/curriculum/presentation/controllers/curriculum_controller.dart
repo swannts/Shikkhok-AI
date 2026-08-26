@@ -4,6 +4,7 @@ import '../../../../core/errors/app_failure.dart';
 import '../../domain/entities/subject.dart';
 import '../../domain/entities/chapter.dart';
 import '../../domain/entities/lesson.dart';
+import '../../domain/entities/chapter_progress.dart';
 import '../../domain/entities/progress_summary.dart';
 import '../../domain/repositories/curriculum_repository.dart';
 import '../../data/datasources/curriculum_remote_data_source.dart';
@@ -136,18 +137,22 @@ class ChapterDetailsViewData {
   final Chapter chapter;
   final Subject? subject;
   final List<Lesson> lessons;
-  final int completedLessons;
-  final int totalLessons;
-  final double progressPercent;
+  final ChapterProgress? progress;
 
   const ChapterDetailsViewData({
     required this.chapter,
     this.subject,
     required this.lessons,
-    this.completedLessons = 0,
-    this.totalLessons = 0,
-    this.progressPercent = 0.0,
+    this.progress,
   });
+
+  int get completedLessons => progress?.completedLessons ?? 0;
+
+  int get totalLessons => progress?.totalLessons ?? lessons.length;
+
+  double? get progressPercent => progress?.completionRate.toDouble();
+
+  bool get progressAvailable => progress != null;
 }
 
 final chapterDetailsProvider =
@@ -161,9 +166,7 @@ final chapterDetailsProvider =
   } catch (_) {}
   final lessons = await repo.listLessons(chapterId);
 
-  int completedCount = 0;
-  final totalCount = lessons.length;
-  double progressPercentage = 0.0;
+  ChapterProgress? progress;
 
   try {
     final chapterProgressList =
@@ -171,19 +174,20 @@ final chapterDetailsProvider =
     final match = chapterProgressList
         .where((cp) => cp.chapterId == chapterId)
         .firstOrNull;
-    if (match != null) {
-      completedCount = match.completedLessons;
-      progressPercentage = match.completionRate;
-    }
+    progress = match ??
+        ChapterProgress(
+          chapterId: chapterId,
+          totalLessons: lessons.length,
+          completedLessons: 0,
+          completionRate: 0.0,
+        );
   } catch (_) {}
 
   return ChapterDetailsViewData(
     chapter: chapter,
     subject: subject,
     lessons: lessons,
-    completedLessons: completedCount,
-    totalLessons: totalCount,
-    progressPercent: progressPercentage,
+    progress: progress,
   );
 });
 

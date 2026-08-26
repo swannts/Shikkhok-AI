@@ -26,7 +26,7 @@ extension LessonContentBlockTypeApiValue on LessonContentBlockType {
       };
 }
 
-LessonContentBlockType lessonContentBlockTypeFromApiValue(String value) {
+LessonContentBlockType? lessonContentBlockTypeFromApiValue(String value) {
   return switch (value) {
     'heading' => LessonContentBlockType.heading,
     'paragraph' => LessonContentBlockType.paragraph,
@@ -38,7 +38,7 @@ LessonContentBlockType lessonContentBlockTypeFromApiValue(String value) {
     'citation' => LessonContentBlockType.citation,
     'list' => LessonContentBlockType.list,
     'quote' => LessonContentBlockType.quote,
-    _ => LessonContentBlockType.paragraph,
+    _ => null,
   };
 }
 

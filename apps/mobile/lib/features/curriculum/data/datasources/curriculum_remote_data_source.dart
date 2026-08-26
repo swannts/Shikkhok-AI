@@ -123,19 +123,19 @@ class CurriculumRemoteDataSourceImpl implements CurriculumRemoteDataSource {
   @override
   Future<List<ChapterProgressDto>> getMySubjectProgress(
       String subjectId) async {
-    try {
-      final res =
-          await _client.dio.get(ApiEndpoints.progressSubject(subjectId));
-      final data = _extractData(res.data);
-      if (data is Map<String, dynamic> && data['chapters'] is List) {
-        return (data['chapters'] as List)
-            .map((e) => ChapterProgressDto.fromJson(e as Map<String, dynamic>))
-            .toList();
-      }
-      return [];
-    } catch (_) {
-      return [];
+    final res = await _client.dio.get(ApiEndpoints.progressSubject(subjectId));
+    final data = _extractData(res.data);
+    if (data is Map<String, dynamic> && data['chapters'] is List) {
+      return (data['chapters'] as List)
+          .map((e) => ChapterProgressDto.fromJson(e as Map<String, dynamic>))
+          .toList();
     }
+    if (data is List) {
+      return data
+          .map((e) => ChapterProgressDto.fromJson(e as Map<String, dynamic>))
+          .toList();
+    }
+    return [];
   }
 
   @override

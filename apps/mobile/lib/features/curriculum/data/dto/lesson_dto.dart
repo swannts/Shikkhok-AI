@@ -32,7 +32,8 @@ class LessonDto {
   factory LessonDto.fromJson(Map<String, dynamic> json) {
     final rawBlocks = (json['contentBlocks'] as List<dynamic>? ?? const [])
         .whereType<Map<String, dynamic>>()
-        .map(LessonContentBlockDto.fromJson)
+        .map(LessonContentBlockDto.tryFromJson)
+        .whereType<LessonContentBlockDto>()
         .toList(growable: false);
 
     return LessonDto(
