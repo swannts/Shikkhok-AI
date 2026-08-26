@@ -54,33 +54,17 @@ class AuthController extends StateNotifier<AuthState> {
     state = const AuthLoading('সেশন যাচাই করা হচ্ছে...');
     try {
       final token = await TokenStorage.getAccessToken();
-      if (token == null || token.isEmpty) {
+      final refreshToken = await TokenStorage.getRefreshToken();
+      if ((token == null || token.isEmpty) &&
+          (refreshToken == null || refreshToken.isEmpty)) {
         state = const Unauthenticated();
         return;
       }
 
-      try {
-        final user = await _authRepository.getCurrentUser();
-        state = Authenticated(user);
-      } catch (e) {
-        // Access token failed, attempt single-flight refresh
-        final refreshToken = await TokenStorage.getRefreshToken();
-        if (refreshToken == null || refreshToken.isEmpty) {
-          await TokenStorage.clearTokens();
-          state = const Unauthenticated();
-          return;
-        }
-
-        try {
-          await _authRepository.refreshTokens(refreshToken: refreshToken);
-          final user = await _authRepository.getCurrentUser();
-          state = Authenticated(user);
-        } catch (_) {
-          await TokenStorage.clearTokens();
-          state = const Unauthenticated();
-        }
-      }
+      final user = await _authRepository.getCurrentUser();
+      state = Authenticated(user);
     } catch (_) {
+      await TokenStorage.clearTokens();
       state = const Unauthenticated();
     }
   }

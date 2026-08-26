@@ -392,26 +392,25 @@ export class AuthService {
     const refreshTtl = this.configService.get<string>('jwt.refreshTtl', '7d');
     const expiresAt = this.computeExpiryDate(refreshTtl);
 
-    // Generate session ID first, then sign refresh token with sessionId in payload
-    const sessionDoc = await this.refreshSessionRepository.createSession({
-      userId: new Types.ObjectId(userId),
-      tokenHash: '', // Placeholder — will be updated after signing
-      deviceId,
-      deviceName,
-      expiresAt,
-    });
-
+    // Pre-generate session ObjectId so we sign and persist in a single atomic insert
+    const sessionId = new Types.ObjectId();
     const refreshToken = this.jwtService.sign(
-      { sub: userId, sessionId: sessionDoc._id.toString() },
+      { sub: userId, sessionId: sessionId.toString() },
       {
         secret: this.configService.get<string>('jwt.refreshSecret'),
         expiresIn: refreshTtl as any,
       },
     );
+    const tokenHash = this.hashToken(refreshToken);
 
-    // Store the hash of the refresh token (never the raw token)
-    sessionDoc.tokenHash = this.hashToken(refreshToken);
-    await sessionDoc.save();
+    await this.refreshSessionRepository.createSession({
+      _id: sessionId,
+      userId: new Types.ObjectId(userId),
+      tokenHash,
+      deviceId,
+      deviceName,
+      expiresAt,
+    } as any);
 
     return { accessToken, refreshToken };
   }

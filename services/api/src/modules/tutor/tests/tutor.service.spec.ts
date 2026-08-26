@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import { Types } from 'mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { TutorService } from '../tutor.service';
@@ -95,6 +96,7 @@ describe('TutorService', () => {
   });
 
   it('should start a conversation and send the initial message', async () => {
+    const testUserId = new Types.ObjectId().toString();
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
     conversationRepository.createConversation.mockResolvedValue({
       _id: { toString: () => 'conv-1' },
@@ -102,7 +104,7 @@ describe('TutorService', () => {
     } as any);
     conversationRepository.findById.mockResolvedValue({
       _id: { toString: () => 'conv-1' },
-      userId: { toString: () => 'user-1' },
+      userId: { toString: () => testUserId },
       lessonId: null,
       chapterId: null,
       subjectId: null,
@@ -115,7 +117,7 @@ describe('TutorService', () => {
     tutorGatewayService.generateReply.mockResolvedValue(null);
 
     const result = await service.startConversation(
-      { userId: 'user-1', role: UserRole.STUDENT },
+      { userId: testUserId, role: UserRole.STUDENT },
       { title: 'Help', initialMessage: 'Explain algebra' },
     );
 

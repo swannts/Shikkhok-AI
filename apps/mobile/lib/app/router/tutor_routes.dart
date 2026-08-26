@@ -13,7 +13,9 @@ final List<RouteBase> tutorRoutes = [
   ),
   GoRoute(
     path: '/tutor/:conversationId',
-    builder: (context, state) => const AiTutorChatPage(),
+    builder: (context, state) => AiTutorChatPage(
+      initialConversationId: state.pathParameters['conversationId'],
+    ),
   ),
   GoRoute(
     path: '/ai-tutor-chat-variant',

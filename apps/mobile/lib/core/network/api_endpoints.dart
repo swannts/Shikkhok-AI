@@ -108,10 +108,11 @@ class ApiEndpoints {
   static const String gamificationLeaderboard = '/gamification/leaderboard';
 
   // Notifications
-  static const String notifications = '/notifications';
-  static const String notificationsUnreadCount = '/notifications/unread-count';
-  static const String notificationsMarkAllRead = '/notifications/read-all';
-  static String notificationMarkRead(String id) => '/notifications/$id/read';
+  static const String notifications = '/notifications/me';
+  static const String notificationsUnreadCount =
+      '/notifications/me/unread-count';
+  static const String notificationsMarkAllRead = '/notifications/me/read-all';
+  static String notificationMarkRead(String id) => '/notifications/me/$id/read';
 
   // AI Tutor
   static const String tutorConversations = '/tutor/me/conversations';

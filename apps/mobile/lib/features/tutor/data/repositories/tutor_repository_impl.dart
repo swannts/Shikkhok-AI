@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_endpoints.dart';
+import '../../../../core/network/api_response_envelope.dart';
 import '../../domain/entities/tutor_conversation.dart';
 import '../../domain/entities/tutor_conversation_thread.dart';
 import '../../domain/entities/tutor_stream_event.dart';
@@ -21,10 +22,9 @@ class TutorRepositoryImpl implements TutorRepository {
     try {
       final response =
           await _apiClient.dio.get(ApiEndpoints.tutorConversations);
-      final data = response.data is List<dynamic>
-          ? response.data as List<dynamic>
-          : const [];
-      return data
+      final unwrapped = ApiResponseEnvelope.unwrap(response.data);
+      final list = unwrapped is List<dynamic> ? unwrapped : const [];
+      return list
           .whereType<Map<String, dynamic>>()
           .map((json) =>
               TutorMapper.toConversation(TutorConversationDto.fromJson(json)))
@@ -94,16 +94,20 @@ class TutorRepositoryImpl implements TutorRepository {
           if (cursor != null && cursor.isNotEmpty) 'cursor': cursor,
         },
       );
-      final data = response.data is Map<String, dynamic>
-          ? response.data as Map<String, dynamic>
-          : <String, dynamic>{};
+      final envelope = ApiResponseEnvelope<dynamic>.fromResponse(response.data);
+      final messagesRaw = envelope.data is List<dynamic>
+          ? envelope.data as List<dynamic>
+          : (envelope.data is Map<String, dynamic>
+              ? (envelope.data['messages'] ?? envelope.data['data'] ?? const [])
+              : const []);
+
       final conversationDto = TutorConversationDto.fromJson({
         '_id': conversationId,
         'title': 'AI Tutor',
         'classLevel': 0,
         'curriculumYear': '',
-        'messages': data['data'] ?? const [],
-        'meta': data['meta'] ?? const {},
+        'messages': messagesRaw,
+        'meta': envelope.meta,
       });
       return TutorMapper.toThread(conversationDto);
     } on DioException catch (e) {
@@ -200,9 +204,12 @@ class TutorRepositoryImpl implements TutorRepository {
   }
 
   TutorConversationThread _toThread(dynamic responseData) {
-    final data = responseData is Map<String, dynamic>
-        ? responseData
-        : <String, dynamic>{};
+    final unwrapped = ApiResponseEnvelope.unwrap(responseData);
+    final data = unwrapped is Map<String, dynamic>
+        ? unwrapped
+        : (responseData is Map<String, dynamic>
+            ? responseData
+            : <String, dynamic>{});
     return TutorMapper.toThread(TutorConversationDto.fromJson(data));
   }
 }

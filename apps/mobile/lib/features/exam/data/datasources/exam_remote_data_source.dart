@@ -102,12 +102,13 @@ class ExamRemoteDataSourceImpl implements ExamRemoteDataSource {
     List<String>? selectedOptionIds,
     String? textAnswer,
   }) async {
+    final answerPayload =
+        selectedOptionId ?? selectedOptionIds ?? textAnswer ?? '';
+
     await _apiClient.dio.put(
       ApiEndpoints.examSessionAnswer(sessionId, questionId),
       data: {
-        if (selectedOptionId != null) 'selectedOptionId': selectedOptionId,
-        if (selectedOptionIds != null) 'selectedOptionIds': selectedOptionIds,
-        if (textAnswer != null) 'textAnswer': textAnswer,
+        'submittedAnswer': answerPayload,
       },
     );
   }
@@ -120,7 +121,7 @@ class ExamRemoteDataSourceImpl implements ExamRemoteDataSource {
   }) async {
     await _apiClient.dio.post(
       ApiEndpoints.examSessionFlag(sessionId, questionId),
-      data: {'isFlagged': isFlagged},
+      data: {'flagged': isFlagged},
     );
   }
 

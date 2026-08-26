@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/router/app_routes.dart';
 
 class TextbookReaderPage extends StatefulWidget {
-  const TextbookReaderPage({super.key});
+  final String? bookId;
+
+  const TextbookReaderPage({super.key, this.bookId});
 
   @override
   State<TextbookReaderPage> createState() => _TextbookReaderPageState();
@@ -12,6 +15,7 @@ class TextbookReaderPage extends StatefulWidget {
 
 class _TextbookReaderPageState extends State<TextbookReaderPage> {
   int _currentPage = 58;
+  bool _isBookmarked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class _TextbookReaderPageState extends State<TextbookReaderPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go('/textbook-library'),
+          onPressed: () => context.go(AppRoutes.textbookLibrary),
         ),
         title: Text(
           'গণিত • পৃষ্ঠা $_currentPage / ২৪০',
@@ -34,9 +38,23 @@ class _TextbookReaderPageState extends State<TextbookReaderPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.bookmark_border_rounded,
-                color: AppColors.primary),
-            onPressed: () {},
+            icon: Icon(
+              _isBookmarked
+                  ? Icons.bookmark_rounded
+                  : Icons.bookmark_border_rounded,
+              color: AppColors.primary,
+            ),
+            onPressed: () {
+              setState(() => _isBookmarked = !_isBookmarked);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(_isBookmarked
+                      ? 'পৃষ্ঠাটি বুকমার্ক করা হয়েছে'
+                      : 'বুকমার্ক সরানো হয়েছে'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            },
           ),
         ],
       ),

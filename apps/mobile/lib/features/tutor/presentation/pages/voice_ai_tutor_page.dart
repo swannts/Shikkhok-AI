@@ -66,10 +66,31 @@ class _VoiceAiTutorPageState extends State<VoiceAiTutorPage>
               color: AppColors.primary),
         ),
         actions: [
-          IconButton(
+          PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert_rounded,
                 color: AppColors.textSecondary),
-            onPressed: () {},
+            onSelected: (value) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('$value মোড সক্রিয় করা হয়েছে'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            },
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'স্বাভাবিক গতি',
+                child: Text('স্বাভাবিক গতি (1.0x)'),
+              ),
+              const PopupMenuItem(
+                value: 'ধীর গতি',
+                child: Text('ধীর গতি (0.8x)'),
+              ),
+              const PopupMenuItem(
+                value: 'উচ্চ স্পষ্টতা',
+                child: Text('উচ্চ অডিও স্পষ্টতা'),
+              ),
+            ],
           ),
         ],
       ),

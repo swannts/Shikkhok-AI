@@ -7,13 +7,32 @@ import '../../../../app/theme/app_spacing.dart';
 import '../controllers/exam_controller.dart';
 
 class ExamSessionPage extends ConsumerStatefulWidget {
-  const ExamSessionPage({super.key});
+  final String? examId;
+  final String? sessionId;
+
+  const ExamSessionPage({
+    super.key,
+    this.examId,
+    this.sessionId,
+  });
 
   @override
   ConsumerState<ExamSessionPage> createState() => _ExamSessionPageState();
 }
 
 class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.examId != null && widget.examId!.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref
+            .read(examSessionControllerProvider.notifier)
+            .startExam(widget.examId!);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;

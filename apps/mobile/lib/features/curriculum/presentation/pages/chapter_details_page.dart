@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/router/app_routes.dart';
 
 class ChapterDetailsPage extends StatelessWidget {
-  const ChapterDetailsPage({super.key});
+  final String? chapterId;
+
+  const ChapterDetailsPage({super.key, this.chapterId});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class ChapterDetailsPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go('/subject-details'),
+          onPressed: () => context.go(AppRoutes.learn),
         ),
         title: Text(
           l10n.chapterDetailsTitle,
@@ -111,7 +114,8 @@ class ChapterDetailsPage extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () =>
+                                      context.go(AppRoutes.practiceSetup),
                                   icon: const Icon(Icons.edit_note_rounded,
                                       size: 20, color: Colors.white),
                                   label: Text(l10n.practiceAction,
@@ -160,7 +164,7 @@ class ChapterDetailsPage extends StatelessWidget {
                       iconColor: Colors.green,
                       title: l10n.lesson1,
                       isCompleted: true,
-                      onTap: () => context.go('/lesson-reader'),
+                      onTap: () => context.go(AppRoutes.lesson('lesson_1')),
                     ),
                     const SizedBox(height: 10),
                     _buildLessonTile(
@@ -168,7 +172,7 @@ class ChapterDetailsPage extends StatelessWidget {
                       iconColor: Colors.green,
                       title: l10n.lesson2,
                       isCompleted: true,
-                      onTap: () => context.go('/lesson-reader'),
+                      onTap: () => context.go(AppRoutes.lesson('lesson_2')),
                     ),
                     const SizedBox(height: 10),
                     _buildLessonTile(
@@ -176,7 +180,7 @@ class ChapterDetailsPage extends StatelessWidget {
                       iconColor: AppColors.primary,
                       title: l10n.lesson3,
                       isInProgress: true,
-                      onTap: () => context.go('/lesson-reader'),
+                      onTap: () => context.go(AppRoutes.lesson('lesson_3')),
                     ),
                     const SizedBox(height: 10),
                     _buildLessonTile(
@@ -184,7 +188,7 @@ class ChapterDetailsPage extends StatelessWidget {
                       iconColor: AppColors.textSecondary,
                       title: l10n.lesson4,
                       timeBadge: '১৫ মিনিট',
-                      onTap: () => context.go('/lesson-reader'),
+                      onTap: () => context.go(AppRoutes.lesson('lesson_4')),
                     ),
                     const SizedBox(height: 10),
                     _buildLessonTile(
@@ -208,7 +212,7 @@ class ChapterDetailsPage extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => context.go(AppRoutes.examLibrary),
                   icon: const Icon(Icons.assignment_outlined,
                       color: AppColors.primary),
                   label: Text(

@@ -51,12 +51,20 @@ class LessonProgressSyncPayload implements SyncOperationPayload {
 
   @override
   Map<String, dynamic> toJson() {
+    final statusStr = (isCompleted == true || progressPercent == 100)
+        ? 'completed'
+        : 'in_progress';
+    final timeSpentMinutes =
+        timeSpentSeconds != null ? (timeSpentSeconds! / 60).ceil() : null;
+
     return {
       'lessonId': lessonId,
+      'status': statusStr,
+      'progressPercent': isCompleted == true ? 100 : (progressPercent ?? 0),
       if (subjectId != null) 'subjectId': subjectId,
       if (chapterId != null) 'chapterId': chapterId,
-      if (progressPercent != null) 'progressPercent': progressPercent,
       if (isCompleted != null) 'isCompleted': isCompleted,
+      if (timeSpentMinutes != null) 'timeSpentMinutes': timeSpentMinutes,
       if (lastPositionSeconds != null)
         'lastPositionSeconds': lastPositionSeconds,
       if (totalDurationSeconds != null)
@@ -71,10 +79,14 @@ class LessonProgressSyncPayload implements SyncOperationPayload {
       subjectId: json['subjectId'] as String?,
       chapterId: json['chapterId'] as String?,
       progressPercent: (json['progressPercent'] as num?)?.toInt(),
-      isCompleted: json['isCompleted'] as bool?,
+      isCompleted: json['isCompleted'] as bool? ??
+          (json['status'] == 'completed' || json['progressPercent'] == 100),
       lastPositionSeconds: (json['lastPositionSeconds'] as num?)?.toInt(),
       totalDurationSeconds: (json['totalDurationSeconds'] as num?)?.toInt(),
-      timeSpentSeconds: (json['timeSpentSeconds'] as num?)?.toInt(),
+      timeSpentSeconds: (json['timeSpentSeconds'] as num?)?.toInt() ??
+          ((json['timeSpentMinutes'] as num?) != null
+              ? (json['timeSpentMinutes'] as num).toInt() * 60
+              : null),
     );
   }
 }

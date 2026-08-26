@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -250,7 +251,7 @@ class _LearnPageState extends ConsumerState<LearnPage> {
 
   Widget _buildDynamicSubjectCard(Subject subject) {
     return AppCard(
-      onTap: () => context.go('/subject-details'),
+      onTap: () => context.go(AppRoutes.subject(subject.id)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

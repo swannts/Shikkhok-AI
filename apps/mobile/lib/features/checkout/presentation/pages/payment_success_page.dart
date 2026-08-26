@@ -107,7 +107,14 @@ class PaymentSuccessPage extends StatelessWidget {
                 width: double.infinity,
                 height: 50,
                 child: OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('রশিদ ডাউনলোড সম্পন্ন হয়েছে।'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
                   icon: const Icon(Icons.download_rounded,
                       color: AppColors.primary),
                   label: const Text(

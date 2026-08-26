@@ -13,6 +13,29 @@ class StudyCalendarPage extends StatefulWidget {
 
 class _StudyCalendarPageState extends State<StudyCalendarPage> {
   int _selectedDay = 24;
+  int _monthOffset = 0;
+
+  String _getMonthName() {
+    const months = [
+      'জানুয়ারি',
+      'ফেব্রুয়ারি',
+      'মার্চ',
+      'এপ্রিল',
+      'মে',
+      'জুন',
+      'জুলাই',
+      'আগস্ট',
+      'সেপ্টেম্বর',
+      'অক্টোবর',
+      'নভেম্বর',
+      'ডিসেম্বর'
+    ];
+    const baseMonth = 4; // May (0-indexed)
+    final totalMonth = baseMonth + _monthOffset;
+    final normalizedMonth = ((totalMonth % 12) + 12) % 12;
+    final year = 2026 + (totalMonth ~/ 12);
+    return '${months[normalizedMonth]} $year';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +67,7 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Calendar Header (Month Switcher)
+              // Calendar Month Container
               Container(
                 padding: const EdgeInsets.all(AppSpacing.md),
                 decoration: BoxDecoration(
@@ -60,11 +83,13 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                         IconButton(
                           icon: const Icon(Icons.chevron_left_rounded,
                               color: AppColors.textPrimary),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() => _monthOffset--);
+                          },
                         ),
-                        const Text(
-                          'মে ২০২৬',
-                          style: TextStyle(
+                        Text(
+                          _getMonthName(),
+                          style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary),
@@ -72,7 +97,9 @@ class _StudyCalendarPageState extends State<StudyCalendarPage> {
                         IconButton(
                           icon: const Icon(Icons.chevron_right_rounded,
                               color: AppColors.textPrimary),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() => _monthOffset++);
+                          },
                         ),
                       ],
                     ),

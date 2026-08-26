@@ -1,5 +1,6 @@
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_endpoints.dart';
+import '../../../../core/network/api_response_envelope.dart';
 import '../dto/subject_dto.dart';
 import '../dto/chapter_dto.dart';
 import '../dto/lesson_dto.dart';
@@ -122,20 +123,22 @@ class CurriculumRemoteDataSourceImpl implements CurriculumRemoteDataSource {
     required bool completed,
     int? timeSpentSeconds,
   }) async {
+    final timeSpentMinutes =
+        timeSpentSeconds != null ? (timeSpentSeconds / 60).ceil() : null;
+
     await _client.dio.put(
       ApiEndpoints.progressLesson(lessonId),
       data: {
-        'isCompleted': completed,
-        if (timeSpentSeconds != null) 'readingTimeSeconds': timeSpentSeconds,
+        'status': completed ? 'completed' : 'in_progress',
+        'progressPercent': completed ? 100 : 50,
+        if (timeSpentMinutes != null) 'timeSpentMinutes': timeSpentMinutes,
+        if (completed) 'completedAt': DateTime.now().toIso8601String(),
+        'lastAccessedAt': DateTime.now().toIso8601String(),
       },
     );
   }
 
   dynamic _extractData(dynamic responseData) {
-    if (responseData is Map<String, dynamic> &&
-        responseData.containsKey('data')) {
-      return responseData['data'];
-    }
-    return responseData;
+    return ApiResponseEnvelope.unwrap(responseData);
   }
 }

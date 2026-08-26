@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { Response, Request } from 'express';
+import { Types } from 'mongoose';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UsersService } from '../users/users.service';
 import { UserRole } from '../users/enums/user-role.enum';
@@ -35,11 +36,22 @@ export class TutorService {
     await this.assertStudentOrAdmin(currentUser);
 
     const conversation = await this.conversationRepository.createConversation({
-      userId: currentUser.userId as any,
+      userId: Types.ObjectId.isValid(currentUser.userId)
+        ? (new Types.ObjectId(currentUser.userId) as any)
+        : (currentUser.userId as any),
       title: dto.title?.trim() || 'নতুন AI টিউটর আলাপ',
-      subjectId: dto.subjectId ? (dto.subjectId as any) : null,
-      chapterId: dto.chapterId ? (dto.chapterId as any) : null,
-      lessonId: dto.lessonId ? (dto.lessonId as any) : null,
+      subjectId:
+        dto.subjectId && Types.ObjectId.isValid(dto.subjectId)
+          ? (new Types.ObjectId(dto.subjectId) as any)
+          : (dto.subjectId as any) || null,
+      chapterId:
+        dto.chapterId && Types.ObjectId.isValid(dto.chapterId)
+          ? (new Types.ObjectId(dto.chapterId) as any)
+          : (dto.chapterId as any) || null,
+      lessonId:
+        dto.lessonId && Types.ObjectId.isValid(dto.lessonId)
+          ? (new Types.ObjectId(dto.lessonId) as any)
+          : (dto.lessonId as any) || null,
       classLevel: await this.resolveClassLevel(currentUser.userId),
       medium: await this.resolveMedium(currentUser.userId),
       curriculumYear: String(await this.resolveCurriculumYear(currentUser.userId)),
@@ -218,34 +230,45 @@ export class TutorService {
         }
       }
 
-      // 3. Persist final assistant message
-      const assistantMessage = await this.messageRepository.createMessage({
-        conversationId,
-        userId: currentUser.userId,
-        role: TutorMessageRole.ASSISTANT,
-        content: accumulatedContent.trim() || 'উত্তরের অনুরোধ সম্পন্ন হয়েছে।',
-        citations: collectedCitations,
-        provider,
-      });
+      // 3. Persist final assistant message if content was generated or stream completed
+      if (!abortController.signal.aborted || accumulatedContent.trim().length > 0) {
+        const contentToSave = accumulatedContent.trim();
+        if (contentToSave.length > 0) {
+          const assistantMessage = await this.messageRepository.createMessage({
+            conversationId,
+            userId: currentUser.userId,
+            role: TutorMessageRole.ASSISTANT,
+            content: contentToSave,
+            citations: collectedCitations,
+            provider,
+          });
 
-      await this.conversationRepository.touchConversation(conversationId, 2);
+          await this.conversationRepository.touchConversation(conversationId, 2);
 
-      // 4. Emit done event
-      res.write(
-        `event: done\ndata: ${JSON.stringify({
-          messageId: assistantMessage._id?.toString?.(),
-          conversationId,
-        })}\n\n`,
-      );
+          // 4. Emit done event if connection is still active
+          if (!abortController.signal.aborted) {
+            res.write(
+              `event: done\ndata: ${JSON.stringify({
+                messageId: assistantMessage._id?.toString?.(),
+                conversationId,
+              })}\n\n`,
+            );
+          }
+        }
+      }
     } catch (error: any) {
-      res.write(
-        `event: error\ndata: ${JSON.stringify({
-          code: 'STREAM_FAILED',
-          message: error?.message ?? 'Streaming error occurred',
-        })}\n\n`,
-      );
+      if (!abortController.signal.aborted) {
+        res.write(
+          `event: error\ndata: ${JSON.stringify({
+            code: 'STREAM_FAILED',
+            message: error?.message ?? 'Streaming error occurred',
+          })}\n\n`,
+        );
+      }
     } finally {
-      res.end();
+      if (!res.writableEnded) {
+        res.end();
+      }
     }
   }
 

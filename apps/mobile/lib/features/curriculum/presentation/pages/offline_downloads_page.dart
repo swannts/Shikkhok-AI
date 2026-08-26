@@ -4,22 +4,24 @@ import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 
-class OfflineDownloadsPage extends StatelessWidget {
+class OfflineDownloadsPage extends StatefulWidget {
   const OfflineDownloadsPage({super.key});
+
+  @override
+  State<OfflineDownloadsPage> createState() => _OfflineDownloadsPageState();
+}
+
+class _OfflineDownloadsPageState extends State<OfflineDownloadsPage> {
+  final List<(String, String, IconData)> _downloads = [
+    ('সরল সমীকরণ (অধ্যায় ৪)', '৪২ MB • গণিত', Icons.play_circle_fill_rounded),
+    ('বীজগণিতীয় সূত্রাবলি (অধ্যায় ৫)', '৫৮ MB • গণিত', Icons.menu_book_rounded),
+    ('Photosynthesis পাঠ', '২৫ MB • বিজ্ঞান', Icons.video_library_rounded),
+  ];
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-
-    final downloads = [
-      ('সরল সমীকরণ (অধ্যায় ৪)', '৪২ MB • গণিত', Icons.play_circle_fill_rounded),
-      (
-        'বীজগণিতীয় সূত্রাবলি (অধ্যায় ৫)',
-        '৫৮ MB • গণিত',
-        Icons.menu_book_rounded
-      ),
-      ('Photosynthesis পাঠ', '২৫ MB • বিজ্ঞান', Icons.video_library_rounded),
-    ];
+    final downloads = _downloads;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -146,7 +148,17 @@ class OfflineDownloadsPage extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.delete_outline_rounded,
                               color: Colors.red),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              _downloads.removeAt(index);
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('ডাউনলোডটি মুছে ফেলা হয়েছে।'),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),

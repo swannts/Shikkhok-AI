@@ -3,9 +3,20 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/router/app_routes.dart';
 
-class HomeworkAiSolutionPage extends StatelessWidget {
-  const HomeworkAiSolutionPage({super.key});
+class HomeworkAiSolutionPage extends StatefulWidget {
+  final String? submissionId;
+
+  const HomeworkAiSolutionPage({super.key, this.submissionId});
+
+  @override
+  State<HomeworkAiSolutionPage> createState() => _HomeworkAiSolutionPageState();
+}
+
+class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
+  bool _showExtraHints = false;
+  bool _answered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -202,14 +213,21 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                             width: double.infinity,
                             height: 48,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() => _answered = true);
+                              },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primary,
+                                backgroundColor: _answered
+                                    ? Colors.green
+                                    : AppColors.primary,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(14)),
                               ),
-                              child: const Text('2x = 10',
-                                  style: TextStyle(
+                              child: Text(
+                                  _answered
+                                      ? '✓ সঠিক উত্তর: 2x = 10'
+                                      : '2x = 10',
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white)),
@@ -220,12 +238,18 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: OutlinedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() =>
+                                        _showExtraHints = !_showExtraHints);
+                                  },
                                   icon: const Icon(
                                       Icons.lightbulb_outline_rounded,
                                       size: 18,
                                       color: AppColors.primary),
-                                  label: Text(l10n.moreHints,
+                                  label: Text(
+                                      _showExtraHints
+                                          ? 'ইঙ্গিত লুকান'
+                                          : l10n.moreHints,
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.primary)),
@@ -243,7 +267,8 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: OutlinedButton(
-                                  onPressed: () {},
+                                  onPressed: () =>
+                                      context.go(AppRoutes.aiTutorChat),
                                   style: OutlinedButton.styleFrom(
                                     side: const BorderSide(
                                         color: AppColors.primary),
@@ -261,9 +286,27 @@ class HomeworkAiSolutionPage extends StatelessWidget {
                               ),
                             ],
                           ),
+                          if (_showExtraHints) ...[
+                            const SizedBox(height: 12),
+                            Container(
+                              padding: const EdgeInsets.all(AppSpacing.md),
+                              decoration: BoxDecoration(
+                                color: AppColors.surface,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                    color: AppColors.primary.withAlpha(50)),
+                              ),
+                              child: const Text(
+                                'ইঙ্গিত: সমীকরণের উভয় পাশে ৪ যোগ করে পক্ষান্তর সম্পন্ন করুন।',
+                                style: TextStyle(
+                                    fontSize: 13, color: AppColors.textPrimary),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     ),
+                    const SizedBox(height: AppSpacing.xl),
                   ],
                 ),
               ),
@@ -278,7 +321,7 @@ class HomeworkAiSolutionPage extends StatelessWidget {
               child: Column(
                 children: [
                   InkWell(
-                    onTap: () => context.go('/ai-tutor-chat'),
+                    onTap: () => context.go(AppRoutes.aiTutorChat),
                     borderRadius: BorderRadius.circular(14),
                     child: Container(
                       padding: const EdgeInsets.symmetric(

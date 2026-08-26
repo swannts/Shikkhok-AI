@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/router/app_routes.dart';
 
 class LessonReaderPage extends StatefulWidget {
-  const LessonReaderPage({super.key});
+  final String? lessonId;
+
+  const LessonReaderPage({super.key, this.lessonId});
 
   @override
   State<LessonReaderPage> createState() => _LessonReaderPageState();
@@ -13,6 +16,7 @@ class LessonReaderPage extends StatefulWidget {
 
 class _LessonReaderPageState extends State<LessonReaderPage> {
   int? _selectedQuizOption;
+  bool _isBookmarked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class _LessonReaderPageState extends State<LessonReaderPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go('/chapter-details'),
+          onPressed: () => context.go(AppRoutes.learn),
         ),
         title: Text(
           l10n.lessonReaderTitle,
@@ -37,9 +41,23 @@ class _LessonReaderPageState extends State<LessonReaderPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.bookmark_outline_rounded,
-                color: AppColors.primary),
-            onPressed: () {},
+            icon: Icon(
+              _isBookmarked
+                  ? Icons.bookmark_rounded
+                  : Icons.bookmark_outline_rounded,
+              color: AppColors.primary,
+            ),
+            onPressed: () {
+              setState(() => _isBookmarked = !_isBookmarked);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(_isBookmarked
+                      ? 'পাঠটি বুকমার্ক করা হয়েছে'
+                      : 'বুকমার্ক সরানো হয়েছে'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -335,14 +353,14 @@ class _LessonReaderPageState extends State<LessonReaderPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () => context.go(AppRoutes.chapter('chapter_1')),
                     icon: const Icon(Icons.chevron_left_rounded,
                         color: AppColors.textSecondary),
                     label: Text(l10n.prevLesson,
                         style: const TextStyle(color: AppColors.textSecondary)),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () => context.go('/chapter-details'),
+                    onPressed: () => context.go(AppRoutes.chapter('chapter_1')),
                     icon: Text(l10n.nextLesson,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white)),
@@ -363,7 +381,7 @@ class _LessonReaderPageState extends State<LessonReaderPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('/ai-tutor-chat'),
+        onPressed: () => context.go(AppRoutes.aiTutorChat),
         backgroundColor: AppColors.primary,
         child: const Icon(Icons.smart_toy_rounded, color: Colors.white),
       ),

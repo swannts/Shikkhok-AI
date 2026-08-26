@@ -4,8 +4,12 @@ import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 
+import '../../../../app/router/app_routes.dart';
+
 class SubjectDetailsPage extends StatelessWidget {
-  const SubjectDetailsPage({super.key});
+  final String? subjectId;
+
+  const SubjectDetailsPage({super.key, this.subjectId});
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +114,8 @@ class SubjectDetailsPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final ch = chapters[index];
                   return InkWell(
-                    onTap: () => context.go('/chapter-details'),
+                    onTap: () =>
+                        context.go(AppRoutes.chapter('chapter_${index + 1}')),
                     borderRadius: BorderRadius.circular(16),
                     child: Container(
                       padding: const EdgeInsets.all(AppSpacing.md),

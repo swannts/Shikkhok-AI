@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_endpoints.dart';
+import '../../../../core/network/api_response_envelope.dart';
 import '../dto/notification_item_dto.dart';
-import '../dto/notification_page_dto.dart';
 import '../mappers/notification_mapper.dart';
 import '../../domain/entities/notification_item.dart';
 import '../../domain/entities/notification_page.dart';
@@ -28,14 +28,28 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
         },
       );
 
-      final data = response.data is Map<String, dynamic>
-          ? response.data as Map<String, dynamic>
-          : <String, dynamic>{};
-      final dto = NotificationPageDto.fromJson(data);
+      final envelope = ApiResponseEnvelope<dynamic>.fromResponse(response.data);
+      final List<dynamic> itemsList;
+      if (envelope.data is List<dynamic>) {
+        itemsList = envelope.data as List<dynamic>;
+      } else if (envelope.data is Map<String, dynamic>) {
+        itemsList = (envelope.data['items'] ??
+            envelope.data['data'] ??
+            const []) as List<dynamic>;
+      } else {
+        itemsList = const [];
+      }
+
+      final items = itemsList
+          .whereType<Map<String, dynamic>>()
+          .map(NotificationItemDto.fromJson)
+          .map(NotificationMapper.toDomain)
+          .toList();
+
       return NotificationPage(
-        items: dto.items.map(NotificationMapper.toDomain).toList(),
-        nextCursor: dto.nextCursor,
-        hasNext: dto.hasNext,
+        items: items,
+        nextCursor: envelope.meta['nextCursor']?.toString(),
+        hasNext: envelope.meta['hasNext'] == true,
       );
     } on DioException catch (e) {
       throw _apiClient.mapDioException(e);
@@ -47,24 +61,17 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
     try {
       final response =
           await _apiClient.dio.get(ApiEndpoints.notificationsUnreadCount);
-      final data = response.data;
-      if (data is Map<String, dynamic>) {
-        final unreadCount = data['unreadCount'];
+      final unwrapped = ApiResponseEnvelope.unwrap(response.data);
+      if (unwrapped is Map<String, dynamic>) {
+        final unreadCount = unwrapped['unreadCount'];
         if (unreadCount is num) {
           return unreadCount.toInt();
         }
         return int.tryParse(unreadCount?.toString() ?? '') ?? 0;
+      } else if (unwrapped is num) {
+        return unwrapped.toInt();
       }
       return 0;
-    } on DioException catch (e) {
-      throw _apiClient.mapDioException(e);
-    }
-  }
-
-  @override
-  Future<void> markAllAsRead() async {
-    try {
-      await _apiClient.dio.post(ApiEndpoints.notificationsMarkAllRead);
     } on DioException catch (e) {
       throw _apiClient.mapDioException(e);
     }
@@ -76,10 +83,24 @@ class NotificationsRepositoryImpl implements NotificationsRepository {
       final response = await _apiClient.dio.post(
         ApiEndpoints.notificationMarkRead(notificationId),
       );
-      final data = response.data is Map<String, dynamic>
-          ? response.data as Map<String, dynamic>
-          : <String, dynamic>{};
+      final unwrapped = ApiResponseEnvelope.unwrap(response.data);
+      final data = unwrapped is Map<String, dynamic>
+          ? unwrapped
+          : (response.data is Map<String, dynamic>
+              ? response.data as Map<String, dynamic>
+              : <String, dynamic>{});
       return NotificationMapper.toDomain(NotificationItemDto.fromJson(data));
+    } on DioException catch (e) {
+      throw _apiClient.mapDioException(e);
+    }
+  }
+
+  @override
+  Future<void> markAllAsRead() async {
+    try {
+      await _apiClient.dio.post(
+        ApiEndpoints.notificationsMarkAllRead,
+      );
     } on DioException catch (e) {
       throw _apiClient.mapDioException(e);
     }

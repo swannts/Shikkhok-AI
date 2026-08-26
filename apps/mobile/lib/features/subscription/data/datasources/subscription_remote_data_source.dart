@@ -59,7 +59,7 @@ class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
       ApiEndpoints.subscriptionInitiate,
       data: {
         'planId': planId,
-        'provider': paymentMethod,
+        'paymentMethod': paymentMethod,
       },
     );
 
@@ -82,9 +82,9 @@ class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
       ApiEndpoints.subscriptionManualSubmit,
       data: {
         'planId': planId,
-        'method': method,
-        'walletNumber': walletNumber,
-        'transactionId': transactionId,
+        'paymentMethod': method,
+        'senderNumber': walletNumber,
+        'manualTrxId': transactionId,
       },
     );
   }

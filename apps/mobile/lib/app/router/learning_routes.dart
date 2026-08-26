@@ -44,7 +44,9 @@ final List<RouteBase> learningRoutes = [
   ),
   GoRoute(
     path: '/subjects/:subjectId',
-    builder: (context, state) => const SubjectDetailsPage(),
+    builder: (context, state) => SubjectDetailsPage(
+      subjectId: state.pathParameters['subjectId'],
+    ),
   ),
   GoRoute(
     path: '/chapter-details',
@@ -52,7 +54,9 @@ final List<RouteBase> learningRoutes = [
   ),
   GoRoute(
     path: '/chapters/:chapterId',
-    builder: (context, state) => const ChapterDetailsPage(),
+    builder: (context, state) => ChapterDetailsPage(
+      chapterId: state.pathParameters['chapterId'],
+    ),
   ),
   GoRoute(
     path: '/lesson-reader',
@@ -60,7 +64,9 @@ final List<RouteBase> learningRoutes = [
   ),
   GoRoute(
     path: '/lessons/:lessonId',
-    builder: (context, state) => const LessonReaderPage(),
+    builder: (context, state) => LessonReaderPage(
+      lessonId: state.pathParameters['lessonId'],
+    ),
   ),
   GoRoute(
     path: AppRoutes.textbookLibrary,
@@ -72,7 +78,9 @@ final List<RouteBase> learningRoutes = [
   ),
   GoRoute(
     path: '/textbooks/:bookId',
-    builder: (context, state) => const TextbookReaderPage(),
+    builder: (context, state) => TextbookReaderPage(
+      bookId: state.pathParameters['bookId'],
+    ),
   ),
   GoRoute(
     path: AppRoutes.todaysStudyPlan,

@@ -23,7 +23,9 @@ final List<RouteBase> assessmentRoutes = [
   ),
   GoRoute(
     path: '/exams/:examId',
-    builder: (context, state) => const ExamInstructionsPage(),
+    builder: (context, state) => ExamInstructionsPage(
+      examId: state.pathParameters['examId'],
+    ),
   ),
   GoRoute(
     path: AppRoutes.examSession,
@@ -31,7 +33,10 @@ final List<RouteBase> assessmentRoutes = [
   ),
   GoRoute(
     path: '/exams/:examId/session/:sessionId',
-    builder: (context, state) => const ExamSessionPage(),
+    builder: (context, state) => ExamSessionPage(
+      examId: state.pathParameters['examId'],
+      sessionId: state.pathParameters['sessionId'],
+    ),
   ),
   GoRoute(
     path: AppRoutes.examResult,
@@ -75,6 +80,8 @@ final List<RouteBase> assessmentRoutes = [
   ),
   GoRoute(
     path: '/homework/:submissionId',
-    builder: (context, state) => const HomeworkAiSolutionPage(),
+    builder: (context, state) => HomeworkAiSolutionPage(
+      submissionId: state.pathParameters['submissionId'],
+    ),
   ),
 ];

@@ -32,7 +32,23 @@ class HomeworkHelpLandingPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.info_outline_rounded,
                 color: AppColors.textSecondary),
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: const Text('হোমওয়ার্ক হেল্প'),
+                  content: const Text(
+                    'আপনার পাঠ্যবই বা খাতার অংকের ছবি তুলুন বা আপলোড করুন। AI শিক্ষক আপনাকে ধাপে ধাপে সমাধান বুঝতে সাহায্য করবে।',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(ctx),
+                      child: const Text('বুঝেছি'),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),

@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/router/app_routes.dart';
 
 class ExamInstructionsPage extends StatefulWidget {
-  const ExamInstructionsPage({super.key});
+  final String? examId;
+
+  const ExamInstructionsPage({super.key, this.examId});
 
   @override
   State<ExamInstructionsPage> createState() => _ExamInstructionsPageState();
@@ -192,8 +195,12 @@ class _ExamInstructionsPageState extends State<ExamInstructionsPage> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton.icon(
-                  onPressed:
-                      _agreeToRules ? () => context.go('/exam-session') : null,
+                  onPressed: _agreeToRules
+                      ? () => context.go(AppRoutes.examSessionWithId(
+                            widget.examId ?? 'exam_demo',
+                            'session_active',
+                          ))
+                      : null,
                   icon: const Icon(Icons.play_arrow_rounded,
                       color: Colors.white, size: 24),
                   label: Text(
