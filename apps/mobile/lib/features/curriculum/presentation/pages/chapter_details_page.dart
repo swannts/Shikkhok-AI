@@ -1,18 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/theme/app_typography.dart';
 import '../../../../app/router/app_routes.dart';
+import '../controllers/curriculum_controller.dart';
+import '../../domain/entities/lesson.dart';
 
-class ChapterDetailsPage extends StatelessWidget {
+class ChapterDetailsPage extends ConsumerWidget {
   final String? chapterId;
 
   const ChapterDetailsPage({super.key, this.chapterId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+
+    if (chapterId == null || chapterId!.trim().isEmpty) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: AppColors.surface,
+          title: Text(l10n.chapterDetailsTitle),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded,
+                color: AppColors.textPrimary),
+            onPressed: () => context.go(AppRoutes.learn),
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.error_outline_rounded,
+                  color: AppColors.error, size: 48),
+              const SizedBox(height: AppSpacing.sm),
+              const Text('অধ্যায়টি খুঁজে পাওয়া যায়নি',
+                  style: AppTypography.body),
+              const SizedBox(height: AppSpacing.md),
+              ElevatedButton(
+                onPressed: () => context.go(AppRoutes.learn),
+                child: const Text('ফিরে যান'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final asyncData = ref.watch(chapterDetailsProvider(chapterId!));
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -25,257 +63,348 @@ class ChapterDetailsPage extends StatelessWidget {
           onPressed: () => context.go(AppRoutes.learn),
         ),
         title: Text(
-          l10n.chapterDetailsTitle,
+          asyncData.valueOrNull?.chapter.title ?? l10n.chapterDetailsTitle,
           style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Hero Title
-                    Text(
-                      l10n.algebraFormulas,
-                      style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.mathClass8,
-                      style: const TextStyle(
-                          fontSize: 14, color: AppColors.textSecondary),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    // Chapter Progress Card
-                    Container(
-                      padding: const EdgeInsets.all(AppSpacing.md),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: AppColors.border),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withAlpha(5),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
+      body: asyncData.when(
+        loading: () => const Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
+        error: (err, stack) => Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.error_outline_rounded,
+                    color: AppColors.error, size: 48),
+                const SizedBox(height: AppSpacing.sm),
+                const Text(
+                  'পাঠ তালিকা আনা সম্ভব হয়নি',
+                  textAlign: TextAlign.center,
+                  style: AppTypography.body,
+                ),
+                const SizedBox(height: AppSpacing.md),
+                ElevatedButton.icon(
+                  onPressed: () =>
+                      ref.refresh(chapterDetailsProvider(chapterId!)),
+                  icon: const Icon(Icons.refresh_rounded),
+                  label: const Text('পুনরায় চেষ্টা করুন'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        data: (viewData) {
+          final chapter = viewData.chapter;
+          final subject = viewData.subject;
+          final lessons = viewData.lessons;
+
+          return SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(AppSpacing.md),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Hero Title
+                        Text(
+                          chapter.title,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary,
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          '${subject?.name ?? 'বিষয়'} • শ্রেণি ${subject?.classLevel ?? 8}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.lg),
+                        // Chapter Summary Card
+                        Container(
+                          padding: const EdgeInsets.all(AppSpacing.md),
+                          decoration: BoxDecoration(
+                            color: AppColors.surface,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: AppColors.border),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withAlpha(5),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(l10n.chapterComplete,
-                                      style: const TextStyle(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'মোট পাঠ',
+                                        style: TextStyle(
                                           fontSize: 12,
-                                          color: AppColors.textSecondary)),
-                                  const SizedBox(height: 2),
-                                  const Text('৪২%',
-                                      style: TextStyle(
-                                          fontSize: 32,
+                                          color: AppColors.textSecondary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        '${lessons.length}টি',
+                                        style: const TextStyle(
+                                          fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: AppColors.primary)),
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  if (chapter.estimatedMinutes != null)
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        const Text(
+                                          'আনুমানিক সময়',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.textSecondary,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          '${chapter.estimatedMinutes} মিনিট',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.textPrimary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                 ],
                               ),
-                              Text(l10n.lessonsDone,
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      color: AppColors.textSecondary)),
+                              const SizedBox(height: AppSpacing.md),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton.icon(
+                                      onPressed: () =>
+                                          context.go(AppRoutes.practiceSetup),
+                                      icon: const Icon(
+                                        Icons.edit_note_rounded,
+                                        size: 20,
+                                        color: Colors.white,
+                                      ),
+                                      label: Text(
+                                        l10n.practiceAction,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.primary,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                          const SizedBox(height: AppSpacing.sm),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: const LinearProgressIndicator(
-                              value: 0.42,
-                              backgroundColor: AppColors.border,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  AppColors.primary),
-                              minHeight: 8,
+                        ),
+                        const SizedBox(height: AppSpacing.xl),
+                        Text(
+                          l10n.lessonsList,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.md),
+                        // Lesson Items
+                        if (lessons.isEmpty) ...[
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(AppSpacing.xl),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.menu_book_outlined,
+                                      color: AppColors.textSecondary, size: 48),
+                                  const SizedBox(height: AppSpacing.sm),
+                                  Text(
+                                    'এই অধ্যায়ে কোনো পাঠ পাওয়া যায়নি।',
+                                    style: AppTypography.body.copyWith(
+                                        color: AppColors.textSecondary),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          const SizedBox(height: AppSpacing.md),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  onPressed: () =>
-                                      context.go(AppRoutes.practiceSetup),
-                                  icon: const Icon(Icons.edit_note_rounded,
-                                      size: 20, color: Colors.white),
-                                  label: Text(l10n.practiceAction,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white)),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.primary,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: AppSpacing.sm),
-                              Container(
-                                width: 48,
-                                height: 48,
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary.withAlpha(20),
-                                  borderRadius: BorderRadius.circular(14),
-                                  border: Border.all(color: AppColors.primary),
-                                ),
-                                child: const Icon(Icons.download_rounded,
-                                    color: AppColors.primary),
-                              ),
-                            ],
+                        ] else ...[
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: lessons.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 10),
+                            itemBuilder: (context, index) {
+                              final lesson = lessons[index];
+                              return _buildLessonTile(
+                                lesson: lesson,
+                                order:
+                                    lesson.order > 0 ? lesson.order : index + 1,
+                                onTap: () =>
+                                    context.go(AppRoutes.lesson(lesson.id)),
+                              );
+                            },
                           ),
                         ],
+                      ],
+                    ),
+                  ),
+                ),
+                // Bottom Sticky Exam Action
+                Container(
+                  padding: const EdgeInsets.all(AppSpacing.md),
+                  decoration: const BoxDecoration(
+                    color: AppColors.surface,
+                    border: Border(top: BorderSide(color: AppColors.border)),
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: OutlinedButton.icon(
+                      onPressed: () => context.go(AppRoutes.examLibrary),
+                      icon: const Icon(Icons.assignment_outlined,
+                          color: AppColors.primary),
+                      label: Text(
+                        l10n.chapterExam,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                            color: AppColors.primary, width: 2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: AppSpacing.xl),
-                    Text(
-                      l10n.lessonsList,
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    // Lesson Items
-                    _buildLessonTile(
-                      icon: Icons.check_circle_rounded,
-                      iconColor: Colors.green,
-                      title: l10n.lesson1,
-                      isCompleted: true,
-                      onTap: () => context.go(AppRoutes.lesson('lesson_1')),
-                    ),
-                    const SizedBox(height: 10),
-                    _buildLessonTile(
-                      icon: Icons.check_circle_rounded,
-                      iconColor: Colors.green,
-                      title: l10n.lesson2,
-                      isCompleted: true,
-                      onTap: () => context.go(AppRoutes.lesson('lesson_2')),
-                    ),
-                    const SizedBox(height: 10),
-                    _buildLessonTile(
-                      icon: Icons.play_circle_fill_rounded,
-                      iconColor: AppColors.primary,
-                      title: l10n.lesson3,
-                      isInProgress: true,
-                      onTap: () => context.go(AppRoutes.lesson('lesson_3')),
-                    ),
-                    const SizedBox(height: 10),
-                    _buildLessonTile(
-                      icon: Icons.play_circle_outline_rounded,
-                      iconColor: AppColors.textSecondary,
-                      title: l10n.lesson4,
-                      timeBadge: '১৫ মিনিট',
-                      onTap: () => context.go(AppRoutes.lesson('lesson_4')),
-                    ),
-                    const SizedBox(height: 10),
-                    _buildLessonTile(
-                      icon: Icons.lock_rounded,
-                      iconColor: AppColors.textSecondary,
-                      title: l10n.lesson5,
-                      isLocked: true,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Bottom Sticky Exam Action
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: const BoxDecoration(
-                color: AppColors.surface,
-                border: Border(top: BorderSide(color: AppColors.border)),
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: OutlinedButton.icon(
-                  onPressed: () => context.go(AppRoutes.examLibrary),
-                  icon: const Icon(Icons.assignment_outlined,
-                      color: AppColors.primary),
-                  label: Text(
-                    l10n.chapterExam,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: AppColors.primary, width: 2),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
   Widget _buildLessonTile({
-    required IconData icon,
-    required Color iconColor,
-    required String title,
-    bool isCompleted = false,
-    bool isInProgress = false,
-    bool isLocked = false,
-    String? timeBadge,
-    VoidCallback? onTap,
+    required Lesson lesson,
+    required int order,
+    required VoidCallback onTap,
   }) {
+    String? timeBadge;
+    if (lesson.pageStart != null && lesson.pageEnd != null) {
+      timeBadge = 'পৃষ্ঠা ${lesson.pageStart}-${lesson.pageEnd}';
+    } else if (lesson.textbookReference != null) {
+      timeBadge = lesson.textbookReference;
+    }
+
     return InkWell(
-      onTap: isLocked ? null : onTap,
+      onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(
-          color: isLocked ? AppColors.background : AppColors.surface,
+          color: AppColors.surface,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isInProgress ? AppColors.primary : AppColors.border,
-            width: isInProgress ? 2 : 1,
-          ),
+          border: Border.all(color: AppColors.border),
         ),
         child: Row(
           children: [
-            Icon(icon, color: iconColor, size: 26),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: AppColors.primary.withAlpha(20),
+                shape: BoxShape.circle,
+              ),
+              alignment: Alignment.center,
               child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
+                '$order',
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: isLocked
-                      ? AppColors.textSecondary
-                      : AppColors.textPrimary,
+                  color: AppColors.primary,
+                  fontSize: 14,
                 ),
               ),
             ),
-            if (timeBadge != null)
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    lesson.title,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  if (lesson.summary != null && lesson.summary!.isNotEmpty) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      lesson.summary!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            if (timeBadge != null) ...[
+              const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -286,9 +415,15 @@ class ChapterDetailsPage extends StatelessWidget {
                 child: Text(
                   timeBadge,
                   style: const TextStyle(
-                      fontSize: 11, color: AppColors.textSecondary),
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
               ),
+            ],
+            const SizedBox(width: 4),
+            const Icon(Icons.chevron_right_rounded,
+                color: AppColors.textSecondary),
           ],
         ),
       ),

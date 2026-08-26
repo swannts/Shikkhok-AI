@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/theme/app_typography.dart';
 import '../controllers/exam_controller.dart';
 
 class ExamSessionPage extends ConsumerStatefulWidget {
@@ -39,11 +41,83 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
     final examState = ref.watch(examSessionControllerProvider);
     final notifier = ref.read(examSessionControllerProvider.notifier);
 
+    if (widget.examId == null || widget.examId!.isEmpty) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: AppColors.surface,
+          title: Text(l10n.examLibraryTitle),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded,
+                color: AppColors.textPrimary),
+            onPressed: () => context.go(AppRoutes.examLibrary),
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.error_outline_rounded,
+                  color: AppColors.error, size: 48),
+              const SizedBox(height: AppSpacing.sm),
+              const Text(
+                'পরীক্ষা আইডি সঠিক নয়',
+                style: AppTypography.body,
+              ),
+              const SizedBox(height: AppSpacing.md),
+              ElevatedButton(
+                onPressed: () => context.go(AppRoutes.examLibrary),
+                child: const Text('পরীক্ষা তালিকায় ফিরে যান'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     if (examState is ExamSessionLoading) {
       return const Scaffold(
         backgroundColor: AppColors.background,
         body: Center(
           child: CircularProgressIndicator(color: AppColors.primary),
+        ),
+      );
+    }
+
+    if (examState is ExamSessionError) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: AppColors.surface,
+          title: Text(l10n.examLibraryTitle),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded,
+                color: AppColors.textPrimary),
+            onPressed: () => context.go(AppRoutes.examLibrary),
+          ),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.error_outline_rounded,
+                    color: AppColors.error, size: 48),
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  examState.message,
+                  textAlign: TextAlign.center,
+                  style: AppTypography.body,
+                ),
+                const SizedBox(height: AppSpacing.md),
+                ElevatedButton(
+                  onPressed: () => notifier.startExam(widget.examId!),
+                  child: const Text('পুনরায় চেষ্টা করুন'),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -56,6 +130,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
             padding: const EdgeInsets.all(AppSpacing.xl),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 const Icon(Icons.check_circle_rounded,
                     color: AppColors.primary, size: 64),
@@ -63,26 +138,32 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                 const Text(
                   'পরীক্ষা সফলভাবে জমা দেওয়া হয়েছে!',
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   'প্রাপ্ত নম্বর: ${examState.result.score} / ${examState.result.totalMarks}',
                   style: const TextStyle(
-                      fontSize: 16, color: AppColors.textSecondary),
+                    fontSize: 16,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 SizedBox(
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: () => context.go('/exam-result'),
+                    onPressed: () => context.go(AppRoutes.examResult),
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary),
-                    child: const Text('ফলাফল বিস্তারিত দেখুন',
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                      backgroundColor: AppColors.primary,
+                    ),
+                    child: const Text(
+                      'ফলাফল বিস্তারিত দেখুন',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   ),
                 ),
               ],
@@ -92,18 +173,20 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
       );
     }
 
-    final activeSession = examState is ExamSessionActive ? examState : null;
-    final currentQ = activeSession?.currentQuestion;
+    if (examState is! ExamSessionActive) {
+      return const Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
+      );
+    }
 
-    final questionText =
-        currentQ?.prompt ?? 'যদি 2x + 6 = 12 হয়, তবে x এর মান কত?';
-    final options = (currentQ?.options.isNotEmpty ?? false)
-        ? currentQ!.options
-        : const ['x = ২', 'x = ৩', 'x = ৪', 'x = ৫'];
-
-    final currentIdx = activeSession?.currentQuestionIndex ?? 0;
-    final totalQ = activeSession?.totalQuestions ?? 30;
-    final progressVal = totalQ > 0 ? (currentIdx + 1) / totalQ : 0.2;
+    final activeSession = examState;
+    final currentQ = activeSession.currentQuestion;
+    final currentIdx = activeSession.currentQuestionIndex;
+    final totalQ = activeSession.totalQuestions;
+    final progressVal = totalQ > 0 ? (currentIdx + 1) / totalQ : 0.0;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -117,9 +200,10 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
         title: Text(
           l10n.questionProgress(currentIdx + 1, totalQ),
           style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.textPrimary,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -131,11 +215,12 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                     color: AppColors.primary, size: 18),
                 const SizedBox(width: 4),
                 Text(
-                  '${activeSession?.session.durationMinutes ?? 30}:০০',
+                  '${activeSession.session.durationMinutes}:০০',
                   style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primary),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                  ),
                 ),
               ],
             ),
@@ -193,10 +278,10 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                               ),
                               IconButton(
                                 icon: Icon(
-                                  (currentQ?.isFlagged ?? false)
+                                  currentQ.isFlagged
                                       ? Icons.bookmark_rounded
                                       : Icons.bookmark_border_rounded,
-                                  color: (currentQ?.isFlagged ?? false)
+                                  color: currentQ.isFlagged
                                       ? Colors.amber
                                       : AppColors.textSecondary,
                                 ),
@@ -206,7 +291,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                           ),
                           const SizedBox(height: AppSpacing.md),
                           Text(
-                            questionText,
+                            currentQ.prompt,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -220,14 +305,14 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                     const SizedBox(height: AppSpacing.xl),
 
                     // Options List
-                    ...List.generate(options.length, (index) {
-                      final optionId = 'option-$index';
+                    ...List.generate(currentQ.options.length, (index) {
+                      final optionId = 'opt_$index';
                       final optionLabel =
                           String.fromCharCode(65 + index); // A, B, C, D
-                      final optionText = options[index];
+                      final optionText = currentQ.options[index];
                       final isSelected =
-                          currentQ?.selectedOptionId == optionId ||
-                              currentQ?.selectedOptionId == optionText;
+                          currentQ.selectedOptionId == optionId ||
+                              currentQ.selectedOptionId == optionText;
 
                       return Padding(
                         padding: const EdgeInsets.only(bottom: AppSpacing.md),
@@ -288,8 +373,10 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                                   ),
                                 ),
                                 if (isSelected)
-                                  const Icon(Icons.radio_button_checked_rounded,
-                                      color: AppColors.primary),
+                                  const Icon(
+                                    Icons.radio_button_checked_rounded,
+                                    color: AppColors.primary,
+                                  ),
                               ],
                             ),
                           ),
@@ -317,7 +404,8 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                         style: OutlinedButton.styleFrom(
                           minimumSize: const Size(0, 50),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
                         ),
                         child: const Text('পূর্ববর্তী',
                             style: TextStyle(fontSize: 15)),
@@ -327,23 +415,25 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                   Expanded(
                     flex: 2,
                     child: ElevatedButton(
-                      onPressed: (activeSession?.isLastQuestion ?? false)
+                      onPressed: activeSession.isLastQuestion
                           ? () => _showSubmitDialog(context, notifier)
                           : () => notifier.nextQuestion(),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
                         minimumSize: const Size(0, 50),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
                       child: Text(
-                        (activeSession?.isLastQuestion ?? false)
+                        activeSession.isLastQuestion
                             ? 'পরীক্ষা জমা দিন'
                             : 'পরবর্তী',
                         style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -373,7 +463,9 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
               Navigator.pop(ctx);
               notifier.submitExam();
             },
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+            ),
             child: const Text('জমা দিন', style: TextStyle(color: Colors.white)),
           ),
         ],
@@ -395,7 +487,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
-              context.go('/exam-library');
+              context.go(AppRoutes.examLibrary);
             },
             child: const Text('বের হন', style: TextStyle(color: Colors.red)),
           ),

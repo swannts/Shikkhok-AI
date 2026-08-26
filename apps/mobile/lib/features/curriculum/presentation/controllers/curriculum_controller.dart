@@ -109,3 +109,83 @@ final curriculumControllerProvider =
 final progressSummaryFutureProvider = FutureProvider<ProgressSummary>((ref) {
   return ref.read(curriculumRepositoryProvider).getMyProgressSummary();
 });
+
+class SubjectDetailsViewData {
+  final Subject subject;
+  final List<Chapter> chapters;
+
+  const SubjectDetailsViewData({
+    required this.subject,
+    required this.chapters,
+  });
+}
+
+final subjectDetailsProvider =
+    FutureProvider.family<SubjectDetailsViewData, String>(
+        (ref, subjectId) async {
+  final repo = ref.watch(curriculumRepositoryProvider);
+  final subject = await repo.getSubject(subjectId);
+  final chapters = await repo.listChapters(subjectId);
+  return SubjectDetailsViewData(
+    subject: subject,
+    chapters: chapters,
+  );
+});
+
+class ChapterDetailsViewData {
+  final Chapter chapter;
+  final Subject? subject;
+  final List<Lesson> lessons;
+
+  const ChapterDetailsViewData({
+    required this.chapter,
+    this.subject,
+    required this.lessons,
+  });
+}
+
+final chapterDetailsProvider =
+    FutureProvider.family<ChapterDetailsViewData, String>(
+        (ref, chapterId) async {
+  final repo = ref.watch(curriculumRepositoryProvider);
+  final chapter = await repo.getChapter(chapterId);
+  Subject? subject;
+  try {
+    subject = await repo.getSubject(chapter.subjectId);
+  } catch (_) {}
+  final lessons = await repo.listLessons(chapterId);
+  return ChapterDetailsViewData(
+    chapter: chapter,
+    subject: subject,
+    lessons: lessons,
+  );
+});
+
+class LessonDetailsViewData {
+  final Lesson lesson;
+  final Chapter? chapter;
+  final Subject? subject;
+
+  const LessonDetailsViewData({
+    required this.lesson,
+    this.chapter,
+    this.subject,
+  });
+}
+
+final lessonDetailsProvider =
+    FutureProvider.family<LessonDetailsViewData, String>((ref, lessonId) async {
+  final repo = ref.watch(curriculumRepositoryProvider);
+  final lesson = await repo.getLesson(lessonId);
+  Chapter? chapter;
+  Subject? subject;
+  try {
+    chapter = await repo.getChapter(lesson.chapterId);
+    subject = await repo.getSubject(chapter.subjectId);
+  } catch (_) {}
+  return LessonDetailsViewData(
+    lesson: lesson,
+    chapter: chapter,
+    subject: subject,
+  );
+});

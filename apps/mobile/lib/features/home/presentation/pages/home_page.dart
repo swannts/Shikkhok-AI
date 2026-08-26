@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_radius.dart';
@@ -197,11 +198,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             AppSectionHeader(
               title: l10n.todaysStudyPlan,
               actionLabel: l10n.seeAll,
-              onActionTap: () => context.go('/todays-study-plan'),
+              onActionTap: () => context.go(AppRoutes.todaysStudyPlan),
             ),
             const SizedBox(height: AppSpacing.xs),
             AppCard(
-              onTap: () => context.go('/lesson-reader'),
+              onTap: () => context.go(AppRoutes.todaysStudyPlan),
               child: Row(
                 children: [
                   Container(
@@ -219,10 +220,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('সরল সমীকরণ সমাধান',
+                        Text('আজকের পড়াশোনার পরিকল্পনা',
                             style: AppTypography.cardTitle),
                         SizedBox(height: 2),
-                        Text('গণিত • অধ্যায় ৪ • ১৫ মিনিট',
+                        Text('দৈনিক নির্ধারিত পাঠ ও অনুশীলন',
                             style: AppTypography.caption),
                       ],
                     ),
@@ -246,13 +247,19 @@ class _HomePageState extends ConsumerState<HomePage> {
               childAspectRatio: 2.2,
               children: [
                 _buildQuickActionCard('AI শিক্ষক', Icons.smart_toy_rounded,
-                    AppColors.primary, () => context.go('/ai-tutor-chat')),
-                _buildQuickActionCard('প্র্যাকটিস', Icons.quiz_rounded,
-                    AppColors.secondary, () => context.go('/practice-setup')),
-                _buildQuickActionCard('হোমওয়ার্ক', Icons.camera_alt_rounded,
-                    AppColors.info, () => context.go('/homework-help-landing')),
+                    AppColors.primary, () => context.go(AppRoutes.aiTutorChat)),
+                _buildQuickActionCard(
+                    'প্র্যাকটিস',
+                    Icons.quiz_rounded,
+                    AppColors.secondary,
+                    () => context.go(AppRoutes.practiceSetup)),
+                _buildQuickActionCard(
+                    'হোমওয়ার্ক',
+                    Icons.camera_alt_rounded,
+                    AppColors.info,
+                    () => context.go(AppRoutes.homeworkHelpLanding)),
                 _buildQuickActionCard('পরীক্ষা', Icons.assignment_rounded,
-                    AppColors.warning, () => context.go('/exam-library')),
+                    AppColors.warning, () => context.go(AppRoutes.examLibrary)),
               ],
             ),
             const SizedBox(height: AppSpacing.lg),
@@ -261,7 +268,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             AppSectionHeader(
               title: l10n.subjectsHeader,
               actionLabel: l10n.seeAll,
-              onActionTap: () => context.go('/learn'),
+              onActionTap: () => context.go(AppRoutes.learn),
             ),
             const SizedBox(height: AppSpacing.xs),
             if (dashboard.subjects.isNotEmpty)
@@ -278,7 +285,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       subject.name,
                       Icons.menu_book_rounded,
                       AppColors.primaryLight,
-                      () => context.go('/subject-details'),
+                      () => context.go(AppRoutes.subject(subject.id)),
                     );
                   },
                 ),
@@ -293,22 +300,25 @@ class _HomePageState extends ConsumerState<HomePage> {
                         l10n.subjectBangla,
                         Icons.menu_book_rounded,
                         const Color(0xFFFCE7F3),
-                        () => context.go('/learn')),
+                        () => context.go(AppRoutes.learn)),
                     const SizedBox(width: AppSpacing.smd),
                     _buildSubjectChip(
                         l10n.subjectEnglish,
                         Icons.translate_rounded,
                         const Color(0xFFFEF3C7),
-                        () => context.go('/learn')),
+                        () => context.go(AppRoutes.learn)),
                     const SizedBox(width: AppSpacing.smd),
-                    _buildSubjectChip(l10n.subjectMath, Icons.calculate_rounded,
-                        AppColors.primaryLight, () => context.go('/learn')),
+                    _buildSubjectChip(
+                        l10n.subjectMath,
+                        Icons.calculate_rounded,
+                        AppColors.primaryLight,
+                        () => context.go(AppRoutes.learn)),
                     const SizedBox(width: AppSpacing.smd),
                     _buildSubjectChip(
                         l10n.subjectScience,
                         Icons.science_rounded,
                         const Color(0xFFD1FAE5),
-                        () => context.go('/learn')),
+                        () => context.go(AppRoutes.learn)),
                   ],
                 ),
               ),

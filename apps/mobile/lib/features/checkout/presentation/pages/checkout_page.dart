@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -33,7 +34,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go('/subscription'),
+          onPressed: () => context.go(AppRoutes.subscription),
         ),
         title: Text(
           l10n.checkoutTitle,
@@ -190,7 +191,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: () => context.go('/payment-success'),
+                  onPressed: () => context.go(AppRoutes.paymentSuccess),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(

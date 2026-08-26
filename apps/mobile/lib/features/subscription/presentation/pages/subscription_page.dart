@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -34,7 +35,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go('/profile'),
+          onPressed: () => context.go(AppRoutes.studentProfile),
         ),
         title: Text(
           l10n.subscriptionTitle,
@@ -235,7 +236,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: () => context.go('/checkout'),
+                  onPressed: () => context.go(AppRoutes.checkout),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(

@@ -129,74 +129,88 @@ class _LearnPageState extends ConsumerState<LearnPage> {
                     child: CircularProgressIndicator(color: AppColors.primary),
                   ),
                 ),
-              ] else if (curriculumState is CurriculumSubjectsLoaded &&
-                  curriculumState.subjects.isNotEmpty) ...[
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.88,
-                    crossAxisSpacing: AppSpacing.smd,
-                    mainAxisSpacing: AppSpacing.smd,
+              ] else if (curriculumState is CurriculumFailure) ...[
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSpacing.xl),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.error_outline_rounded,
+                            color: AppColors.error, size: 48),
+                        const SizedBox(height: AppSpacing.sm),
+                        Text(
+                          curriculumState.failure.banglaMessage,
+                          textAlign: TextAlign.center,
+                          style: AppTypography.body,
+                        ),
+                        const SizedBox(height: AppSpacing.md),
+                        ElevatedButton.icon(
+                          onPressed: () => ref
+                              .read(curriculumControllerProvider.notifier)
+                              .loadSubjects(
+                                classLevel: 8,
+                                medium: 'bangla',
+                                curriculumYear: 2026,
+                              ),
+                          icon: const Icon(Icons.refresh_rounded),
+                          label: const Text('পুনরায় চেষ্টা করুন'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary,
+                            foregroundColor: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  itemCount: curriculumState.subjects.length,
-                  itemBuilder: (context, index) {
-                    final subject = curriculumState.subjects[index];
-                    return _buildDynamicSubjectCard(subject);
-                  },
                 ),
-              ] else ...[
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.88,
-                  crossAxisSpacing: AppSpacing.smd,
-                  mainAxisSpacing: AppSpacing.smd,
-                  children: [
-                    _buildSubjectCard(
-                      title: l10n.subjectMath,
-                      subtitle: 'Mathematics',
-                      icon: Icons.calculate_rounded,
-                      bgColor: AppColors.primaryLight,
-                      iconColor: AppColors.primaryDark,
-                      chapters: 12,
-                      lessons: 48,
-                      progress: 0.62,
+              ] else if (curriculumState is CurriculumSubjectsLoaded) ...[
+                () {
+                  final query = _searchController.text.trim().toLowerCase();
+                  final filtered = curriculumState.subjects.where((s) {
+                    if (query.isEmpty) return true;
+                    return s.name.toLowerCase().contains(query) ||
+                        s.slug.toLowerCase().contains(query);
+                  }).toList();
+
+                  if (filtered.isEmpty) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(AppSpacing.xl),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.search_off_rounded,
+                                color: AppColors.textSecondary, size: 48),
+                            const SizedBox(height: AppSpacing.sm),
+                            Text(
+                              'কোনো বিষয় পাওয়া যায়নি',
+                              style: AppTypography.body
+                                  .copyWith(color: AppColors.textSecondary),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.88,
+                      crossAxisSpacing: AppSpacing.smd,
+                      mainAxisSpacing: AppSpacing.smd,
                     ),
-                    _buildSubjectCard(
-                      title: l10n.subjectScience,
-                      subtitle: 'Science',
-                      icon: Icons.science_rounded,
-                      bgColor: AppColors.successLight,
-                      iconColor: AppColors.success,
-                      chapters: 14,
-                      lessons: 52,
-                      progress: 0.48,
-                    ),
-                    _buildSubjectCard(
-                      title: l10n.subjectBangla,
-                      subtitle: 'Bangla',
-                      icon: Icons.menu_book_rounded,
-                      bgColor: AppColors.warningLight,
-                      iconColor: AppColors.warning,
-                      chapters: 10,
-                      lessons: 40,
-                      progress: 0.75,
-                    ),
-                    _buildSubjectCard(
-                      title: l10n.subjectEnglish,
-                      subtitle: 'English',
-                      icon: Icons.language_rounded,
-                      bgColor: AppColors.secondaryLight,
-                      iconColor: AppColors.secondary,
-                      chapters: 15,
-                      lessons: 60,
-                      progress: 0.30,
-                    ),
-                  ],
-                ),
+                    itemCount: filtered.length,
+                    itemBuilder: (context, index) {
+                      final subject = filtered[index];
+                      return _buildDynamicSubjectCard(subject);
+                    },
+                  );
+                }(),
               ],
             ],
           ),
@@ -278,65 +292,13 @@ class _LearnPageState extends ConsumerState<LearnPage> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis),
           Text(
-            subject.slug.toUpperCase(),
+            'শ্রেণি ${subject.classLevel} • ${subject.medium.toUpperCase()}',
             style: AppTypography.caption,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: AppSpacing.xs + 2),
-          const AppProgressBar(value: 0.5),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSubjectCard({
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required Color bgColor,
-    required Color iconColor,
-    required int chapters,
-    required int lessons,
-    required double progress,
-  }) {
-    return AppCard(
-      onTap: () => context.go('/subject-details'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: bgColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(icon, color: iconColor),
-              ),
-              const Icon(Icons.chevron_right_rounded,
-                  color: AppColors.textSecondary, size: 20),
-            ],
-          ),
-          const Spacer(),
-          Text(title,
-              style: AppTypography.cardTitle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis),
-          Text(
-            subtitle,
-            style: AppTypography.caption,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text('$chaptersটি অধ্যায় • $lessonsটি পাঠ',
-              style: AppTypography.caption),
-          const SizedBox(height: AppSpacing.xs + 2),
-          AppProgressBar(value: progress),
+          const AppProgressBar(value: 0.0),
         ],
       ),
     );

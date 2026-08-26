@@ -4,20 +4,15 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/theme/app_typography.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../practice/presentation/controllers/practice_controller.dart';
 
-class PracticeSessionMcqPage extends ConsumerStatefulWidget {
+class PracticeSessionMcqPage extends ConsumerWidget {
   const PracticeSessionMcqPage({super.key});
 
   @override
-  ConsumerState<PracticeSessionMcqPage> createState() =>
-      _PracticeSessionMcqPageState();
-}
-
-class _PracticeSessionMcqPageState
-    extends ConsumerState<PracticeSessionMcqPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final practiceState = ref.watch(practiceControllerProvider);
     final notifier = ref.read(practiceControllerProvider.notifier);
@@ -27,6 +22,44 @@ class _PracticeSessionMcqPageState
         backgroundColor: AppColors.background,
         body: Center(
           child: CircularProgressIndicator(color: AppColors.primary),
+        ),
+      );
+    }
+
+    if (practiceState is PracticeError) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: AppColors.surface,
+          title: Text(l10n.practiceTitle),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded,
+                color: AppColors.textPrimary),
+            onPressed: () => context.go(AppRoutes.practiceSetup),
+          ),
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.error_outline_rounded,
+                    color: AppColors.error, size: 48),
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  practiceState.message,
+                  textAlign: TextAlign.center,
+                  style: AppTypography.body,
+                ),
+                const SizedBox(height: AppSpacing.md),
+                ElevatedButton(
+                  onPressed: () => context.go(AppRoutes.practiceSetup),
+                  child: const Text('অনুশীলন পৃষ্ঠায় ফিরে যান'),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }
@@ -46,26 +79,32 @@ class _PracticeSessionMcqPageState
                 const Text(
                   'অনুশীলন সম্পন্ন হয়েছে!',
                   style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   'সঠিক উত্তর: ${practiceState.correctCount} / ${practiceState.totalQuestions}',
                   style: const TextStyle(
-                      fontSize: 16, color: AppColors.textSecondary),
+                    fontSize: 16,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 SizedBox(
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: () => context.go('/practice-result'),
+                    onPressed: () => context.go(AppRoutes.practiceResult),
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary),
-                    child: const Text('ফলাফল দেখুন',
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                      backgroundColor: AppColors.primary,
+                    ),
+                    child: const Text(
+                      'ফলাফল দেখুন',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   ),
                 ),
               ],
@@ -75,22 +114,49 @@ class _PracticeSessionMcqPageState
       );
     }
 
-    final activeSession =
-        practiceState is PracticeActiveSession ? practiceState : null;
+    if (practiceState is! PracticeActiveSession) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: AppColors.surface,
+          title: Text(l10n.practiceTitle),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded,
+                color: AppColors.textPrimary),
+            onPressed: () => context.go(AppRoutes.practiceSetup),
+          ),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.quiz_outlined,
+                  color: AppColors.textSecondary, size: 48),
+              const SizedBox(height: AppSpacing.sm),
+              const Text(
+                'কোনো সক্রিয় অনুশীলন সেশন নেই',
+                style: AppTypography.body,
+              ),
+              const SizedBox(height: AppSpacing.md),
+              ElevatedButton(
+                onPressed: () => context.go(AppRoutes.practiceSetup),
+                child: const Text('নতুন অনুশীলন শুরু করুন'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
-    final currentQuestion = activeSession?.currentQuestion;
-    final questionText =
-        currentQuestion?.prompt ?? 'যদি 2x + 6 = 12 হয়, তবে x এর মান কত?';
-    final options = (currentQuestion?.options.isNotEmpty ?? false)
-        ? currentQuestion!.options
-        : const ['২', '৩', '৪', '৫'];
+    final activeSession = practiceState;
+    final currentQuestion = activeSession.currentQuestion;
+    final options = currentQuestion.options;
+    final currentNumber = activeSession.currentIndex + 1;
+    final totalCount = activeSession.totalQuestions;
+    final progressValue = totalCount > 0 ? currentNumber / totalCount : 0.0;
 
-    final currentNumber = (activeSession?.currentIndex ?? 0) + 1;
-    final totalCount = activeSession?.totalQuestions ?? 10;
-    final progressValue = totalCount > 0 ? currentNumber / totalCount : 0.3;
-
-    final selectedOption = activeSession?.selectedOptionId;
-    final submittedResult = activeSession?.currentResult;
+    final selectedOption = activeSession.selectedOptionId;
+    final submittedResult = activeSession.currentResult;
     final isSubmitted = submittedResult != null;
 
     return Scaffold(
@@ -100,34 +166,17 @@ class _PracticeSessionMcqPageState
         elevation: 0.5,
         leading: IconButton(
           icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
-          onPressed: () => context.go('/practice-setup'),
+          onPressed: () => context.go(AppRoutes.practiceSetup),
         ),
         title: Text(
           l10n.questionProgress(currentNumber, totalCount),
           style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.textPrimary,
+          ),
         ),
         centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: AppSpacing.md),
-            child: Row(
-              children: [
-                Icon(Icons.timer_outlined, color: Colors.red, size: 18),
-                SizedBox(width: 4),
-                Text(
-                  '০৪:২৮',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
-                ),
-              ],
-            ),
-          ),
-        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),
           child: LinearProgressIndicator(
@@ -178,13 +227,11 @@ class _PracticeSessionMcqPageState
                                   ),
                                 ),
                               ),
-                              const Icon(Icons.bookmark_border_rounded,
-                                  color: AppColors.textSecondary),
                             ],
                           ),
                           const SizedBox(height: AppSpacing.md),
                           Text(
-                            questionText,
+                            currentQuestion.prompt,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -199,7 +246,7 @@ class _PracticeSessionMcqPageState
 
                     // Options List
                     ...List.generate(options.length, (index) {
-                      final optionId = 'option-$index';
+                      final optionId = 'opt_$index';
                       final optionLabel =
                           String.fromCharCode(65 + index); // A, B, C, D
                       final optionText = options[index];
@@ -216,21 +263,25 @@ class _PracticeSessionMcqPageState
                             borderColor = Colors.green;
                             bgColor = Colors.green.withAlpha(20);
                             trailingIcon = const Icon(
-                                Icons.check_circle_rounded,
-                                color: Colors.green);
+                              Icons.check_circle_rounded,
+                              color: Colors.green,
+                            );
                           } else {
                             borderColor = Colors.red;
                             bgColor = Colors.red.withAlpha(20);
-                            trailingIcon = const Icon(Icons.cancel_rounded,
-                                color: Colors.red);
+                            trailingIcon = const Icon(
+                              Icons.cancel_rounded,
+                              color: Colors.red,
+                            );
                           }
                         }
                       } else if (isSelected) {
                         borderColor = AppColors.primary;
                         bgColor = AppColors.primary.withAlpha(20);
                         trailingIcon = const Icon(
-                            Icons.radio_button_checked_rounded,
-                            color: AppColors.primary);
+                          Icons.radio_button_checked_rounded,
+                          color: AppColors.primary,
+                        );
                       }
 
                       return Padding(
@@ -246,8 +297,9 @@ class _PracticeSessionMcqPageState
                               color: bgColor,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                  color: borderColor,
-                                  width: isSelected ? 2 : 1),
+                                color: borderColor,
+                                width: isSelected ? 2 : 1,
+                              ),
                             ),
                             child: Row(
                               children: [
@@ -282,7 +334,9 @@ class _PracticeSessionMcqPageState
                                       fontWeight: isSelected
                                           ? FontWeight.bold
                                           : FontWeight.normal,
-                                      color: AppColors.textPrimary,
+                                      color: isSelected
+                                          ? AppColors.textPrimary
+                                          : AppColors.textSecondary,
                                     ),
                                   ),
                                 ),
@@ -293,14 +347,49 @@ class _PracticeSessionMcqPageState
                         ),
                       );
                     }),
+
+                    if (isSubmitted && submittedResult.explanation != null) ...[
+                      const SizedBox(height: AppSpacing.md),
+                      Container(
+                        padding: const EdgeInsets.all(AppSpacing.md),
+                        decoration: BoxDecoration(
+                          color: AppColors.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: AppColors.border),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Row(
+                              children: [
+                                Icon(Icons.lightbulb_outline_rounded,
+                                    color: AppColors.primary, size: 20),
+                                SizedBox(width: 6),
+                                Text(
+                                  'ব্যাখ্যা',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              submittedResult.explanation!,
+                              style: AppTypography.body,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
             ),
-
-            // Bottom Verification Action Bar
+            // Bottom Action Bar
             Container(
-              padding: const EdgeInsets.all(AppSpacing.lg),
+              padding: const EdgeInsets.all(AppSpacing.md),
               decoration: const BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
@@ -308,29 +397,57 @@ class _PracticeSessionMcqPageState
               child: SizedBox(
                 width: double.infinity,
                 height: 52,
-                child: ElevatedButton(
-                  onPressed: isSubmitted
-                      ? () => notifier.nextQuestion()
-                      : (selectedOption != null
-                          ? () => notifier.submitCurrentAnswer()
-                          : null),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
-                  ),
-                  child: Text(
-                    isSubmitted
-                        ? (activeSession?.isLastQuestion ?? false
-                            ? 'ফলাফল দেখুন'
-                            : 'পরবর্তী প্রশ্ন')
-                        : 'উত্তর যাচাই করুন',
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ),
+                child: isSubmitted
+                    ? ElevatedButton.icon(
+                        onPressed: () => notifier.nextQuestion(),
+                        icon: const Icon(Icons.arrow_forward_rounded,
+                            color: Colors.white),
+                        label: Text(
+                          activeSession.isLastQuestion
+                              ? 'ফলাফল দেখুন'
+                              : 'পরবর্তী প্রশ্ন',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                      )
+                    : ElevatedButton(
+                        onPressed:
+                            selectedOption == null || activeSession.isSubmitting
+                                ? null
+                                : () => notifier.submitCurrentAnswer(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: activeSession.isSubmitting
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text(
+                                'যাচাই করো',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                      ),
               ),
             ),
           ],

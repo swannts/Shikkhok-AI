@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/theme/app_typography.dart';
+import '../../../practice/domain/entities/practice_question.dart';
+import '../../../practice/presentation/controllers/practice_controller.dart';
 
-class PracticeSetupPage extends StatefulWidget {
-  const PracticeSetupPage({super.key});
+class PracticeSetupPage extends ConsumerStatefulWidget {
+  final String? initialLessonId;
+
+  const PracticeSetupPage({super.key, this.initialLessonId});
 
   @override
-  State<PracticeSetupPage> createState() => _PracticeSetupPageState();
+  ConsumerState<PracticeSetupPage> createState() => _PracticeSetupPageState();
 }
 
-class _PracticeSetupPageState extends State<PracticeSetupPage> {
-  String _selectedSubject = 'math';
-  String _selectedChapter = 'ch4';
+class _PracticeSetupPageState extends ConsumerState<PracticeSetupPage> {
   int _selectedCount = 10;
-  String _selectedDifficulty = 'adaptive';
-  String _selectedType = 'mixed';
-  bool _enableTimer = true;
+  PracticeDifficulty _selectedDifficulty = PracticeDifficulty.medium;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +35,15 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go('/learn'),
+          onPressed: () => context.go(AppRoutes.learn),
         ),
         title: Text(
           l10n.practiceTitle,
           style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
         ),
       ),
       body: SafeArea(
@@ -50,90 +55,14 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Subject Selector
-                    Text(
-                      l10n.subjectsHeader,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
-                    ),
-                    const SizedBox(height: AppSpacing.xs),
-                    Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: _selectedSubject,
-                          isExpanded: true,
-                          items: const [
-                            DropdownMenuItem(
-                                value: 'math', child: Text('গণিত')),
-                            DropdownMenuItem(
-                                value: 'science', child: Text('বিজ্ঞান')),
-                            DropdownMenuItem(
-                                value: 'english', child: Text('ইংরেজি')),
-                          ],
-                          onChanged: (val) {
-                            if (val != null) {
-                              setState(() => _selectedSubject = val);
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    // Chapter Selector
-                    Text(
-                      l10n.chapterDetailsTitle,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
-                    ),
-                    const SizedBox(height: AppSpacing.xs),
-                    Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: _selectedChapter,
-                          isExpanded: true,
-                          items: const [
-                            DropdownMenuItem(
-                                value: 'ch4',
-                                child: Text('অধ্যায় ৪ • সরল সমীকরণ')),
-                            DropdownMenuItem(
-                                value: 'ch5',
-                                child: Text(
-                                    'অধ্যায় ৫ • বীজগণিতীয় সূত্রাবলি ও প্রয়োগ')),
-                          ],
-                          onChanged: (val) {
-                            if (val != null) {
-                              setState(() => _selectedChapter = val);
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
                     // Question Count Chips
                     Text(
                       l10n.questionCountLabel,
                       style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Row(
@@ -182,39 +111,24 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                     Text(
                       l10n.difficultyLabel,
                       style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.xs),
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        _buildDifficultyChip('easy', 'সহজ'),
-                        _buildDifficultyChip('medium', 'মাঝারি'),
-                        _buildDifficultyChip('hard', 'কঠিন'),
-                        _buildDifficultyChip('adaptive', 'Adaptive ✦',
-                            isSpecial: true),
+                        _buildDifficultyChip(PracticeDifficulty.easy, 'সহজ'),
+                        _buildDifficultyChip(
+                            PracticeDifficulty.medium, 'মাঝারি'),
+                        _buildDifficultyChip(PracticeDifficulty.hard, 'কঠিন'),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    // Question Type
-                    Text(
-                      l10n.questionTypeLabel,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary),
-                    ),
-                    const SizedBox(height: AppSpacing.xs),
-                    _buildTypeTile('mcq', 'MCQ (বহুনির্বাচনী)'),
-                    const SizedBox(height: 8),
-                    _buildTypeTile('short', 'Short Answer (সংক্ষিপ্ত)'),
-                    const SizedBox(height: 8),
-                    _buildTypeTile('mixed', 'Mixed (মিশ্র)'),
-                    const SizedBox(height: AppSpacing.lg),
-                    // Timer Switch Toggle
+                    // Practice Information Card
                     Container(
                       padding: const EdgeInsets.all(AppSpacing.md),
                       decoration: BoxDecoration(
@@ -222,26 +136,24 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(color: AppColors.border),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
-                              Icon(Icons.timer_outlined,
-                                  color: AppColors.primary),
-                              SizedBox(width: 10),
-                              Text('সময়সীমা (Timer)',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary)),
+                              Icon(Icons.info_outline_rounded,
+                                  color: AppColors.primary, size: 22),
+                              SizedBox(width: 8),
+                              Text(
+                                'অনুশীলন নির্দেশিকা',
+                                style: AppTypography.cardTitle,
+                              ),
                             ],
                           ),
-                          Switch(
-                            value: _enableTimer,
-                            activeTrackColor: AppColors.primary,
-                            onChanged: (val) =>
-                                setState(() => _enableTimer = val),
+                          SizedBox(height: 8),
+                          Text(
+                            'প্রতিটি প্রশ্নের উত্তর দেওয়ার পর সাথে সাথে সঠিক উত্তর এবং বিস্তারিত ব্যাখ্যা দেখতে পাবে। ভুল হলে পরবর্তীতে ভুল পর্যালোচনায় তা পাওয়া যাবে।',
+                            style: AppTypography.body,
                           ),
                         ],
                       ),
@@ -261,20 +173,53 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton.icon(
-                  onPressed: () => context.go('/lesson-reader'),
-                  icon: const Icon(Icons.play_arrow_rounded,
-                      color: Colors.white, size: 24),
+                  onPressed: _isLoading
+                      ? null
+                      : () async {
+                          setState(() => _isLoading = true);
+                          final lessonId =
+                              widget.initialLessonId ?? 'lesson_default';
+                          try {
+                            await ref
+                                .read(practiceControllerProvider.notifier)
+                                .startSession(
+                                  lessonId: lessonId,
+                                  limit: _selectedCount,
+                                  difficulty: _selectedDifficulty,
+                                );
+                            if (context.mounted) {
+                              context.go(AppRoutes.practiceSessionMcq);
+                            }
+                          } finally {
+                            if (mounted) {
+                              setState(() => _isLoading = false);
+                            }
+                          }
+                        },
+                  icon: _isLoading
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Icon(Icons.play_arrow_rounded,
+                          color: Colors.white, size: 24),
                   label: Text(
-                    l10n.startPractice,
+                    _isLoading ? 'শুরু হচ্ছে...' : l10n.startPractice,
                     style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                 ),
               ),
@@ -285,9 +230,9 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
     );
   }
 
-  Widget _buildDifficultyChip(String key, String label,
+  Widget _buildDifficultyChip(PracticeDifficulty difficulty, String label,
       {bool isSpecial = false}) {
-    final isSelected = _selectedDifficulty == key;
+    final isSelected = _selectedDifficulty == difficulty;
     return ChoiceChip(
       label: Text(label),
       selected: isSelected,
@@ -301,47 +246,8 @@ class _PracticeSetupPageState extends State<PracticeSetupPage> {
         fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
       ),
       onSelected: (val) {
-        if (val) setState(() => _selectedDifficulty = key);
+        if (val) setState(() => _selectedDifficulty = difficulty);
       },
-    );
-  }
-
-  Widget _buildTypeTile(String key, String label) {
-    final isSelected = _selectedType == key;
-    return InkWell(
-      onTap: () => setState(() => _selectedType = key),
-      borderRadius: BorderRadius.circular(14),
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color:
-              isSelected ? AppColors.primary.withAlpha(15) : AppColors.surface,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: isSelected ? AppColors.primary : AppColors.border,
-            width: isSelected ? 2 : 1,
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              isSelected
-                  ? Icons.radio_button_checked_rounded
-                  : Icons.radio_button_off_rounded,
-              color: isSelected ? AppColors.primary : AppColors.textSecondary,
-            ),
-            const SizedBox(width: 12),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected ? AppColors.primary : AppColors.textPrimary,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

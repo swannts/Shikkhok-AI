@@ -181,7 +181,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(StudentProfilePage), findsOneWidget);
-      expect(find.text('আরিফুর রহমান'), findsOneWidget);
+      expect(find.text('শিক্ষার্থী'), findsOneWidget);
+      expect(find.text('Shikkhok Plus (প্রিমিয়াম)'), findsOneWidget);
     });
 
     testWidgets('StudentProgressDashboardPage renders mastery overview',
