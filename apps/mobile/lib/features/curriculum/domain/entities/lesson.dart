@@ -1,3 +1,5 @@
+import 'lesson_content_block.dart';
+
 class Lesson {
   final String id;
   final String chapterId;
@@ -9,6 +11,8 @@ class Lesson {
   final int? pageStart;
   final int? pageEnd;
   final bool isPublished;
+  final int contentVersion;
+  final List<LessonContentBlock> contentBlocks;
 
   const Lesson({
     required this.id,
@@ -21,5 +25,7 @@ class Lesson {
     this.pageStart,
     this.pageEnd,
     this.isPublished = true,
+    this.contentVersion = 1,
+    this.contentBlocks = const [],
   });
 }

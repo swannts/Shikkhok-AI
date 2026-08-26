@@ -23,6 +23,7 @@ import { AdminUpdateUserStatusDto } from './dto/admin-update-user-status.dto';
 import { AdminCreateSubjectDto } from './dto/admin-create-subject.dto';
 import { AdminCreateChapterDto } from './dto/admin-create-chapter.dto';
 import { AdminCreateLessonDto } from './dto/admin-create-lesson.dto';
+import { normalizeLessonContentBlocks } from '../curriculum/types/lesson-content-block';
 import { SubscriptionStatus } from '../subscriptions/enums/subscription-status.enum';
 import { PaymentStatus } from '../subscriptions/enums/payment-status.enum';
 import { UserStatus } from '../users/enums/user-status.enum';
@@ -254,6 +255,12 @@ export class AdminService {
       pageStart: dto.pageStart ?? null,
       pageEnd: dto.pageEnd ?? null,
       isPublished: dto.isPublished ?? true,
+      contentVersion: dto.contentVersion ?? 1,
+      contentBlocks: normalizeLessonContentBlocks(
+        dto.contentBlocks as unknown as Parameters<typeof normalizeLessonContentBlocks>[0],
+      ).map((block) => ({
+        ...block,
+      })),
     });
 
     const saved = await lesson.save();

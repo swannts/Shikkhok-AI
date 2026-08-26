@@ -1,3 +1,5 @@
+import 'lesson_content_block_dto.dart';
+
 class LessonDto {
   final String id;
   final String chapterId;
@@ -9,6 +11,8 @@ class LessonDto {
   final int? pageStart;
   final int? pageEnd;
   final bool isPublished;
+  final int contentVersion;
+  final List<LessonContentBlockDto> contentBlocks;
 
   const LessonDto({
     required this.id,
@@ -21,9 +25,16 @@ class LessonDto {
     this.pageStart,
     this.pageEnd,
     this.isPublished = true,
+    this.contentVersion = 1,
+    this.contentBlocks = const [],
   });
 
   factory LessonDto.fromJson(Map<String, dynamic> json) {
+    final rawBlocks = (json['contentBlocks'] as List<dynamic>? ?? const [])
+        .whereType<Map<String, dynamic>>()
+        .map(LessonContentBlockDto.fromJson)
+        .toList(growable: false);
+
     return LessonDto(
       id: (json['_id'] ?? json['id'] ?? '').toString(),
       chapterId: (json['chapterId'] ?? '').toString(),
@@ -35,6 +46,8 @@ class LessonDto {
       pageStart: (json['pageStart'] as num?)?.toInt(),
       pageEnd: (json['pageEnd'] as num?)?.toInt(),
       isPublished: json['isPublished'] as bool? ?? true,
+      contentVersion: (json['contentVersion'] as num?)?.toInt() ?? 1,
+      contentBlocks: sortLessonContentBlockDtos(rawBlocks),
     );
   }
 
@@ -49,5 +62,7 @@ class LessonDto {
         'pageStart': pageStart,
         'pageEnd': pageEnd,
         'isPublished': isPublished,
+        'contentVersion': contentVersion,
+        'contentBlocks': contentBlocks.map((block) => block.toJson()).toList(),
       };
 }

@@ -12,6 +12,7 @@ import '../controllers/bookmark_controller.dart';
 import '../../domain/entities/lesson.dart';
 import '../../domain/entities/chapter.dart';
 import '../../domain/entities/subject.dart';
+import '../widgets/lesson_content_block_renderer.dart';
 
 class LessonReaderPage extends ConsumerStatefulWidget {
   final String? lessonId;
@@ -280,23 +281,15 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                         ),
                         const Divider(height: AppSpacing.xl),
 
-                        // Main Content Box
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(AppSpacing.md),
-                          decoration: BoxDecoration(
-                            color: AppColors.surface,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: AppColors.border),
+                        Text(
+                          'পাঠের বিষয়বস্তু',
+                          style: AppTypography.cardTitle.copyWith(
+                            color: AppColors.textPrimary,
                           ),
-                          child: Text(
-                            '${lesson.title} পাঠের মূল পাঠ্য বিষয়বস্তু ও বিস্তারিত বিবরণ।',
-                            style: AppTypography.body.copyWith(
-                              fontSize: 15,
-                              height: 1.6,
-                              color: AppColors.textPrimary,
-                            ),
-                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
+                        LessonContentBlockRenderer(
+                          blocks: lesson.contentBlocks,
                         ),
                         const SizedBox(height: AppSpacing.lg),
 

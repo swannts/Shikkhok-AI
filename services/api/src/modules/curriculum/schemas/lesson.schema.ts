@@ -1,6 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 import { Chapter } from './chapter.schema';
+import { LessonContentBlock, LessonContentBlockSchema } from './lesson-content-block.schema';
+import {
+  normalizeLessonContentBlocks,
+  validateLessonContentBlocks,
+} from '../types/lesson-content-block';
 
 export type LessonDocument = HydratedDocument<Lesson>;
 
@@ -10,6 +15,10 @@ export type LessonDocument = HydratedDocument<Lesson>;
   toJSON: {
     transform(_doc: any, ret: Record<string, any>) {
       delete ret.__v;
+      ret.contentVersion = ret.contentVersion ?? 1;
+      ret.contentBlocks = normalizeLessonContentBlocks(
+        Array.isArray(ret.contentBlocks) ? (ret.contentBlocks as any) : [],
+      );
       return ret;
     },
   },
@@ -41,6 +50,19 @@ export class Lesson {
 
   @Prop({ type: Boolean, default: true, index: true })
   isPublished: boolean;
+
+  @Prop({ type: Number, default: 1 })
+  contentVersion: number;
+
+  @Prop({
+    type: [LessonContentBlockSchema],
+    default: [],
+    validate: {
+      validator: validateLessonContentBlocks,
+      message: 'Invalid lesson content blocks',
+    },
+  })
+  contentBlocks: LessonContentBlock[];
 
   createdAt: Date;
   updatedAt: Date;

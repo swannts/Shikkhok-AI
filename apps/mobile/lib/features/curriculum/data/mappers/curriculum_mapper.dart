@@ -47,6 +47,9 @@ class CurriculumMapper {
       pageStart: dto.pageStart,
       pageEnd: dto.pageEnd,
       isPublished: dto.isPublished,
+      contentVersion: dto.contentVersion,
+      contentBlocks:
+          dto.contentBlocks.map((block) => block.toDomain()).toList(),
     );
   }
 

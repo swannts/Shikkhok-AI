@@ -4,9 +4,11 @@ import 'package:mobile/features/curriculum/data/datasources/curriculum_remote_da
 import 'package:mobile/features/curriculum/data/dto/subject_dto.dart';
 import 'package:mobile/features/curriculum/data/dto/chapter_dto.dart';
 import 'package:mobile/features/curriculum/data/dto/lesson_dto.dart';
+import 'package:mobile/features/curriculum/data/dto/lesson_content_block_dto.dart';
 import 'package:mobile/features/curriculum/data/dto/progress_summary_dto.dart';
 import 'package:mobile/features/curriculum/data/dto/chapter_progress_dto.dart';
 import 'package:mobile/features/curriculum/data/repositories/curriculum_repository_impl.dart';
+import 'package:mobile/features/curriculum/domain/entities/lesson_content_block.dart';
 
 class MockCurriculumRemoteDataSource implements CurriculumRemoteDataSource {
   @override
@@ -74,6 +76,14 @@ class MockCurriculumRemoteDataSource implements CurriculumRemoteDataSource {
         chapterId: 'chap-1',
         title: 'সংখ্যা প্যাটার্ন ও সূত্র',
         slug: 'number-patterns',
+        contentBlocks: [
+          LessonHeadingContentBlockDto(
+            id: 'block-1',
+            order: 1,
+            text: 'সংখ্যা প্যাটার্ন',
+            level: 2,
+          ),
+        ],
       ),
     ];
   }
@@ -85,6 +95,19 @@ class MockCurriculumRemoteDataSource implements CurriculumRemoteDataSource {
       chapterId: 'chap-1',
       title: 'সংখ্যা প্যাটার্ন ও সূত্র',
       slug: 'number-patterns',
+      contentBlocks: [
+        LessonHeadingContentBlockDto(
+          id: 'block-1',
+          order: 1,
+          text: 'সংখ্যা প্যাটার্ন',
+          level: 2,
+        ),
+        LessonParagraphContentBlockDto(
+          id: 'block-2',
+          order: 2,
+          text: 'এটি নতুন কাঠামোবদ্ধ পাঠ্য বিষয়বস্তুর উদাহরণ।',
+        ),
+      ],
     );
   }
 
@@ -145,6 +168,8 @@ void main() {
 
       final lessons = await repository.listLessons('chap-1');
       expect(lessons.first.title, 'সংখ্যা প্যাটার্ন ও সূত্র');
+      expect(lessons.first.contentBlocks.first.type,
+          LessonContentBlockType.heading);
     });
 
     test('getMyProgressSummary returns mapped ProgressSummary', () async {

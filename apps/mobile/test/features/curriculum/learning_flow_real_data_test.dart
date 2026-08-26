@@ -7,6 +7,7 @@ import 'package:mobile/app/theme/app_theme.dart';
 import 'package:mobile/features/curriculum/domain/entities/subject.dart';
 import 'package:mobile/features/curriculum/domain/entities/chapter.dart';
 import 'package:mobile/features/curriculum/domain/entities/lesson.dart';
+import 'package:mobile/features/curriculum/domain/entities/lesson_content_block.dart';
 import 'package:mobile/features/curriculum/domain/entities/progress_summary.dart';
 import 'package:mobile/features/curriculum/domain/entities/chapter_progress.dart';
 import 'package:mobile/features/curriculum/domain/repositories/curriculum_repository.dart';
@@ -96,6 +97,34 @@ class MockCurriculumRepo implements CurriculumRepository {
         pageStart: 5,
         pageEnd: 12,
         order: 1,
+        contentBlocks: const [
+          LessonHeadingContentBlock(
+            id: 'block-1',
+            order: 1,
+            text: 'সার্বিক সেট',
+            level: 2,
+          ),
+          LessonParagraphContentBlock(
+            id: 'block-2',
+            order: 2,
+            text:
+                'একটি নির্দিষ্ট আলোচনার সকল উপাদানের সমষ্টিকে সার্বিক সেট বলে।',
+          ),
+          LessonFormulaContentBlock(
+            id: 'block-3',
+            order: 3,
+            expression: 'U = \\{x : x \\text{ belongs to the discussion}\\}',
+            description: 'সার্বিক সেটের প্রতীকী রূপ',
+          ),
+          LessonImportantNoteContentBlock(
+            id: 'block-4',
+            order: 4,
+            title: 'মনে রাখবে',
+            text:
+                'উদাহরণভিত্তিক উপসেট নির্ধারণে সার্বিক সেটকে ভিত্তি হিসেবে ধরতে হয়।',
+            severity: LessonImportantNoteSeverity.tip,
+          ),
+        ],
       ),
     ];
   }
@@ -113,6 +142,33 @@ class MockCurriculumRepo implements CurriculumRepository {
       pageStart: 5,
       pageEnd: 12,
       order: 1,
+      contentBlocks: const [
+        LessonHeadingContentBlock(
+          id: 'block-1',
+          order: 1,
+          text: 'সার্বিক সেট',
+          level: 2,
+        ),
+        LessonParagraphContentBlock(
+          id: 'block-2',
+          order: 2,
+          text: 'একটি নির্দিষ্ট আলোচনার সকল উপাদানের সমষ্টিকে সার্বিক সেট বলে।',
+        ),
+        LessonFormulaContentBlock(
+          id: 'block-3',
+          order: 3,
+          expression: 'U = \\{x : x \\text{ belongs to the discussion}\\}',
+          description: 'সার্বিক সেটের প্রতীকী রূপ',
+        ),
+        LessonImportantNoteContentBlock(
+          id: 'block-4',
+          order: 4,
+          title: 'মনে রাখবে',
+          text:
+              'উদাহরণভিত্তিক উপসেট নির্ধারণে সার্বিক সেটকে ভিত্তি হিসেবে ধরতে হয়।',
+          severity: LessonImportantNoteSeverity.tip,
+        ),
+      ],
     );
   }
 
@@ -235,7 +291,23 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('সার্বিক সেট ও উপসেট'), findsWidgets);
+      expect(find.text('পাঠের বিষয়বস্তু'), findsOneWidget);
+      expect(find.text('সার্বিক সেট'), findsOneWidget);
       expect(find.text('সেটের মৌলিক বিষয়াবলি ও উপসেট গঠন।'), findsOneWidget);
+      expect(
+        find.text(
+            'একটি নির্দিষ্ট আলোচনার সকল উপাদানের সমষ্টিকে সার্বিক সেট বলে।'),
+        findsOneWidget,
+      );
+      expect(
+        find.text('U = \\{x : x \\text{ belongs to the discussion}\\}'),
+        findsOneWidget,
+      );
+      expect(
+        find.text(
+            'উদাহরণভিত্তিক উপসেট নির্ধারণে সার্বিক সেটকে ভিত্তি হিসেবে ধরতে হয়।'),
+        findsOneWidget,
+      );
       expect(find.text('অধ্যায় ১, পৃষ্ঠা ৫-১২'), findsOneWidget);
       expect(find.text('পাঠ সম্পন্ন করো'), findsOneWidget);
     });
