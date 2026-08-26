@@ -136,11 +136,17 @@ class ChapterDetailsViewData {
   final Chapter chapter;
   final Subject? subject;
   final List<Lesson> lessons;
+  final int completedLessons;
+  final int totalLessons;
+  final double progressPercent;
 
   const ChapterDetailsViewData({
     required this.chapter,
     this.subject,
     required this.lessons,
+    this.completedLessons = 0,
+    this.totalLessons = 0,
+    this.progressPercent = 0.0,
   });
 }
 
@@ -154,10 +160,30 @@ final chapterDetailsProvider =
     subject = await repo.getSubject(chapter.subjectId);
   } catch (_) {}
   final lessons = await repo.listLessons(chapterId);
+
+  int completedCount = 0;
+  final totalCount = lessons.length;
+  double progressPercentage = 0.0;
+
+  try {
+    final chapterProgressList =
+        await repo.getMySubjectProgress(chapter.subjectId);
+    final match = chapterProgressList
+        .where((cp) => cp.chapterId == chapterId)
+        .firstOrNull;
+    if (match != null) {
+      completedCount = match.completedLessons;
+      progressPercentage = match.completionRate;
+    }
+  } catch (_) {}
+
   return ChapterDetailsViewData(
     chapter: chapter,
     subject: subject,
     lessons: lessons,
+    completedLessons: completedCount,
+    totalLessons: totalCount,
+    progressPercent: progressPercentage,
   );
 });
 

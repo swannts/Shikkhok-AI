@@ -63,12 +63,12 @@ class _HomePageState extends ConsumerState<HomePage> {
           IconButton(
             icon: const Icon(Icons.notifications_none_rounded,
                 color: AppColors.textPrimary),
-            onPressed: () => context.go('/notifications'),
+            onPressed: () => context.go(AppRoutes.notifications),
           ),
           IconButton(
             icon:
                 const Icon(Icons.search_rounded, color: AppColors.textPrimary),
-            onPressed: () => context.go('/global-search'),
+            onPressed: () => context.go(AppRoutes.globalSearch),
           ),
         ],
       ),
@@ -91,16 +91,16 @@ class _HomePageState extends ConsumerState<HomePage> {
             case 0:
               break;
             case 1:
-              context.go('/learn');
+              context.go(AppRoutes.learn);
               break;
             case 2:
-              context.go('/ai-tutor-chat');
+              context.go(AppRoutes.aiTutorChat);
               break;
             case 3:
-              context.go('/practice-setup');
+              context.go(AppRoutes.practiceSetup);
               break;
             case 4:
-              context.go('/student-profile');
+              context.go(AppRoutes.studentProfile);
               break;
           }
         },

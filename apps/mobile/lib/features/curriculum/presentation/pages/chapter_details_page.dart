@@ -129,7 +129,9 @@ class ChapterDetailsPage extends ConsumerWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          '${subject?.name ?? 'বিষয়'} • শ্রেণি ${subject?.classLevel ?? 8}',
+                          subject?.classLevel != null
+                              ? '${subject?.name ?? 'বিষয়'} • শ্রেণি ${subject!.classLevel}'
+                              : (subject?.name ?? 'বিষয়'),
                           style: const TextStyle(
                             fontSize: 14,
                             color: AppColors.textSecondary,
@@ -163,6 +165,59 @@ class ChapterDetailsPage extends ConsumerWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       const Text(
+                                        'অধ্যায় অগ্রগতি',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.textSecondary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        '${viewData.completedLessons}/${viewData.totalLessons} পাঠ সম্পন্ন',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    '${viewData.progressPercent.round()}%',
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
+                                child: LinearProgressIndicator(
+                                  value: viewData.totalLessons > 0
+                                      ? (viewData.completedLessons /
+                                              viewData.totalLessons)
+                                          .clamp(0.0, 1.0)
+                                      : 0.0,
+                                  backgroundColor: AppColors.border,
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                          AppColors.primary),
+                                  minHeight: 6,
+                                ),
+                              ),
+                              const SizedBox(height: AppSpacing.md),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
                                         'মোট পাঠ',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -173,9 +228,9 @@ class ChapterDetailsPage extends ConsumerWidget {
                                       Text(
                                         '${lessons.length}টি',
                                         style: const TextStyle(
-                                          fontSize: 24,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold,
-                                          color: AppColors.primary,
+                                          color: AppColors.textPrimary,
                                         ),
                                       ),
                                     ],

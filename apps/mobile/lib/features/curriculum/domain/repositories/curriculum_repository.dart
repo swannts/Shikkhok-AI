@@ -2,6 +2,7 @@ import '../entities/subject.dart';
 import '../entities/chapter.dart';
 import '../entities/lesson.dart';
 import '../entities/progress_summary.dart';
+import '../entities/chapter_progress.dart';
 
 abstract interface class CurriculumRepository {
   Future<List<Subject>> listSubjects({
@@ -21,6 +22,8 @@ abstract interface class CurriculumRepository {
   Future<Lesson> getLesson(String lessonId);
 
   Future<ProgressSummary> getMyProgressSummary();
+
+  Future<List<ChapterProgress>> getMySubjectProgress(String subjectId);
 
   Future<void> updateLessonProgress({
     required String lessonId,

@@ -5,6 +5,7 @@ import 'package:mobile/features/curriculum/data/dto/subject_dto.dart';
 import 'package:mobile/features/curriculum/data/dto/chapter_dto.dart';
 import 'package:mobile/features/curriculum/data/dto/lesson_dto.dart';
 import 'package:mobile/features/curriculum/data/dto/progress_summary_dto.dart';
+import 'package:mobile/features/curriculum/data/dto/chapter_progress_dto.dart';
 import 'package:mobile/features/curriculum/data/repositories/curriculum_repository_impl.dart';
 
 class MockCurriculumRemoteDataSource implements CurriculumRemoteDataSource {
@@ -97,6 +98,11 @@ class MockCurriculumRemoteDataSource implements CurriculumRemoteDataSource {
       totalMinutesStudied: 120,
     );
   }
+
+  @override
+  Future<List<ChapterProgressDto>> getMySubjectProgress(
+          String subjectId) async =>
+      const [];
 
   @override
   Future<void> updateLessonProgress({

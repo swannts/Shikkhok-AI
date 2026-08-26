@@ -9,6 +9,7 @@ import 'package:mobile/features/curriculum/domain/entities/subject.dart';
 import 'package:mobile/features/curriculum/domain/entities/chapter.dart';
 import 'package:mobile/features/curriculum/domain/entities/lesson.dart';
 import 'package:mobile/features/curriculum/domain/entities/progress_summary.dart';
+import 'package:mobile/features/curriculum/domain/entities/chapter_progress.dart';
 import 'package:mobile/features/curriculum/domain/repositories/curriculum_repository.dart';
 import 'package:mobile/features/curriculum/presentation/controllers/curriculum_controller.dart';
 import 'package:mobile/features/curriculum/presentation/pages/learn_page.dart';
@@ -80,6 +81,10 @@ class FakeCurriculumRepository implements CurriculumRepository {
   @override
   Future<ProgressSummary> getMyProgressSummary() async =>
       const ProgressSummary();
+
+  @override
+  Future<List<ChapterProgress>> getMySubjectProgress(String subjectId) async =>
+      const [];
 
   @override
   Future<void> updateLessonProgress({

@@ -8,6 +8,7 @@ import '../../data/repositories/tutor_repository_impl.dart';
 import '../../domain/entities/tutor_message.dart';
 import '../../domain/entities/tutor_citation.dart';
 import '../../domain/entities/tutor_stream_event.dart';
+import '../../domain/entities/tutor_conversation_thread.dart';
 import '../../domain/repositories/tutor_repository.dart';
 import '../state/tutor_state.dart';
 
@@ -87,6 +88,45 @@ class TutorController extends StateNotifier<TutorState> {
       state = state.copyWith(isLoading: false, errorMessage: e.banglaMessage);
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
+    }
+  }
+
+  Future<TutorConversationThread?> startConversationForLesson({
+    required String lessonId,
+    String? chapterId,
+    String? subjectId,
+    String? lessonTitle,
+  }) async {
+    state = state.copyWith(isLoading: true, errorMessage: null);
+    try {
+      final title = lessonTitle != null && lessonTitle.isNotEmpty
+          ? '$lessonTitle • পাঠ সহায়তা'
+          : 'পাঠ সহায়তা';
+      final thread = await _repository.startConversation(
+        title: title,
+        subjectId: subjectId,
+        chapterId: chapterId,
+        lessonId: lessonId,
+        initialMessage: 'আমি এই পাঠটি বুঝতে সাহায্য চাই।',
+      );
+      final updatedList = [
+        thread.conversation,
+        ...state.conversations.where((c) => c.id != thread.conversation.id),
+      ];
+      state = state.copyWith(
+        conversations: updatedList,
+        activeConversation: thread.conversation,
+        messages: thread.messages,
+        isLoading: false,
+        errorMessage: null,
+      );
+      return thread;
+    } on AppFailure catch (e) {
+      state = state.copyWith(isLoading: false, errorMessage: e.banglaMessage);
+      return null;
+    } catch (e) {
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
+      return null;
     }
   }
 

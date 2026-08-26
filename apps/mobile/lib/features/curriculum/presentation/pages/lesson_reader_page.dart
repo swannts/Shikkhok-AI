@@ -6,7 +6,12 @@ import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 import '../../../../app/theme/app_typography.dart';
 import '../../../../app/router/app_routes.dart';
+import '../../../tutor/presentation/controllers/tutor_controller.dart';
 import '../controllers/curriculum_controller.dart';
+import '../controllers/bookmark_controller.dart';
+import '../../domain/entities/lesson.dart';
+import '../../domain/entities/chapter.dart';
+import '../../domain/entities/subject.dart';
 
 class LessonReaderPage extends ConsumerStatefulWidget {
   final String? lessonId;
@@ -18,8 +23,50 @@ class LessonReaderPage extends ConsumerStatefulWidget {
 }
 
 class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
-  bool _isBookmarked = false;
   bool _isMarkingComplete = false;
+  bool _isLaunchingTutor = false;
+
+  Future<void> _launchTutor(
+      Lesson lesson, Chapter? chapter, Subject? subject) async {
+    if (_isLaunchingTutor) return;
+    setState(() => _isLaunchingTutor = true);
+    try {
+      final thread = await ref
+          .read(tutorControllerProvider.notifier)
+          .startConversationForLesson(
+            lessonId: lesson.id,
+            chapterId: chapter?.id ?? lesson.chapterId,
+            subjectId: subject?.id ?? chapter?.subjectId,
+            lessonTitle: lesson.title,
+          );
+      if (!mounted) return;
+      if (thread != null) {
+        context.go(AppRoutes.tutor(thread.conversation.id));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'AI শিক্ষকের সাথে সংযোগ স্থাপন করা যায়নি। পুনরায় চেষ্টা করুন।',
+            ),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('AI শিক্ষক চালু করা যায়নি।'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLaunchingTutor = false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +104,9 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
     }
 
     final asyncData = ref.watch(lessonDetailsProvider(widget.lessonId!));
+    final bookmarkState =
+        ref.watch(isLessonBookmarkedProvider(widget.lessonId!));
+    final isBookmarked = bookmarkState.valueOrNull ?? false;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -86,21 +136,37 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
         actions: [
           IconButton(
             icon: Icon(
-              _isBookmarked
+              isBookmarked
                   ? Icons.bookmark_rounded
                   : Icons.bookmark_outline_rounded,
               color: AppColors.primary,
             ),
-            onPressed: () {
-              setState(() => _isBookmarked = !_isBookmarked);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(_isBookmarked
-                      ? 'পাঠটি বুকমার্ক করা হয়েছে'
-                      : 'বুকমার্ক সরানো হয়েছে'),
-                  duration: const Duration(seconds: 1),
-                ),
-              );
+            onPressed: () async {
+              final success = await ref
+                  .read(isLessonBookmarkedProvider(widget.lessonId!).notifier)
+                  .toggleBookmark();
+              if (!context.mounted) return;
+              if (success) {
+                final updated = ref
+                        .read(isLessonBookmarkedProvider(widget.lessonId!))
+                        .valueOrNull ??
+                    false;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(updated
+                        ? 'পাঠটি বুকমার্ক করা হয়েছে'
+                        : 'বুকমার্ক সরানো হয়েছে'),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('বুকমার্ক পরিবর্তন করা যায়নি'),
+                    backgroundColor: AppColors.error,
+                  ),
+                );
+              }
             },
           ),
         ],
@@ -119,7 +185,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                     color: AppColors.error, size: 48),
                 const SizedBox(height: AppSpacing.sm),
                 const Text(
-                  'পাঠের তথ্য লোড করা যায়নি',
+                  'পাঠ লোড করা সম্ভব হয়নি',
                   textAlign: TextAlign.center,
                   style: AppTypography.body,
                 ),
@@ -142,10 +208,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
           final lesson = viewData.lesson;
           final chapter = viewData.chapter;
           final subject = viewData.subject;
-
-          final hasTextbookRef = lesson.textbookReference != null &&
-              lesson.textbookReference!.isNotEmpty;
-          final hasPages = lesson.pageStart != null && lesson.pageEnd != null;
+          final summary = lesson.summary;
 
           return SafeArea(
             child: Column(
@@ -156,95 +219,121 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Metadata Header
+                        // Breadcrumbs Header
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withAlpha(15),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            '${subject?.name ?? 'পাঠ্যক্রম'} > ${chapter?.title ?? 'অধ্যায়'}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.md),
+                        // Lesson Title
+                        Text(
+                          lesson.title,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
+                        // Metadata Row
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                              child: Text(
-                                '${subject?.name ?? ''} ${chapter != null ? '• ${chapter.title}' : ''}',
+                            if (lesson.pageStart != null) ...[
+                              const Icon(Icons.menu_book_rounded,
+                                  size: 16, color: AppColors.textSecondary),
+                              const SizedBox(width: 4),
+                              Text(
+                                'NCTB পৃষ্ঠা ${lesson.pageStart}${lesson.pageEnd != null ? '-${lesson.pageEnd}' : ''}',
                                 style: const TextStyle(
                                   fontSize: 13,
                                   color: AppColors.textSecondary,
                                 ),
                               ),
-                            ),
-                            if (hasPages)
+                              const SizedBox(width: 12),
+                            ],
+                            if (lesson.textbookReference != null &&
+                                lesson.textbookReference!.isNotEmpty) ...[
+                              const Icon(Icons.bookmark_border_rounded,
+                                  size: 16, color: AppColors.textSecondary),
+                              const SizedBox(width: 4),
                               Text(
-                                'পৃষ্ঠা: ${lesson.pageStart}-${lesson.pageEnd}',
+                                lesson.textbookReference!,
                                 style: const TextStyle(
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.primary,
+                                  color: AppColors.textSecondary,
                                 ),
                               ),
+                            ],
                           ],
                         ),
-                        const SizedBox(height: AppSpacing.md),
-                        Text(
-                          lesson.title,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
+                        const Divider(height: AppSpacing.xl),
+
+                        // Main Content Box
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(AppSpacing.md),
+                          decoration: BoxDecoration(
+                            color: AppColors.surface,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: AppColors.border),
+                          ),
+                          child: Text(
+                            '${lesson.title} পাঠের মূল পাঠ্য বিষয়বস্তু ও বিস্তারিত বিবরণ।',
+                            style: AppTypography.body.copyWith(
+                              fontSize: 15,
+                              height: 1.6,
+                              color: AppColors.textPrimary,
+                            ),
                           ),
                         ),
-                        const SizedBox(height: AppSpacing.md),
-                        if (lesson.summary != null &&
-                            lesson.summary!.isNotEmpty) ...[
+                        const SizedBox(height: AppSpacing.lg),
+
+                        // Key Takeaway / Summary Card
+                        if (summary != null && summary.isNotEmpty) ...[
                           Container(
                             padding: const EdgeInsets.all(AppSpacing.md),
                             decoration: BoxDecoration(
-                              color: AppColors.surface,
+                              color: Colors.amber.shade50,
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: AppColors.border),
+                              border: Border.all(color: Colors.amber.shade200),
                             ),
-                            child: Text(
-                              lesson.summary!,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                height: 1.6,
-                                color: AppColors.textPrimary,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: AppSpacing.lg),
-                        ],
-                        if (hasTextbookRef) ...[
-                          Container(
-                            padding: const EdgeInsets.all(AppSpacing.md),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withAlpha(15),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                  color: AppColors.primary.withAlpha(40)),
-                            ),
-                            child: Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.menu_book_rounded,
-                                    color: AppColors.primary),
-                                const SizedBox(width: AppSpacing.md),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'এনসিটিবি পাঠ্যবই রেফারেন্স',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.primary,
-                                        ),
+                                Row(
+                                  children: [
+                                    Icon(Icons.lightbulb_rounded,
+                                        color: Colors.amber.shade800, size: 20),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      'সারসংক্ষেপ ও মূল ধারণা',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.amber.shade900,
                                       ),
-                                      Text(
-                                        lesson.textbookReference!,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.textPrimary,
-                                        ),
-                                      ),
-                                    ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  summary,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: Colors.brown.shade900,
                                   ),
                                 ),
                               ],
@@ -252,7 +341,8 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                           ),
                           const SizedBox(height: AppSpacing.lg),
                         ],
-                        // Ask AI Tutor Card
+
+                        // Ask AI Tutor Card (Scoped to this lesson)
                         Container(
                           padding: const EdgeInsets.all(AppSpacing.md),
                           decoration: BoxDecoration(
@@ -290,11 +380,26 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: ElevatedButton.icon(
-                                  onPressed: () =>
-                                      context.go(AppRoutes.aiTutorChat),
-                                  icon: const Icon(Icons.chat_bubble_outline,
-                                      size: 18),
-                                  label: const Text('প্রশ্ন করো'),
+                                  onPressed: _isLaunchingTutor
+                                      ? null
+                                      : () => _launchTutor(
+                                          lesson, chapter, subject),
+                                  icon: _isLaunchingTutor
+                                      ? const SizedBox(
+                                          width: 16,
+                                          height: 16,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : const Icon(Icons.chat_bubble_outline,
+                                          size: 18),
+                                  label: Text(
+                                    _isLaunchingTutor
+                                        ? 'চালু হচ্ছে...'
+                                        : 'প্রশ্ন করো',
+                                  ),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.primary,
                                     foregroundColor: Colors.white,
@@ -338,6 +443,15 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                                       lessonId: lesson.id,
                                       timeSpentSeconds: 300,
                                     );
+
+                                if (chapter != null) {
+                                  ref.invalidate(
+                                      chapterDetailsProvider(chapter.id));
+                                }
+                                ref.invalidate(
+                                    lessonDetailsProvider(lesson.id));
+                                ref.invalidate(progressSummaryFutureProvider);
+
                                 scaffoldMessenger.showSnackBar(
                                   const SnackBar(
                                     content: Text('পাঠটি সম্পন্ন হয়েছে!'),
@@ -400,7 +514,14 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(AppRoutes.aiTutorChat),
+        onPressed: () {
+          final data = asyncData.valueOrNull;
+          if (data != null) {
+            _launchTutor(data.lesson, data.chapter, data.subject);
+          } else {
+            context.go(AppRoutes.aiTutorChat);
+          }
+        },
         backgroundColor: AppColors.primary,
         child: const Icon(Icons.smart_toy_rounded, color: Colors.white),
       ),

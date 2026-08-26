@@ -5,6 +5,7 @@ import '../dto/subject_dto.dart';
 import '../dto/chapter_dto.dart';
 import '../dto/lesson_dto.dart';
 import '../dto/progress_summary_dto.dart';
+import '../dto/chapter_progress_dto.dart';
 
 abstract interface class CurriculumRemoteDataSource {
   Future<List<SubjectDto>> listSubjects({
@@ -24,6 +25,8 @@ abstract interface class CurriculumRemoteDataSource {
   Future<LessonDto> getLesson(String lessonId);
 
   Future<ProgressSummaryDto> getMyProgressSummary();
+
+  Future<List<ChapterProgressDto>> getMySubjectProgress(String subjectId);
 
   Future<void> updateLessonProgress({
     required String lessonId,
@@ -115,6 +118,24 @@ class CurriculumRemoteDataSourceImpl implements CurriculumRemoteDataSource {
     final res = await _client.dio.get(ApiEndpoints.progressSummary);
     final data = _extractData(res.data);
     return ProgressSummaryDto.fromJson(data as Map<String, dynamic>);
+  }
+
+  @override
+  Future<List<ChapterProgressDto>> getMySubjectProgress(
+      String subjectId) async {
+    try {
+      final res =
+          await _client.dio.get(ApiEndpoints.progressSubject(subjectId));
+      final data = _extractData(res.data);
+      if (data is Map<String, dynamic> && data['chapters'] is List) {
+        return (data['chapters'] as List)
+            .map((e) => ChapterProgressDto.fromJson(e as Map<String, dynamic>))
+            .toList();
+      }
+      return [];
+    } catch (_) {
+      return [];
+    }
   }
 
   @override

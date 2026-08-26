@@ -8,6 +8,7 @@ import 'package:mobile/features/curriculum/domain/entities/subject.dart';
 import 'package:mobile/features/curriculum/domain/entities/chapter.dart';
 import 'package:mobile/features/curriculum/domain/entities/lesson.dart';
 import 'package:mobile/features/curriculum/domain/entities/progress_summary.dart';
+import 'package:mobile/features/curriculum/domain/entities/chapter_progress.dart';
 import 'package:mobile/features/curriculum/domain/repositories/curriculum_repository.dart';
 import 'package:mobile/features/curriculum/presentation/controllers/curriculum_controller.dart';
 import 'package:mobile/features/curriculum/presentation/pages/subject_details_page.dart';
@@ -118,6 +119,19 @@ class MockCurriculumRepo implements CurriculumRepository {
   @override
   Future<ProgressSummary> getMyProgressSummary() async =>
       const ProgressSummary();
+
+  @override
+  Future<List<ChapterProgress>> getMySubjectProgress(String subjectId) async {
+    if (shouldThrow) throw Exception('Network error');
+    return [
+      const ChapterProgress(
+        chapterId: 'real_chap_201',
+        totalLessons: 1,
+        completedLessons: 0,
+        completionRate: 0.0,
+      ),
+    ];
+  }
 
   @override
   Future<void> updateLessonProgress({

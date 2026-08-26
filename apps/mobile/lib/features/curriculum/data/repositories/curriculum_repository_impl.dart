@@ -9,6 +9,8 @@ import '../../domain/repositories/curriculum_repository.dart';
 import '../datasources/curriculum_remote_data_source.dart';
 import '../mappers/curriculum_mapper.dart';
 
+import '../../domain/entities/chapter_progress.dart';
+
 class CurriculumRepositoryImpl implements CurriculumRepository {
   final CurriculumRemoteDataSource _remoteDataSource;
   final ApiClient _apiClient;
@@ -129,6 +131,16 @@ class CurriculumRepositoryImpl implements CurriculumRepository {
     } catch (e) {
       if (e is AppFailure) rethrow;
       throw const ProgressSummary();
+    }
+  }
+
+  @override
+  Future<List<ChapterProgress>> getMySubjectProgress(String subjectId) async {
+    try {
+      final dtos = await _remoteDataSource.getMySubjectProgress(subjectId);
+      return dtos.map((d) => d.toDomain()).toList();
+    } catch (_) {
+      return [];
     }
   }
 

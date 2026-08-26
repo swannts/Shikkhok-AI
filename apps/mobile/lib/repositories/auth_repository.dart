@@ -11,9 +11,9 @@ class AuthRepository {
         'user': StudentProfile(
           id: 'student-1',
           userId: 'user-1',
-          name: 'রাফি আহমেদ',
-          classId: 'class-8',
-          className: 'Class 8',
+          name: 'শিক্ষার্থী',
+          classId: '',
+          className: '',
           language: 'bn',
         ).toJson(),
       };
@@ -50,9 +50,9 @@ class AuthRepository {
         'user': StudentProfile(
           id: 'student-1',
           userId: 'user-1',
-          name: 'রাফি আহমেদ',
-          classId: 'class-8',
-          className: 'Class 8',
+          name: 'শিক্ষার্থী',
+          classId: '',
+          className: '',
           language: 'bn',
         ).toJson(),
       };
@@ -71,9 +71,9 @@ class AuthRepository {
       return StudentProfile(
         id: 'student-1',
         userId: 'user-1',
-        name: 'রাফি আহমেদ',
-        classId: 'class-8',
-        className: 'Class 8',
+        name: 'শিক্ষার্থী',
+        classId: '',
+        className: '',
         language: 'bn',
       );
     }

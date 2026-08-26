@@ -17,11 +17,11 @@ class StudentProfile {
 
   factory StudentProfile.fromJson(Map<String, dynamic> json) {
     return StudentProfile(
-      id: json['id'] ?? 'student-1',
-      userId: json['userId'] ?? 'user-1',
-      name: json['name'] ?? 'রাফি আহমেদ',
-      classId: json['classId'] ?? 'class-8',
-      className: json['className'] ?? 'Class 8',
+      id: json['id'] ?? '',
+      userId: json['userId'] ?? '',
+      name: json['name'] ?? 'শিক্ষার্থী',
+      classId: json['classId'] ?? '',
+      className: json['className'] ?? '',
       language: json['language'] ?? 'bn',
     );
   }
