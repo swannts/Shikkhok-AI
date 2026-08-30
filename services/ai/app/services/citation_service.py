@@ -48,3 +48,10 @@ class CitationService:
             )
 
         return citations
+
+    def resolve_citations(
+        self,
+        text: str,
+        retrieved_chunks: list[RetrievedChunk],
+    ) -> list[CitationPayload]:
+        return self.extract_citations(text, retrieved_chunks)

@@ -4,6 +4,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { UsersModule } from '../users/users.module';
 import { StudentsModule } from '../students/students.module';
 import { CurriculumModule } from '../curriculum/curriculum.module';
+import { AiGatewayModule } from '../ai-gateway/ai-gateway.module';
 import { HomeworkSubmission, HomeworkSubmissionSchema } from './schemas/homework-submission.schema';
 import { HomeworkFeedback, HomeworkFeedbackSchema } from './schemas/homework-feedback.schema';
 import { HomeworkSubmissionRepository } from './repositories/homework-submission.repository';
@@ -17,6 +18,7 @@ import { HomeworkProcessor } from './homework-processor';
     UsersModule,
     StudentsModule,
     CurriculumModule,
+    AiGatewayModule,
     BullModule.registerQueue({ name: 'homework' }),
     MongooseModule.forFeature([
       { name: HomeworkSubmission.name, schema: HomeworkSubmissionSchema },

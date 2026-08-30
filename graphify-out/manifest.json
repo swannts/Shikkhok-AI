@@ -2622,16 +2622,16 @@
     "semantic_hash": "02603c9f9a2685a0620aa7bd1f81e501"
   },
   "services/api/src/modules/homework/homework.module.ts": {
-    "mtime": 1787582083.1993804,
-    "seen": 1787733266.5695016,
-    "ast_hash": "a29bcc56bee59c73fca1af552a60ba77",
-    "semantic_hash": "a29bcc56bee59c73fca1af552a60ba77"
+    "mtime": 1788114967.924519,
+    "seen": 1788115167.8232996,
+    "ast_hash": "43380acaa1fceaa7322f440093ada0f2",
+    "semantic_hash": ""
   },
   "services/api/src/modules/homework/homework.service.ts": {
-    "mtime": 1787582083.243381,
-    "seen": 1787733266.569503,
-    "ast_hash": "5e4fe62d92a4569178cfeade465afe4b",
-    "semantic_hash": "5e4fe62d92a4569178cfeade465afe4b"
+    "mtime": 1788115047.7422423,
+    "seen": 1788115167.823301,
+    "ast_hash": "5649cf4cf393903eea90f5b43d1b4683",
+    "semantic_hash": ""
   },
   "services/api/src/modules/homework/repositories/homework-feedback.repository.ts": {
     "mtime": 1787582083.255381,
@@ -17304,9 +17304,9 @@
     "semantic_hash": ""
   },
   "services/ai/app/api/v1/router.py": {
-    "mtime": 1788113849.978146,
-    "seen": 1788113967.0212128,
-    "ast_hash": "973593be43066a83d21640b63fd1e24a",
+    "mtime": 1788114781.6678457,
+    "seen": 1788115167.8157992,
+    "ast_hash": "e4eb4e08d8e3cf907198f2c23f3daa8d",
     "semantic_hash": ""
   },
   "services/ai/app/api/v1/tutor.py": {
@@ -17352,9 +17352,9 @@
     "semantic_hash": ""
   },
   "services/ai/app/main.py": {
-    "mtime": 1788109094.293097,
-    "seen": 1788109355.5435934,
-    "ast_hash": "cac5e103551622de40f10996fae88005",
+    "mtime": 1788114900.8909523,
+    "seen": 1788115167.816301,
+    "ast_hash": "6abcab80ae84b65436c9ee9ec798580e",
     "semantic_hash": ""
   },
   "services/ai/app/providers/__init__.py": {
@@ -17400,9 +17400,9 @@
     "semantic_hash": ""
   },
   "services/ai/app/providers/llm/mock.py": {
-    "mtime": 1788109039.4886937,
-    "seen": 1788109355.543618,
-    "ast_hash": "9e4d34ba94f58c06df38301a8d82bff0",
+    "mtime": 1788114806.372527,
+    "seen": 1788115167.8165736,
+    "ast_hash": "1453f94c1a701a3478f5c8afa013d22a",
     "semantic_hash": ""
   },
   "services/ai/app/providers/vector_store/__init__.py": {
@@ -17454,21 +17454,21 @@
     "semantic_hash": ""
   },
   "services/ai/app/services/__init__.py": {
-    "mtime": 1788108934.7988398,
-    "seen": 1788109355.543646,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "mtime": 1788114771.2555523,
+    "seen": 1788115167.8169122,
+    "ast_hash": "7783b294ec5a0a94df84b3681694382e",
     "semantic_hash": ""
   },
   "services/ai/app/services/citation_service.py": {
-    "mtime": 1788109039.492694,
-    "seen": 1788109355.543649,
-    "ast_hash": "3830ff56648c6dd00974bf0a9125a31c",
+    "mtime": 1788114883.082516,
+    "seen": 1788115167.8169138,
+    "ast_hash": "b28c5ab7c75220961aa933228816d45c",
     "semantic_hash": ""
   },
   "services/ai/app/services/model_router.py": {
-    "mtime": 1788109094.257094,
-    "seen": 1788109355.5436518,
-    "ast_hash": "a5ef5a298c13a8afe0e88b961c4c4bcb",
+    "mtime": 1788114843.6335158,
+    "seen": 1788115167.8169174,
+    "ast_hash": "ff3375762618910c0eb8de73722c8082",
     "semantic_hash": ""
   },
   "services/ai/app/services/moderation_service.py": {
@@ -17562,9 +17562,9 @@
     "semantic_hash": ""
   },
   "services/api/src/modules/ai-gateway/services/ai-gateway.service.ts": {
-    "mtime": 1788109125.575855,
-    "seen": 1788109355.5481,
-    "ast_hash": "63c7aa5cf9aa003aa0cc48aee2c6b04a",
+    "mtime": 1788115015.1295555,
+    "seen": 1788115167.8194015,
+    "ast_hash": "4972d4b95917804f9bb77978784aaa4e",
     "semantic_hash": ""
   },
   "services/api/src/modules/ai-gateway/services/hmac-signer.service.ts": {
@@ -17574,9 +17574,9 @@
     "semantic_hash": ""
   },
   "services/api/src/modules/ai-gateway/tests/ai-gateway.service.spec.ts": {
-    "mtime": 1788109179.2568746,
-    "seen": 1788109355.548109,
-    "ast_hash": "c699c0e243e00ed92005d387d0822133",
+    "mtime": 1788115079.5308905,
+    "seen": 1788115167.8194466,
+    "ast_hash": "7bd30318b8ca9f2760b0af2466b3d9dc",
     "semantic_hash": ""
   },
   "services/api/src/modules/ai-gateway/tests/hmac-signer.service.spec.ts": {
@@ -22824,8 +22824,8 @@
     "semantic_hash": ""
   },
   "services/ai/data/vector_store/curriculum_chunks.json": {
-    "mtime": 1788113886.6872,
-    "seen": 1788113967.0232675,
+    "mtime": 1788114952.4171388,
+    "seen": 1788115167.8171024,
     "ast_hash": "d428495e3058f5ff50b76fa87ca46139",
     "semantic_hash": ""
   },
@@ -22851,6 +22851,48 @@
     "mtime": 1788113849.978146,
     "seen": 1788113967.0235791,
     "ast_hash": "7598b3a773d87cbf1e4b8e6a8d4a9cff",
+    "semantic_hash": ""
+  },
+  "services/ai/app/api/v1/homework.py": {
+    "mtime": 1788114932.9157155,
+    "seen": 1788115167.8157144,
+    "ast_hash": "17e6edacf4aaaf844d1d3e98928ef43d",
+    "semantic_hash": ""
+  },
+  "services/ai/app/schemas/homework.py": {
+    "mtime": 1788114912.615235,
+    "seen": 1788115167.8168366,
+    "ast_hash": "2b1d6b8e13c3ced137521269b0666ce6",
+    "semantic_hash": ""
+  },
+  "services/ai/app/services/homework_service.py": {
+    "mtime": 1788114946.112022,
+    "seen": 1788115167.8169158,
+    "ast_hash": "1744445a969d184e13f7979e84b764db",
+    "semantic_hash": ""
+  },
+  "services/ai/tests/integration/test_homework_api.py": {
+    "mtime": 1788114912.571234,
+    "seen": 1788115167.8172448,
+    "ast_hash": "eaf475abcca7525103939363fb734316",
+    "semantic_hash": ""
+  },
+  "services/ai/tests/unit/test_homework_service.py": {
+    "mtime": 1788114912.615235,
+    "seen": 1788115167.8173895,
+    "ast_hash": "0efdd88248b165f206c7da9149b8a393",
+    "semantic_hash": ""
+  },
+  "services/ai/app/prompts/homework/system_bn.txt": {
+    "mtime": 1788114750.9629693,
+    "seen": 1788115167.8354838,
+    "ast_hash": "5c869da1c0a7d45b8388c254ca19244f",
+    "semantic_hash": ""
+  },
+  "services/ai/app/prompts/homework/system_en.txt": {
+    "mtime": 1788114757.0831468,
+    "seen": 1788115167.8354864,
+    "ast_hash": "c01a33b011da16971a66e7ce4e05fc5b",
     "semantic_hash": ""
   }
 }

@@ -17304,15 +17304,15 @@
     "semantic_hash": ""
   },
   "services/ai/app/api/v1/router.py": {
-    "mtime": 1788109039.44069,
-    "seen": 1788109355.543567,
-    "ast_hash": "a43bcbd89b5ca1fc29183822ed30554b",
+    "mtime": 1788113849.978146,
+    "seen": 1788113967.0212128,
+    "ast_hash": "973593be43066a83d21640b63fd1e24a",
     "semantic_hash": ""
   },
   "services/ai/app/api/v1/tutor.py": {
-    "mtime": 1788109094.293097,
-    "seen": 1788109355.5435703,
-    "ast_hash": "44d7292ce5ca16c355289eb2a3950124",
+    "mtime": 1788113773.2946932,
+    "seen": 1788113967.0212169,
+    "ast_hash": "931d97120f31685464b95dff4e095b03",
     "semantic_hash": ""
   },
   "services/ai/app/core/__init__.py": {
@@ -17322,9 +17322,9 @@
     "semantic_hash": ""
   },
   "services/ai/app/core/config.py": {
-    "mtime": 1788109039.445794,
-    "seen": 1788109355.5435762,
-    "ast_hash": "86df5faa7222232eb6c3b70e729770e4",
+    "mtime": 1788113695.3273003,
+    "seen": 1788113967.0213091,
+    "ast_hash": "7893557c454523b205b7fa5ab0ac4b95",
     "semantic_hash": ""
   },
   "services/ai/app/core/exceptions.py": {
@@ -17412,15 +17412,15 @@
     "semantic_hash": ""
   },
   "services/ai/app/providers/vector_store/base.py": {
-    "mtime": 1788109039.44069,
-    "seen": 1788109355.5436244,
-    "ast_hash": "87b3eacb86e02600deb3cf3af1df9c88",
+    "mtime": 1788113849.9701462,
+    "seen": 1788113967.022463,
+    "ast_hash": "2e2edb1ad75967cd15dc12fef2b78f47",
     "semantic_hash": ""
   },
   "services/ai/app/providers/vector_store/memory.py": {
-    "mtime": 1788109094.293097,
-    "seen": 1788109355.5436275,
-    "ast_hash": "859e1e79d32fe7081d7d81aa7a0f3c86",
+    "mtime": 1788113710.8511748,
+    "seen": 1788113967.0224676,
+    "ast_hash": "bebe080097106b2211164babddf27798",
     "semantic_hash": ""
   },
   "services/ai/app/schemas/__init__.py": {
@@ -17502,9 +17502,9 @@
     "semantic_hash": ""
   },
   "services/ai/pyproject.toml": {
-    "mtime": 1788108705.0867817,
-    "seen": 1788109355.5436695,
-    "ast_hash": "eeac11d916e137d0d25aa9feebc68fcd",
+    "mtime": 1788113845.2901783,
+    "seen": 1788113967.0232704,
+    "ast_hash": "16d81933d66d9a05687146e52e3ee1bc",
     "semantic_hash": ""
   },
   "services/ai/tests/__init__.py": {
@@ -22755,6 +22755,102 @@
     "mtime": 1786211730.9504633,
     "seen": 1788109355.5746596,
     "ast_hash": "53fa673248f217c80b62351983cc1b2e",
+    "semantic_hash": ""
+  },
+  "curriculum/seed-data/nctb_class8_math_algebra.json": {
+    "mtime": 1788113791.8465564,
+    "seen": 1788113967.0192015,
+    "ast_hash": "e0ba91471240c7f5b5e95aa686a63485",
+    "semantic_hash": ""
+  },
+  "curriculum/seed-data/nctb_class8_science_combustion.json": {
+    "mtime": 1788113798.6305072,
+    "seen": 1788113967.0192077,
+    "ast_hash": "ef0ea10181e27692055dacbdd32f4940",
+    "semantic_hash": ""
+  },
+  "services/ai/app/api/v1/ingestion.py": {
+    "mtime": 1788113849.9741461,
+    "seen": 1788113967.0211244,
+    "ast_hash": "dd1c4a1d520ed10e111fb8bad28fb1d2",
+    "semantic_hash": ""
+  },
+  "services/ai/app/cli/__init__.py": {
+    "mtime": 1788113785.354604,
+    "seen": 1788113967.0212207,
+    "ast_hash": "98c687ecaa2bcae3f47148d05dc21834",
+    "semantic_hash": ""
+  },
+  "services/ai/app/cli/ingest.py": {
+    "mtime": 1788113850.0221457,
+    "seen": 1788113967.0212247,
+    "ast_hash": "78fd80e3c13ca5e5a8d8848e59e10ba2",
+    "semantic_hash": ""
+  },
+  "services/ai/app/ingestion/__init__.py": {
+    "mtime": 1788113743.6109178,
+    "seen": 1788113967.021624,
+    "ast_hash": "be3cdef81c14fe5a71822fd97ca8b225",
+    "semantic_hash": ""
+  },
+  "services/ai/app/ingestion/chunker.py": {
+    "mtime": 1788113850.025388,
+    "seen": 1788113967.021628,
+    "ast_hash": "d5755d1bc8e5931b245643bfe037417d",
+    "semantic_hash": ""
+  },
+  "services/ai/app/ingestion/models.py": {
+    "mtime": 1788113849.978146,
+    "seen": 1788113967.0216315,
+    "ast_hash": "9df72547829460db01cd1d79fd6c5bc0",
+    "semantic_hash": ""
+  },
+  "services/ai/app/ingestion/pdf_parser.py": {
+    "mtime": 1788113850.0221457,
+    "seen": 1788113967.0216353,
+    "ast_hash": "cee989963bc8b3cc83b6cc08a46398e9",
+    "semantic_hash": ""
+  },
+  "services/ai/app/ingestion/pipeline.py": {
+    "mtime": 1788113849.978146,
+    "seen": 1788113967.021639,
+    "ast_hash": "4e9d0b52966d9f22f0fbc7df4079cb8a",
+    "semantic_hash": ""
+  },
+  "services/ai/app/providers/vector_store/persistent.py": {
+    "mtime": 1788113850.0221457,
+    "seen": 1788113967.0224717,
+    "ast_hash": "e00b459a53a64d46f2cca586f726dba8",
+    "semantic_hash": ""
+  },
+  "services/ai/data/vector_store/curriculum_chunks.json": {
+    "mtime": 1788114493.0859857,
+    "seen": 1788114606.5479226,
+    "ast_hash": "d428495e3058f5ff50b76fa87ca46139",
+    "semantic_hash": ""
+  },
+  "services/ai/tests/integration/test_ingestion_api.py": {
+    "mtime": 1788113849.9741461,
+    "seen": 1788113967.0233972,
+    "ast_hash": "c291c6895d832ff5145141a2a39f0bb9",
+    "semantic_hash": ""
+  },
+  "services/ai/tests/unit/test_chunker.py": {
+    "mtime": 1788113804.8784623,
+    "seen": 1788113967.023444,
+    "ast_hash": "45a0b28cc1b86de23738e471288ce339",
+    "semantic_hash": ""
+  },
+  "services/ai/tests/unit/test_ingestion_pipeline.py": {
+    "mtime": 1788113849.9741461,
+    "seen": 1788113967.0234907,
+    "ast_hash": "cca0c33e26d7dd2ea75632aaa6188316",
+    "semantic_hash": ""
+  },
+  "services/ai/tests/unit/test_persistent_store.py": {
+    "mtime": 1788113849.978146,
+    "seen": 1788113967.0235791,
+    "ast_hash": "7598b3a773d87cbf1e4b8e6a8d4a9cff",
     "semantic_hash": ""
   }
 }

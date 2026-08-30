@@ -70,3 +70,27 @@ class ModelRouter:
             fallback_used=False,
             stream=combined_stream(),
         )
+
+    async def generate(
+        self,
+        messages: list[dict[str, str]],
+        temperature: float = 0.3,
+        max_tokens: int = 1500,
+    ) -> tuple[str, bool]:
+        """Generates full non-streaming completion, falling back to backup provider if primary fails."""
+        try:
+            res = await self.primary.generate(
+                messages, temperature=temperature, max_tokens=max_tokens
+            )
+            return res, False
+        except (ProviderUnavailableError, ProviderTimeoutError) as err:
+            logger.warning(
+                f"Primary provider '{self.primary.name}' failed in generate ({err}); using fallback",
+                extra={"extra_data": {"error": str(err)}},
+            )
+            if not self.fallback:
+                raise
+            res = await self.fallback.generate(
+                messages, temperature=temperature, max_tokens=max_tokens
+            )
+            return res, True

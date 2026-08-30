@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI, Request, Response
+from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -82,7 +83,7 @@ async def validation_exception_handler(
             "error": {
                 "code": "VALIDATION_ERROR",
                 "message": "Invalid request parameters",
-                "details": {"validationErrors": errors},
+                "details": {"validationErrors": jsonable_encoder(errors)},
             },
             "requestId": get_request_id(),
         },

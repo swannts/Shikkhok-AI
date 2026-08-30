@@ -19,7 +19,9 @@ import { HomeworkStatus } from './enums/homework-status.enum';
 import { CreateHomeworkSubmissionDto } from './dto/create-homework-submission.dto';
 import { RateHomeworkFeedbackDto } from './dto/rate-homework-feedback.dto';
 import { ListHomeworkQueryDto } from './dto/list-homework-query.dto';
+import { ConfigService } from '@nestjs/config';
 import { TutorCitation } from '../tutor/types/tutor-citation.type';
+import { AiGatewayService } from '../ai-gateway/services/ai-gateway.service';
 
 @Injectable()
 export class HomeworkService {
@@ -32,6 +34,8 @@ export class HomeworkService {
     private readonly studentsService: StudentsService,
     private readonly curriculumService: CurriculumService,
     @Optional() @InjectQueue('homework') private readonly homeworkQueue?: Queue,
+    @Optional() private readonly aiGatewayService?: AiGatewayService,
+    @Optional() private readonly configService?: ConfigService,
   ) {}
 
   async createSubmission(
@@ -235,7 +239,7 @@ export class HomeworkService {
       }
 
       // 3. Generate structured AI feedback
-      const corrections = [
+      let corrections = [
         {
           original: 'ধাপ ২: চিহ্নের পরিবর্তন বাদ পড়েছে',
           corrected: 'ধাপ ২: পক্ষান্তরের সময় (+) চিহ্নটি (-) তে পরিবর্তিত হবে।',
@@ -243,20 +247,66 @@ export class HomeworkService {
         },
       ];
 
-      const strengths = [
+      let strengths = [
         'হস্তাক্ষর পরিষ্কার এবং উপস্থাপনা পরিচ্ছন্ন।',
         'সমস্যা সমাধানের প্রথম ধাপটি সঠিকভাবে শুরু করা হয়েছে।',
       ];
 
-      const weaknesses = ['চিহ্ন পরিবর্তনের ক্ষেত্রে অসাবধানতাবশত ভুল হয়েছে।'];
+      let weaknesses = ['চিহ্ন পরিবর্তনের ক্ষেত্রে অসাবধানতাবশত ভুল হয়েছে।'];
 
-      const recommendations = [
+      let recommendations = [
         'পাঠ্যবইয়ের অনুরুপ উদাহরণ ২ ও ৩ পুনরায় অনুশীলন করো।',
         'উত্তর লেখার পর পুনরায় শেষ ধাপটি যাচাই করার অভ্যাস করো।',
       ];
 
-      const summary =
+      let summary =
         'তোমার বাড়ির কাজের সামগ্রিক মান সন্তোষজনক। মূল ধারণা সঠিক থাকলেও সমীকরণ সমাধানের সময় পক্ষান্তরের চিহ্নের দিকে একটু বেশি লক্ষ্য রাখলে পূর্ণ নম্বর পাওয়া যাবে।';
+
+      const aiServiceEnabled = this.configService?.get<boolean>('aiService.enabled', false);
+      if (aiServiceEnabled && this.aiGatewayService) {
+        try {
+          const aiResponse = await this.aiGatewayService.evaluateHomework({
+            submission_id: submissionId,
+            student_id: submission.studentId.toString(),
+            raw_text: submission.rawText,
+            prompt: submission.prompt,
+            image_urls: submission.imageUrls ?? [],
+            subject_id: submission.subjectId?.toString(),
+            chapter_id: submission.chapterId?.toString(),
+            lesson_id: submission.lessonId?.toString(),
+            subject_title: subjectTitle,
+            chapter_title: chapterTitle,
+            lesson_title: lessonTitle,
+          });
+
+          if (aiResponse) {
+            summary = aiResponse.summary ?? summary;
+            strengths = aiResponse.strengths?.length ? aiResponse.strengths : strengths;
+            weaknesses = aiResponse.weaknesses?.length ? aiResponse.weaknesses : weaknesses;
+            corrections = aiResponse.corrections?.length ? aiResponse.corrections : corrections;
+            recommendations = aiResponse.recommendations?.length
+              ? aiResponse.recommendations
+              : recommendations;
+
+            if (Array.isArray(aiResponse.citations) && aiResponse.citations.length > 0) {
+              for (const c of aiResponse.citations) {
+                citations.push({
+                  sourceId: c.sourceId ?? c.citationId ?? submissionId,
+                  sourceBook: c.sourceBook ?? `এনসিটিবি ${subjectTitle}`,
+                  subject: c.subject ?? subjectTitle,
+                  chapter: c.chapter ?? chapterTitle,
+                  pageNumber: c.pageStart ?? c.pageNumber,
+                  excerpt: c.excerpt ?? 'প্রাসঙ্গিক পাঠ্যবই তথ্য',
+                });
+              }
+            }
+          }
+        } catch (aiErr: any) {
+          this.logger.warn(
+            `FastAPI homework evaluation failed for ${submissionId}, falling back to local rubric: ${aiErr?.message}`,
+          );
+        }
+      }
 
       // 4. Save feedback in database
       await this.feedbackRepository.createFeedback({

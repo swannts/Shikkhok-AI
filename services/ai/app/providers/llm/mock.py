@@ -9,11 +9,16 @@ class MockLlmProvider:
     model: str = "mock-tutor-v1"
 
     def __init__(
-        self, name: str = "mock", model: str = "mock-tutor-v1", chunk_delay: float = 0.01
+        self,
+        name: str = "mock",
+        model: str = "mock-tutor-v1",
+        chunk_delay: float = 0.01,
+        custom_response: str | None = None,
     ) -> None:
         self.name = name
         self.model = model
         self.chunk_delay = chunk_delay
+        self.custom_response = custom_response
 
     async def generate(
         self,
@@ -21,6 +26,8 @@ class MockLlmProvider:
         temperature: float = 0.3,
         max_tokens: int = 1500,
     ) -> str:
+        if self.custom_response is not None:
+            return self.custom_response
         last_message = messages[-1]["content"] if messages else ""
         return f"ঠিক আছে! আমি বিষয়টি বুঝিয়ে দিচ্ছি। তোমার প্রশ্ন: {last_message}। বিস্তারিত [source_1] এ রয়েছে।"
 

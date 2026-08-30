@@ -158,6 +158,65 @@ export class AiGatewayService {
     }
   }
 
+  async evaluateHomework(payload: {
+    submission_id: string;
+    student_id: string;
+    language?: 'bn' | 'en';
+    raw_text?: string;
+    prompt?: string;
+    image_urls?: string[];
+    class_level?: number;
+    subject_id?: string;
+    chapter_id?: string;
+    lesson_id?: string;
+    subject_title?: string;
+    chapter_title?: string;
+    lesson_title?: string;
+  }): Promise<any> {
+    const baseUrl =
+      this.configService.get<string>('aiService.baseUrl')?.replace(/\/+$/, '') ??
+      'http://localhost:8000/api/v1';
+    const path = '/api/v1/homework/evaluate';
+    const url = new URL(path, baseUrl);
+
+    const requestBody = JSON.stringify(payload);
+    const signedHeaders = this.hmacSignerService.generateSignedHeaders(
+      'POST',
+      path,
+      requestBody,
+      payload.submission_id,
+    );
+
+    const timeoutMs = this.configService.get<number>('aiService.timeoutMs') ?? 15000;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+    try {
+      const response = await fetch(url.toString(), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...signedHeaders,
+        },
+        body: requestBody,
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`FastAPI Homework Evaluation error ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (err: any) {
+      this.logger.warn(
+        `FastAPI evaluateHomework error for submission ${payload.submission_id}: ${err?.message}`,
+      );
+      throw err;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
   private parseSseChunk(chunk: string): TutorStreamEvent | null {
     const trimmed = chunk.trim();
     if (!trimmed) return null;

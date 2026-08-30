@@ -114,4 +114,33 @@ describe('AiGatewayService', () => {
 
     expect(hmacSignerService.generateSignedHeaders).toHaveBeenCalled();
   });
+
+  it('should call evaluateHomework and parse response correctly', async () => {
+    const mockEvaluation = {
+      submission_id: 'sub-123',
+      score: 95,
+      summary: 'চমৎকার সমাধান!',
+      strengths: ['সবল যুক্তি'],
+      weaknesses: [],
+      corrections: [],
+      recommendations: ['পরবর্তী অধ্যায় শুরু করতে পারো'],
+      citations: [{ sourceId: 'math_p45', excerpt: 'বর্গ সূত্র' }],
+    };
+
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: jest.fn().mockResolvedValue(mockEvaluation),
+    }) as any;
+
+    const res = await service.evaluateHomework({
+      submission_id: 'sub-123',
+      student_id: 'stu-456',
+      raw_text: 'a^2 + 2ab + b^2',
+    });
+
+    expect(res.submission_id).toBe('sub-123');
+    expect(res.score).toBe(95);
+    expect(res.summary).toBe('চমৎকার সমাধান!');
+    expect(hmacSignerService.generateSignedHeaders).toHaveBeenCalled();
+  });
 });
