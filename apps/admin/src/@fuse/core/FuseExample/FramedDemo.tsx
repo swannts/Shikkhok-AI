@@ -4,7 +4,6 @@ import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import GlobalStyles from '@mui/material/GlobalStyles';
-import { StyleSheetManager } from 'styled-components';
 import { ReactElement } from 'react';
 
 type FramedDemoProps = {
@@ -13,8 +12,7 @@ type FramedDemoProps = {
 };
 
 /**
- * Renders document wrapped with emotion and styling-components cache providers, and proper direction for rtl theme.
- * This also add window property to the child with `getWindow` function, which is useful to fetch window property.
+ * Renders document wrapped with emotion cache provider and proper direction for rtl theme.
  */
 function FramedDemo(props: FramedDemoProps) {
 	const { children, document } = props;
@@ -38,23 +36,18 @@ function FramedDemo(props: FramedDemoProps) {
 	const getWindow = React.useCallback(() => document.defaultView, [document]);
 
 	return (
-		<StyleSheetManager
-			target={document.head}
-			stylisPlugins={theme.direction === 'rtl' ? [rtlPlugin] : []}
-		>
-			<CacheProvider value={cache}>
-				<GlobalStyles
-					styles={() => ({
-						html: {
-							fontSize: '62.5%'
-						}
-					})}
-				/>
-				{React.cloneElement(children, {
-					window: getWindow
+		<CacheProvider value={cache}>
+			<GlobalStyles
+				styles={() => ({
+					html: {
+						fontSize: '62.5%'
+					}
 				})}
-			</CacheProvider>
-		</StyleSheetManager>
+			/>
+			{React.cloneElement(children, {
+				window: getWindow
+			})}
+		</CacheProvider>
 	);
 }
 

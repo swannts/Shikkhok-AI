@@ -35,3 +35,16 @@ declare module '*?raw' {
 	const content: string;
 	export default content;
 }
+
+declare module 'type-fest' {
+	export type PartialDeep<T> = T extends (...args: unknown[]) => unknown
+		? T
+		: T extends (infer U)[]
+			? _PartialDeepArray<U>
+			: T extends object
+				? _PartialDeepObject<T>
+				: T | undefined;
+
+	type _PartialDeepArray<T> = PartialDeep<T>[];
+	type _PartialDeepObject<T> = { [KeyType in keyof T]?: PartialDeep<T[KeyType]> };
+}

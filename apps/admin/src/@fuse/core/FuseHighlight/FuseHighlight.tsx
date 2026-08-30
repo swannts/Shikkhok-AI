@@ -1,9 +1,6 @@
 'use client';
 
-import * as Prism from 'prismjs';
-import { ElementType, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import './prism-languages';
-import { alpha, styled } from '@mui/material/styles';
+import { ElementType, useImperativeHandle, useRef, useState } from 'react';
 import clsx from 'clsx';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -13,79 +10,53 @@ type FuseHighlightProps = {
 	async?: boolean;
 	children: string | { default?: string };
 	component?: ElementType;
-	className: string;
+	className?: string;
 	copy?: boolean;
 	ref?: React.RefObject<HTMLDivElement>;
 };
 
+function trimCode(children: string | { default?: string }) {
+	const source = typeof children === 'string' ? children : children?.default ?? '';
+	return source.trim();
+}
+
 /**
  * FuseHighlight
- * Highlight language-specific syntax with Prism.js
+ * Renders formatted code block with copy action.
  */
 function FuseHighlight(props: FuseHighlightProps) {
-	const { copy = true, async = false, children, className, component: Wrapper = 'code', ref } = props;
-
+	const { copy = true, children, className, component: Wrapper = 'code', ref } = props;
 	const innerRef = useRef<HTMLDivElement>(null);
-
 	useImperativeHandle(ref, () => innerRef.current, [innerRef]);
 	const [open, setOpen] = useState(false);
-
-	const [source, setSource] = useState(trimCode(children));
-
-	const highlight = useCallback(() => {
-		if (innerRef.current) {
-			Prism.highlightElement(innerRef.current, async);
-		}
-	}, [async]);
-
-	useEffect(() => {
-		setSource(trimCode(children));
-	}, [children]);
-
-	useEffect(() => {
-		highlight();
-	}, [highlight, source]);
+	const source = trimCode(children);
 
 	function handleCopy() {
 		navigator.clipboard.writeText(source);
 		setOpen(true);
-		setTimeout(() => {
-			setOpen(false);
-		}, 800);
+		setTimeout(() => setOpen(false), 800);
 	}
 
 	return (
-		<div className={clsx('relative not-prose', className)}>
+		<div className={clsx('relative not-prose font-mono text-sm', className)}>
 			{copy && (
 				<Tooltip
-					title="Copied!"
+					title="Copied"
 					open={open}
-					slotProps={{ popper: { placement: 'top' } }}
-					arrow
+					leaveDelay={1500}
 				>
 					<Button
-						variant="contained"
+						aria-label="copy"
+						className="absolute top-0 right-0 z-10 mr-4 mt-4 h-8 min-h-8"
 						onClick={handleCopy}
-						size="small"
-						color="secondary"
-						className="absolute top-0 right-0 m-1.5 z-10 rounded-sm p-0 text-md min-h-0 h-auto w-auto min-w-0 px-2 py-1"
-						classes={{ startIcon: 'mr-1' }}
-						sx={{
-							backgroundColor: (theme) => alpha(theme.palette.secondary.main, 0.6),
-							'&:hover, &:focus': {
-								backgroundColor: (theme) => alpha(theme.palette.secondary.main, 1)
-							}
-						}}
-						startIcon={<FuseSvgIcon size={16}>heroicons-outline:clipboard</FuseSvgIcon>}
 					>
-						Copy
+						<FuseSvgIcon size={16}>heroicons-outline:clipboard</FuseSvgIcon>
 					</Button>
 				</Tooltip>
 			)}
-
 			<Wrapper
-				className="m-0"
 				ref={innerRef}
+				className="block overflow-x-auto p-4 rounded bg-slate-900 text-slate-100"
 			>
 				{source}
 			</Wrapper>
@@ -93,50 +64,4 @@ function FuseHighlight(props: FuseHighlightProps) {
 	);
 }
 
-function trimCode(children: FuseHighlightProps['children']) {
-	const sourceString = typeof children === 'string' ? children : children?.default;
-
-	// Split the source into lines
-	const sourceLines = sourceString?.split('\n');
-
-	if (!sourceLines) {
-		return '';
-	}
-
-	// Remove the first and the last line of the source
-	// code if they are blank lines. This way, the html
-	// can be formatted properly while using fuse-highlight
-	// component
-	if (!sourceLines[0].trim()) {
-		sourceLines.shift();
-	}
-
-	if (!sourceLines[sourceLines.length - 1].trim()) {
-		sourceLines.pop();
-	}
-
-	// Find the first non-whitespace char index in
-	// the first line of the source code
-	const indexOfFirstChar = sourceLines[0].search(/\S|$/);
-
-	// Generate the trimmed source
-	let sourceRaw = '';
-
-	// Iterate through all the lines
-	sourceLines.forEach((line: string, index: number) => {
-		// Trim the beginning white space depending on the index
-		// and concat the source code
-		sourceRaw += line.substr(indexOfFirstChar, line.length);
-
-		// If it's not the last line...
-		if (index !== sourceLines.length - 1) {
-			// Add a line break at the end
-			sourceRaw = `${sourceRaw}\n`;
-		}
-	});
-	return sourceRaw;
-}
-
-const StyledFuseHighlight = styled(FuseHighlight)`` as unknown as typeof FuseHighlight;
-
-export default StyledFuseHighlight;
+export default FuseHighlight;

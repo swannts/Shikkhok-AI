@@ -27,8 +27,8 @@ Tailwind utilities styles
 /**
 Tailwind plugins
 */
-@plugin "@tailwindcss/typography";
-@plugin "@tailwindcss/aspect-ratio";
+/* @plugin "@tailwindcss/typography"; */
+/* @plugin "@tailwindcss/aspect-ratio"; */
 @plugin "../@fuse/tailwind/plugins/icon-size.js";
 
 /**

@@ -2,31 +2,30 @@
 
 import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
-import moment from 'moment';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { Moment } from 'moment/moment';
 
 type FuseCountdownProps = {
 	onComplete?: () => void;
-	endDate?: Moment | Date | string;
+	endDate?: Date | string | number;
 	className?: string;
 };
 
 /**
  * FuseCountdown
- * A React component used to display the number of days, hours, minutes and seconds left until a specified end date.
- * It allows a callback function to be passed in to be executed when the end date is reached.
+ * Displays days, hours, minutes, and seconds left until a specified end date.
  */
 function FuseCountdown(props: FuseCountdownProps) {
-	const { onComplete, endDate = moment().add(15, 'days'), className } = props;
+	const { onComplete, endDate = new Date(Date.now() + 15 * 86400000), className } = props;
 
-	const [endDateVal] = useState(moment.isMoment(endDate) ? endDate : moment(endDate));
+	const endTimestamp = typeof endDate === 'number' ? endDate : new Date(endDate).getTime();
+
 	const [countdown, setCountdown] = useState({
 		days: 0,
 		hours: 0,
 		minutes: 0,
 		seconds: 0
 	});
+
 	const intervalRef = useRef<number | null>(null);
 
 	const complete = useCallback(() => {
@@ -40,40 +39,43 @@ function FuseCountdown(props: FuseCountdownProps) {
 	}, [onComplete]);
 
 	const tick = useCallback(() => {
-		const currDate = moment();
-		const diff = endDateVal.diff(currDate, 'seconds');
+		const diffSeconds = Math.floor((endTimestamp - Date.now()) / 1000);
 
-		if (diff < 0) {
+		if (diffSeconds < 0) {
 			complete();
 			return;
 		}
 
-		const timeLeft = moment.duration(diff, 'seconds');
+		const days = Math.floor(diffSeconds / 86400);
+		const hours = Math.floor((diffSeconds % 86400) / 3600);
+		const minutes = Math.floor((diffSeconds % 3600) / 60);
+		const seconds = diffSeconds % 60;
 
 		setCountdown({
-			days: Number(timeLeft.asDays().toFixed(0)),
-			hours: timeLeft.hours(),
-			minutes: timeLeft.minutes(),
-			seconds: timeLeft.seconds()
+			days,
+			hours,
+			minutes,
+			seconds
 		});
-	}, [complete, endDateVal]);
+	}, [complete, endTimestamp]);
 
 	useEffect(() => {
 		intervalRef.current = window.setInterval(tick, 1000);
 		tick();
+
 		return () => {
 			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
+				window.clearInterval(intervalRef.current);
 			}
 		};
 	}, [tick]);
 
 	return (
-		<div className={clsx('flex items-center', className)}>
-			<div className="flex flex-col items-center justify-center px-3">
+		<div className={clsx('flex items-center space-x-4 text-center', className)}>
+			<div className="flex flex-col">
 				<Typography
 					variant="h4"
-					className="mb-1"
+					className="font-bold"
 				>
 					{countdown.days}
 				</Typography>
@@ -81,13 +83,13 @@ function FuseCountdown(props: FuseCountdownProps) {
 					variant="caption"
 					color="text.secondary"
 				>
-					days
+					Days
 				</Typography>
 			</div>
-			<div className="flex flex-col items-center justify-center px-3">
+			<div className="flex flex-col">
 				<Typography
 					variant="h4"
-					className="mb-1"
+					className="font-bold"
 				>
 					{countdown.hours}
 				</Typography>
@@ -95,13 +97,13 @@ function FuseCountdown(props: FuseCountdownProps) {
 					variant="caption"
 					color="text.secondary"
 				>
-					hours
+					Hours
 				</Typography>
 			</div>
-			<div className="flex flex-col items-center justify-center px-3">
+			<div className="flex flex-col">
 				<Typography
 					variant="h4"
-					className="mb-1"
+					className="font-bold"
 				>
 					{countdown.minutes}
 				</Typography>
@@ -109,13 +111,13 @@ function FuseCountdown(props: FuseCountdownProps) {
 					variant="caption"
 					color="text.secondary"
 				>
-					minutes
+					Minutes
 				</Typography>
 			</div>
-			<div className="flex flex-col items-center justify-center px-3">
+			<div className="flex flex-col">
 				<Typography
 					variant="h4"
-					className="mb-1"
+					className="font-bold"
 				>
 					{countdown.seconds}
 				</Typography>
@@ -123,7 +125,7 @@ function FuseCountdown(props: FuseCountdownProps) {
 					variant="caption"
 					color="text.secondary"
 				>
-					seconds
+					Seconds
 				</Typography>
 			</div>
 		</div>

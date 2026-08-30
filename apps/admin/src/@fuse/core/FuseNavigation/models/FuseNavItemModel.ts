@@ -3,13 +3,13 @@ import { PartialDeep } from 'type-fest';
 import { FuseNavItemType } from '../types/FuseNavItemType';
 
 /**
- *  FuseNavItemModel
- *  Constructs a navigation item based on FuseNavItemType
+ * FuseNavItemModel
+ * Constructs a navigation item based on FuseNavItemType
  */
-function FuseNavItemModel(data?: PartialDeep<FuseNavItemType>) {
-	data = data || {};
+function FuseNavItemModel(data?: PartialDeep<FuseNavItemType>): FuseNavItemType {
+	const itemData = data || {};
 
-	return _.defaults(data, {
+	return _.defaults(itemData, {
 		id: _.uniqueId(),
 		title: '',
 		translate: '',
@@ -27,7 +27,7 @@ function FuseNavItemModel(data?: PartialDeep<FuseNavItemType>) {
 		end: false,
 		badge: null,
 		children: []
-	});
+	}) as FuseNavItemType;
 }
 
 export default FuseNavItemModel;

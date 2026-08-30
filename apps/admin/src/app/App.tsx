@@ -16,49 +16,53 @@ import MainThemeProvider from '../contexts/MainThemeProvider';
 import { AuthProvider } from '@/lib/auth/auth-context';
 
 type AppProps = {
-  children?: React.ReactNode;
+	children?: React.ReactNode;
 };
 
 /**
  * The main App component with Fuse Theme, Redux, and Shikkhok-AI AuthProvider.
  */
 function App(props: AppProps) {
-  const { children } = props;
-  const val = useMemo(() => ({}), []);
+	const { children } = props;
+	const val = useMemo(() => ({}), []);
 
-  return (
-    <ErrorBoundary>
-      <AppContext.Provider value={val}>
-        {/* Date Picker Localization Provider */}
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enUS}>
-          {/* Redux Store Provider */}
-          <Provider store={store}>
-            <FuseSettingsProvider>
-              <I18nProvider>
-                {/* Theme Provider */}
-                <MainThemeProvider>
-                  {/* Notistack Notification Provider */}
-                  <SnackbarProvider
-                    maxSnack={5}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                    }}
-                    classes={{
-                      containerRoot:
-                        'bottom-0 right-0 mb-13 md:mb-17 mr-2 lg:mr-20 z-99',
-                    }}
-                  >
-                    <AuthProvider>{children}</AuthProvider>
-                  </SnackbarProvider>
-                </MainThemeProvider>
-              </I18nProvider>
-            </FuseSettingsProvider>
-          </Provider>
-        </LocalizationProvider>
-      </AppContext.Provider>
-    </ErrorBoundary>
-  );
+	return (
+		<ErrorBoundary>
+			<AppContext.Provider value={val}>
+				{/* Date Picker Localization Provider */}
+				<LocalizationProvider
+					dateAdapter={AdapterDateFns}
+					adapterLocale={enUS}
+				>
+					{/* Redux Store Provider */}
+					<Provider store={store}>
+						<AuthProvider>
+							<FuseSettingsProvider>
+								<I18nProvider>
+									{/* Theme Provider */}
+									<MainThemeProvider>
+										{/* Notistack Notification Provider */}
+										<SnackbarProvider
+											maxSnack={5}
+											anchorOrigin={{
+												vertical: 'bottom',
+												horizontal: 'right'
+											}}
+											classes={{
+												containerRoot: 'bottom-0 right-0 mb-13 md:mb-17 mr-2 lg:mr-20 z-99'
+											}}
+										>
+											{children}
+										</SnackbarProvider>
+									</MainThemeProvider>
+								</I18nProvider>
+							</FuseSettingsProvider>
+						</AuthProvider>
+					</Provider>
+				</LocalizationProvider>
+			</AppContext.Provider>
+		</ErrorBoundary>
+	);
 }
 
 export default App;

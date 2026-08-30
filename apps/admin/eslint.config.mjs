@@ -1,7 +1,5 @@
 import tseslint from 'typescript-eslint';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
-import eslintPluginUnusedImports from 'eslint-plugin-unused-imports';
-import eslintPluginReactRefresh from 'eslint-plugin-react-refresh';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import eslint from '@eslint/js';
 import eslintPluginReact from 'eslint-plugin-react';
@@ -32,10 +30,8 @@ export default tseslint.config({
     },
     plugins: {
         "@typescript-eslint": tseslint.plugin,
-        "unused-imports": eslintPluginUnusedImports,
         "react": eslintPluginReact,
         "react-hooks": eslintPluginReactHooks,
-        "react-refresh": eslintPluginReactRefresh,
         "prettier": eslintPluginPrettier,
     },
     extends: [
@@ -123,9 +119,6 @@ export default tseslint.config({
         "react/jsx-filename-extension": "off",
         "import/extensions": "off",
 
-        // Unused imports
-        "unused-imports/no-unused-imports": "error",
-
         // TypeScript
         "@typescript-eslint/no-unused-vars": ["warn", {
             "argsIgnorePattern": "^_",
@@ -158,7 +151,6 @@ export default tseslint.config({
         "react/jsx-props-no-spreading": "off",
         "react/no-array-index-key": "off",
         "react/jsx-pascal-case": "off",
-        "react-refresh/only-export-components": "warn",
 
         "no-useless-constructor": "off",
         "no-tabs": "off",
