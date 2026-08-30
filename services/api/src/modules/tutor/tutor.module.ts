@@ -17,8 +17,11 @@ import { OutputSafetyService } from './services/output-safety.service';
 import { CitationValidatorService } from './services/citation-validator.service';
 import { AiMetricsService } from './services/ai-metrics.service';
 
+import { AiGatewayModule } from '../ai-gateway/ai-gateway.module';
+
 @Module({
   imports: [
+    AiGatewayModule,
     UsersModule,
     StudentsModule,
     CurriculumModule,

@@ -51,14 +51,9 @@ export class ExamScoringService {
       const qId = qAny._id.toString();
       const submitted = answerMap.get(qId);
       const correctAnswer =
-        qAny.correctOptionIds?.[0] ??
-        qAny.acceptedAnswers?.[0] ??
-        qAny.correctAnswer ??
-        '';
+        qAny.correctOptionIds?.[0] ?? qAny.acceptedAnswers?.[0] ?? qAny.correctAnswer ?? '';
       const explanationBn =
-        qAny.answerConfig?.explanationBn ??
-        qAny.explanationBn ??
-        'সঠিক উত্তর পর্যালোচনা';
+        qAny.answerConfig?.explanationBn ?? qAny.explanationBn ?? 'সঠিক উত্তর পর্যালোচনা';
 
       if (!submitted || submitted.trim() === '') {
         unansweredCount++;

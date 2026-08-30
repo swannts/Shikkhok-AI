@@ -28,6 +28,12 @@ export default () => ({
     url: process.env.AI_GATEWAY_URL || '',
     timeoutMs: parseInt(process.env.AI_GATEWAY_TIMEOUT_MS || '12000', 10),
   },
+  aiService: {
+    enabled: process.env.AI_SERVICE_ENABLED === 'true',
+    baseUrl: process.env.AI_SERVICE_BASE_URL || 'http://localhost:8000/api/v1',
+    secret: process.env.AI_SERVICE_SECRET || 'dev-internal-ai-service-secret-at-least-32chars',
+    timeoutMs: parseInt(process.env.AI_SERVICE_TIMEOUT_MS || '25000', 10),
+  },
   payments: {
     webhookSecret: process.env.PAYMENT_WEBHOOK_SECRET || 'dev-payment-webhook-secret-32chars',
     bkash: {

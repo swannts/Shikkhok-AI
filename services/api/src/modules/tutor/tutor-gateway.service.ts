@@ -1,10 +1,11 @@
+import { Injectable, Logger, Optional, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Injectable, Logger } from '@nestjs/common';
 import { TutorCitation } from './types/tutor-citation.type';
 import { AiModerationService } from './services/ai-moderation.service';
 import { OutputSafetyService } from './services/output-safety.service';
 import { CitationValidatorService } from './services/citation-validator.service';
 import { AiMetricsService } from './services/ai-metrics.service';
+import { AiGatewayService } from '../ai-gateway/services/ai-gateway.service';
 
 export interface TutorGatewayReply {
   content: string;
@@ -44,6 +45,7 @@ export class TutorGatewayService {
     private readonly outputSafetyService: OutputSafetyService,
     private readonly citationValidator: CitationValidatorService,
     private readonly aiMetricsService: AiMetricsService,
+    @Optional() @Inject(AiGatewayService) private readonly aiGatewayService?: AiGatewayService,
   ) {}
 
   async generateReply(request: TutorGatewayRequest): Promise<TutorGatewayReply | null> {
@@ -121,6 +123,38 @@ export class TutorGatewayService {
         data: { latencyMs: 10 },
       };
       return;
+    }
+
+    // 1. If FastAPI AI Service is enabled, stream via signed internal API
+    if (this.aiGatewayService?.isServiceEnabled()) {
+      try {
+        const stream = this.aiGatewayService.streamTutorResponse(
+          {
+            requestId: request.requestId || `req-${Date.now()}`,
+            userId: request.userId,
+            conversationId: request.conversationId || '',
+            message: request.prompt,
+            language: request.language === 'en' ? 'en' : 'bn',
+            classLevel: request.classLevel,
+            subjectId: request.topicId,
+            lessonId: request.lessonId,
+            subjectTitle: request.subject,
+          },
+          abortSignal,
+        );
+
+        for await (const event of stream) {
+          yield event;
+        }
+        return;
+      } catch (err: any) {
+        this.logger.warn(
+          `FastAPI AI Service stream failed, falling back to local engine: ${err?.message}`,
+        );
+        this.aiMetricsService.recordFallback('fastapi_service_error');
+        yield* this.generateLocalFallbackStream(request);
+        return;
+      }
     }
 
     const gatewayUrl = this.configService.get<string>('aiGateway.url')?.trim();

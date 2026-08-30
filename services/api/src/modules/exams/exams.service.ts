@@ -330,7 +330,8 @@ export class ExamsService {
         prompt: qJson.prompt ?? qJson.questionText,
         questionText: qJson.questionText ?? qJson.prompt,
         options: qJson.options,
-        correctOptionIds: qJson.correctOptionIds ?? (qJson.correctAnswer ? [qJson.correctAnswer] : []),
+        correctOptionIds:
+          qJson.correctOptionIds ?? (qJson.correctAnswer ? [qJson.correctAnswer] : []),
         correctAnswer: qJson.correctAnswer ?? qJson.correctOptionIds?.[0],
         submittedAnswer: ans?.submittedAnswer ?? null,
         isCorrect: ans?.isCorrect ?? false,
