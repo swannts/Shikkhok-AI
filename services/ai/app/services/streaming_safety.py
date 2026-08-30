@@ -14,7 +14,7 @@ class StreamingOutputSafetyFilter:
     CREDENTIAL_PATTERNS: ClassVar[list[re.Pattern[str]]] = [
         re.compile(r"AIzaSy[0-9A-Za-z_-]{33}"),  # Google API keys
         re.compile(r"sk-[0-9a-zA-Z]{32,}"),  # OpenAI API keys
-        re.compile(r"(ghp|gho|ghu|ghs|ghr)_[0-9a-zA-Z]{36}"),  # GitHub tokens
+        re.compile(r"(?:ghp|gho|ghu|ghs|ghr)_[0-9a-zA-Z]{36}"),  # GitHub tokens
         re.compile(r"dev-internal-[a-zA-Z0-9_-]{10,}"),  # Internal secret signatures
     ]
 
@@ -37,17 +37,18 @@ class StreamingOutputSafetyFilter:
     def _sanitize(self, text: str) -> str:
         sanitized = text
         for pattern in self.CREDENTIAL_PATTERNS:
-            matches = pattern.findall(sanitized)
-            for m in matches:
-                self.redacted_count += 1
-                sanitized = sanitized.replace(m, "[REDACTED_CREDENTIAL]")
+            matches = [match.group(0) for match in pattern.finditer(sanitized)]
+            if not matches:
+                continue
+            self.redacted_count += len(matches)
+            sanitized = pattern.sub("[REDACTED_CREDENTIAL]", sanitized)
 
         for pattern in self.UNSAFE_TOPIC_PATTERNS:
-            matches = pattern.findall(sanitized)
-            for m in matches:
-                match_str = m[0] if isinstance(m, tuple) else m
-                self.redacted_count += 1
-                sanitized = sanitized.replace(match_str, "[REDACTED_CONTENT]")
+            matches = [match.group(0) for match in pattern.finditer(sanitized)]
+            if not matches:
+                continue
+            self.redacted_count += len(matches)
+            sanitized = pattern.sub("[REDACTED_CONTENT]", sanitized)
 
         return sanitized
 

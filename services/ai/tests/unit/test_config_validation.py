@@ -13,7 +13,7 @@ def test_production_rejects_mock_llm():
         embedding_api_key="valid-key",
         internal_service_secret="a" * 32,
     )
-    with pytest.raises(RuntimeError, match="Mock LLM provider is strictly forbidden"):
+    with pytest.raises(RuntimeError, match="Mock LLM provider requires explicit opt-in"):
         settings.validate_runtime_safety()
 
 
@@ -25,7 +25,7 @@ def test_production_rejects_mock_embeddings():
         embedding_provider="mock",
         internal_service_secret="a" * 32,
     )
-    with pytest.raises(RuntimeError, match="Mock embedding provider is strictly forbidden"):
+    with pytest.raises(RuntimeError, match="Mock embedding provider requires explicit opt-in"):
         settings.validate_runtime_safety()
 
 
@@ -52,3 +52,43 @@ def test_test_environment_allows_mock():
     settings.validate_runtime_safety()
     container = build_service_container(settings)
     assert container.llm_provider.name == "mock-primary"
+
+
+def test_development_rejects_mock_without_explicit_opt_in():
+    settings = Settings(
+        app_env="development",
+        llm_provider="mock",
+        embedding_provider="mock",
+        internal_service_secret="a" * 32,
+    )
+
+    with pytest.raises(RuntimeError, match="requires explicit opt-in"):
+        settings.validate_runtime_safety()
+
+
+def test_development_rejects_missing_llm_key_without_silent_fallback():
+    settings = Settings(
+        app_env="development",
+        llm_provider="gemini",
+        llm_api_key="",
+        embedding_provider="gemini",
+        embedding_api_key="valid-embedding-key",
+        internal_service_secret="a" * 32,
+    )
+
+    with pytest.raises(RuntimeError, match="requires LLM_API_KEY"):
+        build_service_container(settings)
+
+
+def test_development_rejects_missing_embedding_key_without_silent_fallback():
+    settings = Settings(
+        app_env="development",
+        allow_mock_providers=True,
+        llm_provider="mock",
+        embedding_provider="gemini",
+        embedding_api_key="",
+        internal_service_secret="a" * 32,
+    )
+
+    with pytest.raises(RuntimeError, match="requires an API key"):
+        build_service_container(settings)

@@ -1,7 +1,9 @@
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+TutorGroundingMode = Literal["hybrid", "strict"]
 
 
 class Settings(BaseSettings):
@@ -45,20 +47,20 @@ class Settings(BaseSettings):
     redis_enabled: bool = False
 
     # LLM Settings
-    llm_provider: Literal["gemini", "openai", "mock"] = "gemini"
+    llm_provider: Literal["gemini", "mock"] = "gemini"
     llm_api_key: str = ""
     llm_model: str = "gemini-1.5-pro"
-    llm_fallback_provider: Literal["gemini", "openai", "none"] = "none"
+    llm_fallback_provider: Literal["gemini", "none"] = "none"
     llm_fallback_model: str = ""
     llm_fallback_api_key: str = ""
 
     # Embeddings
-    embedding_provider: Literal["gemini", "openai", "mock"] = "gemini"
+    embedding_provider: Literal["gemini", "mock"] = "gemini"
     embedding_api_key: str = ""
     embedding_model: str = "text-embedding-004"
 
     # Vector Store
-    vector_store_provider: Literal["memory", "persistent", "qdrant", "atlas"] = "persistent"
+    vector_store_provider: Literal["memory", "persistent"] = "persistent"
     vector_store_path: str = "data/vector_store/curriculum_chunks.json"
     vector_store_url: str = "http://localhost:6333"
     vector_store_api_key: str = ""
@@ -66,47 +68,67 @@ class Settings(BaseSettings):
     # Timeouts
     request_timeout_seconds: float = 30.0
     llm_timeout_seconds: float = 20.0
+    tutor_grounding_mode: TutorGroundingMode = "hybrid"
+
+    @field_validator("debug", mode="before")
+    @classmethod
+    def parse_debug_flag(cls, value: bool | str) -> bool:
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"1", "true", "yes", "on", "debug"}:
+                return True
+            if normalized in {"0", "false", "no", "off", "release", "prod", "production"}:
+                return False
+        return bool(value)
+
+    def mock_providers_allowed(self) -> bool:
+        return self.app_env == "test" or (
+            self.app_env == "development" and self.allow_mock_providers
+        )
 
     def validate_runtime_safety(self) -> None:
         """Validates configuration safety. Rejects mock providers and weak secrets in production."""
-        is_production = self.app_env == "production"
-        is_staging = self.app_env == "staging"
+        effective_embed_key = self.embedding_api_key or self.llm_api_key
+        mock_allowed = self.mock_providers_allowed()
 
-        if is_production or is_staging:
-            # 1. Reject mock LLM
-            if self.llm_provider == "mock":
-                raise RuntimeError(
-                    f"CRITICAL: Mock LLM provider is strictly forbidden in {self.app_env} environment."
-                )
-            if not self.llm_api_key:
-                raise RuntimeError(
-                    f"CRITICAL: Real LLM provider '{self.llm_provider}' requires LLM_API_KEY in {self.app_env}."
-                )
+        if self.llm_provider == "mock" and not mock_allowed:
+            raise RuntimeError(
+                f"CRITICAL: Mock LLM provider requires explicit opt-in in {self.app_env}."
+            )
 
-            # 2. Reject mock embeddings
-            if self.embedding_provider == "mock":
-                raise RuntimeError(
-                    f"CRITICAL: Mock embedding provider is strictly forbidden in {self.app_env} environment."
-                )
-            effective_embed_key = self.embedding_api_key or self.llm_api_key
-            if not effective_embed_key:
-                raise RuntimeError(
-                    f"CRITICAL: Embedding provider '{self.embedding_provider}' requires an API key in {self.app_env}."
-                )
+        if self.embedding_provider == "mock" and not mock_allowed:
+            raise RuntimeError(
+                f"CRITICAL: Mock embedding provider requires explicit opt-in in {self.app_env}."
+            )
 
-            # 3. Reject weak or default secret
-            if (
-                len(self.internal_service_secret) < 32
-                or "dev-internal" in self.internal_service_secret
-            ):
-                raise RuntimeError(
-                    f"CRITICAL: INTERNAL_SERVICE_SECRET must be at least 32 random characters and not a development default in {self.app_env}."
-                )
-        elif self.app_env == "development":
-            # In development, mock is only allowed if explicit flag is set or key is provided
-            if self.llm_provider == "mock" and not self.allow_mock_providers:
-                # Warning or opt-in
-                pass
+        if self.llm_provider == "gemini" and not self.llm_api_key:
+            raise RuntimeError(
+                f"CRITICAL: Real LLM provider '{self.llm_provider}' requires LLM_API_KEY in {self.app_env}."
+            )
+
+        if self.embedding_provider == "gemini" and not effective_embed_key:
+            raise RuntimeError(
+                f"CRITICAL: Embedding provider '{self.embedding_provider}' requires an API key in {self.app_env}."
+            )
+
+        if self.llm_fallback_provider == "gemini" and not self.llm_fallback_api_key:
+            raise RuntimeError(
+                f"CRITICAL: Fallback LLM provider '{self.llm_fallback_provider}' requires LLM_FALLBACK_API_KEY in {self.app_env}."
+            )
+
+        if self.app_env in ("production", "staging") and (
+            self.llm_provider == "mock" or self.embedding_provider == "mock"
+        ):
+            raise RuntimeError(
+                f"CRITICAL: Mock providers are strictly forbidden in {self.app_env} environment."
+            )
+
+        if self.app_env in ("production", "staging") and (
+            len(self.internal_service_secret) < 32 or "dev-internal" in self.internal_service_secret
+        ):
+            raise RuntimeError(
+                f"CRITICAL: INTERNAL_SERVICE_SECRET must be at least 32 random characters and not a development default in {self.app_env}."
+            )
 
 
 settings = Settings()

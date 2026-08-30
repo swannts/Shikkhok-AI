@@ -85,6 +85,10 @@ class IngestionPipeline:
                     page_start=c.page_start,
                     page_end=c.page_end,
                     content_version=metadata.content_version,
+                    embedding_provider=getattr(self.embedding_provider, "name", "unknown"),
+                    embedding_model=getattr(self.embedding_provider, "model", "unknown"),
+                    embedding_dimension=getattr(self.embedding_provider, "dimension", 0),
+                    embedding_version=1,
                 )
                 for c in chunks
             ]

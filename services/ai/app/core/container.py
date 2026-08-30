@@ -13,6 +13,7 @@ from app.providers.llm.mock import MockLlmProvider
 from app.providers.vector_store.base import VectorStore
 from app.providers.vector_store.memory import InMemoryVectorStore
 from app.providers.vector_store.persistent import PersistentVectorStore
+from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 from app.services.citation_service import CitationService
 from app.services.homework_service import HomeworkService
 from app.services.model_router import ModelRouter
@@ -65,36 +66,35 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
     fallback_llm: LlmProvider | None = None
 
     if cfg.llm_provider == "gemini":
-        if cfg.llm_api_key:
-            primary_llm = GeminiLlmProvider(
-                api_key=cfg.llm_api_key,
-                model=cfg.llm_model,
-                timeout_seconds=cfg.llm_timeout_seconds,
-                client=http_client,
-            )
-        elif cfg.app_env in ("test", "development"):
-            logger.warning(
-                "No LLM_API_KEY provided; using MockLlmProvider in test/development mode"
-            )
-            primary_llm = MockLlmProvider(name="mock-primary", model=cfg.llm_model)
-        else:
+        if not cfg.llm_api_key:
             raise RuntimeError(f"Missing LLM_API_KEY for {cfg.llm_provider} in {cfg.app_env}")
+        primary_llm = GeminiLlmProvider(
+            api_key=cfg.llm_api_key,
+            model=cfg.llm_model,
+            timeout_seconds=cfg.llm_timeout_seconds,
+            client=http_client,
+        )
     elif cfg.llm_provider == "mock":
-        if cfg.app_env not in ("test", "development"):
+        if not cfg.mock_providers_allowed():
             raise RuntimeError(f"Mock LLM is strictly prohibited in {cfg.app_env}")
         primary_llm = MockLlmProvider(name="mock-primary", model=cfg.llm_model)
     else:
         raise RuntimeError(f"Unsupported LLM provider: {cfg.llm_provider}")
 
     # Fallback LLM (Real fallback only, NEVER mock in production)
-    if cfg.llm_fallback_provider != "none" and cfg.llm_fallback_api_key:
-        if cfg.llm_fallback_provider == "gemini":
-            fallback_llm = GeminiLlmProvider(
-                api_key=cfg.llm_fallback_api_key,
-                model=cfg.llm_fallback_model or "gemini-1.5-flash",
-                timeout_seconds=cfg.llm_timeout_seconds,
-                client=http_client,
+    if cfg.llm_fallback_provider == "gemini":
+        if not cfg.llm_fallback_api_key:
+            raise RuntimeError(
+                f"Missing LLM_FALLBACK_API_KEY for {cfg.llm_fallback_provider} in {cfg.app_env}"
             )
+        fallback_llm = GeminiLlmProvider(
+            api_key=cfg.llm_fallback_api_key,
+            model=cfg.llm_fallback_model or "gemini-1.5-flash",
+            timeout_seconds=cfg.llm_timeout_seconds,
+            client=http_client,
+        )
+    elif cfg.llm_fallback_provider != "none":
+        raise RuntimeError(f"Unsupported fallback LLM provider: {cfg.llm_fallback_provider}")
 
     model_router = ModelRouter(primary=primary_llm, fallback=fallback_llm)
 
@@ -102,26 +102,39 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
     embedding_provider: EmbeddingProvider
     effective_embed_key = cfg.embedding_api_key or cfg.llm_api_key
 
-    if cfg.embedding_provider == "gemini" and effective_embed_key:
+    if cfg.embedding_provider == "gemini":
+        if not effective_embed_key:
+            raise RuntimeError(
+                f"No API key configured for embedding provider {cfg.embedding_provider}"
+            )
         embedding_provider = GeminiEmbeddingProvider(
             api_key=effective_embed_key,
             model=cfg.embedding_model,
             client=http_client,
         )
-    elif cfg.app_env in ("test", "development") or cfg.embedding_provider == "mock":
-        if cfg.app_env == "production":
-            raise RuntimeError("Deterministic mock embeddings forbidden in production")
+    elif cfg.embedding_provider == "mock":
+        if not cfg.mock_providers_allowed():
+            raise RuntimeError(f"Deterministic mock embeddings forbidden in {cfg.app_env}")
         logger.info("Using DeterministicEmbeddingProvider for test/development")
         embedding_provider = DeterministicEmbeddingProvider()
     else:
-        raise RuntimeError(f"No API key configured for embedding provider {cfg.embedding_provider}")
+        raise RuntimeError(f"Unsupported embedding provider: {cfg.embedding_provider}")
+
+    vector_embedding_metadata = VectorStoreEmbeddingMetadata(
+        provider=getattr(embedding_provider, "name", "unknown"),
+        model=getattr(embedding_provider, "model", getattr(embedding_provider, "name", "unknown")),
+        dimension=getattr(embedding_provider, "dimension", 0),
+    )
 
     # 5. Vector Store
     vector_store: VectorStore
     if cfg.vector_store_provider == "memory" or cfg.app_env == "test":
-        vector_store = InMemoryVectorStore()
+        vector_store = InMemoryVectorStore(embedding_metadata=vector_embedding_metadata)
     else:
-        vector_store = PersistentVectorStore(file_path=cfg.vector_store_path)
+        vector_store = PersistentVectorStore(
+            file_path=cfg.vector_store_path,
+            embedding_metadata=vector_embedding_metadata,
+        )
 
     # 6. Core Subservices
     moderation_service = ModerationService()
@@ -135,6 +148,7 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
         citation_service=citation_service,
         output_safety_service=output_safety_service,
         model_router=model_router,
+        grounding_mode=cfg.tutor_grounding_mode,
     )
 
     homework_service = HomeworkService(

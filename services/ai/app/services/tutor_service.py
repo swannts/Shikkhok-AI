@@ -3,6 +3,7 @@ import time
 from collections.abc import AsyncIterator, Callable
 from pathlib import Path
 
+from app.core.config import TutorGroundingMode, settings
 from app.core.logging import logger
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 from app.schemas.tutor import TutorGenerationRequest, TutorStreamEvent
@@ -22,6 +23,7 @@ class TutorService:
         citation_service: CitationService,
         output_safety_service: OutputSafetyService,
         model_router: ModelRouter,
+        grounding_mode: TutorGroundingMode | None = None,
         prompts_dir: Path | None = None,
     ) -> None:
         self.moderation_service = moderation_service
@@ -29,6 +31,7 @@ class TutorService:
         self.citation_service = citation_service
         self.output_safety_service = output_safety_service
         self.model_router = model_router
+        self.grounding_mode = grounding_mode or settings.tutor_grounding_mode
 
         if prompts_dir is None:
             prompts_dir = Path(__file__).resolve().parent.parent / "prompts" / "tutor"
@@ -48,6 +51,8 @@ class TutorService:
         self,
         request: TutorGenerationRequest,
         retrieved_chunks: list[RetrievedChunk],
+        grounded: bool,
+        retrieval_unavailable: bool,
     ) -> list[dict[str, str]]:
         system_base = self.system_en if request.language == "en" else self.system_bn
 
@@ -63,7 +68,7 @@ class TutorService:
                 f"পাঠ: {request.lesson_title or 'নির্ধারিত নয়'} {class_str}"
             )
 
-        if retrieved_chunks:
+        if grounded and retrieved_chunks:
             context_parts.append("অনুমোদিত পাঠ্যপুস্তকের তথ্যসূত্র:")
             for i, chunk in enumerate(retrieved_chunks):
                 source_tag = f"[source_{i + 1}]"
@@ -71,8 +76,11 @@ class TutorService:
                 pages = f"(পৃষ্ঠা {chunk.page_start}-{chunk.page_end})" if chunk.page_start else ""
                 context_parts.append(f"{source_tag} {book} {pages}: {chunk.text}")
         else:
-            context_parts.append(
-                "সরাসরি পাঠ্যবইয়ের অনুচ্ছেদ পাওয়া যায়নি। সাধারণ শিক্ষাক্রম নীতিমালা অনুযায়ী ব্যাখ্যা করো।"
+            context_parts.extend(
+                self._build_ungrounded_instructions(
+                    request.language,
+                    retrieval_unavailable=retrieval_unavailable,
+                )
             )
 
         full_system_prompt = (
@@ -91,6 +99,50 @@ class TutorService:
         messages.append({"role": "user", "content": request.message})
 
         return messages
+
+    def _build_ungrounded_instructions(
+        self,
+        language: str,
+        retrieval_unavailable: bool,
+    ) -> list[str]:
+        if language == "en":
+            prefix = (
+                "Textbook retrieval is temporarily unavailable; answer cautiously without claiming textbook grounding."
+                if retrieval_unavailable
+                else "No relevant textbook passage was retrieved for this answer."
+            )
+            return [
+                prefix,
+                "Answer as a general explanation, not as a textbook-backed citation.",
+                "Do not invent page numbers, chapter references, or textbook alignment.",
+                "Avoid claiming exact NCTB grounding when no retrieved source is available.",
+            ]
+
+        prefix = (
+            "পাঠ্যবইয়ের অনুচ্ছেদ সাময়িকভাবে পাওয়া যাচ্ছে না; সতর্কভাবে সাধারণ ব্যাখ্যা দাও, পাঠ্যবই-ভিত্তিক দাবি করো না।"
+            if retrieval_unavailable
+            else "এই উত্তরের জন্য কোনো প্রাসঙ্গিক পাঠ্যবইয়ের অনুচ্ছেদ পাওয়া যায়নি।"
+        )
+        return [
+            prefix,
+            "উত্তরটি সাধারণ ব্যাখ্যা হিসেবে দাও, পাঠ্যবই-ভিত্তিক উদ্ধৃতি হিসেবে নয়।",
+            "পৃষ্ঠা নম্বর, অধ্যায়-সূত্র বা নির্দিষ্ট পাঠ্যবইয়ের মিল কল্পনা করে বলবে না।",
+            "প্রাসঙ্গিক উৎস না থাকলে NCTB-ভিত্তিক নির্দিষ্টতা দাবি করবে না।",
+        ]
+
+    def _grounding_error_event(self, retrieval_unavailable: bool) -> TutorStreamEvent:
+        reason = "retrieval_unavailable" if retrieval_unavailable else "no_grounding_matches"
+        return TutorStreamEvent(
+            event="error",
+            data={
+                "code": "GROUNDING_UNAVAILABLE",
+                "message": "Tutor grounding could not be established.",
+                "banglaMessage": "পাঠভিত্তিক নির্ভরযোগ্য তথ্য পাওয়া যায়নি।",
+                "groundingMode": self.grounding_mode,
+                "retrievalUnavailable": retrieval_unavailable,
+                "reason": reason,
+            },
+        )
 
     async def stream_tutor_response(
         self,
@@ -126,6 +178,7 @@ class TutorService:
                     "conversationId": request.conversation_id,
                     "fallbackUsed": False,
                     "grounded": False,
+                    "groundingMode": self.grounding_mode,
                 },
             )
             yield TutorStreamEvent(
@@ -164,13 +217,23 @@ class TutorService:
 
         retrieval_latency_ms = int((time.time() - retrieval_start) * 1000)
 
+        grounded = bool(retrieved_chunks) and not retrieval_unavailable
+        if self.grounding_mode == "strict" and not grounded:
+            yield self._grounding_error_event(retrieval_unavailable=retrieval_unavailable)
+            return
+
         # If client cancelled before generation starts, exit cleanly
         if check_cancelled():
             logger.info(f"Client cancelled before generation for request {request.request_id}")
             return
 
         # 3. Assemble Prompt Messages
-        messages = self._build_prompt_messages(request, retrieved_chunks)
+        messages = self._build_prompt_messages(
+            request,
+            retrieved_chunks,
+            grounded=grounded,
+            retrieval_unavailable=retrieval_unavailable,
+        )
 
         # 4. Stream from ModelRouter with incremental output safety filter
         routed = await self.model_router.stream_chat(messages)
@@ -184,8 +247,9 @@ class TutorService:
                 "classLevel": request.class_level,
                 "subject": request.subject_title,
                 "fallbackUsed": routed.fallback_used,
-                "grounded": bool(retrieved_chunks),
+                "grounded": grounded,
                 "retrievalUnavailable": retrieval_unavailable,
+                "groundingMode": self.grounding_mode,
                 "retrievalLatencyMs": retrieval_latency_ms,
             },
         )
@@ -246,7 +310,7 @@ class TutorService:
         # 6. Extract Grounded Citations (only from real retrieved chunks)
         citations = (
             self.citation_service.extract_citations(safety_check.sanitized_text, retrieved_chunks)
-            if retrieved_chunks
+            if grounded
             else []
         )
         for c in citations:

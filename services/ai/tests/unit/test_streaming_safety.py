@@ -27,6 +27,22 @@ def test_redacts_api_key_split_across_chunks():
     full_output = out1 + out2 + final
     assert "AIzaSy" not in full_output
     assert "[REDACTED_CREDENTIAL]" in full_output
+    assert safety_filter.redacted_count == 1
+
+
+def test_redacts_internal_secret_split_across_chunks():
+    safety_filter = StreamingOutputSafetyFilter(lookahead_window=30)
+    part1 = "The token is dev-internal-abc12"
+    part2 = "3XYZ789 and must be hidden."
+
+    out1 = safety_filter.feed(part1)
+    out2 = safety_filter.feed(part2)
+    final = safety_filter.finalize()
+
+    full_output = out1 + out2 + final
+    assert "dev-internal-abc123XYZ789" not in full_output
+    assert "[REDACTED_CREDENTIAL]" in full_output
+    assert safety_filter.redacted_count == 1
 
 
 def test_redacts_unsafe_phrase_split_across_chunks():

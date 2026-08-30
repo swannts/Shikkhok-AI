@@ -1,15 +1,24 @@
 from pathlib import Path
 
+import json
 import pytest
 
 from app.providers.vector_store.persistent import PersistentVectorStore
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
+from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
 
 @pytest.mark.asyncio
 async def test_persistent_vector_store_save_load_and_search(tmp_path: Path) -> None:
     store_file = tmp_path / "test_chunks.json"
-    store = PersistentVectorStore(file_path=store_file)
+    store = PersistentVectorStore(
+        file_path=store_file,
+        embedding_metadata=VectorStoreEmbeddingMetadata(
+            provider="deterministic",
+            model="test-model",
+            dimension=128,
+        ),
+    )
 
     test_chunk = RetrievedChunk(
         chunk_id="test_chunk_001",
@@ -31,6 +40,10 @@ async def test_persistent_vector_store_save_load_and_search(tmp_path: Path) -> N
 
     # 2. Verify file saved to disk
     assert store_file.exists()
+    saved = json.loads(store_file.read_text(encoding="utf-8"))
+    assert saved["metadata"]["embeddingDimension"] == 128
+    assert saved["metadata"]["embeddingProvider"] == "deterministic"
+    assert saved["chunks"][0]["embedding_dimension"] == 128
 
     # 3. Search with matching metadata filter
     results = await store.search(
@@ -66,3 +79,25 @@ async def test_persistent_vector_store_save_load_and_search(tmp_path: Path) -> N
     # 6. Delete book chunks
     deleted = await store_reloaded.delete_by_book_id("math_class_9")
     assert deleted >= 1
+
+
+def test_persistent_vector_store_rejects_dimension_mismatch(tmp_path: Path) -> None:
+    store_file = tmp_path / "test_chunks.json"
+    PersistentVectorStore(
+        file_path=store_file,
+        embedding_metadata=VectorStoreEmbeddingMetadata(
+            provider="deterministic",
+            model="test-model",
+            dimension=128,
+        ),
+    )
+
+    with pytest.raises(ValueError, match="embedding dimension mismatch"):
+        PersistentVectorStore(
+            file_path=store_file,
+            embedding_metadata=VectorStoreEmbeddingMetadata(
+                provider="gemini",
+                model="text-embedding-004",
+                dimension=768,
+            ),
+        )

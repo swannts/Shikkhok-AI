@@ -14,7 +14,7 @@ class OutputSafetyService:
         self.api_key_patterns = [
             re.compile(r"AIzaSy[0-9A-Za-z_-]{33}"),  # Google API keys
             re.compile(r"sk-[0-9a-zA-Z]{32,}"),  # OpenAI API keys
-            re.compile(r"(ghp|gho|ghu|ghs|ghr)_[0-9a-zA-Z]{36}"),  # GitHub tokens
+            re.compile(r"(?:ghp|gho|ghu|ghs|ghr)_[0-9a-zA-Z]{36}"),  # GitHub tokens
         ]
 
     def validate_and_sanitize(self, text: str) -> OutputSafetyResult:
@@ -22,10 +22,11 @@ class OutputSafetyService:
         redacted: list[str] = []
 
         for pattern in self.api_key_patterns:
-            matches = pattern.findall(sanitized)
-            for m in matches:
-                redacted.append(m)
-                sanitized = sanitized.replace(m, "[REDACTED_CREDENTIAL]")
+            matches = [match.group(0) for match in pattern.finditer(sanitized)]
+            if not matches:
+                continue
+            redacted.extend(matches)
+            sanitized = pattern.sub("[REDACTED_CREDENTIAL]", sanitized)
 
         return OutputSafetyResult(
             is_safe=True,

@@ -21,6 +21,10 @@ class RetrievedChunk(BaseModel):
     page_start: int | None = None
     page_end: int | None = None
     content_version: int | None = None
+    embedding_provider: str | None = None
+    embedding_model: str | None = None
+    embedding_dimension: int | None = None
+    embedding_version: int | None = None
 
 
 class RetrievalFilter(BaseModel):

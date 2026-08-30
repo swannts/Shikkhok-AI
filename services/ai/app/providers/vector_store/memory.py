@@ -1,14 +1,24 @@
 import math
 from typing import Any
 
+from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 
 
 class InMemoryVectorStore:
     name: str = "memory"
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        embedding_metadata: VectorStoreEmbeddingMetadata | None = None,
+    ) -> None:
+        self.embedding_metadata = embedding_metadata or VectorStoreEmbeddingMetadata(
+            provider="deterministic",
+            model="seeded-default",
+            dimension=128,
+        )
         # Seed default NCTB curriculum chunks for Class 6-10
+        seed_dimension = self.embedding_metadata.dimension
         self.chunks: list[dict[str, Any]] = [
             {
                 "chunk_id": "chunk_math_8_algebra_01",
@@ -25,6 +35,10 @@ class InMemoryVectorStore:
                 "page_start": 45,
                 "page_end": 47,
                 "content_version": 1,
+                "embedding_provider": self.embedding_metadata.provider,
+                "embedding_model": self.embedding_metadata.model,
+                "embedding_dimension": self.embedding_metadata.dimension,
+                "embedding_version": self.embedding_metadata.version,
             },
             {
                 "chunk_id": "chunk_math_8_algebra_02",
@@ -41,6 +55,10 @@ class InMemoryVectorStore:
                 "page_start": 48,
                 "page_end": 50,
                 "content_version": 1,
+                "embedding_provider": self.embedding_metadata.provider,
+                "embedding_model": self.embedding_metadata.model,
+                "embedding_dimension": self.embedding_metadata.dimension,
+                "embedding_version": self.embedding_metadata.version,
             },
             {
                 "chunk_id": "chunk_science_8_combustion_01",
@@ -57,8 +75,24 @@ class InMemoryVectorStore:
                 "page_start": 72,
                 "page_end": 74,
                 "content_version": 1,
+                "embedding_provider": self.embedding_metadata.provider,
+                "embedding_model": self.embedding_metadata.model,
+                "embedding_dimension": self.embedding_metadata.dimension,
+                "embedding_version": self.embedding_metadata.version,
             },
         ]
+        self.vectors: list[list[float]] = [[0.1] * seed_dimension for _ in self.chunks]
+
+    def _validate_vector_dimension(self, vector: list[float]) -> None:
+        if len(vector) != self.embedding_metadata.dimension:
+            raise ValueError(
+                "Vector dimension mismatch for in-memory index: "
+                f"expected {self.embedding_metadata.dimension}, got {len(vector)}"
+            )
+
+    def _validate_index_dimensions(self) -> None:
+        for vector in self.vectors:
+            self._validate_vector_dimension(vector)
 
     def _cosine_similarity(self, vec_a: list[float], vec_b: list[float]) -> float:
         if not vec_a or not vec_b or len(vec_a) != len(vec_b):
@@ -75,6 +109,9 @@ class InMemoryVectorStore:
         query_vector: list[float],
         filter_params: RetrievalFilter,
     ) -> list[RetrievedChunk]:
+        self._validate_vector_dimension(query_vector)
+        self._validate_index_dimensions()
+
         candidates: list[dict[str, Any]] = []
 
         for chunk in self.chunks:
@@ -130,6 +167,10 @@ class InMemoryVectorStore:
                     page_start=c.get("page_start"),
                     page_end=c.get("page_end"),
                     content_version=c.get("content_version"),
+                    embedding_provider=c.get("embedding_provider"),
+                    embedding_model=c.get("embedding_model"),
+                    embedding_dimension=c.get("embedding_dimension"),
+                    embedding_version=c.get("embedding_version"),
                 )
             )
 
@@ -141,17 +182,24 @@ class InMemoryVectorStore:
         chunks: list[RetrievedChunk],
         vectors: list[list[float]],
     ) -> int:
-        for chunk in chunks:
+        for chunk, vector in zip(chunks, vectors, strict=False):
+            self._validate_vector_dimension(vector)
             # Check if chunk_id already exists and update
             existing_idx = next(
                 (i for i, c in enumerate(self.chunks) if c["chunk_id"] == chunk.chunk_id),
                 None,
             )
             data = chunk.model_dump()
+            data["embedding_provider"] = self.embedding_metadata.provider
+            data["embedding_model"] = self.embedding_metadata.model
+            data["embedding_dimension"] = self.embedding_metadata.dimension
+            data["embedding_version"] = self.embedding_metadata.version
             if existing_idx is not None:
                 self.chunks[existing_idx] = data
+                self.vectors[existing_idx] = vector
             else:
                 self.chunks.append(data)
+                self.vectors.append(vector)
         return len(chunks)
 
     async def count(self) -> int:

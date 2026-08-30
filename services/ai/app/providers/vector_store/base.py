@@ -1,11 +1,13 @@
 from typing import Protocol, runtime_checkable
 
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
+from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
 
 @runtime_checkable
 class VectorStore(Protocol):
     name: str
+    embedding_metadata: VectorStoreEmbeddingMetadata | None
 
     async def search(
         self,

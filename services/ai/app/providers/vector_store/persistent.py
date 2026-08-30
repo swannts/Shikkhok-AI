@@ -8,12 +8,17 @@ from typing import Any
 from app.core.config import settings
 from app.core.logging import logger
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
+from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
 
 class PersistentVectorStore:
     name: str = "persistent"
 
-    def __init__(self, file_path: str | Path | None = None) -> None:
+    def __init__(
+        self,
+        file_path: str | Path | None = None,
+        embedding_metadata: VectorStoreEmbeddingMetadata | None = None,
+    ) -> None:
         if file_path is None:
             file_path = Path(settings.vector_store_path)
         self.file_path = Path(file_path)
@@ -21,6 +26,7 @@ class PersistentVectorStore:
 
         self.chunks: list[dict[str, Any]] = []
         self.vectors: list[list[float]] = []
+        self.embedding_metadata = embedding_metadata
 
         self._load_from_disk()
 
@@ -36,14 +42,57 @@ class PersistentVectorStore:
                 data = json.load(f)
                 self.chunks = data.get("chunks", [])
                 self.vectors = data.get("vectors", [])
+                metadata = data.get("metadata")
+                if metadata:
+                    loaded_metadata = VectorStoreEmbeddingMetadata(
+                        provider=str(metadata.get("embeddingProvider", "unknown")),
+                        model=str(metadata.get("embeddingModel", "unknown")),
+                        dimension=int(metadata.get("embeddingDimension", 0) or 0),
+                        version=int(metadata.get("embeddingVersion", 1) or 1),
+                    )
+                    if (
+                        self.embedding_metadata is not None
+                        and self.embedding_metadata.dimension != loaded_metadata.dimension
+                    ):
+                        raise ValueError(
+                            "Persistent vector store embedding dimension mismatch: "
+                            f"file has {loaded_metadata.dimension}, "
+                            f"requested {self.embedding_metadata.dimension}"
+                        )
+                    if self.embedding_metadata is None:
+                        self.embedding_metadata = loaded_metadata
+                else:
+                    inferred_metadata = self._infer_metadata()
+                    if (
+                        self.embedding_metadata is not None
+                        and self.embedding_metadata.dimension != inferred_metadata.dimension
+                    ):
+                        raise ValueError(
+                            "Persistent vector store embedding dimension mismatch: "
+                            f"file has {inferred_metadata.dimension}, "
+                            f"requested {self.embedding_metadata.dimension}"
+                        )
+                    self.embedding_metadata = self.embedding_metadata or inferred_metadata
+                    self._apply_metadata_to_chunks()
+                    self._save_to_disk_sync()
+                self._apply_metadata_to_chunks()
                 logger.info(
                     f"Loaded {len(self.chunks)} persistent curriculum chunks from {self.file_path}"
                 )
         except Exception as e:
+            if isinstance(e, ValueError) and "embedding dimension mismatch" in str(e):
+                raise
             logger.error(f"Error loading vector store from {self.file_path}: {e}")
             self._seed_default_chunks()
 
     def _seed_default_chunks(self) -> None:
+        seed_dimension = self.embedding_metadata.dimension if self.embedding_metadata else 128
+        if self.embedding_metadata is None:
+            self.embedding_metadata = VectorStoreEmbeddingMetadata(
+                provider="deterministic",
+                model="seeded-default",
+                dimension=seed_dimension,
+            )
         self.chunks = [
             {
                 "chunk_id": "chunk_math_8_algebra_01",
@@ -60,6 +109,10 @@ class PersistentVectorStore:
                 "page_start": 45,
                 "page_end": 47,
                 "content_version": 1,
+                "embedding_provider": self.embedding_metadata.provider,
+                "embedding_model": self.embedding_metadata.model,
+                "embedding_dimension": self.embedding_metadata.dimension,
+                "embedding_version": self.embedding_metadata.version,
             },
             {
                 "chunk_id": "chunk_math_8_algebra_02",
@@ -76,6 +129,10 @@ class PersistentVectorStore:
                 "page_start": 48,
                 "page_end": 50,
                 "content_version": 1,
+                "embedding_provider": self.embedding_metadata.provider,
+                "embedding_model": self.embedding_metadata.model,
+                "embedding_dimension": self.embedding_metadata.dimension,
+                "embedding_version": self.embedding_metadata.version,
             },
             {
                 "chunk_id": "chunk_science_8_combustion_01",
@@ -92,10 +149,40 @@ class PersistentVectorStore:
                 "page_start": 72,
                 "page_end": 74,
                 "content_version": 1,
+                "embedding_provider": self.embedding_metadata.provider,
+                "embedding_model": self.embedding_metadata.model,
+                "embedding_dimension": self.embedding_metadata.dimension,
+                "embedding_version": self.embedding_metadata.version,
             },
         ]
         # Generate dummy 128-dim vectors for the seed chunks
-        self.vectors = [[0.1] * 128 for _ in self.chunks]
+        self.vectors = [[0.1] * self.embedding_metadata.dimension for _ in self.chunks]
+
+    def _apply_metadata_to_chunks(self) -> None:
+        for chunk in self.chunks:
+            chunk["embedding_provider"] = self.embedding_metadata.provider
+            chunk["embedding_model"] = self.embedding_metadata.model
+            chunk["embedding_dimension"] = self.embedding_metadata.dimension
+            chunk["embedding_version"] = self.embedding_metadata.version
+
+    def _infer_metadata(self) -> VectorStoreEmbeddingMetadata:
+        dimension = len(self.vectors[0]) if self.vectors else 128
+        return VectorStoreEmbeddingMetadata(
+            provider="unknown",
+            model="unknown",
+            dimension=dimension,
+        )
+
+    def _validate_vector_dimension(self, vector: list[float]) -> None:
+        if len(vector) != self.embedding_metadata.dimension:
+            raise ValueError(
+                "Vector dimension mismatch for persistent index: "
+                f"expected {self.embedding_metadata.dimension}, got {len(vector)}"
+            )
+
+    def _validate_index_dimensions(self) -> None:
+        for vector in self.vectors:
+            self._validate_vector_dimension(vector)
 
     def _save_to_disk_sync(self) -> None:
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -103,6 +190,12 @@ class PersistentVectorStore:
         payload = {
             "version": "1.0",
             "count": len(self.chunks),
+            "metadata": {
+                "embeddingProvider": self.embedding_metadata.provider,
+                "embeddingModel": self.embedding_metadata.model,
+                "embeddingDimension": self.embedding_metadata.dimension,
+                "embeddingVersion": self.embedding_metadata.version,
+            },
             "chunks": self.chunks,
             "vectors": self.vectors,
         }
@@ -129,6 +222,9 @@ class PersistentVectorStore:
         query_vector: list[float],
         filter_params: RetrievalFilter,
     ) -> list[RetrievedChunk]:
+        self._validate_vector_dimension(query_vector)
+        self._validate_index_dimensions()
+
         candidates: list[tuple[dict[str, Any], list[float]]] = []
 
         for chunk, vector in zip(self.chunks, self.vectors, strict=False):
@@ -182,6 +278,10 @@ class PersistentVectorStore:
                     page_start=chunk.get("page_start"),
                     page_end=chunk.get("page_end"),
                     content_version=chunk.get("content_version"),
+                    embedding_provider=chunk.get("embedding_provider"),
+                    embedding_model=chunk.get("embedding_model"),
+                    embedding_dimension=chunk.get("embedding_dimension"),
+                    embedding_version=chunk.get("embedding_version"),
                 )
             )
 
@@ -196,7 +296,12 @@ class PersistentVectorStore:
         async with self.lock:
             upserted_count = 0
             for chunk, vec in zip(chunks, vectors, strict=False):
+                self._validate_vector_dimension(vec)
                 data = chunk.model_dump()
+                data["embedding_provider"] = self.embedding_metadata.provider
+                data["embedding_model"] = self.embedding_metadata.model
+                data["embedding_dimension"] = self.embedding_metadata.dimension
+                data["embedding_version"] = self.embedding_metadata.version
                 existing_idx = next(
                     (i for i, c in enumerate(self.chunks) if c["chunk_id"] == chunk.chunk_id),
                     None,
@@ -209,6 +314,7 @@ class PersistentVectorStore:
                     self.vectors.append(vec)
                 upserted_count += 1
 
+            self._apply_metadata_to_chunks()
             await asyncio.to_thread(self._save_to_disk_sync)
             return upserted_count
 
