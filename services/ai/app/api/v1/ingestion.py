@@ -1,6 +1,8 @@
 from typing import Any
+
 from fastapi import APIRouter, Depends, File, Form, UploadFile
 from pydantic import BaseModel
+
 from app.core.security import verify_service_hmac
 from app.ingestion.models import DocumentMetadata, ExtractedPage, IngestionJobResult
 from app.ingestion.pipeline import IngestionPipeline

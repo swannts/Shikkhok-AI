@@ -4,6 +4,7 @@ import math
 import os
 from pathlib import Path
 from typing import Any
+
 from app.core.config import settings
 from app.core.logging import logger
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
@@ -145,7 +146,10 @@ class PersistentVectorStore:
         # Fallback to broader subject/class filter if strict match yields nothing
         if not candidates and (filter_params.lesson_id or filter_params.chapter_id):
             for chunk, vector in zip(self.chunks, self.vectors, strict=False):
-                if filter_params.class_level and chunk.get("class_level") != filter_params.class_level:
+                if (
+                    filter_params.class_level
+                    and chunk.get("class_level") != filter_params.class_level
+                ):
                     continue
                 if filter_params.subject_id and chunk.get("subject_id") != filter_params.subject_id:
                     continue

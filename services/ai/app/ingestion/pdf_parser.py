@@ -1,6 +1,8 @@
 import io
 from pathlib import Path
+
 from pypdf import PdfReader
+
 from app.core.exceptions import AiServiceError
 from app.core.logging import logger
 from app.ingestion.models import ExtractedPage
@@ -42,7 +44,9 @@ class NctbPdfParser:
             try:
                 reader.decrypt("")
             except Exception:
-                raise PdfParserError(f"PDF '{source_name}' is password protected and cannot be read.") from None
+                raise PdfParserError(
+                    f"PDF '{source_name}' is password protected and cannot be read."
+                ) from None
 
         pages: list[ExtractedPage] = []
         for page_idx, page in enumerate(reader.pages):

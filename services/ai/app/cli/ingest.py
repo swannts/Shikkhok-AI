@@ -3,6 +3,7 @@ import asyncio
 import json
 import sys
 from pathlib import Path
+
 from app.ingestion.models import DocumentMetadata, ExtractedPage
 from app.ingestion.pipeline import IngestionPipeline
 from app.providers.embeddings.primary import DeterministicEmbeddingProvider
@@ -69,15 +70,23 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Shikkhok-AI NCTB Curriculum Ingestion CLI")
     parser.add_argument("--file", type=str, help="Path to PDF or JSON curriculum file to ingest")
     parser.add_argument("--dir", type=str, help="Path to directory containing curriculum files")
-    parser.add_argument("--class-level", type=int, required=True, help="Target class grade (e.g. 8)")
-    parser.add_argument("--subject-id", type=str, required=True, help="Subject ID (e.g. 'mathematics')")
-    parser.add_argument("--subject-title", type=str, required=True, help="Subject Title (e.g. 'গণিত')")
+    parser.add_argument(
+        "--class-level", type=int, required=True, help="Target class grade (e.g. 8)"
+    )
+    parser.add_argument(
+        "--subject-id", type=str, required=True, help="Subject ID (e.g. 'mathematics')"
+    )
+    parser.add_argument(
+        "--subject-title", type=str, required=True, help="Subject Title (e.g. 'গণিত')"
+    )
     parser.add_argument("--source-book", type=str, help="Name of textbook source")
     parser.add_argument("--chapter-id", type=str, help="Chapter ID")
     parser.add_argument("--chapter-title", type=str, help="Chapter Title")
     parser.add_argument("--lesson-id", type=str, help="Lesson ID")
     parser.add_argument("--lesson-title", type=str, help="Lesson Title")
-    parser.add_argument("--medium", choices=["bangla", "english"], default="bangla", help="Instruction medium")
+    parser.add_argument(
+        "--medium", choices=["bangla", "english"], default="bangla", help="Instruction medium"
+    )
 
     args = parser.parse_args()
     if not args.file and not args.dir:

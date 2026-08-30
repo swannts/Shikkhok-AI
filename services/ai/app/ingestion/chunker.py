@@ -1,5 +1,6 @@
 import hashlib
 import re
+
 from app.ingestion.models import DocumentMetadata, ExtractedPage, IngestionChunk
 
 
@@ -41,10 +42,7 @@ class BengaliTextChunker:
     ) -> list[IngestionChunk]:
         chunks: list[IngestionChunk] = []
         chunk_idx = 1
-        book_slug = (
-            metadata.book_id
-            or re.sub(r"[^a-zA-Z0-9_]", "_", metadata.source_book.lower())
-        )
+        book_slug = metadata.book_id or re.sub(r"[^a-zA-Z0-9_]", "_", metadata.source_book.lower())
 
         current_sentences: list[str] = []
         current_len = 0

@@ -1,5 +1,7 @@
 from pathlib import Path
+
 import pytest
+
 from app.providers.vector_store.persistent import PersistentVectorStore
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 
