@@ -36,7 +36,11 @@ class CitationService:
                     citationId=citation_id,
                     sourceId=chunk.chunk_id,
                     sourceBook=chunk.book_name
-                    or f"NCTB Class {chunk.class_level or 8} {chunk.subject_title or 'Textbook'}",
+                    or (
+                        f"NCTB Class {chunk.class_level} {chunk.subject_title or 'Textbook'}"
+                        if chunk.class_level
+                        else f"NCTB {chunk.subject_title or 'Textbook'}"
+                    ),
                     classLevel=chunk.class_level,
                     subject=chunk.subject_title,
                     chapter=chunk.chapter_title,

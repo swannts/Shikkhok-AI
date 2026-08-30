@@ -12,6 +12,13 @@ const navigationConfig: FuseNavItemType[] = [
 		url: '/dashboard'
 	},
 	{
+		id: 'ai-telemetry',
+		title: 'AI Telemetry',
+		type: 'item',
+		icon: 'heroicons-outline:cpu-chip',
+		url: '/ai-telemetry'
+	},
+	{
 		id: 'users',
 		title: 'Users',
 		type: 'item',

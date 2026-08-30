@@ -68,7 +68,6 @@ export class AiGatewayService {
     const baseUrl = (
       this.configService.get<string>('aiService.baseUrl') || 'http://localhost:8000/api/v1'
     ).replace(/\/+$/, '');
-    const timeoutMs = this.configService.get<number>('aiService.timeoutMs') ?? 25000;
 
     // FastAPI endpoint is /api/v1/tutor/stream
     const url = new URL(`${baseUrl}/tutor/stream`);
@@ -97,12 +96,32 @@ export class AiGatewayService {
       payload.requestId,
     );
 
+    const connectionTimeoutMs =
+      this.configService.get<number>('aiService.connectionTimeoutMs') ?? 5000;
+    const firstTokenTimeoutMs =
+      this.configService.get<number>('aiService.firstTokenTimeoutMs') ?? 15000;
+    const idleTimeoutMs = this.configService.get<number>('aiService.idleTimeoutMs') ?? 20000;
+    const maxGenerationTimeoutMs =
+      this.configService.get<number>('aiService.maxGenerationTimeoutMs') ?? 120000;
+
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    let connectionTimer: NodeJS.Timeout | null = null;
+    let firstTokenTimer: NodeJS.Timeout | null = null;
+    let idleTimer: NodeJS.Timeout | null = null;
+    let maxGenTimer: NodeJS.Timeout | null = null;
+    let receivedFirstEvent = false;
 
     if (abortSignal) {
       abortSignal.addEventListener('abort', () => controller.abort(), { once: true });
     }
+
+    // Phase 1: Connection timeout
+    connectionTimer = setTimeout(() => {
+      controller.abort();
+      this.logger.warn(
+        `FastAPI connection timed out after ${connectionTimeoutMs}ms for req ${payload.requestId}`,
+      );
+    }, connectionTimeoutMs);
 
     try {
       const response = await fetch(url.toString(), {
@@ -116,9 +135,32 @@ export class AiGatewayService {
         signal: controller.signal,
       });
 
+      // Clear connection timer once HTTP response received
+      if (connectionTimer) {
+        clearTimeout(connectionTimer);
+        connectionTimer = null;
+      }
+
       if (!response.ok || !response.body) {
         throw new Error(`FastAPI AI Service HTTP error ${response.status}`);
       }
+
+      // Phase 2: First token and Max generation timeouts
+      maxGenTimer = setTimeout(() => {
+        controller.abort();
+        this.logger.warn(
+          `FastAPI max generation time exceeded (${maxGenerationTimeoutMs}ms) for req ${payload.requestId}`,
+        );
+      }, maxGenerationTimeoutMs);
+
+      firstTokenTimer = setTimeout(() => {
+        if (!receivedFirstEvent) {
+          controller.abort();
+          this.logger.warn(
+            `FastAPI first token timed out after ${firstTokenTimeoutMs}ms for req ${payload.requestId}`,
+          );
+        }
+      }, firstTokenTimeoutMs);
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
@@ -133,12 +175,56 @@ export class AiGatewayService {
         if (done) break;
 
         buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n\n');
-        buffer = lines.pop() ?? '';
 
-        for (const rawChunk of lines) {
+        // Parse complete SSE events separated by \r\n\r\n or \n\n
+        while (true) {
+          const crlfIdx = buffer.indexOf('\r\n\r\n');
+          const lfIdx = buffer.indexOf('\n\n');
+          let boundaryIdx = -1;
+          let delimiterLen = 2;
+
+          if (crlfIdx !== -1 && lfIdx !== -1) {
+            if (crlfIdx <= lfIdx) {
+              boundaryIdx = crlfIdx;
+              delimiterLen = 4;
+            } else {
+              boundaryIdx = lfIdx;
+              delimiterLen = 2;
+            }
+          } else if (crlfIdx !== -1) {
+            boundaryIdx = crlfIdx;
+            delimiterLen = 4;
+          } else if (lfIdx !== -1) {
+            boundaryIdx = lfIdx;
+            delimiterLen = 2;
+          }
+
+          if (boundaryIdx === -1) {
+            break;
+          }
+
+          const rawChunk = buffer.slice(0, boundaryIdx);
+          buffer = buffer.slice(boundaryIdx + delimiterLen);
+
           const parsedEvent = this.parseSseChunk(rawChunk);
           if (parsedEvent) {
+            if (!receivedFirstEvent) {
+              receivedFirstEvent = true;
+              if (firstTokenTimer) {
+                clearTimeout(firstTokenTimer);
+                firstTokenTimer = null;
+              }
+            }
+
+            // Reset idle timeout on each valid chunk received
+            if (idleTimer) clearTimeout(idleTimer);
+            idleTimer = setTimeout(() => {
+              controller.abort();
+              this.logger.warn(
+                `FastAPI stream idle timeout (${idleTimeoutMs}ms) for req ${payload.requestId}`,
+              );
+            }, idleTimeoutMs);
+
             yield parsedEvent;
           }
         }
@@ -154,7 +240,10 @@ export class AiGatewayService {
       this.logger.warn(`FastAPI stream error for req ${payload.requestId}: ${err?.message}`);
       throw err;
     } finally {
-      clearTimeout(timeout);
+      if (connectionTimer) clearTimeout(connectionTimer);
+      if (firstTokenTimer) clearTimeout(firstTokenTimer);
+      if (idleTimer) clearTimeout(idleTimer);
+      if (maxGenTimer) clearTimeout(maxGenTimer);
     }
   }
 
@@ -217,26 +306,126 @@ export class AiGatewayService {
     }
   }
 
-  private parseSseChunk(chunk: string): TutorStreamEvent | null {
-    const trimmed = chunk.trim();
-    if (!trimmed) return null;
+  /**
+   * Fetches vector store and ingestion statistics from FastAPI.
+   */
+  async getIngestionStats(): Promise<any> {
+    const baseUrl =
+      this.configService.get<string>('aiService.baseUrl')?.replace(/\/+$/, '') ??
+      'http://localhost:8000/api/v1';
+    const path = '/api/v1/ingestion/stats';
+    const url = new URL(path, baseUrl);
 
+    const signedHeaders = this.hmacSignerService.generateSignedHeaders('GET', path, '', 'stats-req');
+
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        ...signedHeaders,
+      },
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!response.ok) {
+      throw new Error(`FastAPI Ingestion Stats error ${response.status}`);
+    }
+
+    return await response.json();
+  }
+
+  /**
+   * Ingests a structured textbook chunk into FastAPI vector store.
+   */
+  async ingestTextbookChunk(payload: Record<string, any>): Promise<any> {
+    const baseUrl =
+      this.configService.get<string>('aiService.baseUrl')?.replace(/\/+$/, '') ??
+      'http://localhost:8000/api/v1';
+    const path = '/api/v1/ingestion/text';
+    const url = new URL(path, baseUrl);
+
+    const requestBody = JSON.stringify(payload);
+    const signedHeaders = this.hmacSignerService.generateSignedHeaders(
+      'POST',
+      path,
+      requestBody,
+      payload.book_id || 'ingest-req',
+    );
+
+    const response = await fetch(url.toString(), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...signedHeaders,
+      },
+      body: requestBody,
+      signal: AbortSignal.timeout(15000),
+    });
+
+    if (!response.ok) {
+      throw new Error(`FastAPI Textbook Ingestion error ${response.status}`);
+    }
+
+    return await response.json();
+  }
+
+  /**
+   * Deletes a book index from FastAPI vector store.
+   */
+  async deleteBookIndex(bookId: string): Promise<any> {
+    const baseUrl =
+      this.configService.get<string>('aiService.baseUrl')?.replace(/\/+$/, '') ??
+      'http://localhost:8000/api/v1';
+    const path = `/api/v1/ingestion/books/${encodeURIComponent(bookId)}`;
+    const url = new URL(path, baseUrl);
+
+    const signedHeaders = this.hmacSignerService.generateSignedHeaders('DELETE', path, '', bookId);
+
+    const response = await fetch(url.toString(), {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        ...signedHeaders,
+      },
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      throw new Error(`FastAPI Delete Book error ${response.status}`);
+    }
+
+    return await response.json();
+  }
+
+  public parseSseChunk(chunk: string): TutorStreamEvent | null {
+    const lines = chunk.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
     let eventName: TutorStreamEvent['event'] = 'delta';
-    let dataStr = '';
+    const dataLines: string[] = [];
 
-    for (const line of trimmed.split('\n')) {
+    for (const rawLine of lines) {
+      const line = rawLine.trimEnd();
+      if (!line || line.startsWith(':')) {
+        // Skip empty lines or SSE comments (e.g. : keep-alive / ping)
+        continue;
+      }
+
       if (line.startsWith('event:')) {
         const name = line.slice('event:'.length).trim();
         if (['metadata', 'delta', 'citation', 'done', 'error'].includes(name)) {
           eventName = name as TutorStreamEvent['event'];
         }
       } else if (line.startsWith('data:')) {
-        dataStr += line.slice('data:'.length).trim();
+        let dataContent = line.slice('data:'.length);
+        if (dataContent.startsWith(' ')) {
+          dataContent = dataContent.slice(1);
+        }
+        dataLines.push(dataContent);
       }
     }
 
-    if (!dataStr) return null;
+    if (dataLines.length === 0) return null;
 
+    const dataStr = dataLines.join('\n');
     let parsedData: any;
     try {
       parsedData = JSON.parse(dataStr);

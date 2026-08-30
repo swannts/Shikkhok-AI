@@ -1,3 +1,4 @@
+import asyncio
 import time
 from collections.abc import AsyncIterator, Callable
 from pathlib import Path
@@ -10,6 +11,7 @@ from app.services.model_router import ModelRouter
 from app.services.moderation_service import ModerationService
 from app.services.output_safety import OutputSafetyService
 from app.services.rag_service import RagService
+from app.services.streaming_safety import StreamingOutputSafetyFilter
 
 
 class TutorService:
@@ -49,13 +51,16 @@ class TutorService:
     ) -> list[dict[str, str]]:
         system_base = self.system_en if request.language == "en" else self.system_bn
 
-        # Build context segment with source tokens
+        # Build context segment without inventing fake learner grade levels
         context_parts: list[str] = []
         if request.subject_title or request.chapter_title or request.lesson_title:
+            class_str = (
+                f"(শ্রেণি {request.class_level})" if request.class_level else "(শ্রেণি নির্ধারিত নয়)"
+            )
             context_parts.append(
                 f"পাঠ পরিচিতি: বিষয়: {request.subject_title or 'সাধারণ'}, "
                 f"অধ্যায়: {request.chapter_title or 'নির্ধারিত নয়'}, "
-                f"পাঠ: {request.lesson_title or 'নির্ধারিত নয়'} (শ্রেণি {request.class_level or 8})"
+                f"পাঠ: {request.lesson_title or 'নির্ধারিত নয়'} {class_str}"
             )
 
         if retrieved_chunks:
@@ -91,8 +96,17 @@ class TutorService:
         self,
         request: TutorGenerationRequest,
         is_disconnected: Callable[[], bool] | None = None,
+        cancellation_event: asyncio.Event | None = None,
     ) -> AsyncIterator[TutorStreamEvent]:
         started_at = time.time()
+
+        # Helper to detect client cancellation
+        def check_cancelled() -> bool:
+            if is_disconnected and is_disconnected():
+                return True
+            if cancellation_event and cancellation_event.is_set():
+                return True
+            return False
 
         # 1. Input Moderation Check
         moderation = self.moderation_service.moderate_input(request.message)
@@ -111,6 +125,7 @@ class TutorService:
                     "category": moderation.category,
                     "conversationId": request.conversation_id,
                     "fallbackUsed": False,
+                    "grounded": False,
                 },
             )
             yield TutorStreamEvent(
@@ -135,12 +150,29 @@ class TutorService:
             lesson_id=request.lesson_id,
             top_k=3,
         )
-        retrieved_chunks = await self.rag_service.search(filter_params)
 
-        # 3. Assemble Grounded Messages
+        retrieval_start = time.time()
+        retrieved_chunks: list[RetrievedChunk] = []
+        retrieval_unavailable = False
+        try:
+            retrieved_chunks = await self.rag_service.search(filter_params)
+        except Exception as rag_err:
+            logger.warning(
+                f"RAG retrieval failed for request {request.request_id}: {rag_err}; proceeding ungrounded"
+            )
+            retrieval_unavailable = True
+
+        retrieval_latency_ms = int((time.time() - retrieval_start) * 1000)
+
+        # If client cancelled before generation starts, exit cleanly
+        if check_cancelled():
+            logger.info(f"Client cancelled before generation for request {request.request_id}")
+            return
+
+        # 3. Assemble Prompt Messages
         messages = self._build_prompt_messages(request, retrieved_chunks)
 
-        # 4. Stream from ModelRouter
+        # 4. Stream from ModelRouter with incremental output safety filter
         routed = await self.model_router.stream_chat(messages)
 
         yield TutorStreamEvent(
@@ -152,41 +184,70 @@ class TutorService:
                 "classLevel": request.class_level,
                 "subject": request.subject_title,
                 "fallbackUsed": routed.fallback_used,
+                "grounded": bool(retrieved_chunks),
+                "retrievalUnavailable": retrieval_unavailable,
+                "retrievalLatencyMs": retrieval_latency_ms,
             },
         )
 
+        safety_filter = StreamingOutputSafetyFilter()
         full_content = ""
+        client_cancelled = False
+
         try:
             async for delta in routed.stream:
-                if is_disconnected and is_disconnected():
+                if check_cancelled():
                     logger.info(
-                        f"Client disconnected during generation for request {request.request_id}"
+                        f"Client cancelled during generation for request {request.request_id}"
                     )
+                    client_cancelled = True
                     break
 
                 full_content += delta.text
-                yield TutorStreamEvent(
-                    event="delta",
-                    data={"text": delta.text},
-                )
+                safe_chunk = safety_filter.feed(delta.text)
+                if safe_chunk:
+                    yield TutorStreamEvent(
+                        event="delta",
+                        data={"text": safe_chunk},
+                    )
+
+            if not client_cancelled:
+                final_chunk = safety_filter.finalize()
+                if final_chunk:
+                    yield TutorStreamEvent(
+                        event="delta",
+                        data={"text": final_chunk},
+                    )
+
         except Exception as stream_err:
-            logger.error(f"Error during LLM token streaming: {stream_err}")
+            logger.error(
+                f"Error during LLM token streaming for request {request.request_id}: {stream_err}"
+            )
             yield TutorStreamEvent(
                 event="error",
                 data={
-                    "code": "LLM_STREAM_ERROR",
-                    "message": str(stream_err),
+                    "code": "AI_STREAM_FAILED",
+                    "message": "AI generation is temporarily unavailable.",
                     "banglaMessage": "এআই টিউটরের সাথে সংযোগ সাময়িকভাবে ব্যাহত হয়েছে।",
                 },
             )
             return
 
-        # 5. Output Safety & Sanitization
+        # If client cancelled, do NOT emit citations or done: stop!
+        if client_cancelled:
+            logger.info(
+                f"Suppressing done and citation events due to client cancellation for {request.request_id}"
+            )
+            return
+
+        # 5. Final Output Safety Validation
         safety_check = self.output_safety_service.validate_and_sanitize(full_content)
 
-        # 6. Extract Grounded Citations
-        citations = self.citation_service.extract_citations(
-            safety_check.sanitized_text, retrieved_chunks
+        # 6. Extract Grounded Citations (only from real retrieved chunks)
+        citations = (
+            self.citation_service.extract_citations(safety_check.sanitized_text, retrieved_chunks)
+            if retrieved_chunks
+            else []
         )
         for c in citations:
             yield TutorStreamEvent(

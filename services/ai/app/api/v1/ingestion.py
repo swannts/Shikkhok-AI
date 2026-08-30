@@ -3,21 +3,14 @@ from typing import Any
 from fastapi import APIRouter, Depends, File, Form, UploadFile
 from pydantic import BaseModel
 
+from app.core.dependencies import get_embedding_provider, get_vector_store
 from app.core.security import verify_service_hmac
 from app.ingestion.models import DocumentMetadata, ExtractedPage, IngestionJobResult
 from app.ingestion.pipeline import IngestionPipeline
-from app.providers.embeddings.primary import DeterministicEmbeddingProvider
-from app.providers.vector_store.persistent import PersistentVectorStore
+from app.providers.embeddings.base import EmbeddingProvider
+from app.providers.vector_store.base import VectorStore
 
 router = APIRouter(prefix="/ingestion", tags=["Ingestion"])
-
-# Shared singleton persistent vector store and embedding provider
-vector_store_instance = PersistentVectorStore()
-embedding_provider_instance = DeterministicEmbeddingProvider()
-pipeline_instance = IngestionPipeline(
-    embedding_provider=embedding_provider_instance,
-    vector_store=vector_store_instance,
-)
 
 
 class TextIngestRequest(BaseModel):
@@ -36,9 +29,15 @@ class IngestionStats(BaseModel):
 async def ingest_structured_text(
     payload: TextIngestRequest,
     _caller: str = Depends(verify_service_hmac),
+    vector_store: VectorStore = Depends(get_vector_store),
+    embedding_provider: EmbeddingProvider = Depends(get_embedding_provider),
 ) -> IngestionJobResult:
     """Ingests structured curriculum pages into the persistent vector store."""
-    return await pipeline_instance.ingest_pages(pages=payload.pages, metadata=payload.metadata)
+    pipeline = IngestionPipeline(
+        embedding_provider=embedding_provider,
+        vector_store=vector_store,
+    )
+    return await pipeline.ingest_pages(pages=payload.pages, metadata=payload.metadata)
 
 
 @router.post("/pdf", response_model=IngestionJobResult)
@@ -54,6 +53,8 @@ async def ingest_pdf_upload(
     lesson_title: str | None = Form(None),
     medium: str = Form("bangla"),
     _caller: str = Depends(verify_service_hmac),
+    vector_store: VectorStore = Depends(get_vector_store),
+    embedding_provider: EmbeddingProvider = Depends(get_embedding_provider),
 ) -> IngestionJobResult:
     """Ingests an uploaded NCTB PDF textbook into the vector store."""
     pdf_bytes = await file.read()
@@ -68,19 +69,25 @@ async def ingest_pdf_upload(
         lesson_title=lesson_title,
         medium="bangla" if medium == "bangla" else "english",
     )
-    return await pipeline_instance.ingest_pdf_bytes(pdf_bytes=pdf_bytes, metadata=metadata)
+    pipeline = IngestionPipeline(
+        embedding_provider=embedding_provider,
+        vector_store=vector_store,
+    )
+    return await pipeline.ingest_pdf_bytes(pdf_bytes=pdf_bytes, metadata=metadata)
 
 
 @router.get("/stats", response_model=IngestionStats)
 async def get_ingestion_stats(
     _caller: str = Depends(verify_service_hmac),
+    vector_store: VectorStore = Depends(get_vector_store),
 ) -> IngestionStats:
     """Returns indexed chunk statistics from the vector store."""
-    total = await vector_store_instance.count()
+    total = await vector_store.count()
     class_breakdown: dict[str, int] = {}
     subject_breakdown: dict[str, int] = {}
 
-    for chunk in vector_store_instance.chunks:
+    chunks = getattr(vector_store, "chunks", [])
+    for chunk in chunks:
         c_lvl = f"Class {chunk.get('class_level') or 'Unknown'}"
         class_breakdown[c_lvl] = class_breakdown.get(c_lvl, 0) + 1
 
@@ -89,7 +96,7 @@ async def get_ingestion_stats(
 
     return IngestionStats(
         total_chunks=total,
-        vector_store_name=vector_store_instance.name,
+        vector_store_name=vector_store.name,
         class_breakdown=class_breakdown,
         subject_breakdown=subject_breakdown,
     )
@@ -99,7 +106,8 @@ async def get_ingestion_stats(
 async def delete_book_chunks(
     book_id: str,
     _caller: str = Depends(verify_service_hmac),
+    vector_store: VectorStore = Depends(get_vector_store),
 ) -> dict[str, Any]:
     """Deletes all indexed chunks for a specific textbook source."""
-    deleted = await vector_store_instance.delete_by_book_id(book_id)
+    deleted = await vector_store.delete_by_book_id(book_id)
     return {"status": "ok", "deleted_chunks": deleted, "book_id": book_id}

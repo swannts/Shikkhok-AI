@@ -1,0 +1,24 @@
+{
+  "source_book": "English Grammar and Composition (Class 8)",
+  "book_id": "nctb_english_class_8",
+  "class_level": 8,
+  "subject_id": "english",
+  "subject_title": "English Grammar",
+  "chapter_id": "voice_and_tenses",
+  "chapter_title": "Voice Changing and Tense Rules",
+  "medium": "english",
+  "pages": [
+    {
+      "page_number": 52,
+      "text": "Unit 5: Active and Passive Voice. In active voice, the subject performs the action expressed by the verb (e.g., 'Rafi reads the book'). In passive voice, the subject receives the action of the verb (e.g., 'The book is read by Rafi'). General rule: Object of active verb becomes the subject of passive verb + appropriate form of 'be' verb + Past Participle (V3) of the main verb + by + active subject in objective form."
+    },
+    {
+      "page_number": 53,
+      "text": "Tense-specific transformations: Present Continuous: 'She is writing a letter' → 'A letter is being written by her'. Past Simple: 'They played football yesterday' → 'Football was played by them yesterday'. Present Perfect: 'He has finished the homework' → 'The homework has been finished by him'."
+    },
+    {
+      "page_number": 54,
+      "text": "Imperative Sentences: When changing imperative sentences into passive voice, begin with 'Let' followed by the object + 'be' + Past Participle. Example: 'Do the work' → 'Let the work be done'. 'Do not open the door' → 'Let not the door be opened'."
+    }
+  ]
+}

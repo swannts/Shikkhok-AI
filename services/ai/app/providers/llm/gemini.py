@@ -14,11 +14,21 @@ class GeminiLlmProvider:
     model: str = "gemini-1.5-pro"
 
     def __init__(
-        self, api_key: str, model: str = "gemini-1.5-pro", timeout_seconds: float = 20.0
+        self,
+        api_key: str,
+        model: str = "gemini-1.5-pro",
+        timeout_seconds: float = 20.0,
+        client: httpx.AsyncClient | None = None,
     ) -> None:
         self.api_key = api_key
         self.model = model
         self.timeout_seconds = timeout_seconds
+        self._client = client
+
+    async def _get_client(self) -> httpx.AsyncClient:
+        if self._client and not self._client.is_closed:
+            return self._client
+        return httpx.AsyncClient(timeout=self.timeout_seconds)
 
     def _convert_messages(self, messages: list[dict[str, str]]) -> list[dict[str, Any]]:
         contents: list[dict[str, Any]] = []
@@ -50,17 +60,22 @@ class GeminiLlmProvider:
             },
         }
 
+        client = await self._get_client()
+        should_close = client is not self._client
+
         try:
-            async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
-                response = await client.post(url, json=payload)
-                if response.status_code != 200:
-                    raise ProviderUnavailableError(
-                        f"Gemini API returned status {response.status_code}",
-                        details={"body": response.text[:200]},
-                    )
-                data = response.json()
-                text = data["candidates"][0]["content"]["parts"][0]["text"]
-                return str(text)
+            response = await client.post(url, json=payload)
+            if response.status_code != 200:
+                raise ProviderUnavailableError(
+                    f"Gemini API returned status {response.status_code}",
+                    details={"body": response.text[:200]},
+                )
+            data = response.json()
+            candidates = data.get("candidates", [])
+            if not candidates or "content" not in candidates[0]:
+                raise ProviderUnavailableError("Gemini returned empty or blocked response")
+            text = candidates[0]["content"]["parts"][0]["text"]
+            return str(text)
         except httpx.TimeoutException:
             raise ProviderTimeoutError(
                 f"Gemini API timed out after {self.timeout_seconds}s"
@@ -69,6 +84,9 @@ class GeminiLlmProvider:
             if isinstance(e, (ProviderUnavailableError, ProviderTimeoutError)):
                 raise
             raise ProviderUnavailableError(f"Gemini error: {e}") from e
+        finally:
+            if should_close:
+                await client.aclose()
 
     async def stream(
         self,
@@ -88,36 +106,38 @@ class GeminiLlmProvider:
             },
         }
 
+        client = await self._get_client()
+        should_close = client is not self._client
+
         try:
-            async with httpx.AsyncClient(timeout=self.timeout_seconds) as client:
-                async with client.stream("POST", url, json=payload) as response:
-                    if response.status_code != 200:
-                        body_preview = await response.aread()
-                        raise ProviderUnavailableError(
-                            f"Gemini stream returned status {response.status_code}",
-                            details={"body": body_preview.decode("utf-8", errors="ignore")[:200]},
-                        )
+            async with client.stream("POST", url, json=payload) as response:
+                if response.status_code != 200:
+                    body_preview = await response.aread()
+                    raise ProviderUnavailableError(
+                        f"Gemini stream returned status {response.status_code}",
+                        details={"body": body_preview.decode("utf-8", errors="ignore")[:200]},
+                    )
 
-                    async for line in response.aiter_lines():
-                        line = line.strip()
-                        if not line or not line.startswith("data:"):
-                            continue
+                async for line in response.aiter_lines():
+                    line = line.strip()
+                    if not line or not line.startswith("data:"):
+                        continue
 
-                        data_str = line[len("data:") :].strip()
-                        if data_str == "[DONE]":
-                            break
+                    data_str = line[len("data:") :].strip()
+                    if data_str == "[DONE]":
+                        break
 
-                        try:
-                            chunk = json.loads(data_str)
-                            candidates = chunk.get("candidates", [])
-                            if candidates:
-                                parts = candidates[0].get("content", {}).get("parts", [])
-                                for part in parts:
-                                    text = part.get("text", "")
-                                    if text:
-                                        yield LlmTextDelta(text=text)
-                        except Exception as parse_err:
-                            logger.warning(f"Error parsing Gemini SSE line: {parse_err}")
+                    try:
+                        chunk = json.loads(data_str)
+                        candidates = chunk.get("candidates", [])
+                        if candidates:
+                            parts = candidates[0].get("content", {}).get("parts", [])
+                            for part in parts:
+                                text = part.get("text", "")
+                                if text:
+                                    yield LlmTextDelta(text=text)
+                    except Exception as parse_err:
+                        logger.warning(f"Error parsing Gemini SSE line: {parse_err}")
         except httpx.TimeoutException:
             raise ProviderTimeoutError(
                 f"Gemini streaming timed out after {self.timeout_seconds}s"
@@ -126,3 +146,6 @@ class GeminiLlmProvider:
             if isinstance(e, (ProviderUnavailableError, ProviderTimeoutError)):
                 raise
             raise ProviderUnavailableError(f"Gemini streaming failed: {e}") from e
+        finally:
+            if should_close:
+                await client.aclose()

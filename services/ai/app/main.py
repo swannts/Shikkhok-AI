@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 
 from app.api.v1.router import api_v1_router
 from app.core.config import settings
+from app.core.container import build_service_container
 from app.core.exceptions import AiServiceError
 from app.core.logging import logger
 from app.core.request_context import get_request_id, set_request_id
@@ -20,8 +21,11 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         f"Starting {settings.app_name} in {settings.app_env} mode on port {settings.port}",
         extra={"extra_data": {"env": settings.app_env, "llmProvider": settings.llm_provider}},
     )
+    container = build_service_container()
+    app.state.container = container
     yield
     logger.info(f"Shutting down {settings.app_name}")
+    await container.aclose()
 
 
 app = FastAPI(

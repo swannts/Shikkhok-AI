@@ -1,4 +1,15 @@
-import { Body, Controller, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -10,6 +21,7 @@ import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { UserRole } from '../users/enums/user-role.enum';
 import { AdminService } from './admin.service';
 import { AdminAuditService } from './admin-audit.service';
+import { AiGatewayService } from '../ai-gateway/services/ai-gateway.service';
 import { AdminListUsersQueryDto } from './dto/admin-list-users-query.dto';
 import { AdminUpdateUserStatusDto } from './dto/admin-update-user-status.dto';
 import { AdminCreateSubjectDto } from './dto/admin-create-subject.dto';
@@ -25,7 +37,71 @@ export class AdminController {
   constructor(
     private readonly adminService: AdminService,
     private readonly auditService: AdminAuditService,
+    private readonly aiGatewayService: AiGatewayService,
   ) {}
+
+  @Get('ai/health')
+  @ApiOperation({ summary: 'Check real-time health and reachability of dedicated FastAPI AI service' })
+  @ApiResponse({ status: 200, description: 'AI service health status' })
+  async getAiHealth() {
+    const isEnabled = this.aiGatewayService.isServiceEnabled();
+    const isHealthy = await this.aiGatewayService.healthCheck();
+    return {
+      enabled: isEnabled,
+      healthy: isHealthy,
+      status: isHealthy ? 'healthy' : isEnabled ? 'unhealthy' : 'disabled',
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  @Get('ai/stats')
+  @ApiOperation({ summary: 'Get vector store and curriculum ingestion statistics' })
+  @ApiResponse({ status: 200, description: 'Vector store ingestion statistics' })
+  async getAiStats() {
+    return this.aiGatewayService.getIngestionStats();
+  }
+
+  @Post('ai/ingest')
+  @ApiOperation({ summary: 'Ingest raw textbook content directly into AI vector store' })
+  @ApiResponse({ status: 201, description: 'Content successfully ingested' })
+  async ingestTextbook(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Body() payload: Record<string, any>,
+    @Req() req?: Request,
+  ) {
+    const result = await this.aiGatewayService.ingestTextbookChunk(payload);
+    await this.auditService.recordAudit({
+      actorUserId: adminUser.userId,
+      action: 'INGEST_CURRICULUM_CHUNK',
+      resourceType: 'VECTOR_STORE',
+      resourceId: payload.book_id || 'unknown_book',
+      metadata: { bookId: payload.book_id, pageStart: payload.page_start },
+      ipAddress: req?.ip,
+      userAgent: req?.headers['user-agent'] as string | undefined,
+    });
+    return result;
+  }
+
+  @Delete('ai/books/:bookId')
+  @ApiOperation({ summary: 'Delete a textbook collection index from the AI vector store' })
+  @ApiResponse({ status: 200, description: 'Book index deleted' })
+  async deleteBookIndex(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Param('bookId') bookId: string,
+    @Req() req?: Request,
+  ) {
+    const result = await this.aiGatewayService.deleteBookIndex(bookId);
+    await this.auditService.recordAudit({
+      actorUserId: adminUser.userId,
+      action: 'DELETE_CURRICULUM_BOOK_INDEX',
+      resourceType: 'VECTOR_STORE',
+      resourceId: bookId,
+      metadata: { bookId },
+      ipAddress: req?.ip,
+      userAgent: req?.headers['user-agent'] as string | undefined,
+    });
+    return result;
+  }
 
   @Get('metrics/overview')
   @ApiOperation({

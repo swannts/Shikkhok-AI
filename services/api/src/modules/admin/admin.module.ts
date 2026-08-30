@@ -6,6 +6,7 @@ import { CurriculumModule } from '../curriculum/curriculum.module';
 import { ExamsModule } from '../exams/exams.module';
 import { HomeworkModule } from '../homework/homework.module';
 import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
+import { AiGatewayModule } from '../ai-gateway/ai-gateway.module';
 import { User, UserSchema } from '../users/schemas/user.schema';
 import { Subject, SubjectSchema } from '../curriculum/schemas/subject.schema';
 import { Chapter, ChapterSchema } from '../curriculum/schemas/chapter.schema';
@@ -37,6 +38,7 @@ import { AdminController } from './admin.controller';
     ExamsModule,
     HomeworkModule,
     SubscriptionsModule,
+    AiGatewayModule,
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Subject.name, schema: SubjectSchema },
