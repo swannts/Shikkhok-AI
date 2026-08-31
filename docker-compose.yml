@@ -64,7 +64,7 @@ services:
       AI_SERVICE_BASE_URL: ${AI_SERVICE_BASE_URL:-http://ai:8000/api/v1}
       AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:4000/api/v1/health/live || exit 1"]
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:4000/api/v1/health/live').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))\""]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -89,12 +89,15 @@ services:
       PORT: 8000
       APP_ENV: ${NODE_ENV:-development}
       INTERNAL_SERVICE_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
+      ALLOW_MOCK_PROVIDERS: ${ALLOW_MOCK_PROVIDERS:-false}
       NEST_API_BASE_URL: http://api:4000/api/v1
       LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
       LLM_API_KEY: ${GEMINI_API_KEY}
       LLM_MODEL: ${LLM_MODEL:-gemini-1.5-pro}
       EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-gemini}
       EMBEDDING_API_KEY: ${GEMINI_API_KEY}
+      VECTOR_STORE_PROVIDER: ${VECTOR_STORE_PROVIDER:-persistent}
+      VECTOR_STORE_ALLOW_DEMO_SEED: ${VECTOR_STORE_ALLOW_DEMO_SEED:-false}
     healthcheck:
       test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')\" || exit 1"]
       interval: 10s
