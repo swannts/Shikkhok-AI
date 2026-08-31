@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../controllers/textbook_download_controller.dart';
+import '../../domain/entities/download_task.dart';
 
-class OfflineDownloadsPage extends StatefulWidget {
+class OfflineDownloadsPage extends ConsumerStatefulWidget {
   const OfflineDownloadsPage({super.key});
 
   @override
-  State<OfflineDownloadsPage> createState() => _OfflineDownloadsPageState();
+  ConsumerState<OfflineDownloadsPage> createState() => _OfflineDownloadsPageState();
 }
 
-class _OfflineDownloadsPageState extends State<OfflineDownloadsPage> {
-  final List<(String, String, IconData)> _downloads = [
-    ('সরল সমীকরণ (অধ্যায় ৪)', '৪২ MB • গণিত', Icons.play_circle_fill_rounded),
-    ('বীজগণিতীয় সূত্রাবলি (অধ্যায় ৫)', '৫৮ MB • গণিত', Icons.menu_book_rounded),
-    ('Photosynthesis পাঠ', '২৫ MB • বিজ্ঞান', Icons.video_library_rounded),
-  ];
-
+class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final downloads = _downloads;
+    final state = ref.watch(offlineTextbooksProvider);
+    final notifier = ref.read(offlineTextbooksProvider.notifier);
+
+    final storageMb = (state.storageUsedBytes / (1024 * 1024)).toStringAsFixed(1);
+    final completedBooks = state.availableTextbooks.where((b) {
+      final task = state.activeDownloads[b.id];
+      return task != null && task.status == DownloadStatus.completed;
+    }).toList();
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -29,17 +33,24 @@ class _OfflineDownloadsPageState extends State<OfflineDownloadsPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
           l10n.offlineDownloadsTitle,
           style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh_rounded, color: AppColors.primary),
+            onPressed: () => notifier.loadTextbooks(),
+            tooltip: 'রিফ্রেশ করুন',
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -54,6 +65,13 @@ class _OfflineDownloadsPageState extends State<OfflineDownloadsPage> {
                   color: AppColors.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: AppColors.border),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.03),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,108 +81,247 @@ class _OfflineDownloadsPageState extends State<OfflineDownloadsPage> {
                       children: [
                         const Row(
                           children: [
-                            Icon(Icons.sd_storage_rounded,
-                                color: AppColors.primary, size: 20),
+                            Icon(Icons.sd_storage_rounded, color: AppColors.primary, size: 20),
                             SizedBox(width: 8),
-                            Text('স্টোরেজ ব্যবহার',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.textPrimary)),
+                            Text(
+                              'স্টোরেজ ব্যবহার',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
                           ],
                         ),
-                        Text(l10n.storageUsage('১.২ GB', '৮.০ GB'),
-                            style: const TextStyle(
-                                fontSize: 12, color: AppColors.textSecondary)),
+                        Text(
+                          '$storageMb MB ব্যবহৃত',
+                          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                        ),
                       ],
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: const LinearProgressIndicator(
-                        value: 0.15,
+                      child: LinearProgressIndicator(
+                        value: (state.storageUsedBytes / (500 * 1024 * 1024)).clamp(0.05, 1.0),
                         backgroundColor: AppColors.border,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                         minHeight: 8,
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    // 1-Click Batch Download Button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: state.isLoading ? null : () => notifier.downloadAllForGrade(),
+                        icon: const Icon(Icons.download_for_offline_rounded, color: Colors.white),
+                        label: const Text(
+                          'শ্রেণীর সকল পাঠ্যবই একসাথে ডাউনলোড করুন',
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: AppSpacing.lg),
-              const Text(
-                'সংরক্ষিত ফাইলসমূহ (৩টি)',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary),
+
+              Text(
+                'সংরক্ষিত বইসমূহ (${completedBooks.length}/${state.availableTextbooks.length}টি ডাউনলোডকৃত)',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
               ),
-              const SizedBox(height: AppSpacing.md),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: downloads.length,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 12),
-                itemBuilder: (context, index) {
-                  final item = downloads[index];
-                  return Container(
-                    padding: const EdgeInsets.all(AppSpacing.md),
-                    decoration: BoxDecoration(
-                      color: AppColors.surface,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: AppColors.border),
+              const SizedBox(height: AppSpacing.sm),
+
+              if (state.isLoading)
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(32),
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              else if (state.availableTextbooks.isEmpty)
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'কোনো পাঠ্যবই পাওয়া যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করুন।',
+                      style: TextStyle(color: AppColors.textSecondary),
                     ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withAlpha(20),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Icon(item.$3, color: AppColors.primary),
+                  ),
+                )
+              else
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.availableTextbooks.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.sm),
+                  itemBuilder: (context, index) {
+                    final book = state.availableTextbooks[index];
+                    final task = state.activeDownloads[book.id];
+                    final isDownloading = task?.status == DownloadStatus.downloading;
+                    final isCompleted = task?.status == DownloadStatus.completed;
+                    final sizeMb = ((book.latestManifest?.downloadSizeBytes ?? book.fileSizeBytes ?? 15728640) /
+                            (1024 * 1024))
+                        .toStringAsFixed(1);
+
+                    return Container(
+                      padding: const EdgeInsets.all(AppSpacing.md),
+                      decoration: BoxDecoration(
+                        color: AppColors.surface,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isCompleted
+                              ? AppColors.success.withValues(alpha: 0.4)
+                              : AppColors.border,
                         ),
-                        const SizedBox(width: AppSpacing.md),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             children: [
-                              Text(item.$1,
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary)),
-                              const SizedBox(height: 2),
-                              Text(item.$2,
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      color: AppColors.textSecondary)),
+                              Container(
+                                width: 44,
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  color: isCompleted
+                                      ? AppColors.success.withValues(alpha: 0.1)
+                                      : AppColors.primary.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(
+                                  isCompleted
+                                      ? Icons.check_circle_rounded
+                                      : Icons.menu_book_rounded,
+                                  color: isCompleted ? AppColors.success : AppColors.primary,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      book.title,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.textPrimary,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '$sizeMb MB • শ্রেণি ${book.classLevel}',
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.textSecondary,
+                                          ),
+                                        ),
+                                        if (isCompleted && (task?.isChecksumVerified ?? true)) ...[
+                                          const SizedBox(width: 6),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6, vertical: 1),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.success.withValues(alpha: 0.1),
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: const Text(
+                                              'NCTB যাচাইকৃত',
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                color: AppColors.success,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              if (isCompleted) ...[
+                                IconButton(
+                                  icon: const Icon(Icons.delete_outline_rounded,
+                                      color: AppColors.error, size: 20),
+                                  onPressed: () => notifier.deleteBook(book.id),
+                                  tooltip: 'মুছে ফেলুন',
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.chrome_reader_mode_rounded,
+                                      color: AppColors.primary, size: 22),
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('অফলাইনে ${book.title} খোলা হচ্ছে...'),
+                                        duration: const Duration(seconds: 2),
+                                      ),
+                                    );
+                                  },
+                                  tooltip: 'অফলাইনে পড়ুন',
+                                ),
+                              ] else if (isDownloading) ...[
+                                IconButton(
+                                  icon: const Icon(Icons.pause_circle_rounded,
+                                      color: AppColors.warning, size: 28),
+                                  onPressed: () => notifier.pauseDownload(book.id),
+                                  tooltip: 'স্থগিত করুন',
+                                ),
+                              ] else ...[
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_circle_down_rounded,
+                                      color: AppColors.primary, size: 28),
+                                  onPressed: () => notifier.downloadBook(book),
+                                  tooltip: 'ডাউনলোড করুন',
+                                ),
+                              ],
                             ],
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete_outline_rounded,
-                              color: Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              _downloads.removeAt(index);
-                            });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('ডাউনলোডটি মুছে ফেলা হয়েছে।'),
-                                duration: Duration(seconds: 1),
+                          if (isDownloading && task != null) ...[
+                            const SizedBox(height: 10),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: LinearProgressIndicator(
+                                value: task.progress,
+                                backgroundColor: AppColors.border,
+                                valueColor:
+                                    const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                minHeight: 6,
                               ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'ডাউনলোড হচ্ছে ${(task.progress * 100).toStringAsFixed(0)}%',
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    );
+                  },
+                ),
             ],
           ),
         ),

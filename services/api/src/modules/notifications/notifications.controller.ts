@@ -9,6 +9,7 @@ import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UserRole } from '../users/enums/user-role.enum';
 import { NotificationsService } from './notifications.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
+import { RegisterDeviceTokenDto, UnregisterDeviceTokenDto } from './dto/register-device-token.dto';
 
 @ApiTags('Notifications')
 @ApiBearerAuth()
@@ -48,6 +49,24 @@ export class NotificationsController {
     @Param('notificationId', MongoObjectIdPipe) notificationId: string,
   ) {
     return this.notificationsService.markMyNotificationAsRead(user, notificationId);
+  }
+
+  @Post('devices/register')
+  @ApiOperation({ summary: 'Register a device push token for the current user' })
+  async registerDevice(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: RegisterDeviceTokenDto,
+  ) {
+    return this.notificationsService.registerDeviceToken(user, dto);
+  }
+
+  @Post('devices/unregister')
+  @ApiOperation({ summary: 'Unregister a device push token' })
+  async unregisterDevice(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: UnregisterDeviceTokenDto,
+  ) {
+    return this.notificationsService.unregisterDeviceToken(user, dto);
   }
 
   @Post('me')

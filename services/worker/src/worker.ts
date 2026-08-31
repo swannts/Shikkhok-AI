@@ -1,69 +1,101 @@
-// BullMQ Queue & Worker Interface Fallback
-interface Job<T = any> {
-  id?: string;
-  data: T;
-}
-
-export type WorkerJobType =
-  | 'PDF_EXTRACTION'
-  | 'CURRICULUM_CHUNKING'
-  | 'EMBEDDING_GENERATION'
-  | 'NOTIFICATIONS'
-  | 'ANALYTICS_AGGREGATION'
-  | 'REPORT_GENERATION'
-  | 'EMAIL'
-  | 'SMS'
-  | 'PUSH_NOTIFICATION';
-
-export interface WorkerJobPayload {
-  jobType: WorkerJobType;
-  data: Record<string, any>;
-}
+import { Worker, Job } from 'bullmq';
+import { config } from './config';
+import { processNotificationJob } from './processors/notification.processor';
+import { processCurriculumJob } from './processors/curriculum.processor';
+import { processAnalyticsJob } from './processors/analytics.processor';
 
 export function startWorker() {
   console.log('⚡ Starting Shikkhok Background Worker (BullMQ + Redis)...');
 
-  const processJob = async (job: Job<WorkerJobPayload>) => {
-    console.log(`[Worker Processing] Job ID: ${job.id || 'stub-1'} | Type: ${job.data.jobType}`);
-
-    switch (job.data.jobType) {
-      case 'PDF_EXTRACTION':
-        console.log(`[PDF Extraction] Processing file: ${job.data.data.sourceBook}`);
-        break;
-
-      case 'CURRICULUM_CHUNKING':
-        console.log(`[Curriculum Chunking] Chunking class ${job.data.data.classLevel} subject ${job.data.data.subject}`);
-        break;
-
-      case 'EMBEDDING_GENERATION':
-        console.log(`[Embedding Generation] Generating vector embeddings for ${job.data.data.chunkCount || 10} chunks`);
-        break;
-
-      case 'NOTIFICATIONS':
-      case 'PUSH_NOTIFICATION':
-        console.log(`[Push Notification] Sending push alert to student: ${job.data.data.studentId}`);
-        break;
-
-      case 'ANALYTICS_AGGREGATION':
-        console.log(`[Analytics] Aggregating daily study time and accuracy stats`);
-        break;
-
-      case 'REPORT_GENERATION':
-        console.log(`[Report] Generating weekly progress report PDF for student ${job.data.data.studentId}`);
-        break;
-
-      case 'EMAIL':
-      case 'SMS':
-        console.log(`[SMS/Email] Dispatching OTP / Notification message to ${job.data.data.recipient}`);
-        break;
-
-      default:
-        console.log(`[Worker] Unhandled job type: ${job.data.jobType}`);
-    }
-
-    return { status: 'COMPLETED', processedAt: new Date() };
+  const redisUrl = new URL(config.redisUrl);
+  const connection = {
+    host: redisUrl.hostname || 'localhost',
+    port: parseInt(redisUrl.port || '6379', 10),
+    password: redisUrl.password || undefined,
+    maxRetriesPerRequest: null,
   };
 
-  return { processJob };
-}
+  // 1. Notifications Worker
+  const notificationWorker = new Worker(
+    'notifications',
+    async (job: Job) => {
+      return processNotificationJob(job);
+    },
+    {
+      connection,
+      concurrency: config.workerConcurrency,
+    },
+  );
 
+  notificationWorker.on('completed', (job: Job) => {
+    console.log(`[Worker:Notifications] Job #${job.id} completed successfully`);
+  });
+
+  notificationWorker.on('failed', (job: Job | undefined, err: Error) => {
+    console.error(`[Worker:Notifications] Job #${job?.id || 'unknown'} failed: ${err.message}`);
+  });
+
+  // 2. Curriculum Ingestion Worker
+  const curriculumWorker = new Worker(
+    'curriculum',
+    async (job: Job) => {
+      return processCurriculumJob(job);
+    },
+    {
+      connection,
+      concurrency: 2, // limit concurrent heavy embedding requests
+    },
+  );
+
+  curriculumWorker.on('completed', (job: Job) => {
+    console.log(`[Worker:Curriculum] Job #${job.id} indexed into AI Service`);
+  });
+
+  curriculumWorker.on('failed', (job: Job | undefined, err: Error) => {
+    console.error(`[Worker:Curriculum] Job #${job?.id || 'unknown'} failed: ${err.message}`);
+  });
+
+  // 3. Analytics Worker
+  const analyticsWorker = new Worker(
+    'analytics',
+    async (job: Job) => {
+      return processAnalyticsJob(job);
+    },
+    {
+      connection,
+      concurrency: config.workerConcurrency,
+    },
+  );
+
+  analyticsWorker.on('completed', (job: Job) => {
+    console.log(`[Worker:Analytics] Job #${job.id} aggregated`);
+  });
+
+  // 4. Homework Queue Worker
+  const homeworkWorker = new Worker(
+    'homework',
+    async (job: Job) => {
+      console.log(`[Worker:Homework] Processing homework submission evaluation for job #${job.id}`);
+      return { status: 'EVALUATED', processedAt: new Date().toISOString() };
+    },
+    {
+      connection,
+      concurrency: config.workerConcurrency,
+    },
+  );
+
+  const workers = [notificationWorker, curriculumWorker, analyticsWorker, homeworkWorker];
+
+  // Graceful shutdown handling
+  const shutdown = async (signal: string) => {
+    console.log(`\n🛑 Received ${signal}, gracefully shutting down background workers...`);
+    await Promise.all(workers.map((w) => w.close()));
+    console.log('✅ All workers stopped cleanly.');
+    process.exit(0);
+  };
+
+  process.on('SIGINT', () => shutdown('SIGINT'));
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+
+  return { workers };
+}

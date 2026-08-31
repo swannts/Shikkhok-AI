@@ -122,6 +122,12 @@ class ApiEndpoints {
   static String tutorStreamMessage(String id) =>
       '/tutor/me/conversations/$id/messages/stream';
 
+  // Textbooks & Offline Bundles
+  static const String textbooks = '/textbooks';
+  static const String textbookManifestBundle = '/textbooks/manifests/bundle';
+  static String textbook(String id) => '/textbooks/$id';
+  static String textbookManifest(String id) => '/textbooks/$id/manifest';
+
   // Health
   static const String healthLive = '/health/live';
   static const String healthReady = '/health/ready';

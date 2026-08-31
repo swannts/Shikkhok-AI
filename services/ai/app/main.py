@@ -1,3 +1,4 @@
+import time
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from typing import Any
@@ -12,6 +13,12 @@ from app.core.config import settings
 from app.core.container import build_service_container
 from app.core.exceptions import AiServiceError
 from app.core.logging import logger
+from app.core.metrics import (
+    get_metrics_content_type,
+    get_prometheus_metrics,
+    http_request_duration_seconds,
+    http_requests_total,
+)
 from app.core.request_context import get_request_id, set_request_id
 
 
@@ -39,16 +46,36 @@ app = FastAPI(
 )
 
 
+@app.get("/metrics", include_in_schema=False)
+async def prometheus_metrics() -> Response:
+    """Expose Prometheus scrape metrics."""
+    return Response(
+        content=get_prometheus_metrics(),
+        media_type=get_metrics_content_type(),
+    )
+
+
 @app.middleware("http")
-async def request_id_middleware(
+async def request_id_and_metrics_middleware(
     request: Request,
     call_next: Callable[[Request], Any],
 ) -> Response:
+    start_time = time.time()
     # Preserve incoming X-Request-Id or generate fresh UUID
     incoming_id = request.headers.get("X-Request-Id")
     active_req_id = set_request_id(incoming_id)
 
     response: Response = await call_next(request)
+    duration = time.time() - start_time
+
+    # Record Prometheus metrics
+    endpoint = request.url.path
+    method = request.method
+    status_code = str(response.status_code)
+
+    http_request_duration_seconds.labels(method=method, endpoint=endpoint).observe(duration)
+    http_requests_total.labels(method=method, endpoint=endpoint, status_code=status_code).inc()
+
     response.headers["X-Request-Id"] = active_req_id
     return response
 

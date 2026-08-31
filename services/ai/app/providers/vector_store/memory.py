@@ -1,14 +1,15 @@
-import re
 import math
+import re
 from typing import Any
 
 from app.providers.vector_store.scoping import build_retrieval_scope_chain, chunk_matches_scope
-from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
+from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
 
 class InMemoryVectorStore:
     name: str = "memory"
+    embedding_metadata: VectorStoreEmbeddingMetadata | None
 
     def __init__(
         self,
@@ -36,6 +37,8 @@ class InMemoryVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 45,
                 "page_end": 47,
+                "curriculum_version": "2024-NCTB",
+                "academic_year": 2026,
                 "curriculum_year": 2026,
                 "medium": "bangla",
                 "content_version": 1,
@@ -58,6 +61,8 @@ class InMemoryVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 48,
                 "page_end": 50,
+                "curriculum_version": "2024-NCTB",
+                "academic_year": 2026,
                 "curriculum_year": 2026,
                 "medium": "bangla",
                 "content_version": 1,
@@ -80,6 +85,8 @@ class InMemoryVectorStore:
                 "lesson_title": "দহন প্রক্রিয়া",
                 "page_start": 72,
                 "page_end": 74,
+                "curriculum_version": "2024-NCTB",
+                "academic_year": 2026,
                 "curriculum_year": 2026,
                 "medium": "bangla",
                 "content_version": 1,
@@ -91,11 +98,21 @@ class InMemoryVectorStore:
         ]
         self.vectors: list[list[float]] = [[0.1] * seed_dimension for _ in self.chunks]
 
+    def _get_metadata(self) -> VectorStoreEmbeddingMetadata:
+        if self.embedding_metadata is None:
+            self.embedding_metadata = VectorStoreEmbeddingMetadata(
+                provider="deterministic-mock",
+                model="deterministic-mock",
+                dimension=128,
+            )
+        return self.embedding_metadata
+
     def _validate_vector_dimension(self, vector: list[float]) -> None:
-        if len(vector) != self.embedding_metadata.dimension:
+        meta = self._get_metadata()
+        if len(vector) != meta.dimension:
             raise ValueError(
                 "Vector dimension mismatch for in-memory index: "
-                f"expected {self.embedding_metadata.dimension}, got {len(vector)}"
+                f"expected {meta.dimension}, got {len(vector)}"
             )
 
     def _validate_index_dimensions(self) -> None:
@@ -180,6 +197,8 @@ class InMemoryVectorStore:
                     lesson_title=c.get("lesson_title"),
                     page_start=c.get("page_start"),
                     page_end=c.get("page_end"),
+                    curriculum_version=c.get("curriculum_version", "2024-NCTB"),
+                    academic_year=c.get("academic_year", 2026),
                     curriculum_year=c.get("curriculum_year"),
                     medium=c.get("medium"),
                     content_version=c.get("content_version"),
@@ -240,10 +259,11 @@ class InMemoryVectorStore:
                 None,
             )
             data = chunk.model_dump()
-            data["embedding_provider"] = self.embedding_metadata.provider
-            data["embedding_model"] = self.embedding_metadata.model
-            data["embedding_dimension"] = self.embedding_metadata.dimension
-            data["embedding_version"] = self.embedding_metadata.version
+            meta = self._get_metadata()
+            data["embedding_provider"] = meta.provider
+            data["embedding_model"] = meta.model
+            data["embedding_dimension"] = meta.dimension
+            data["embedding_version"] = meta.version
             if existing_idx is not None:
                 self.chunks[existing_idx] = data
                 self.vectors[existing_idx] = vector

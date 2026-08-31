@@ -1,0 +1,26 @@
+{
+  "source_book": "English (Class 6)",
+  "book_id": "nctb_english_class_6",
+  "class_level": 6,
+  "subject_id": "english",
+  "subject_title": "English",
+  "chapter_id": "communication_basics",
+  "chapter_title": "Talking to People and Sentence Structure",
+  "curriculum_version": "2024-NCTB",
+  "academic_year": 2026,
+  "medium": "english",
+  "pages": [
+    {
+      "page_number": 5,
+      "text": "Unit 1: Talking to People. Formal vs Informal Expressions: When talking to teachers, elders, or strangers, use formal expressions such as 'Good morning, Sir', 'Excuse me, could you please help me?', and 'Thank you very much'. When talking to friends and peers, use informal greetings like 'Hi', 'Hello', 'What's up?', and 'Thanks!'."
+    },
+    {
+      "page_number": 6,
+      "text": "Sentence Structure Basics: A complete English sentence contains a Subject, a Verb, and usually an Object (S + V + O). Example: 'The student (Subject) writes (Verb) an essay (Object)'. Types of Sentences: Assertive (Statement), Interrogative (Question), Imperative (Command/Request), Optative (Wish/Prayer), and Exclamatory (Strong emotion)."
+    },
+    {
+      "page_number": 7,
+      "text": "Punctuation Marks: Capitalize the first letter of a sentence, proper nouns (e.g. Dhaka, Bangladesh, Rahim), and the pronoun 'I'. End statements with a full stop (.), questions with a question mark (?), and strong emotions with an exclamation mark (!)."
+    }
+  ]
+}

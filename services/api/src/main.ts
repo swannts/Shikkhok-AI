@@ -9,6 +9,8 @@ import { RequestIdInterceptor } from './common/interceptors/request-id.intercept
 import { TransformResponseInterceptor } from './common/interceptors/transform-response.interceptor';
 import { GlobalExceptionFilter } from './core/errors/global-exception.filter';
 import { AppLoggerService } from './core/logging/logging.service';
+import { MetricsService } from './common/metrics/metrics.service';
+import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -45,7 +47,12 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: '1',
   });
-  app.useGlobalInterceptors(new RequestIdInterceptor(), new TransformResponseInterceptor());
+  const metricsService = app.get(MetricsService);
+  app.useGlobalInterceptors(
+    new RequestIdInterceptor(),
+    new MetricsInterceptor(metricsService),
+    new TransformResponseInterceptor(),
+  );
   app.useGlobalFilters(new GlobalExceptionFilter());
 
   app.useGlobalPipes(

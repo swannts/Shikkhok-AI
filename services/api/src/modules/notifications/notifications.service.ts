@@ -1,21 +1,31 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger, NotFoundException, Optional } from '@nestjs/common';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UserRole } from '../users/enums/user-role.enum';
 import { UsersService } from '../users/users.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
+import { RegisterDeviceTokenDto, UnregisterDeviceTokenDto } from './dto/register-device-token.dto';
 import {
   NotificationPageCursor,
   NotificationRepository,
 } from './repositories/notification.repository';
+import { DeviceTokenRepository } from './repositories/device-token.repository';
 import { PaginatedResult } from '../../common/types/paginated-result.type';
 
 export interface PaginatedNotifications extends PaginatedResult<Record<string, unknown>> {}
 
 @Injectable()
 export class NotificationsService {
+  private readonly logger = new Logger(NotificationsService.name);
+
   constructor(
     private readonly notificationRepository: NotificationRepository,
+    private readonly deviceTokenRepository: DeviceTokenRepository,
     private readonly usersService: UsersService,
+    @Optional()
+    @InjectQueue('notifications')
+    private readonly notificationsQueue?: Queue,
   ) {}
 
   async getMyNotifications(
@@ -73,6 +83,30 @@ export class NotificationsService {
     return { message: 'All notifications marked as read' };
   }
 
+  async registerDeviceToken(
+    currentUser: AuthenticatedUser,
+    dto: RegisterDeviceTokenDto,
+  ): Promise<{ success: boolean; message: string }> {
+    await this.assertAuthenticated(currentUser);
+    await this.deviceTokenRepository.registerToken(
+      currentUser.userId,
+      dto.token,
+      dto.platform,
+      dto.appVersion,
+      dto.deviceModel,
+    );
+    return { success: true, message: 'Device token registered successfully' };
+  }
+
+  async unregisterDeviceToken(
+    currentUser: AuthenticatedUser,
+    dto: UnregisterDeviceTokenDto,
+  ): Promise<{ success: boolean; message: string }> {
+    await this.assertAuthenticated(currentUser);
+    await this.deviceTokenRepository.unregisterToken(currentUser.userId, dto.token);
+    return { success: true, message: 'Device token unregistered successfully' };
+  }
+
   async createNotificationForUser(
     userId: string,
     dto: CreateNotificationDto,
@@ -84,7 +118,42 @@ export class NotificationsService {
       body: dto.body,
       payload: dto.payload,
     });
-    return notification.toJSON();
+
+    const result = notification.toJSON();
+
+    // Enqueue push notification background delivery job
+    if (this.notificationsQueue) {
+      try {
+        await this.notificationsQueue.add(
+          'PUSH_NOTIFICATION',
+          {
+            jobType: 'PUSH_NOTIFICATION',
+            data: {
+              notificationId: result._id?.toString?.() ?? result._id,
+              userId,
+              title: dto.title,
+              body: dto.body,
+              payload: dto.payload || {},
+              type: dto.type,
+            },
+          },
+          {
+            attempts: 3,
+            backoff: {
+              type: 'exponential',
+              delay: 2000,
+            },
+            removeOnComplete: true,
+          },
+        );
+      } catch (queueErr: any) {
+        this.logger.warn(
+          `Failed to enqueue push notification job for user ${userId}: ${queueErr.message}`,
+        );
+      }
+    }
+
+    return result;
   }
 
   async createNotificationForCurrentUser(

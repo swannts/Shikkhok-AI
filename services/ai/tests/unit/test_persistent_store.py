@@ -1,6 +1,6 @@
+import json
 from pathlib import Path
 
-import json
 import pytest
 
 from app.providers.vector_store.persistent import PersistentVectorStore

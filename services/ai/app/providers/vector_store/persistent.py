@@ -16,6 +16,7 @@ from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
 class PersistentVectorStore:
     name: str = "persistent"
+    embedding_metadata: VectorStoreEmbeddingMetadata | None
 
     def __init__(
         self,
@@ -32,6 +33,8 @@ class PersistentVectorStore:
         self.embedding_metadata = embedding_metadata
 
         self._load_from_disk()
+        if self.embedding_metadata is None:
+            self.embedding_metadata = self._infer_metadata()
 
     def _load_from_disk(self) -> None:
         if not self.file_path.exists():
@@ -165,12 +168,18 @@ class PersistentVectorStore:
         # Generate dummy 128-dim vectors for the seed chunks
         self.vectors = [[0.1] * self.embedding_metadata.dimension for _ in self.chunks]
 
+    def _get_metadata(self) -> VectorStoreEmbeddingMetadata:
+        if self.embedding_metadata is None:
+            self.embedding_metadata = self._infer_metadata()
+        return self.embedding_metadata
+
     def _apply_metadata_to_chunks(self) -> None:
+        meta = self._get_metadata()
         for chunk in self.chunks:
-            chunk["embedding_provider"] = self.embedding_metadata.provider
-            chunk["embedding_model"] = self.embedding_metadata.model
-            chunk["embedding_dimension"] = self.embedding_metadata.dimension
-            chunk["embedding_version"] = self.embedding_metadata.version
+            chunk["embedding_provider"] = meta.provider
+            chunk["embedding_model"] = meta.model
+            chunk["embedding_dimension"] = meta.dimension
+            chunk["embedding_version"] = meta.version
 
     def _infer_metadata(self) -> VectorStoreEmbeddingMetadata:
         dimension = len(self.vectors[0]) if self.vectors else 128
@@ -181,10 +190,11 @@ class PersistentVectorStore:
         )
 
     def _validate_vector_dimension(self, vector: list[float]) -> None:
-        if len(vector) != self.embedding_metadata.dimension:
+        meta = self._get_metadata()
+        if len(vector) != meta.dimension:
             raise ValueError(
                 "Vector dimension mismatch for persistent index: "
-                f"expected {self.embedding_metadata.dimension}, got {len(vector)}"
+                f"expected {meta.dimension}, got {len(vector)}"
             )
 
     def _validate_index_dimensions(self) -> None:
@@ -269,6 +279,8 @@ class PersistentVectorStore:
                     lesson_title=chunk.get("lesson_title"),
                     page_start=chunk.get("page_start"),
                     page_end=chunk.get("page_end"),
+                    curriculum_version=chunk.get("curriculum_version", "2024-NCTB"),
+                    academic_year=chunk.get("academic_year", 2026),
                     curriculum_year=chunk.get("curriculum_year"),
                     medium=chunk.get("medium"),
                     content_version=chunk.get("content_version"),
@@ -286,14 +298,15 @@ class PersistentVectorStore:
     def _save_to_disk_sync(self) -> None:
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
         tmp_path = self.file_path.with_suffix(".tmp")
+        meta = self._get_metadata()
         payload = {
             "version": "1.0",
             "count": len(self.chunks),
             "metadata": {
-                "embeddingProvider": self.embedding_metadata.provider,
-                "embeddingModel": self.embedding_metadata.model,
-                "embeddingDimension": self.embedding_metadata.dimension,
-                "embeddingVersion": self.embedding_metadata.version,
+                "embeddingProvider": meta.provider,
+                "embeddingModel": meta.model,
+                "embeddingDimension": meta.dimension,
+                "embeddingVersion": meta.version,
             },
             "chunks": self.chunks,
             "vectors": self.vectors,
@@ -346,13 +359,14 @@ class PersistentVectorStore:
     ) -> int:
         async with self.lock:
             upserted_count = 0
+            meta = self._get_metadata()
             for chunk, vec in zip(chunks, vectors, strict=False):
                 self._validate_vector_dimension(vec)
                 data = chunk.model_dump()
-                data["embedding_provider"] = self.embedding_metadata.provider
-                data["embedding_model"] = self.embedding_metadata.model
-                data["embedding_dimension"] = self.embedding_metadata.dimension
-                data["embedding_version"] = self.embedding_metadata.version
+                data["embedding_provider"] = meta.provider
+                data["embedding_model"] = meta.model
+                data["embedding_dimension"] = meta.dimension
+                data["embedding_version"] = meta.version
                 existing_idx = next(
                     (i for i, c in enumerate(self.chunks) if c["chunk_id"] == chunk.chunk_id),
                     None,

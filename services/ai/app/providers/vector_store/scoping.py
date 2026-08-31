@@ -9,6 +9,8 @@ def build_retrieval_scope_chain(filter_params: RetrievalFilter) -> list[dict[str
         for key, value in {
             "class_level": filter_params.class_level,
             "subject_id": filter_params.subject_id,
+            "curriculum_version": filter_params.curriculum_version,
+            "academic_year": filter_params.academic_year,
             "curriculum_year": filter_params.curriculum_year,
             "medium": filter_params.medium,
         }.items()

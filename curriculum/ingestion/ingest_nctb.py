@@ -50,10 +50,12 @@ def ingest_file(
     subject_title = data.get("subject_title", subject_id)
     chapter_id = data.get("chapter_id", "intro")
     chapter_title = data.get("chapter_title", chapter_id)
+    curriculum_version = data.get("curriculum_version", "2024-NCTB")
+    academic_year = data.get("academic_year", 2026)
     pages = data.get("pages", [])
 
     total_chunks = 0
-    print(f"📖 Processing: {source_book} (ID: {book_id}, Grade: {class_level})")
+    print(f"📖 Processing: {source_book} (ID: {book_id}, Grade: {class_level}, Version: {curriculum_version})")
 
     for page in pages:
         page_number = page.get("page_number", 1)
@@ -70,6 +72,8 @@ def ingest_file(
             "subject_title": subject_title,
             "chapter_id": chapter_id,
             "chapter_title": chapter_title,
+            "curriculum_version": curriculum_version,
+            "academic_year": academic_year,
             "page_start": page_number,
             "page_end": page_number,
             "chunk_size": 300,

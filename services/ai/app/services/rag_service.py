@@ -2,9 +2,9 @@ import time
 
 from app.core.exceptions import RetrievalError
 from app.core.logging import logger
-from app.providers.vector_store.compatibility import validate_embedding_compatibility
 from app.providers.embeddings.base import EmbeddingProvider
 from app.providers.vector_store.base import VectorStore
+from app.providers.vector_store.compatibility import validate_embedding_compatibility
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 
 

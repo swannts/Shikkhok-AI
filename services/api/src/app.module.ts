@@ -27,6 +27,7 @@ import { GamificationModule } from './modules/gamification/gamification.module';
 import { ClassroomsModule } from './modules/classrooms/classrooms.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { MetricsModule } from './common/metrics/metrics.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AdminModule } from './modules/admin/admin.module';
     RedisModule,
     QueueModule,
     HealthModule,
+    MetricsModule,
     UsersModule,
     AuthModule,
     StudentsModule,

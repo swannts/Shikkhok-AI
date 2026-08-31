@@ -1,0 +1,26 @@
+{
+  "source_book": "English Grammar & Composition (Class 7)",
+  "book_id": "nctb_english_class_7",
+  "class_level": 7,
+  "subject_id": "english",
+  "subject_title": "English Grammar",
+  "chapter_id": "parts_of_speech",
+  "chapter_title": "Parts of Speech and Modal Auxiliaries",
+  "curriculum_version": "2024-NCTB",
+  "academic_year": 2026,
+  "medium": "english",
+  "pages": [
+    {
+      "page_number": 28,
+      "text": "Unit 3: Parts of Speech Overview. Words are classified into 8 parts of speech: Noun (naming word), Pronoun (substitute for noun), Adjective (qualifying word), Verb (action or state), Adverb (modifies verb/adjective), Preposition (shows relationship), Conjunction (joining word), and Interjection (expresses sudden emotion)."
+    },
+    {
+      "page_number": 29,
+      "text": "Modal Auxiliary Verbs: Modals express ability, permission, obligation, or possibility. Can/Could: 'I can solve this math problem' (ability). May/Might: 'May I come in, teacher?' (polite permission). Must/Have to: 'You must study regularly to excel in exams' (obligation). Should: 'We should respect our national curriculum and heritage' (advice)."
+    },
+    {
+      "page_number": 30,
+      "text": "Subject-Verb Agreement Rules: Singular subjects take singular verbs ('The teacher explains the lesson clearly'), while plural subjects take plural verbs ('The students work together on science projects'). Collective nouns (e.g. class, team, audience) generally take singular verbs when thought of as a single unit."
+    }
+  ]
+}

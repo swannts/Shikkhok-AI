@@ -1,0 +1,26 @@
+{
+  "source_book": "NCTB সাধারণ গণিত (শ্রেণি ৯-১০)",
+  "book_id": "nctb_math_class_9",
+  "class_level": 9,
+  "subject_id": "mathematics",
+  "subject_title": "সাধারণ গণিত",
+  "chapter_id": "trigonometry",
+  "chapter_title": "ত্রিকোণমিতিক অনুপাত ও অভেদাবলি",
+  "curriculum_version": "2024-NCTB",
+  "academic_year": 2026,
+  "medium": "bangla",
+  "pages": [
+    {
+      "page_number": 175,
+      "text": "অধ্যায় ৯: ত্রিকোণমিতিক অনুপাত। সমকোণী ত্রিভুজের সূক্ষ্মকোণের সাপেক্ষে বাহুগুলোর অনুপাত: sin θ = বিপরীত বাহু / অতিভুজ (লম্ব / অতিভুজ), cos θ = সন্নিহিত বাহু / অতিভুজ (ভূমি / অতিভুজ), tan θ = বিপরীত বাহু / সন্নিহিত বাহু (লম্ব / ভূমি)। বিপরীত অনুপাত: cosec θ = ১ / sin θ, sec θ = ১ / cos θ, cot θ = ১ / tan θ।"
+    },
+    {
+      "page_number": 176,
+      "text": "মৌলিক ত্রিকোণমিতিক অভেদাবলি (Trigonometric Identities): ১. sin² θ + cos² θ = 1, ২. sec² θ - tan² θ = 1 (বা sec² θ = 1 + tan² θ), ৩. cosec² θ - cot² θ = 1 (বা cosec² θ = 1 + cot² θ)। উদাহরণ: যদি tan θ = 4/3 হয়, তবে সমকোণী ত্রিভুজ থেকে অতিভুজ = √(4² + 3²) = 5; সুতরাং sin θ = 4/5 এবং cos θ = 3/5।"
+    },
+    {
+      "page_number": 177,
+      "text": "নির্দিষ্ট কোণের ত্রিকোণমিতিক মানসমূহ: sin 0° = 0, sin 30° = 1/2, sin 45° = 1/√2, sin 60° = √3/2, sin 90° = 1। cos এর ক্ষেত্রে মানগুলো বিপরীত ক্রমে আসে: cos 0° = 1, cos 30° = √3/2, cos 45° = 1/√2, cos 60° = 1/2, cos 90° = 0। tan 45° = 1।"
+    }
+  ]
+}

@@ -1,13 +1,13 @@
-from pathlib import Path
 import json
+from pathlib import Path
 
 import pytest
 
+from app.ingestion.pipeline import IngestionPipeline
 from app.providers.embeddings.primary import DeterministicEmbeddingProvider
 from app.providers.vector_store.persistent import PersistentVectorStore
 from app.schemas.retrieval import RetrievalFilter
 from app.services.rag_service import RagService
-from app.ingestion.pipeline import IngestionPipeline
 from tests.fixtures.curriculum_fixture import (
     CLASS6_SCIENCE_PAGES,
     CLASS6_SCIENCE_PAGES_WITH_INJECTION,
