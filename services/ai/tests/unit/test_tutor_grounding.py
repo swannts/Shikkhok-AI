@@ -198,5 +198,5 @@ async def test_rag_service_rejects_embedding_dimension_mismatch() -> None:
         vector_store=FakeVectorStore(),
     )
 
-    with pytest.raises(RetrievalError, match="Embedding dimension mismatch"):
+    with pytest.raises(RetrievalError, match="Embedding compatibility mismatch"):
         await rag.search(filter_params=RetrievalFilter(query="বীজগণিত", class_level=8))

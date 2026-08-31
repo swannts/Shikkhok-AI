@@ -84,6 +84,8 @@ class IngestionPipeline:
                     lesson_title=metadata.lesson_title,
                     page_start=c.page_start,
                     page_end=c.page_end,
+                    curriculum_year=metadata.curriculum_year,
+                    medium=metadata.medium,
                     content_version=metadata.content_version,
                     embedding_provider=getattr(self.embedding_provider, "name", "unknown"),
                     embedding_model=getattr(self.embedding_provider, "model", "unknown"),

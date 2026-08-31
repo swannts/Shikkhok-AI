@@ -2,6 +2,7 @@ import re
 import math
 from typing import Any
 
+from app.providers.vector_store.scoping import build_retrieval_scope_chain, chunk_matches_scope
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 
@@ -14,8 +15,8 @@ class InMemoryVectorStore:
         embedding_metadata: VectorStoreEmbeddingMetadata | None = None,
     ) -> None:
         self.embedding_metadata = embedding_metadata or VectorStoreEmbeddingMetadata(
-            provider="deterministic",
-            model="seeded-default",
+            provider="deterministic-mock",
+            model="deterministic-mock",
             dimension=128,
         )
         # Seed default NCTB curriculum chunks for Class 6-10
@@ -35,6 +36,8 @@ class InMemoryVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 45,
                 "page_end": 47,
+                "curriculum_year": 2026,
+                "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
                 "embedding_model": self.embedding_metadata.model,
@@ -55,6 +58,8 @@ class InMemoryVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 48,
                 "page_end": 50,
+                "curriculum_year": 2026,
+                "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
                 "embedding_model": self.embedding_metadata.model,
@@ -75,6 +80,8 @@ class InMemoryVectorStore:
                 "lesson_title": "দহন প্রক্রিয়া",
                 "page_start": 72,
                 "page_end": 74,
+                "curriculum_year": 2026,
+                "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
                 "embedding_model": self.embedding_metadata.model,
@@ -139,55 +146,12 @@ class InMemoryVectorStore:
                 selected.append((chunk, vector))
         return selected
 
-    def _cosine_similarity(self, vec_a: list[float], vec_b: list[float]) -> float:
-        if not vec_a or not vec_b or len(vec_a) != len(vec_b):
-            return 0.0
-        dot = sum(a * b for a, b in zip(vec_a, vec_b, strict=False))
-        norm_a = math.sqrt(sum(a * a for a in vec_a))
-        norm_b = math.sqrt(sum(b * b for b in vec_b))
-        if norm_a == 0 or norm_b == 0:
-            return 0.0
-        return dot / (norm_a * norm_b)
-
-    async def search(
+    def _score_candidates(
         self,
         query_vector: list[float],
+        candidates: list[tuple[dict[str, Any], list[float]]],
         filter_params: RetrievalFilter,
     ) -> list[RetrievedChunk]:
-        self._validate_vector_dimension(query_vector)
-        self._validate_index_dimensions()
-
-        candidates: list[tuple[dict[str, Any], list[float]]] = []
-
-        for chunk, vector in zip(self.chunks, self.vectors, strict=False):
-            # Metadata filtering
-            if filter_params.class_level and chunk.get("class_level") != filter_params.class_level:
-                continue
-            if filter_params.subject_id and chunk.get("subject_id") != filter_params.subject_id:
-                continue
-            if filter_params.chapter_id and chunk.get("chapter_id") != filter_params.chapter_id:
-                continue
-            if filter_params.lesson_id and chunk.get("lesson_id") != filter_params.lesson_id:
-                continue
-            candidates.append((chunk, vector))
-
-        # If strict filtering narrowed too much, fall back to broader class/subject filter
-        if not candidates and (filter_params.lesson_id or filter_params.chapter_id):
-            for chunk, vector in zip(self.chunks, self.vectors, strict=False):
-                if (
-                    filter_params.class_level
-                    and chunk.get("class_level") != filter_params.class_level
-                ):
-                    continue
-                if filter_params.subject_id and chunk.get("subject_id") != filter_params.subject_id:
-                    continue
-                candidates.append((chunk, vector))
-
-        if not candidates:
-            candidates = list(zip(self.chunks, self.vectors, strict=False))
-
-        candidates = self._select_active_version_chunks(candidates)
-
         scored_chunks: list[RetrievedChunk] = []
         seen_chunk_ids: set[str] = set()
         for c, vector in candidates:
@@ -216,6 +180,8 @@ class InMemoryVectorStore:
                     lesson_title=c.get("lesson_title"),
                     page_start=c.get("page_start"),
                     page_end=c.get("page_end"),
+                    curriculum_year=c.get("curriculum_year"),
+                    medium=c.get("medium"),
                     content_version=c.get("content_version"),
                     embedding_provider=c.get("embedding_provider"),
                     embedding_model=c.get("embedding_model"),
@@ -227,6 +193,39 @@ class InMemoryVectorStore:
 
         scored_chunks.sort(key=lambda x: (x.score, x.page_start or 0, x.chunk_id), reverse=True)
         return scored_chunks[: filter_params.top_k]
+
+    def _cosine_similarity(self, vec_a: list[float], vec_b: list[float]) -> float:
+        if not vec_a or not vec_b or len(vec_a) != len(vec_b):
+            return 0.0
+        dot = sum(a * b for a, b in zip(vec_a, vec_b, strict=False))
+        norm_a = math.sqrt(sum(a * a for a in vec_a))
+        norm_b = math.sqrt(sum(b * b for b in vec_b))
+        if norm_a == 0 or norm_b == 0:
+            return 0.0
+        return dot / (norm_a * norm_b)
+
+    async def search(
+        self,
+        query_vector: list[float],
+        filter_params: RetrievalFilter,
+    ) -> list[RetrievedChunk]:
+        self._validate_vector_dimension(query_vector)
+        self._validate_index_dimensions()
+
+        for scope in build_retrieval_scope_chain(filter_params):
+            candidates = [
+                (chunk, vector)
+                for chunk, vector in zip(self.chunks, self.vectors, strict=False)
+                if chunk_matches_scope(chunk, scope)
+            ]
+            if not candidates:
+                continue
+            candidates = self._select_active_version_chunks(candidates)
+            scored_chunks = self._score_candidates(query_vector, candidates, filter_params)
+            if scored_chunks:
+                return scored_chunks
+
+        return []
 
     async def upsert_chunks(
         self,

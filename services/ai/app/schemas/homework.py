@@ -37,6 +37,12 @@ class HomeworkEvaluationRequest(BaseModel):
     class_level: int | None = Field(
         default=None, ge=1, le=12, description="Student grade level (1-12)"
     )
+    curriculum_year: int | None = Field(
+        default=None, ge=2000, le=2100, description="Curriculum year for grounding scope"
+    )
+    medium: Literal["bangla", "english"] | None = Field(
+        default=None, description="Curriculum medium for grounding scope"
+    )
     subject_id: str | None = Field(default=None, description="Subject ID, e.g. 'mathematics'")
     chapter_id: str | None = Field(default=None, description="Chapter ID")
     lesson_id: str | None = Field(default=None, description="Lesson ID")

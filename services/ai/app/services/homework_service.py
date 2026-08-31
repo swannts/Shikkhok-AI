@@ -72,6 +72,8 @@ class HomeworkService:
                     subject_id=request.subject_id,
                     chapter_id=request.chapter_id,
                     lesson_id=request.lesson_id,
+                    curriculum_year=request.curriculum_year,
+                    medium=request.medium,
                     top_k=3,
                 ),
             )

@@ -20,6 +20,8 @@ class RetrievedChunk(BaseModel):
 
     page_start: int | None = None
     page_end: int | None = None
+    curriculum_year: int | None = None
+    medium: str | None = None
     content_version: int | None = None
     embedding_provider: str | None = None
     embedding_model: str | None = None
@@ -34,5 +36,7 @@ class RetrievalFilter(BaseModel):
     subject_id: str | None = None
     chapter_id: str | None = None
     lesson_id: str | None = None
+    curriculum_year: int | None = None
+    medium: str | None = None
     top_k: int = Field(default=3, ge=1, le=10)
     min_score: float = Field(default=0.25, ge=0.0, le=1.0)

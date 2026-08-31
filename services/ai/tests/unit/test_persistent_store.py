@@ -86,18 +86,52 @@ def test_persistent_vector_store_rejects_dimension_mismatch(tmp_path: Path) -> N
     PersistentVectorStore(
         file_path=store_file,
         embedding_metadata=VectorStoreEmbeddingMetadata(
-            provider="deterministic",
+            provider="deterministic-mock",
             model="test-model",
             dimension=128,
         ),
     )
 
-    with pytest.raises(ValueError, match="embedding dimension mismatch"):
+    with pytest.raises(ValueError, match="Embedding compatibility mismatch"):
         PersistentVectorStore(
             file_path=store_file,
             embedding_metadata=VectorStoreEmbeddingMetadata(
-                provider="gemini",
-                model="text-embedding-004",
+                provider="deterministic-mock",
+                model="test-model",
                 dimension=768,
             ),
         )
+
+
+def test_persistent_vector_store_rejects_model_mismatch(tmp_path: Path) -> None:
+    store_file = tmp_path / "test_chunks_model.json"
+    PersistentVectorStore(
+        file_path=store_file,
+        embedding_metadata=VectorStoreEmbeddingMetadata(
+            provider="deterministic-mock",
+            model="test-model-a",
+            dimension=128,
+        ),
+    )
+
+    with pytest.raises(ValueError, match="Embedding compatibility mismatch"):
+        PersistentVectorStore(
+            file_path=store_file,
+            embedding_metadata=VectorStoreEmbeddingMetadata(
+                provider="deterministic-mock",
+                model="test-model-b",
+                dimension=128,
+            ),
+        )
+
+
+def test_persistent_vector_store_fails_closed_on_corrupt_index_outside_dev_test(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    store_file = tmp_path / "corrupt_chunks.json"
+    store_file.write_text("{ not valid json", encoding="utf-8")
+    monkeypatch.setattr("app.core.config.settings.app_env", "production")
+
+    with pytest.raises(RuntimeError, match="Failed to load persistent vector store"):
+        PersistentVectorStore(file_path=store_file)

@@ -17,6 +17,12 @@ class TutorGenerationRequest(BaseModel):
     language: Literal["bn", "en"] = Field(default="bn", description="Instruction medium")
 
     class_level: int | None = Field(None, ge=1, le=12, description="Student grade level (1-12)")
+    curriculum_year: int | None = Field(
+        default=None, ge=2000, le=2100, description="Curriculum year for grounding scope"
+    )
+    medium: Literal["bangla", "english"] | None = Field(
+        default=None, description="Curriculum medium for grounding scope"
+    )
 
     subject_id: str | None = None
     chapter_id: str | None = None

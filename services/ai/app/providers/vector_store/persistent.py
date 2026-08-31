@@ -8,6 +8,8 @@ from typing import Any
 
 from app.core.config import settings
 from app.core.logging import logger
+from app.providers.vector_store.compatibility import validate_embedding_compatibility
+from app.providers.vector_store.scoping import build_retrieval_scope_chain, chunk_matches_scope
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
@@ -51,28 +53,18 @@ class PersistentVectorStore:
                         dimension=int(metadata.get("embeddingDimension", 0) or 0),
                         version=int(metadata.get("embeddingVersion", 1) or 1),
                     )
-                    if (
-                        self.embedding_metadata is not None
-                        and self.embedding_metadata.dimension != loaded_metadata.dimension
-                    ):
-                        raise ValueError(
-                            "Persistent vector store embedding dimension mismatch: "
-                            f"file has {loaded_metadata.dimension}, "
-                            f"requested {self.embedding_metadata.dimension}"
-                        )
-                    if self.embedding_metadata is None:
+                    if self.embedding_metadata is not None:
+                        validate_embedding_compatibility(self.embedding_metadata, loaded_metadata)
+                    else:
                         self.embedding_metadata = loaded_metadata
                 else:
-                    inferred_metadata = self._infer_metadata()
-                    if (
-                        self.embedding_metadata is not None
-                        and self.embedding_metadata.dimension != inferred_metadata.dimension
-                    ):
+                    if settings.app_env not in ("development", "test"):
                         raise ValueError(
-                            "Persistent vector store embedding dimension mismatch: "
-                            f"file has {inferred_metadata.dimension}, "
-                            f"requested {self.embedding_metadata.dimension}"
+                            "Persistent vector store metadata missing in non-development environment"
                         )
+                    inferred_metadata = self._infer_metadata()
+                    if self.embedding_metadata is not None:
+                        validate_embedding_compatibility(self.embedding_metadata, inferred_metadata)
                     self.embedding_metadata = self.embedding_metadata or inferred_metadata
                     self._apply_metadata_to_chunks()
                     self._save_to_disk_sync()
@@ -81,17 +73,25 @@ class PersistentVectorStore:
                     f"Loaded {len(self.chunks)} persistent curriculum chunks from {self.file_path}"
                 )
         except Exception as e:
-            if isinstance(e, ValueError) and "embedding dimension mismatch" in str(e):
+            if isinstance(e, ValueError) and (
+                "embedding compatibility mismatch" in str(e).lower()
+                or "embedding dimension mismatch" in str(e).lower()
+            ):
                 raise
-            logger.error(f"Error loading vector store from {self.file_path}: {e}")
-            self._seed_default_chunks()
+            if settings.app_env in ("development", "test"):
+                logger.error(f"Error loading vector store from {self.file_path}: {e}")
+                self._seed_default_chunks()
+                return
+            raise RuntimeError(
+                f"Failed to load persistent vector store from {self.file_path}: {e}"
+            ) from e
 
     def _seed_default_chunks(self) -> None:
         seed_dimension = self.embedding_metadata.dimension if self.embedding_metadata else 128
         if self.embedding_metadata is None:
             self.embedding_metadata = VectorStoreEmbeddingMetadata(
-                provider="deterministic",
-                model="seeded-default",
+                provider="deterministic-mock",
+                model="deterministic-mock",
                 dimension=seed_dimension,
             )
         self.chunks = [
@@ -109,6 +109,8 @@ class PersistentVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 45,
                 "page_end": 47,
+                "curriculum_year": 2026,
+                "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
                 "embedding_model": self.embedding_metadata.model,
@@ -129,6 +131,8 @@ class PersistentVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 48,
                 "page_end": 50,
+                "curriculum_year": 2026,
+                "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
                 "embedding_model": self.embedding_metadata.model,
@@ -149,6 +153,8 @@ class PersistentVectorStore:
                 "lesson_title": "দহন প্রক্রিয়া",
                 "page_start": 72,
                 "page_end": 74,
+                "curriculum_year": 2026,
+                "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
                 "embedding_model": self.embedding_metadata.model,
@@ -229,6 +235,54 @@ class PersistentVectorStore:
                 selected.append((chunk, vector))
         return selected
 
+    def _score_candidates(
+        self,
+        query_vector: list[float],
+        candidates: list[tuple[dict[str, Any], list[float]]],
+        filter_params: RetrievalFilter,
+    ) -> list[RetrievedChunk]:
+        scored: list[RetrievedChunk] = []
+        seen_chunk_ids: set[str] = set()
+        for chunk, vector in candidates:
+            cosine_score = self._cosine_similarity(query_vector, vector)
+            keyword_score = self._keyword_overlap_score(filter_params.query, chunk["text"])
+            score = max(cosine_score * 0.65 + keyword_score * 0.35, keyword_score)
+            if score < filter_params.min_score:
+                continue
+            if chunk["chunk_id"] in seen_chunk_ids:
+                continue
+            seen_chunk_ids.add(chunk["chunk_id"])
+
+            scored.append(
+                RetrievedChunk(
+                    chunk_id=chunk["chunk_id"],
+                    text=chunk["text"],
+                    score=round(min(score, 0.99), 4),
+                    book_id=chunk.get("book_id"),
+                    book_name=chunk.get("book_name"),
+                    class_level=chunk.get("class_level"),
+                    subject_id=chunk.get("subject_id"),
+                    chapter_id=chunk.get("chapter_id"),
+                    lesson_id=chunk.get("lesson_id"),
+                    subject_title=chunk.get("subject_title"),
+                    chapter_title=chunk.get("chapter_title"),
+                    lesson_title=chunk.get("lesson_title"),
+                    page_start=chunk.get("page_start"),
+                    page_end=chunk.get("page_end"),
+                    curriculum_year=chunk.get("curriculum_year"),
+                    medium=chunk.get("medium"),
+                    content_version=chunk.get("content_version"),
+                    embedding_provider=chunk.get("embedding_provider"),
+                    embedding_model=chunk.get("embedding_model"),
+                    embedding_dimension=chunk.get("embedding_dimension"),
+                    embedding_version=chunk.get("embedding_version"),
+                    content_hash=chunk.get("content_hash"),
+                )
+            )
+
+        scored.sort(key=lambda x: (x.score, x.page_start or 0, x.chunk_id), reverse=True)
+        return scored[: filter_params.top_k]
+
     def _save_to_disk_sync(self) -> None:
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
         tmp_path = self.file_path.with_suffix(".tmp")
@@ -270,76 +324,20 @@ class PersistentVectorStore:
         self._validate_vector_dimension(query_vector)
         self._validate_index_dimensions()
 
-        candidates: list[tuple[dict[str, Any], list[float]]] = []
-
-        for chunk, vector in zip(self.chunks, self.vectors, strict=False):
-            # Metadata filtering
-            if filter_params.class_level and chunk.get("class_level") != filter_params.class_level:
+        for scope in build_retrieval_scope_chain(filter_params):
+            candidates = [
+                (chunk, vector)
+                for chunk, vector in zip(self.chunks, self.vectors, strict=False)
+                if chunk_matches_scope(chunk, scope)
+            ]
+            if not candidates:
                 continue
-            if filter_params.subject_id and chunk.get("subject_id") != filter_params.subject_id:
-                continue
-            if filter_params.chapter_id and chunk.get("chapter_id") != filter_params.chapter_id:
-                continue
-            if filter_params.lesson_id and chunk.get("lesson_id") != filter_params.lesson_id:
-                continue
-            candidates.append((chunk, vector))
+            candidates = self._select_active_version_chunks(candidates)
+            scored = self._score_candidates(query_vector, candidates, filter_params)
+            if scored:
+                return scored
 
-        # Fallback to broader subject/class filter if strict match yields nothing
-        if not candidates and (filter_params.lesson_id or filter_params.chapter_id):
-            for chunk, vector in zip(self.chunks, self.vectors, strict=False):
-                if (
-                    filter_params.class_level
-                    and chunk.get("class_level") != filter_params.class_level
-                ):
-                    continue
-                if filter_params.subject_id and chunk.get("subject_id") != filter_params.subject_id:
-                    continue
-                candidates.append((chunk, vector))
-
-        if not candidates:
-            candidates = list(zip(self.chunks, self.vectors, strict=False))
-
-        candidates = self._select_active_version_chunks(candidates)
-
-        scored: list[RetrievedChunk] = []
-        seen_chunk_ids: set[str] = set()
-        for chunk, vector in candidates:
-            cosine_score = self._cosine_similarity(query_vector, vector)
-            keyword_score = self._keyword_overlap_score(filter_params.query, chunk["text"])
-            score = max(cosine_score * 0.65 + keyword_score * 0.35, keyword_score)
-            if score < filter_params.min_score:
-                continue
-            if chunk["chunk_id"] in seen_chunk_ids:
-                continue
-            seen_chunk_ids.add(chunk["chunk_id"])
-
-            scored.append(
-                RetrievedChunk(
-                    chunk_id=chunk["chunk_id"],
-                    text=chunk["text"],
-                    score=round(min(score, 0.99), 4),
-                    book_id=chunk.get("book_id"),
-                    book_name=chunk.get("book_name"),
-                    class_level=chunk.get("class_level"),
-                    subject_id=chunk.get("subject_id"),
-                    chapter_id=chunk.get("chapter_id"),
-                    lesson_id=chunk.get("lesson_id"),
-                    subject_title=chunk.get("subject_title"),
-                    chapter_title=chunk.get("chapter_title"),
-                    lesson_title=chunk.get("lesson_title"),
-                    page_start=chunk.get("page_start"),
-                    page_end=chunk.get("page_end"),
-                    content_version=chunk.get("content_version"),
-                    embedding_provider=chunk.get("embedding_provider"),
-                    embedding_model=chunk.get("embedding_model"),
-                    embedding_dimension=chunk.get("embedding_dimension"),
-                    embedding_version=chunk.get("embedding_version"),
-                    content_hash=chunk.get("content_hash"),
-                )
-            )
-
-        scored.sort(key=lambda x: (x.score, x.page_start or 0, x.chunk_id), reverse=True)
-        return scored[: filter_params.top_k]
+        return []
 
     async def upsert_chunks(
         self,
