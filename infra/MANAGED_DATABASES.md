@@ -8,7 +8,7 @@
 │             (Kubernetes / GKE / EKS)                   │
 │                                                        │
 │   shikkhok-api    shikkhok-ai-gateway  shikkhok-worker │
-11: └───────────┬────────────────────────────────┬───────────┘
+└───────────┬────────────────────────────────┬───────────┘
             │ (TLS MongoDB Connection)       │ (Redis Protocol)
             ▼                                ▼
 ┌────────────────────────┐      ┌────────────────────────┐
@@ -23,11 +23,11 @@
 
 ## Recommended Production Cloud Providers
 
-| Cloud Provider | Managed MongoDB NoSQL Service | Managed Redis Service |
-| :--- | :--- | :--- |
-| **Google Cloud (GCP)** | **MongoDB Atlas on GCP** | **Memorystore for Redis** |
-| **AWS** | **Amazon DocumentDB / MongoDB Atlas** | **Amazon ElastiCache for Redis** / **MemoryDB** |
-| **Azure** | **Azure Cosmos DB for MongoDB / Atlas** | **Azure Cache for Redis** |
+| Cloud Provider         | Managed MongoDB NoSQL Service           | Managed Redis Service                           |
+| :--------------------- | :-------------------------------------- | :---------------------------------------------- |
+| **Google Cloud (GCP)** | **MongoDB Atlas on GCP**                | **Memorystore for Redis**                       |
+| **AWS**                | **Amazon DocumentDB / MongoDB Atlas**   | **Amazon ElastiCache for Redis** / **MemoryDB** |
+| **Azure**              | **Azure Cosmos DB for MongoDB / Atlas** | **Azure Cache for Redis**                       |
 
 ## Production Advantages over In-Cluster Database Hosting
 

@@ -1812,9 +1812,9 @@
     "semantic_hash": "df03fbca12d80c759656f147c7c24b95"
   },
   "services/api/package.json": {
-    "mtime": 1788166756.4358737,
-    "seen": 1788167182.1019022,
-    "ast_hash": "484209e5d0bcf3d86aa7c4edfe984376",
+    "mtime": 1788167458.9824412,
+    "seen": 1788167610.7333586,
+    "ast_hash": "4bf29ed7c8d48d779e4739395a37f486",
     "semantic_hash": ""
   },
   "services/api/scripts/database/migrate-tutor-messages.ts": {
@@ -1824,9 +1824,9 @@
     "semantic_hash": "9466a4f8dae7ffc5d45fddc54505ad65"
   },
   "services/api/src/app.module.ts": {
-    "mtime": 1788166909.281443,
-    "seen": 1788167182.1019819,
-    "ast_hash": "ae1c98e6eb91b17756cd888aaa860ad5",
+    "mtime": 1788167501.1633306,
+    "seen": 1788167610.733408,
+    "ast_hash": "724af12dbf3cb93141e25e3e816f89ca",
     "semantic_hash": ""
   },
   "services/api/src/common/decorators/current-user.decorator.ts": {
@@ -3678,10 +3678,10 @@
     "semantic_hash": "01c869df24146d7be8484f81bacadf8f"
   },
   "services/worker/package.json": {
-    "mtime": 1787491713.276913,
-    "seen": 1787733266.569695,
-    "ast_hash": "0e1980c452ed2048f049af1e535a8c14",
-    "semantic_hash": "0e1980c452ed2048f049af1e535a8c14"
+    "mtime": 1788167707.9373484,
+    "seen": 1788167854.773497,
+    "ast_hash": "651ea9a1a7da83c171c2995385112161",
+    "semantic_hash": ""
   },
   "services/worker/src/index.ts": {
     "mtime": 1787491746.9137363,
@@ -18276,9 +18276,9 @@
     "semantic_hash": ""
   },
   "infra/MANAGED_DATABASES.md": {
-    "mtime": 1787564715.3990018,
-    "seen": 1788109355.5731218,
-    "ast_hash": "3af9dcdd18eac043781e4beeede11c6d",
+    "mtime": 1788167537.6049078,
+    "seen": 1788167610.7547343,
+    "ast_hash": "231d4c1934e1d5206dec251d9ac2f751",
     "semantic_hash": ""
   },
   "services/ai/README.md": {
@@ -23244,9 +23244,9 @@
     "semantic_hash": ""
   },
   "services/worker/src/config.ts": {
-    "mtime": 1788165422.8407874,
-    "seen": 1788165951.377398,
-    "ast_hash": "2b66e46eb82ae4fe0ea2d24bcf8fa74e",
+    "mtime": 1788167678.0690577,
+    "seen": 1788167854.7735012,
+    "ast_hash": "f75de4175e8801925a6b6a8bccabb658",
     "semantic_hash": ""
   },
   "services/worker/src/processors/analytics.processor.ts": {
@@ -23262,9 +23262,9 @@
     "semantic_hash": ""
   },
   "services/worker/src/processors/notification.processor.ts": {
-    "mtime": 1788165429.3848443,
-    "seen": 1788165951.377444,
-    "ast_hash": "6421d6def17064ec39bd103dc7ae5207",
+    "mtime": 1788167692.3571968,
+    "seen": 1788167854.7736194,
+    "ast_hash": "c3ff1da1a79266a2bc0b94f60acb0005",
     "semantic_hash": ""
   },
   "apps/teacher-portal/next-env.d.ts": {
@@ -23439,6 +23439,66 @@
     "mtime": 1788166862.89697,
     "seen": 1788167182.1026292,
     "ast_hash": "bcec2baab0aad29feec71cf84e87a42f",
+    "semantic_hash": ""
+  },
+  "services/api/src/modules/live-classroom/interfaces/live-classroom.interface.ts": {
+    "mtime": 1788167470.7710328,
+    "seen": 1788167610.7408664,
+    "ast_hash": "7fad0d7ac1b61a4f93f43b025701026d",
+    "semantic_hash": ""
+  },
+  "services/api/src/modules/live-classroom/live-classroom.gateway.ts": {
+    "mtime": 1788167486.1111832,
+    "seen": 1788167610.7408686,
+    "ast_hash": "63ccdd012a14542e72e0d4e587a3cda4",
+    "semantic_hash": ""
+  },
+  "services/api/src/modules/live-classroom/live-classroom.module.ts": {
+    "mtime": 1788167492.3232439,
+    "seen": 1788167610.7408705,
+    "ast_hash": "ce13f39be7e7a746b4c6ae78cbd06811",
+    "semantic_hash": ""
+  },
+  "services/api/src/modules/live-classroom/live-classroom.service.ts": {
+    "mtime": 1788167477.5910995,
+    "seen": 1788167610.740872,
+    "ast_hash": "cc326a95a51fbeb4074808b5c1718ff4",
+    "semantic_hash": ""
+  },
+  "services/api/src/modules/live-classroom/tests/live-classroom.gateway.spec.ts": {
+    "mtime": 1788167517.3274887,
+    "seen": 1788167610.740874,
+    "ast_hash": "c7431a05f252174619e7584e0c3aa4a8",
+    "semantic_hash": ""
+  },
+  "scripts/database/backup-disaster-recovery.sh": {
+    "mtime": 1788167766.5659184,
+    "seen": 1788167854.7527127,
+    "ast_hash": "4e7cc19ecca512910dce38f31437ece4",
+    "semantic_hash": ""
+  },
+  "tests/performance/k6-load-test.js": {
+    "mtime": 1788167755.9738154,
+    "seen": 1788167854.7736897,
+    "ast_hash": "10e007007fb514d1bfc8593fa781d045",
+    "semantic_hash": ""
+  },
+  ".github/workflows/ci.yml": {
+    "mtime": 1788167748.2777407,
+    "seen": 1788167854.7737908,
+    "ast_hash": "6e3c9e23f921305b9fcd3556c08327c0",
+    "semantic_hash": ""
+  },
+  "infra/kubernetes/helm/shikkhok-ai/Chart.yaml": {
+    "mtime": 1788167728.0015435,
+    "seen": 1788167854.779607,
+    "ast_hash": "e08f24ba81c7d8a4b8f5266346c2e2b8",
+    "semantic_hash": ""
+  },
+  "infra/kubernetes/helm/shikkhok-ai/values.yaml": {
+    "mtime": 1788167737.6616375,
+    "seen": 1788167854.7796102,
+    "ast_hash": "0e4fe717202402bc980562573e4d28b1",
     "semantic_hash": ""
   }
 }

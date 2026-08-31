@@ -28,6 +28,7 @@ import { ClassroomsModule } from './modules/classrooms/classrooms.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { MetricsModule } from './common/metrics/metrics.module';
+import { LiveClassroomModule } from './modules/live-classroom/live-classroom.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { MetricsModule } from './common/metrics/metrics.module';
     QueueModule,
     HealthModule,
     MetricsModule,
+    LiveClassroomModule,
     UsersModule,
     AuthModule,
     StudentsModule,
