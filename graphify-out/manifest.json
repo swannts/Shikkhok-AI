@@ -23483,12 +23483,6 @@
     "ast_hash": "10e007007fb514d1bfc8593fa781d045",
     "semantic_hash": ""
   },
-  ".github/workflows/ci.yml": {
-    "mtime": 1788167748.2777407,
-    "seen": 1788167854.7737908,
-    "ast_hash": "6e3c9e23f921305b9fcd3556c08327c0",
-    "semantic_hash": ""
-  },
   "infra/kubernetes/helm/shikkhok-ai/Chart.yaml": {
     "mtime": 1788167728.0015435,
     "seen": 1788167854.779607,

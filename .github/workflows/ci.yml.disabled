@@ -1,167 +1,114 @@
-name: Shikkhok AI Platform CI/CD Pipeline
+name: Shikkhok-AI Continuous Integration & Production Verification
 
-# GitHub Actions Workflow Disabled as Requested (Manual trigger only via workflow_dispatch)
 on:
-  workflow_dispatch:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
 
 jobs:
   # -------------------------------------------------------------
-  # 1. MOBILE APP CI (Typecheck, Lint, Format, Tests)
+  # 1. FASTAPI AI & RAG SERVICE
   # -------------------------------------------------------------
-  mobile-ci:
-    name: Mobile App (Typecheck, Lint, Format, Tests)
+  ai-service:
+    name: FastAPI AI Service (Pytest & MyPy)
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          node-version: 18
-          cache: 'npm'
-          cache-dependency-path: apps/mobile/package-lock.json
-
-      - name: Install Mobile Dependencies
-        run: |
-          cd apps/mobile
-          npm ci
-
-      - name: Mobile TypeScript Check
-        run: |
-          cd apps/mobile
-          npm run typecheck
-
-      - name: Mobile ESLint Check
-        run: |
-          cd apps/mobile
-          npm run lint
-
-      - name: Mobile Format Check
-        run: |
-          cd apps/mobile
-          npm run format:check
-
-      - name: Mobile Jest Tests
-        run: |
-          cd apps/mobile
-          npm test
+          version: "latest"
+      - name: Set up Python 3.12
+        run: uv python install 3.12
+      - name: Install dependencies
+        working-directory: ./services/ai
+        run: uv sync --all-extras --dev
+      - name: Lint and formatting
+        working-directory: ./services/ai
+        run: uv run ruff check . && uv run mypy app
+      - name: Run Pytest Suite
+        working-directory: ./services/ai
+        run: uv run pytest
 
   # -------------------------------------------------------------
-  # 2. MAIN API SERVICE CI (Typecheck, Prisma, Tests, Build)
+  # 2. NESTJS BACKEND API
   # -------------------------------------------------------------
-  api-ci:
-    name: API Service (Typecheck, Prisma, Tests, Build)
+  backend-api:
+    name: NestJS API (Build, Unit & Gateway Tests)
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - uses: actions/checkout@v4
+      - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: services/api/package-lock.json
-
-      - name: Install API Dependencies
-        run: |
-          cd services/api
-          npm ci
-
-      - name: Generate Prisma Client
-        run: |
-          cd services/api
-          npx prisma generate
-
-      - name: API TypeScript Check
-        run: |
-          cd services/api
-          npx tsc --noEmit
-
-      - name: API Jest Tests
-        run: |
-          cd services/api
-          npm test
-
-      - name: API Production Build
-        run: |
-          cd services/api
-          npm run build
+          cache-dependency-path: services/api/package.json
+      - name: Install dependencies
+        working-directory: ./services/api
+        run: npm ci
+      - name: Build TypeScript
+        working-directory: ./services/api
+        run: npm run build
+      - name: Run Jest Test Suites
+        working-directory: ./services/api
+        run: npm test
 
   # -------------------------------------------------------------
-  # 3. AI GATEWAY SERVICE CI (Typecheck, Tests, Build)
+  # 3. BULLMQ WORKER DAEMON
   # -------------------------------------------------------------
-  ai-gateway-ci:
-    name: AI Gateway (Typecheck, Tests, Build)
+  background-worker:
+    name: BullMQ Background Worker (Build)
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - uses: actions/checkout@v4
+      - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: services/ai-gateway/package-lock.json
-
-      - name: Install AI Gateway Dependencies
-        run: |
-          cd services/ai-gateway
-          npm ci
-
-      - name: AI Gateway TypeScript Check
-        run: |
-          cd services/ai-gateway
-          npx tsc --noEmit
-
-      - name: AI Gateway Build
-        run: |
-          cd services/ai-gateway
-          npm run build
+      - name: Install & Build
+        working-directory: ./services/worker
+        run: npm install && npm run build
 
   # -------------------------------------------------------------
-  # 4. WORKER SERVICE CI (Typecheck, Build)
+  # 4. TEACHER PORTAL NEXT.JS
   # -------------------------------------------------------------
-  worker-ci:
-    name: Worker Service (Typecheck, Build)
+  teacher-portal:
+    name: Teacher Portal (Next.js 15 Build)
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - uses: actions/checkout@v4
+      - name: Set up Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Install Worker Dependencies
-        run: |
-          cd services/worker
-          npm ci || npm install
-
-      - name: Worker Build
-        run: |
-          cd services/worker
-          npm run build
+      - name: Install & Build
+        working-directory: ./apps/teacher-portal
+        run: npm install --legacy-peer-deps && npm run build
 
   # -------------------------------------------------------------
-  # 5. DOCKER BUILD & SECURITY SCANNING
+  # 5. FLUTTER MOBILE APP
   # -------------------------------------------------------------
-  docker-build-security:
-    name: Docker Build & Security Verification
-    needs: [mobile-ci, api-ci, ai-gateway-ci, worker-ci]
+  flutter-mobile:
+    name: Flutter Mobile (Analyzer)
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Verify Docker Compose Build
-        run: |
-          docker compose config
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.x'
+          channel: 'stable'
+          cache: true
+      - name: Get dependencies
+        working-directory: ./apps/mobile
+        run: flutter pub get
+      - name: Analyze Flutter codebase
+        working-directory: ./apps/mobile
+        run: flutter analyze
