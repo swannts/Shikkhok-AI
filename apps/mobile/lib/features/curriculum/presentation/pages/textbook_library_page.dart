@@ -166,7 +166,7 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                                 decoration: BoxDecoration(
                                   color: AppColors.surface,
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
+                                    border: Border.all(
                                     color: isCompleted
                                         ? AppColors.success.withValues(alpha: 0.4)
                                         : AppColors.border,

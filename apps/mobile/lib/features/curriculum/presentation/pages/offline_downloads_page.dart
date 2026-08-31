@@ -185,7 +185,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                         color: AppColors.surface,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: isCompleted
+                              color: isCompleted
                               ? AppColors.success.withValues(alpha: 0.4)
                               : AppColors.border,
                         ),
