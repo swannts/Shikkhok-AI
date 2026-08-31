@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { NotificationsService } from '../notifications.service';
 import { NotificationRepository } from '../repositories/notification.repository';
+import { DeviceTokenRepository } from '../repositories/device-token.repository';
 import { UsersService } from '../../users/users.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { NotificationType } from '../enums/notification-type.enum';
@@ -25,6 +26,15 @@ describe('NotificationsService', () => {
             countUnreadByUserId: jest.fn(),
             markAsRead: jest.fn(),
             markAllAsRead: jest.fn(),
+          },
+        },
+        {
+          provide: DeviceTokenRepository,
+          useValue: {
+            registerToken: jest.fn(),
+            unregisterToken: jest.fn(),
+            findActiveTokensForUser: jest.fn(),
+            deactivateInvalidTokens: jest.fn(),
           },
         },
         {
