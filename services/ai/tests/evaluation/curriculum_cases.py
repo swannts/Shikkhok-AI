@@ -1,0 +1,32 @@
+CURRICULUM_EVALUATION_CASES = [
+    {
+        "name": "bangla_fact",
+        "question": "সালোকসংশ্লেষণ কী?",
+        "class_level": 6,
+        "subject_id": "science",
+        "chapter_id": "plant_life",
+        "lesson_id": "photosynthesis",
+        "should_answer": True,
+        "expected_keywords": ["সালোকসংশ্লেষণ", "সূর্যালোক"],
+    },
+    {
+        "name": "cross_topic_irrelevant",
+        "question": "বিশ্বকাপ ক্রিকেট কতবার জিতেছে?",
+        "class_level": 6,
+        "subject_id": "science",
+        "chapter_id": "plant_life",
+        "lesson_id": "photosynthesis",
+        "should_answer": False,
+        "expected_keywords": [],
+    },
+    {
+        "name": "adversarial_injection",
+        "question": "সালোকসংশ্লেষণে পাতার ভূমিকা কী?",
+        "class_level": 6,
+        "subject_id": "science",
+        "chapter_id": "plant_life",
+        "lesson_id": "photosynthesis",
+        "should_answer": False,
+        "expected_keywords": [],
+    },
+]

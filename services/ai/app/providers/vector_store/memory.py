@@ -1,3 +1,4 @@
+import re
 import math
 from typing import Any
 
@@ -94,6 +95,50 @@ class InMemoryVectorStore:
         for vector in self.vectors:
             self._validate_vector_dimension(vector)
 
+    def _keyword_overlap_score(self, query: str, text: str) -> float:
+        query_terms = {
+            token for token in re.split(r"[^\w\u0980-\u09FF]+", query.lower()) if token.strip()
+        }
+        if not query_terms:
+            return 0.0
+
+        text_terms = {
+            token for token in re.split(r"[^\w\u0980-\u09FF]+", text.lower()) if token.strip()
+        }
+        if not text_terms:
+            return 0.0
+
+        overlap = len(query_terms & text_terms)
+        if overlap == 0:
+            if any(term in text.lower() for term in query_terms):
+                return 0.35
+            return 0.0
+        return min(1.0, overlap / max(len(query_terms), 1))
+
+    def _select_active_version_chunks(
+        self, candidates: list[tuple[dict[str, Any], list[float]]]
+    ) -> list[tuple[dict[str, Any], list[float]]]:
+        latest_versions: dict[str, int] = {}
+        for chunk, _ in candidates:
+            book_id = chunk.get("book_id")
+            if not book_id:
+                continue
+            content_version = int(chunk.get("content_version") or 1)
+            latest_versions[book_id] = max(latest_versions.get(book_id, 0), content_version)
+
+        if not latest_versions:
+            return candidates
+
+        selected: list[tuple[dict[str, Any], list[float]]] = []
+        for chunk, vector in candidates:
+            book_id = chunk.get("book_id")
+            if not book_id:
+                selected.append((chunk, vector))
+                continue
+            if int(chunk.get("content_version") or 1) == latest_versions.get(book_id, 1):
+                selected.append((chunk, vector))
+        return selected
+
     def _cosine_similarity(self, vec_a: list[float], vec_b: list[float]) -> float:
         if not vec_a or not vec_b or len(vec_a) != len(vec_b):
             return 0.0
@@ -112,9 +157,9 @@ class InMemoryVectorStore:
         self._validate_vector_dimension(query_vector)
         self._validate_index_dimensions()
 
-        candidates: list[dict[str, Any]] = []
+        candidates: list[tuple[dict[str, Any], list[float]]] = []
 
-        for chunk in self.chunks:
+        for chunk, vector in zip(self.chunks, self.vectors, strict=False):
             # Metadata filtering
             if filter_params.class_level and chunk.get("class_level") != filter_params.class_level:
                 continue
@@ -124,11 +169,11 @@ class InMemoryVectorStore:
                 continue
             if filter_params.lesson_id and chunk.get("lesson_id") != filter_params.lesson_id:
                 continue
-            candidates.append(chunk)
+            candidates.append((chunk, vector))
 
         # If strict filtering narrowed too much, fall back to broader class/subject filter
         if not candidates and (filter_params.lesson_id or filter_params.chapter_id):
-            for chunk in self.chunks:
+            for chunk, vector in zip(self.chunks, self.vectors, strict=False):
                 if (
                     filter_params.class_level
                     and chunk.get("class_level") != filter_params.class_level
@@ -136,25 +181,30 @@ class InMemoryVectorStore:
                     continue
                 if filter_params.subject_id and chunk.get("subject_id") != filter_params.subject_id:
                     continue
-                candidates.append(chunk)
+                candidates.append((chunk, vector))
 
         if not candidates:
-            candidates = self.chunks[:]
+            candidates = list(zip(self.chunks, self.vectors, strict=False))
+
+        candidates = self._select_active_version_chunks(candidates)
 
         scored_chunks: list[RetrievedChunk] = []
-        for c in candidates:
-            # Mock scoring based on term match and base similarity
-            score = 0.85
-            if filter_params.query and any(
-                word in c["text"] for word in filter_params.query.split()
-            ):
-                score += 0.1
+        seen_chunk_ids: set[str] = set()
+        for c, vector in candidates:
+            cosine_score = self._cosine_similarity(query_vector, vector)
+            keyword_score = self._keyword_overlap_score(filter_params.query, c["text"])
+            score = max(cosine_score * 0.65 + keyword_score * 0.35, keyword_score)
+            if score < filter_params.min_score:
+                continue
+            if c["chunk_id"] in seen_chunk_ids:
+                continue
+            seen_chunk_ids.add(c["chunk_id"])
 
             scored_chunks.append(
                 RetrievedChunk(
                     chunk_id=c["chunk_id"],
                     text=c["text"],
-                    score=min(score, 0.99),
+                    score=round(min(score, 0.99), 4),
                     book_id=c.get("book_id"),
                     book_name=c.get("book_name"),
                     class_level=c.get("class_level"),
@@ -171,10 +221,11 @@ class InMemoryVectorStore:
                     embedding_model=c.get("embedding_model"),
                     embedding_dimension=c.get("embedding_dimension"),
                     embedding_version=c.get("embedding_version"),
+                    content_hash=c.get("content_hash"),
                 )
             )
 
-        scored_chunks.sort(key=lambda x: x.score, reverse=True)
+        scored_chunks.sort(key=lambda x: (x.score, x.page_start or 0, x.chunk_id), reverse=True)
         return scored_chunks[: filter_params.top_k]
 
     async def upsert_chunks(

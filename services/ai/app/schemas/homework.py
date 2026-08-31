@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.schemas.citation import CitationPayload
 
@@ -20,9 +20,15 @@ class HomeworkEvaluationRequest(BaseModel):
     student_id: str = Field(..., description="Identifier of the student who submitted the homework")
     language: Literal["bn", "en"] = Field(default="bn", description="Preferred response language")
 
-    raw_text: str | None = Field(default=None, description="Transcribed or entered homework text")
+    raw_text: str | None = Field(
+        default=None,
+        max_length=8000,
+        description="Transcribed or entered homework text",
+    )
     prompt: str | None = Field(
-        default=None, description="The original homework question or student note"
+        default=None,
+        max_length=4000,
+        description="The original homework question or student note",
     )
     image_urls: list[str] = Field(
         default_factory=list, description="URLs to handwritten homework images"
@@ -38,6 +44,32 @@ class HomeworkEvaluationRequest(BaseModel):
     subject_title: str | None = Field(default=None, description="Subject name in readable text")
     chapter_title: str | None = Field(default=None, description="Chapter title")
     lesson_title: str | None = Field(default=None, description="Lesson title")
+
+    @field_validator("raw_text", "prompt", mode="before")
+    @classmethod
+    def trim_text_fields(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        trimmed = value.strip()
+        return trimmed or None
+
+    @model_validator(mode="after")
+    def validate_submission_payload(self) -> "HomeworkEvaluationRequest":
+        if not self.raw_text and not self.image_urls:
+            raise ValueError("Homework submission must include raw text or at least one image URL")
+
+        if len(self.image_urls) > 10:
+            raise ValueError("Homework submission cannot include more than 10 images")
+
+        total_chars = (
+            len(self.raw_text or "")
+            + len(self.prompt or "")
+            + sum(len(url) for url in self.image_urls)
+        )
+        if total_chars > 20000:
+            raise ValueError("Homework submission payload is too large")
+
+        return self
 
 
 class HomeworkEvaluationResponse(BaseModel):

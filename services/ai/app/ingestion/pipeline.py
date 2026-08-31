@@ -89,6 +89,7 @@ class IngestionPipeline:
                     embedding_model=getattr(self.embedding_provider, "model", "unknown"),
                     embedding_dimension=getattr(self.embedding_provider, "dimension", 0),
                     embedding_version=1,
+                    content_hash=c.content_hash,
                 )
                 for c in chunks
             ]

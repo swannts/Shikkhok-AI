@@ -1,0 +1,91 @@
+import pytest
+
+from app.providers.embeddings.primary import DeterministicEmbeddingProvider
+from app.providers.vector_store.memory import InMemoryVectorStore
+from app.schemas.retrieval import RetrievalFilter
+from app.services.rag_service import RagService
+
+
+@pytest.mark.asyncio
+async def test_rag_rejects_irrelevant_chunks_below_threshold() -> None:
+    embeddings = DeterministicEmbeddingProvider()
+    query = "বাংলাদেশের ক্রিকেট ইতিহাস"
+    query_vector = await embeddings.embed_query(query)
+
+    store = InMemoryVectorStore()
+    store.chunks = [
+        {
+            "chunk_id": "irrelevant_chunk",
+            "text": "বীজগণিতীয় সূত্রাবলি এবং বর্গের নিয়ম।",
+            "book_id": "class6_science_fixture",
+            "book_name": "Synthetic Fixture",
+            "class_level": 6,
+            "subject_id": "science",
+            "chapter_id": "plant_life",
+            "lesson_id": "photosynthesis",
+            "content_version": 1,
+        }
+    ]
+    store.vectors = [[-value for value in query_vector]]
+
+    rag = RagService(embedding_provider=embeddings, vector_store=store)
+    results = await rag.search(
+        RetrievalFilter(
+            query=query,
+            class_level=6,
+            subject_id="science",
+            top_k=3,
+        )
+    )
+
+    assert results == []
+
+
+@pytest.mark.asyncio
+async def test_vector_store_prefers_latest_content_version_per_book() -> None:
+    embeddings = DeterministicEmbeddingProvider()
+    query = "সালোকসংশ্লেষণ কী?"
+    query_vector = await embeddings.embed_query(query)
+
+    store = InMemoryVectorStore()
+    store.chunks = [
+        {
+            "chunk_id": "photosynthesis_v1",
+            "text": "সালোকসংশ্লেষণ: উদ্ভিদ সূর্যালোক ব্যবহার করে খাদ্য তৈরি করে।",
+            "book_id": "class6_science_fixture",
+            "book_name": "Synthetic Fixture",
+            "class_level": 6,
+            "subject_id": "science",
+            "chapter_id": "plant_life",
+            "lesson_id": "photosynthesis",
+            "content_version": 1,
+        },
+        {
+            "chunk_id": "photosynthesis_v2",
+            "text": "সালোকসংশ্লেষণ: উদ্ভিদ সূর্যালোক, জল এবং কার্বন ডাই-অক্সাইড ব্যবহার করে খাদ্য তৈরি করে।",
+            "book_id": "class6_science_fixture",
+            "book_name": "Synthetic Fixture",
+            "class_level": 6,
+            "subject_id": "science",
+            "chapter_id": "plant_life",
+            "lesson_id": "photosynthesis",
+            "content_version": 2,
+        },
+    ]
+    store.vectors = [query_vector, query_vector]
+
+    rag = RagService(embedding_provider=embeddings, vector_store=store)
+    results = await rag.search(
+        RetrievalFilter(
+            query=query,
+            class_level=6,
+            subject_id="science",
+            chapter_id="plant_life",
+            lesson_id="photosynthesis",
+            top_k=3,
+        )
+    )
+
+    assert results
+    assert all(chunk.content_version == 2 for chunk in results)
+    assert results[0].chunk_id == "photosynthesis_v2"

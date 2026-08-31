@@ -1,3 +1,5 @@
+import time
+
 from app.core.exceptions import RetrievalError
 from app.core.logging import logger
 from app.providers.embeddings.base import EmbeddingProvider
@@ -28,15 +30,24 @@ class RagService:
             )
 
     async def search(self, filter_params: RetrievalFilter) -> list[RetrievedChunk]:
+        started_at = time.time()
         try:
             query_vector = await self.embedding_provider.embed_query(filter_params.query)
             self._validate_embedding_dimensions(query_vector)
             chunks = await self.vector_store.search(
                 query_vector=query_vector, filter_params=filter_params
             )
+            retrieval_latency_ms = int((time.time() - started_at) * 1000)
             logger.info(
                 f"RAG search retrieved {len(chunks)} chunks for query '{filter_params.query[:40]}...'",
-                extra={"extra_data": {"topK": filter_params.top_k, "resultCount": len(chunks)}},
+                extra={
+                    "extra_data": {
+                        "topK": filter_params.top_k,
+                        "resultCount": len(chunks),
+                        "retrievalLatencyMs": retrieval_latency_ms,
+                        "minScore": filter_params.min_score,
+                    }
+                },
             )
             return chunks
         except Exception as e:

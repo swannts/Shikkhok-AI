@@ -2,6 +2,7 @@ import asyncio
 import json
 import math
 import os
+import re
 from pathlib import Path
 from typing import Any
 
@@ -184,6 +185,50 @@ class PersistentVectorStore:
         for vector in self.vectors:
             self._validate_vector_dimension(vector)
 
+    def _keyword_overlap_score(self, query: str, text: str) -> float:
+        query_terms = {
+            token for token in re.split(r"[^\w\u0980-\u09FF]+", query.lower()) if token.strip()
+        }
+        if not query_terms:
+            return 0.0
+
+        text_terms = {
+            token for token in re.split(r"[^\w\u0980-\u09FF]+", text.lower()) if token.strip()
+        }
+        if not text_terms:
+            return 0.0
+
+        overlap = len(query_terms & text_terms)
+        if overlap == 0:
+            if any(term in text.lower() for term in query_terms):
+                return 0.35
+            return 0.0
+        return min(1.0, overlap / max(len(query_terms), 1))
+
+    def _select_active_version_chunks(
+        self, candidates: list[tuple[dict[str, Any], list[float]]]
+    ) -> list[tuple[dict[str, Any], list[float]]]:
+        latest_versions: dict[str, int] = {}
+        for chunk, _ in candidates:
+            book_id = chunk.get("book_id")
+            if not book_id:
+                continue
+            content_version = int(chunk.get("content_version") or 1)
+            latest_versions[book_id] = max(latest_versions.get(book_id, 0), content_version)
+
+        if not latest_versions:
+            return candidates
+
+        selected: list[tuple[dict[str, Any], list[float]]] = []
+        for chunk, vector in candidates:
+            book_id = chunk.get("book_id")
+            if not book_id:
+                selected.append((chunk, vector))
+                continue
+            if int(chunk.get("content_version") or 1) == latest_versions.get(book_id, 1):
+                selected.append((chunk, vector))
+        return selected
+
     def _save_to_disk_sync(self) -> None:
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
         tmp_path = self.file_path.with_suffix(".tmp")
@@ -254,18 +299,25 @@ class PersistentVectorStore:
         if not candidates:
             candidates = list(zip(self.chunks, self.vectors, strict=False))
 
+        candidates = self._select_active_version_chunks(candidates)
+
         scored: list[RetrievedChunk] = []
+        seen_chunk_ids: set[str] = set()
         for chunk, vector in candidates:
-            sim = self._cosine_similarity(query_vector, vector)
-            # Enhance score if keyword appears in text
-            if filter_params.query and any(w in chunk["text"] for w in filter_params.query.split()):
-                sim = max(sim, 0.75) + 0.15
+            cosine_score = self._cosine_similarity(query_vector, vector)
+            keyword_score = self._keyword_overlap_score(filter_params.query, chunk["text"])
+            score = max(cosine_score * 0.65 + keyword_score * 0.35, keyword_score)
+            if score < filter_params.min_score:
+                continue
+            if chunk["chunk_id"] in seen_chunk_ids:
+                continue
+            seen_chunk_ids.add(chunk["chunk_id"])
 
             scored.append(
                 RetrievedChunk(
                     chunk_id=chunk["chunk_id"],
                     text=chunk["text"],
-                    score=round(min(sim, 0.99), 4),
+                    score=round(min(score, 0.99), 4),
                     book_id=chunk.get("book_id"),
                     book_name=chunk.get("book_name"),
                     class_level=chunk.get("class_level"),
@@ -282,10 +334,11 @@ class PersistentVectorStore:
                     embedding_model=chunk.get("embedding_model"),
                     embedding_dimension=chunk.get("embedding_dimension"),
                     embedding_version=chunk.get("embedding_version"),
+                    content_hash=chunk.get("content_hash"),
                 )
             )
 
-        scored.sort(key=lambda x: x.score, reverse=True)
+        scored.sort(key=lambda x: (x.score, x.page_start or 0, x.chunk_id), reverse=True)
         return scored[: filter_params.top_k]
 
     async def upsert_chunks(

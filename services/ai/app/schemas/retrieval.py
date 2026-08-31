@@ -25,6 +25,7 @@ class RetrievedChunk(BaseModel):
     embedding_model: str | None = None
     embedding_dimension: int | None = None
     embedding_version: int | None = None
+    content_hash: str | None = None
 
 
 class RetrievalFilter(BaseModel):
@@ -34,3 +35,4 @@ class RetrievalFilter(BaseModel):
     chapter_id: str | None = None
     lesson_id: str | None = None
     top_k: int = Field(default=3, ge=1, le=10)
+    min_score: float = Field(default=0.25, ge=0.0, le=1.0)

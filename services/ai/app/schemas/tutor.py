@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class TutorHistoryMessage(BaseModel):
@@ -27,6 +27,27 @@ class TutorGenerationRequest(BaseModel):
     lesson_title: str | None = None
 
     history: list[TutorHistoryMessage] = Field(default_factory=list)
+
+    @field_validator("message", mode="before")
+    @classmethod
+    def trim_message(cls, value: str) -> str:
+        if not isinstance(value, str):
+            return value
+        trimmed = value.strip()
+        if not trimmed:
+            raise ValueError("Tutor message cannot be empty")
+        return trimmed
+
+    @model_validator(mode="after")
+    def validate_history(self) -> "TutorGenerationRequest":
+        if len(self.history) > 12:
+            raise ValueError("Tutor history cannot exceed 12 messages")
+
+        total_history_chars = sum(len(message.content) for message in self.history)
+        if total_history_chars > 12000:
+            raise ValueError("Tutor history is too large")
+
+        return self
 
 
 class TutorStreamEvent(BaseModel):
