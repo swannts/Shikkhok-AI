@@ -3,7 +3,10 @@ from pathlib import Path
 
 import pytest
 
-from app.providers.vector_store.persistent import PersistentVectorStore
+from app.providers.vector_store.persistent import (
+    PersistentVectorStore,
+    VectorStoreIndexNotFoundError,
+)
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
@@ -18,6 +21,7 @@ async def test_persistent_vector_store_save_load_and_search(tmp_path: Path) -> N
             model="test-model",
             dimension=128,
         ),
+        allow_demo_seed=True,
     )
 
     test_chunk = RetrievedChunk(
@@ -90,6 +94,7 @@ def test_persistent_vector_store_rejects_dimension_mismatch(tmp_path: Path) -> N
             model="test-model",
             dimension=128,
         ),
+        allow_demo_seed=True,
     )
 
     with pytest.raises(ValueError, match="Embedding compatibility mismatch"):
@@ -100,6 +105,7 @@ def test_persistent_vector_store_rejects_dimension_mismatch(tmp_path: Path) -> N
                 model="test-model",
                 dimension=768,
             ),
+            allow_demo_seed=True,
         )
 
 
@@ -112,6 +118,7 @@ def test_persistent_vector_store_rejects_model_mismatch(tmp_path: Path) -> None:
             model="test-model-a",
             dimension=128,
         ),
+        allow_demo_seed=True,
     )
 
     with pytest.raises(ValueError, match="Embedding compatibility mismatch"):
@@ -122,6 +129,7 @@ def test_persistent_vector_store_rejects_model_mismatch(tmp_path: Path) -> None:
                 model="test-model-b",
                 dimension=128,
             ),
+            allow_demo_seed=True,
         )
 
 
@@ -135,3 +143,26 @@ def test_persistent_vector_store_fails_closed_on_corrupt_index_outside_dev_test(
 
     with pytest.raises(RuntimeError, match="Failed to load persistent vector store"):
         PersistentVectorStore(file_path=store_file)
+
+
+def test_persistent_vector_store_fails_closed_when_index_is_missing(
+    tmp_path: Path,
+) -> None:
+    missing_file = tmp_path / "missing_chunks.json"
+
+    with pytest.raises(VectorStoreIndexNotFoundError, match="VECTOR_INDEX_NOT_FOUND"):
+        PersistentVectorStore(file_path=missing_file)
+
+
+def test_persistent_vector_store_can_seed_demo_index_when_explicitly_enabled(
+    tmp_path: Path,
+) -> None:
+    store_file = tmp_path / "demo_chunks.json"
+
+    store = PersistentVectorStore(
+        file_path=store_file,
+        allow_demo_seed=True,
+    )
+
+    assert store_file.exists()
+    assert len(store.chunks) >= 1

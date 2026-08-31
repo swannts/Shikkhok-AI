@@ -64,6 +64,7 @@ class Settings(BaseSettings):
     vector_store_path: str = "data/vector_store/curriculum_chunks.json"
     vector_store_url: str = "http://localhost:6333"
     vector_store_api_key: str = ""
+    vector_store_allow_demo_seed: bool = False
 
     # Timeouts
     request_timeout_seconds: float = 30.0

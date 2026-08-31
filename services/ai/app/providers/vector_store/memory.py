@@ -2,7 +2,11 @@ import math
 import re
 from typing import Any
 
-from app.providers.vector_store.scoping import build_retrieval_scope_chain, chunk_matches_scope
+from app.providers.vector_store.scoping import (
+    active_version_key,
+    build_retrieval_scope_chain,
+    chunk_matches_scope,
+)
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
@@ -144,22 +148,17 @@ class InMemoryVectorStore:
     ) -> list[tuple[dict[str, Any], list[float]]]:
         latest_versions: dict[str, int] = {}
         for chunk, _ in candidates:
-            book_id = chunk.get("book_id")
-            if not book_id:
-                continue
+            version_key = active_version_key(chunk)
             content_version = int(chunk.get("content_version") or 1)
-            latest_versions[book_id] = max(latest_versions.get(book_id, 0), content_version)
+            latest_versions[version_key] = max(latest_versions.get(version_key, 0), content_version)
 
         if not latest_versions:
             return candidates
 
         selected: list[tuple[dict[str, Any], list[float]]] = []
         for chunk, vector in candidates:
-            book_id = chunk.get("book_id")
-            if not book_id:
-                selected.append((chunk, vector))
-                continue
-            if int(chunk.get("content_version") or 1) == latest_versions.get(book_id, 1):
+            version_key = active_version_key(chunk)
+            if int(chunk.get("content_version") or 1) == latest_versions.get(version_key, 1):
                 selected.append((chunk, vector))
         return selected
 

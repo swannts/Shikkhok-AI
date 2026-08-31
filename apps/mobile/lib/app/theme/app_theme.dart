@@ -40,14 +40,6 @@ class AppTheme {
         iconTheme: IconThemeData(color: AppColors.textPrimary),
         titleTextStyle: AppTypography.sectionTitle,
       ),
-      cardTheme: CardThemeData(
-        color: AppColors.surface,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: AppRadius.borderLg,
-          side: const BorderSide(color: AppColors.border, width: 1),
-        ),
-      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,

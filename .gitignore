@@ -7,6 +7,7 @@ node_modules/
 dist/
 web-build/
 *.orig.*
+apps/teacher-portal/.next/
 
 # Flutter & Dart
 .dart_tool/
@@ -42,4 +43,3 @@ venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-

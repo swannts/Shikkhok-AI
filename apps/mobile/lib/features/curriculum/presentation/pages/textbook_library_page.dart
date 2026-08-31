@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +13,8 @@ class TextbookLibraryPage extends ConsumerStatefulWidget {
   const TextbookLibraryPage({super.key});
 
   @override
-  ConsumerState<TextbookLibraryPage> createState() => _TextbookLibraryPageState();
+  ConsumerState<TextbookLibraryPage> createState() =>
+      _TextbookLibraryPageState();
 }
 
 class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
@@ -34,7 +37,9 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
 
   void _loadCurrentGrade() {
     final grade = _grades[_selectedClassIndex].$1;
-    ref.read(offlineTextbooksProvider.notifier).loadTextbooks(classLevel: grade);
+    ref
+        .read(offlineTextbooksProvider.notifier)
+        .loadTextbooks(classLevel: grade);
   }
 
   @override
@@ -49,7 +54,8 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
@@ -62,7 +68,8 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.offline_pin_rounded, color: AppColors.primary),
+            icon:
+                const Icon(Icons.offline_pin_rounded, color: AppColors.primary),
             onPressed: () => context.push('/offline-downloads'),
             tooltip: 'অফলাইন ডাউনলোড সমূহ',
           ),
@@ -90,7 +97,9 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: isSelected ? AppColors.primary : Colors.transparent,
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.transparent,
                               width: 3,
                             ),
                           ),
@@ -99,8 +108,12 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                           grade.$2,
                           style: TextStyle(
                             fontSize: 13,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            color: isSelected ? AppColors.primary : AppColors.textSecondary,
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.textSecondary,
                           ),
                         ),
                       ),
@@ -120,7 +133,8 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.menu_book_rounded, size: 48, color: AppColors.textSecondary),
+                              const Icon(Icons.menu_book_rounded,
+                                  size: 48, color: AppColors.textSecondary),
                               const SizedBox(height: 12),
                               const Text('এই শ্রেণির কোনো পাঠ্যবই পাওয়া যায়নি'),
                               const SizedBox(height: 12),
@@ -133,7 +147,8 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                         )
                       : GridView.builder(
                           padding: const EdgeInsets.all(AppSpacing.md),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 12,
                             crossAxisSpacing: 12,
@@ -143,14 +158,15 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                           itemBuilder: (context, index) {
                             final book = state.availableTextbooks[index];
                             final task = state.activeDownloads[book.id];
-                            final isCompleted = task?.status == DownloadStatus.completed;
-                            final isDownloading = task?.status == DownloadStatus.downloading;
+                            final isCompleted =
+                                task?.status == DownloadStatus.completed;
+                            final isDownloading =
+                                task?.status == DownloadStatus.downloading;
 
-                            final sizeMb = ((book.latestManifest?.downloadSizeBytes ??
-                                        book.fileSizeBytes ??
-                                        15728640) /
-                                    (1024 * 1024))
-                                .toStringAsFixed(1);
+                            final sizeLabel = _formatDownloadSize(
+                              book.latestManifest?.downloadSizeBytes ??
+                                  book.fileSizeBytes,
+                            );
 
                             return InkWell(
                               onTap: () {
@@ -166,35 +182,40 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                                 decoration: BoxDecoration(
                                   color: AppColors.surface,
                                   borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
+                                  border: Border.all(
                                     color: isCompleted
-                                        ? AppColors.success.withValues(alpha: 0.4)
+                                        ? AppColors.success.withOpacity(0.4)
                                         : AppColors.border,
                                   ),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       width: 48,
                                       height: 48,
                                       decoration: BoxDecoration(
                                         color: isCompleted
-                                            ? AppColors.success.withValues(alpha: 0.1)
-                                            : AppColors.primary.withValues(alpha: 0.1),
+                                            ? AppColors.success.withOpacity(0.1)
+                                            : AppColors.primary
+                                                .withOpacity(0.1),
                                         borderRadius: BorderRadius.circular(14),
                                       ),
                                       child: Icon(
                                         isCompleted
                                             ? Icons.check_circle_rounded
                                             : Icons.menu_book_rounded,
-                                        color: isCompleted ? AppColors.success : AppColors.primary,
+                                        color: isCompleted
+                                            ? AppColors.success
+                                            : AppColors.primary,
                                         size: 26,
                                       ),
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           book.title,
@@ -208,10 +229,11 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                                         ),
                                         const SizedBox(height: 4),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              '$sizeMb MB',
+                                              sizeLabel,
                                               style: const TextStyle(
                                                 fontSize: 12,
                                                 color: AppColors.textSecondary,
@@ -221,25 +243,35 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
                                               const SizedBox(
                                                 width: 16,
                                                 height: 16,
-                                                child: CircularProgressIndicator(strokeWidth: 2),
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        strokeWidth: 2),
                                               )
                                             else
                                               Icon(
                                                 isCompleted
                                                     ? Icons.offline_pin_rounded
-                                                    : Icons.file_download_outlined,
-                                                color: isCompleted ? AppColors.success : AppColors.primary,
+                                                    : Icons
+                                                        .file_download_outlined,
+                                                color: isCompleted
+                                                    ? AppColors.success
+                                                    : AppColors.primary,
                                                 size: 20,
                                               ),
                                           ],
                                         ),
-                                        if (isCompleted && (task?.isChecksumVerified ?? true)) ...[
+                                        if (isCompleted &&
+                                            (task?.isChecksumVerified ??
+                                                true)) ...[
                                           const SizedBox(height: 4),
                                           Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4, vertical: 1),
                                             decoration: BoxDecoration(
-                                              color: AppColors.success.withValues(alpha: 0.1),
-                                              borderRadius: BorderRadius.circular(4),
+                                              color: AppColors.success
+                                                  .withOpacity(0.1),
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
                                             ),
                                             child: const Text(
                                               'NCTB SHA-256',
@@ -265,4 +297,13 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
       ),
     );
   }
+}
+
+String _formatDownloadSize(int? bytes) {
+  if (bytes == null || bytes <= 0) {
+    return 'অজানা';
+  }
+
+  final sizeMb = bytes / (1024 * 1024);
+  return '${sizeMb.toStringAsFixed(1)} MB';
 }

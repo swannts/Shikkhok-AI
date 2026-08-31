@@ -13,7 +13,10 @@ from app.providers.vector_store.persistent import PersistentVectorStore
 
 @pytest.mark.asyncio
 async def test_ingestion_pipeline_runs_successfully(tmp_path: Path) -> None:
-    store = PersistentVectorStore(file_path=tmp_path / "test_pipe_chunks.json")
+    store = PersistentVectorStore(
+        file_path=tmp_path / "test_pipe_chunks.json",
+        allow_demo_seed=True,
+    )
     embeddings = DeterministicEmbeddingProvider()
     pipeline = IngestionPipeline(embedding_provider=embeddings, vector_store=store)
 

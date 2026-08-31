@@ -48,5 +48,25 @@ def build_retrieval_scope_chain(filter_params: RetrievalFilter) -> list[dict[str
     return unique_scopes
 
 
+def active_version_key(chunk: dict[str, Any]) -> str:
+    book_id = str(chunk.get("book_id") or "").strip()
+    lesson_id = str(chunk.get("lesson_id") or "").strip()
+    chapter_id = str(chunk.get("chapter_id") or "").strip()
+    chunk_id = str(chunk.get("chunk_id") or "").strip()
+    content_hash = str(chunk.get("content_hash") or "").strip()
+
+    if book_id and lesson_id:
+        return f"book:{book_id}:lesson:{lesson_id}"
+    if book_id and chapter_id:
+        return f"book:{book_id}:chapter:{chapter_id}"
+    if book_id:
+        return f"book:{book_id}"
+    if chunk_id:
+        return f"chunk:{chunk_id}"
+    if content_hash:
+        return f"hash:{content_hash}"
+    return f"text:{str(chunk.get('text') or '').strip()}"
+
+
 def chunk_matches_scope(chunk: dict[str, Any], scope: dict[str, Any]) -> bool:
     return all(chunk.get(key) == value for key, value in scope.items())

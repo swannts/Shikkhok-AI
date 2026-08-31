@@ -106,6 +106,12 @@ jobs:
       - name: Get dependencies
         working-directory: ./apps/mobile
         run: flutter pub get
+      - name: Check Dart formatting
+        working-directory: ./apps/mobile
+        run: dart format --set-exit-if-changed lib test
       - name: Analyze Flutter codebase
         working-directory: ./apps/mobile
         run: flutter analyze
+      - name: Run Flutter tests
+        working-directory: ./apps/mobile
+        run: flutter test

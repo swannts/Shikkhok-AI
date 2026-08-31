@@ -12,11 +12,13 @@ class TextbookDownloadManager {
   final ApiClient _apiClient;
   final Map<String, DownloadTask> _tasks = {};
   final Map<String, CancelToken> _cancelTokens = {};
-  final _tasksStreamController = StreamController<Map<String, DownloadTask>>.broadcast();
+  final _tasksStreamController =
+      StreamController<Map<String, DownloadTask>>.broadcast();
 
   TextbookDownloadManager(this._apiClient);
 
-  Stream<Map<String, DownloadTask>> get tasksStream => _tasksStreamController.stream;
+  Stream<Map<String, DownloadTask>> get tasksStream =>
+      _tasksStreamController.stream;
   Map<String, DownloadTask> get currentTasks => Map.unmodifiable(_tasks);
 
   Future<String> _getTextbooksDirectory() async {
@@ -75,7 +77,8 @@ class TextbookDownloadManager {
     final bundle = data is Map && data['data'] != null ? data['data'] : data;
     if (bundle is Map && bundle['textbooks'] is List) {
       final List textbooksList = bundle['textbooks'];
-      final List manifestsList = bundle['manifests'] is List ? bundle['manifests'] : [];
+      final List manifestsList =
+          bundle['manifests'] is List ? bundle['manifests'] : [];
       final manifestMap = {
         for (var m in manifestsList) (m['textbookId'] ?? '').toString(): m
       };
@@ -83,7 +86,8 @@ class TextbookDownloadManager {
       return textbooksList.map((tb) {
         final id = (tb['_id'] ?? tb['id'] ?? '').toString();
         final manifestJson = manifestMap[id];
-        final modifiedTb = Map<String, dynamic>.from(tb as Map<String, dynamic>);
+        final modifiedTb =
+            Map<String, dynamic>.from(tb as Map<String, dynamic>);
         if (manifestJson != null) {
           modifiedTb['manifest'] = manifestJson;
         }
@@ -102,15 +106,12 @@ class TextbookDownloadManager {
 
     final downloadUrl = book.latestManifest?.packageUrl.isNotEmpty == true
         ? book.latestManifest!.packageUrl
-        : (book.pdfUrl ?? 'https://cdn.shikkhok.ai/textbooks/${book.id}.pdf');
+        : (book.pdfUrl ?? '');
+    final expectedChecksum =
+        book.latestManifest?.checksumSha256 ?? book.checksumSha256 ?? '';
 
-    final expectedChecksum = book.latestManifest?.checksumSha256 ??
-        book.checksumSha256 ??
-        '';
-
-    final totalBytes = book.latestManifest?.downloadSizeBytes ??
-        book.fileSizeBytes ??
-        15728640;
+    final totalBytes =
+        book.latestManifest?.downloadSizeBytes ?? book.fileSizeBytes ?? 0;
 
     var task = DownloadTask(
       textbookId: book.id,
@@ -119,14 +120,23 @@ class TextbookDownloadManager {
       classLevel: book.classLevel,
       downloadUrl: downloadUrl,
       totalBytes: totalBytes,
-      status: DownloadStatus.downloading,
+      status: downloadUrl.isEmpty
+          ? DownloadStatus.failed
+          : DownloadStatus.downloading,
       localFilePath: localPath,
       expectedChecksumSha256: expectedChecksum,
+      errorMessage: downloadUrl.isEmpty
+          ? 'Textbook ${book.id} does not have a downloadable URL'
+          : null,
     );
 
     _tasks[book.id] = task;
     _notifyUpdate();
     onProgress?.call(task);
+
+    if (downloadUrl.isEmpty) {
+      return task;
+    }
 
     final cancelToken = CancelToken();
     _cancelTokens[book.id] = cancelToken;
@@ -134,7 +144,8 @@ class TextbookDownloadManager {
     try {
       if (await file.exists()) {
         final cachedChecksum = await _computeSha256Checksum(file);
-        if (expectedChecksum.isNotEmpty && cachedChecksum == expectedChecksum.toLowerCase()) {
+        if (expectedChecksum.isNotEmpty &&
+            cachedChecksum == expectedChecksum.toLowerCase()) {
           task = task.copyWith(
             bytesDownloaded: totalBytes,
             status: DownloadStatus.completed,
@@ -223,7 +234,8 @@ class TextbookDownloadManager {
       _cancelTokens[textbookId]!.cancel('Paused by user');
       _cancelTokens.remove(textbookId);
       if (_tasks.containsKey(textbookId)) {
-        _tasks[textbookId] = _tasks[textbookId]!.copyWith(status: DownloadStatus.paused);
+        _tasks[textbookId] =
+            _tasks[textbookId]!.copyWith(status: DownloadStatus.paused);
         _notifyUpdate();
       }
     }

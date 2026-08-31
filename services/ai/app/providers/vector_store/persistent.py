@@ -9,9 +9,17 @@ from typing import Any
 from app.core.config import settings
 from app.core.logging import logger
 from app.providers.vector_store.compatibility import validate_embedding_compatibility
-from app.providers.vector_store.scoping import build_retrieval_scope_chain, chunk_matches_scope
+from app.providers.vector_store.scoping import (
+    active_version_key,
+    build_retrieval_scope_chain,
+    chunk_matches_scope,
+)
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
+
+
+class VectorStoreIndexNotFoundError(RuntimeError):
+    pass
 
 
 class PersistentVectorStore:
@@ -22,11 +30,15 @@ class PersistentVectorStore:
         self,
         file_path: str | Path | None = None,
         embedding_metadata: VectorStoreEmbeddingMetadata | None = None,
+        allow_demo_seed: bool | None = None,
     ) -> None:
         if file_path is None:
             file_path = Path(settings.vector_store_path)
         self.file_path = Path(file_path)
         self.lock = asyncio.Lock()
+        self.allow_demo_seed = (
+            settings.vector_store_allow_demo_seed if allow_demo_seed is None else allow_demo_seed
+        )
 
         self.chunks: list[dict[str, Any]] = []
         self.vectors: list[list[float]] = []
@@ -38,10 +50,13 @@ class PersistentVectorStore:
 
     def _load_from_disk(self) -> None:
         if not self.file_path.exists():
-            # Seed with default curriculum chunks if file does not exist yet
-            self._seed_default_chunks()
-            self._save_to_disk_sync()
-            return
+            if self.allow_demo_seed:
+                self._seed_default_chunks()
+                self._save_to_disk_sync()
+                return
+            raise VectorStoreIndexNotFoundError(
+                f"VECTOR_INDEX_NOT_FOUND: persistent vector store file is missing at {self.file_path}"
+            )
 
         try:
             with open(self.file_path, encoding="utf-8") as f:
@@ -83,10 +98,6 @@ class PersistentVectorStore:
                 or "embedding dimension mismatch" in str(e).lower()
             ):
                 raise
-            if settings.app_env in ("development", "test"):
-                logger.error(f"Error loading vector store from {self.file_path}: {e}")
-                self._seed_default_chunks()
-                return
             raise RuntimeError(
                 f"Failed to load persistent vector store from {self.file_path}: {e}"
             ) from e
@@ -241,22 +252,17 @@ class PersistentVectorStore:
     ) -> list[tuple[dict[str, Any], list[float]]]:
         latest_versions: dict[str, int] = {}
         for chunk, _ in candidates:
-            book_id = chunk.get("book_id")
-            if not book_id:
-                continue
+            version_key = active_version_key(chunk)
             content_version = int(chunk.get("content_version") or 1)
-            latest_versions[book_id] = max(latest_versions.get(book_id, 0), content_version)
+            latest_versions[version_key] = max(latest_versions.get(version_key, 0), content_version)
 
         if not latest_versions:
             return candidates
 
         selected: list[tuple[dict[str, Any], list[float]]] = []
         for chunk, vector in candidates:
-            book_id = chunk.get("book_id")
-            if not book_id:
-                selected.append((chunk, vector))
-                continue
-            if int(chunk.get("content_version") or 1) == latest_versions.get(book_id, 1):
+            version_key = active_version_key(chunk)
+            if int(chunk.get("content_version") or 1) == latest_versions.get(version_key, 1):
                 selected.append((chunk, vector))
         return selected
 

@@ -134,6 +134,7 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
         vector_store = PersistentVectorStore(
             file_path=cfg.vector_store_path,
             embedding_metadata=vector_embedding_metadata,
+            allow_demo_seed=cfg.vector_store_allow_demo_seed,
         )
 
     # 6. Core Subservices

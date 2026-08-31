@@ -27,9 +27,22 @@ import {
   QuizQuestion,
 } from './interfaces/live-classroom.interface';
 
+const allowedOrigins = (process.env.CORS_ORIGINS ||
+  'http://localhost:3000,http://localhost:4000,http://localhost:8081')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error('Not allowed by live-classroom CORS allowlist'));
+    },
+    credentials: true,
   },
   namespace: 'live-classroom',
 })

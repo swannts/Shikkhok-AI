@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +13,8 @@ class OfflineDownloadsPage extends ConsumerStatefulWidget {
   const OfflineDownloadsPage({super.key});
 
   @override
-  ConsumerState<OfflineDownloadsPage> createState() => _OfflineDownloadsPageState();
+  ConsumerState<OfflineDownloadsPage> createState() =>
+      _OfflineDownloadsPageState();
 }
 
 class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
@@ -21,7 +24,8 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
     final state = ref.watch(offlineTextbooksProvider);
     final notifier = ref.read(offlineTextbooksProvider.notifier);
 
-    final storageMb = (state.storageUsedBytes / (1024 * 1024)).toStringAsFixed(1);
+    final storageMb =
+        (state.storageUsedBytes / (1024 * 1024)).toStringAsFixed(1);
     final completedBooks = state.availableTextbooks.where((b) {
       final task = state.activeDownloads[b.id];
       return task != null && task.status == DownloadStatus.completed;
@@ -33,7 +37,8 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded,
+              color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
@@ -67,7 +72,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                   border: Border.all(color: AppColors.border),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.03),
+                      color: Colors.black.withOpacity(0.03),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -81,7 +86,8 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                       children: [
                         const Row(
                           children: [
-                            Icon(Icons.sd_storage_rounded, color: AppColors.primary, size: 20),
+                            Icon(Icons.sd_storage_rounded,
+                                color: AppColors.primary, size: 20),
                             SizedBox(width: 8),
                             Text(
                               'স্টোরেজ ব্যবহার',
@@ -95,7 +101,8 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                         ),
                         Text(
                           '$storageMb MB ব্যবহৃত',
-                          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                          style: const TextStyle(
+                              fontSize: 12, color: AppColors.textSecondary),
                         ),
                       ],
                     ),
@@ -103,9 +110,11 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(4),
                       child: LinearProgressIndicator(
-                        value: (state.storageUsedBytes / (500 * 1024 * 1024)).clamp(0.05, 1.0),
+                        value: (state.storageUsedBytes / (500 * 1024 * 1024))
+                            .clamp(0.05, 1.0),
                         backgroundColor: AppColors.border,
-                        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                            AppColors.primary),
                         minHeight: 8,
                       ),
                     ),
@@ -114,16 +123,21 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                        onPressed: state.isLoading ? null : () => notifier.downloadAllForGrade(),
-                        icon: const Icon(Icons.download_for_offline_rounded, color: Colors.white),
+                        onPressed: state.isLoading
+                            ? null
+                            : () => notifier.downloadAllForGrade(),
+                        icon: const Icon(Icons.download_for_offline_rounded,
+                            color: Colors.white),
                         label: const Text(
                           'শ্রেণীর সকল পাঠ্যবই একসাথে ডাউনলোড করুন',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
                           padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
                         ),
                       ),
                     ),
@@ -169,15 +183,19 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.availableTextbooks.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.sm),
+                  separatorBuilder: (_, __) =>
+                      const SizedBox(height: AppSpacing.sm),
                   itemBuilder: (context, index) {
                     final book = state.availableTextbooks[index];
                     final task = state.activeDownloads[book.id];
-                    final isDownloading = task?.status == DownloadStatus.downloading;
-                    final isCompleted = task?.status == DownloadStatus.completed;
-                    final sizeMb = ((book.latestManifest?.downloadSizeBytes ?? book.fileSizeBytes ?? 15728640) /
-                            (1024 * 1024))
-                        .toStringAsFixed(1);
+                    final isDownloading =
+                        task?.status == DownloadStatus.downloading;
+                    final isCompleted =
+                        task?.status == DownloadStatus.completed;
+                    final sizeLabel = _formatDownloadSize(
+                      book.latestManifest?.downloadSizeBytes ??
+                          book.fileSizeBytes,
+                    );
 
                     return Container(
                       padding: const EdgeInsets.all(AppSpacing.md),
@@ -185,8 +203,8 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                         color: AppColors.surface,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                              color: isCompleted
-                              ? AppColors.success.withValues(alpha: 0.4)
+                          color: isCompleted
+                              ? AppColors.success.withOpacity(0.4)
                               : AppColors.border,
                         ),
                       ),
@@ -200,15 +218,17 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                                 height: 44,
                                 decoration: BoxDecoration(
                                   color: isCompleted
-                                      ? AppColors.success.withValues(alpha: 0.1)
-                                      : AppColors.primary.withValues(alpha: 0.1),
+                                      ? AppColors.success.withOpacity(0.1)
+                                      : AppColors.primary.withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Icon(
                                   isCompleted
                                       ? Icons.check_circle_rounded
                                       : Icons.menu_book_rounded,
-                                  color: isCompleted ? AppColors.success : AppColors.primary,
+                                  color: isCompleted
+                                      ? AppColors.success
+                                      : AppColors.primary,
                                   size: 24,
                                 ),
                               ),
@@ -229,20 +249,24 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                                     Row(
                                       children: [
                                         Text(
-                                          '$sizeMb MB • শ্রেণি ${book.classLevel}',
+                                          '$sizeLabel • শ্রেণি ${book.classLevel}',
                                           style: const TextStyle(
                                             fontSize: 12,
                                             color: AppColors.textSecondary,
                                           ),
                                         ),
-                                        if (isCompleted && (task?.isChecksumVerified ?? true)) ...[
+                                        if (isCompleted &&
+                                            (task?.isChecksumVerified ??
+                                                true)) ...[
                                           const SizedBox(width: 6),
                                           Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 6, vertical: 1),
                                             decoration: BoxDecoration(
-                                              color: AppColors.success.withValues(alpha: 0.1),
-                                              borderRadius: BorderRadius.circular(4),
+                                              color: AppColors.success
+                                                  .withOpacity(0.1),
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
                                             ),
                                             child: const Text(
                                               'NCTB যাচাইকৃত',
@@ -267,12 +291,15 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                                   tooltip: 'মুছে ফেলুন',
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.chrome_reader_mode_rounded,
-                                      color: AppColors.primary, size: 22),
+                                  icon: const Icon(
+                                      Icons.chrome_reader_mode_rounded,
+                                      color: AppColors.primary,
+                                      size: 22),
                                   onPressed: () {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text('অফলাইনে ${book.title} খোলা হচ্ছে...'),
+                                        content: Text(
+                                            'অফলাইনে ${book.title} খোলা হচ্ছে...'),
                                         duration: const Duration(seconds: 2),
                                       ),
                                     );
@@ -283,13 +310,16 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                                 IconButton(
                                   icon: const Icon(Icons.pause_circle_rounded,
                                       color: AppColors.warning, size: 28),
-                                  onPressed: () => notifier.pauseDownload(book.id),
+                                  onPressed: () =>
+                                      notifier.pauseDownload(book.id),
                                   tooltip: 'স্থগিত করুন',
                                 ),
                               ] else ...[
                                 IconButton(
-                                  icon: const Icon(Icons.arrow_circle_down_rounded,
-                                      color: AppColors.primary, size: 28),
+                                  icon: const Icon(
+                                      Icons.arrow_circle_down_rounded,
+                                      color: AppColors.primary,
+                                      size: 28),
                                   onPressed: () => notifier.downloadBook(book),
                                   tooltip: 'ডাউনলোড করুন',
                                 ),
@@ -303,8 +333,8 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                               child: LinearProgressIndicator(
                                 value: task.progress,
                                 backgroundColor: AppColors.border,
-                                valueColor:
-                                    const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    AppColors.primary),
                                 minHeight: 6,
                               ),
                             ),
@@ -328,4 +358,13 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
       ),
     );
   }
+}
+
+String _formatDownloadSize(int? bytes) {
+  if (bytes == null || bytes <= 0) {
+    return 'অজানা';
+  }
+
+  final sizeMb = bytes / (1024 * 1024);
+  return '${sizeMb.toStringAsFixed(1)} MB';
 }
