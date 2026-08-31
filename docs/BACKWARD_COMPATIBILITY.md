@@ -11,7 +11,7 @@ When updating an existing API endpoint (`/api/v1/*` or `/ai/v1/*`):
 1. **Update Shared Types First**: Update types in `packages/types/index.ts`.
 2. **Update Service Repositories**: Update data fetching & mapping methods in service and mobile repositories (`CurriculumRepository`, `PracticeRepository`, `TutorRepository`).
 3. **Update Unit & Integration Tests**: Update automated test suites in both `services/api` and `apps/mobile`.
-4. **Verify React Native Screens**: Verify that all affected UI components compile cleanly.
+4. **Verify Flutter / Web Screens**: Verify that all affected UI components compile cleanly.
 
 ---
 

@@ -18,16 +18,16 @@ Before modifying or replacing any established component, service, store, or patt
 
 | Component / Layer | Established Architecture | Rule for Future Iterations |
 | :--- | :--- | :--- |
-| **Database & ORM** | PostgreSQL + Prisma ORM + `pgvector` | Maintain Prisma models in `schema.prisma`. Do NOT swap Prisma for another ORM without explicit directive. |
-| **State Management** | Zustand (`apps/mobile/src/store`) | Preserve Zustand stores. Do NOT introduce Redux or unnecessary global state complexity. |
-| **HTTP & SSE Networking** | Axios/Fetch (`httpClient.ts`) & SSE Stream Handler | Maintain custom SSE decoding and disconnect handlers. Do NOT replace with third-party wrappers. |
-| **Mobile Navigation** | React Navigation (`app/`) | Maintain tab and stack navigator structures. |
-| **Repository Pattern** | `CurriculumRepository`, `PracticeRepository`, `TutorRepository` | Keep repositories as single source of truth between UI and backend APIs. |
-| **Modular Monolith** | Express services (`api`, `ai-gateway`, `worker`) | Maintain modular domain separation (`auth`, `curriculum`, `progress`, `practice`, `tutor`). |
+| **Database & ORM** | NestJS + MongoDB/Mongoose | Maintain schema and repository contracts in the API service. Do NOT swap persistence patterns without explicit directive. |
+| **State Management** | Riverpod / local persistence | Preserve feature-scoped state and offline sync flow. Do NOT introduce unnecessary global state complexity. |
+| **HTTP & SSE Networking** | Dio / HTTP client + SSE stream parser | Maintain custom SSE decoding and disconnect handlers. Do NOT replace with third-party wrappers. |
+| **Mobile Navigation** | GoRouter (`apps/mobile`) | Maintain route groups and feature navigation structure. |
+| **Repository Pattern** | Feature repositories and service facades | Keep repositories as the contract between UI and backend APIs. |
+| **Modular Services** | NestJS `services/api`, FastAPI `services/ai`, BullMQ worker | Maintain modular domain separation (`auth`, `curriculum`, `progress`, `practice`, `tutor`). |
 
 ---
 
 ## 3. Workflow for Code Modifications
 
 - **Preserve API Contracts**: Never break existing function signatures or API payloads consumed by client applications.
-- **Run Verification Commands**: Always verify edits using `npm run typecheck`, `npm test`, and `npm run build` after making modifications.
+- **Run Verification Commands**: Always verify edits using the relevant service checks, such as `npm test`, `uv run pytest -q`, and `flutter test` after making modifications.

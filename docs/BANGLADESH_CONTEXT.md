@@ -45,6 +45,6 @@ Primary Level               Junior Secondary & Secondary   Higher Secondary (HSC
 ## 4. Mobile Dependency Budget
 
 To ensure the APK/IPA binary size remains light (<15 MB download size):
-- **NO heavy ML/AI runtime engines on client**. All AI calculations run strictly inside `services/ai-gateway`.
+- **NO heavy ML/AI runtime engines on client**. All AI calculations run strictly inside `services/ai`.
 - **NO bulky UI libraries**. Vanilla styling with design system tokens (`colors.ts`, `spacing.ts`, `typography.ts`).
 - **NO unneeded native bridges**. Lightweight native modules only.

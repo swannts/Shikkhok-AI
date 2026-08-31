@@ -9,12 +9,14 @@
 ```
 shikkhok-ai/
 ├── apps/
-│   └── mobile/              # React Native / Expo Mobile Application
+│   ├── mobile/              # Flutter student mobile application
+│   ├── admin/               # Next.js + MUI admin console
+│   └── teacher-portal/      # Reserved teacher portal surface
 ├── services/
-│   ├── api/                 # Main REST API Monolith (Auth, Practice, Progress, Study Plan)
-│   ├── ai-gateway/          # AI Gateway (LLM streaming, Prompt rules, RAG, Safety, Cost)
-│   ├── worker/              # Asynchronous Worker (BullMQ + Redis job processing)
-│   └── realtime/            # Realtime Service (WebSockets documentation)
+│   ├── api/                 # NestJS main API (Auth, Curriculum, Practice, Progress, Exams)
+│   ├── ai/                  # FastAPI AI service (Tutor, RAG, embeddings, safety)
+│   ├── worker/              # Asynchronous worker (BullMQ + Redis job processing)
+│   └── realtime/            # Realtime service / future streaming integrations
 ├── packages/
 │   └── types/               # Shared TypeScript DTOs & API Contracts
 ├── docs/                    # Architectural Specifications & System Documentation
@@ -27,11 +29,12 @@ shikkhok-ai/
 
 ## 🛠️ Technology Stack
 
-- **Mobile Client**: React Native, TypeScript, i18n-js (Bangla/English), OfflineStorageManager
-- **Backend API**: Node.js, Express, TypeScript, Prisma ORM, PostgreSQL (`pgvector`), Redis
-- **AI Gateway**: Gemini Provider Abstraction, SSE Token Streaming, Student AI Safety Guard, RAG Metadata Filters
-- **Worker & Async**: Redis + BullMQ Queue
-- **DevOps & Testing**: Docker Compose, GitHub Actions CI/CD, Jest (32 passing backend tests, 12 passing mobile tests)
+- **Mobile Client**: Flutter, Riverpod, GoRouter, Drift/SQLite offline sync, Bangla/English localization
+- **Student/Admin Web**: Next.js, React 19, MUI, TypeScript
+- **Backend API**: NestJS, MongoDB/Mongoose, Redis, BullMQ
+- **AI Service**: FastAPI, curriculum RAG, embeddings, SSE tutor streaming, moderation and grounding
+- **Worker & Async**: Redis + BullMQ queue processing
+- **DevOps & Testing**: Docker Compose, GitHub Actions CI/CD, Jest, Flutter test, `uv`/pytest, ESLint, Ruff
 
 ---
 
@@ -41,17 +44,28 @@ shikkhok-ai/
 # 1. Clone repository & set up environment
 cp .env.example .env
 
-# 2. Launch local Docker infrastructure stack (Postgres + pgvector, Redis, API, Gateway, Worker)
+# 2. Launch local infrastructure stack
 docker compose up -d
 
-# 3. Run API Database Seed (Development Only)
+# 3. Run the NestJS API
 cd services/api
-npm run prisma:generate
-npm run prisma:seed
+npm install
+npm run dev
 
-# 4. Start Mobile Application
+# 4. Run the AI service
+cd ../ai
+uv sync
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+# 5. Start the Flutter mobile app
 cd ../../apps/mobile
-npm start
+flutter pub get
+flutter run
+
+# 6. Start the admin console
+cd ../admin
+npm install
+npm run dev
 ```
 
 ---
@@ -59,12 +73,20 @@ npm start
 ## 🧪 Testing & Verification
 
 ```bash
-# Run API Service Tests
+# API service tests
 cd services/api
 npm test
 
-# Run Mobile Application Tests
-cd apps/mobile
+# AI service tests
+cd ../ai
+uv run pytest -q
+
+# Flutter mobile tests
+cd ../../apps/mobile
+flutter test
+
+# Admin web tests
+cd ../admin
 npm test
 ```
 
@@ -73,7 +95,7 @@ npm test
 ## 📚 Technical Specifications & Documentation Index
 
 - [Architecture Overview](docs/architecture.md)
-- [AI Gateway Specifications](docs/ai-gateway.md)
+- [AI Service Specifications](services/ai/README.md)
 - [RAG & Citation System](docs/rag.md)
 - [Authentication & Authorization](docs/authentication.md)
 - [Database Schema & Managed Policy](docs/database.md)
@@ -89,9 +111,9 @@ npm test
 - [x] Socratic AI Tutor with 12 Pedagogical Rules & SSE Token Streaming
 - [x] Deterministic Adaptive Mastery Engine & Study Plan Generator
 - [x] Zero-Hallucination NCTB Source Citations & Grade-Isolated RAG
-- [x] Mobile Offline Storage Queue & Low-End Android Accessibility
-- [x] Role-Based Access Control (RBAC), IDOR Record Guards, & Class-Scoped Teacher Scoping
-- [x] Telemetry Observability (`/metrics`), AI Cost Control, & Automated Evaluation Benchmarks
-- [ ] Teacher Portal & Class Analytics Dashboard Integration
-- [ ] Parent Progress Digest & Exam Results Sync
-- [ ] SSC & HSC Board Exam Preparation Modules
+- [x] Flutter offline storage queue & low-end Android accessibility
+- [x] Role-based access control, IDOR guards, and class-scoped teacher scoping
+- [x] Telemetry observability, AI safety controls, and automated evaluation benchmarks
+- [ ] Teacher portal & class analytics dashboard integration
+- [ ] Parent progress digest & exam results sync
+- [ ] SSC & HSC board exam preparation modules

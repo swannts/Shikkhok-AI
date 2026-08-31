@@ -1,29 +1,31 @@
 # Shikkhok AI Mobile Client Architecture Specification
 
 ## 1. Overview
-The Shikkhok AI mobile client is designed as a production-grade, offline-resilient, modular React Native application targeting low-cost Android hardware in Bangladesh.
+The Shikkhok AI mobile client is designed as a production-grade, offline-resilient, modular Flutter application targeting low-cost Android hardware in Bangladesh.
 
 ## 2. Layers & Responsibilities
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
-│ Expo Router Pages (app/)                                     │
+│ GoRouter Pages (lib/features/, lib/app/router/)              │
 └──────────────────────────────┬──────────────────────────────┘
                                │ composes
 ┌──────────────────────────────▼──────────────────────────────┐
-│ Feature Modules (src/features/)                             │
+│ Feature Modules / Presentation State                        │
+│ (Riverpod controllers, view models, widgets)                │
 └──────────────────────────────┬──────────────────────────────┘
                                │ consumes server/client state
 ┌──────────────────────────────▼──────────────────────────────┐
-│ Domain Repositories & State (src/api/repositories/, src/store/)│
+│ Domain Repositories & Local Persistence                     │
+│ (HTTP APIs, Drift/SQLite, Secure Storage, sync queue)       │
 └──────────────────────────────┬──────────────────────────────┘
                                │ HTTP / SSE Stream
 ┌──────────────────────────────▼──────────────────────────────┐
-│ HttpClient Infrastructure (src/api/httpClient.ts)           │
+│ Network Infrastructure (Dio, SSE parser, token storage)     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ## 3. Data Flow & Streaming
-- **Server State**: Managed via TanStack Query (`@tanstack/react-query`) with standardized query key factories.
-- **Client & Auth State**: Managed via Zustand (`useAuthStore`, `useUIStore`).
-- **AI Streaming**: Native fetch reader processing SSE `data:` frames into `onDelta(delta)` string increments.
+- **Server State**: Managed via Riverpod providers and repository-backed async notifiers.
+- **Client & Auth State**: Managed via secure token storage plus local app state.
+- **AI Streaming**: SSE frames are parsed into incremental tutor deltas and citations.

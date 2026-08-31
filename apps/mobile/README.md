@@ -1,96 +1,47 @@
 # Shikkhok AI Mobile Application
 
-Personalized AI-powered learning app for Bangladesh students (Class 1–12) built with **React Native**, **Expo**, **TypeScript**, **Expo Router**, **TanStack Query**, and **Zustand**.
+Flutter client for the Shikkhok-AI student and parent experience.
 
----
+## Architecture Highlights
 
-## 🏛️ Architecture Highlights
+- GoRouter-based navigation for auth, onboarding, learning, tutor, progress, notifications, and profile flows.
+- Riverpod state management with feature-scoped controllers and repositories.
+- Drift/SQLite persistence for offline-first reads, sync queue support, and local checkpoints.
+- Secure token storage for session restoration.
+- Bangla-first UI with English localization support.
+- Dio-based API client with SSE parsing for tutor streaming.
 
-- **File-Based Routing**: Clean directory tree under `src/app/` utilizing Expo Router layout groups (`(auth)`, `(onboarding)`, `(tabs)`, `subject/`, `lesson/`, `practice/`, `exam/`, `homework/`, `study-plan/`).
-- **Session Guards & SecureStore Restoration**: Automatic authentication & onboarding status restoration from `tokenStorage` on application startup (`src/app/_layout.tsx`).
-- **Domain Feature Separation**: Business logic and UI components isolated in feature modules (`src/features/`).
-- **Mock vs API Repositories**: Seamless zero-code switching between local mock data and real backend HTTP/streaming API endpoints via `EXPO_PUBLIC_USE_MOCK_API`.
-- **Typed HTTP Infrastructure**: `httpClient` with token resolution, combined cancellation/timeout handling, SSE stream parsing, and distinct `REQUEST_ABORTED` vs `REQUEST_TIMEOUT` error codes.
-- **Dynamic Assessment Evaluation**: Real option-checking and mastery update calculations in `practiceRepository` using query cache by `sessionId`.
-
----
-
-## 📜 Route Tree (`src/app/`)
+## Source Layout
 
 ```text
-src/app/
-├── _layout.tsx (Root Stack, QueryProvider & Session Guard)
-├── index.tsx (Initial session redirect)
-├── +not-found.tsx
-├── (auth)/
-│   ├── login.tsx
-│   ├── signup.tsx
-│   └── verify-otp.tsx
-├── (onboarding)/
-│   └── index.tsx (3-step setup flow)
-├── (tabs)/
-│   ├── index.tsx (Home)
-│   ├── learn.tsx (Curriculum)
-│   ├── tutor.tsx (AI Tutor Chat)
-│   ├── progress.tsx (Mastery Dashboard)
-│   └── profile.tsx (Settings & Language Switcher)
-├── subject/[subjectId].tsx
-├── lesson/[lessonId].tsx
-├── practice/
-│   ├── index.tsx
-│   └── result.tsx
-├── exam/[examId].tsx
-├── homework/index.tsx
-└── study-plan/index.tsx
+lib/
+├── app/            # app bootstrap, router, localization, theme
+├── core/           # network, storage, database, errors, shared widgets
+├── features/       # auth, learning, tutor, progress, assessment, notifications
+└── main.dart
 ```
 
----
+## Environment Configuration
 
-## ⚙️ Environment Configuration
-
-Set variables in `.env` or `eas.json`:
+Set variables in `.env` or your launch configuration:
 
 ```env
-EXPO_PUBLIC_APP_ENV=development
-EXPO_PUBLIC_USE_MOCK_API=true
-EXPO_PUBLIC_API_BASE_URL=http://localhost:4000/api/v1
-EXPO_PUBLIC_AI_GATEWAY_URL=http://localhost:4001/ai/v1
+APP_ENV=development
+USE_MOCK_API=true
+API_BASE_URL=http://localhost:4000/api/v1
+AI_SERVICE_URL=http://localhost:8000/api/v1
 ```
 
----
-
-## 🧪 Development & Testing Scripts
+## Development & Testing
 
 ```bash
-# Start Metro Dev Server
-npm start
-
-# TypeScript Type Check
-npm run typecheck
-
-# ESLint Check & Fix
-npm run lint
-npm run lint:fix
-
-# Prettier Format & Check
-npm run format
-npm run format:check
-
-# Run Jest Unit Tests
-npm test
+flutter pub get
+flutter run
+flutter analyze
+flutter test
+flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
----
+## Build Profiles
 
-## 📦 EAS Build Profiles
-
-```bash
-# Development Build
-eas build --profile development --platform android
-
-# Staging Preview Build
-eas build --profile preview --platform android
-
-# Production Build
-eas build --profile production --platform android
-```
+Use your standard Flutter build flow for Android or iOS release builds.

@@ -1,9 +1,9 @@
-# AI Gateway & Prompt Pipeline Specifications
+# AI Service & Prompt Pipeline Specifications
 
-The AI Gateway (`services/ai-gateway`) acts as the single point of entry for all generative AI LLM interaction across the platform.
+The FastAPI AI service (`services/ai`) acts as the single point of entry for all generative AI LLM interaction across the platform.
 
 ```
-Incoming AI Request (POST /ai/v1/tutor/chat/stream)
+Incoming AI Request (POST /api/v1/tutor/stream)
        │
        ▼
  ┌────────────────────────────────────────────────────────┐
@@ -21,8 +21,8 @@ Incoming AI Request (POST /ai/v1/tutor/chat/stream)
                            ▼
  ┌────────────────────────────────────────────────────────┐
  │ 3. Grade Metadata Filtered RAG Vector Retrieval        │
- │    - Pre-retrieval Metadata Filter (Class & Subject)   │
- │    - Vector Similarity Search (PostgreSQL pgvector)    │
+ │    - Pre-retrieval Metadata Filter (Class/Subject/Year)│
+ │    - Memory/Persistent Vector Store Search             │
  │    - Wrap Context in Untrusted Security Delimiters     │
  └─────────────────────────┬──────────────────────────────┘
                            │

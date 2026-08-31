@@ -1,10 +1,10 @@
 # Database & Data Model Specifications
 
-PostgreSQL is the single durable source of truth across the Shikkhok AI ecosystem.
+MongoDB is the primary durable source of truth across the Shikkhok AI ecosystem.
 
 ## Key Schema & Performance Patterns
-- **Prisma ORM**: Models defined in `services/api/prisma/schema.prisma`.
-- **Native PostgreSQL Json**: Extensible fields (`options`, `answerConfig`, `responsePayload`, `blocks`) use native `Json` types.
-- **pgvector Integration**: Stores 768-dimensional embeddings via `Unsupported("vector(768)")?`.
-- **High-Performance Indexing**: Compound indexes on high-frequency query patterns (`[studentId, createdAt]`, `[studentId, lessonId]`, `[conversationId, createdAt]`).
-- **Managed Production Databases**: Production connects to GCP Cloud SQL / AWS RDS rather than in-cluster database StatefulSets.
+- **Mongoose Schemas**: Models are defined in NestJS schema files under `services/api/src/modules/**/schemas/`.
+- **Flexible Document Fields**: Extensible fields such as `blocks`, `answerConfig`, `responsePayload`, and metadata arrays are stored directly in documents.
+- **Indexing Strategy**: Compound indexes cover high-frequency query patterns such as `[studentId, createdAt]`, `[studentId, lessonId]`, and `[conversationId, createdAt]`.
+- **Managed Production Databases**: Production uses managed MongoDB rather than in-cluster stateful sets.
+- **Vector Retrieval Data**: Curriculum embeddings and retrieval metadata are managed separately in the AI service vector store layer.

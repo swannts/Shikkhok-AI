@@ -5,7 +5,8 @@
 - CI/CD Matrix: GitHub Actions in `.github/workflows/ci.yml` runs typechecks, lint, tests, and build verifications for all microservices on every push.
 
 ## 2. Production Database Migrations
-- Apply migrations safely: `npm run prisma:migrate:deploy`
+- Apply service-specific data migrations safely from `services/api/scripts/database/` before or during release rollout.
+- Run the relevant API test suite after schema or backfill changes.
 
 ## 3. Kubernetes / Helm Deployment Strategy
 - Manifest specifications in `infra/KUBERNETES.md`.

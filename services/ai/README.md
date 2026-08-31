@@ -5,7 +5,7 @@ Production-quality FastAPI service for AI-specific workloads (AI Tutor, RAG, Cit
 ## Architecture
 
 ```text
-Flutter Mobile / Admin Panel
+Flutter Mobile / Next.js Admin
               │
               ▼
        NestJS API Service (Port 4000)
@@ -20,7 +20,7 @@ Flutter Mobile / Admin Panel
     ┌─────────┴─────────┐
     ▼                   ▼
 LLM Providers       Vector Store / Embeddings
-(Gemini / OpenAI)   (Qdrant / In-Memory Mock)
+(Gemini / Mock)     (Memory / Persistent)
 ```
 
 ### Architectural Separation of Responsibilities
@@ -117,7 +117,7 @@ uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ### Testing, Linting & Typing
 ```bash
-# Run pytest test suite (39 unit & integration tests)
+# Run pytest test suite
 uv run pytest
 
 # Lint and format checks

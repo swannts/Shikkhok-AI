@@ -1,35 +1,33 @@
 # Database Migration & Schema Management Policy
 
-This document outlines mandatory database migration procedures for the **Shikkhok AI** platform using Prisma ORM and PostgreSQL.
+This document outlines mandatory database migration procedures for the **Shikkhok AI** platform using NestJS, MongoDB, and Mongoose-backed schemas.
 
 ---
 
-## 1. Core Rule: Zero Uncontrolled `db push` in Production
+## 1. Core Rule: Zero Uncontrolled Schema Drift in Production
 
-- **Development (`prisma migrate dev`)**: All database schema changes during feature development MUST generate a version-controlled SQL migration file inside `services/api/prisma/migrations/`.
-- **Production Deployment (`prisma migrate deploy`)**: Production deployments MUST apply tracked migration files using `prisma migrate deploy`. Uncontrolled `db push` commands are strictly forbidden in production.
+- **Development**: All schema changes during feature development MUST be accompanied by a version-controlled migration or backfill script when data transformation is required.
+- **Production Deployment**: Production deployments MUST apply tracked code and data migrations intentionally. Untracked manual data edits are strictly forbidden in production.
 
 ---
 
 ## 2. Zero Data Loss Policy
 
-- **Preserve User Records**: Never drop tables or delete user data simply to resolve a migration conflict.
+- **Preserve User Records**: Never delete user data simply to resolve a migration conflict.
 - **Backwards-Compatible Schema Additions**:
-  1. Add new columns as optional/nullable (`ColumnType?`) or provide explicit default values (`@default(...)`).
-  2. Perform data backfills via migration scripts before enforcing `NOT NULL` constraints.
-  3. Rename columns or tables using two-step migrations (add new column -> copy data -> drop old column) to ensure zero downtime.
+  1. Add new schema fields as optional or provide explicit defaults.
+  2. Perform data backfills via migration scripts before enforcing new required constraints.
+  3. Use two-step migrations or staged backfills when renaming fields or reshaping document structures.
 
 ---
 
 ## 3. Standard Migration Commands
 
 ```bash
-# Local Development (Generate and apply new migration)
-npm run prisma:migrate:dev -- --name add_feature_tables
+# Run a service-specific data migration script
+cd services/api
+npm run migrate:tutor-messages
 
-# Production & Staging Deployment (Apply pending migrations safely)
-npm run prisma:migrate:deploy
-
-# Regenerate Prisma Client Types
-npm run prisma:generate
+# Verify API tests after schema changes
+npm test
 ```

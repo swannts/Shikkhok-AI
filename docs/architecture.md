@@ -3,36 +3,38 @@
 > High-level architecture and system design decisions for the **Shikkhok AI (শিক্ষক এআই)** platform.
 
 ```
-                                  Client Layer
-                  ┌─────────────────────────────────────────┐
-                  │      Mobile Application (React Native)  │
-                  └────────────────────┬────────────────────┘
-                                       │ (REST / SSE Stream)
-                                       ▼
-                              Gateway Router / LB
-                                       │
-            ┌──────────────────────────┴──────────────────────────┐
-            ▼                                                     ▼
-┌───────────────────────┐                             ┌───────────────────────┐
-│     Main API Service  │                             │      AI Gateway       │
-│  (Modular Monolith)   │                             │   (LLM Streaming)     │
-└───────────┬───────────┘                             └───────────┬───────────┘
-            │                                                     │
-            ├──────────────────────────┬──────────────────────────┤
-            ▼                          ▼                          ▼
-┌───────────────────────┐  ┌───────────────────────┐  ┌───────────────────────┐
-│  Managed PostgreSQL   │  │     Managed Redis     │  │   Cloud Object Store  │
-│      + pgvector       │  │ (Cache & BullMQ Queue)│  │      (S3 / GCS)       │
-└───────────────────────┘  └───────────┬───────────┘  └───────────────────────┘
-                                       │
-                                       ▼
-                           ┌───────────────────────┐
-                           │   Background Worker   │
-                           │  (services/worker)    │
-                           └───────────────────────┘
+                           Client Layer
+        ┌───────────────────────┬───────────────────────┬───────────────────────┐
+        │                       │                       │                       │
+        ▼                       ▼                       ▼                       ▼
+   Flutter Mobile          Next.js Admin         Teacher Portal          Future Web UIs
+   (students/parents)      (MUI control plane)   (reserved scaffold)     (reserved)
+        │                       │
+        └──────────────┬────────┘
+                       │ REST / SSE / HMAC
+                       ▼
+                 NestJS Main API
+       Auth, curriculum, progress, practice,
+          exams, homework, notifications
+                       │
+         ┌─────────────┼─────────────┐
+         ▼             ▼             ▼
+     MongoDB         Redis        BullMQ Worker
+  source of truth   cache/queue   background jobs
+                       │
+                       ▼
+                FastAPI AI Service
+      Tutor, RAG, embeddings, citations, safety
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+     Gemini / Mock           Vector store
+                           memory / persistent
 ```
 
-## Modular Monolith Domain Architecture
-- **API Monolith (`services/api`)**: Core domain logic for Auth, Curriculum, Progress Tracking, Practice Engine, and Study Planning.
-- **AI Gateway (`services/ai-gateway`)**: Entry point for all LLM stream processing, prompt rules, RAG, safety guards, and token cost accounting.
-- **Asynchronous Worker (`services/worker`)**: BullMQ job processing for PDF extractions, chunking, and background notifications.
+## Modular Service Architecture
+- **Main API (`services/api`)**: Owns authentication, curriculum, progress tracking, practice, exams, homework, notifications, payments, and audit logs.
+- **AI Service (`services/ai`)**: Owns prompt orchestration, moderation, curriculum retrieval, grounding, citation resolution, and SSE tutor streaming.
+- **Worker (`services/worker`)**: Processes asynchronous jobs for ingestion, notifications, reports, and retryable background tasks.
+- **Admin App (`apps/admin`)**: Next.js + MUI console for internal operations and oversight.
+- **Mobile App (`apps/mobile`)**: Flutter client for student and parent journeys with offline sync support.

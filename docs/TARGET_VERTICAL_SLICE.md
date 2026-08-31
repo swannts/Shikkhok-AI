@@ -13,7 +13,7 @@ Selects subject & opens real NCTB curriculum chapter / lesson
         ↓
 [Milestone 3] Starts practice & submits answers evaluated server-side
         ↓
-TopicMastery & weak topics updated in PostgreSQL
+TopicMastery & weak topics updated in the primary API datastore
         ↓
 [Milestone 4 & 5] Student asks AI Tutor & RAG retrieves verified NCTB context
         ↓
@@ -27,7 +27,7 @@ TopicMastery & weak topics updated in PostgreSQL
 ## 🗺️ Milestone Implementation Audit (Milestones 1 - 8)
 
 ### Milestone 1: Real Authentication — **COMPLETED & VERIFIED**
-- Prisma-backed `User` and `StudentProfile` models.
+- NestJS-backed `User` and `StudentProfile` models.
 - `bcryptjs` password hashing, login, signup, OTP verification, and resend.
 - Ephemeral Redis OTP storage with 5-minute TTL.
 - JWT Access and Refresh token rotation with secure storage (`tokenStorage.ts`).
@@ -43,18 +43,18 @@ TopicMastery & weak topics updated in PostgreSQL
 - Weak-topic detection, attempt persistence, and adaptive difficulty recommendations (`HARD_CHALLENGE`, `ADVANCE_RECOMMENDED`).
 
 ### Milestone 4: Real AI Tutor — **COMPLETED & VERIFIED**
-- Single entry point `services/ai-gateway` with `LLMProvider` interface and `GeminiProvider` implementation.
+- Single entry point `services/ai` with `LLMProvider` interface and `GeminiProvider` implementation.
 - Standardized Server-Sent Events (SSE) streaming (`delta`, `metadata`, `error`, `done`) with multi-byte UTF-8 buffer decoding and client disconnect handling.
 - Integrated rate limiting (15 req/min) and 15s timeout protection.
 
 ### Milestone 5: Curriculum RAG — **COMPLETED & VERIFIED**
 - NCTB PDF text extraction, 300-character chunking, and 10 mandatory metadata tags (`curriculumYear`, `class`, `subject`, `chapter`, `pageNumber`, `sourceBook`, etc.).
-- `pgvector` extension enabled with 768-dimensional vector embeddings.
+- Memory and persistent vector stores with embedding identity metadata and 768-dimensional deterministic compatibility checks.
 - Pre-retrieval grade metadata filter isolation preventing Class 6 to Class 10/12 material leakage.
 - Zero-hallucination verified source citations returned via SSE `metadata` events.
 
 ### Milestone 6: Personalized Tutor — **COMPLETED & VERIFIED**
-- Prompt pipeline ([`pipeline.ts`](file:///home/swann/IdeaProjects/shikkhok-ai/services/ai-gateway/src/pipeline.ts)) feeds student `classLevel`, `subject`, `masteryScore`, weak topics, and `isHomework` context into 12 pedagogical prompt rules.
+- Prompt pipeline in the FastAPI AI service feeds student `classLevel`, `subject`, `masteryScore`, weak topics, and `isHomework` context into 12 pedagogical prompt rules.
 
 ### Milestone 7: Worker Microservice — **COMPLETED & VERIFIED**
 - Asynchronous BullMQ worker (`services/worker`) backed by Redis handling PDF jobs, embedding generation, notifications, analytics aggregation, and report generation.

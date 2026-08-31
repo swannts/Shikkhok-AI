@@ -1,39 +1,55 @@
 # Local Development & Setup Guide
 
 ## Prerequisites
-- Node.js v18+ / v20+
 - Docker & Docker Compose
-- npm
+- Node.js v20+
+- Python 3.12+
+- Flutter SDK
+- `uv`
 
-## 1. Quickstart via Docker Compose
+## Quickstart
 
 ```bash
-# Clone environment template
-cp .env.example .env
-
-# Launch entire microservice stack (Postgres, Redis, API, AI Gateway, Worker)
+# Start shared infrastructure
 docker compose up -d
 
-# Verify container health
-docker compose ps
-```
-
-## 2. Running Services Individually
-
-```bash
-# API Service (Port 4000)
+# Run the NestJS API
 cd services/api
 npm install
-npx prisma generate
 npm run dev
 
-# AI Gateway Service (Port 4001)
-cd services/ai-gateway
+# Run the FastAPI AI service
+cd ../ai
+uv sync
+uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+# Run the Flutter mobile app
+cd ../../apps/mobile
+flutter pub get
+flutter run
+
+# Run the admin console
+cd ../admin
 npm install
 npm run dev
+```
 
-# Mobile App (React Native / Expo)
-cd apps/mobile
-npm install
-npm start
+## Verification
+
+```bash
+# API tests
+cd services/api
+npm test
+
+# AI tests
+cd ../ai
+uv run pytest -q
+
+# Mobile tests
+cd ../../apps/mobile
+flutter test
+
+# Admin tests
+cd ../admin
+npm test
 ```
