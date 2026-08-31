@@ -17,7 +17,6 @@ interface AuthContextType {
   token: string | null;
   loading: boolean;
   login: (phone: string, password: string) => Promise<void>;
-  register: (name: string, phone: string, password: string, schoolName?: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -67,30 +66,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push('/dashboard');
   };
 
-  const register = async (name: string, phone: string, password: string, schoolName?: string) => {
-    const res = await apiClient.post('/auth/register', {
-      name,
-      phone,
-      password,
-      role: 'teacher',
-      schoolName,
-    });
-    const { accessToken, user: userData } = res.data.data || res.data;
-    const teacherObj: TeacherUser = {
-      id: userData.id || userData._id,
-      name: userData.name,
-      phone: userData.phone,
-      role: 'teacher',
-      schoolName,
-    };
-
-    localStorage.setItem('teacher_token', accessToken);
-    localStorage.setItem('teacher_user', JSON.stringify(teacherObj));
-    setToken(accessToken);
-    setUser(teacherObj);
-    router.push('/dashboard');
-  };
-
   const logout = () => {
     localStorage.removeItem('teacher_token');
     localStorage.removeItem('teacher_user');
@@ -100,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

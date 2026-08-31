@@ -1,17 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { useAuth } from '@/lib/auth-context';
-import { GraduationCap, Lock, Phone, User, Building, AlertCircle, ArrowRight } from 'lucide-react';
+import { GraduationCap, Lock, Phone, AlertCircle, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
-  const { login, register } = useAuth();
-  const [isRegister, setIsRegister] = useState(false);
-  const [name, setName] = useState('');
+  const { login } = useAuth();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [schoolName, setSchoolName] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -21,11 +17,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      if (isRegister) {
-        await register(name, phone, password, schoolName);
-      } else {
-        await login(phone, password);
-      }
+      await login(phone, password);
     } catch (err: any) {
       setError(err.response?.data?.message || err.message || 'অথেনটিকেশন ব্যর্থ হয়েছে');
     } finally {
@@ -41,9 +33,7 @@ export default function LoginPage() {
             <GraduationCap className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">শিক্ষক পোর্টাল (Teacher Portal)</h1>
-          <p className="text-sm text-slate-500 mt-1">
-            {isRegister ? 'নতুন শিক্ষক অ্যাকাউন্ট তৈরি করুন' : 'আপনার শ্রেণিকক্ষ পরিচালনা করতে লগইন করুন'}
-          </p>
+          <p className="text-sm text-slate-500 mt-1">আপনার শ্রেণিকক্ষ পরিচালনা করতে লগইন করুন</p>
         </div>
 
         {error && (
@@ -53,24 +43,11 @@ export default function LoginPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {isRegister && (
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">শিক্ষকের নাম</label>
-              <div className="relative">
-                <User className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input
-                  type="text"
-                  required
-                  placeholder="যেমন: ড. রফিকুল ইসলাম"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm text-slate-900"
-                />
-              </div>
-            </div>
-          )}
+        <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          শিক্ষক অ্যাকাউন্ট স্কুল প্রশাসক দ্বারা provision করা হয়। নতুন অ্যাক্সেসের জন্য প্রশাসকের সঙ্গে যোগাযোগ করুন।
+        </div>
 
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">মোবাইল নম্বর</label>
             <div className="relative">
@@ -101,44 +78,15 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {isRegister && (
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">বিদ্যালয় / কলেজের নাম (ঐচ্ছিক)</label>
-              <div className="relative">
-                <Building className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="যেমন: ঢাকা গভঃ ল্যাবরেটরি হাই স্কুল"
-                  value={schoolName}
-                  onChange={(e) => setSchoolName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm text-slate-900"
-                />
-              </div>
-            </div>
-          )}
-
           <button
             type="submit"
             disabled={loading}
             className="w-full mt-2 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-medium rounded-xl shadow-lg shadow-emerald-600/20 transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50"
           >
-            {loading ? 'প্রক্রিয়াধীন...' : isRegister ? 'শিক্ষক অ্যাকাউন্ট খুলুন' : 'লগইন করুন'}
+            {loading ? 'প্রক্রিয়াধীন...' : 'লগইন করুন'}
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
-
-        <div className="mt-6 pt-6 border-t border-slate-100 text-center">
-          <button
-            type="button"
-            onClick={() => {
-              setIsRegister(!isRegister);
-              setError(null);
-            }}
-            className="text-xs text-emerald-600 hover:text-emerald-700 font-semibold"
-          >
-            {isRegister ? 'ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন' : 'নতুন শিক্ষক? এখানে নিবন্ধন করুন'}
-          </button>
-        </div>
       </div>
     </div>
   );

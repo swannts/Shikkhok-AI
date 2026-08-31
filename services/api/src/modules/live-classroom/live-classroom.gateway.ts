@@ -8,10 +8,18 @@ import {
   ConnectedSocket,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Logger,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { LiveClassroomService } from './live-classroom.service';
+import { ClassroomRepository } from '../classrooms/repositories/classroom.repository';
+import { ClassroomMemberRepository } from '../classrooms/repositories/classroom-member.repository';
 import {
   Participant,
   ChatMessage,
@@ -37,6 +45,8 @@ export class LiveClassroomGateway
     private readonly liveClassroomService: LiveClassroomService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly classroomRepository: ClassroomRepository,
+    private readonly classroomMemberRepository: ClassroomMemberRepository,
   ) {}
 
   async handleConnection(client: Socket) {
@@ -47,16 +57,21 @@ export class LiveClassroomGateway
         client.handshake.query?.token;
 
       if (!token) {
-        this.logger.debug(`Anonymous connection: ${client.id}`);
+        this.logger.warn(`Rejected anonymous live-classroom socket ${client.id}`);
+        client.disconnect(true);
         return;
       }
 
-      const secret = this.configService.get<string>('jwt.accessSecret') || 'shikkhok-development-only-access-secret-2026';
+      const secret =
+        this.configService.get<string>('jwt.accessSecret') ||
+        'shikkhok-development-only-access-secret-2026';
       const payload = this.jwtService.verify(token as string, { secret });
       client.data.user = payload;
+      client.data.joinedClassrooms = new Set<string>();
       this.logger.log(`Authenticated live socket: ${client.id} (User: ${payload.sub || payload.id})`);
     } catch (err: any) {
       this.logger.warn(`JWT verification failed for socket ${client.id}: ${err.message}`);
+      client.disconnect(true);
     }
   }
 
@@ -72,42 +87,44 @@ export class LiveClassroomGateway
   }
 
   @SubscribeMessage('join_classroom')
-  handleJoinClassroom(
+  async handleJoinClassroom(
     @ConnectedSocket() client: Socket,
-    @MessageBody() data: { classroomId: string; name?: string; role?: 'teacher' | 'student' },
+    @MessageBody() data: { classroomId: string; name?: string },
   ) {
-    const user = client.data.user;
-    const userId = user?.sub || user?.id || `guest_${client.id.slice(0, 6)}`;
-    const role = data.role || user?.role || 'student';
-    const name = data.name || user?.name || (role === 'teacher' ? 'শিক্ষক' : 'শিক্ষার্থী');
+    const user = this.requireAuthenticatedUser(client);
+    const classroomId = this.normalizeClassroomId(data.classroomId);
 
+    const classroom = await this.assertJoinedClassroomAccess(user, classroomId);
+    const role = this.resolveParticipantRole(user, classroom.teacherId?.toString?.() ?? '');
+    const name = this.sanitizeDisplayName(data.name) || (role === 'teacher' ? 'শিক্ষক' : 'শিক্ষার্থী');
     const participant: Participant = {
       socketId: client.id,
-      userId,
+      userId: user.sub,
       name,
       role,
       joinedAt: new Date(),
     };
 
-    client.join(data.classroomId);
-    const roster = this.liveClassroomService.addParticipant(data.classroomId, participant);
-    const whiteboardState = this.liveClassroomService.getWhiteboardState(data.classroomId);
+    client.join(classroomId);
+    client.data.joinedClassrooms.add(classroomId);
+    const roster = this.liveClassroomService.addParticipant(classroomId, participant);
+    const whiteboardState = this.liveClassroomService.getWhiteboardState(classroomId);
 
     // Reply to joining user with initial room state
     client.emit('room_joined', {
-      classroomId: data.classroomId,
+      classroomId,
       participant,
       roster,
       whiteboardState,
     });
 
     // Broadcast to everyone else in the room
-    client.to(data.classroomId).emit('participant_joined', {
+    client.to(classroomId).emit('participant_joined', {
       participant,
       roster,
     });
 
-    this.logger.log(`Socket ${client.id} joined room ${data.classroomId} as ${role} (${name})`);
+    this.logger.log(`Socket ${client.id} joined room ${classroomId} as ${role} (${name})`);
   }
 
   @SubscribeMessage('send_chat_message')
@@ -115,21 +132,22 @@ export class LiveClassroomGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string; text: string },
   ) {
-    const user = client.data.user;
-    const senderId = user?.sub || user?.id || client.id;
-    const senderName = user?.name || (user?.role === 'teacher' ? 'শিক্ষক' : 'শিক্ষার্থী');
-    const senderRole = (user?.role === 'teacher' ? 'teacher' : 'student') as 'teacher' | 'student';
+    const classroomId = this.normalizeClassroomId(data.classroomId);
+    const user = this.requireAuthenticatedUser(client);
+    this.assertJoinedClassroom(client, classroomId);
+    this.assertReadableMessage(data.text);
+    const participant = this.getParticipant(client, classroomId);
 
     const message: ChatMessage = {
       id: `msg_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-      senderId,
-      senderName,
-      senderRole,
-      text: data.text,
+      senderId: user.sub,
+      senderName: participant.name,
+      senderRole: participant.role,
+      text: data.text.trim(),
       timestamp: new Date().toISOString(),
     };
 
-    this.server.to(data.classroomId).emit('new_chat_message', message);
+    this.server.to(classroomId).emit('new_chat_message', message);
   }
 
   @SubscribeMessage('whiteboard_draw')
@@ -137,9 +155,13 @@ export class LiveClassroomGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string; stroke: WhiteboardStroke },
   ) {
-    this.liveClassroomService.addStroke(data.classroomId, data.stroke);
+    const classroomId = this.normalizeClassroomId(data.classroomId);
+    this.requireAuthenticatedUser(client);
+    this.assertJoinedClassroom(client, classroomId);
+    this.assertValidStroke(data.stroke);
+    this.liveClassroomService.addStroke(classroomId, data.stroke);
     // Broadcast stroke to all other participants in the room
-    client.to(data.classroomId).emit('whiteboard_stroke', data.stroke);
+    client.to(classroomId).emit('whiteboard_stroke', data.stroke);
   }
 
   @SubscribeMessage('whiteboard_clear')
@@ -147,8 +169,10 @@ export class LiveClassroomGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string },
   ) {
-    this.liveClassroomService.clearWhiteboard(data.classroomId);
-    this.server.to(data.classroomId).emit('whiteboard_cleared');
+    const classroomId = this.normalizeClassroomId(data.classroomId);
+    this.assertTeacherAction(client, classroomId);
+    this.liveClassroomService.clearWhiteboard(classroomId);
+    this.server.to(classroomId).emit('whiteboard_cleared');
   }
 
   @SubscribeMessage('start_quiz')
@@ -156,8 +180,11 @@ export class LiveClassroomGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string; quiz: QuizQuestion },
   ) {
-    this.liveClassroomService.startQuiz(data.classroomId, data.quiz);
-    this.server.to(data.classroomId).emit('quiz_started', {
+    const classroomId = this.normalizeClassroomId(data.classroomId);
+    this.assertTeacherAction(client, classroomId);
+    this.assertValidQuiz(data.quiz);
+    this.liveClassroomService.startQuiz(classroomId, data.quiz);
+    this.server.to(classroomId).emit('quiz_started', {
       id: data.quiz.id,
       questionText: data.quiz.questionText,
       options: data.quiz.options,
@@ -176,13 +203,17 @@ export class LiveClassroomGateway
       selectedOptionIndex: number;
     },
   ) {
-    const user = client.data.user;
-    const userId = user?.sub || user?.id || client.id;
-    const studentName = user?.name || 'শিক্ষার্থী';
+    const classroomId = this.normalizeClassroomId(data.classroomId);
+    const user = this.requireAuthenticatedUser(client);
+    this.assertJoinedClassroom(client, classroomId);
+    const participant = this.getParticipant(client, classroomId);
+    if (participant.role !== 'student') {
+      throw new ForbiddenException('Only students can submit quiz answers');
+    }
 
-    const submission = this.liveClassroomService.submitQuizAnswer(data.classroomId, {
-      userId,
-      studentName,
+    const submission = this.liveClassroomService.submitQuizAnswer(classroomId, {
+      userId: user.sub,
+      studentName: participant.name,
       questionId: data.questionId,
       selectedOptionIndex: data.selectedOptionIndex,
     });
@@ -194,8 +225,123 @@ export class LiveClassroomGateway
       });
 
       // Broadcast live leaderboard to classroom
-      const leaderboard = this.liveClassroomService.getQuizLeaderboard(data.classroomId);
-      this.server.to(data.classroomId).emit('quiz_leaderboard_updated', leaderboard);
+      const leaderboard = this.liveClassroomService.getQuizLeaderboard(classroomId);
+      this.server.to(classroomId).emit('quiz_leaderboard_updated', leaderboard);
+    }
+  }
+
+  private requireAuthenticatedUser(client: Socket): { sub: string; role: string } {
+    const user = client.data.user;
+    if (!user?.sub || !user?.role) {
+      throw new UnauthorizedException('Authentication required for live classroom access');
+    }
+    return user;
+  }
+
+  private normalizeClassroomId(classroomId: string): string {
+    if (!classroomId || !classroomId.trim()) {
+      throw new BadRequestException('classroomId is required');
+    }
+    return classroomId.trim();
+  }
+
+  private sanitizeDisplayName(name?: string): string | undefined {
+    const normalized = name?.trim().slice(0, 80);
+    return normalized ? normalized : undefined;
+  }
+
+  private resolveParticipantRole(
+    user: { sub: string; role: string },
+    teacherId: string,
+  ): 'teacher' | 'student' {
+    if (user.role === 'admin') {
+      return 'teacher';
+    }
+    if (user.role === 'teacher' && teacherId && teacherId === user.sub) {
+      return 'teacher';
+    }
+    return 'student';
+  }
+
+  private async getClassroomOrThrow(classroomId: string) {
+    const classroom = await this.classroomRepository.findById(classroomId);
+    if (!classroom || !classroom.isActive) {
+      throw new NotFoundException('Classroom not found');
+    }
+    return classroom;
+  }
+
+  private async assertJoinedClassroomAccess(user: { sub: string; role: string }, classroomId: string) {
+    const classroom = await this.getClassroomOrThrow(classroomId);
+    const teacherId = classroom.teacherId?.toString?.() ?? '';
+    const isTeacherOwner = user.role === 'teacher' && teacherId === user.sub;
+    const isAdmin = user.role === 'admin';
+
+    if (isTeacherOwner || isAdmin) {
+      return classroom;
+    }
+
+    const isMember = await this.classroomMemberRepository.isMember(classroomId, user.sub);
+    if (!isMember) {
+      throw new ForbiddenException('You are not enrolled in this classroom');
+    }
+
+    return classroom;
+  }
+
+  private assertTeacherAction(client: Socket, classroomId: string) {
+    const user = this.requireAuthenticatedUser(client);
+    if (user.role !== 'teacher' && user.role !== 'admin') {
+      throw new ForbiddenException('Only the classroom teacher can perform this action');
+    }
+
+    const participant = this.getParticipant(client, classroomId);
+    if (participant.role !== 'teacher') {
+      throw new ForbiddenException('Only the classroom teacher can perform this action');
+    }
+  }
+
+  private assertJoinedClassroom(client: Socket, classroomId: string): void {
+    this.getParticipant(client, classroomId);
+  }
+
+  private getParticipant(client: Socket, classroomId: string): Participant {
+    const participants = this.liveClassroomService.getParticipants(classroomId);
+    const participant = participants.find((entry) => entry.socketId === client.id);
+    if (!participant) {
+      throw new ForbiddenException('Join the classroom before sending live events');
+    }
+    return participant;
+  }
+
+  private assertReadableMessage(text: string): void {
+    const trimmed = text?.trim();
+    if (!trimmed) {
+      throw new BadRequestException('Chat message cannot be empty');
+    }
+    if (trimmed.length > 500) {
+      throw new BadRequestException('Chat message must be 500 characters or fewer');
+    }
+  }
+
+  private assertValidStroke(stroke: WhiteboardStroke): void {
+    if (!stroke?.id || !stroke?.color || !Number.isFinite(stroke.width)) {
+      throw new BadRequestException('Invalid whiteboard stroke payload');
+    }
+    if (!Array.isArray(stroke.points) || stroke.points.length < 2) {
+      throw new BadRequestException('Whiteboard stroke must contain at least two points');
+    }
+  }
+
+  private assertValidQuiz(quiz: QuizQuestion): void {
+    if (!quiz?.id || !quiz?.questionText || !Array.isArray(quiz.options) || quiz.options.length < 2) {
+      throw new BadRequestException('Invalid quiz payload');
+    }
+    if (!Number.isFinite(quiz.correctOptionIndex) || quiz.correctOptionIndex < 0) {
+      throw new BadRequestException('Quiz correct option index is invalid');
+    }
+    if (!Number.isFinite(quiz.timeLimitSeconds) || quiz.timeLimitSeconds <= 0) {
+      throw new BadRequestException('Quiz time limit must be greater than zero');
     }
   }
 }

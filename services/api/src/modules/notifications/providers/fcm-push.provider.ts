@@ -14,7 +14,9 @@ export class FcmPushProvider implements PushProvider {
     if (this.isSandbox) {
       this.logger.log('FcmPushProvider initialized in SANDBOX / SIMULATION mode');
     } else {
-      this.logger.log('FcmPushProvider initialized in PRODUCTION mode');
+      this.logger.warn(
+        'FcmPushProvider initialized in production mode, but no live FCM transport is wired; sends will be marked as failed until a real transport is configured',
+      );
     }
   }
 
@@ -34,22 +36,22 @@ export class FcmPushProvider implements PushProvider {
       };
     }
 
-    // In production with credentials, sends HTTP v1 batch request
     const successfulTokens: string[] = [];
     const failedTokens: string[] = [];
     const invalidTokens: string[] = [];
 
     for (const token of tokens) {
-      try {
-        if (!token.startsWith('fcm_') && token.length < 10) {
-          invalidTokens.push(token);
-        } else {
-          successfulTokens.push(token);
-        }
-      } catch (err: any) {
-        this.logger.error(`Failed to dispatch push to token ${token.slice(0, 8)}...: ${err.message}`);
+      if (!token.startsWith('fcm_') || token.length < 10) {
+        invalidTokens.push(token);
+      } else {
         failedTokens.push(token);
       }
+    }
+
+    if (failedTokens.length > 0) {
+      this.logger.error(
+        `Refusing to mark ${failedTokens.length} push token(s) as delivered without a live FCM transport`,
+      );
     }
 
     return {

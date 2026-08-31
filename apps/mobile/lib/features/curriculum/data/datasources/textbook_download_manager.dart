@@ -132,26 +132,35 @@ class TextbookDownloadManager {
     _cancelTokens[book.id] = cancelToken;
 
     try {
-      // Check for partial download support
-      int startByte = 0;
       if (await file.exists()) {
-        startByte = await file.length();
+        final cachedChecksum = await _computeSha256Checksum(file);
+        if (expectedChecksum.isNotEmpty && cachedChecksum == expectedChecksum.toLowerCase()) {
+          task = task.copyWith(
+            bytesDownloaded: totalBytes,
+            status: DownloadStatus.completed,
+            isChecksumVerified: true,
+            actualChecksumSha256: cachedChecksum,
+            completedAt: DateTime.now(),
+          );
+          _tasks[book.id] = task;
+          _notifyUpdate();
+          onProgress?.call(task);
+          return task;
+        }
+
+        // A stale or partial file is unsafe to resume because Dio writes from the start.
+        await file.delete();
       }
 
       await _apiClient.dio.download(
         downloadUrl,
         localPath,
         cancelToken: cancelToken,
-        options: Options(
-          headers: startByte > 0 ? {'Range': 'bytes=$startByte-'} : null,
-          responseType: ResponseType.bytes,
-        ),
+        options: Options(responseType: ResponseType.bytes),
         onReceiveProgress: (received, total) {
-          final effectiveTotal = total > 0 ? total + startByte : totalBytes;
-          final effectiveDownloaded = received + startByte;
           task = task.copyWith(
-            bytesDownloaded: effectiveDownloaded,
-            totalBytes: effectiveTotal,
+            bytesDownloaded: received,
+            totalBytes: total > 0 ? total : totalBytes,
             status: DownloadStatus.downloading,
           );
           _tasks[book.id] = task;
@@ -166,19 +175,33 @@ class TextbookDownloadManager {
       _notifyUpdate();
       onProgress?.call(task);
 
-      final isChecksumValid = await _verifySha256Checksum(file, expectedChecksum);
+      final checksumResult = await _computeSha256Checksum(file);
+      final isChecksumValid = expectedChecksum.isEmpty ||
+          checksumResult.toLowerCase() == expectedChecksum.toLowerCase();
 
-      task = task.copyWith(
-        status: DownloadStatus.completed,
-        isChecksumVerified: isChecksumValid,
-        completedAt: DateTime.now(),
-      );
+      if (!isChecksumValid) {
+        await file.delete();
+        task = task.copyWith(
+          status: DownloadStatus.failed,
+          actualChecksumSha256: checksumResult,
+          errorMessage: 'Checksum verification failed for downloaded textbook',
+        );
+      } else {
+        task = task.copyWith(
+          status: DownloadStatus.completed,
+          isChecksumVerified: true,
+          actualChecksumSha256: checksumResult,
+          bytesDownloaded: totalBytes,
+          completedAt: DateTime.now(),
+        );
+      }
+
       _tasks[book.id] = task;
       _notifyUpdate();
       onProgress?.call(task);
       return task;
     } catch (e) {
-      if (CancelToken.isCancel(e as DioException)) {
+      if (e is DioException && CancelToken.isCancel(e)) {
         task = task.copyWith(status: DownloadStatus.paused);
       } else {
         task = task.copyWith(
@@ -235,17 +258,10 @@ class TextbookDownloadManager {
     }
   }
 
-  Future<bool> _verifySha256Checksum(File file, String expectedSha256) async {
-    if (expectedSha256.isEmpty) return true;
-    try {
-      if (!await file.exists()) return false;
-      final bytes = await file.readAsBytes();
-      final digest = sha256.convert(bytes);
-      final actualChecksum = digest.toString().toLowerCase();
-      return actualChecksum == expectedSha256.toLowerCase();
-    } catch (_) {
-      return false;
-    }
+  Future<String> _computeSha256Checksum(File file) async {
+    if (!await file.exists()) return '';
+    final bytes = await file.readAsBytes();
+    return sha256.convert(bytes).toString().toLowerCase();
   }
 
   void _notifyUpdate() {

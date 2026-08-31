@@ -3,10 +3,16 @@ import { LiveClassroomGateway } from '../live-classroom.gateway';
 import { LiveClassroomService } from '../live-classroom.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { ClassroomRepository } from '../../classrooms/repositories/classroom.repository';
+import { ClassroomMemberRepository } from '../../classrooms/repositories/classroom-member.repository';
+import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
+import { Types } from 'mongoose';
 
 describe('LiveClassroomGateway', () => {
   let gateway: LiveClassroomGateway;
   let service: LiveClassroomService;
+  let classroomRepository: jest.Mocked<ClassroomRepository>;
+  let classroomMemberRepository: jest.Mocked<ClassroomMemberRepository>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,16 +31,98 @@ describe('LiveClassroomGateway', () => {
             get: jest.fn().mockReturnValue('test-secret'),
           },
         },
+        {
+          provide: ClassroomRepository,
+          useValue: {
+            findById: jest.fn(),
+          },
+        },
+        {
+          provide: ClassroomMemberRepository,
+          useValue: {
+            isMember: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
     gateway = module.get<LiveClassroomGateway>(LiveClassroomGateway);
     service = module.get<LiveClassroomService>(LiveClassroomService);
+    classroomRepository = module.get(ClassroomRepository);
+    classroomMemberRepository = module.get(ClassroomMemberRepository);
   });
+
+  const createSocket = (user: any = null) =>
+    ({
+      id: 'sock_1',
+      data: user ? { user, joinedClassrooms: new Set<string>() } : {},
+      handshake: { auth: {}, headers: {}, query: {} },
+      disconnect: jest.fn(),
+      join: jest.fn(),
+      emit: jest.fn(),
+      to: jest.fn().mockReturnValue({ emit: jest.fn() }),
+    }) as any;
 
   it('should be defined', () => {
     expect(gateway).toBeDefined();
     expect(service).toBeDefined();
+  });
+
+  it('should disconnect anonymous sockets during connection', async () => {
+    const client = createSocket();
+
+    await gateway.handleConnection(client);
+
+    expect(client.disconnect).toHaveBeenCalledWith(true);
+  });
+
+  it('should reject classroom join attempts without authentication', async () => {
+    await expect(
+      gateway.handleJoinClassroom(createSocket(), { classroomId: 'class_math_8' }),
+    ).rejects.toThrow(UnauthorizedException);
+  });
+
+  it('should allow enrolled students to join but ignore any spoofed role intent', async () => {
+    classroomRepository.findById.mockResolvedValue({
+      _id: new Types.ObjectId(),
+      teacherId: new Types.ObjectId(),
+      isActive: true,
+    } as any);
+    classroomMemberRepository.isMember.mockResolvedValue(true);
+
+    const client = createSocket({ sub: 'student_1', role: 'student' });
+
+    await gateway.handleJoinClassroom(client, {
+      classroomId: 'class_math_8',
+      name: 'Rahim',
+    });
+
+    expect(client.join).toHaveBeenCalledWith('class_math_8');
+    expect(client.emit).toHaveBeenCalledWith(
+      'room_joined',
+      expect.objectContaining({
+        participant: expect.objectContaining({
+          userId: 'student_1',
+          role: 'student',
+          name: 'Rahim',
+        }),
+      }),
+    );
+  });
+
+  it('should block non-teachers from clearing the whiteboard', () => {
+    const client = createSocket({ sub: 'student_1', role: 'student' });
+    service.addParticipant('class_math_8', {
+      socketId: 'sock_1',
+      userId: 'student_1',
+      name: 'Rahim',
+      role: 'student',
+      joinedAt: new Date(),
+    });
+
+    expect(() =>
+      gateway.handleWhiteboardClear(client, { classroomId: 'class_math_8' }),
+    ).toThrow(ForbiddenException);
   });
 
   it('should manage participant rosters in live rooms', () => {

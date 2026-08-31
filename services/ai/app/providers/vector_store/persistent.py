@@ -70,8 +70,10 @@ class PersistentVectorStore:
                         validate_embedding_compatibility(self.embedding_metadata, inferred_metadata)
                     self.embedding_metadata = self.embedding_metadata or inferred_metadata
                     self._apply_metadata_to_chunks()
+                    self._apply_default_scope_metadata()
                     self._save_to_disk_sync()
                 self._apply_metadata_to_chunks()
+                self._apply_default_scope_metadata()
                 logger.info(
                     f"Loaded {len(self.chunks)} persistent curriculum chunks from {self.file_path}"
                 )
@@ -112,6 +114,8 @@ class PersistentVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 45,
                 "page_end": 47,
+                "curriculum_version": "2024-NCTB",
+                "academic_year": 2026,
                 "curriculum_year": 2026,
                 "medium": "bangla",
                 "content_version": 1,
@@ -134,6 +138,8 @@ class PersistentVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 48,
                 "page_end": 50,
+                "curriculum_version": "2024-NCTB",
+                "academic_year": 2026,
                 "curriculum_year": 2026,
                 "medium": "bangla",
                 "content_version": 1,
@@ -156,6 +162,8 @@ class PersistentVectorStore:
                 "lesson_title": "দহন প্রক্রিয়া",
                 "page_start": 72,
                 "page_end": 74,
+                "curriculum_version": "2024-NCTB",
+                "academic_year": 2026,
                 "curriculum_year": 2026,
                 "medium": "bangla",
                 "content_version": 1,
@@ -180,6 +188,13 @@ class PersistentVectorStore:
             chunk["embedding_model"] = meta.model
             chunk["embedding_dimension"] = meta.dimension
             chunk["embedding_version"] = meta.version
+
+    def _apply_default_scope_metadata(self) -> None:
+        for chunk in self.chunks:
+            chunk.setdefault("curriculum_version", "2024-NCTB")
+            chunk.setdefault("academic_year", 2026)
+            chunk.setdefault("curriculum_year", 2026)
+            chunk.setdefault("medium", "bangla")
 
     def _infer_metadata(self) -> VectorStoreEmbeddingMetadata:
         dimension = len(self.vectors[0]) if self.vectors else 128
