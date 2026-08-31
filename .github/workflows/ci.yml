@@ -1,16 +1,23 @@
 name: Shikkhok-AI Continuous Integration & Production Verification
 
 on:
-  push:
-    branches: [main, master, develop]
   pull_request:
-    branches: [main, master, develop]
-  workflow_dispatch:
+    branches: [main]
+    types:
+      - closed
 
 jobs:
+  gate:
+    name: Run only on merged PRs to main
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    steps:
+      - run: echo "Merged PR into main. CI will run."
+
   ai-service:
     name: FastAPI AI Service (Pytest & MyPy)
     runs-on: ubuntu-latest
+    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
@@ -32,6 +39,7 @@ jobs:
   backend-api:
     name: NestJS API (Build, Unit & Gateway Tests)
     runs-on: ubuntu-latest
+    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js 20
@@ -53,6 +61,7 @@ jobs:
   background-worker:
     name: BullMQ Background Worker (Build)
     runs-on: ubuntu-latest
+    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js 20
@@ -66,6 +75,7 @@ jobs:
   teacher-portal:
     name: Teacher Portal (Next.js 15 Build)
     runs-on: ubuntu-latest
+    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js 20
@@ -79,6 +89,7 @@ jobs:
   flutter-mobile:
     name: Flutter Mobile (Analyzer)
     runs-on: ubuntu-latest
+    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Java
