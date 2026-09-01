@@ -1,82 +1,58 @@
 global:
   environment: production
-  domain: shikkhok.ai
   imagePullPolicy: IfNotPresent
+  imagePullSecrets: []
+
+secrets:
+  existingSecret: shikkhok-ai-secrets
 
 api:
   enabled: true
   replicaCount: 3
-  image:
-    repository: ghcr.io/shikkhok-ai/api
-    tag: latest
-  service:
-    type: ClusterIP
-    port: 4000
+  image: { repository: ghcr.io/shikkhok-ai/api, tag: "1.0.0" }
+  service: { port: 4000 }
+  env:
+    aiServiceEnabled: "true"
+    aiServiceBaseUrl: ""
+    corsOrigins: https://teacher.shikkhok.ai
   resources:
-    limits:
-      cpu: 1000m
-      memory: 1024Mi
-    requests:
-      cpu: 250m
-      memory: 512Mi
-  autoscaling:
-    enabled: true
-    minReplicas: 3
-    maxReplicas: 10
-    targetCPUUtilizationPercentage: 75
+    requests: { cpu: 250m, memory: 512Mi }
+    limits: { cpu: "1", memory: 1Gi }
+  autoscaling: { enabled: true, minReplicas: 3, maxReplicas: 10, targetCPUUtilizationPercentage: 75 }
+  podDisruptionBudget: { minAvailable: 2 }
 
 aiService:
   enabled: true
   replicaCount: 4
-  image:
-    repository: ghcr.io/shikkhok-ai/ai-service
-    tag: latest
-  service:
-    type: ClusterIP
-    port: 8000
+  image: { repository: ghcr.io/shikkhok-ai/ai-service, tag: "1.0.0" }
+  service: { port: 8000 }
+  env:
+    appEnv: production
+    llmProvider: gemini
+    embeddingProvider: gemini
+    vectorStoreProvider: persistent
+    allowMockProviders: "false"
+    vectorStoreAllowDemoSeed: "false"
   resources:
-    limits:
-      cpu: 2000m
-      memory: 2048Mi
-    requests:
-      cpu: 500m
-      memory: 1024Mi
-  autoscaling:
-    enabled: true
-    minReplicas: 4
-    maxReplicas: 20
-    targetCPUUtilizationPercentage: 70
+    requests: { cpu: 500m, memory: 1Gi }
+    limits: { cpu: "2", memory: 2Gi }
+  autoscaling: { enabled: true, minReplicas: 4, maxReplicas: 20, targetCPUUtilizationPercentage: 70 }
+  podDisruptionBudget: { minAvailable: 3 }
 
 worker:
   enabled: true
   replicaCount: 2
-  image:
-    repository: ghcr.io/shikkhok-ai/worker
-    tag: latest
+  image: { repository: ghcr.io/shikkhok-ai/worker, tag: "1.0.0" }
   resources:
-    limits:
-      cpu: 1000m
-      memory: 1024Mi
-    requests:
-      cpu: 200m
-      memory: 256Mi
+    requests: { cpu: 200m, memory: 256Mi }
+    limits: { cpu: "1", memory: 1Gi }
+  podDisruptionBudget: { minAvailable: 1 }
 
 teacherPortal:
-  enabled: true
+  enabled: false
   replicaCount: 2
-  image:
-    repository: ghcr.io/shikkhok-ai/teacher-portal
-    tag: latest
-  service:
-    type: ClusterIP
-    port: 3002
-  resources:
-    limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 100m
-      memory: 256Mi
+  image: { repository: ghcr.io/shikkhok-ai/teacher-portal, tag: "1.0.0" }
+  service: { port: 3002 }
 
 ingress:
   enabled: true
@@ -87,20 +63,13 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
   hosts:
-    - host: api.shikkhok.ai
-      paths:
-        - path: /
-          pathType: Prefix
-          service: api
-          port: 4000
-    - host: teacher.shikkhok.ai
-      paths:
-        - path: /
-          pathType: Prefix
-          service: teacherPortal
-          port: 3002
+    - { host: api.shikkhok.ai, service: api, port: 4000 }
+    - { host: ai.shikkhok.ai, service: ai, port: 8000 }
   tls:
     - secretName: shikkhok-ai-tls
-      hosts:
-        - api.shikkhok.ai
-        - teacher.shikkhok.ai
+      hosts: [api.shikkhok.ai, ai.shikkhok.ai]
+
+serviceMonitor:
+  enabled: false
+  interval: 30s
+  labels: {}

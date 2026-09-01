@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "shikkhok-ai.fullname" . }}-config
+  labels:
+    {{- include "shikkhok-ai.labels" . | nindent 4 }}
+data:
+  NODE_ENV: {{ .Values.global.environment | quote }}
+  AI_SERVICE_ENABLED: {{ .Values.api.env.aiServiceEnabled | quote }}
+  AI_SERVICE_BASE_URL: {{ default (printf "http://%s-ai:8000/api/v1" (include "shikkhok-ai.fullname" .)) .Values.api.env.aiServiceBaseUrl | quote }}
+  CORS_ORIGINS: {{ .Values.api.env.corsOrigins | quote }}
+  APP_ENV: {{ .Values.aiService.env.appEnv | quote }}
+  LLM_PROVIDER: {{ .Values.aiService.env.llmProvider | quote }}
+  EMBEDDING_PROVIDER: {{ .Values.aiService.env.embeddingProvider | quote }}
+  VECTOR_STORE_PROVIDER: {{ .Values.aiService.env.vectorStoreProvider | quote }}
+  ALLOW_MOCK_PROVIDERS: {{ .Values.aiService.env.allowMockProviders | quote }}
+  VECTOR_STORE_ALLOW_DEMO_SEED: {{ .Values.aiService.env.vectorStoreAllowDemoSeed | quote }}

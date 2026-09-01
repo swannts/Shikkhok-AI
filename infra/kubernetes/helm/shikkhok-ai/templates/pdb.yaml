@@ -1,0 +1,11 @@
+{{- range $component, $config := dict "api" .Values.api "ai" .Values.aiService "worker" .Values.worker }}
+{{- if and $config.enabled $config.podDisruptionBudget }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: {{ include "shikkhok-ai.fullname" $ }}-{{ $component }} }
+spec:
+  minAvailable: {{ $config.podDisruptionBudget.minAvailable }}
+  selector: { matchLabels: { app.kubernetes.io/component: {{ $component }}, app.kubernetes.io/instance: {{ $.Release.Name }} } }
+---
+{{- end }}
+{{- end }}

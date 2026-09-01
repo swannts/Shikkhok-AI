@@ -14,6 +14,19 @@ jobs:
     steps:
       - run: echo "Merged PR into main. CI will run."
 
+  infrastructure:
+    name: Helm Infrastructure Validation
+    runs-on: ubuntu-latest
+    needs: gate
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+      - name: Lint Helm chart
+        run: helm lint infra/kubernetes/helm/shikkhok-ai
+      - name: Render Helm chart
+        run: helm template shikkhok-ai infra/kubernetes/helm/shikkhok-ai > /tmp/shikkhok-ai-manifests.yaml
+
   ai-service:
     name: FastAPI AI Service (Pytest & MyPy)
     runs-on: ubuntu-latest

@@ -1,10 +1,10 @@
 # Kubernetes (k8s) & Helm Deployment Architecture Strategy
 
-> **Production Deployment Readiness Strategy**: Kubernetes manifest generation is reserved for after the core application stack (`api`, `ai-gateway`, `worker`) completes stability and integration phases.
+> **Production Deployment Strategy**: The production Helm chart is implemented under `infra/kubernetes/helm/shikkhok-ai`. It deploys stateless workloads and expects managed MongoDB and Redis credentials through a Kubernetes Secret.
 
 ## Target Kubernetes Architecture Specifications
 
-When deploying to Kubernetes environments (e.g. Google Kubernetes Engine - GKE), manifests should be structured under `infra/k8s/` or managed via Helm charts (`infra/helm/`):
+When deploying to Kubernetes environments (e.g. Google Kubernetes Engine - GKE), use the Helm chart at `infra/kubernetes/helm/shikkhok-ai`:
 
 ### 1. Target Microservice Deployments
 - **`shikkhok-api`**: Primary REST API monolith deployment with HPA scaling.
@@ -106,4 +106,11 @@ spec:
 
 ### 3. Ingress & Helm Package Strategy
 - **Ingress Controller**: NGINX or Google Cloud HTTP(S) Load Balancer terminating TLS certificates and routing `/api/v1/*` to `shikkhok-api-service` and `/ai/v1/*` to `shikkhok-ai-gateway-service`.
-- **Helm**: Use Helm (`infra/helm/shikkhok-chart`) once staging and production environments exist to parametrize domain names, database replica URLs, and scaling thresholds across environments.
+- **Helm**: The chart parametrizes image tags, domains, scaling thresholds, health probes, and managed-database Secret references across environments.
+
+## Deployment Checklist
+
+1. Create the `secrets.existingSecret` Secret in the target namespace using the example contract under `infra/kubernetes/helm/shikkhok-ai/examples/`.
+2. Pin immutable image tags in an environment values file. Do not deploy `latest` to production.
+3. Install ingress-nginx and cert-manager, including the `letsencrypt-prod` ClusterIssuer.
+4. Validate and install with `helm lint`, `helm template`, and `helm upgrade --install`.

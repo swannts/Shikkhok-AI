@@ -1,0 +1,14 @@
+{{- range $component, $config := dict "api" .Values.api "ai" .Values.aiService }}
+{{- if $config.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "shikkhok-ai.fullname" $ }}-{{ $component }}
+  labels: {{- include "shikkhok-ai.labels" $ | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports: [{ name: http, port: {{ $config.service.port }}, targetPort: http }]
+  selector: { app.kubernetes.io/component: {{ $component }}, app.kubernetes.io/instance: {{ $.Release.Name }} }
+---
+{{- end }}
+{{- end }}
