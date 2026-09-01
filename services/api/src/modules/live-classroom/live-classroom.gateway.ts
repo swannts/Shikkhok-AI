@@ -29,8 +29,9 @@ import {
   QuizQuestion,
 } from './interfaces/live-classroom.interface';
 
-const allowedOrigins = (process.env.CORS_ORIGINS ||
-  'http://localhost:3000,http://localhost:4000,http://localhost:8081')
+const allowedOrigins = (
+  process.env.CORS_ORIGINS || 'http://localhost:3000,http://localhost:4000,http://localhost:8081'
+)
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
@@ -48,9 +49,7 @@ const allowedOrigins = (process.env.CORS_ORIGINS ||
   },
   namespace: 'live-classroom',
 })
-export class LiveClassroomGateway
-  implements OnGatewayConnection, OnGatewayDisconnect
-{
+export class LiveClassroomGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
@@ -87,7 +86,10 @@ export class LiveClassroomGateway
       client.data.user = payload;
       client.data.joinedClassrooms = new Set<string>();
       this.metricsService.activeWebSocketConnections.inc();
-      this.logger.log(`Authenticated live socket: ${client.id} (User: ${payload.sub || payload.id})`);
+      client.data.connectionMetricCounted = true;
+      this.logger.log(
+        `Authenticated live socket: ${client.id} (User: ${payload.sub || payload.id})`,
+      );
     } catch (err: any) {
       this.logger.warn(`JWT verification failed for socket ${client.id}: ${err.message}`);
       this.metricsService.websocketDisconnects.inc({ reason: 'auth_failed' });
@@ -96,11 +98,16 @@ export class LiveClassroomGateway
   }
 
   handleDisconnect(client: Socket) {
-    const joinedClassrooms = client.data.joinedClassrooms as Set<string> | undefined;
-    if (joinedClassrooms && joinedClassrooms.size > 0) {
-      this.metricsService.activeClassrooms.dec();
+    const joinedClassrooms =
+      (client.data.joinedClassrooms as Set<string> | undefined) ?? new Set<string>();
+    if (client.data.connectionMetricCounted) {
+      this.metricsService.activeWebSocketConnections.dec();
+      client.data.connectionMetricCounted = false;
     }
-    this.metricsService.activeWebSocketConnections.dec();
+    if (client.data.classroomMetricCounted) {
+      this.metricsService.activeClassrooms.dec();
+      client.data.classroomMetricCounted = false;
+    }
     this.metricsService.websocketDisconnects.inc({ reason: 'client' });
 
     for (const classroomId of joinedClassrooms) {
@@ -108,7 +115,9 @@ export class LiveClassroomGateway
         .removeParticipant(client.id)
         .then((result) => {
           if (result) {
-            this.logger.log(`User left classroom ${result.classroomId}: ${result.participant.name}`);
+            this.logger.log(
+              `User left classroom ${result.classroomId}: ${result.participant.name}`,
+            );
             this.server.to(result.classroomId).emit('participant_left', {
               participant: result.participant,
               roster: result.remaining,
@@ -116,7 +125,9 @@ export class LiveClassroomGateway
           }
         })
         .catch((err: any) => {
-          this.logger.error(`Error removing participant ${client.id} from ${classroomId}: ${err.message}`);
+          this.logger.error(
+            `Error removing participant ${client.id} from ${classroomId}: ${err.message}`,
+          );
         });
     }
 
@@ -132,10 +143,16 @@ export class LiveClassroomGateway
   ) {
     const user = this.requireAuthenticatedUser(client);
     const classroomId = this.normalizeClassroomId(data.classroomId);
+    const joinedClassrooms =
+      (client.data.joinedClassrooms as Set<string> | undefined) ?? new Set<string>();
+    if (joinedClassrooms.size > 0 && !joinedClassrooms.has(classroomId)) {
+      throw new BadRequestException('A socket may join only one live classroom');
+    }
 
     const classroom = await this.assertJoinedClassroomAccess(user, classroomId);
     const role = this.resolveParticipantRole(user, classroom.teacherId?.toString?.() ?? '');
-    const name = this.sanitizeDisplayName(data.name) || (role === 'teacher' ? 'শিক্ষক' : 'শিক্ষার্থী');
+    const name =
+      this.sanitizeDisplayName(data.name) || (role === 'teacher' ? 'শিক্ষক' : 'শিক্ষার্থী');
     const participant: Participant = {
       socketId: client.id,
       userId: user.sub,
@@ -145,9 +162,12 @@ export class LiveClassroomGateway
     };
 
     client.join(classroomId);
-    const joinedClassrooms = (client.data.joinedClassrooms as Set<string>) || new Set<string>();
     joinedClassrooms.add(classroomId);
     client.data.joinedClassrooms = joinedClassrooms;
+    if (!client.data.classroomMetricCounted) {
+      this.metricsService.activeClassrooms.inc();
+      client.data.classroomMetricCounted = true;
+    }
 
     const roster = await this.liveClassroomService.addParticipant(classroomId, participant);
     const whiteboardState = await this.liveClassroomService.getWhiteboardState(classroomId);
@@ -325,7 +345,10 @@ export class LiveClassroomGateway
     return classroom;
   }
 
-  private async assertJoinedClassroomAccess(user: { sub: string; role: string }, classroomId: string) {
+  private async assertJoinedClassroomAccess(
+    user: { sub: string; role: string },
+    classroomId: string,
+  ) {
     const classroom = await this.getClassroomOrThrow(classroomId);
     const teacherId = classroom.teacherId?.toString?.() ?? '';
     const isTeacherOwner = user.role === 'teacher' && teacherId === user.sub;
@@ -382,22 +405,61 @@ export class LiveClassroomGateway
   }
 
   private assertValidStroke(stroke: WhiteboardStroke): void {
-    if (!stroke?.id || !stroke?.color || !Number.isFinite(stroke.width)) {
+    const points = stroke?.points;
+    if (
+      !stroke?.id ||
+      stroke.id.length > 128 ||
+      !stroke?.color ||
+      stroke.color.length > 32 ||
+      !Number.isFinite(stroke.width) ||
+      stroke.width <= 0 ||
+      stroke.width > 100
+    ) {
       throw new BadRequestException('Invalid whiteboard stroke payload');
     }
-    if (!Array.isArray(stroke.points) || stroke.points.length < 2) {
+    if (!Array.isArray(points) || points.length < 2 || points.length > 500) {
       throw new BadRequestException('Whiteboard stroke must contain at least two points');
+    }
+    if (
+      points.some(
+        ({ x, y }) =>
+          !Number.isFinite(x) || !Number.isFinite(y) || x < 0 || x > 4096 || y < 0 || y > 4096,
+      )
+    ) {
+      throw new BadRequestException('Whiteboard points must be finite coordinates within bounds');
     }
   }
 
   private assertValidQuiz(quiz: QuizQuestion): void {
-    if (!quiz?.id || !quiz?.questionText || !Array.isArray(quiz.options) || quiz.options.length < 2) {
+    if (
+      !quiz?.id ||
+      quiz.id.length > 128 ||
+      typeof quiz.questionText !== 'string' ||
+      !quiz.questionText.trim() ||
+      quiz.questionText.length > 2000 ||
+      !Array.isArray(quiz.options) ||
+      quiz.options.length < 2 ||
+      quiz.options.length > 6 ||
+      quiz.options.some(
+        (option) => typeof option !== 'string' || !option.trim() || option.length > 500,
+      )
+    ) {
       throw new BadRequestException('Invalid quiz payload');
     }
-    if (!Number.isFinite(quiz.correctOptionIndex) || quiz.correctOptionIndex < 0) {
+    if (
+      !Number.isInteger(quiz.correctOptionIndex) ||
+      quiz.correctOptionIndex < 0 ||
+      quiz.correctOptionIndex >= quiz.options.length
+    ) {
       throw new BadRequestException('Quiz correct option index is invalid');
     }
-    if (!Number.isFinite(quiz.timeLimitSeconds) || quiz.timeLimitSeconds <= 0) {
+    if (
+      !Number.isInteger(quiz.timeLimitSeconds) ||
+      quiz.timeLimitSeconds < 5 ||
+      quiz.timeLimitSeconds > 3600 ||
+      typeof quiz.startedAt !== 'string' ||
+      Number.isNaN(Date.parse(quiz.startedAt))
+    ) {
       throw new BadRequestException('Quiz time limit must be greater than zero');
     }
   }

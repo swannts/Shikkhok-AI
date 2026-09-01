@@ -1,169 +1,129 @@
 {{- if .Values.networkPolicy.enabled }}
----
+{{- $ns := .Release.Namespace }}
+{{- $name := .Release.Name }}
+{{- $teacherPort := .Values.teacherPortal.service.port }}
+{{- if .Values.api.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "shikkhok-ai.fullname" . }}-api
-  labels:
-    {{- include "shikkhok-ai.labels" . | nindent 4 }}
 spec:
-  podSelector:
-    matchLabels:
-      app.kubernetes.io/component: api
-      app.kubernetes.io/instance: {{ .Release.Name }}
-  policyTypes:
-    - Ingress
-    - Egress
+  podSelector: { matchLabels: { app.kubernetes.io/component: api, app.kubernetes.io/instance: {{ $name }} } }
+  policyTypes: [Ingress, Egress]
   ingress:
-    - from:
-        {{- range .Values.networkPolicy.allowedIngress }}
-        - {{ toYaml . | nindent 8 }}
-        {{- end }}
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: {{ .Release.Namespace }}
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: {{ .Release.Name }}
-          ports:
-            - protocol: TCP
-              port: 4000
-    - ports:
-        - protocol: TCP
-          port: 4000
+    {{- with .Values.networkPolicy.allowedIngress }}
+    - from: {{ toYaml . | nindent 8 }}
+      ports: [{ protocol: TCP, port: 4000 }]
+    {{- end }}
+    - from: [{ namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: {{ $ns }} } }, podSelector: { matchLabels: { app.kubernetes.io/instance: {{ $name }} } } }]
+      ports: [{ protocol: TCP, port: 4000 }]
   egress:
+    - to: [{ namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: {{ $ns }} } }, podSelector: { matchLabels: { app.kubernetes.io/instance: {{ $name }}, app.kubernetes.io/component: ai } } }]
+      ports: [{ protocol: TCP, port: 8000 }]
+    {{- if .Values.networkPolicy.externalMongoCidr }}
+    - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalMongoCidr | quote }} } }]
+      ports: [{ protocol: TCP, port: 27017 }]
+    {{- end }}
+    {{- if .Values.networkPolicy.externalRedisCidr }}
+    - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalRedisCidr | quote }} } }]
+      ports: [{ protocol: TCP, port: 6379 }]
+    {{- end }}
+    {{- range .Values.networkPolicy.allowedExternalEgress }}
+    - to: [{ ipBlock: { cidr: {{ . | quote }} } }]
+      ports: [{ protocol: TCP, port: 443 }]
+    {{- end }}
     - to:
         - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: {{ .Release.Namespace }}
+            matchLabels: { kubernetes.io/metadata.name: kube-system }
           podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: {{ .Release.Name }}
-              app.kubernetes.io/component: ai
-        ports:
-          - protocol: TCP
-            port: 8000
-    - to:
-        - ipBlock:
-            cidr: 10.0.0.0/8
-      ports:
-        - protocol: TCP
-          port: 5432
-        - protocol: TCP
-          port: 27017
-        - protocol: TCP
-          port: 6379
-    - {}
-    ports:
-      - protocol: UDP
-        port: 53
-      - protocol: TCP
-        port: 53
+            matchLabels: { k8s-app: kube-dns }
+      ports: [{ protocol: UDP, port: 53 }, { protocol: TCP, port: 53 }]
 ---
+{{- end }}
+{{- if .Values.aiService.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "shikkhok-ai.fullname" . }}-ai
-  labels:
-    {{- include "shikkhok-ai.labels" . | nindent 4 }}
 spec:
-  podSelector:
-    matchLabels:
-      app.kubernetes.io/component: ai
-      app.kubernetes.io/instance: {{ .Release.Name }}
-  policyTypes:
-    - Ingress
-    - Egress
+  podSelector: { matchLabels: { app.kubernetes.io/component: ai, app.kubernetes.io/instance: {{ $name }} } }
+  policyTypes: [Ingress, Egress]
   ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: {{ .Release.Namespace }}
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: {{ .Release.Name }}
-              app.kubernetes.io/component: api
-        ports:
-          - protocol: TCP
-            port: 8000
-    - ports:
-        - protocol: TCP
-          port: 8000
+    - from: [{ namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: {{ $ns }} } }, podSelector: { matchLabels: { app.kubernetes.io/instance: {{ $name }}, app.kubernetes.io/component: api } } }]
+      ports: [{ protocol: TCP, port: 8000 }]
   egress:
+    {{- if .Values.networkPolicy.externalQdrantCidr }}
+    - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalQdrantCidr | quote }} } }]
+      ports: [{ protocol: TCP, port: {{ .Values.aiService.qdrantPort | default 6333 }} }]
+    {{- end }}
+    {{- range .Values.networkPolicy.allowedExternalEgress }}
+    - to: [{ ipBlock: { cidr: {{ . | quote }} } }]
+      ports: [{ protocol: TCP, port: 443 }]
+    {{- end }}
     - to:
         - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: {{ .Release.Namespace }}
+            matchLabels: { kubernetes.io/metadata.name: kube-system }
           podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: {{ .Release.Name }}
-              app.kubernetes.io/component: ai
-      ports:
-        - protocol: TCP
-          port: 6333
-    - to:
-        - ipBlock:
-            cidr: 0.0.0.0/0
-      ports:
-        - protocol: TCP
-          port: 443
-    - {}
-    ports:
-      - protocol: UDP
-        port: 53
-      - protocol: TCP
-        port: 53
+            matchLabels: { k8s-app: kube-dns }
+      ports: [{ protocol: UDP, port: 53 }, { protocol: TCP, port: 53 }]
 ---
+{{- end }}
+{{- if .Values.worker.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: {{ include "shikkhok-ai.fullname" . }}-worker
-  labels:
-    {{- include "shikkhok-ai.labels" . | nindent 4 }}
 spec:
-  podSelector:
-    matchLabels:
-      app.kubernetes.io/component: worker
-      app.kubernetes.io/instance: {{ .Release.Name }}
-  policyTypes:
-    - Ingress
-    - Egress
+  podSelector: { matchLabels: { app.kubernetes.io/component: worker, app.kubernetes.io/instance: {{ $name }} } }
+  policyTypes: [Ingress, Egress]
   ingress:
-    - ports:
-        - protocol: TCP
-          port: {{ .Values.worker.healthPort | default 3100 }}
+    - ports: [{ protocol: TCP, port: {{ .Values.worker.healthPort | default 3100 }} }]
   egress:
-    - to:
-        - ipBlock:
-            cidr: 0.0.0.0/0
-      ports:
-        - protocol: TCP
-          port: 443
-        - protocol: TCP
-          port: 80
+    - to: [{ namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: {{ $ns }} } }, podSelector: { matchLabels: { app.kubernetes.io/instance: {{ $name }}, app.kubernetes.io/component: ai } } }]
+      ports: [{ protocol: TCP, port: 8000 }]
+    {{- if .Values.networkPolicy.externalMongoCidr }}
+    - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalMongoCidr | quote }} } }]
+      ports: [{ protocol: TCP, port: 27017 }]
+    {{- end }}
+    {{- if .Values.networkPolicy.externalRedisCidr }}
+    - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalRedisCidr | quote }} } }]
+      ports: [{ protocol: TCP, port: 6379 }]
+    {{- end }}
+    {{- range .Values.networkPolicy.workerExternalEgress }}
+    - to: [{ ipBlock: { cidr: {{ . | quote }} } }]
+      ports: [{ protocol: TCP, port: 443 }]
+    {{- end }}
     - to:
         - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: {{ .Release.Namespace }}
+            matchLabels: { kubernetes.io/metadata.name: kube-system }
           podSelector:
-            matchLabels:
-              app.kubernetes.io/instance: {{ .Release.Name }}
-              app.kubernetes.io/component: ai
-        ports:
-          - protocol: TCP
-            port: 8000
+            matchLabels: { k8s-app: kube-dns }
+      ports: [{ protocol: UDP, port: 53 }, { protocol: TCP, port: 53 }]
+{{- end }}
+{{- if .Values.teacherPortal.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "shikkhok-ai.fullname" . }}-teacher-portal
+spec:
+  podSelector: { matchLabels: { app.kubernetes.io/component: teacher-portal, app.kubernetes.io/instance: {{ $name }} } }
+  policyTypes: [Ingress, Egress]
+  ingress:
+    {{- with .Values.networkPolicy.allowedIngress }}
+    - from: {{ toYaml . | nindent 8 }}
+      ports: [{ protocol: TCP, port: {{ $teacherPort }} }]
+    {{- end }}
+  egress:
     - to:
-        - ipBlock:
-            cidr: 10.0.0.0/8
-      ports:
-        - protocol: TCP
-          port: 27017
-        - protocol: TCP
-          port: 6379
-    - {}
-    ports:
-      - protocol: UDP
-        port: 53
-      - protocol: TCP
-        port: 53
+        - namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: {{ $ns }} } }
+          podSelector: { matchLabels: { app.kubernetes.io/instance: {{ $name }}, app.kubernetes.io/component: api } }
+      ports: [{ protocol: TCP, port: 4000 }]
+    - to:
+        - namespaceSelector:
+            matchLabels: { kubernetes.io/metadata.name: kube-system }
+          podSelector:
+            matchLabels: { k8s-app: kube-dns }
+      ports: [{ protocol: UDP, port: 53 }, { protocol: TCP, port: 53 }]
+{{- end }}
 {{- end }}

@@ -12,14 +12,14 @@ from app.providers.vector_store.compatibility import validate_embedding_compatib
 from app.providers.vector_store.scoping import (
     active_version_key,
     build_retrieval_scope_chain,
-    chunk_matches_scope,
 )
 from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
 logger = logging.getLogger(__name__)
 
-_METADATA_POINT_ID = "__embedding_meta__"
+_METADATA_POINT_ID = "00000000-0000-0000-0000-000000000001"
+_METADATA_TYPE_MARKER = "embedding_metadata"
 
 _QDRANT_FIELD_FOR_FILTER = {
     "class_level": "class_level",
@@ -34,12 +34,19 @@ _QDRANT_FIELD_FOR_FILTER = {
 
 
 def _deterministic_point_id(chunk_id: str) -> str:
-    return str(uuid.UUID(int=hashlib.sha256(chunk_id.encode()).digest().int & ((1 << 128) - 1)))
+    digest_int = int.from_bytes(hashlib.sha256(chunk_id.encode()).digest()[:16], "big")
+    return str(uuid.UUID(int=digest_int))
 
 
 def _build_payload(chunk: RetrievedChunk) -> dict[str, Any]:
     data = chunk.model_dump()
-    meta = data.pop("embedding_provider", None)
+    for field in (
+        "embedding_provider",
+        "embedding_model",
+        "embedding_dimension",
+        "embedding_version",
+    ):
+        data.pop(field, None)
     return data
 
 
@@ -74,8 +81,6 @@ def _cosine_similarity(vec_a: list[float], vec_b: list[float]) -> float:
 
 
 def _scope_to_qdrant_filter(scope: dict[str, Any]) -> models.Filter | None:
-    if not scope:
-        return None
     conditions: list[models.Condition] = []
     for key, value in scope.items():
         if value is None:
@@ -94,9 +99,15 @@ def _scope_to_qdrant_filter(scope: dict[str, Any]) -> models.Filter | None:
                         key=field_name, match=models.MatchValue(value=str(value))
                     )
                 )
-    if not conditions:
-        return None
-    return models.Filter(must=conditions)
+    return models.Filter(
+        must=conditions or None,
+        must_not=[
+            models.FieldCondition(
+                key="_type",
+                match=models.MatchValue(value=_METADATA_TYPE_MARKER),
+            )
+        ],
+    )
 
 
 def _qdrant_point_to_chunk(point: models.Record) -> RetrievedChunk:
@@ -131,8 +142,8 @@ def _qdrant_point_to_chunk(point: models.Record) -> RetrievedChunk:
 
 
 def _select_active_version_chunks(
-    candidates: list[tuple[dict[str, Any], list[float] | None]],
-) -> list[tuple[dict[str, Any], list[float] | None]]:
+    candidates: list[tuple[dict[str, Any], Any]],
+) -> list[tuple[dict[str, Any], Any]]:
     latest_versions: dict[str, int] = {}
     for chunk, _ in candidates:
         version_key = active_version_key(chunk)
@@ -145,6 +156,8 @@ def _select_active_version_chunks(
     selected: list[tuple[dict[str, Any], list[float] | None]] = []
     for chunk, vector in candidates:
         version_key = active_version_key(chunk)
+        if chunk.get("_type") == _METADATA_TYPE_MARKER:
+            continue
         if int(chunk.get("content_version") or 1) == latest_versions.get(version_key, 1):
             selected.append((chunk, vector))
     return selected
@@ -227,6 +240,10 @@ class QdrantVectorStore:
 
         if existing_meta:
             stored_payload = existing_meta[0].payload or {}
+            if stored_payload.get("_type") != _METADATA_TYPE_MARKER:
+                raise ValueError(
+                    f"Qdrant collection '{self.collection_name}' has an invalid metadata point"
+                )
             stored_meta = VectorStoreEmbeddingMetadata(
                 provider=str(stored_payload.get("provider", "")),
                 model=str(stored_payload.get("model", "")),
@@ -245,6 +262,7 @@ class QdrantVectorStore:
                         id=_METADATA_POINT_ID,
                         vector=[0.0] * meta.dimension,
                         payload={
+                            "_type": _METADATA_TYPE_MARKER,
                             "provider": meta.provider,
                             "model": meta.model,
                             "dimension": meta.dimension,
@@ -253,9 +271,6 @@ class QdrantVectorStore:
                     )
                 ],
             )
-
-    async def _apply_metadata_to_chunks(self) -> None:
-        pass
 
     def _get_metadata(self) -> VectorStoreEmbeddingMetadata:
         if self.embedding_metadata is None:
@@ -301,16 +316,22 @@ class QdrantVectorStore:
             if not results:
                 continue
 
+            candidates = [
+                (hit.payload or {}, hit)
+                for hit in results
+                if (hit.payload or {}).get("_type") != _METADATA_TYPE_MARKER
+            ]
+            candidates = _select_active_version_chunks(candidates)
+
             scored_chunks: list[RetrievedChunk] = []
             seen_ids: set[str] = set()
-            for hit in results:
-                payload = hit.payload or {}
+            for payload, hit in candidates:
                 chunk_id = payload.get("chunk_id")
-                if chunk_id == _METADATA_POINT_ID or chunk_id in seen_ids:
+                if not chunk_id or chunk_id in seen_ids:
                     continue
                 seen_ids.add(chunk_id)
 
-                chunk_obj = _qdrant_point_to_chunk(hit=hit)
+                chunk_obj = _qdrant_point_to_chunk(hit)
                 cosine_score = hit.score or 0.0
                 keyword_score = _keyword_overlap_score(filter_params.query, payload.get("text", ""))
                 score = max(cosine_score * 0.65 + keyword_score * 0.35, keyword_score)
@@ -356,23 +377,44 @@ class QdrantVectorStore:
 
     async def count(self) -> int:
         await self._ensure_initialized()
-        result = await self.client.count(collection_name=self.collection_name)
-        return result.count
-
-    async def delete_by_book_id(self, book_id: str) -> int:
-        await self._ensure_initialized()
-        result = await self.client.delete(
+        result = await self.client.count(
             collection_name=self.collection_name,
-            points=models.Filter(
-                must=[
+            count_filter=models.Filter(
+                must_not=[
                     models.FieldCondition(
-                        key="book_id",
-                        match=models.MatchValue(value=book_id),
+                        key="_type",
+                        match=models.MatchValue(value=_METADATA_TYPE_MARKER),
                     )
                 ]
             ),
         )
-        return len(result) or 0
+        return result.count
+
+    async def delete_by_book_id(self, book_id: str) -> int:
+        await self._ensure_initialized()
+        delete_filter = models.Filter(
+            must=[
+                models.FieldCondition(
+                    key="book_id",
+                    match=models.MatchValue(value=book_id),
+                )
+            ],
+            must_not=[
+                models.FieldCondition(
+                    key="_type",
+                    match=models.MatchValue(value=_METADATA_TYPE_MARKER),
+                )
+            ],
+        )
+        matching = await self.client.count(
+            collection_name=self.collection_name,
+            count_filter=delete_filter,
+        )
+        await self.client.delete(
+            collection_name=self.collection_name,
+            points_selector=delete_filter,
+        )
+        return matching.count
 
     async def close(self) -> None:
         if self._client is not None:

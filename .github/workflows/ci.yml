@@ -23,6 +23,14 @@ jobs:
         run: helm lint infra/kubernetes/helm/shikkhok-ai
       - name: Render Helm chart
         run: helm template shikkhok-ai infra/kubernetes/helm/shikkhok-ai > /tmp/shikkhok-ai-manifests.yaml
+      - name: Validate production profile and optional teacher portal
+        run: |
+          helm lint infra/kubernetes/helm/shikkhok-ai \
+            -f infra/kubernetes/helm/shikkhok-ai/values-production.example.yaml
+          helm template shikkhok-ai infra/kubernetes/helm/shikkhok-ai \
+            -f infra/kubernetes/helm/shikkhok-ai/values-production.example.yaml \
+            --set teacherPortal.enabled=true > /tmp/shikkhok-ai-production.yaml
+          ! grep -Eq '0\.0\.0\.0/0|10\.0\.0\.0/8|(^|-) \{\}' /tmp/shikkhok-ai-production.yaml
       - name: Validate rendered manifests
         run: |
           grep -q "kind: Deployment" /tmp/shikkhok-ai-manifests.yaml
@@ -68,7 +76,7 @@ jobs:
         run: npm run build
       - name: Lint
         working-directory: ./services/api
-        run: npm run lint:check || true
+        run: npm run lint:check
       - name: Run Jest Test Suites
         working-directory: ./services/api
         run: npm test

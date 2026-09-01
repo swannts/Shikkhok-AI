@@ -35,6 +35,14 @@ export interface FcmDeliveryResult {
   errors: { token: string; error: string }[];
 }
 
+export type FcmErrorClass = 'invalid' | 'retryable' | 'permanent';
+
+export function classifyFcmError(code: string): FcmErrorClass {
+  if (['messaging/invalid-argument', 'messaging/registration-token-not-registered', 'messaging/invalid-registration-token'].includes(code)) return 'invalid';
+  if (['messaging/server-unavailable', 'messaging/unavailable', 'messaging/internal-error'].includes(code)) return 'retryable';
+  return 'permanent';
+}
+
 export async function deliverPushNotifications(
   tokens: string[],
   title: string,
@@ -95,18 +103,8 @@ export async function deliverPushNotifications(
         const error = resp.error;
         if (error) {
           const errorCode = error.code;
-          if (
-            errorCode === 'messaging/invalid-argument' ||
-            errorCode === 'messaging/registration-token-not-registered' ||
-            errorCode === 'messaging/invalid-registration-token'
-          ) {
+          if (classifyFcmError(errorCode) === 'invalid') {
             result.invalid.push(token);
-          } else if (
-            errorCode === 'messaging/server-unavailable' ||
-            errorCode === 'messaging/unavailable' ||
-            (errorCode === 'messaging/internal-error' && resp.responses[idx]?.error?.message?.includes('retry'))
-          ) {
-            result.failed.push(token);
           } else {
             result.failed.push(token);
           }
@@ -132,5 +130,3 @@ function stripNonStringValues(obj: Record<string, any>): Record<string, string> 
   }
   return result;
 }
-
-export type { FcmDeliveryResult };

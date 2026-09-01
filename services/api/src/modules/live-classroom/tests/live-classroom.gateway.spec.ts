@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { RedisService } from '../../../core/redis/redis.service';
 import { ClassroomRepository } from '../../classrooms/repositories/classroom.repository';
 import { ClassroomMemberRepository } from '../../classrooms/repositories/classroom-member.repository';
+import { MetricsService } from '../../../common/metrics/metrics.service';
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { Types } from 'mongoose';
 
@@ -17,6 +18,7 @@ describe('LiveClassroomGateway', () => {
 
   const mockRedisClient = {
     hset: jest.fn().mockResolvedValue(1),
+    hsetnx: jest.fn().mockResolvedValue(1),
     hget: jest.fn(),
     hgetall: jest.fn().mockResolvedValue({}),
     hdel: jest.fn().mockResolvedValue(1),
@@ -71,6 +73,17 @@ describe('LiveClassroomGateway', () => {
           provide: ClassroomMemberRepository,
           useValue: {
             isMember: jest.fn(),
+          },
+        },
+        {
+          provide: MetricsService,
+          useValue: {
+            activeWebSocketConnections: { inc: jest.fn(), dec: jest.fn() },
+            activeClassrooms: { inc: jest.fn(), dec: jest.fn() },
+            websocketDisconnects: { inc: jest.fn() },
+            websocketChatMessages: { inc: jest.fn() },
+            websocketQuizEvents: { inc: jest.fn() },
+            websocketWhiteboardStrokes: { inc: jest.fn() },
           },
         },
       ],
@@ -266,7 +279,10 @@ describe('LiveClassroomGateway', () => {
     });
 
     await service.startQuiz('class_math_8', quiz);
-    expect(mockRedisClient.set).toHaveBeenCalledWith('live:classroom:class_math_8:quiz', JSON.stringify(quiz));
+    expect(mockRedisClient.set).toHaveBeenCalledWith(
+      'live:classroom:class_math_8:quiz',
+      JSON.stringify(quiz),
+    );
 
     const sub1 = await service.submitQuizAnswer('class_math_8', {
       userId: 'student_1',

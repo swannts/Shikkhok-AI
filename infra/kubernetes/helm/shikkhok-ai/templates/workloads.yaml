@@ -60,11 +60,11 @@ spec:
             - { name: EMBEDDING_API_KEY, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: EMBEDDING_API_KEY } } }
             - { name: VECTOR_STORE_URL, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: QDRANT_URL } } }
             - { name: VECTOR_STORE_API_KEY, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: QDRANT_API_KEY } } }
-            readinessProbe: { httpGet: { path: /api/v1/ready, port: http }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 5 }
-            livenessProbe: { httpGet: { path: /api/v1/health, port: http }, initialDelaySeconds: 30, periodSeconds: 20, timeoutSeconds: 5 }
-            startupProbe: { httpGet: { path: /api/v1/ready, port: http }, failureThreshold: 30, periodSeconds: 10, timeoutSeconds: 5 }
-            resources: {{- toYaml .Values.aiService.resources | nindent 12 }}
-            securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+          readinessProbe: { httpGet: { path: /api/v1/ready, port: http }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 5 }
+          livenessProbe: { httpGet: { path: /api/v1/health, port: http }, initialDelaySeconds: 30, periodSeconds: 20, timeoutSeconds: 5 }
+          startupProbe: { httpGet: { path: /api/v1/ready, port: http }, failureThreshold: 30, periodSeconds: 10, timeoutSeconds: 5 }
+          resources: {{- toYaml .Values.aiService.resources | nindent 12 }}
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
 ---
 {{- end }}
 {{- if .Values.worker.enabled }}
@@ -96,9 +96,9 @@ spec:
             - { name: FIREBASE_PROJECT_ID, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: FIREBASE_PROJECT_ID } } }
             - { name: FIREBASE_CLIENT_EMAIL, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: FIREBASE_CLIENT_EMAIL } } }
             - { name: FIREBASE_PRIVATE_KEY, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: FIREBASE_PRIVATE_KEY } } }
-            readinessProbe: { httpGet: { path: /ready, port: health }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 3, failureThreshold: 3 }
-            livenessProbe: { httpGet: { path: /health, port: health }, initialDelaySeconds: 30, periodSeconds: 20, timeoutSeconds: 5, failureThreshold: 3 }
-            startupProbe: { httpGet: { path: /ready, port: health }, failureThreshold: 30, periodSeconds: 10, timeoutSeconds: 5 }
-            resources: {{- toYaml .Values.worker.resources | nindent 12 }}
-            securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+          readinessProbe: { httpGet: { path: /ready, port: health }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 3, failureThreshold: 3 }
+          livenessProbe: { httpGet: { path: /health, port: health }, initialDelaySeconds: 30, periodSeconds: 20, timeoutSeconds: 5, failureThreshold: 3 }
+          startupProbe: { httpGet: { path: /ready, port: health }, failureThreshold: 30, periodSeconds: 10, timeoutSeconds: 5 }
+          resources: {{- toYaml .Values.worker.resources | nindent 12 }}
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
 {{- end }}

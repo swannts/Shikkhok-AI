@@ -1,8 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { RedisService } from '../../core/redis/redis.service';
 import {
   Participant,
-  ChatMessage,
   WhiteboardStroke,
   QuizQuestion,
   QuizSubmission,
@@ -43,23 +42,22 @@ export class LiveClassroomService {
     return `live:socket:${socketId}:classroom`;
   }
 
-  async addParticipant(
-    classroomId: string,
-    participant: Participant,
-  ): Promise<Participant[]> {
+  async addParticipant(classroomId: string, participant: Participant): Promise<Participant[]> {
     const client = this.redisService.getClient();
     const key = this.participantsKey(classroomId);
     await client.hset(key, participant.socketId, JSON.stringify(participant));
     await client.expire(key, ROOM_TTL_SECONDS);
 
-    await client.setex(this.socketToClassroomKey(participant.socketId), ROOM_TTL_SECONDS, classroomId);
+    await client.setex(
+      this.socketToClassroomKey(participant.socketId),
+      ROOM_TTL_SECONDS,
+      classroomId,
+    );
 
     return this.getParticipants(classroomId);
   }
 
-  async removeParticipant(
-    socketId: string,
-  ): Promise<CleanupResult | null> {
+  async removeParticipant(socketId: string): Promise<CleanupResult | null> {
     const client = this.redisService.getClient();
     const classroomId = await client.get(this.socketToClassroomKey(socketId));
     if (!classroomId) return null;
@@ -135,6 +133,18 @@ export class LiveClassroomService {
 
     const activeQuiz: QuizQuestion = JSON.parse(quizJson);
     if (activeQuiz.id !== submission.questionId) return null;
+    if (
+      !Number.isInteger(submission.selectedOptionIndex) ||
+      submission.selectedOptionIndex < 0 ||
+      submission.selectedOptionIndex >= activeQuiz.options.length
+    ) {
+      throw new BadRequestException('Quiz answer option is invalid');
+    }
+
+    const startedAt = Date.parse(activeQuiz.startedAt);
+    if (Number.isNaN(startedAt) || Date.now() > startedAt + activeQuiz.timeLimitSeconds * 1000) {
+      throw new BadRequestException('Quiz has expired');
+    }
 
     const isCorrect = submission.selectedOptionIndex === activeQuiz.correctOptionIndex;
     const score = isCorrect ? 100 : 0;
@@ -146,12 +156,12 @@ export class LiveClassroomService {
       score,
     };
 
-    await client.hset(
+    const accepted = await client.hsetnx(
       this.quizSubmissionsKey(classroomId),
       submission.userId,
       JSON.stringify(fullSubmission),
     );
-    return fullSubmission;
+    return accepted === 1 ? fullSubmission : null;
   }
 
   async getQuizLeaderboard(
@@ -159,9 +169,7 @@ export class LiveClassroomService {
   ): Promise<{ studentName: string; score: number; isCorrect: boolean }[]> {
     const client = this.redisService.getClient();
     const entries = await client.hgetall(this.quizSubmissionsKey(classroomId));
-    const submissions: QuizSubmission[] = Object.values(entries).map((json) =>
-      JSON.parse(json),
-    );
+    const submissions: QuizSubmission[] = Object.values(entries).map((json) => JSON.parse(json));
     return submissions
       .map((s) => ({ studentName: s.studentName, score: s.score, isCorrect: s.isCorrect }))
       .sort((a, b) => b.score - a.score);

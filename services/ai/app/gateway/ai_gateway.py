@@ -74,8 +74,14 @@ class AiGateway:
             temperature=temperature,
             max_tokens=max_tokens,
         )
-        provider_name = self._model_router.fallback.name if fallback_used else self._model_router.primary.name
-        model_name = self._model_router.fallback.model if fallback_used else self._model_router.primary.model
+        provider_name = (
+            self._model_router.fallback.name if fallback_used and self._model_router.fallback
+            else self._model_router.primary.name
+        )
+        model_name = (
+            self._model_router.fallback.model if fallback_used and self._model_router.fallback
+            else self._model_router.primary.model
+        )
         return GatewayGenerateResult(
             text=text,
             provider=provider_name,
