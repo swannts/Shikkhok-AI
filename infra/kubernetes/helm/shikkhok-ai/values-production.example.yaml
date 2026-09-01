@@ -13,7 +13,7 @@ api:
   service: { port: 4000 }
   env:
     aiServiceEnabled: "true"
-    aiServiceBaseUrl: "http://shikkhok-ai-ai:8000/api/v1"
+    aiServiceBaseUrl: "http://shikkhok-ai-shikkhok-ai-ai:8000/api/v1"
     corsOrigins: https://teacher.shikkhok.ai
   resources:
     requests: { cpu: 250m, memory: 512Mi }
@@ -54,7 +54,7 @@ worker:
   image: { repository: ghcr.io/shikkhok-ai/worker, tag: "1.0.0" }
   healthPort: 3100
   env:
-    aiServiceUrl: "http://shikkhok-ai-ai:8000"
+    aiServiceUrl: "http://shikkhok-ai-shikkhok-ai-ai:8000"
   resources:
     requests: { cpu: 200m, memory: 256Mi }
     limits: { cpu: "1", memory: 1Gi }
@@ -100,7 +100,7 @@ ingress:
   enabled: true
   className: nginx
   annotations:
-    cert-manager.io/cluster-issuer: letsense-prod
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: "64m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
