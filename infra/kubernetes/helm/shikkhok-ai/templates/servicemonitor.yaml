@@ -1,15 +1,37 @@
 {{- if .Values.serviceMonitor.enabled }}
+{{- if .Values.aiService.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "shikkhok-ai.fullname" . }}
-  labels: {{- toYaml .Values.serviceMonitor.labels | nindent 4 }}
+  name: {{ include "shikkhok-ai.fullname" . }}-ai
+  labels:
+    {{- toYaml .Values.serviceMonitor.labels | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "shikkhok-ai.name" . }}
+      app.kubernetes.io/component: ai
+      app.kubernetes.io/instance: {{ .Release.Name }}
   endpoints:
     - port: http
       path: /metrics
       interval: {{ .Values.serviceMonitor.interval }}
+---
+{{- end }}
+{{- if .Values.api.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "shikkhok-ai.fullname" . }}-api
+  labels:
+    {{- toYaml .Values.serviceMonitor.labels | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: api
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  endpoints:
+    - port: http
+      path: /api/v1/health/metrics
+      interval: {{ .Values.serviceMonitor.interval }}
+{{- end }}
 {{- end }}

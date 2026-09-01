@@ -48,9 +48,12 @@ export class HmacSignerService {
     requestId: string,
     explicitTimestamp?: string,
   ): SignedHeaders {
-    const secret =
-      this.configService.get<string>('aiService.secret') ||
-      'dev-internal-ai-service-secret-at-least-32chars';
+    const secret = this.configService.get<string>('aiService.secret');
+    if (!secret) {
+      throw new Error(
+        'AI_SERVICE_SECRET is not configured. Set AI_SERVICE_SECRET or AI_HMAC_SECRET environment variable.',
+      );
+    }
     const timestamp = explicitTimestamp ?? Math.floor(Date.now() / 1000).toString();
     const bodySha256 = this.computeBodySha256(body);
     const signature = this.computeSignature(secret, timestamp, method, path, bodySha256);

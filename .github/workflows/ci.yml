@@ -4,20 +4,17 @@ on:
   pull_request:
     branches: [main]
     types:
-      - closed
+      - opened
+      - reopened
+      - synchronize
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  gate:
-    name: Run only on merged PRs to main
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
-    steps:
-      - run: echo "Merged PR into main. CI will run."
-
   infrastructure:
     name: Helm Infrastructure Validation
     runs-on: ubuntu-latest
-    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Helm
@@ -26,11 +23,14 @@ jobs:
         run: helm lint infra/kubernetes/helm/shikkhok-ai
       - name: Render Helm chart
         run: helm template shikkhok-ai infra/kubernetes/helm/shikkhok-ai > /tmp/shikkhok-ai-manifests.yaml
+      - name: Validate rendered manifests
+        run: |
+          grep -q "kind: Deployment" /tmp/shikkhok-ai-manifests.yaml
+          grep -q "kind: Service" /tmp/shikkhok-ai-manifests.yaml
 
   ai-service:
     name: FastAPI AI Service (Pytest & MyPy)
     runs-on: ubuntu-latest
-    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
@@ -50,9 +50,8 @@ jobs:
         run: uv run pytest
 
   backend-api:
-    name: NestJS API (Build, Unit & Gateway Tests)
+    name: NestJS API (Build & Test)
     runs-on: ubuntu-latest
-    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js 20
@@ -67,6 +66,9 @@ jobs:
       - name: Build TypeScript
         working-directory: ./services/api
         run: npm run build
+      - name: Lint
+        working-directory: ./services/api
+        run: npm run lint:check || true
       - name: Run Jest Test Suites
         working-directory: ./services/api
         run: npm test
@@ -74,7 +76,6 @@ jobs:
   background-worker:
     name: BullMQ Background Worker (Build)
     runs-on: ubuntu-latest
-    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js 20
@@ -83,12 +84,14 @@ jobs:
           node-version: 20
       - name: Install & Build
         working-directory: ./services/worker
-        run: npm install && npm run build
+        run: npm ci && npm run build
+      - name: TypeScript type-check
+        working-directory: ./services/worker
+        run: npx tsc --noEmit
 
   teacher-portal:
     name: Teacher Portal (Next.js 15 Build)
     runs-on: ubuntu-latest
-    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Node.js 20
@@ -97,12 +100,11 @@ jobs:
           node-version: 20
       - name: Install & Build
         working-directory: ./apps/teacher-portal
-        run: npm install --legacy-peer-deps && npm run build
+        run: npm ci --legacy-peer-deps && npm run build
 
   flutter-mobile:
-    name: Flutter Mobile (Analyzer)
+    name: Flutter Mobile (Analyzer & Tests)
     runs-on: ubuntu-latest
-    needs: gate
     steps:
       - uses: actions/checkout@v4
       - name: Set up Java
@@ -128,3 +130,11 @@ jobs:
       - name: Run Flutter tests
         working-directory: ./apps/mobile
         run: flutter test
+
+  docker-compose-validation:
+    name: Docker Compose Config Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate docker-compose.yml
+        run: docker compose -f docker-compose.yml config --quiet

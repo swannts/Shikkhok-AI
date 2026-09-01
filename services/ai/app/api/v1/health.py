@@ -11,9 +11,10 @@ from app.schemas.common import DependencyStatus, HealthResponse, ReadyResponse
 router = APIRouter(tags=["Health"])
 
 
+@router.get("/live", response_model=HealthResponse)
 @router.get("/health", response_model=HealthResponse)
 async def get_health() -> HealthResponse:
-    """Liveness probe: verifies process availability."""
+    """Liveness probe: verifies process availability (no dependency checks)."""
     return HealthResponse(
         status="ok",
         service=settings.app_name,
@@ -33,7 +34,7 @@ async def get_readiness(
     v_status = "ready"
     chunk_count = 0
     try:
-        chunk_count = await asyncio.wait_for(vector_store.count(), timeout=2.0)
+        chunk_count = await asyncio.wait_for(vector_store.count(), timeout=5.0)
     except Exception as e:
         v_status = "unhealthy"
         v_details = {"error": str(e)}

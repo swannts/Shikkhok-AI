@@ -60,6 +60,7 @@ services:
       JWT_ACCESS_TTL: ${JWT_ACCESS_TTL:-15m}
       JWT_REFRESH_TTL: ${JWT_REFRESH_TTL:-7d}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:4000,http://localhost:8081}
+      AI_HMAC_SECRET: ${AI_HMAC_SECRET:-dev-ai-hmac-secret-32chars-minimum}
       AI_SERVICE_ENABLED: ${AI_SERVICE_ENABLED:-true}
       AI_SERVICE_BASE_URL: ${AI_SERVICE_BASE_URL:-http://ai:8000/api/v1}
       AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
@@ -113,10 +114,18 @@ services:
       dockerfile: Dockerfile
     container_name: shikkhok-worker
     restart: always
+    ports:
+      - '3100:3100'
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       MONGODB_URI: ${MONGODB_URI:-mongodb://shikkhok_admin:shikkhok_secure_password@mongodb:27017/shikkhok_db?authSource=admin}
+      AI_SERVICE_URL: http://ai-gateway:4001/api/v1
+      AI_HMAC_SECRET: ${AI_HMAC_SECRET:-dev-ai-hmac-secret-32chars-minimum}
+      WORKER_HEALTH_PORT: 3100
+      FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:-}
+      FIREBASE_CLIENT_EMAIL: ${FIREBASE_CLIENT_EMAIL:-}
+      FIREBASE_PRIVATE_KEY: ${FIREBASE_PRIVATE_KEY:-}
     depends_on:
       mongodb:
         condition: service_healthy

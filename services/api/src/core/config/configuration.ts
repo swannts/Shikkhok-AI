@@ -31,7 +31,10 @@ export default () => ({
   aiService: {
     enabled: process.env.AI_SERVICE_ENABLED === 'true',
     baseUrl: process.env.AI_SERVICE_BASE_URL || 'http://localhost:8000/api/v1',
-    secret: process.env.AI_SERVICE_SECRET || 'dev-internal-ai-service-secret-at-least-32chars',
+    secret: process.env.AI_SERVICE_SECRET || process.env.AI_HMAC_SECRET || '',
+    hmacSecret: process.env.AI_HMAC_SECRET || process.env.AI_SERVICE_SECRET || '',
+    allowedServices: ['nestjs-backend', 'shikkhok-api', 'shikkhok-worker'],
+    allowedClockSkewSeconds: parseInt(process.env.ALLOWED_CLOCK_SKEW_SECONDS || '300', 10),
     timeoutMs: parseInt(process.env.AI_SERVICE_TIMEOUT_MS || '25000', 10),
   },
   payments: {

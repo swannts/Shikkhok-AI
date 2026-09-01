@@ -5,6 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { RedisIoAdapter } from './core/socket/redis-io.adapter';
 import { RequestIdInterceptor } from './common/interceptors/request-id.interceptor';
 import { TransformResponseInterceptor } from './common/interceptors/transform-response.interceptor';
 import { GlobalExceptionFilter } from './core/errors/global-exception.filter';
@@ -16,6 +17,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new AppLoggerService(),
   });
+  app.set('trust proxy', true);
 
   const configService = app.get(ConfigService);
 
@@ -62,6 +64,10 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  // Socket.IO Redis adapter for distributed live classrooms
+  const redisIoAdapter = new RedisIoAdapter(configService, app.getHttpServer());
+  app.useWebSocketAdapter(redisIoAdapter);
 
   // Swagger OpenAPI Setup
   const swaggerConfig = new DocumentBuilder()

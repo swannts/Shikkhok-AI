@@ -30,7 +30,7 @@ aiService:
     appEnv: production
     llmProvider: gemini
     embeddingProvider: gemini
-    vectorStoreProvider: persistent
+    vectorStoreProvider: qdrant
     allowMockProviders: "false"
     vectorStoreAllowDemoSeed: "false"
   resources:
@@ -43,16 +43,41 @@ worker:
   enabled: true
   replicaCount: 2
   image: { repository: ghcr.io/shikkhok-ai/worker, tag: "1.0.0" }
+  healthPort: 3100
+  env:
+    aiServiceUrl: ""
   resources:
     requests: { cpu: 200m, memory: 256Mi }
     limits: { cpu: "1", memory: 1Gi }
   podDisruptionBudget: { minAvailable: 1 }
+  autoscaling: { enabled: true, minReplicas: 2, maxReplicas: 10, targetCPUUtilizationPercentage: 75 }
 
 teacherPortal:
   enabled: false
   replicaCount: 2
   image: { repository: ghcr.io/shikkhok-ai/teacher-portal, tag: "1.0.0" }
   service: { port: 3002 }
+  env:
+    apiUrl: ""
+    aiServiceUrl: ""
+  ingress:
+    enabled: false
+    hostname: teacher.shikkhok.ai
+  resources:
+    requests: { cpu: 100m, memory: 128Mi }
+    limits: { cpu: 500m, memory: 512Mi }
+  podDisruptionBudget: { minAvailable: 1 }
+
+admin:
+  enabled: false
+  external: true
+  description: "Admin panel is hosted externally as a static site (admin.shikkhok.ai). Set enabled: true to deploy inside this chart."
+  replicaCount: 2
+  image: { repository: ghcr.io/shikkhok-ai/admin, tag: "1.0.0" }
+  service: { port: 3001 }
+  ingress:
+    enabled: false
+    hostname: admin.shikkhok.ai
 
 ingress:
   enabled: true
@@ -64,12 +89,15 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
   hosts:
     - { host: api.shikkhok.ai, service: api, port: 4000 }
-    - { host: ai.shikkhok.ai, service: ai, port: 8000 }
   tls:
     - secretName: shikkhok-ai-tls
-      hosts: [api.shikkhok.ai, ai.shikkhok.ai]
+      hosts: [api.shikkhok.ai]
 
 serviceMonitor:
   enabled: false
   interval: 30s
   labels: {}
+
+networkPolicy:
+  enabled: false
+  allowedIngress: []

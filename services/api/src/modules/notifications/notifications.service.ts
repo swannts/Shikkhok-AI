@@ -107,6 +107,11 @@ export class NotificationsService {
     return { success: true, message: 'Device token unregistered successfully' };
   }
 
+  async deactivateInvalidTokensForCurrentSession(tokens: string[]): Promise<{ deactivated: number }> {
+    const deactivated = await this.deviceTokenRepository.deactivateInvalidTokens(tokens);
+    return { deactivated };
+  }
+
   async createNotificationForUser(
     userId: string,
     dto: CreateNotificationDto,
@@ -124,6 +129,8 @@ export class NotificationsService {
     // Enqueue push notification background delivery job
     if (this.notificationsQueue) {
       try {
+        const deviceTokens = await this.deviceTokenRepository.findActiveTokensForUser(userId);
+        const tokens = deviceTokens.map((t) => t.token);
         await this.notificationsQueue.add(
           'PUSH_NOTIFICATION',
           {
@@ -131,6 +138,7 @@ export class NotificationsService {
             data: {
               notificationId: result._id?.toString?.() ?? result._id,
               userId,
+              tokens,
               title: dto.title,
               body: dto.body,
               payload: dto.payload || {},

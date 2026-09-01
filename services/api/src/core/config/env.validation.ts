@@ -64,6 +64,19 @@ export class EnvironmentVariables {
 
   @IsOptional()
   @IsString()
+  @MinLength(32, { message: 'AI_HMAC_SECRET must be at least 32 characters' })
+  AI_HMAC_SECRET?: string;
+
+  @IsOptional()
+  @IsString()
+  AI_SERVICE_SECRET?: string;
+
+  @IsOptional()
+  @IsString()
+  ALLOWED_CLOCK_SKEW_SECONDS?: string;
+
+  @IsOptional()
+  @IsString()
   BKASH_APP_KEY?: string;
 
   @IsOptional()

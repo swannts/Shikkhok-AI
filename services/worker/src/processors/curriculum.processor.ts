@@ -3,6 +3,7 @@ import { Job } from 'bullmq';
 import { config } from '../config';
 
 export interface CurriculumJobData {
+  jobType?: string;
   text: string;
   sourceBook: string;
   bookId: string;
@@ -19,13 +20,15 @@ export interface CurriculumJobData {
   chunkOverlap?: number;
 }
 
-function generateHmacSignature(payload: string, secret: string): { signature: string; timestamp: string } {
+function signRequest(method: string, path: string, body: string): { timestamp: string; signature: string } {
   const timestamp = Math.floor(Date.now() / 1000).toString();
+  const bodyHash = crypto.createHash('sha256').update(body).digest('hex');
+  const canonical = `${timestamp}\n${method.toUpperCase()}\n${path}\n${bodyHash}`;
   const signature = crypto
-    .createHmac('sha256', secret)
-    .update(`${timestamp}.${payload}`)
+    .createHmac('sha256', config.aiHmacSecret)
+    .update(canonical, 'utf-8')
     .digest('hex');
-  return { signature, timestamp };
+  return { timestamp, signature };
 }
 
 export async function processCurriculumJob(job: Job): Promise<Record<string, any>> {
@@ -33,6 +36,10 @@ export async function processCurriculumJob(job: Job): Promise<Record<string, any
   const data = (job.data?.data || job.data) as CurriculumJobData;
 
   console.log(`[CurriculumProcessor] Ingesting chapter/chunk for book: ${data.bookId} (${jobName})`);
+
+  if (!data.text || !data.bookId || !data.subjectId) {
+    throw new Error('Missing required curriculum job fields: text, bookId, subjectId');
+  }
 
   const payloadObj = {
     text: data.text,
@@ -52,19 +59,23 @@ export async function processCurriculumJob(job: Job): Promise<Record<string, any
   };
 
   const bodyStr = JSON.stringify(payloadObj);
-  const { signature, timestamp } = generateHmacSignature(bodyStr, config.aiHmacSecret);
+  const path = '/api/v1/ingestion/text';
+  const { timestamp, signature } = signRequest('POST', path, bodyStr);
 
-  const targetUrl = `${config.aiServiceUrl}/api/v1/ingestion/text`;
+  const targetUrl = `${config.aiServiceUrl}${path}`;
 
   try {
     const response = await fetch(targetUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Signature': signature,
-        'X-Timestamp': timestamp,
+        'X-Service-Name': 'shikkhok-worker',
+        'X-Service-Timestamp': timestamp,
+        'X-Service-Signature': signature,
+        'X-Request-Id': `worker_ingest_${job.id || Date.now()}`,
       },
       body: bodyStr,
+      signal: AbortSignal.timeout(30000),
     });
 
     if (!response.ok) {

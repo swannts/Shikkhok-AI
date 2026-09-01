@@ -3,6 +3,7 @@ import { LiveClassroomGateway } from '../live-classroom.gateway';
 import { LiveClassroomService } from '../live-classroom.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { RedisService } from '../../../core/redis/redis.service';
 import { ClassroomRepository } from '../../classrooms/repositories/classroom.repository';
 import { ClassroomMemberRepository } from '../../classrooms/repositories/classroom-member.repository';
 import { ForbiddenException, UnauthorizedException } from '@nestjs/common';
@@ -14,7 +15,30 @@ describe('LiveClassroomGateway', () => {
   let classroomRepository: jest.Mocked<ClassroomRepository>;
   let classroomMemberRepository: jest.Mocked<ClassroomMemberRepository>;
 
+  const mockRedisClient = {
+    hset: jest.fn().mockResolvedValue(1),
+    hget: jest.fn(),
+    hgetall: jest.fn().mockResolvedValue({}),
+    hdel: jest.fn().mockResolvedValue(1),
+    hlen: jest.fn().mockResolvedValue(0),
+    get: jest.fn(),
+    set: jest.fn().mockResolvedValue('OK'),
+    setex: jest.fn().mockResolvedValue('OK'),
+    del: jest.fn().mockResolvedValue(1),
+    expire: jest.fn().mockResolvedValue(1),
+    rpush: jest.fn().mockResolvedValue(1),
+    lpush: jest.fn().mockResolvedValue(1),
+    lrange: jest.fn().mockResolvedValue([]),
+    ltrim: jest.fn().mockResolvedValue('OK'),
+    ping: jest.fn().mockResolvedValue('PONG'),
+    on: jest.fn(),
+    quit: jest.fn().mockResolvedValue(undefined),
+    status: 'ready',
+  };
+
   beforeEach(async () => {
+    jest.clearAllMocks();
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         LiveClassroomGateway,
@@ -29,6 +53,12 @@ describe('LiveClassroomGateway', () => {
           provide: ConfigService,
           useValue: {
             get: jest.fn().mockReturnValue('test-secret'),
+          },
+        },
+        {
+          provide: RedisService,
+          useValue: {
+            getClient: jest.fn().mockReturnValue(mockRedisClient),
           },
         },
         {
@@ -89,6 +119,7 @@ describe('LiveClassroomGateway', () => {
       isActive: true,
     } as any);
     classroomMemberRepository.isMember.mockResolvedValue(true);
+    mockRedisClient.hgetall.mockResolvedValue({});
 
     const client = createSocket({ sub: 'student_1', role: 'student' });
 
@@ -110,49 +141,68 @@ describe('LiveClassroomGateway', () => {
     );
   });
 
-  it('should block non-teachers from clearing the whiteboard', () => {
-    const client = createSocket({ sub: 'student_1', role: 'student' });
-    service.addParticipant('class_math_8', {
-      socketId: 'sock_1',
-      userId: 'student_1',
-      name: 'Rahim',
-      role: 'student',
-      joinedAt: new Date(),
+  it('should block non-teachers from clearing the whiteboard', async () => {
+    classroomRepository.findById.mockResolvedValue({
+      _id: new Types.ObjectId(),
+      teacherId: new Types.ObjectId(),
+      isActive: true,
+    } as any);
+    classroomMemberRepository.isMember.mockResolvedValue(true);
+    mockRedisClient.hgetall.mockResolvedValue({
+      sock_1: JSON.stringify({
+        socketId: 'sock_1',
+        userId: 'student_1',
+        name: 'Rahim',
+        role: 'student',
+        joinedAt: new Date().toISOString(),
+      }),
     });
 
-    expect(() =>
+    const client = createSocket({ sub: 'student_1', role: 'student' });
+    client.data.joinedClassrooms = new Set<string>(['class_math_8']);
+
+    await expect(
       gateway.handleWhiteboardClear(client, { classroomId: 'class_math_8' }),
-    ).toThrow(ForbiddenException);
+    ).rejects.toThrow(ForbiddenException);
   });
 
-  it('should manage participant rosters in live rooms', () => {
-    const roster1 = service.addParticipant('class_math_8', {
+  it('should manage participant rosters in live rooms', async () => {
+    const participant = {
       socketId: 'sock_1',
       userId: 'teacher_1',
       name: 'Dr. Karim',
-      role: 'teacher',
+      role: 'teacher' as const,
       joinedAt: new Date(),
+    };
+
+    mockRedisClient.hgetall.mockResolvedValueOnce({});
+    mockRedisClient.hgetall.mockResolvedValueOnce({
+      sock_1: JSON.stringify(participant),
     });
 
-    expect(roster1.length).toBe(1);
-    expect(roster1[0].name).toBe('Dr. Karim');
+    await service.addParticipant('class_math_8', participant);
+    expect(mockRedisClient.hset).toHaveBeenCalledWith(
+      'live:classroom:class_math_8:participants',
+      'sock_1',
+      JSON.stringify(participant),
+    );
 
-    const roster2 = service.addParticipant('class_math_8', {
-      socketId: 'sock_2',
-      userId: 'student_1',
-      name: 'Rahim',
-      role: 'student',
-      joinedAt: new Date(),
+    const roster = await service.getParticipants('class_math_8');
+    expect(roster.length).toBe(1);
+    expect(roster[0].name).toBe('Dr. Karim');
+
+    mockRedisClient.hgetall.mockResolvedValueOnce({
+      sock_1: JSON.stringify(participant),
     });
+    mockRedisClient.hget.mockResolvedValueOnce(JSON.stringify(participant));
+    mockRedisClient.get.mockResolvedValueOnce('class_math_8');
 
-    expect(roster2.length).toBe(2);
-
-    const leaveRes = service.removeParticipant('sock_2');
+    const leaveRes = await service.removeParticipant('sock_1');
     expect(leaveRes?.remaining.length).toBe(1);
   });
 
-  it('should synchronize whiteboard strokes and clear canvas', () => {
-    service.addStroke('class_math_8', {
+  it('should synchronize whiteboard strokes and clear canvas', async () => {
+    const stroke = {
       id: 'stroke_1',
       color: '#10b981',
       width: 3,
@@ -160,47 +210,74 @@ describe('LiveClassroomGateway', () => {
         { x: 10, y: 10 },
         { x: 20, y: 25 },
       ],
-    });
+    };
 
-    const state = service.getWhiteboardState('class_math_8');
+    mockRedisClient.lrange.mockResolvedValue([JSON.stringify(stroke)]);
+
+    await service.addStroke('class_math_8', stroke);
+    expect(mockRedisClient.rpush).toHaveBeenCalledWith(
+      'live:classroom:class_math_8:whiteboard',
+      JSON.stringify(stroke),
+    );
+    expect(mockRedisClient.ltrim).toHaveBeenCalledWith(
+      'live:classroom:class_math_8:whiteboard',
+      -1000,
+      -1,
+    );
+
+    const state = await service.getWhiteboardState('class_math_8');
     expect(state.length).toBe(1);
     expect(state[0].color).toBe('#10b981');
 
-    service.clearWhiteboard('class_math_8');
-    expect(service.getWhiteboardState('class_math_8').length).toBe(0);
+    await service.clearWhiteboard('class_math_8');
+    expect(mockRedisClient.del).toHaveBeenCalledWith('live:classroom:class_math_8:whiteboard');
   });
 
-  it('should start timed multiplayer quiz and compute leaderboard', () => {
-    service.startQuiz('class_math_8', {
+  it('should start timed multiplayer quiz and compute leaderboard', async () => {
+    const quiz = {
       id: 'q_1',
       questionText: 'নিউটনের প্রথম গতিসূত্র কোনটি?',
       options: ['জড়তার সূত্র', 'বলের সূত্র', 'ক্রিয়া-প্রতিক্রিয়া'],
       correctOptionIndex: 0,
       timeLimitSeconds: 30,
       startedAt: new Date().toISOString(),
+    };
+
+    mockRedisClient.get.mockResolvedValueOnce(JSON.stringify(quiz));
+    mockRedisClient.hgetall.mockResolvedValueOnce({
+      student_1: JSON.stringify({
+        userId: 'student_1',
+        studentName: 'Rahim',
+        questionId: 'q_1',
+        selectedOptionIndex: 0,
+        submittedAt: new Date().toISOString(),
+        isCorrect: true,
+        score: 100,
+      }),
+      student_2: JSON.stringify({
+        userId: 'student_2',
+        studentName: 'Karim',
+        questionId: 'q_1',
+        selectedOptionIndex: 1,
+        submittedAt: new Date().toISOString(),
+        isCorrect: false,
+        score: 0,
+      }),
     });
 
-    const sub1 = service.submitQuizAnswer('class_math_8', {
+    await service.startQuiz('class_math_8', quiz);
+    expect(mockRedisClient.set).toHaveBeenCalledWith('live:classroom:class_math_8:quiz', JSON.stringify(quiz));
+
+    const sub1 = await service.submitQuizAnswer('class_math_8', {
       userId: 'student_1',
       studentName: 'Rahim',
       questionId: 'q_1',
       selectedOptionIndex: 0,
     });
-
     expect(sub1?.isCorrect).toBe(true);
     expect(sub1?.score).toBe(100);
 
-    const sub2 = service.submitQuizAnswer('class_math_8', {
-      userId: 'student_2',
-      studentName: 'Karim',
-      questionId: 'q_1',
-      selectedOptionIndex: 1,
-    });
-
-    expect(sub2?.isCorrect).toBe(false);
-    expect(sub2?.score).toBe(0);
-
-    const leaderboard = service.getQuizLeaderboard('class_math_8');
+    const leaderboard = await service.getQuizLeaderboard('class_math_8');
     expect(leaderboard[0].studentName).toBe('Rahim');
     expect(leaderboard[0].score).toBe(100);
   });

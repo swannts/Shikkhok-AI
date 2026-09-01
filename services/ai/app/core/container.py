@@ -13,6 +13,7 @@ from app.providers.llm.mock import MockLlmProvider
 from app.providers.vector_store.base import VectorStore
 from app.providers.vector_store.memory import InMemoryVectorStore
 from app.providers.vector_store.persistent import PersistentVectorStore
+from app.providers.vector_store.qdrant import QdrantVectorStore
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 from app.services.citation_service import CitationService
 from app.services.homework_service import HomeworkService
@@ -42,6 +43,11 @@ class AiServiceContainer:
         """Gracefully shutdown and release all network resources."""
         if not self.http_client.is_closed:
             await self.http_client.aclose()
+        if hasattr(self.vector_store, "close") and callable(self.vector_store.close):
+            if hasattr(self.vector_store.close, "__call__"):
+                close_result = self.vector_store.close()
+                if hasattr(close_result, "__await__"):
+                    await close_result
         logger.info("Closed shared HTTP client and released AI service container resources.")
 
 
@@ -130,6 +136,14 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
     vector_store: VectorStore
     if cfg.vector_store_provider == "memory" or cfg.app_env == "test":
         vector_store = InMemoryVectorStore(embedding_metadata=vector_embedding_metadata)
+    elif cfg.vector_store_provider == "qdrant":
+        vector_store = QdrantVectorStore(
+            url=cfg.vector_store_url,
+            api_key=cfg.vector_store_api_key or None,
+            collection_name=cfg.vector_store_collection_name,
+            embedding_metadata=vector_embedding_metadata,
+            allow_demo_seed=cfg.vector_store_allow_demo_seed,
+        )
     else:
         vector_store = PersistentVectorStore(
             file_path=cfg.vector_store_path,

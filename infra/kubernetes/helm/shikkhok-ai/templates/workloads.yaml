@@ -26,8 +26,9 @@ spec:
             - { name: JWT_ACCESS_SECRET, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: JWT_ACCESS_SECRET } } }
             - { name: JWT_REFRESH_SECRET, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: JWT_REFRESH_SECRET } } }
             - { name: AI_SERVICE_SECRET, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: AI_SERVICE_SECRET } } }
-          readinessProbe: { httpGet: { path: /api/v1/health/ready, port: http }, periodSeconds: 10, timeoutSeconds: 3 }
-          livenessProbe: { httpGet: { path: /api/v1/health/live, port: http }, initialDelaySeconds: 20, periodSeconds: 20, timeoutSeconds: 3 }
+          readinessProbe: { httpGet: { path: /api/v1/health/ready, port: http }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 3, failureThreshold: 3 }
+          livenessProbe: { httpGet: { path: /api/v1/health/live, port: http }, initialDelaySeconds: 20, periodSeconds: 20, timeoutSeconds: 3, failureThreshold: 3 }
+          startupProbe: { httpGet: { path: /api/v1/health/live, port: http }, failureThreshold: 30, periodSeconds: 10, timeoutSeconds: 3 }
           resources: {{- toYaml .Values.api.resources | nindent 12 }}
           securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
 ---
@@ -57,10 +58,13 @@ spec:
             - { name: INTERNAL_SERVICE_SECRET, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: AI_SERVICE_SECRET } } }
             - { name: LLM_API_KEY, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: LLM_API_KEY } } }
             - { name: EMBEDDING_API_KEY, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: EMBEDDING_API_KEY } } }
-          readinessProbe: { httpGet: { path: /api/v1/health, port: http }, periodSeconds: 10, timeoutSeconds: 3 }
-          livenessProbe: { httpGet: { path: /api/v1/health, port: http }, initialDelaySeconds: 20, periodSeconds: 20, timeoutSeconds: 3 }
-          resources: {{- toYaml .Values.aiService.resources | nindent 12 }}
-          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+            - { name: VECTOR_STORE_URL, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: QDRANT_URL } } }
+            - { name: VECTOR_STORE_API_KEY, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: QDRANT_API_KEY } } }
+            readinessProbe: { httpGet: { path: /api/v1/ready, port: http }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 5 }
+            livenessProbe: { httpGet: { path: /api/v1/health, port: http }, initialDelaySeconds: 30, periodSeconds: 20, timeoutSeconds: 5 }
+            startupProbe: { httpGet: { path: /api/v1/ready, port: http }, failureThreshold: 30, periodSeconds: 10, timeoutSeconds: 5 }
+            resources: {{- toYaml .Values.aiService.resources | nindent 12 }}
+            securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
 ---
 {{- end }}
 {{- if .Values.worker.enabled }}
@@ -82,10 +86,19 @@ spec:
         - name: worker
           image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
           imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports: [{ name: health, containerPort: {{ .Values.worker.healthPort | default 3100 }} }]
+          envFrom: [{ configMapRef: { name: {{ include "shikkhok-ai.fullname" . }}-config } }]
           env:
             - { name: NODE_ENV, value: {{ .Values.global.environment | quote }} }
             - { name: REDIS_URL, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: REDIS_URL } } }
             - { name: MONGODB_URI, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: MONGODB_URI } } }
-          resources: {{- toYaml .Values.worker.resources | nindent 12 }}
-          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
+            - { name: AI_HMAC_SECRET, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: AI_HMAC_SECRET } } }
+            - { name: FIREBASE_PROJECT_ID, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: FIREBASE_PROJECT_ID } } }
+            - { name: FIREBASE_CLIENT_EMAIL, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: FIREBASE_CLIENT_EMAIL } } }
+            - { name: FIREBASE_PRIVATE_KEY, valueFrom: { secretKeyRef: { name: {{ include "shikkhok-ai.secretName" . }}, key: FIREBASE_PRIVATE_KEY } } }
+            readinessProbe: { httpGet: { path: /ready, port: health }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 3, failureThreshold: 3 }
+            livenessProbe: { httpGet: { path: /health, port: health }, initialDelaySeconds: 30, periodSeconds: 20, timeoutSeconds: 5, failureThreshold: 3 }
+            startupProbe: { httpGet: { path: /ready, port: health }, failureThreshold: 30, periodSeconds: 10, timeoutSeconds: 5 }
+            resources: {{- toYaml .Values.worker.resources | nindent 12 }}
+            securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: { drop: [ALL] } }
 {{- end }}

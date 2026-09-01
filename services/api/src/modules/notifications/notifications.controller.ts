@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/co
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
+import { InternalAuthGuard } from '../../common/guards/internal-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
@@ -77,7 +78,7 @@ export class NotificationsController {
     return this.notificationsService.createNotificationForCurrentUser(user, dto);
   }
 
-  @Post('admin/users/:userId')
+   @Post('admin/users/:userId')
   @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Create a notification for a user' })
   async createForUser(
@@ -85,5 +86,15 @@ export class NotificationsController {
     @Body() dto: CreateNotificationDto,
   ) {
     return this.notificationsService.createNotificationForUser(userId, dto);
+  }
+
+  @Post('device-tokens/deactivate')
+  @UseGuards(InternalAuthGuard)
+  @ApiOperation({ summary: 'Deactivate invalid device tokens (internal service-to-service)' })
+  @ApiResponse({ status: 200, description: 'Tokens deactivated' })
+  async deactivateInvalidTokens(
+    @Body() body: { tokens: string[] },
+  ) {
+    return this.notificationsService.deactivateInvalidTokensForCurrentSession(body.tokens);
   }
 }

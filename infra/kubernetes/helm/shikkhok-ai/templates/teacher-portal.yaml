@@ -1,0 +1,56 @@
+{{- if .Values.teacherPortal.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shikkhok-ai.fullname" . }}-teacher-portal
+  labels: {{- include "shikkhok-ai.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.teacherPortal.replicaCount }}
+  selector: { matchLabels: { app.kubernetes.io/component: teacher-portal, app.kubernetes.io/instance: {{ .Release.Name }} } }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/component: teacher-portal, app.kubernetes.io/instance: {{ .Release.Name }} }
+    spec:
+      serviceAccountName: {{ include "shikkhok-ai.fullname" . }}
+      securityContext: { runAsNonRoot: true, seccompProfile: { type: RuntimeDefault } }
+      {{- with .Values.global.imagePullSecrets }}imagePullSecrets: {{ toYaml . | nindent 8 }}{{- end }}
+      containers:
+        - name: teacher-portal
+          image: "{{ .Values.teacherPortal.image.repository }}:{{ .Values.teacherPortal.image.tag }}"
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports: [{ name: http, containerPort: {{ .Values.teacherPortal.service.port }} }]
+          env:
+            - { name: NEXT_PUBLIC_API_URL, value: {{ .Values.teacherPortal.env.apiUrl | default (printf "https://api.shikkhok.ai/api/v1") | quote }} }
+            - { name: NEXT_PUBLIC_AI_SERVICE_URL, value: {{ .Values.teacherPortal.env.aiServiceUrl | default "https://api.shikkhok.ai/api/v1" | quote }} }
+            - { name: NODE_ENV, value: {{ .Values.global.environment | quote }} }
+          readinessProbe: { httpGet: { path: /api/health, port: http }, initialDelaySeconds: 5, periodSeconds: 10, timeoutSeconds: 3, failureThreshold: 3 }
+          livenessProbe: { httpGet: { path: /, port: http }, initialDelaySeconds: 30, periodSeconds: 30, timeoutSeconds: 5, failureThreshold: 3 }
+          resources: {{- toYaml .Values.teacherPortal.resources | nindent 12 }}
+          securityContext: { allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, runAsUser: 1001, runAsGroup: 1001, fsGroup: 1001, capabilities: { drop: [ALL] } }
+---
+{{- end }}
+{{- if and .Values.teacherPortal.enabled .Values.teacherPortal.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "shikkhok-ai.fullname" . }}-teacher-portal
+  labels:
+    {{- include "shikkhok-ai.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  tls:
+    - secretName: shikkhok-ai-tls
+      hosts: [{{ .Values.teacherPortal.ingress.hostname | quote }}]
+  rules:
+    - host: {{ .Values.teacherPortal.ingress.hostname }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "shikkhok-ai.fullname" . }}-teacher-portal
+                port: { number: {{ .Values.teacherPortal.service.port }} }
+{{- end }}

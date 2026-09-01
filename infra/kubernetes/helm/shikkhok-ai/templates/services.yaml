@@ -1,14 +1,29 @@
-{{- range $component, $config := dict "api" .Values.api "ai" .Values.aiService }}
+{{- range $component, $config := dict "api" .Values.api "ai" .Values.aiService "teacherPortal" .Values.teacherPortal }}
 {{- if $config.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "shikkhok-ai.fullname" $ }}-{{ $component }}
-  labels: {{- include "shikkhok-ai.labels" $ | nindent 4 }}
+  name: {{ include "shikkhok-ai.fullname" $ }}-{{ if eq $component "teacherPortal" }}teacher-portal{{ else }}{{ $component }}{{ end }}
+  labels:
+    {{- include "shikkhok-ai.labels" $ | nindent 4 }}
 spec:
   type: ClusterIP
-  ports: [{ name: http, port: {{ $config.service.port }}, targetPort: http }]
-  selector: { app.kubernetes.io/component: {{ $component }}, app.kubernetes.io/instance: {{ $.Release.Name }} }
+  ports:
+    - { name: http, port: {{ $config.service.port }}, targetPort: http }
+  selector: { app.kubernetes.io/component: {{ if eq $component "teacherPortal" }}teacher-portal{{ else }}{{ $component }}{{ end }}, app.kubernetes.io/instance: {{ $.Release.Name }} }
 ---
 {{- end }}
+{{- end }}
+{{- if and .Values.worker.enabled .Values.worker.healthPort }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "shikkhok-ai.fullname" . }}-worker
+  labels:
+    {{- include "shikkhok-ai.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - { name: health, port: {{ .Values.worker.healthPort | default 3100 }}, targetPort: health }
+  selector: { app.kubernetes.io/component: worker, app.kubernetes.io/instance: {{ .Release.Name }} }
 {{- end }}

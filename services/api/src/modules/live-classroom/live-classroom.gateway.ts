@@ -17,6 +17,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { RedisService } from '../../core/redis/redis.service';
+import { MetricsService } from '../../common/metrics/metrics.service';
 import { LiveClassroomService } from './live-classroom.service';
 import { ClassroomRepository } from '../classrooms/repositories/classroom.repository';
 import { ClassroomMemberRepository } from '../classrooms/repositories/classroom-member.repository';
@@ -58,6 +60,8 @@ export class LiveClassroomGateway
     private readonly liveClassroomService: LiveClassroomService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly redisService: RedisService,
+    private readonly metricsService: MetricsService,
     private readonly classroomRepository: ClassroomRepository,
     private readonly classroomMemberRepository: ClassroomMemberRepository,
   ) {}
@@ -71,6 +75,7 @@ export class LiveClassroomGateway
 
       if (!token) {
         this.logger.warn(`Rejected anonymous live-classroom socket ${client.id}`);
+        this.metricsService.websocketDisconnects.inc({ reason: 'anonymous' });
         client.disconnect(true);
         return;
       }
@@ -81,22 +86,43 @@ export class LiveClassroomGateway
       const payload = this.jwtService.verify(token as string, { secret });
       client.data.user = payload;
       client.data.joinedClassrooms = new Set<string>();
+      this.metricsService.activeWebSocketConnections.inc();
       this.logger.log(`Authenticated live socket: ${client.id} (User: ${payload.sub || payload.id})`);
     } catch (err: any) {
       this.logger.warn(`JWT verification failed for socket ${client.id}: ${err.message}`);
+      this.metricsService.websocketDisconnects.inc({ reason: 'auth_failed' });
       client.disconnect(true);
     }
   }
 
   handleDisconnect(client: Socket) {
-    const result = this.liveClassroomService.removeParticipant(client.id);
-    if (result) {
-      this.logger.log(`User left classroom ${result.classroomId}: ${result.participant.name}`);
-      this.server.to(result.classroomId).emit('participant_left', {
-        participant: result.participant,
-        roster: result.remaining,
-      });
+    const joinedClassrooms = client.data.joinedClassrooms as Set<string> | undefined;
+    if (joinedClassrooms && joinedClassrooms.size > 0) {
+      this.metricsService.activeClassrooms.dec();
     }
+    this.metricsService.activeWebSocketConnections.dec();
+    this.metricsService.websocketDisconnects.inc({ reason: 'client' });
+
+    for (const classroomId of joinedClassrooms) {
+      this.liveClassroomService
+        .removeParticipant(client.id)
+        .then((result) => {
+          if (result) {
+            this.logger.log(`User left classroom ${result.classroomId}: ${result.participant.name}`);
+            this.server.to(result.classroomId).emit('participant_left', {
+              participant: result.participant,
+              roster: result.remaining,
+            });
+          }
+        })
+        .catch((err: any) => {
+          this.logger.error(`Error removing participant ${client.id} from ${classroomId}: ${err.message}`);
+        });
+    }
+
+    joinedClassrooms.clear();
+    client.data.user = undefined;
+    client.data.joinedClassrooms = undefined;
   }
 
   @SubscribeMessage('join_classroom')
@@ -119,19 +145,22 @@ export class LiveClassroomGateway
     };
 
     client.join(classroomId);
-    client.data.joinedClassrooms.add(classroomId);
-    const roster = this.liveClassroomService.addParticipant(classroomId, participant);
-    const whiteboardState = this.liveClassroomService.getWhiteboardState(classroomId);
+    const joinedClassrooms = (client.data.joinedClassrooms as Set<string>) || new Set<string>();
+    joinedClassrooms.add(classroomId);
+    client.data.joinedClassrooms = joinedClassrooms;
 
-    // Reply to joining user with initial room state
+    const roster = await this.liveClassroomService.addParticipant(classroomId, participant);
+    const whiteboardState = await this.liveClassroomService.getWhiteboardState(classroomId);
+    const activeQuiz = await this.getActiveQuizState(classroomId);
+
     client.emit('room_joined', {
       classroomId,
       participant,
       roster,
       whiteboardState,
+      ...(activeQuiz ? { activeQuiz } : {}),
     });
 
-    // Broadcast to everyone else in the room
     client.to(classroomId).emit('participant_joined', {
       participant,
       roster,
@@ -141,7 +170,7 @@ export class LiveClassroomGateway
   }
 
   @SubscribeMessage('send_chat_message')
-  handleChatMessage(
+  async handleChatMessage(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string; text: string },
   ) {
@@ -149,7 +178,7 @@ export class LiveClassroomGateway
     const user = this.requireAuthenticatedUser(client);
     this.assertJoinedClassroom(client, classroomId);
     this.assertReadableMessage(data.text);
-    const participant = this.getParticipant(client, classroomId);
+    const participant = await this.getParticipant(client, classroomId);
 
     const message: ChatMessage = {
       id: `msg_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
@@ -161,10 +190,11 @@ export class LiveClassroomGateway
     };
 
     this.server.to(classroomId).emit('new_chat_message', message);
+    this.metricsService.websocketChatMessages.inc({ classroom_id: classroomId });
   }
 
   @SubscribeMessage('whiteboard_draw')
-  handleWhiteboardDraw(
+  async handleWhiteboardDraw(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string; stroke: WhiteboardStroke },
   ) {
@@ -172,31 +202,31 @@ export class LiveClassroomGateway
     this.requireAuthenticatedUser(client);
     this.assertJoinedClassroom(client, classroomId);
     this.assertValidStroke(data.stroke);
-    this.liveClassroomService.addStroke(classroomId, data.stroke);
-    // Broadcast stroke to all other participants in the room
+    await this.liveClassroomService.addStroke(classroomId, data.stroke);
     client.to(classroomId).emit('whiteboard_stroke', data.stroke);
+    this.metricsService.websocketWhiteboardStrokes.inc({ classroom_id: classroomId });
   }
 
   @SubscribeMessage('whiteboard_clear')
-  handleWhiteboardClear(
+  async handleWhiteboardClear(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string },
   ) {
     const classroomId = this.normalizeClassroomId(data.classroomId);
-    this.assertTeacherAction(client, classroomId);
-    this.liveClassroomService.clearWhiteboard(classroomId);
+    await this.assertTeacherAction(client, classroomId);
+    await this.liveClassroomService.clearWhiteboard(classroomId);
     this.server.to(classroomId).emit('whiteboard_cleared');
   }
 
   @SubscribeMessage('start_quiz')
-  handleStartQuiz(
+  async handleStartQuiz(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { classroomId: string; quiz: QuizQuestion },
   ) {
     const classroomId = this.normalizeClassroomId(data.classroomId);
-    this.assertTeacherAction(client, classroomId);
+    await this.assertTeacherAction(client, classroomId);
     this.assertValidQuiz(data.quiz);
-    this.liveClassroomService.startQuiz(classroomId, data.quiz);
+    await this.liveClassroomService.startQuiz(classroomId, data.quiz);
     this.server.to(classroomId).emit('quiz_started', {
       id: data.quiz.id,
       questionText: data.quiz.questionText,
@@ -204,10 +234,11 @@ export class LiveClassroomGateway
       timeLimitSeconds: data.quiz.timeLimitSeconds,
       startedAt: data.quiz.startedAt,
     });
+    this.metricsService.websocketQuizEvents.inc({ event_type: 'started' });
   }
 
   @SubscribeMessage('submit_quiz_answer')
-  handleSubmitQuizAnswer(
+  async handleSubmitQuizAnswer(
     @ConnectedSocket() client: Socket,
     @MessageBody()
     data: {
@@ -219,12 +250,12 @@ export class LiveClassroomGateway
     const classroomId = this.normalizeClassroomId(data.classroomId);
     const user = this.requireAuthenticatedUser(client);
     this.assertJoinedClassroom(client, classroomId);
-    const participant = this.getParticipant(client, classroomId);
+    const participant = await this.getParticipant(client, classroomId);
     if (participant.role !== 'student') {
       throw new ForbiddenException('Only students can submit quiz answers');
     }
 
-    const submission = this.liveClassroomService.submitQuizAnswer(classroomId, {
+    const submission = await this.liveClassroomService.submitQuizAnswer(classroomId, {
       userId: user.sub,
       studentName: participant.name,
       questionId: data.questionId,
@@ -237,9 +268,19 @@ export class LiveClassroomGateway
         isCorrect: submission.isCorrect,
       });
 
-      // Broadcast live leaderboard to classroom
-      const leaderboard = this.liveClassroomService.getQuizLeaderboard(classroomId);
+      const leaderboard = await this.liveClassroomService.getQuizLeaderboard(classroomId);
       this.server.to(classroomId).emit('quiz_leaderboard_updated', leaderboard);
+      this.metricsService.websocketQuizEvents.inc({ event_type: 'submission' });
+    }
+  }
+
+  private async getActiveQuizState(classroomId: string): Promise<any | null> {
+    try {
+      const client = this.redisService.getClient();
+      const quizJson = await client.get(`live:classroom:${classroomId}:quiz`);
+      return quizJson ? JSON.parse(quizJson) : null;
+    } catch {
+      return null;
     }
   }
 
@@ -302,24 +343,27 @@ export class LiveClassroomGateway
     return classroom;
   }
 
-  private assertTeacherAction(client: Socket, classroomId: string) {
+  private async assertTeacherAction(client: Socket, classroomId: string): Promise<void> {
     const user = this.requireAuthenticatedUser(client);
     if (user.role !== 'teacher' && user.role !== 'admin') {
       throw new ForbiddenException('Only the classroom teacher can perform this action');
     }
 
-    const participant = this.getParticipant(client, classroomId);
+    const participant = await this.getParticipant(client, classroomId);
     if (participant.role !== 'teacher') {
       throw new ForbiddenException('Only the classroom teacher can perform this action');
     }
   }
 
   private assertJoinedClassroom(client: Socket, classroomId: string): void {
-    this.getParticipant(client, classroomId);
+    this.requireAuthenticatedUser(client);
+    if (!(client.data.joinedClassrooms as Set<string> | undefined)?.has(classroomId)) {
+      throw new ForbiddenException('Join the classroom before sending live events');
+    }
   }
 
-  private getParticipant(client: Socket, classroomId: string): Participant {
-    const participants = this.liveClassroomService.getParticipants(classroomId);
+  private async getParticipant(client: Socket, classroomId: string): Promise<Participant> {
+    const participants = await this.liveClassroomService.getParticipants(classroomId);
     const participant = participants.find((entry) => entry.socketId === client.id);
     if (!participant) {
       throw new ForbiddenException('Join the classroom before sending live events');

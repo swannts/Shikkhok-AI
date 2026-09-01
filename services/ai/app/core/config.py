@@ -60,10 +60,11 @@ class Settings(BaseSettings):
     embedding_model: str = "text-embedding-004"
 
     # Vector Store
-    vector_store_provider: Literal["memory", "persistent"] = "persistent"
+    vector_store_provider: Literal["memory", "persistent", "qdrant"] = "persistent"
     vector_store_path: str = "data/vector_store/curriculum_chunks.json"
     vector_store_url: str = "http://localhost:6333"
     vector_store_api_key: str = ""
+    vector_store_collection_name: str | None = None
     vector_store_allow_demo_seed: bool = False
 
     # Timeouts
@@ -130,6 +131,25 @@ class Settings(BaseSettings):
             raise RuntimeError(
                 f"CRITICAL: INTERNAL_SERVICE_SECRET must be at least 32 random characters and not a development default in {self.app_env}."
             )
+
+        if (
+            self.app_env in ("production", "staging")
+            and self.vector_store_provider == "qdrant"
+            and not self.vector_store_url
+        ):
+            raise RuntimeError(
+                f"CRITICAL: Qdrant vector store requires VECTOR_STORE_URL in {self.app_env} environment."
+            )
+
+        if self.vector_store_provider == "persistent":
+            if self.app_env == "production" and not self.vector_store_path:
+                raise RuntimeError(
+                    f"CRITICAL: Persistent vector store requires VECTOR_STORE_PATH in {self.app_env}."
+                )
+            if self.app_env in ("production", "staging") and self.vector_store_allow_demo_seed:
+                raise RuntimeError(
+                    f"CRITICAL: Demo seed is forbidden in {self.app_env} environment."
+                )
 
 
 settings = Settings()

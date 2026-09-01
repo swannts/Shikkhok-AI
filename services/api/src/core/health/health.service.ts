@@ -45,6 +45,7 @@ export class HealthService {
       services: {
         mongodb: mongoStatus,
         redis: redisStatus,
+        websocket: redisStatus === 'up' ? 'adapter_ready' : 'adapter_pending',
       },
       timestamp: new Date().toISOString(),
     };

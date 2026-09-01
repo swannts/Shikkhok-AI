@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { RedisService } from '../../core/redis/redis.service';
 import {
   Participant,
   ChatMessage,
@@ -7,87 +8,133 @@ import {
   QuizSubmission,
 } from './interfaces/live-classroom.interface';
 
+const ROOM_TTL_SECONDS = 1800;
+const WHITEBOARD_MAX_STROKES = 1000;
+
+interface CleanupResult {
+  classroomId: string;
+  participant: Participant;
+  remaining: Participant[];
+}
+
 @Injectable()
 export class LiveClassroomService {
-  // Map of classroomId -> Map of socketId -> Participant
-  private readonly rooms = new Map<string, Map<string, Participant>>();
+  private readonly logger = new Logger(LiveClassroomService.name);
 
-  // Map of classroomId -> List of WhiteboardStroke
-  private readonly whiteboards = new Map<string, WhiteboardStroke[]>();
+  constructor(private readonly redisService: RedisService) {}
 
-  // Map of classroomId -> Current Active QuizQuestion
-  private readonly activeQuizzes = new Map<string, QuizQuestion>();
+  private participantsKey(classroomId: string): string {
+    return `live:classroom:${classroomId}:participants`;
+  }
 
-  // Map of classroomId -> List of QuizSubmission
-  private readonly quizSubmissions = new Map<string, QuizSubmission[]>();
+  private whiteboardKey(classroomId: string): string {
+    return `live:classroom:${classroomId}:whiteboard`;
+  }
 
-  addParticipant(classroomId: string, participant: Participant): Participant[] {
-    if (!this.rooms.has(classroomId)) {
-      this.rooms.set(classroomId, new Map());
-    }
-    this.rooms.get(classroomId)!.set(participant.socketId, participant);
+  private quizKey(classroomId: string): string {
+    return `live:classroom:${classroomId}:quiz`;
+  }
+
+  private quizSubmissionsKey(classroomId: string): string {
+    return `live:classroom:${classroomId}:quiz_submissions`;
+  }
+
+  private socketToClassroomKey(socketId: string): string {
+    return `live:socket:${socketId}:classroom`;
+  }
+
+  async addParticipant(
+    classroomId: string,
+    participant: Participant,
+  ): Promise<Participant[]> {
+    const client = this.redisService.getClient();
+    const key = this.participantsKey(classroomId);
+    await client.hset(key, participant.socketId, JSON.stringify(participant));
+    await client.expire(key, ROOM_TTL_SECONDS);
+
+    await client.setex(this.socketToClassroomKey(participant.socketId), ROOM_TTL_SECONDS, classroomId);
+
     return this.getParticipants(classroomId);
   }
 
-  removeParticipant(
+  async removeParticipant(
     socketId: string,
-  ): { classroomId: string; participant: Participant; remaining: Participant[] } | null {
-    for (const [classroomId, participants] of this.rooms.entries()) {
-      if (participants.has(socketId)) {
-        const participant = participants.get(socketId)!;
-        participants.delete(socketId);
-        if (participants.size === 0) {
-          this.rooms.delete(classroomId);
-          this.whiteboards.delete(classroomId);
-          this.activeQuizzes.delete(classroomId);
-          this.quizSubmissions.delete(classroomId);
-        }
-        return {
-          classroomId,
-          participant,
-          remaining: this.getParticipants(classroomId),
-        };
-      }
-    }
-    return null;
-  }
+  ): Promise<CleanupResult | null> {
+    const client = this.redisService.getClient();
+    const classroomId = await client.get(this.socketToClassroomKey(socketId));
+    if (!classroomId) return null;
 
-  getParticipants(classroomId: string): Participant[] {
-    const room = this.rooms.get(classroomId);
-    if (!room) return [];
-    return Array.from(room.values());
-  }
-
-  // Whiteboard State
-  addStroke(classroomId: string, stroke: WhiteboardStroke): void {
-    if (!this.whiteboards.has(classroomId)) {
-      this.whiteboards.set(classroomId, []);
-    }
-    this.whiteboards.get(classroomId)!.push(stroke);
-  }
-
-  clearWhiteboard(classroomId: string): void {
-    this.whiteboards.set(classroomId, []);
-  }
-
-  getWhiteboardState(classroomId: string): WhiteboardStroke[] {
-    return this.whiteboards.get(classroomId) || [];
-  }
-
-  // Quiz Engine
-  startQuiz(classroomId: string, quiz: QuizQuestion): void {
-    this.activeQuizzes.set(classroomId, quiz);
-    this.quizSubmissions.set(classroomId, []);
-  }
-
-  submitQuizAnswer(
-    classroomId: string,
-    submission: { userId: string; studentName: string; questionId: string; selectedOptionIndex: number },
-  ): QuizSubmission | null {
-    const activeQuiz = this.activeQuizzes.get(classroomId);
-    if (!activeQuiz || activeQuiz.id !== submission.questionId) {
+    const partKey = this.participantsKey(classroomId);
+    const participantJson = await client.hget(partKey, socketId);
+    if (!participantJson) {
+      await client.del(this.socketToClassroomKey(socketId));
       return null;
     }
+
+    const participant: Participant = JSON.parse(participantJson);
+    await client.hdel(partKey, socketId);
+    await client.del(this.socketToClassroomKey(socketId));
+
+    const count = await client.hlen(partKey);
+    if (count === 0) {
+      await this.cleanupRoom(classroomId);
+    }
+
+    const remaining = await this.getParticipants(classroomId);
+    return { classroomId, participant, remaining };
+  }
+
+  async getParticipants(classroomId: string): Promise<Participant[]> {
+    const client = this.redisService.getClient();
+    const key = this.participantsKey(classroomId);
+    const entries = await client.hgetall(key);
+    return Object.values(entries).map((json) => JSON.parse(json) as Participant);
+  }
+
+  async addStroke(classroomId: string, stroke: WhiteboardStroke): Promise<void> {
+    const client = this.redisService.getClient();
+    const key = this.whiteboardKey(classroomId);
+    await client.rpush(key, JSON.stringify(stroke));
+    await client.ltrim(key, -WHITEBOARD_MAX_STROKES, -1);
+    await client.expire(key, ROOM_TTL_SECONDS);
+  }
+
+  async clearWhiteboard(classroomId: string): Promise<void> {
+    const client = this.redisService.getClient();
+    await client.del(this.whiteboardKey(classroomId));
+  }
+
+  async getWhiteboardState(classroomId: string): Promise<WhiteboardStroke[]> {
+    const client = this.redisService.getClient();
+    const strokes = await client.lrange(this.whiteboardKey(classroomId), 0, -1);
+    return strokes.map((json) => JSON.parse(json) as WhiteboardStroke);
+  }
+
+  async startQuiz(classroomId: string, quiz: QuizQuestion): Promise<void> {
+    const client = this.redisService.getClient();
+    const quizKey = this.quizKey(classroomId);
+    const submissionsKey = this.quizSubmissionsKey(classroomId);
+    await client.set(quizKey, JSON.stringify(quiz));
+    await client.del(submissionsKey);
+    await client.expire(quizKey, ROOM_TTL_SECONDS);
+    await client.expire(submissionsKey, ROOM_TTL_SECONDS);
+  }
+
+  async submitQuizAnswer(
+    classroomId: string,
+    submission: {
+      userId: string;
+      studentName: string;
+      questionId: string;
+      selectedOptionIndex: number;
+    },
+  ): Promise<QuizSubmission | null> {
+    const client = this.redisService.getClient();
+    const quizJson = await client.get(this.quizKey(classroomId));
+    if (!quizJson) return null;
+
+    const activeQuiz: QuizQuestion = JSON.parse(quizJson);
+    if (activeQuiz.id !== submission.questionId) return null;
 
     const isCorrect = submission.selectedOptionIndex === activeQuiz.correctOptionIndex;
     const score = isCorrect ? 100 : 0;
@@ -99,26 +146,34 @@ export class LiveClassroomService {
       score,
     };
 
-    if (!this.quizSubmissions.has(classroomId)) {
-      this.quizSubmissions.set(classroomId, []);
-    }
-
-    // Replace if already submitted
-    const list = this.quizSubmissions.get(classroomId)!;
-    const existingIndex = list.findIndex((s) => s.userId === submission.userId);
-    if (existingIndex >= 0) {
-      list[existingIndex] = fullSubmission;
-    } else {
-      list.push(fullSubmission);
-    }
-
+    await client.hset(
+      this.quizSubmissionsKey(classroomId),
+      submission.userId,
+      JSON.stringify(fullSubmission),
+    );
     return fullSubmission;
   }
 
-  getQuizLeaderboard(classroomId: string): { studentName: string; score: number; isCorrect: boolean }[] {
-    const list = this.quizSubmissions.get(classroomId) || [];
-    return list
+  async getQuizLeaderboard(
+    classroomId: string,
+  ): Promise<{ studentName: string; score: number; isCorrect: boolean }[]> {
+    const client = this.redisService.getClient();
+    const entries = await client.hgetall(this.quizSubmissionsKey(classroomId));
+    const submissions: QuizSubmission[] = Object.values(entries).map((json) =>
+      JSON.parse(json),
+    );
+    return submissions
       .map((s) => ({ studentName: s.studentName, score: s.score, isCorrect: s.isCorrect }))
       .sort((a, b) => b.score - a.score);
+  }
+
+  private async cleanupRoom(classroomId: string): Promise<void> {
+    const client = this.redisService.getClient();
+    await client.del(
+      this.participantsKey(classroomId),
+      this.whiteboardKey(classroomId),
+      this.quizKey(classroomId),
+      this.quizSubmissionsKey(classroomId),
+    );
   }
 }
