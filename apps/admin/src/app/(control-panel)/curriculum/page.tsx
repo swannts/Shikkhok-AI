@@ -22,6 +22,10 @@ import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { aiAdminService, IngestionStatsResponse, IngestTextbookPayload } from '@/features/ai/services/ai-admin.service';
+import {
+	curriculumAdminService,
+	CurriculumCompletenessRow
+} from '@/features/curriculum/services/curriculum-admin.service';
 
 const CLASS_LEVELS = [6, 7, 8, 9, 10];
 const SUBJECTS = [
@@ -39,6 +43,7 @@ export default function CurriculumIngestionPage() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [successMsg, setSuccessMsg] = useState<string | null>(null);
+	const [completeness, setCompleteness] = useState<CurriculumCompletenessRow[]>([]);
 
 	// Ingestion Dialog state
 	const [openDialog, setOpenDialog] = useState(false);
@@ -63,8 +68,12 @@ export default function CurriculumIngestionPage() {
 	const fetchStats = useCallback(async () => {
 		try {
 			setError(null);
-			const data = await aiAdminService.getStats();
+			const [data, curriculum] = await Promise.all([
+				aiAdminService.getStats(),
+				curriculumAdminService.getCompleteness()
+			]);
 			setStats(data);
+			setCompleteness(curriculum.rows);
 		} catch (err: unknown) {
 			const msg = err instanceof Error ? err.message : 'Failed to load vector store statistics';
 			setError(msg);
@@ -191,6 +200,63 @@ export default function CurriculumIngestionPage() {
 				</div>
 			) : (
 				<>
+					<Paper className="p-6 rounded-2xl border border-divider shadow-sm mb-8">
+						<div className="flex items-center justify-between mb-4">
+							<div>
+								<Typography
+									variant="h6"
+									className="font-bold"
+								>
+									Curriculum completeness
+								</Typography>
+								<Typography
+									variant="body2"
+									color="text.secondary"
+								>
+									Published and structured lesson coverage by subject.
+								</Typography>
+							</div>
+							<Chip
+								label={`${completeness.reduce((sum, row) => sum + row.missingContent.length, 0)} missing`}
+								color="warning"
+								size="small"
+							/>
+						</div>
+						<TableContainer>
+							<Table size="small">
+								<TableHead>
+									<TableRow>
+										<TableCell>Subject</TableCell>
+										<TableCell>Class</TableCell>
+										<TableCell>Year</TableCell>
+										<TableCell>Lessons</TableCell>
+										<TableCell>Structured</TableCell>
+										<TableCell>Published</TableCell>
+										<TableCell>Coverage</TableCell>
+									</TableRow>
+								</TableHead>
+								<TableBody>
+									{completeness.map((row) => (
+										<TableRow key={row.subjectId}>
+											<TableCell>{row.subject}</TableCell>
+											<TableCell>{row.classLevel}</TableCell>
+											<TableCell>{row.curriculumYear}</TableCell>
+											<TableCell>{row.lessons}</TableCell>
+											<TableCell>{row.structuredLessons}</TableCell>
+											<TableCell>{row.publishedLessons}</TableCell>
+											<TableCell>
+												<Chip
+													size="small"
+													label={`${row.completenessPercent}%`}
+													color={row.completenessPercent === 100 ? 'success' : 'warning'}
+												/>
+											</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+							</Table>
+						</TableContainer>
+					</Paper>
 					{/* Vector Store Stat Cards */}
 					<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
 						<Paper className="p-6 rounded-2xl border border-divider shadow-sm">

@@ -397,6 +397,30 @@ export class AiGatewayService {
     return await response.json();
   }
 
+  async testRetrieval(payload: Record<string, any>): Promise<any> {
+    const baseUrl =
+      this.configService.get<string>('aiService.baseUrl')?.replace(/\/+$/, '') ??
+      'http://localhost:8000/api/v1';
+    const path = '/api/v1/retrieval/search';
+    const url = new URL(path, baseUrl);
+    const requestBody = JSON.stringify(payload);
+    const requestId = `admin-retrieval-${Date.now()}`;
+    const signedHeaders = this.hmacSignerService.generateSignedHeaders(
+      'POST',
+      path,
+      requestBody,
+      requestId,
+    );
+    const response = await fetch(url.toString(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...signedHeaders },
+      body: requestBody,
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) throw new Error(`FastAPI Retrieval Test error ${response.status}`);
+    return await response.json();
+  }
+
   public parseSseChunk(chunk: string): TutorStreamEvent | null {
     const lines = chunk.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
     let eventName: TutorStreamEvent['event'] = 'delta';

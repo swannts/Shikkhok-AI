@@ -43,6 +43,18 @@ export interface DeleteBookResponse {
 	status: string;
 }
 
+export interface RetrievalTestPayload {
+	query: string;
+	class_level?: number;
+	subject_id?: string;
+	chapter_id?: string;
+	lesson_id?: string;
+	curriculum_year?: number;
+	medium?: string;
+	top_k?: number;
+	min_score?: number;
+}
+
 export const aiAdminService = {
 	async getHealth(): Promise<AiHealthResponse> {
 		return apiClient.get<AiHealthResponse>('/api/v1/admin/ai/health');
@@ -58,5 +70,9 @@ export const aiAdminService = {
 
 	async deleteBook(bookId: string): Promise<DeleteBookResponse> {
 		return apiClient.delete<DeleteBookResponse>(`/api/v1/admin/ai/books/${encodeURIComponent(bookId)}`);
+	},
+
+	async testRetrieval(payload: RetrievalTestPayload) {
+		return apiClient.post('/api/v1/admin/ai/retrieval-test', payload);
 	}
 };

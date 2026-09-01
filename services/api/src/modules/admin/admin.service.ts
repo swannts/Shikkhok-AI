@@ -27,6 +27,7 @@ import { normalizeLessonContentBlocks } from '../curriculum/types/lesson-content
 import { SubscriptionStatus } from '../subscriptions/enums/subscription-status.enum';
 import { PaymentStatus } from '../subscriptions/enums/payment-status.enum';
 import { UserStatus } from '../users/enums/user-status.enum';
+import { ContentWorkflowStatus } from '../curriculum/enums/content-workflow-status.enum';
 
 import { PaymentTransactionRepository } from '../subscriptions/repositories/payment-transaction.repository';
 import { SubscriptionActivationService } from '../subscriptions/services/subscription-activation.service';
@@ -255,6 +256,11 @@ export class AdminService {
       pageStart: dto.pageStart ?? null,
       pageEnd: dto.pageEnd ?? null,
       isPublished: dto.isPublished ?? true,
+      workflowStatus: dto.isPublished === false
+        ? ContentWorkflowStatus.DRAFT
+        : ContentWorkflowStatus.PUBLISHED,
+      publishedBy: dto.isPublished === false ? undefined : new Types.ObjectId(actorUserId),
+      publishedAt: dto.isPublished === false ? undefined : new Date(),
       contentVersion: dto.contentVersion ?? 1,
       contentBlocks: normalizeLessonContentBlocks(
         dto.contentBlocks as unknown as Parameters<typeof normalizeLessonContentBlocks>[0],
@@ -284,8 +290,23 @@ export class AdminService {
     isPublished: boolean,
     context?: { ip?: string; userAgent?: string },
   ): Promise<Record<string, any>> {
+    const nextStatus = isPublished
+      ? ContentWorkflowStatus.PUBLISHED
+      : ContentWorkflowStatus.DRAFT;
     const lesson = await this.lessonModel
-      .findByIdAndUpdate(lessonId, { $set: { isPublished } }, { new: true })
+      .findByIdAndUpdate(
+        lessonId,
+        {
+          $set: {
+            isPublished,
+            workflowStatus: nextStatus,
+            ...(isPublished
+              ? { publishedBy: new Types.ObjectId(actorUserId), publishedAt: new Date() }
+              : { publishedBy: undefined, publishedAt: undefined }),
+          },
+        },
+        { new: true },
+      )
       .exec();
 
     if (!lesson) {
@@ -303,6 +324,93 @@ export class AdminService {
     });
 
     return lesson.toJSON();
+  }
+
+  async transitionLessonWorkflow(
+    actorUserId: string,
+    lessonId: string,
+    status: ContentWorkflowStatus,
+    reviewComments?: string,
+    context?: { ip?: string; userAgent?: string },
+  ): Promise<Record<string, any>> {
+    const lesson = await this.lessonModel.findById(lessonId).exec();
+    if (!lesson) throw new NotFoundException('Lesson not found');
+
+    const current = lesson.workflowStatus ?? (lesson.isPublished
+      ? ContentWorkflowStatus.PUBLISHED
+      : ContentWorkflowStatus.DRAFT);
+    const allowed: Record<ContentWorkflowStatus, ContentWorkflowStatus[]> = {
+      [ContentWorkflowStatus.DRAFT]: [ContentWorkflowStatus.IN_REVIEW, ContentWorkflowStatus.ARCHIVED],
+      [ContentWorkflowStatus.IN_REVIEW]: [ContentWorkflowStatus.APPROVED, ContentWorkflowStatus.REJECTED],
+      [ContentWorkflowStatus.APPROVED]: [ContentWorkflowStatus.PUBLISHED, ContentWorkflowStatus.REJECTED],
+      [ContentWorkflowStatus.PUBLISHED]: [ContentWorkflowStatus.ARCHIVED, ContentWorkflowStatus.DRAFT],
+      [ContentWorkflowStatus.REJECTED]: [ContentWorkflowStatus.DRAFT, ContentWorkflowStatus.IN_REVIEW],
+      [ContentWorkflowStatus.ARCHIVED]: [ContentWorkflowStatus.DRAFT],
+    };
+    if (current !== status && !allowed[current].includes(status)) {
+      throw new BadRequestException(`Invalid lesson workflow transition: ${current} -> ${status}`);
+    }
+
+    lesson.workflowStatus = status;
+    lesson.isPublished = status === ContentWorkflowStatus.PUBLISHED;
+    lesson.reviewComments = reviewComments?.trim() || lesson.reviewComments;
+    if (status === ContentWorkflowStatus.IN_REVIEW || status === ContentWorkflowStatus.REJECTED) {
+      lesson.reviewedBy = new Types.ObjectId(actorUserId);
+    }
+    if (status === ContentWorkflowStatus.APPROVED) lesson.approvedBy = new Types.ObjectId(actorUserId);
+    if (status === ContentWorkflowStatus.PUBLISHED) {
+      lesson.publishedBy = new Types.ObjectId(actorUserId);
+      lesson.publishedAt = new Date();
+    }
+    const saved = await lesson.save();
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'TRANSITION_LESSON_WORKFLOW',
+      resourceType: 'CURRICULUM_LESSON',
+      resourceId: lessonId,
+      after: { status, reviewComments },
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
+    return saved.toJSON();
+  }
+
+  async getCurriculumCompleteness(): Promise<Record<string, any>> {
+    const [subjects, chapters, lessons] = await Promise.all([
+      this.subjectModel.find().lean().exec(),
+      this.chapterModel.find().lean().exec(),
+      this.lessonModel.find().lean().exec(),
+    ]);
+    const chaptersBySubject = new Map<string, number>();
+    for (const chapter of chapters) {
+      const key = chapter.subjectId.toString();
+      chaptersBySubject.set(key, (chaptersBySubject.get(key) ?? 0) + 1);
+    }
+    const lessonsByChapter = new Map<string, any[]>();
+    for (const lesson of lessons) {
+      const key = lesson.chapterId.toString();
+      lessonsByChapter.set(key, [...(lessonsByChapter.get(key) ?? []), lesson]);
+    }
+    const rows = subjects.map((subject) => {
+      const subjectChapters = chapters.filter((chapter) => chapter.subjectId.toString() === subject._id.toString());
+      const subjectLessons = subjectChapters.flatMap((chapter) => lessonsByChapter.get(chapter._id.toString()) ?? []);
+      const published = subjectLessons.filter((lesson) => lesson.workflowStatus === ContentWorkflowStatus.PUBLISHED || (lesson.workflowStatus == null && lesson.isPublished));
+      const structured = subjectLessons.filter((lesson) => Array.isArray(lesson.contentBlocks) && lesson.contentBlocks.length > 0);
+      return {
+        subjectId: subject._id,
+        subject: subject.name,
+        classLevel: subject.classLevel,
+        medium: subject.medium,
+        curriculumYear: subject.curriculumYear,
+        chapters: subjectChapters.length,
+        lessons: subjectLessons.length,
+        publishedLessons: published.length,
+        structuredLessons: structured.length,
+        completenessPercent: subjectLessons.length ? Math.round((published.length / subjectLessons.length) * 100) : 0,
+        missingContent: subjectLessons.filter((lesson) => !lesson.contentBlocks?.length).map((lesson) => lesson._id),
+      };
+    });
+    return { rows, generatedAt: new Date().toISOString() };
   }
 
   async listPendingPayments(limit = 20, page = 1): Promise<Record<string, any>> {

@@ -6,6 +6,7 @@ import {
   normalizeLessonContentBlocks,
   validateLessonContentBlocks,
 } from '../types/lesson-content-block';
+import { ContentWorkflowStatus } from '../enums/content-workflow-status.enum';
 
 export type LessonDocument = HydratedDocument<Lesson>;
 
@@ -50,6 +51,29 @@ export class Lesson {
 
   @Prop({ type: Boolean, default: true, index: true })
   isPublished: boolean;
+
+  @Prop({
+    type: String,
+    enum: Object.values(ContentWorkflowStatus),
+    default: ContentWorkflowStatus.DRAFT,
+    index: true,
+  })
+  workflowStatus: ContentWorkflowStatus;
+
+  @Prop({ trim: true })
+  reviewComments?: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: false })
+  reviewedBy?: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: false })
+  approvedBy?: Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: false })
+  publishedBy?: Types.ObjectId;
+
+  @Prop({ type: Date, required: false })
+  publishedAt?: Date;
 
   @Prop({ type: Number, default: 1 })
   contentVersion: number;

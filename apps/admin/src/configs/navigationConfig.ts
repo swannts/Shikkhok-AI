@@ -1,8 +1,6 @@
 import { FuseNavItemType } from '@fuse/core/FuseNavigation/types/FuseNavItemType';
 
-/**
- * Navigation configuration for Shikkhok-AI Admin Console Phase 1.
- */
+/** Navigation exposes only admin capabilities currently backed by real APIs. */
 const navigationConfig: FuseNavItemType[] = [
 	{
 		id: 'dashboard',
@@ -12,39 +10,39 @@ const navigationConfig: FuseNavItemType[] = [
 		url: '/dashboard'
 	},
 	{
-		id: 'ai-telemetry',
-		title: 'AI Telemetry',
-		type: 'item',
-		icon: 'heroicons-outline:cpu-chip',
-		url: '/ai-telemetry'
-	},
-	{
-		id: 'users',
-		title: 'Users',
-		type: 'item',
+		id: 'people',
+		title: 'People',
+		type: 'group',
 		icon: 'heroicons-outline:users',
-		url: '/users'
+		children: [{ id: 'users', title: 'Users', type: 'item', url: '/users' }]
 	},
 	{
-		id: 'curriculum',
+		id: 'curriculum-group',
 		title: 'Curriculum',
-		type: 'item',
+		type: 'group',
 		icon: 'heroicons-outline:book-open',
-		url: '/curriculum'
+		children: [{ id: 'curriculum', title: 'Overview', type: 'item', url: '/curriculum' }]
 	},
 	{
-		id: 'payments',
+		id: 'ai-knowledge',
+		title: 'AI & Knowledge',
+		type: 'group',
+		icon: 'heroicons-outline:cpu-chip',
+		children: [{ id: 'ai-telemetry', title: 'Overview', type: 'item', url: '/ai-telemetry' }]
+	},
+	{
+		id: 'payments-group',
 		title: 'Payments',
-		type: 'item',
+		type: 'group',
 		icon: 'heroicons-outline:banknotes',
-		url: '/payments'
+		children: [{ id: 'payments', title: 'Manual Verification', type: 'item', url: '/payments' }]
 	},
 	{
-		id: 'audit-logs',
-		title: 'Audit Logs',
-		type: 'item',
-		icon: 'heroicons-outline:clipboard-document-list',
-		url: '/audit-logs'
+		id: 'security',
+		title: 'Security',
+		type: 'group',
+		icon: 'heroicons-outline:shield-check',
+		children: [{ id: 'audit-logs', title: 'Audit Logs', type: 'item', url: '/audit-logs' }]
 	}
 ];
 

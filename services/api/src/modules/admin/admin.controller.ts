@@ -27,6 +27,7 @@ import { AdminUpdateUserStatusDto } from './dto/admin-update-user-status.dto';
 import { AdminCreateSubjectDto } from './dto/admin-create-subject.dto';
 import { AdminCreateChapterDto } from './dto/admin-create-chapter.dto';
 import { AdminCreateLessonDto } from './dto/admin-create-lesson.dto';
+import { ContentWorkflowStatus } from '../curriculum/enums/content-workflow-status.enum';
 
 @ApiTags('Admin')
 @ApiBearerAuth()
@@ -97,6 +98,26 @@ export class AdminController {
       resourceType: 'VECTOR_STORE',
       resourceId: bookId,
       metadata: { bookId },
+      ipAddress: req?.ip,
+      userAgent: req?.headers['user-agent'] as string | undefined,
+    });
+    return result;
+  }
+
+  @Post('ai/retrieval-test')
+  @ApiOperation({ summary: 'Run a scoped retrieval test against the active curriculum index' })
+  async testAiRetrieval(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Body() payload: Record<string, any>,
+    @Req() req?: Request,
+  ) {
+    const result = await this.aiGatewayService.testRetrieval(payload);
+    await this.auditService.recordAudit({
+      actorUserId: adminUser.userId,
+      action: 'TEST_CURRICULUM_RETRIEVAL',
+      resourceType: 'VECTOR_STORE',
+      resourceId: payload.lesson_id || payload.book_id || 'scoped-search',
+      metadata: { query: payload.query, topK: payload.top_k },
       ipAddress: req?.ip,
       userAgent: req?.headers['user-agent'] as string | undefined,
     });
@@ -193,6 +214,30 @@ export class AdminController {
       ip: req.ip,
       userAgent: req.headers['user-agent'],
     });
+  }
+
+  @Get('curriculum/completeness')
+  @ApiOperation({ summary: 'Return curriculum completeness and missing structured lesson content' })
+  async getCurriculumCompleteness() {
+    return this.adminService.getCurriculumCompleteness();
+  }
+
+  @Put('curriculum/lessons/:lessonId/workflow')
+  @ApiOperation({ summary: 'Transition a lesson through the server-validated review workflow' })
+  async transitionLessonWorkflow(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Param('lessonId', MongoObjectIdPipe) lessonId: string,
+    @Body('status') status: ContentWorkflowStatus,
+    @Body('reviewComments') reviewComments: string | undefined,
+    @Req() req: Request,
+  ) {
+    return this.adminService.transitionLessonWorkflow(
+      adminUser.userId,
+      lessonId,
+      status,
+      reviewComments,
+      { ip: req.ip, userAgent: req.headers['user-agent'] },
+    );
   }
 
   @Get('payments/pending')

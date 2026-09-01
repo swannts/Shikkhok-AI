@@ -19,6 +19,7 @@ import { UserRole } from '../../users/enums/user-role.enum';
 import { UserStatus } from '../../users/enums/user-status.enum';
 import { CurriculumMedium } from '../../curriculum/enums/curriculum-medium.enum';
 import { PaymentStatus } from '../../subscriptions/enums/payment-status.enum';
+import { ContentWorkflowStatus } from '../../curriculum/enums/content-workflow-status.enum';
 
 describe('AdminService', () => {
   let service: AdminService;
@@ -47,6 +48,7 @@ describe('AdminService', () => {
       fn.countDocuments = jest.fn().mockResolvedValue(10);
       fn.aggregate = jest.fn().mockResolvedValue([]);
       fn.find = jest.fn().mockReturnValue({
+        lean: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue([]) }),
         sort: jest.fn().mockReturnValue({
           skip: jest.fn().mockReturnValue({
             limit: jest.fn().mockReturnValue({
@@ -176,6 +178,29 @@ describe('AdminService', () => {
         actorUserId: 'admin-1',
         action: 'CREATE_SUBJECT',
       }),
+    );
+  });
+
+  it('should transition a lesson through the review workflow and audit it', async () => {
+    const lesson: any = {
+      workflowStatus: ContentWorkflowStatus.DRAFT,
+      isPublished: false,
+      save: jest.fn().mockImplementation(async function () { return this; }),
+      toJSON: jest.fn().mockReturnValue({ workflowStatus: ContentWorkflowStatus.IN_REVIEW }),
+    };
+    lessonModel.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(lesson) });
+
+    const result = await service.transitionLessonWorkflow(
+      new Types.ObjectId().toString(),
+      new Types.ObjectId().toString(),
+      ContentWorkflowStatus.IN_REVIEW,
+      'Please verify page references',
+    );
+
+    expect(result.workflowStatus).toBe(ContentWorkflowStatus.IN_REVIEW);
+    expect(lesson.reviewComments).toBe('Please verify page references');
+    expect(auditService.recordAudit).toHaveBeenCalledWith(
+      expect.objectContaining({ action: 'TRANSITION_LESSON_WORKFLOW' }),
     );
   });
 

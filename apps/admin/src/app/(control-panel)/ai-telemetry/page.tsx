@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
-import Box from '@mui/material/Box';
+import { useEffect, useState, useCallback } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
@@ -27,6 +26,7 @@ export default function AiTelemetryPage() {
 	const [pinging, setPinging] = useState(false);
 	const [latency, setLatency] = useState<number | null>(null);
 	const [error, setError] = useState<string | null>(null);
+	const [retrievalResult, setRetrievalResult] = useState<unknown[] | null>(null);
 
 	const fetchData = useCallback(async () => {
 		try {
@@ -78,6 +78,20 @@ export default function AiTelemetryPage() {
 		}
 	};
 
+	const handleRetrievalTest = async () => {
+		const query = window.prompt('Enter a Bangla or English question to test retrieval:');
+
+		if (!query?.trim()) return;
+
+		try {
+			setError(null);
+			const result = await aiAdminService.testRetrieval({ query: query.trim(), top_k: 5, min_score: 0 });
+			setRetrievalResult(result as unknown[]);
+		} catch (err: unknown) {
+			setError(err instanceof Error ? err.message : 'Retrieval test failed');
+		}
+	};
+
 	return (
 		<div className="flex flex-col flex-auto min-w-0 p-6 md:p-10">
 			{/* Page Header */}
@@ -103,6 +117,14 @@ export default function AiTelemetryPage() {
 				</div>
 
 				<div className="flex items-center gap-3">
+					<Button
+						variant="outlined"
+						color="secondary"
+						startIcon={<FuseSvgIcon size={18}>heroicons-outline:magnifying-glass</FuseSvgIcon>}
+						onClick={handleRetrievalTest}
+					>
+						Test Retrieval
+					</Button>
 					<Button
 						variant="outlined"
 						color="primary"
@@ -131,6 +153,19 @@ export default function AiTelemetryPage() {
 				</div>
 			) : (
 				<>
+					{retrievalResult && (
+						<Paper className="p-6 rounded-2xl border border-divider shadow-sm mb-8">
+							<Typography
+								variant="h6"
+								className="font-bold mb-3"
+							>
+								Retrieval test results
+							</Typography>
+							<pre className="overflow-auto text-xs whitespace-pre-wrap">
+								{JSON.stringify(retrievalResult, null, 2)}
+							</pre>
+						</Paper>
+					)}
 					{/* Status Overview Cards */}
 					<Grid
 						container
