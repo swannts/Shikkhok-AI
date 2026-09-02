@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import inspect
 
 import httpx
 
@@ -43,11 +44,11 @@ class AiServiceContainer:
         """Gracefully shutdown and release all network resources."""
         if not self.http_client.is_closed:
             await self.http_client.aclose()
-        if hasattr(self.vector_store, "close") and callable(self.vector_store.close):
-            if hasattr(self.vector_store.close, "__call__"):
-                close_result = self.vector_store.close()
-                if hasattr(close_result, "__await__"):
-                    await close_result
+        close_method = getattr(self.vector_store, "close", None)
+        if callable(close_method):
+            close_result = close_method()
+            if inspect.isawaitable(close_result):
+                await close_result
         logger.info("Closed shared HTTP client and released AI service container resources.")
 
 
