@@ -4,8 +4,7 @@ export class OpenAIProvider implements LLMProvider {
   public name = 'OpenAIProvider';
 
   async *streamChat(input: TutorRequest): AsyncIterable<string> {
-    const text = '[OpenAIProvider Placeholder] OpenAI integration is ready for API key configuration.';
-    yield text;
+    throw new Error('OpenAI provider is not configured for this gateway');
   }
 }
 
@@ -13,7 +12,6 @@ export class ClaudeProvider implements LLMProvider {
   public name = 'ClaudeProvider';
 
   async *streamChat(input: TutorRequest): AsyncIterable<string> {
-    const text = '[ClaudeProvider Placeholder] Claude Anthropic integration is ready for API key configuration.';
-    yield text;
+    throw new Error('Claude provider is not configured for this gateway');
   }
 }

@@ -27,7 +27,14 @@ export class GeminiProvider implements LLMProvider {
         }
         return;
       }
+
+      if (process.env.NODE_ENV === 'production' || process.env.AI_GATEWAY_ALLOW_MOCK_PROVIDERS !== 'true') {
+        throw new Error('GEMINI_API_KEY is not configured and mock providers are disabled');
+      }
     } catch (err) {
+      if (process.env.NODE_ENV === 'production' || process.env.AI_GATEWAY_ALLOW_MOCK_PROVIDERS !== 'true') {
+        throw err;
+      }
       console.warn('[GeminiProvider] Falling back to simulated stream:', err);
     }
 

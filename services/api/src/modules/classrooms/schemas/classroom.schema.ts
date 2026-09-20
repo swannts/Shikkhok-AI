@@ -39,6 +39,9 @@ export class Classroom {
   @Prop({ type: Types.ObjectId, ref: Subject.name, required: false, default: null })
   subjectId?: Types.ObjectId | null;
 
+  @Prop({ trim: true, maxlength: 20 })
+  section?: string;
+
   @Prop({ trim: true })
   description?: string;
 

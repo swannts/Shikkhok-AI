@@ -17,7 +17,7 @@ export interface JobAttemptInfo {
 
 const JOB_ATTEMPTS = 3;
 const JOB_BACKOFF_DELAY = 2000;
-const JOB_REMOVE_ON_COMPLETE = true;
+const JOB_REMOVE_ON_COMPLETE = { age: 7 * 24 * 60 * 60 } as const;
 const DLQ_JOB_TTL_SECONDS = 604800;
 
 function createConnection() {
@@ -85,6 +85,10 @@ export function startWorker() {
   const homeworkDLQ = new Queue('homework:dlq', { connection });
   const curriculumDLQ = new Queue('curriculum:dlq', { connection });
   const analyticsDLQ = new Queue('analytics:dlq', { connection });
+  const notificationQueue = new Queue('notifications', { connection });
+  const curriculumQueue = new Queue('curriculum', { connection });
+  const analyticsQueue = new Queue('analytics', { connection });
+  const homeworkQueue = new Queue('homework', { connection });
 
   // 1. Notifications Worker
   const notificationWorker = new Worker(
@@ -93,15 +97,13 @@ export function startWorker() {
     {
       connection,
       concurrency: config.workerConcurrency,
-      settings: {
-        removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-      },
+      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
     },
   );
 
   const notificationEvents = new QueueEvents('notifications', { connection });
   notificationEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await notificationWorker.getJob(jobId);
+    const job = await notificationQueue.getJob(jobId);
     if (!job) {
       console.error(`[Worker:Notifications] Job #${jobId} failed: ${failedReason}`);
       return;
@@ -122,9 +124,8 @@ export function startWorker() {
         },
         {
           jobId: `dlq_${job.id}`,
-          removeOnComplete: false,
-          removeOnFail: false,
-          ttl: DLQ_JOB_TTL_SECONDS,
+          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
+          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
         },
       );
       console.error(`[Worker:Notifications] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
@@ -145,15 +146,13 @@ export function startWorker() {
     {
       connection,
       concurrency: 2,
-      settings: {
-        removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-      },
+      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
     },
   );
 
   const curriculumEvents = new QueueEvents('curriculum', { connection });
   curriculumEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await curriculumWorker.getJob(jobId);
+    const job = await curriculumQueue.getJob(jobId);
     if (!job) {
       console.error(`[Worker:Curriculum] Job #${jobId} failed: ${failedReason}`);
       return;
@@ -174,9 +173,8 @@ export function startWorker() {
         },
         {
           jobId: `dlq_${job.id}`,
-          removeOnComplete: false,
-          removeOnFail: false,
-          ttl: DLQ_JOB_TTL_SECONDS,
+          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
+          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
         },
       );
       console.error(`[Worker:Curriculum] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
@@ -197,15 +195,13 @@ export function startWorker() {
     {
       connection,
       concurrency: config.workerConcurrency,
-      settings: {
-        removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-      },
+      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
     },
   );
 
   const analyticsEvents = new QueueEvents('analytics', { connection });
   analyticsEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await analyticsWorker.getJob(jobId);
+    const job = await analyticsQueue.getJob(jobId);
     if (!job) {
       console.error(`[Worker:Analytics] Job #${jobId} failed: ${failedReason}`);
       return;
@@ -226,9 +222,8 @@ export function startWorker() {
         },
         {
           jobId: `dlq_${job.id}`,
-          removeOnComplete: false,
-          removeOnFail: false,
-          ttl: DLQ_JOB_TTL_SECONDS,
+          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
+          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
         },
       );
       console.error(`[Worker:Analytics] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
@@ -249,15 +244,13 @@ export function startWorker() {
     {
       connection,
       concurrency: config.workerConcurrency,
-      settings: {
-        removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-      },
+      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
     },
   );
 
   const homeworkEvents = new QueueEvents('homework', { connection });
   homeworkEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await homeworkWorker.getJob(jobId);
+    const job = await homeworkQueue.getJob(jobId);
     if (!job) {
       console.error(`[Worker:Homework] Job #${jobId} failed: ${failedReason}`);
       return;
@@ -278,9 +271,8 @@ export function startWorker() {
         },
         {
           jobId: `dlq_${job.id}`,
-          removeOnComplete: false,
-          removeOnFail: false,
-          ttl: DLQ_JOB_TTL_SECONDS,
+          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
+          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
         },
       );
       console.error(`[Worker:Homework] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
@@ -299,6 +291,16 @@ export function startWorker() {
   });
 
   const workers = [notificationWorker, curriculumWorker, analyticsWorker, homeworkWorker];
+  const queues = [
+    notificationQueue,
+    curriculumQueue,
+    analyticsQueue,
+    homeworkQueue,
+    notificationDLQ,
+    curriculumDLQ,
+    analyticsDLQ,
+    homeworkDLQ,
+  ];
 
   // Health check server for Kubernetes probes
   let healthServer: any = null;
@@ -334,6 +336,7 @@ export function startWorker() {
       healthServer.close();
     }
     await Promise.all(workers.map((w) => w.close()));
+    await Promise.all(queues.map((queue) => queue.close()));
     console.log('✅ All workers stopped cleanly.');
     process.exit(0);
   };
@@ -341,5 +344,5 @@ export function startWorker() {
   process.on('SIGINT', () => shutdown('SIGINT'));
   process.on('SIGTERM', () => shutdown('SIGTERM'));
 
-  return { workers, healthServer };
+  return { workers, queues, healthServer };
 }

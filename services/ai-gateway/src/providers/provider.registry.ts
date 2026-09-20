@@ -19,8 +19,7 @@ export class ProviderRegistry {
     const key = (name || 'gemini').toLowerCase();
     const provider = this.providers.get(key);
     if (!provider) {
-      console.warn(`[ProviderRegistry] Provider '${name}' not found. Falling back to GeminiProvider.`);
-      return this.providers.get('gemini')!;
+      throw new Error(`Provider '${name}' is not configured`);
     }
     return provider;
   }

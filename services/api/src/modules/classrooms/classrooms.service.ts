@@ -39,6 +39,7 @@ export class ClassroomsService {
       medium: dto.medium?.toLowerCase()?.trim() ?? 'bangla',
       curriculumYear: dto.curriculumYear ?? 2026,
       subjectId: dto.subjectId ? new Types.ObjectId(dto.subjectId) : null,
+      section: dto.section?.trim(),
       description: dto.description?.trim(),
       isActive: true,
     });

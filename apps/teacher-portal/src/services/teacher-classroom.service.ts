@@ -1,16 +1,26 @@
-import { apiClient } from '../lib/api-client';
+import { apiClient } from "../lib/api-client";
 
 export interface Classroom {
   _id: string;
   name: string;
-  subjectId: string;
+  subjectId?: string | null;
   classLevel: number;
   section?: string;
-  academicYear: number;
-  joinCode: string;
+  medium: string;
+  curriculumYear: number;
+  code: string;
   memberCount: number;
   isActive: boolean;
   createdAt: string;
+}
+
+export interface CurriculumSubject {
+  _id: string;
+  name: string;
+  slug: string;
+  classLevel: number;
+  medium: string;
+  curriculumYear: number;
 }
 
 export interface Assignment {
@@ -18,11 +28,10 @@ export interface Assignment {
   classroomId: string;
   title: string;
   description?: string;
-  subjectId: string;
-  classLevel: number;
   dueDate: string;
-  maxPoints: number;
-  submissionCount?: number;
+  maxScore: number;
+  assignmentType: string;
+  isPublished: boolean;
   createdAt: string;
 }
 
@@ -31,47 +40,62 @@ export interface StudentSubmission {
   assignmentId: string;
   studentId: string;
   studentName?: string;
-  submissionText?: string;
+  content: string;
   attachmentUrls?: string[];
   submittedAt: string;
-  isGraded: boolean;
+  status: string;
   score?: number;
-  feedback?: string;
+  teacherFeedback?: string;
   gradedAt?: string;
 }
 
 export interface CreateClassroomPayload {
   name: string;
-  subjectId: string;
+  subjectId?: string;
   classLevel: number;
   section?: string;
-  academicYear?: number;
+  medium?: string;
+  curriculumYear?: number;
+  description?: string;
 }
 
 export interface CreateAssignmentPayload {
   title: string;
   description?: string;
   dueDate: string;
-  maxPoints: number;
+  maxScore: number;
 }
 
 export interface GradeSubmissionPayload {
   score: number;
-  feedback?: string;
+  teacherFeedback?: string;
 }
 
 export const teacherClassroomService = {
   async getMyClassrooms(): Promise<Classroom[]> {
-    const res = await apiClient.get('/classrooms/me/teaching');
+    const res = await apiClient.get("/classrooms/me/teaching");
+    return res.data.data || res.data;
+  },
+
+  async listSubjects(
+    classLevel: number,
+    medium = "bangla",
+    curriculumYear = 2026,
+  ): Promise<CurriculumSubject[]> {
+    const res = await apiClient.get("/curriculum/subjects", {
+      params: { classLevel, medium, curriculumYear },
+    });
     return res.data.data || res.data;
   },
 
   async createClassroom(payload: CreateClassroomPayload): Promise<Classroom> {
-    const res = await apiClient.post('/classrooms', payload);
+    const res = await apiClient.post("/classrooms", payload);
     return res.data.data || res.data;
   },
 
-  async getClassroom(classroomId: string): Promise<Classroom & { students?: any[]; assignments?: Assignment[] }> {
+  async getClassroom(
+    classroomId: string,
+  ): Promise<Classroom & { students?: any[]; assignments?: Assignment[] }> {
     const res = await apiClient.get(`/classrooms/${classroomId}`);
     return res.data.data || res.data;
   },
@@ -81,13 +105,24 @@ export const teacherClassroomService = {
     return res.data.data || res.data;
   },
 
-  async createAssignment(classroomId: string, payload: CreateAssignmentPayload): Promise<Assignment> {
-    const res = await apiClient.post(`/classrooms/${classroomId}/assignments`, payload);
+  async createAssignment(
+    classroomId: string,
+    payload: CreateAssignmentPayload,
+  ): Promise<Assignment> {
+    const res = await apiClient.post(
+      `/classrooms/${classroomId}/assignments`,
+      payload,
+    );
     return res.data.data || res.data;
   },
 
-  async listSubmissions(classroomId: string, assignmentId: string): Promise<StudentSubmission[]> {
-    const res = await apiClient.get(`/classrooms/${classroomId}/assignments/${assignmentId}/submissions`);
+  async listSubmissions(
+    classroomId: string,
+    assignmentId: string,
+  ): Promise<StudentSubmission[]> {
+    const res = await apiClient.get(
+      `/classrooms/${classroomId}/assignments/${assignmentId}/submissions`,
+    );
     return res.data.data || res.data;
   },
 
@@ -95,11 +130,11 @@ export const teacherClassroomService = {
     classroomId: string,
     assignmentId: string,
     submissionId: string,
-    payload: GradeSubmissionPayload
+    payload: GradeSubmissionPayload,
   ): Promise<StudentSubmission> {
     const res = await apiClient.put(
       `/classrooms/${classroomId}/assignments/${assignmentId}/submissions/${submissionId}/grade`,
-      payload
+      payload,
     );
     return res.data.data || res.data;
   },

@@ -3,8 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
 import { createAdapter } from '@socket.io/redis-adapter';
 import Redis from 'ioredis';
-import { Server } from 'socket.io';
-import { Server as IOServerOptions } from 'socket.io';
+import { Server, ServerOptions } from 'socket.io';
 
 export class RedisIoAdapter extends IoAdapter {
   private readonly logger = new Logger(RedisIoAdapter.name);
@@ -18,8 +17,13 @@ export class RedisIoAdapter extends IoAdapter {
     super(httpServer);
   }
 
-  async create(port: number, options?: IOServerOptions): Promise<Server> {
-    const server = (await super.create(port, options)) as Server;
+  create(port: number, options?: ServerOptions & { namespace?: string; server?: any }): Server {
+    const server = super.create(port, options);
+    void this.configureRedisAdapter(server);
+    return server;
+  }
+
+  private async configureRedisAdapter(server: Server): Promise<void> {
     const redisUrl = this.configService.get<string>('redis.url', 'redis://localhost:6379');
     const environment = this.configService.get<string>('environment') || 'development';
 
@@ -34,10 +38,7 @@ export class RedisIoAdapter extends IoAdapter {
     );
 
     try {
-      await Promise.all([
-        this.pubClient.ping(),
-        this.subClient.ping(),
-      ]);
+      await Promise.all([this.pubClient.ping(), this.subClient.ping()]);
     } catch (err) {
       if (environment === 'production' || environment === 'staging') {
         this.logger.error(
@@ -48,13 +49,11 @@ export class RedisIoAdapter extends IoAdapter {
       this.logger.warn(
         `Redis unavailable at ${redisUrl}. Live classroom will run in single-instance mode (no cross-pod broadcast).`,
       );
-      return server;
+      return;
     }
 
     server.adapter(createAdapter(this.pubClient, this.subClient));
     this.logger.log(`Socket.IO Redis adapter connected to ${redisUrl}`);
-
-    return server;
   }
 
   async close(server: Server): Promise<void> {

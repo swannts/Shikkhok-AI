@@ -31,7 +31,7 @@ class Settings(BaseSettings):
         description="Shared secret for NestJS-to-FastAPI HMAC request signing",
     )
     allowed_service_names: list[str] = Field(
-        default=["nestjs-backend", "shikkhok-api"],
+        default=["nestjs-backend", "shikkhok-api", "shikkhok-worker"],
         description="Allowed caller service names",
     )
     allowed_clock_skew_seconds: int = Field(

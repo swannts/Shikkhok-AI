@@ -44,6 +44,12 @@ export class CreateClassroomDto {
   @IsString()
   subjectId?: string;
 
+  @ApiPropertyOptional({ example: 'A', description: 'Optional classroom section or group label' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(20)
+  section?: string;
+
   @ApiPropertyOptional({ example: 'Class 8 Section A Mathematics classroom' })
   @IsOptional()
   @IsString()

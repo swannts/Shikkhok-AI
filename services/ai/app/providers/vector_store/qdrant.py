@@ -88,9 +88,10 @@ def _scope_to_qdrant_filter(scope: dict[str, Any]) -> models.Filter | None:
         if key in _QDRANT_FIELD_FOR_FILTER:
             field_name = _QDRANT_FIELD_FOR_FILTER[key]
             if isinstance(value, (int, float)) and not isinstance(value, bool):
+                match_value: bool | int | str = int(value)
                 conditions.append(
                     models.FieldCondition(
-                        key=field_name, match=models.MatchValue(value=value)
+                        key=field_name, match=models.MatchValue(value=match_value)
                     )
                 )
             else:
@@ -110,7 +111,7 @@ def _scope_to_qdrant_filter(scope: dict[str, Any]) -> models.Filter | None:
     )
 
 
-def _qdrant_point_to_chunk(point: models.Record) -> RetrievedChunk:
+def _qdrant_point_to_chunk(point: models.ScoredPoint) -> RetrievedChunk:
     payload = point.payload or {}
     meta = payload.get("embedding_metadata") or {}
     return RetrievedChunk(
@@ -180,11 +181,12 @@ class QdrantVectorStore:
         self.embedding_metadata = embedding_metadata
         self.allow_demo_seed = allow_demo_seed
 
+        metadata = self._get_metadata()
         identity_suffix = (
-            f"{embedding_metadata.provider or 'unknown'}"
-            f"-{embedding_metadata.model or 'unknown'}"
-            f"-{embedding_metadata.dimension}"
-            f"-v{embedding_metadata.version}"
+            f"{metadata.provider or 'unknown'}"
+            f"-{metadata.model or 'unknown'}"
+            f"-{metadata.dimension}"
+            f"-v{metadata.version}"
         )
         self.collection_name = collection_name or f"shikkhok-curriculum-{identity_suffix}"
 
@@ -197,7 +199,7 @@ class QdrantVectorStore:
             self._client = AsyncQdrantClient(
                 url=self.url,
                 api_key=self.api_key or None,
-                timeout=10.0,
+                timeout=10,
             )
         return self._client
 
@@ -307,11 +309,22 @@ class QdrantVectorStore:
             if qdrant_filter is not None:
                 search_kwargs["query_filter"] = qdrant_filter
 
-            results = await self.client.search(
-                collection_name=self.collection_name,
-                query_vector=query_vector,
-                **search_kwargs,
-            )
+            query_points = getattr(self.client, "query_points", None)
+            if callable(query_points):
+                query_response = await query_points(
+                    collection_name=self.collection_name,
+                    query=query_vector,
+                    **search_kwargs,
+                )
+                results = query_response.points
+            else:
+                # Compatibility path for older clients and the lightweight unit-test double.
+                legacy_search = getattr(self.client, "search")  # type: ignore[attr-defined]  # noqa: B009
+                results = await legacy_search(
+                    collection_name=self.collection_name,
+                    query_vector=query_vector,
+                    **search_kwargs,
+                )
 
             if not results:
                 continue

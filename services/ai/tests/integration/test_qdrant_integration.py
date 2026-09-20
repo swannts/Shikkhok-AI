@@ -11,12 +11,11 @@ import pytest
 from qdrant_client import AsyncQdrantClient
 
 from app.providers.vector_store.qdrant import (
-    QdrantVectorStore,
-    _deterministic_point_id,
     _METADATA_POINT_ID,
     _METADATA_TYPE_MARKER,
+    QdrantVectorStore,
 )
-from app.schemas.retrieval import RetrievedChunk, RetrievalFilter
+from app.schemas.retrieval import RetrievalFilter, RetrievedChunk
 from app.schemas.vector_store import VectorStoreEmbeddingMetadata
 
 QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")

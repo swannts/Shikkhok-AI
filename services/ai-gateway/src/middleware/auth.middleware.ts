@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export interface AuthenticatedRequest extends Request {
   user?: {
@@ -10,43 +11,42 @@ export interface AuthenticatedRequest extends Request {
 
 export const authenticateStudent = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
+  const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7).trim() : '';
+  const secret = process.env.JWT_ACCESS_SECRET;
 
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    const token = authHeader.split(' ')[1];
+  if (token && secret) {
     try {
-      const parts = token.split('.');
-      if (parts.length === 3) {
-        const payloadJson = Buffer.from(parts[1], 'base64').toString('utf-8');
-        const decoded = JSON.parse(payloadJson);
-        req.user = {
-          userId: decoded.userId || decoded.sub || 'authenticated-user-id',
-          studentId: decoded.studentId || decoded.userId || 'authenticated-student-id',
-          role: decoded.role || 'STUDENT',
-        };
-        return next();
+      const decoded = jwt.verify(token, secret);
+      if (typeof decoded !== 'string') {
+        const payload = decoded as JwtPayload & { role?: string };
+        const userId = payload.sub;
+        const role = payload.role?.toLowerCase();
+
+        if (userId && role === 'student') {
+          req.user = { userId, studentId: userId, role };
+          return next();
+        }
       }
     } catch {
-      // Invalid token fallback
+      // Continue to the uniform unauthorized response below.
     }
   }
 
-  // Fallback for development mode if dev-headers are provided
-  const devStudentId = req.headers['x-student-id'] as string;
-  if (devStudentId) {
+  const allowDevIdentity =
+    process.env.NODE_ENV !== 'production' && process.env.AI_GATEWAY_ALLOW_DEV_IDENTITY === 'true';
+  const devStudentId = req.headers['x-student-id'];
+  if (allowDevIdentity && typeof devStudentId === 'string' && devStudentId.trim()) {
     req.user = {
-      userId: `user-${devStudentId}`,
-      studentId: devStudentId,
-      role: 'STUDENT',
+      userId: `user-${devStudentId.trim()}`,
+      studentId: devStudentId.trim(),
+      role: 'student',
     };
     return next();
   }
 
-  // Default context for dev testing if unauthenticated
-  req.user = {
-    userId: 'default-user-id',
-    studentId: 'default-student-id',
-    role: 'STUDENT',
-  };
+  if (!secret) {
+    return res.status(503).json({ error: 'AI gateway authentication is not configured' });
+  }
 
-  return next();
+  return res.status(401).json({ error: 'A valid student access token is required' });
 };

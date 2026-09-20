@@ -4,12 +4,27 @@ import { aiGatewayPipeline } from './pipeline';
 import { providerRegistry } from './providers/provider.registry';
 import { authenticateStudent, AuthenticatedRequest } from './middleware/auth.middleware';
 import { SseStreamHandler } from './sse/sse.handler';
-import { ragCurriculumPipeline } from './rag/rag.pipeline';
 
 const app = express();
 const PORT = process.env.PORT || 4001;
 
-app.use(cors());
+const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000,http://localhost:4000')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error('Origin is not allowed'));
+    },
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 // Health Check Endpoint
@@ -94,25 +109,9 @@ app.post('/ai/v1/tutor/chat/stream', authenticateStudent, async (req: Authentica
   }
 
   if (sse.isConnected()) {
-    // 3. Emit structured metadata event with verified citations
+    // This legacy gateway has no retrieval source attached to the provider response.
+    // Never fabricate textbook citations when no chunk was actually retrieved.
     const usage = aiGatewayPipeline.calculateUsage(userPrompt, fullResponseText);
-    const mockChunks = [
-      {
-        id: 'c1',
-        content: 'এক চলক বিশিষ্ট সরল সমীকরণ...',
-        metadata: {
-          curriculumYear: 2026,
-          class: classLevel || 'Class 8',
-          medium: 'bangla',
-          subject: subject || 'Mathematics',
-          chapter: 'বীজগণিতীয় রাশি ও সমীকরণ',
-          language: 'bn',
-          sourceBook: 'NCTB_Class_8_Math.pdf',
-          pageNumber: 63,
-        },
-      },
-    ];
-    const citations = ragCurriculumPipeline.extractVerifiedCitations(mockChunks);
 
     sse.emitMetadata({
       studentId: authenticatedStudentId,
@@ -120,7 +119,8 @@ app.post('/ai/v1/tutor/chat/stream', authenticateStudent, async (req: Authentica
       lessonId,
       topicId,
       provider: activeProvider.name,
-      sources: citations,
+      sources: [],
+      grounded: false,
       ...usage,
     });
 
@@ -134,5 +134,4 @@ app.post('/ai/v1/tutor/chat/stream', authenticateStudent, async (req: Authentica
 app.listen(PORT, () => {
   console.log(`🤖 Shikkhok AI Gateway running on http://localhost:${PORT}`);
 });
-
 

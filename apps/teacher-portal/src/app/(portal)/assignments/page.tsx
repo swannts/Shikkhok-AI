@@ -1,17 +1,19 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   teacherClassroomService,
   Classroom,
   Assignment,
-} from '@/services/teacher-classroom.service';
-import { FileCheck, BookOpen, Calendar, Award, ArrowRight } from 'lucide-react';
+} from "@/services/teacher-classroom.service";
+import { FileCheck, BookOpen, Calendar, Award, ArrowRight } from "lucide-react";
 
 export default function AssignmentsOverviewPage() {
   const [classrooms, setClassrooms] = useState<Classroom[]>([]);
-  const [allAssignments, setAllAssignments] = useState<(Assignment & { classroomName: string })[]>([]);
+  const [allAssignments, setAllAssignments] = useState<
+    (Assignment & { classroomName: string })[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function AssignmentsOverviewPage() {
         const results = await Promise.all(assignmentPromises);
         setAllAssignments(results.flat());
       } catch (err) {
-        console.error('Failed to load assignments:', err);
+        console.error("Failed to load assignments:", err);
       } finally {
         setLoading(false);
       }
@@ -39,18 +41,25 @@ export default function AssignmentsOverviewPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-black text-slate-900">অ্যাসাইনমেন্ট ও বাড়ির কাজ পরিচালনা</h1>
+        <h1 className="text-2xl font-black text-slate-900">
+          অ্যাসাইনমেন্ট ও বাড়ির কাজ পরিচালনা
+        </h1>
         <p className="text-xs text-slate-500 mt-0.5">
-          আপনার সকল শ্রেণিকক্ষের চলমান অ্যাসাইনমেন্ট ও শিক্ষার্থী সাবমিশন এক নজরে দেখুন
+          আপনার সকল শ্রেণিকক্ষের চলমান অ্যাসাইনমেন্ট ও শিক্ষার্থী সাবমিশন এক
+          নজরে দেখুন
         </p>
       </div>
 
       {loading ? (
-        <div className="p-12 text-center text-slate-400">অ্যাসাইনমেন্ট লোড হচ্ছে...</div>
+        <div className="p-12 text-center text-slate-400">
+          অ্যাসাইনমেন্ট লোড হচ্ছে...
+        </div>
       ) : allAssignments.length === 0 ? (
         <div className="p-12 bg-white rounded-2xl border border-dashed border-slate-300 text-center">
           <FileCheck className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-          <h3 className="text-sm font-bold text-slate-700">কোনো সক্রিয় অ্যাসাইনমেন্ট নেই</h3>
+          <h3 className="text-sm font-bold text-slate-700">
+            কোনো সক্রিয় অ্যাসাইনমেন্ট নেই
+          </h3>
           <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto mb-4">
             নির্দিষ্ট শ্রেণিকক্ষে প্রবেশ করে নতুন অ্যাসাইনমেন্ট যুক্ত করুন।
           </p>
@@ -73,15 +82,19 @@ export default function AssignmentsOverviewPage() {
                   {a.classroomName}
                 </span>
                 <h3 className="font-bold text-slate-900 text-lg">{a.title}</h3>
-                {a.description && <p className="text-xs text-slate-600 line-clamp-1">{a.description}</p>}
+                {a.description && (
+                  <p className="text-xs text-slate-600 line-clamp-1">
+                    {a.description}
+                  </p>
+                )}
                 <div className="flex items-center gap-4 text-xs text-slate-500 pt-1">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                    শেষ সময়: {new Date(a.dueDate).toLocaleDateString('bn-BD')}
+                    শেষ সময়: {new Date(a.dueDate).toLocaleDateString("bn-BD")}
                   </span>
                   <span className="flex items-center gap-1">
                     <Award className="w-3.5 h-3.5 text-slate-400" />
-                    পূর্ণমান: {a.maxPoints}
+                    পূর্ণমান: {a.maxScore}
                   </span>
                 </div>
               </div>

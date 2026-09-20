@@ -78,7 +78,7 @@ export async function deliverPushNotifications(
       android: androidChannelId
         ? {
             notification: {
-              channel_id: androidChannelId,
+              channelId: androidChannelId,
             },
           }
         : undefined,

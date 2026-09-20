@@ -1,18 +1,17 @@
 from __future__ import annotations
 
-from collections.abc import AsyncIterator
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 from app.core.logging import logger
-from app.providers.llm.base import LlmFinish, LlmProvider, LlmTextDelta, LlmUsage
+from app.providers.llm.base import LlmFinish, LlmProvider, LlmUsage
 from app.services.model_router import ModelRouter, RoutedStreamResult
 
 
-class GatewayStrategy(str, Enum):
+class GatewayStrategy(StrEnum):
     """Routing strategies for the AI gateway."""
 
     PRIMARY_FIRST = "primary_first"
@@ -75,11 +74,13 @@ class AiGateway:
             max_tokens=max_tokens,
         )
         provider_name = (
-            self._model_router.fallback.name if fallback_used and self._model_router.fallback
+            self._model_router.fallback.name
+            if fallback_used and self._model_router.fallback
             else self._model_router.primary.name
         )
         model_name = (
-            self._model_router.fallback.model if fallback_used and self._model_router.fallback
+            self._model_router.fallback.model
+            if fallback_used and self._model_router.fallback
             else self._model_router.primary.model
         )
         return GatewayGenerateResult(

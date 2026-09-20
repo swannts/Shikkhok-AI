@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
+import React from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useAuth } from "@/lib/auth-context";
 import {
   GraduationCap,
   LayoutDashboard,
@@ -12,20 +13,43 @@ import {
   Settings,
   LogOut,
   Sparkles,
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function PortalLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { user, logout } = useAuth();
+  const { user, logout, loading, token } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !token) {
+      router.replace("/login");
+    }
+  }, [loading, router, token]);
+
+  if (loading || !token) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-sm font-medium text-slate-500">লোড হচ্ছে...</div>
+      </div>
+    );
+  }
 
   const navItems = [
-    { name: 'ড্যাশবোর্ড (Overview)', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'আমার শ্রেণিকক্ষ (Classrooms)', href: '/classrooms', icon: Users },
-    { name: 'অ্যাসাইনমেন্ট ও মূল্যায়ন', href: '/assignments', icon: FileCheck2 },
+    {
+      name: "ড্যাশবোর্ড (Overview)",
+      href: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    { name: "আমার শ্রেণিকক্ষ (Classrooms)", href: "/classrooms", icon: Users },
+    {
+      name: "অ্যাসাইনমেন্ট ও মূল্যায়ন",
+      href: "/assignments",
+      icon: FileCheck2,
+    },
   ];
 
   return (
@@ -39,7 +63,9 @@ export default function PortalLayout({
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-bold text-slate-900 text-base leading-none block">শিক্ষক পোর্টাল</span>
+              <span className="font-bold text-slate-900 text-base leading-none block">
+                শিক্ষক পোর্টাল
+              </span>
               <span className="text-[10px] text-emerald-600 font-semibold uppercase tracking-wider block mt-0.5">
                 Shikkhok AI
               </span>
@@ -57,11 +83,13 @@ export default function PortalLayout({
                   href={item.href}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-emerald-50 text-emerald-700 font-semibold shadow-sm'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? "bg-emerald-50 text-emerald-700 font-semibold shadow-sm"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
+                  <Icon
+                    className={`w-4 h-4 ${isActive ? "text-emerald-600" : "text-slate-400"}`}
+                  />
                   {item.name}
                 </Link>
               );
@@ -73,11 +101,15 @@ export default function PortalLayout({
         <div className="p-4 border-t border-slate-100">
           <div className="p-3 bg-slate-50 rounded-xl mb-3 flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
-              {user?.name ? user.name[0] : 'T'}
+              {user?.name ? user.name[0] : "T"}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-slate-900 truncate">{user?.name || 'শিক্ষক'}</p>
-              <p className="text-[11px] text-slate-500 truncate">{user?.schoolName || user?.phone || 'Teacher'}</p>
+              <p className="text-xs font-bold text-slate-900 truncate">
+                {user?.name || "শিক্ষক"}
+              </p>
+              <p className="text-[11px] text-slate-500 truncate">
+                {user?.schoolName || user?.phone || "Teacher"}
+              </p>
             </div>
           </div>
           <button
@@ -101,8 +133,12 @@ export default function PortalLayout({
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">
-              <p className="text-xs font-semibold text-slate-900">{user?.name}</p>
-              <p className="text-[10px] text-emerald-600 font-medium">যাচাইকৃত শিক্ষক</p>
+              <p className="text-xs font-semibold text-slate-900">
+                {user?.name}
+              </p>
+              <p className="text-[10px] text-emerald-600 font-medium">
+                যাচাইকৃত শিক্ষক
+              </p>
             </div>
           </div>
         </header>
