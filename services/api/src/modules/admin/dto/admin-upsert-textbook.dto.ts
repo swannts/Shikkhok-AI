@@ -1,6 +1,14 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 
 export class AdminUpsertTextbookDto {
   @ApiProperty({ example: 'Bangla Textbook for Class 8' })
@@ -72,9 +80,7 @@ export class AdminUpsertTextbookDto {
   @Min(0)
   fileSizeBytes?: number;
 
-  @ApiPropertyOptional({
-    example: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-  })
+  @ApiPropertyOptional({ example: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' })
   @IsOptional()
   @IsString()
   checksumSha256?: string;

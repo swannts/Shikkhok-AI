@@ -316,12 +316,7 @@ export class AiGatewayService {
     const path = '/api/v1/ingestion/stats';
     const url = new URL(path, baseUrl);
 
-    const signedHeaders = this.hmacSignerService.generateSignedHeaders(
-      'GET',
-      path,
-      '',
-      'stats-req',
-    );
+    const signedHeaders = this.hmacSignerService.generateSignedHeaders('GET', path, '', 'stats-req');
 
     const response = await fetch(url.toString(), {
       method: 'GET',

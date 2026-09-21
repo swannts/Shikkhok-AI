@@ -46,9 +46,7 @@ export class InternalAuthGuard implements CanActivate {
     const clockSkew = Math.abs(now - reqTimestamp);
     const allowedSkew = this.configService.get<number>('aiService.allowedClockSkewSeconds', 300);
     if (clockSkew > allowedSkew) {
-      this.logger.warn(
-        `Timestamp skew ${clockSkew}s exceeds allowed ${allowedSkew}s for ${serviceName}`,
-      );
+      this.logger.warn(`Timestamp skew ${clockSkew}s exceeds allowed ${allowedSkew}s for ${serviceName}`);
       throw new UnauthorizedException('Request timestamp too far from server time');
     }
 

@@ -42,9 +42,7 @@ export class AdminController {
   ) {}
 
   @Get('ai/health')
-  @ApiOperation({
-    summary: 'Check real-time health and reachability of dedicated FastAPI AI service',
-  })
+  @ApiOperation({ summary: 'Check real-time health and reachability of dedicated FastAPI AI service' })
   @ApiResponse({ status: 200, description: 'AI service health status' })
   async getAiHealth() {
     const isEnabled = this.aiGatewayService.isServiceEnabled();
