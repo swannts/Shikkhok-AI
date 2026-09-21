@@ -14,7 +14,7 @@ export class GeminiProvider implements LLMProvider {
     try {
       const apiKey = process.env.GEMINI_API_KEY;
       if (apiKey && apiKey !== 'MOCK_KEY') {
-        const modelName = input.model || 'gemini-1.5-flash';
+        const modelName = input.model || 'gemini-2.5-flash';
         const model = this.genAI.getGenerativeModel({ model: modelName });
         const lastMessage = input.messages[input.messages.length - 1]?.content || '';
 

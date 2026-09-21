@@ -238,7 +238,7 @@ export class TutorGatewayService {
         event: 'metadata',
         data: {
           provider: request.provider ?? 'gemini',
-          model: 'gemini-1.5-pro',
+          model: 'gemini-2.5-flash',
           conversationId: request.conversationId,
           classLevel: request.classLevel,
           subject: request.subject,

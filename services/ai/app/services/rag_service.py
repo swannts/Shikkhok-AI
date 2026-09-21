@@ -14,6 +14,8 @@ class RagService:
         self.vector_store = vector_store
 
     def _validate_embedding_compatibility(self, query_vector: list[float]) -> None:
+        if getattr(self.vector_store, "legacy_fallback_active", False):
+            return
         index_metadata = getattr(self.vector_store, "embedding_metadata", None)
         if index_metadata is None:
             return

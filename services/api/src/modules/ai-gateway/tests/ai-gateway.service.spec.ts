@@ -52,7 +52,7 @@ describe('AiGatewayService', () => {
   it('should stream and parse SSE chunks from FastAPI service', async () => {
     const sseResponseText = [
       'event: metadata',
-      'data: {"provider":"gemini","model":"gemini-1.5-pro","fallbackUsed":false}',
+      'data: {"provider":"gemini","model":"gemini-2.5-flash","fallbackUsed":false}',
       '',
       'event: delta',
       'data: {"text":"সুপ্রভাত! "}',

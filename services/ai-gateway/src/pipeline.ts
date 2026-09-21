@@ -55,10 +55,10 @@ export class AiGatewayPipeline {
    * 3. Intelligent Model Routing & Fallback
    */
   public routeModel(requestedModel?: string): { primaryModel: string; fallbackModel: string } {
-    if (requestedModel === 'gemini-1.5-pro') {
-      return { primaryModel: 'gemini-1.5-pro', fallbackModel: 'gemini-1.5-flash' };
+    if (requestedModel === 'gemini-2.5-pro') {
+      return { primaryModel: 'gemini-2.5-pro', fallbackModel: 'gemini-2.5-flash' };
     }
-    return { primaryModel: 'gemini-1.5-flash', fallbackModel: 'gemini-1.5-flash-8b' };
+    return { primaryModel: 'gemini-2.5-flash', fallbackModel: 'gemini-2.5-flash-lite' };
   }
 
   /**

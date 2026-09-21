@@ -12,7 +12,7 @@ class GeminiEmbeddingProvider:
     def __init__(
         self,
         api_key: str,
-        model: str = "text-embedding-004",
+        model: str = "gemini-embedding-2",
         timeout_seconds: float = 15.0,
         client: httpx.AsyncClient | None = None,
     ) -> None:
@@ -31,17 +31,22 @@ class GeminiEmbeddingProvider:
         if not self.api_key:
             raise ProviderUnavailableError("Gemini API key is required for embeddings")
 
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:embedContent?key={self.api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:embedContent"
         payload = {
             "model": f"models/{self.model}",
             "content": {"parts": [{"text": text}]},
+            "output_dimensionality": self.dimension,
         }
 
         client = await self._get_client()
         should_close = client is not self._client
 
         try:
-            res = await client.post(url, json=payload)
+            res = await client.post(
+                url,
+                headers={"x-goog-api-key": self.api_key},
+                json=payload,
+            )
             if res.status_code != 200:
                 raise ProviderUnavailableError(
                     f"Gemini embedding API returned status {res.status_code}",
@@ -71,11 +76,12 @@ class GeminiEmbeddingProvider:
         if not self.api_key:
             raise ProviderUnavailableError("Gemini API key is required for embeddings")
 
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:batchEmbedContents?key={self.api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:batchEmbedContents"
         requests_payload: list[dict[str, Any]] = [
             {
                 "model": f"models/{self.model}",
                 "content": {"parts": [{"text": t}]},
+                "output_dimensionality": self.dimension,
             }
             for t in texts
         ]
@@ -84,7 +90,11 @@ class GeminiEmbeddingProvider:
         should_close = client is not self._client
 
         try:
-            res = await client.post(url, json={"requests": requests_payload})
+            res = await client.post(
+                url,
+                headers={"x-goog-api-key": self.api_key},
+                json={"requests": requests_payload},
+            )
             if res.status_code != 200:
                 raise ProviderUnavailableError(
                     f"Gemini batch embedding API returned status {res.status_code}",

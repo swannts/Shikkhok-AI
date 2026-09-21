@@ -346,12 +346,12 @@ export default function AiTelemetryPage() {
 								<div className="space-y-4 text-sm">
 									<div className="flex justify-between py-2 border-b border-divider">
 										<span className="text-text-secondary font-medium">Primary LLM Engine</span>
-										<span className="font-bold text-text-primary font-mono">gemini-1.5-pro</span>
+										<span className="font-bold text-text-primary font-mono">gemini-2.5-flash</span>
 									</div>
 									<div className="flex justify-between py-2 border-b border-divider">
 										<span className="text-text-secondary font-medium">Embedding Model</span>
 										<span className="font-bold text-text-primary font-mono">
-											text-embedding-004 (768-dim)
+											gemini-embedding-2 (768-dim)
 										</span>
 									</div>
 									<div className="flex justify-between py-2 border-b border-divider">

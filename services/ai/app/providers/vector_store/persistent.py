@@ -31,6 +31,7 @@ class PersistentVectorStore:
         file_path: str | Path | None = None,
         embedding_metadata: VectorStoreEmbeddingMetadata | None = None,
         allow_demo_seed: bool | None = None,
+        allow_legacy_fallback: bool | None = None,
     ) -> None:
         if file_path is None:
             file_path = Path(settings.vector_store_path)
@@ -39,6 +40,13 @@ class PersistentVectorStore:
         self.allow_demo_seed = (
             settings.vector_store_allow_demo_seed if allow_demo_seed is None else allow_demo_seed
         )
+        self.allow_legacy_fallback = (
+            settings.vector_store_allow_legacy_fallback
+            if allow_legacy_fallback is None
+            else allow_legacy_fallback
+        ) and settings.app_env in ("development", "test")
+        self.legacy_fallback_active = False
+        self._legacy_vector_dimension: int | None = None
 
         self.chunks: list[dict[str, Any]] = []
         self.vectors: list[list[float]] = []
@@ -72,7 +80,13 @@ class PersistentVectorStore:
                         version=int(metadata.get("embeddingVersion", 1) or 1),
                     )
                     if self.embedding_metadata is not None:
-                        validate_embedding_compatibility(self.embedding_metadata, loaded_metadata)
+                        try:
+                            validate_embedding_compatibility(
+                                self.embedding_metadata, loaded_metadata
+                            )
+                        except ValueError:
+                            if not self._activate_legacy_fallback(loaded_metadata):
+                                raise
                     else:
                         self.embedding_metadata = loaded_metadata
                 else:
@@ -82,12 +96,23 @@ class PersistentVectorStore:
                         )
                     inferred_metadata = self._infer_metadata()
                     if self.embedding_metadata is not None:
-                        validate_embedding_compatibility(self.embedding_metadata, inferred_metadata)
-                    self.embedding_metadata = self.embedding_metadata or inferred_metadata
-                    self._apply_metadata_to_chunks()
+                        try:
+                            validate_embedding_compatibility(
+                                self.embedding_metadata, inferred_metadata
+                            )
+                        except ValueError:
+                            if not self._activate_legacy_fallback(inferred_metadata):
+                                raise
+                    else:
+                        self.embedding_metadata = inferred_metadata
+                    if not self.legacy_fallback_active:
+                        self._apply_metadata_to_chunks()
                     self._apply_default_scope_metadata()
-                    self._save_to_disk_sync()
-                self._apply_metadata_to_chunks()
+                    if not self.legacy_fallback_active:
+                        self._save_to_disk_sync()
+                self._detect_legacy_vector_dimension()
+                if not self.legacy_fallback_active:
+                    self._apply_metadata_to_chunks()
                 self._apply_default_scope_metadata()
                 logger.info(
                     f"Loaded {len(self.chunks)} persistent curriculum chunks from {self.file_path}"
@@ -101,6 +126,50 @@ class PersistentVectorStore:
             raise RuntimeError(
                 f"Failed to load persistent vector store from {self.file_path}: {e}"
             ) from e
+
+    def _activate_legacy_fallback(self, stored_metadata: VectorStoreEmbeddingMetadata) -> bool:
+        if not self.allow_legacy_fallback or self.embedding_metadata is None:
+            return False
+
+        # A legacy index may not be trusted for vector similarity, but its
+        # persisted text remains useful for development keyword retrieval.
+        if stored_metadata.dimension == self.embedding_metadata.dimension:
+            return False
+        if stored_metadata.provider not in {"unknown", self.embedding_metadata.provider}:
+            return False
+
+        self.legacy_fallback_active = True
+        self._legacy_vector_dimension = stored_metadata.dimension
+        logger.warning(
+            "Using keyword-only retrieval for a legacy vector index; "
+            "re-embed the curriculum before staging or production."
+        )
+        return True
+
+    def _detect_legacy_vector_dimension(self) -> None:
+        if self.embedding_metadata is None or not self.vectors:
+            return
+
+        incompatible_dimensions = {
+            len(vector)
+            for vector in self.vectors
+            if len(vector) != self.embedding_metadata.dimension
+        }
+        if not incompatible_dimensions:
+            return
+        if len(incompatible_dimensions) != 1:
+            raise ValueError(
+                "Persistent vector store contains multiple incompatible vector dimensions"
+            )
+
+        stored_metadata = VectorStoreEmbeddingMetadata(
+            provider=self.embedding_metadata.provider,
+            model=self.embedding_metadata.model,
+            dimension=incompatible_dimensions.pop(),
+            version=self.embedding_metadata.version,
+        )
+        if not self._activate_legacy_fallback(stored_metadata):
+            self._validate_index_dimensions()
 
     def _seed_default_chunks(self) -> None:
         seed_dimension = self.embedding_metadata.dimension if self.embedding_metadata else 128
@@ -193,6 +262,8 @@ class PersistentVectorStore:
         return self.embedding_metadata
 
     def _apply_metadata_to_chunks(self) -> None:
+        if self.legacy_fallback_active:
+            return
         meta = self._get_metadata()
         for chunk in self.chunks:
             chunk["embedding_provider"] = meta.provider
@@ -225,6 +296,14 @@ class PersistentVectorStore:
 
     def _validate_index_dimensions(self) -> None:
         for vector in self.vectors:
+            if self.embedding_metadata and len(vector) == self.embedding_metadata.dimension:
+                continue
+            if (
+                self.legacy_fallback_active
+                and self._legacy_vector_dimension is not None
+                and len(vector) == self._legacy_vector_dimension
+            ):
+                continue
             self._validate_vector_dimension(vector)
 
     def _keyword_overlap_score(self, query: str, text: str) -> float:

@@ -96,7 +96,7 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
             )
         fallback_llm = GeminiLlmProvider(
             api_key=cfg.llm_fallback_api_key,
-            model=cfg.llm_fallback_model or "gemini-1.5-flash",
+            model=cfg.llm_fallback_model or "gemini-2.5-flash-lite",
             timeout_seconds=cfg.llm_timeout_seconds,
             client=http_client,
         )
@@ -150,6 +150,7 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
             file_path=cfg.vector_store_path,
             embedding_metadata=vector_embedding_metadata,
             allow_demo_seed=cfg.vector_store_allow_demo_seed,
+            allow_legacy_fallback=cfg.vector_store_allow_legacy_fallback,
         )
 
     # 6. Core Subservices

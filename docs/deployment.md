@@ -3,6 +3,7 @@
 ## 1. Container Build Verification
 - Docker Compose configuration validation: `docker compose config`
 - Local development stack: `docker compose up -d` with mock AI providers explicitly enabled when no provider key is configured.
+- The local Compose stack permits `VECTOR_STORE_ALLOW_LEGACY_FALLBACK=true` so the checked-in legacy curriculum text can be searched by keywords while developing. Set it to `false` and re-embed the corpus before staging or production; the AI service rejects legacy fallback in those environments.
 - CI/CD Matrix: GitHub Actions in `.github/workflows/ci.yml` validates application builds and the Helm chart after a pull request is merged into `main`.
 
 ## 2. Production Database Migrations

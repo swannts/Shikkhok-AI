@@ -3,7 +3,7 @@ export type AiRequestType = 'CLASSIFICATION' | 'SIMPLE_EXPLANATION' | 'COMPLEX_T
 export interface AiUsageTelemetry {
   studentId: string;
   provider: string;              // e.g. 'GeminiProvider', 'OpenAIProvider'
-  model: string;                 // e.g. 'gemini-1.5-flash-8b', 'gemini-1.5-flash', 'gemini-1.5-pro'
+  model: string;                 // e.g. 'gemini-2.5-flash-lite', 'gemini-2.5-flash', 'gemini-2.5-pro'
   requestType: AiRequestType;
   inputTokens: number;
   outputTokens: number;
@@ -18,27 +18,27 @@ export class AiCostControlManager {
    * Cost Tier Pricing Table per 1M Tokens (Gemini / OpenAI standards)
    */
   private readonly PRICING_PER_1M_TOKENS = {
-    'gemini-1.5-flash-8b': { input: 0.0375, output: 0.15 },  // Ultra Cheap Model
-    'gemini-1.5-flash': { input: 0.075, output: 0.30 },     // Mid-Tier Model
-    'gemini-1.5-pro': { input: 1.25, output: 5.00 },        // Stronger Tutoring Model
+    'gemini-2.5-flash-lite': { input: 0.0375, output: 0.15 }, // Ultra Cheap Model
+    'gemini-2.5-flash': { input: 0.075, output: 0.30 },       // Mid-Tier Model
+    'gemini-2.5-pro': { input: 1.25, output: 5.00 },          // Stronger Tutoring Model
   };
 
   /**
    * 1. Cost-Optimized Model Routing Matrix
    * Matches request complexity to the most economical AI model:
-   * - CLASSIFICATION -> Ultra cheap model (gemini-1.5-flash-8b)
-   * - SIMPLE_EXPLANATION -> Mid-tier model (gemini-1.5-flash)
-   * - COMPLEX_TUTORING -> Stronger model (gemini-1.5-pro)
+   * - CLASSIFICATION -> Ultra cheap model (gemini-2.5-flash-lite)
+   * - SIMPLE_EXPLANATION -> Mid-tier model (gemini-2.5-flash)
+   * - COMPLEX_TUTORING -> Stronger model (gemini-2.5-pro)
    */
   public selectEconomicalModel(requestType: AiRequestType): { model: string; tier: string } {
     switch (requestType) {
       case 'CLASSIFICATION':
-        return { model: 'gemini-1.5-flash-8b', tier: 'ultra-cheap' };
+        return { model: 'gemini-2.5-flash-lite', tier: 'ultra-cheap' };
       case 'SIMPLE_EXPLANATION':
-        return { model: 'gemini-1.5-flash', tier: 'mid-tier' };
+        return { model: 'gemini-2.5-flash', tier: 'mid-tier' };
       case 'COMPLEX_TUTORING':
       default:
-        return { model: 'gemini-1.5-pro', tier: 'stronger-model' };
+        return { model: 'gemini-2.5-pro', tier: 'stronger-model' };
     }
   }
 

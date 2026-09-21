@@ -17,8 +17,8 @@ class GeminiSpeechToTextProvider:
         if not self.api_key:
             return await self.fallback.transcribe(request)
 
-        # Build Gemini 1.5 audio transcription multimodal call
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={self.api_key}"
+        # Use the current stable multimodal model and keep the key out of URLs.
+        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
         mime_map = {
             "wav": "audio/wav",
             "mp3": "audio/mp3",
@@ -54,7 +54,11 @@ class GeminiSpeechToTextProvider:
 
         try:
             async with httpx.AsyncClient(timeout=15.0) as client:
-                res = await client.post(url, json=payload)
+                res = await client.post(
+                    url,
+                    headers={"x-goog-api-key": self.api_key},
+                    json=payload,
+                )
                 if res.status_code == 200:
                     data = res.json()
                     candidates = data.get("candidates", [])

@@ -42,6 +42,21 @@ def test_production_rejects_weak_secret():
         settings.validate_runtime_safety()
 
 
+def test_production_rejects_legacy_vector_fallback():
+    settings = Settings(
+        app_env="production",
+        llm_provider="gemini",
+        llm_api_key="valid-key",
+        embedding_provider="gemini",
+        embedding_api_key="valid-key",
+        vector_store_allow_legacy_fallback=True,
+        internal_service_secret="a" * 32,
+    )
+
+    with pytest.raises(RuntimeError, match="Legacy vector fallback is forbidden"):
+        settings.validate_runtime_safety()
+
+
 def test_test_environment_allows_mock():
     settings = Settings(
         app_env="test",

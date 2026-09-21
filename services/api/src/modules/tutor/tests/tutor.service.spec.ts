@@ -207,7 +207,7 @@ describe('TutorService', () => {
 
     // Mock streamReply generator
     async function* mockStream(): AsyncIterable<TutorStreamEvent> {
-      yield { event: 'metadata', data: { provider: 'gemini', model: 'gemini-1.5-pro' } };
+      yield { event: 'metadata', data: { provider: 'gemini', model: 'gemini-2.5-flash' } };
       yield { event: 'delta', data: { text: 'বীজগণিতের ' } };
       yield { event: 'delta', data: { text: 'মূল ধারণা হলো চলক।' } };
       yield { event: 'citation', data: { sourceBook: 'NCTB Class 8 Math', pageNumber: 45 } };

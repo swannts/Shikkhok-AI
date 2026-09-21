@@ -11,12 +11,12 @@ from app.providers.llm.base import LlmTextDelta
 
 class GeminiLlmProvider:
     name: str = "gemini"
-    model: str = "gemini-1.5-pro"
+    model: str = "gemini-2.5-flash"
 
     def __init__(
         self,
         api_key: str,
-        model: str = "gemini-1.5-pro",
+        model: str = "gemini-2.5-flash",
         timeout_seconds: float = 20.0,
         client: httpx.AsyncClient | None = None,
     ) -> None:
@@ -51,7 +51,9 @@ class GeminiLlmProvider:
         if not self.api_key:
             raise ProviderUnavailableError("Gemini API key is not configured")
 
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent?key={self.api_key}"
+        url = (
+            f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent"
+        )
         payload = {
             "contents": self._convert_messages(messages),
             "generationConfig": {
@@ -64,7 +66,11 @@ class GeminiLlmProvider:
         should_close = client is not self._client
 
         try:
-            response = await client.post(url, json=payload)
+            response = await client.post(
+                url,
+                headers={"x-goog-api-key": self.api_key},
+                json=payload,
+            )
             if response.status_code != 200:
                 raise ProviderUnavailableError(
                     f"Gemini API returned status {response.status_code}",
@@ -97,7 +103,7 @@ class GeminiLlmProvider:
         if not self.api_key:
             raise ProviderUnavailableError("Gemini API key is not configured")
 
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:streamGenerateContent?alt=sse&key={self.api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:streamGenerateContent?alt=sse"
         payload = {
             "contents": self._convert_messages(messages),
             "generationConfig": {
@@ -110,7 +116,12 @@ class GeminiLlmProvider:
         should_close = client is not self._client
 
         try:
-            async with client.stream("POST", url, json=payload) as response:
+            async with client.stream(
+                "POST",
+                url,
+                headers={"x-goog-api-key": self.api_key},
+                json=payload,
+            ) as response:
                 if response.status_code != 200:
                     body_preview = await response.aread()
                     raise ProviderUnavailableError(

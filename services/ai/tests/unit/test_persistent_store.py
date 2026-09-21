@@ -133,6 +133,48 @@ def test_persistent_vector_store_rejects_model_mismatch(tmp_path: Path) -> None:
         )
 
 
+@pytest.mark.asyncio
+async def test_persistent_vector_store_can_use_legacy_keyword_fallback(
+    tmp_path: Path,
+) -> None:
+    store_file = tmp_path / "legacy_chunks.json"
+    store_file.write_text(
+        json.dumps(
+            {
+                "version": "1.0",
+                "count": 1,
+                "chunks": [
+                    {
+                        "chunk_id": "legacy_chunk",
+                        "text": "জ্যামিতির ত্রিভুজের ক্ষেত্রফল",
+                        "book_id": "math_class_8",
+                        "class_level": 8,
+                    }
+                ],
+                "vectors": [[0.1] * 128],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    store = PersistentVectorStore(
+        file_path=store_file,
+        embedding_metadata=VectorStoreEmbeddingMetadata(
+            provider="gemini",
+            model="gemini-embedding-2",
+            dimension=768,
+        ),
+        allow_legacy_fallback=True,
+    )
+
+    assert store.legacy_fallback_active is True
+    results = await store.search(
+        query_vector=[0.2] * 768,
+        filter_params=RetrievalFilter(query="ত্রিভুজের ক্ষেত্রফল"),
+    )
+    assert results[0].chunk_id == "legacy_chunk"
+
+
 def test_persistent_vector_store_fails_closed_on_corrupt_index_outside_dev_test(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

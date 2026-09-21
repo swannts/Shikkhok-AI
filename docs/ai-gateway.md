@@ -34,9 +34,9 @@ Incoming AI Request (POST /api/v1/tutor/stream)
                            ▼
  ┌────────────────────────────────────────────────────────┐
  │ 5. Cost-Optimized Model Routing & Telemetry            │
- │    - CLASSIFICATION -> gemini-1.5-flash-8b             │
- │    - SIMPLE_EXPLANATION -> gemini-1.5-flash            │
- │    - COMPLEX_TUTORING -> gemini-1.5-pro                │
+ │    - CLASSIFICATION -> gemini-2.5-flash-lite           │
+ │    - SIMPLE_EXPLANATION -> gemini-2.5-flash            │
+ │    - COMPLEX_TUTORING -> gemini-2.5-pro                │
  └─────────────────────────┬──────────────────────────────┘
                            │
                            ▼

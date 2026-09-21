@@ -1,21 +1,21 @@
 import { aiCostControlManager } from '../cost/aiCostControl';
 
 describe('AI Cost Control & Usage Observability Tests', () => {
-  it('routes CLASSIFICATION tasks to ultra-cheap model (gemini-1.5-flash-8b)', () => {
+  it('routes CLASSIFICATION tasks to ultra-cheap model (gemini-2.5-flash-lite)', () => {
     const route = aiCostControlManager.selectEconomicalModel('CLASSIFICATION');
-    expect(route.model).toBe('gemini-1.5-flash-8b');
+    expect(route.model).toBe('gemini-2.5-flash-lite');
     expect(route.tier).toBe('ultra-cheap');
   });
 
-  it('routes SIMPLE_EXPLANATION tasks to mid-tier model (gemini-1.5-flash)', () => {
+  it('routes SIMPLE_EXPLANATION tasks to mid-tier model (gemini-2.5-flash)', () => {
     const route = aiCostControlManager.selectEconomicalModel('SIMPLE_EXPLANATION');
-    expect(route.model).toBe('gemini-1.5-flash');
+    expect(route.model).toBe('gemini-2.5-flash');
     expect(route.tier).toBe('mid-tier');
   });
 
-  it('routes COMPLEX_TUTORING tasks to stronger model (gemini-1.5-pro)', () => {
+  it('routes COMPLEX_TUTORING tasks to stronger model (gemini-2.5-pro)', () => {
     const route = aiCostControlManager.selectEconomicalModel('COMPLEX_TUTORING');
-    expect(route.model).toBe('gemini-1.5-pro');
+    expect(route.model).toBe('gemini-2.5-pro');
     expect(route.tier).toBe('stronger-model');
   });
 
@@ -23,7 +23,7 @@ describe('AI Cost Control & Usage Observability Tests', () => {
     const telemetry = aiCostControlManager.calculateTelemetry(
       'student-101',
       'GeminiProvider',
-      'gemini-1.5-flash',
+      'gemini-2.5-flash',
       'SIMPLE_EXPLANATION',
       1000, // 1,000 input tokens
       500,  // 500 output tokens

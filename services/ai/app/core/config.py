@@ -49,7 +49,7 @@ class Settings(BaseSettings):
     # LLM Settings
     llm_provider: Literal["gemini", "mock"] = "gemini"
     llm_api_key: str = ""
-    llm_model: str = "gemini-1.5-pro"
+    llm_model: str = "gemini-2.5-flash"
     llm_fallback_provider: Literal["gemini", "none"] = "none"
     llm_fallback_model: str = ""
     llm_fallback_api_key: str = ""
@@ -57,7 +57,7 @@ class Settings(BaseSettings):
     # Embeddings
     embedding_provider: Literal["gemini", "mock"] = "gemini"
     embedding_api_key: str = ""
-    embedding_model: str = "text-embedding-004"
+    embedding_model: str = "gemini-embedding-2"
 
     # Vector Store
     vector_store_provider: Literal["memory", "persistent", "qdrant"] = "persistent"
@@ -66,6 +66,7 @@ class Settings(BaseSettings):
     vector_store_api_key: str = ""
     vector_store_collection_name: str | None = None
     vector_store_allow_demo_seed: bool = False
+    vector_store_allow_legacy_fallback: bool = False
 
     # Timeouts
     request_timeout_seconds: float = 30.0
@@ -123,6 +124,11 @@ class Settings(BaseSettings):
         ):
             raise RuntimeError(
                 f"CRITICAL: Mock providers are strictly forbidden in {self.app_env} environment."
+            )
+
+        if self.app_env in ("production", "staging") and self.vector_store_allow_legacy_fallback:
+            raise RuntimeError(
+                f"CRITICAL: Legacy vector fallback is forbidden in {self.app_env}; re-embed the index first."
             )
 
         if self.app_env in ("production", "staging") and (

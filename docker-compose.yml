@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # -------------------------------------------------------------
   # 1. MONGODB NOSQL DATABASE
@@ -94,11 +92,12 @@ services:
       NEST_API_BASE_URL: http://api:4000/api/v1
       LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
       LLM_API_KEY: ${GEMINI_API_KEY}
-      LLM_MODEL: ${LLM_MODEL:-gemini-1.5-pro}
+      LLM_MODEL: ${LLM_MODEL:-gemini-2.5-flash}
       EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-gemini}
       EMBEDDING_API_KEY: ${GEMINI_API_KEY}
       VECTOR_STORE_PROVIDER: ${VECTOR_STORE_PROVIDER:-persistent}
       VECTOR_STORE_ALLOW_DEMO_SEED: ${VECTOR_STORE_ALLOW_DEMO_SEED:-false}
+      VECTOR_STORE_ALLOW_LEGACY_FALLBACK: ${VECTOR_STORE_ALLOW_LEGACY_FALLBACK:-true}
     healthcheck:
       test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')\" || exit 1"]
       interval: 10s

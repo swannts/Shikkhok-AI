@@ -186,7 +186,7 @@ async def test_rag_service_rejects_embedding_dimension_mismatch() -> None:
         name = "fake"
         embedding_metadata = VectorStoreEmbeddingMetadata(
             provider="gemini",
-            model="text-embedding-004",
+            model="gemini-embedding-2",
             dimension=768,
         )
 

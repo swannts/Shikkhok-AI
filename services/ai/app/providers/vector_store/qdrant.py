@@ -319,7 +319,7 @@ class QdrantVectorStore:
                 results = query_response.points
             else:
                 # Compatibility path for older clients and the lightweight unit-test double.
-                legacy_search = getattr(self.client, "search")  # type: ignore[attr-defined]  # noqa: B009
+                legacy_search = getattr(self.client, "search")  # noqa: B009
                 results = await legacy_search(
                     collection_name=self.collection_name,
                     query_vector=query_vector,

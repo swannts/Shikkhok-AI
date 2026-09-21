@@ -20,6 +20,7 @@ RUN addgroup --system --gid 1001 appgroup && \
 # Copy virtual environment and source code
 COPY --from=builder /app/.venv /app/.venv
 COPY app /app/app
+COPY data /app/data
 COPY pyproject.toml /app/
 
 ENV PATH="/app/.venv/bin:$PATH" \

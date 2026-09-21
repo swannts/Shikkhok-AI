@@ -81,10 +81,12 @@ export function startWorker() {
   const connection = createConnection();
 
   // Dead-letter queues for failed jobs
-  const notificationDLQ = new Queue('notifications:dlq', { connection });
-  const homeworkDLQ = new Queue('homework:dlq', { connection });
-  const curriculumDLQ = new Queue('curriculum:dlq', { connection });
-  const analyticsDLQ = new Queue('analytics:dlq', { connection });
+  // BullMQ queue names cannot contain ':'. Keep the DLQ relationship explicit
+  // in the name without relying on Redis-style colon namespaces.
+  const notificationDLQ = new Queue('notifications-dlq', { connection });
+  const homeworkDLQ = new Queue('homework-dlq', { connection });
+  const curriculumDLQ = new Queue('curriculum-dlq', { connection });
+  const analyticsDLQ = new Queue('analytics-dlq', { connection });
   const notificationQueue = new Queue('notifications', { connection });
   const curriculumQueue = new Queue('curriculum', { connection });
   const analyticsQueue = new Queue('analytics', { connection });

@@ -149,7 +149,7 @@ def vector_store(mock_qdrant_client):
         api_key=None,
         embedding_metadata=VectorStoreEmbeddingMetadata(
             provider="gemini",
-            model="text-embedding-004",
+            model="gemini-embedding-2",
             dimension=768,
             version=1,
         ),
@@ -224,7 +224,7 @@ class TestQdrantPointToChunk:
                 "class_level": 8,
                 "embedding_metadata": {
                     "provider": "gemini",
-                    "model": "text-embedding-004",
+                    "model": "gemini-embedding-2",
                     "dimension": 768,
                     "version": 1,
                 },
@@ -238,7 +238,7 @@ class TestQdrantPointToChunk:
         assert chunk.book_id == "book_1"
         assert chunk.class_level == 8
         assert chunk.embedding_provider == "gemini"
-        assert chunk.embedding_model == "text-embedding-004"
+        assert chunk.embedding_model == "gemini-embedding-2"
         assert chunk.embedding_dimension == 768
 
 
@@ -278,7 +278,7 @@ class TestCollectionInitialization:
         assert meta_payload is not None
         assert meta_payload["_type"] == _METADATA_TYPE_MARKER
         assert meta_payload["provider"] == "gemini"
-        assert meta_payload["model"] == "text-embedding-004"
+        assert meta_payload["model"] == "gemini-embedding-2"
 
     @pytest.mark.asyncio
     async def test_validates_compatible_metadata(self, vector_store):
@@ -291,7 +291,7 @@ class TestCollectionInitialization:
         client, state = mock_qdrant_client
         store = QdrantVectorStore(
             embedding_metadata=VectorStoreEmbeddingMetadata(
-                provider="gemini", model="text-embedding-004", dimension=768, version=1
+                provider="gemini", model="gemini-embedding-2", dimension=768, version=1
             ),
         )
         store._client = client
@@ -299,7 +299,7 @@ class TestCollectionInitialization:
 
         store2 = QdrantVectorStore(
             embedding_metadata=VectorStoreEmbeddingMetadata(
-                provider="gemini", model="text-embedding-004", dimension=1024, version=1
+                provider="gemini", model="gemini-embedding-2", dimension=1024, version=1
             ),
         )
         store2._client = client
@@ -311,7 +311,7 @@ class TestCollectionInitialization:
         client, state = mock_qdrant_client
         store = QdrantVectorStore(
             embedding_metadata=VectorStoreEmbeddingMetadata(
-                provider="gemini", model="text-embedding-004", dimension=768, version=1
+                provider="gemini", model="gemini-embedding-2", dimension=768, version=1
             ),
         )
         store._client = client
