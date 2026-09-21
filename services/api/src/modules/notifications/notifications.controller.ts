@@ -78,7 +78,7 @@ export class NotificationsController {
     return this.notificationsService.createNotificationForCurrentUser(user, dto);
   }
 
-   @Post('admin/users/:userId')
+  @Post('admin/users/:userId')
   @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Create a notification for a user' })
   async createForUser(
@@ -92,9 +92,7 @@ export class NotificationsController {
   @UseGuards(InternalAuthGuard)
   @ApiOperation({ summary: 'Deactivate invalid device tokens (internal service-to-service)' })
   @ApiResponse({ status: 200, description: 'Tokens deactivated' })
-  async deactivateInvalidTokens(
-    @Body() body: { tokens: string[] },
-  ) {
+  async deactivateInvalidTokens(@Body() body: { tokens: string[] }) {
     return this.notificationsService.deactivateInvalidTokensForCurrentSession(body.tokens);
   }
 }

@@ -20,17 +20,7 @@ import { FcmPushProvider } from './providers/fcm-push.provider';
     ]),
   ],
   controllers: [NotificationsController],
-  providers: [
-    NotificationRepository,
-    DeviceTokenRepository,
-    NotificationsService,
-    FcmPushProvider,
-  ],
-  exports: [
-    NotificationsService,
-    NotificationRepository,
-    DeviceTokenRepository,
-    FcmPushProvider,
-  ],
+  providers: [NotificationRepository, DeviceTokenRepository, NotificationsService, FcmPushProvider],
+  exports: [NotificationsService, NotificationRepository, DeviceTokenRepository, FcmPushProvider],
 })
 export class NotificationsModule {}
