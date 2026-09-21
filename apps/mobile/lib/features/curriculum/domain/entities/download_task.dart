@@ -76,7 +76,8 @@ class DownloadTask {
       localFilePath: localFilePath ?? this.localFilePath,
       expectedChecksumSha256:
           expectedChecksumSha256 ?? this.expectedChecksumSha256,
-      actualChecksumSha256: actualChecksumSha256 ?? this.actualChecksumSha256,
+      actualChecksumSha256:
+          actualChecksumSha256 ?? this.actualChecksumSha256,
       isChecksumVerified: isChecksumVerified ?? this.isChecksumVerified,
       errorMessage: errorMessage ?? this.errorMessage,
       completedAt: completedAt ?? this.completedAt,

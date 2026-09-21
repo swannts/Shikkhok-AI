@@ -1,4 +1,10 @@
-import { ForbiddenException, Injectable, Logger, NotFoundException, Optional } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  Logger,
+  NotFoundException,
+  Optional,
+} from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
@@ -107,7 +113,9 @@ export class NotificationsService {
     return { success: true, message: 'Device token unregistered successfully' };
   }
 
-  async deactivateInvalidTokensForCurrentSession(tokens: string[]): Promise<{ deactivated: number }> {
+  async deactivateInvalidTokensForCurrentSession(
+    tokens: string[],
+  ): Promise<{ deactivated: number }> {
     const deactivated = await this.deviceTokenRepository.deactivateInvalidTokens(tokens);
     return { deactivated };
   }
