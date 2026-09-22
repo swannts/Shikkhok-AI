@@ -290,14 +290,6 @@ export class TutorService {
         const chapter = await this.curriculumService.getChapter(conversation.chapterId.toString());
         const subject = await this.curriculumService.getSubject(conversation.subjectId.toString());
         subjectTitle = subject.title ?? subject.name ?? 'General Studies';
-        citations.push({
-          sourceId: conversation.lessonId.toString(),
-          sourceBook: 'curriculum-context',
-          classLevel: conversation.classLevel,
-          subject: subjectTitle,
-          chapter: chapter.title,
-          excerpt: lesson.title,
-        });
         contextSegments.push(`এই পাঠ: ${lesson.title}`);
       } catch {
         // Fallback gracefully

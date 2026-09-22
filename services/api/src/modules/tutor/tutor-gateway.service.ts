@@ -11,7 +11,8 @@ export interface TutorGatewayReply {
   content: string;
   citations: TutorCitation[];
   provider?: string;
-  fallbackUsed: boolean;
+  grounded: boolean;
+  retrievalUnavailable: boolean;
   citationCount: number;
 }
 
@@ -52,7 +53,8 @@ export class TutorGatewayService {
     let content = '';
     const rawCitations: any[] = [];
     let provider: string | undefined;
-    let fallbackUsed = false;
+    let grounded = true;
+    let retrievalUnavailable = false;
     const startedAt = Date.now();
 
     try {
@@ -61,8 +63,9 @@ export class TutorGatewayService {
       for await (const chunk of this.streamReply(request)) {
         if (chunk.event === 'metadata' && chunk.data?.provider) {
           provider = chunk.data.provider;
-          if (chunk.data.fallbackUsed) {
-            fallbackUsed = true;
+          if (chunk.data.retrievalUnavailable) {
+            grounded = false;
+            retrievalUnavailable = true;
           }
         } else if (chunk.event === 'delta' && typeof chunk.data?.text === 'string') {
           content += chunk.data.text;
@@ -88,7 +91,8 @@ export class TutorGatewayService {
         content: sanitizedContent,
         citations: validatedCitations,
         provider: provider ?? 'gemini',
-        fallbackUsed,
+        grounded,
+        retrievalUnavailable,
         citationCount: validatedCitations.length,
       };
     } catch (err: any) {
@@ -111,7 +115,8 @@ export class TutorGatewayService {
           model: 'shikkhok-moderation-v2',
           category: moderation.category,
           conversationId: request.conversationId,
-          fallbackUsed: false,
+          grounded: true,
+          retrievalUnavailable: false,
         },
       };
       yield {
@@ -242,7 +247,8 @@ export class TutorGatewayService {
           conversationId: request.conversationId,
           classLevel: request.classLevel,
           subject: request.subject,
-          fallbackUsed: false,
+          grounded: true,
+          retrievalUnavailable: false,
         },
       };
 
@@ -357,31 +363,16 @@ export class TutorGatewayService {
         conversationId: request.conversationId,
         classLevel: request.classLevel,
         subject: request.subject ?? 'General Studies',
-        fallbackUsed: true,
+        grounded: false,
+        retrievalUnavailable: true,
       },
     };
 
-    if (request.lessonId) {
-      const citation: TutorCitation = {
-        sourceId: request.lessonId,
-        sourceBook: `NCTB Class ${request.classLevel} ${request.subject ?? 'Textbook'}`,
-        classLevel: request.classLevel,
-        subject: request.subject,
-        excerpt: 'এনসিটিবি পাঠ্যক্রম ভিত্তিক মূল শিক্ষণীয় বিষয়সমূহ।',
-      };
-      yield {
-        event: 'citation',
-        data: citation,
-      };
-    }
-
     const sentences = [
-      'ঠিক আছে! ',
-      'আমি বিষয়টি তোমাকে ধাপে ধাপে বুঝিয়ে দিচ্ছি। ',
+      'এই উত্তরটি সাধারণ ব্যাখ্যার ভিত্তিতে দেওয়া হয়েছে। ',
+      'এই মুহূর্তে পাঠ্যবইয়ের উৎস যাচাই করা যাচ্ছে না। ',
       request.contextSegments?.length ? `${request.contextSegments.join(' • ')}। ` : '',
       `তোমার প্রশ্নের মূল ধারণা: "${request.prompt.trim()}"। `,
-      'প্রথমত, সূত্র বা মূল সংজ্ঞাটি ভালো করে মনে রাখতে হবে। ',
-      'দ্বিতীয়ত, বাস্তব জীবনের সহজ উদাহরণ দিয়ে চর্চা করলে বিষয়টি দীর্ঘস্থায়ী হবে। ',
       'কোনো নির্দিষ্ট অংশ বুঝতে না পারলে আমাকে নির্দ্বিধায় বলো!',
     ];
 
@@ -418,34 +409,21 @@ export class TutorGatewayService {
     if (typeof value === 'number') {
       return value;
     }
-
     if (typeof value === 'string') {
-      const match = value.match(/(\d{1,2})/);
-      return match ? Number(match[1]) : undefined;
+      const parsed = parseInt(value, 10);
+      return isNaN(parsed) ? undefined : parsed;
     }
-
     return undefined;
   }
 
   private logFailure(
-    request: TutorGatewayRequest,
-    endpoint: URL,
+    request: any,
+    endpoint: URL | string,
     startedAt: number,
-    failureType: string,
-    statusCode?: number,
-    error?: unknown,
+    type: string,
+    status?: number,
+    error?: any,
   ) {
-    this.logger.warn(
-      JSON.stringify({
-        event: 'tutor_gateway_failure',
-        failureType,
-        conversationId: request.conversationId,
-        requestId: request.requestId,
-        endpointHost: endpoint.host,
-        latencyMs: Date.now() - startedAt,
-        statusCode,
-        errorName: error instanceof Error ? error.name : undefined,
-      }),
-    );
+    this.logger.error(`AI Gateway Error [${type}] to ${endpoint}: ${error?.message || status}`);
   }
 }
