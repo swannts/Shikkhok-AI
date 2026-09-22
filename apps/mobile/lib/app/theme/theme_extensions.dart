@@ -1,53 +1,76 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
-import 'app_shadows.dart';
 
-/// Custom ShikkhokThemeExtension for extra design system tokens
-@immutable
 class ShikkhokThemeExtension extends ThemeExtension<ShikkhokThemeExtension> {
-  final List<BoxShadow> softShadow;
-  final List<BoxShadow> cardShadow;
   final Color surfaceMuted;
   final Color surfaceHover;
+  final Color success;
+  final Color successLight;
+  final Color warning;
+  final Color warningLight;
+  final Color errorLight;
+  final Color infoLight;
 
   const ShikkhokThemeExtension({
-    required this.softShadow,
-    required this.cardShadow,
     required this.surfaceMuted,
     required this.surfaceHover,
+    required this.success,
+    required this.successLight,
+    required this.warning,
+    required this.warningLight,
+    required this.errorLight,
+    required this.infoLight,
   });
 
+  static const light = ShikkhokThemeExtension(
+    surfaceMuted: AppColors.surfaceLow,
+    surfaceHover: AppColors.surfaceContainer,
+    success: AppColors.success,
+    successLight: AppColors.successLight,
+    warning: AppColors.warning,
+    warningLight: AppColors.warningLight,
+    errorLight: AppColors.errorLight,
+    infoLight: AppColors.info, // or another appropriate color from the palette
+  );
+
   @override
-  ShikkhokThemeExtension copyWith({
-    List<BoxShadow>? softShadow,
-    List<BoxShadow>? cardShadow,
+  ThemeExtension<ShikkhokThemeExtension> copyWith({
     Color? surfaceMuted,
     Color? surfaceHover,
+    Color? success,
+    Color? successLight,
+    Color? warning,
+    Color? warningLight,
+    Color? errorLight,
+    Color? infoLight,
   }) {
     return ShikkhokThemeExtension(
-      softShadow: softShadow ?? this.softShadow,
-      cardShadow: cardShadow ?? this.cardShadow,
       surfaceMuted: surfaceMuted ?? this.surfaceMuted,
       surfaceHover: surfaceHover ?? this.surfaceHover,
+      success: success ?? this.success,
+      successLight: successLight ?? this.successLight,
+      warning: warning ?? this.warning,
+      warningLight: warningLight ?? this.warningLight,
+      errorLight: errorLight ?? this.errorLight,
+      infoLight: infoLight ?? this.infoLight,
     );
   }
 
   @override
-  ShikkhokThemeExtension lerp(
-      ThemeExtension<ShikkhokThemeExtension>? other, double t) {
-    if (other is! ShikkhokThemeExtension) return this;
+  ThemeExtension<ShikkhokThemeExtension> lerp(
+      covariant ThemeExtension<ShikkhokThemeExtension>? other, double t) {
+    if (other is! ShikkhokThemeExtension) {
+      return this;
+    }
     return ShikkhokThemeExtension(
-      softShadow: t < 0.5 ? softShadow : other.softShadow,
-      cardShadow: t < 0.5 ? cardShadow : other.cardShadow,
       surfaceMuted: Color.lerp(surfaceMuted, other.surfaceMuted, t)!,
       surfaceHover: Color.lerp(surfaceHover, other.surfaceHover, t)!,
+      success: Color.lerp(success, other.success, t)!,
+      successLight: Color.lerp(successLight, other.successLight, t)!,
+      warning: Color.lerp(warning, other.warning, t)!,
+      warningLight: Color.lerp(warningLight, other.warningLight, t)!,
+      errorLight: Color.lerp(errorLight, other.errorLight, t)!,
+      infoLight: Color.lerp(infoLight, other.infoLight, t)!,
     );
   }
-
-  static ShikkhokThemeExtension get light => ShikkhokThemeExtension(
-        softShadow: AppShadows.soft,
-        cardShadow: AppShadows.card,
-        surfaceMuted: AppColors.surfaceMuted,
-        surfaceHover: AppColors.surfaceHover,
-      );
 }
