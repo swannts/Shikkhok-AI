@@ -5,9 +5,8 @@ import '../../data/datasources/textbook_download_manager.dart';
 import '../../data/dto/textbook_manifest_dto.dart';
 import '../../domain/entities/download_task.dart';
 
-final textbookDownloadManagerProvider = Provider<TextbookDownloadManager>((
-  ref,
-) {
+final textbookDownloadManagerProvider =
+    Provider<TextbookDownloadManager>((ref) {
   final apiClient = ApiClient();
   final manager = TextbookDownloadManager(apiClient);
   ref.onDispose(() => manager.dispose());
@@ -51,7 +50,7 @@ class OfflineTextbooksNotifier extends StateNotifier<OfflineTextbooksState> {
   StreamSubscription? _tasksSub;
 
   OfflineTextbooksNotifier(this._manager)
-    : super(const OfflineTextbooksState()) {
+      : super(const OfflineTextbooksState()) {
     _init();
   }
 
@@ -122,9 +121,8 @@ class OfflineTextbooksNotifier extends StateNotifier<OfflineTextbooksState> {
 }
 
 final offlineTextbooksProvider =
-    StateNotifierProvider<OfflineTextbooksNotifier, OfflineTextbooksState>((
-      ref,
-    ) {
-      final manager = ref.watch(textbookDownloadManagerProvider);
-      return OfflineTextbooksNotifier(manager);
-    });
+    StateNotifierProvider<OfflineTextbooksNotifier, OfflineTextbooksState>(
+        (ref) {
+  final manager = ref.watch(textbookDownloadManagerProvider);
+  return OfflineTextbooksNotifier(manager);
+});

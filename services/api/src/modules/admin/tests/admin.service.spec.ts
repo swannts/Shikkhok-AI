@@ -185,9 +185,7 @@ describe('AdminService', () => {
     const lesson: any = {
       workflowStatus: ContentWorkflowStatus.DRAFT,
       isPublished: false,
-      save: jest.fn().mockImplementation(async function () {
-        return this;
-      }),
+      save: jest.fn().mockImplementation(async function () { return this; }),
       toJSON: jest.fn().mockReturnValue({ workflowStatus: ContentWorkflowStatus.IN_REVIEW }),
     };
     lessonModel.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(lesson) });
