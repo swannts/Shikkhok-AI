@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Test, TestingModule } from '@nestjs/testing';
-import { BadRequestException, ForbiddenException, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, NotFoundException } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { StudentsService } from '../students.service';
 import { StudentProfileRepository } from '../repositories/student-profile.repository';

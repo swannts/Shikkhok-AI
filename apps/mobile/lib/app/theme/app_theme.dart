@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
-import 'app_radius.dart';
 import 'app_spacing.dart';
 import 'app_typography.dart';
 import 'theme_extensions.dart';
@@ -21,7 +20,6 @@ class AppTheme {
         secondary: AppColors.secondaryBlue,
         surface: AppColors.surface,
         error: AppColors.error,
-        background: AppColors.background,
         onPrimary: AppColors.onPrimary,
       ),
       scaffoldBackgroundColor: AppColors.background,
@@ -101,7 +99,7 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.error, width: 1),
         ),
       ),
-      extensions: [
+      extensions: const [
         ShikkhokThemeExtension.light,
       ],
     );
