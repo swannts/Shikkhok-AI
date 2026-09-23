@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 
+from app.core.config import settings
+
 
 class RetrievedChunk(BaseModel):
     chunk_id: str
@@ -20,8 +22,8 @@ class RetrievedChunk(BaseModel):
 
     page_start: int | None = None
     page_end: int | None = None
-    curriculum_version: str | None = Field(default="2024-NCTB")
-    academic_year: int | None = Field(default=2026)
+    curriculum_version: str | None = Field(default=settings.default_curriculum_version)
+    academic_year: int | None = Field(default_factory=lambda: settings.default_academic_year)
     curriculum_year: int | None = None
     medium: str | None = None
     content_version: int | None = None

@@ -194,9 +194,9 @@ class PersistentVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 45,
                 "page_end": 47,
-                "curriculum_version": "2024-NCTB",
-                "academic_year": 2026,
-                "curriculum_year": 2026,
+                "curriculum_version": settings.default_curriculum_version,
+                "academic_year": settings.default_academic_year,
+                "curriculum_year": settings.default_curriculum_year,
                 "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
@@ -218,9 +218,9 @@ class PersistentVectorStore:
                 "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
                 "page_start": 48,
                 "page_end": 50,
-                "curriculum_version": "2024-NCTB",
-                "academic_year": 2026,
-                "curriculum_year": 2026,
+                "curriculum_version": settings.default_curriculum_version,
+                "academic_year": settings.default_academic_year,
+                "curriculum_year": settings.default_curriculum_year,
                 "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
@@ -242,9 +242,9 @@ class PersistentVectorStore:
                 "lesson_title": "দহন প্রক্রিয়া",
                 "page_start": 72,
                 "page_end": 74,
-                "curriculum_version": "2024-NCTB",
-                "academic_year": 2026,
-                "curriculum_year": 2026,
+                "curriculum_version": settings.default_curriculum_version,
+                "academic_year": settings.default_academic_year,
+                "curriculum_year": settings.default_curriculum_year,
                 "medium": "bangla",
                 "content_version": 1,
                 "embedding_provider": self.embedding_metadata.provider,
@@ -273,7 +273,7 @@ class PersistentVectorStore:
 
     def _apply_default_scope_metadata(self) -> None:
         for chunk in self.chunks:
-            chunk.setdefault("curriculum_version", "2024-NCTB")
+            chunk.setdefault("curriculum_version", settings.default_curriculum_version)
             chunk.setdefault("academic_year", 2026)
             chunk.setdefault("curriculum_year", 2026)
             chunk.setdefault("medium", "bangla")
@@ -379,7 +379,7 @@ class PersistentVectorStore:
                     lesson_title=chunk.get("lesson_title"),
                     page_start=chunk.get("page_start"),
                     page_end=chunk.get("page_end"),
-                    curriculum_version=chunk.get("curriculum_version", "2024-NCTB"),
+                    curriculum_version=chunk.get("curriculum_version", settings.default_curriculum_version),
                     academic_year=chunk.get("academic_year", 2026),
                     curriculum_year=chunk.get("curriculum_year"),
                     medium=chunk.get("medium"),

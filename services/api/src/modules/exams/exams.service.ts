@@ -455,9 +455,9 @@ export class ExamsService {
   private async resolveCurriculumYear(userId: string): Promise<number> {
     try {
       const profile = await this.studentsService?.getProfileByUserId?.(userId);
-      return profile?.curriculumYear ?? 2026;
+      return profile?.curriculumYear ?? parseInt(process.env.DEFAULT_CURRICULUM_YEAR || '2026', 10);
     } catch {
-      return 2026;
+      return parseInt(process.env.DEFAULT_CURRICULUM_YEAR || '2026', 10);
     }
   }
 }
