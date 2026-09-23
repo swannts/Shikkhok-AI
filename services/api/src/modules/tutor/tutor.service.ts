@@ -1,4 +1,9 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Response, Request } from 'express';
 import { Types } from 'mongoose';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
@@ -34,6 +39,12 @@ export class TutorService {
     dto: StartTutorConversationDto,
   ): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
+    const classLevel = await this.resolveClassLevel(currentUser.userId);
+    if (classLevel === undefined || classLevel < 1 || classLevel > 12) {
+      throw new BadRequestException(
+        'Valid student class level (1-12) is required to start a tutor conversation.',
+      );
+    }
 
     const conversation = await this.conversationRepository.createConversation({
       userId: Types.ObjectId.isValid(currentUser.userId)
@@ -52,7 +63,7 @@ export class TutorService {
         dto.lessonId && Types.ObjectId.isValid(dto.lessonId)
           ? (new Types.ObjectId(dto.lessonId) as any)
           : (dto.lessonId as any) || null,
-      classLevel: await this.resolveClassLevel(currentUser.userId),
+      classLevel: (await this.resolveClassLevel(currentUser.userId)) ?? undefined,
       medium: await this.resolveMedium(currentUser.userId),
       curriculumYear: String(await this.resolveCurriculumYear(currentUser.userId)),
       messageCount: 0,
@@ -290,14 +301,6 @@ export class TutorService {
         const chapter = await this.curriculumService.getChapter(conversation.chapterId.toString());
         const subject = await this.curriculumService.getSubject(conversation.subjectId.toString());
         subjectTitle = subject.title ?? subject.name ?? 'General Studies';
-        citations.push({
-          sourceId: conversation.lessonId.toString(),
-          sourceBook: 'curriculum-context',
-          classLevel: conversation.classLevel,
-          subject: subjectTitle,
-          chapter: chapter.title,
-          excerpt: lesson.title,
-        });
         contextSegments.push(`এই পাঠ: ${lesson.title}`);
       } catch {
         // Fallback gracefully
@@ -461,12 +464,12 @@ export class TutorService {
     }
   }
 
-  private async resolveClassLevel(userId: string): Promise<number> {
+  private async resolveClassLevel(userId: string): Promise<number | undefined> {
     try {
       const profile = await this.studentsService?.getProfileByUserId?.(userId);
-      return profile?.classLevel ?? 8;
+      return profile?.classLevel ?? undefined;
     } catch {
-      return 8;
+      return undefined;
     }
   }
 

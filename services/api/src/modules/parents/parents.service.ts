@@ -159,7 +159,7 @@ export class ParentsService {
     return {
       reportPeriodDays: days,
       studentName: childProfile?.name ?? 'শিক্ষার্থী',
-      classLevel: childProfile?.classLevel ?? 8,
+      classLevel: childProfile?.classLevel ?? undefined,
       medium: childProfile?.medium ?? 'bangla',
       completedLessonsCount: completedLessons,
       currentStreakDays: currentStreak,

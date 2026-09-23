@@ -133,12 +133,12 @@ export class TextbooksService {
     };
   }
 
-  private async resolveClassLevel(userId: string): Promise<number> {
+  private async resolveClassLevel(userId: string): Promise<number | undefined> {
     try {
       const profile = await this.studentsService?.getProfileByUserId?.(userId);
-      return profile?.classLevel ?? 8;
+      return profile?.classLevel ?? undefined;
     } catch {
-      return 8;
+      return undefined;
     }
   }
 

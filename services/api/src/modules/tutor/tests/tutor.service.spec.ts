@@ -98,6 +98,9 @@ describe('TutorService', () => {
   it('should start a conversation and send the initial message', async () => {
     const testUserId = new Types.ObjectId().toString();
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
     conversationRepository.createConversation.mockResolvedValue({
       _id: { toString: () => 'conv-1' },
       toJSON: jest.fn(),
@@ -127,6 +130,9 @@ describe('TutorService', () => {
 
   it('should reject access to missing conversations', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
     conversationRepository.findById.mockResolvedValue(null);
 
     await expect(
@@ -136,6 +142,9 @@ describe('TutorService', () => {
 
   it('should reject access to another user conversation for non-admin', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
     conversationRepository.findById.mockResolvedValue({
       _id: 'conv-other',
       userId: { toString: () => 'user-other' },
@@ -148,6 +157,9 @@ describe('TutorService', () => {
 
   it('should use the tutor gateway reply when available in regular sendMessage', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
     conversationRepository.findById.mockResolvedValue({
       _id: { toString: () => 'conv-1' },
       userId: { toString: () => 'user-1' },
@@ -171,7 +183,8 @@ describe('TutorService', () => {
     tutorGatewayService.generateReply.mockResolvedValue({
       content: 'gateway reply',
       citations: [{ sourceBook: 'NCTB' }],
-      fallbackUsed: false,
+      grounded: true,
+      retrievalUnavailable: false,
       citationCount: 1,
     });
     studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
@@ -189,6 +202,9 @@ describe('TutorService', () => {
 
   it('should stream AI tutor response with SSE frames and persist assistant message with citations', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
     conversationRepository.findById.mockResolvedValue({
       _id: { toString: () => 'conv-1' },
       userId: { toString: () => 'user-1' },
@@ -282,6 +298,9 @@ describe('TutorService', () => {
 
   it('should paginate tutor messages using an opaque cursor', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
     conversationRepository.findById.mockResolvedValue({
       _id: { toString: () => 'conv-1' },
       userId: { toString: () => 'user-1' },
