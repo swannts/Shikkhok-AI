@@ -11,11 +11,6 @@ import { TutorConversationRepository } from './repositories/tutor-conversation.r
 import { TutorMessageRepository } from './repositories/tutor-message.repository';
 import { TutorService } from './tutor.service';
 import { TutorController } from './tutor.controller';
-import { TutorGatewayService } from './tutor-gateway.service';
-import { AiModerationService } from './services/ai-moderation.service';
-import { OutputSafetyService } from './services/output-safety.service';
-import { CitationValidatorService } from './services/citation-validator.service';
-import { AiMetricsService } from './services/ai-metrics.service';
 
 import { AiGatewayModule } from '../ai-gateway/ai-gateway.module';
 
@@ -33,23 +28,7 @@ import { AiGatewayModule } from '../ai-gateway/ai-gateway.module';
     ]),
   ],
   controllers: [TutorController],
-  providers: [
-    TutorConversationRepository,
-    TutorMessageRepository,
-    AiModerationService,
-    OutputSafetyService,
-    CitationValidatorService,
-    AiMetricsService,
-    TutorGatewayService,
-    TutorService,
-  ],
-  exports: [
-    AiModerationService,
-    OutputSafetyService,
-    CitationValidatorService,
-    AiMetricsService,
-    TutorGatewayService,
-    TutorService,
-  ],
+  providers: [TutorConversationRepository, TutorMessageRepository, TutorService],
+  exports: [TutorService],
 })
 export class TutorModule {}

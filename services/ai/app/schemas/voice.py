@@ -2,6 +2,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
+from app.core.config import settings
+
 
 class AudioTranscriptionRequest(BaseModel):
     audio_base64: str = Field(..., description="Base64-encoded raw audio file")
@@ -35,8 +37,8 @@ class VoiceTurnRequest(BaseModel):
     subject_id: str = "general"
     chapter_id: str | None = None
     lesson_id: str | None = None
-    curriculum_version: str = "2024-NCTB"
-    academic_year: int = 2026
+    curriculum_version: str = settings.default_curriculum_version
+    academic_year: int = settings.default_academic_year
     speech_rate: float = 1.0
 
 

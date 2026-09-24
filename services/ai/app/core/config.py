@@ -73,6 +73,11 @@ class Settings(BaseSettings):
     llm_timeout_seconds: float = 20.0
     tutor_grounding_mode: TutorGroundingMode = "hybrid"
 
+    # Curriculum Context Defaults
+    default_curriculum_version: str = "2024-NCTB"
+    default_academic_year: int = 2026
+    default_curriculum_year: int = 2026
+
     @field_validator("debug", mode="before")
     @classmethod
     def parse_debug_flag(cls, value: bool | str) -> bool:

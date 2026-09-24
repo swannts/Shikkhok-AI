@@ -17,7 +17,11 @@ import { StartTutorConversationDto } from './dto/start-tutor-conversation.dto';
 import { SendTutorMessageDto } from './dto/send-tutor-message.dto';
 import { TutorConversationRepository } from './repositories/tutor-conversation.repository';
 import { TutorMessageRole } from './enums/tutor-message-role.enum';
-import { TutorGatewayService, TutorGatewayRequest } from './tutor-gateway.service';
+import {
+  AiGatewayService,
+  TutorGenerationPayload,
+  TutorStreamEvent,
+} from '../ai-gateway/services/ai-gateway.service';
 import { TutorMessageRepository } from './repositories/tutor-message.repository';
 import { TutorCitation } from './types/tutor-citation.type';
 
@@ -31,7 +35,7 @@ export class TutorService {
     private readonly studentsService: StudentsService,
     private readonly usersService: UsersService,
     private readonly messageRepository: TutorMessageRepository,
-    private readonly tutorGatewayService: TutorGatewayService,
+    private readonly aiGatewayService: AiGatewayService,
   ) {}
 
   async startConversation(
@@ -40,7 +44,7 @@ export class TutorService {
   ): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
     const classLevel = await this.resolveClassLevel(currentUser.userId);
-    if (classLevel === undefined || classLevel < 1 || classLevel > 12) {
+    if (classLevel === undefined || classLevel === null || classLevel < 1 || classLevel > 12) {
       throw new BadRequestException(
         'Valid student class level (1-12) is required to start a tutor conversation.',
       );
@@ -63,7 +67,7 @@ export class TutorService {
         dto.lessonId && Types.ObjectId.isValid(dto.lessonId)
           ? (new Types.ObjectId(dto.lessonId) as any)
           : (dto.lessonId as any) || null,
-      classLevel: (await this.resolveClassLevel(currentUser.userId)) ?? undefined,
+      classLevel: await this.resolveClassLevel(currentUser.userId),
       medium: await this.resolveMedium(currentUser.userId),
       curriculumYear: String(await this.resolveCurriculumYear(currentUser.userId)),
       messageCount: 0,
@@ -196,18 +200,20 @@ export class TutorService {
       subjectTitle,
     } = await this.prepareContext(currentUser.userId, conversation);
 
-    const gatewayRequest: TutorGatewayRequest = {
+    const payload: TutorGenerationPayload = {
+      requestId: `req-${Date.now()}`,
       conversationId,
       userId: currentUser.userId,
-      prompt: dto.content,
+      message: dto.content,
       lessonId: conversation.lessonId?.toString?.() ?? null,
-      topicId: conversation.chapterId?.toString?.() ?? conversation.subjectId?.toString?.() ?? null,
+      chapterId: conversation.chapterId?.toString?.() ?? null,
+      subjectId: conversation.subjectId?.toString?.() ?? null,
       classLevel: conversation.classLevel ?? (await this.resolveClassLevel(currentUser.userId)),
-      subject: subjectTitle,
+      subjectTitle: subjectTitle,
       language: conversation.medium === 'english' ? 'en' : 'bn',
-      medium: conversation.medium,
-      provider: 'gemini',
-      contextSegments,
+      history: contextSegments.length
+        ? ([{ role: 'system', content: `Context:\n${contextSegments.join('\n')}` }] as any)
+        : undefined,
     };
 
     let accumulatedContent = '';
@@ -215,8 +221,8 @@ export class TutorService {
     let provider = 'gemini';
 
     try {
-      for await (const event of this.tutorGatewayService.streamReply(
-        gatewayRequest,
+      for await (const event of this.aiGatewayService.streamTutorResponse(
+        payload,
         abortController.signal,
       )) {
         if (abortController.signal.aborted) {
@@ -269,12 +275,22 @@ export class TutorService {
       }
     } catch (error: any) {
       if (!abortController.signal.aborted) {
-        res.write(
-          `event: error\ndata: ${JSON.stringify({
-            code: 'STREAM_FAILED',
-            message: error?.message ?? 'Streaming error occurred',
-          })}\n\n`,
-        );
+        // Fallback response
+        res.write(`event: metadata
+data: ${JSON.stringify({ provider: 'local-fallback', grounded: false, retrievalUnavailable: true })}
+
+`);
+        const fallbackText =
+          'এই উত্তরটি সাধারণ ব্যাখ্যার ভিত্তিতে দেওয়া হয়েছে। এই মুহূর্তে পাঠ্যবইয়ের উৎস যাচাই করা যাচ্ছে না।';
+        res.write(`event: delta
+data: ${JSON.stringify({ text: fallbackText })}
+
+`);
+        res.write(`event: done
+data: {}
+
+`);
+        accumulatedContent = fallbackText;
       }
     } finally {
       if (!res.writableEnded) {
@@ -338,33 +354,55 @@ export class TutorService {
       conversation,
     );
 
-    const gatewayReply = await this.tutorGatewayService.generateReply({
-      conversationId: conversation._id?.toString?.(),
+    const payload: TutorGenerationPayload = {
+      requestId: `req-${Date.now()}`,
       userId,
-      prompt,
-      lessonId: conversation.lessonId?.toString?.() ?? null,
-      topicId: conversation.chapterId?.toString?.() ?? conversation.subjectId?.toString?.() ?? null,
-      classLevel: conversation.classLevel ?? (await this.resolveClassLevel(userId)),
-      subject: subjectTitle,
+      conversationId: conversation._id?.toString?.() ?? '',
+      message: prompt,
       language: conversation.medium === 'english' ? 'en' : 'bn',
-      medium: conversation.medium,
-      provider: 'gemini',
-      contextSegments,
-    });
+      classLevel: conversation.classLevel ?? (await this.resolveClassLevel(userId)),
+      subjectTitle: subjectTitle,
+      lessonId: conversation.lessonId?.toString?.() ?? null,
+      chapterId: conversation.chapterId?.toString?.() ?? null,
+      subjectId: conversation.subjectId?.toString?.() ?? null,
+      history: contextSegments.length
+        ? ([{ role: 'system', content: `Context:\n${contextSegments.join('\n')}` }] as any)
+        : undefined,
+    };
 
-    if (gatewayReply?.content) {
-      return {
-        content: gatewayReply.content,
-        citations: [...citations, ...(gatewayReply.citations ?? [])],
-        provider: gatewayReply.provider,
-      };
+    let content = '';
+    const rawCitations: any[] = [];
+    let provider = 'gemini';
+
+    try {
+      const stream = this.aiGatewayService.streamTutorResponse(payload);
+      for await (const chunk of stream) {
+        if (chunk.event === 'metadata' && chunk.data?.provider) {
+          provider = chunk.data.provider;
+        } else if (chunk.event === 'delta' && typeof chunk.data?.text === 'string') {
+          content += chunk.data.text;
+        } else if (chunk.event === 'citation' && chunk.data) {
+          rawCitations.push(chunk.data);
+        }
+      }
+
+      if (content.trim()) {
+        return {
+          content: content.trim(),
+          citations: [...citations, ...rawCitations],
+          provider,
+        };
+      }
+    } catch (err) {
+      // Fallback below
     }
 
     const reply = [
-      'ঠিক আছে, আমি ধাপে ধাপে বুঝিয়ে দিচ্ছি।',
-      contextSegments.length ? contextSegments.join(' • ') : 'প্রাসঙ্গিক ভিত্তি নিয়ে সাহায্য করছি।',
-      `তোমার প্রশ্ন: ${prompt.trim()}`,
-      'প্রথমে মূল ধারণা ধরো, তারপর ছোট উদাহরণ দিয়ে যাচাই করো।',
+      'এই উত্তরটি সাধারণ ব্যাখ্যার ভিত্তিতে দেওয়া হয়েছে। ',
+      'এই মুহূর্তে পাঠ্যবইয়ের উৎস যাচাই করা যাচ্ছে না। ',
+      contextSegments.length ? contextSegments.join(' • ') : '',
+      `তোমার প্রশ্নের মূল ধারণা: "${prompt.trim()}"।`,
+      'কোনো নির্দিষ্ট অংশ বুঝতে না পারলে আমাকে নির্দ্বিধায় বলো!',
     ].join(' ');
 
     return {
