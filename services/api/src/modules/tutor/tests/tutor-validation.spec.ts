@@ -40,12 +40,10 @@ describe('TutorService - Phase 2 Validation', () => {
             createConversation: jest
               .fn()
               .mockResolvedValue({ _id: { toString: () => '123' }, toJSON: () => ({}) }),
-            findById: jest
-              .fn()
-              .mockResolvedValue({
-                _id: { toString: () => '123' },
-                userId: { toString: () => 'user-1' },
-              }),
+            findById: jest.fn().mockResolvedValue({
+              _id: { toString: () => '123' },
+              userId: { toString: () => 'user-1' },
+            }),
           },
         },
         {
@@ -54,12 +52,10 @@ describe('TutorService - Phase 2 Validation', () => {
             createConversation: jest
               .fn()
               .mockResolvedValue({ _id: { toString: () => '123' }, toJSON: () => ({}) }),
-            findById: jest
-              .fn()
-              .mockResolvedValue({
-                _id: { toString: () => '123' },
-                userId: { toString: () => 'user-1' },
-              }),
+            findById: jest.fn().mockResolvedValue({
+              _id: { toString: () => '123' },
+              userId: { toString: () => 'user-1' },
+            }),
           },
         },
         {

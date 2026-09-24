@@ -18,10 +18,46 @@ export interface TutorGenerationPayload {
   history?: Array<{ role: 'user' | 'assistant' | 'system'; content: string }>;
 }
 
-export interface TutorStreamEvent {
-  event: 'metadata' | 'delta' | 'citation' | 'done' | 'error';
+export interface TutorMetadataEvent {
+  event: 'metadata';
+  data: {
+    provider?: string;
+    model?: string;
+    grounded: boolean;
+    retrievalUnavailable: boolean;
+    citationCount?: number;
+    [key: string]: any;
+  };
+}
+
+export interface TutorDeltaEvent {
+  event: 'delta';
+  data: {
+    text: string;
+  };
+}
+
+export interface TutorCitationEvent {
+  event: 'citation';
   data: Record<string, any>;
 }
+
+export interface TutorDoneEvent {
+  event: 'done';
+  data: Record<string, any>;
+}
+
+export interface TutorErrorEvent {
+  event: 'error';
+  data: {
+    code?: string;
+    message?: string;
+    [key: string]: any;
+  };
+}
+
+export type TutorStreamEvent =
+  TutorMetadataEvent | TutorDeltaEvent | TutorCitationEvent | TutorDoneEvent | TutorErrorEvent;
 
 @Injectable()
 export class AiGatewayService {
