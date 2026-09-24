@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TutorService } from '../tutor.service';
 import { TutorConversationRepository } from '../repositories/tutor-conversation.repository';
 import { TutorMessageRepository } from '../repositories/tutor-message.repository';
-import { TutorGatewayService } from '../tutor-gateway.service';
+import { AiGatewayService } from '../../ai-gateway/services/ai-gateway.service';
 import { CurriculumService } from '../../curriculum/curriculum.service';
 import { StudentsService } from '../../students/students.service';
 import { UsersService } from '../../users/users.service';
@@ -25,20 +25,46 @@ describe('TutorService - Phase 2 Validation', () => {
         {
           provide: UsersService,
           useValue: {
-            findById: jest.fn().mockResolvedValue({ _id: 'user-1', role: 'student' }),
+            findById: jest
+              .fn()
+              .mockResolvedValue({
+                _id: { toString: () => '123' },
+                userId: { toString: () => 'user-1' },
+              })
+              .mockResolvedValue({ _id: 'user-1', role: 'student' }),
           },
         },
         {
           provide: TutorConversationRepository,
-          useValue: { create: jest.fn() },
+          useValue: {
+            createConversation: jest
+              .fn()
+              .mockResolvedValue({ _id: { toString: () => '123' }, toJSON: () => ({}) }),
+            findById: jest
+              .fn()
+              .mockResolvedValue({
+                _id: { toString: () => '123' },
+                userId: { toString: () => 'user-1' },
+              }),
+          },
         },
         {
           provide: TutorMessageRepository,
-          useValue: { create: jest.fn() },
+          useValue: {
+            createConversation: jest
+              .fn()
+              .mockResolvedValue({ _id: { toString: () => '123' }, toJSON: () => ({}) }),
+            findById: jest
+              .fn()
+              .mockResolvedValue({
+                _id: { toString: () => '123' },
+                userId: { toString: () => 'user-1' },
+              }),
+          },
         },
         {
-          provide: TutorGatewayService,
-          useValue: { generateReply: jest.fn() },
+          provide: AiGatewayService,
+          useValue: { streamTutorResponse: jest.fn() },
         },
         {
           provide: CurriculumService,
@@ -64,11 +90,11 @@ describe('TutorService - Phase 2 Validation', () => {
 
   it('should throw BadRequestException if student classLevel is missing', async () => {
     studentsService.getProfileByUserId.mockResolvedValueOnce({
-      classLevel: null,
+      classLevel: undefined,
     } as any);
 
     await expect(
-      service.startConversation({ userId: 'user-1', role: 'student' }, { initialMessage: 'hello' }),
+      service.startConversation({ userId: 'user-1', role: 'student' }, {}),
     ).rejects.toThrow(BadRequestException);
   });
 
@@ -78,7 +104,7 @@ describe('TutorService - Phase 2 Validation', () => {
     } as any);
 
     await expect(
-      service.startConversation({ userId: 'user-1', role: 'student' }, { initialMessage: 'hello' }),
+      service.startConversation({ userId: 'user-1', role: 'student' }, {}),
     ).rejects.toThrow(BadRequestException);
   });
 });

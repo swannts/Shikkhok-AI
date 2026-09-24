@@ -10,7 +10,11 @@ import { StudyPlanService } from '../../study-plan/study-plan.service';
 import { StudentsService } from '../../students/students.service';
 import { UsersService } from '../../users/users.service';
 import { UserRole } from '../../users/enums/user-role.enum';
-import { TutorGatewayService, TutorStreamEvent } from '../tutor-gateway.service';
+import {
+  AiGatewayService,
+  TutorGenerationPayload,
+  TutorStreamEvent,
+} from '../../ai-gateway/services/ai-gateway.service';
 import { TutorMessageRepository } from '../repositories/tutor-message.repository';
 import { TutorMessageRole } from '../enums/tutor-message-role.enum';
 
@@ -19,7 +23,7 @@ describe('TutorService', () => {
   let conversationRepository: jest.Mocked<TutorConversationRepository>;
   let studyPlanService: jest.Mocked<StudyPlanService>;
   let progressService: jest.Mocked<ProgressService>;
-  let tutorGatewayService: jest.Mocked<TutorGatewayService>;
+  let aiGatewayService: any;
   let messageRepository: jest.Mocked<TutorMessageRepository>;
   let usersService: jest.Mocked<UsersService>;
 
@@ -27,6 +31,12 @@ describe('TutorService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TutorService,
+        {
+          provide: AiGatewayService,
+          useValue: {
+            streamTutorResponse: jest.fn(),
+          },
+        },
         {
           provide: TutorConversationRepository,
           useValue: {
@@ -76,13 +86,6 @@ describe('TutorService', () => {
             findById: jest.fn(),
           },
         },
-        {
-          provide: TutorGatewayService,
-          useValue: {
-            generateReply: jest.fn(),
-            streamReply: jest.fn(),
-          },
-        },
       ],
     }).compile();
 
@@ -90,7 +93,7 @@ describe('TutorService', () => {
     conversationRepository = module.get(TutorConversationRepository);
     progressService = module.get(ProgressService);
     studyPlanService = module.get(StudyPlanService);
-    tutorGatewayService = module.get(TutorGatewayService);
+    aiGatewayService = module.get<AiGatewayService>(AiGatewayService as any) as any;
     messageRepository = module.get(TutorMessageRepository);
     usersService = module.get(UsersService);
   });
@@ -117,7 +120,9 @@ describe('TutorService', () => {
     messageRepository.findByConversationCursor.mockResolvedValue([]);
     studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
     progressService.getMySummary.mockRejectedValue(new NotFoundException());
-    tutorGatewayService.generateReply.mockResolvedValue(null);
+    aiGatewayService.streamTutorResponse.mockImplementation(async function* () {
+      yield null as any;
+    } as any);
 
     const result = await service.startConversation(
       { userId: testUserId, role: UserRole.STUDENT },
@@ -180,13 +185,11 @@ describe('TutorService', () => {
         }),
       },
     ] as any);
-    tutorGatewayService.generateReply.mockResolvedValue({
-      content: 'gateway reply',
-      citations: [{ sourceBook: 'NCTB' }],
-      grounded: true,
-      retrievalUnavailable: false,
-      citationCount: 1,
-    });
+    aiGatewayService.streamTutorResponse.mockImplementation(async function* () {
+      yield { event: 'delta', data: { text: 'gateway reply' } };
+      yield { event: 'citation', data: { sourceBook: 'NCTB' } };
+      yield { event: 'done', data: {} };
+    } as any);
     studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
     progressService.getMySummary.mockRejectedValue(new NotFoundException());
 
@@ -196,7 +199,7 @@ describe('TutorService', () => {
       { content: 'Explain algebra' },
     );
 
-    expect(tutorGatewayService.generateReply).toHaveBeenCalled();
+    expect(aiGatewayService.streamTutorResponse).toHaveBeenCalled();
     expect(result.messages?.[0]?.content).toBe('gateway reply');
   });
 
@@ -229,7 +232,7 @@ describe('TutorService', () => {
       yield { event: 'citation', data: { sourceBook: 'NCTB Class 8 Math', pageNumber: 45 } };
       yield { event: 'done', data: { latencyMs: 250 } };
     }
-    tutorGatewayService.streamReply.mockImplementation(mockStream as any);
+    aiGatewayService.streamTutorResponse.mockImplementation(mockStream as any);
 
     const writtenChunks: string[] = [];
     const mockRes: any = {
