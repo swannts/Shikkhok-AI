@@ -57,7 +57,7 @@ describe('AiGatewayService SSE Parser Hardening', () => {
     const parsed = service.parseSseChunk(chunk);
     expect(parsed).not.toBeNull();
     expect(parsed?.event).toBe('done');
-    expect(parsed?.data.finishReason).toBe('stop');
+    expect((parsed as any)?.data.finishReason).toBe('stop');
   });
 
   it('should return null for empty or comment-only chunks', () => {
