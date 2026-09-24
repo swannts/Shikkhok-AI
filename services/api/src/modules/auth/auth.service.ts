@@ -208,9 +208,32 @@ export class AuthService {
   // LOGOUT
   // ──────────────────────────────────────────────
 
-  async logout(sessionId: string, userId: string): Promise<void> {
-    await this.refreshSessionRepository.revokeSession(sessionId);
-    this.logger.log(`Session ${sessionId} revoked for user ${userId}`, 'AuthService');
+  async logout(refreshToken: string, userId: string): Promise<void> {
+    let payload: any;
+    try {
+      payload = this.jwtService.verify(refreshToken, {
+        secret: this.configService.get<string>('jwt.refreshSecret'),
+      });
+    } catch (e) {
+      this.logger.warn(`Failed to verify refresh token during logout: ${e.message}`, 'AuthService');
+      // If token is invalid or expired, we can't reliably get sessionId from it
+      // However, we don't want to throw an error since they're logging out anyway
+      return;
+    }
+
+    if (payload.sub !== userId) {
+      this.logger.warn(
+        `User ${userId} attempted to logout with a token belonging to ${payload.sub}`,
+        'AuthService',
+      );
+      throw new UnauthorizedException('Invalid token for user');
+    }
+
+    const sessionId = payload.sessionId;
+    if (sessionId) {
+      await this.refreshSessionRepository.revokeSession(sessionId);
+      this.logger.log(`Session ${sessionId} revoked for user ${userId}`, 'AuthService');
+    }
   }
 
   async logoutAll(userId: string): Promise<void> {

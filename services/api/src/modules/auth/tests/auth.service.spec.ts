@@ -393,10 +393,36 @@ describe('AuthService', () => {
     it('should revoke a single session', async () => {
       const sessionId = new Types.ObjectId().toString();
       const userId = new Types.ObjectId().toString();
+      const refreshToken = 'valid.refresh.token';
 
-      await authService.logout(sessionId, userId);
+      jwtService.verify.mockReturnValue({ sub: userId, sessionId });
+
+      await authService.logout(refreshToken, userId);
 
       expect(refreshSessionRepository.revokeSession).toHaveBeenCalledWith(sessionId);
+    });
+
+    it('should not throw if token is invalid or expired', async () => {
+      const userId = new Types.ObjectId().toString();
+      const refreshToken = 'expired.refresh.token';
+
+      jwtService.verify.mockImplementation(() => {
+        throw new Error('jwt expired');
+      });
+
+      await expect(authService.logout(refreshToken, userId)).resolves.not.toThrow();
+      expect(refreshSessionRepository.revokeSession).not.toHaveBeenCalled();
+    });
+
+    it('should throw if token belongs to another user', async () => {
+      const sessionId = new Types.ObjectId().toString();
+      const userId = new Types.ObjectId().toString();
+      const otherUserId = new Types.ObjectId().toString();
+      const refreshToken = 'other.user.token';
+
+      jwtService.verify.mockReturnValue({ sub: otherUserId, sessionId });
+
+      await expect(authService.logout(refreshToken, userId)).rejects.toThrow(UnauthorizedException);
     });
   });
 

@@ -53,10 +53,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Session revoked' })
   @ApiResponse({ status: 401, description: 'Not authenticated' })
   async logout(@CurrentUser() user: AuthenticatedUser, @Body() body: RefreshTokenDto) {
-    // Decode the refresh token to get sessionId for targeted revocation
-    // For simplicity, we revoke all sessions. A more granular approach
-    // would extract sessionId from the refresh token.
-    await this.authService.logoutAll(user.userId);
+    await this.authService.logout(body.refreshToken, user.userId);
     return { message: 'Logged out successfully' };
   }
 
