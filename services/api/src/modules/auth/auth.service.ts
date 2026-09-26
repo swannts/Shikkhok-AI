@@ -1,3 +1,4 @@
+import * as crypto from 'crypto';
 import {
   Injectable,
   UnauthorizedException,
@@ -10,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as argon2 from 'argon2';
 import { Types } from 'mongoose';
-import { randomBytes, createHash } from 'crypto';
+import { randomBytes, createHash, createHmac } from 'crypto';
 
 import { UserRepository } from '../users/repositories/user.repository';
 import { RefreshSessionRepository } from './repositories/refresh-session.repository';
@@ -271,7 +272,7 @@ export class AuthService {
 
     // Generate 6-digit OTP
     const otp = this.generateOtp();
-    const hashedOtp = this.hashToken(otp);
+    const hashedOtp = this.hashOtp(otp, dto.phone, dto.purpose);
 
     const otpState: OtpState = {
       hashedOtp,
@@ -288,10 +289,7 @@ export class AuthService {
     await this.redisService.set(cooldownKey, '1', OTP_COOLDOWN_SECONDS);
 
     // In production: send OTP via SMS gateway
-    // For development: log for testing (OTP is never logged in production)
-    if (this.configService.get<string>('environment') === 'development') {
-      this.logger.debug(`[DEV ONLY] OTP for ${dto.phone}: ${otp}`, 'AuthService');
-    }
+    // NOTE: OTP is intentionally never logged in any environment for security reasons.
 
     return { message: 'OTP sent successfully' };
   }
@@ -313,8 +311,13 @@ export class AuthService {
     }
 
     // Verify OTP hash
-    const hashedInput = this.hashToken(dto.otp);
-    if (hashedInput !== otpState.hashedOtp) {
+    const hashedInput = this.hashOtp(dto.otp, dto.phone, dto.purpose);
+    if (
+      !crypto.timingSafeEqual(
+        Buffer.from(hashedInput, 'utf8'),
+        Buffer.from(otpState.hashedOtp, 'utf8'),
+      )
+    ) {
       // Increment attempts and update Redis
       otpState.attempts += 1;
       const remainingTtl = OTP_TTL_SECONDS - Math.floor((Date.now() - otpState.createdAt) / 1000);
@@ -447,6 +450,15 @@ export class AuthService {
       default:
         throw new BadRequestException('Public registration only allows student or parent accounts');
     }
+  }
+
+  /**
+   * HMAC-SHA256 hash for OTP verification to prevent enumeration and unsalted hash vulnerabilities.
+   */
+  private hashOtp(otp: string, phone: string, purpose: string): string {
+    const secret = this.configService.get<string>('jwt.accessSecret') || 'default-secret';
+    const payload = `${phone}:${purpose}:${otp}`;
+    return createHmac('sha256', secret).update(payload).digest('hex');
   }
 
   /**
