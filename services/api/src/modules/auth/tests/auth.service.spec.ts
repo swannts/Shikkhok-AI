@@ -467,7 +467,9 @@ describe('AuthService', () => {
 
   describe('verifyOtp', () => {
     it('should verify correct OTP and delete from Redis', async () => {
-      const hashedOtp = crypto.createHash('sha256').update('123456').digest('hex');
+      const secret = configService.get<string>('jwt.accessSecret') || 'default-secret';
+      const payload = `01712345678:registration:123456`;
+      const hashedOtp = crypto.createHmac('sha256', secret).update(payload).digest('hex');
 
       const otpState = JSON.stringify({
         hashedOtp,
@@ -490,7 +492,9 @@ describe('AuthService', () => {
     });
 
     it('should reject incorrect OTP and increment attempts', async () => {
-      const hashedOtp = crypto.createHash('sha256').update('123456').digest('hex');
+      const secret = configService.get<string>('jwt.accessSecret') || 'default-secret';
+      const payload = `01712345678:registration:123456`;
+      const hashedOtp = crypto.createHmac('sha256', secret).update(payload).digest('hex');
 
       const otpState = JSON.stringify({
         hashedOtp,
