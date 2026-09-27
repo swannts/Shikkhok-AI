@@ -125,3 +125,62 @@ def test_tutor_stream_validation_error(client: TestClient) -> None:
     res = client.post("/api/v1/tutor/stream", content=body, headers=headers)
     assert res.status_code == 422
     assert res.json()["error"]["code"] == "VALIDATION_ERROR"
+
+def test_tutor_stream_citation_integrity(client: TestClient) -> None:
+    payload = {
+        "request_id": "req-stream-002",
+        "user_id": "user-student-123",
+        "conversation_id": "conv-457",
+        "message": "বর্গের অন্তরের সূত্র কি?",
+        "language": "bn",
+        "class_level": 8,
+        "subject_id": "mathematics",
+        "subject_title": "গণিত",
+        "chapter_id": "algebra",
+        "chapter_title": "বীজগণিতীয় রাশি",
+        "lesson_id": "identities",
+        "lesson_title": "বর্গ সংবলিত সূত্রাবলি",
+        "history": [],
+    }
+
+    body = json.dumps(payload).encode("utf-8")
+    headers = make_hmac_headers(path="/api/v1/tutor/stream", body_bytes=body)
+    headers["Content-Type"] = "application/json"
+
+    res = client.post("/api/v1/tutor/stream", content=body, headers=headers)
+    assert res.status_code == 200
+
+    events = parse_sse_events(res.text)
+    # Check that if citations are present, they are properly structured and valid.
+    # We are using an in memory mock which should return deterministic mock results.
+    citations = [e["data"] for e in events if e["event"] == "citation"]
+    if citations:
+        for citation in citations:
+            assert "sourceId" in citation
+            assert "citationId" in citation
+            assert "pageStart" in citation
+
+def test_tutor_stream_missing_context(client: TestClient) -> None:
+    # Test that missing required class_level safely returns ungrounded if it can't find a fallback
+    payload = {
+        "request_id": "req-stream-003",
+        "user_id": "user-student-123",
+        "conversation_id": "conv-458",
+        "message": "what is algebra?",
+        "language": "en",
+        # class_level is intentionally missing
+        "subject_id": "mathematics",
+        "history": [],
+    }
+
+    body = json.dumps(payload).encode("utf-8")
+    headers = make_hmac_headers(path="/api/v1/tutor/stream", body_bytes=body)
+    headers["Content-Type"] = "application/json"
+
+    res = client.post("/api/v1/tutor/stream", content=body, headers=headers)
+    assert res.status_code == 200
+
+    events = parse_sse_events(res.text)
+    metadata_event = next(e for e in events if e["event"] == "metadata")
+    # Assert missing context returns ungrounded
+    assert metadata_event["data"]["grounded"] is False

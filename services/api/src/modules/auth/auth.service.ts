@@ -452,6 +452,8 @@ export class AuthService {
     }
   }
 
+
+
   /**
    * HMAC-SHA256 hash for OTP verification to prevent enumeration and unsalted hash vulnerabilities.
    */

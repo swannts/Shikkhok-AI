@@ -39,7 +39,18 @@ export interface TutorDeltaEvent {
 
 export interface TutorCitationEvent {
   event: 'citation';
-  data: Record<string, any>;
+  data: {
+    citationId: string;
+    sourceId: string;
+    sourceBook: string;
+    classLevel?: number;
+    subjectId?: string;
+    chapterId?: string;
+    pageStart?: number;
+    pageEnd?: number;
+    textChunk: string;
+    [key: string]: any;
+  };
 }
 
 export interface TutorDoneEvent {
