@@ -237,7 +237,16 @@ describe('TutorService', () => {
       };
       yield { event: 'delta', data: { text: 'বীজগণিতের ' } };
       yield { event: 'delta', data: { text: 'মূল ধারণা হলো চলক।' } };
-      yield { event: 'citation', data: { citationId: 'cit-1', sourceId: 'src-1', sourceBook: 'NCTB Class 8 Math', textChunk: 'math rules', pageStart: 45 } };
+      yield {
+        event: 'citation',
+        data: {
+          citationId: 'cit-1',
+          sourceId: 'src-1',
+          sourceBook: 'NCTB Class 8 Math',
+          textChunk: 'math rules',
+          pageStart: 45,
+        },
+      };
       yield { event: 'done', data: { latencyMs: 250 } };
     }
     aiGatewayService.streamTutorResponse.mockImplementation(mockStream as any);
@@ -296,7 +305,7 @@ describe('TutorService', () => {
         role: TutorMessageRole.ASSISTANT,
         content: 'বীজগণিতের মূল ধারণা হলো চলক।',
         citations: expect.arrayContaining([
-          expect.objectContaining({ sourceBook: 'NCTB Class 8 Math', pageNumber: 45 }),
+          expect.objectContaining({ sourceBook: 'NCTB Class 8 Math', pageStart: 45 }),
         ]),
         provider: 'gemini',
       }),

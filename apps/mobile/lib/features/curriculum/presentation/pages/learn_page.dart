@@ -1,3 +1,4 @@
+import '../../../../core/network/connectivity_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -47,6 +48,7 @@ class _LearnPageState extends ConsumerState<LearnPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final curriculumState = ref.watch(curriculumControllerProvider);
+    final isOnline = ref.watch(isOnlineProvider);
 
     final filters = [
       l10n.allSubjects,
@@ -67,13 +69,16 @@ class _LearnPageState extends ConsumerState<LearnPage> {
           onPressed: () => context.go('/'),
         ),
         title: Text(l10n.learnHeader, style: AppTypography.sectionTitle),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: AppSpacing.md),
+            padding: const EdgeInsets.only(right: AppSpacing.md),
             child: Center(
-              child: AppBadge(
+              child: isOnline ? const AppBadge(
                 label: '৮ম শ্রেণি • NCTB ২০২৬',
                 variant: AppBadgeVariant.neutral,
+              ) : const AppBadge(
+                label: 'অফলাইন ক্যাশ',
+                variant: AppBadgeVariant.warning,
               ),
             ),
           ),

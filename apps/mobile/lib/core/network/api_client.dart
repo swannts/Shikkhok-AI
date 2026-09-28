@@ -10,6 +10,14 @@ import 'sse_event.dart';
 import 'sse_parser.dart';
 
 class ApiClient {
+  bool isNetworkError(DioException e) {
+    return e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.sendTimeout ||
+        e.type == DioExceptionType.receiveTimeout ||
+        e.type == DioExceptionType.connectionError ||
+        e.error != null && e.error.toString().contains('SocketException');
+  }
+
   late final Dio dio;
   bool _isRefreshing = false;
   final List<Completer<String?>> _refreshQueue = [];
