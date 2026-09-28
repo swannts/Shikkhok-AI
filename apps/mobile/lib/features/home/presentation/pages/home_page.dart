@@ -1,3 +1,4 @@
+import '../../../../core/network/connectivity_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -31,6 +32,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authControllerProvider);
     final dashboardAsync = ref.watch(homeDashboardProvider);
+    final isOnline = ref.watch(isOnlineProvider);
 
     String studentName = 'শিক্ষার্থী';
     if (authState is Authenticated) {
@@ -47,7 +49,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         scrolledUnderElevation: 0.5,
         title: Row(
           children: [
-            AppAvatar(initials: initial, isOnline: true),
+            AppAvatar(initials: initial, isOnline: isOnline),
             const SizedBox(width: AppSpacing.smd),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,3 +1,4 @@
+import '../../../../core/network/connectivity_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -74,6 +75,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(tutorControllerProvider);
     final notifier = ref.read(tutorControllerProvider.notifier);
+    final isOnline = ref.watch(isOnlineProvider);
     final activeConversation = state.activeConversation;
 
     if (_lastMessageCount != state.messages.length &&
@@ -325,10 +327,38 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                     ),
                   ),
                   const SizedBox(height: AppSpacing.sm),
+                  if (!isOnline)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
+                      margin: const EdgeInsets.only(bottom: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade50,
+                        border: Border.all(color: Colors.orange.shade200),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.wifi_off,
+                              size: 16, color: Colors.orange.shade800),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'এআই শিক্ষক ইন্টারনেট ছাড়া কাজ করতে পারে না। অনুগ্রহ করে ইন্টারনেট সংযোগ চালু করো।',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.orange.shade900,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   Row(
                     children: [
                       Expanded(
                         child: TextField(
+                          enabled: isOnline && !state.isSending,
                           controller: _messageController,
                           minLines: 1,
                           maxLines: 4,
