@@ -1,4 +1,15 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  Logger,
+  InternalServerErrorException,
+  Optional,
+} from '@nestjs/common';
+import { Textbook, TextbookDocument } from '../textbooks/schemas/textbook.schema';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { User, UserDocument } from '../users/schemas/user.schema';
@@ -35,6 +46,8 @@ import { AdminAuditService } from './admin-audit.service';
 
 @Injectable()
 export class AdminService {
+  private readonly logger = new Logger(AdminService.name);
+
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     @InjectModel(Subject.name) private readonly subjectModel: Model<SubjectDocument>,
@@ -51,6 +64,8 @@ export class AdminService {
     private readonly transactionRepository: PaymentTransactionRepository,
     private readonly activationService: SubscriptionActivationService,
     private readonly auditService: AdminAuditService,
+    @InjectModel(Textbook.name) private textbookModel: Model<TextbookDocument>,
+    @Optional() @InjectQueue('curriculum') private readonly curriculumQueue?: Queue,
   ) {}
 
   async getMetricsOverview(): Promise<Record<string, any>> {
@@ -507,5 +522,72 @@ export class AdminService {
       message: 'Payment rejected successfully',
       transaction: rejectedTxn.toJSON(),
     };
+  }
+
+  // ──────────────────────────────────────────────
+  // CURRICULUM MANAGEMENT
+  // ──────────────────────────────────────────────
+
+  async getAllTextbooksIndexingStatus() {
+    const books = await this.textbookModel
+      .find()
+      .select(
+        'title titleBn subjectId classLevel medium curriculumYear indexingStatus chunkCount failedChunkCount lastIndexedAt lastIndexError',
+      )
+      .populate('subjectId', 'name nameBn')
+      .exec();
+
+    return books.map((b: any) => ({
+      bookId: b._id,
+      title: b.title,
+      titleBn: b.titleBn,
+      classLevel: b.classLevel,
+      medium: b.medium,
+      curriculumYear: b.curriculumYear,
+      subject: b.subjectId ? b.subjectId.name : null,
+      subjectBn: b.subjectId ? b.subjectId.nameBn : null,
+      indexingStatus: b.indexingStatus || 'draft',
+      chunkCount: b.chunkCount || 0,
+      failedChunkCount: b.failedChunkCount || 0,
+      lastIndexedAt: b.lastIndexedAt,
+      lastError: b.lastIndexError ? b.lastIndexError.split('\n')[0] : null,
+    }));
+  }
+
+  async queueTextbookForReindex(bookId: string) {
+    const book: any = await this.textbookModel.findById(bookId).exec();
+    if (!book) {
+      throw new NotFoundException('Textbook not found');
+    }
+
+    if (!this.curriculumQueue) {
+      throw new InternalServerErrorException(
+        'Background curriculum worker queue is not configured',
+      );
+    }
+
+    try {
+      book.indexingStatus = 'queued';
+      book.lastIndexError = null;
+      await book.save();
+
+      await this.curriculumQueue.add(
+        'process-curriculum-indexing',
+        { bookId: book._id.toString() },
+        {
+          jobId: `reindex-book-${book._id.toString()}-${Date.now()}`,
+          attempts: 3,
+          backoff: { type: 'exponential', delay: 5000 },
+        },
+      );
+
+      return {
+        message: 'Textbook successfully queued for background re-indexing',
+        status: 'queued',
+      };
+    } catch (e: any) {
+      this.logger.error(`Failed to enqueue textbook reindexing: ${e.message}`, e.stack);
+      throw new InternalServerErrorException('Failed to communicate with background worker queue');
+    }
   }
 }

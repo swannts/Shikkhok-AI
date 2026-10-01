@@ -1,308 +1,53 @@
-import { Worker, Job, Queue, QueueEvents, BackoffStrategy } from 'bullmq';
+import { Job } from 'bullmq';
 import { config } from './config';
 import { processNotificationJob } from './processors/notification.processor';
 import { processCurriculumJob } from './processors/curriculum.processor';
 import { processAnalyticsJob } from './processors/analytics.processor';
 import { processHomeworkJob } from './processors/homework.processor';
 import { startHealthServer } from './health-server';
-
-export interface JobAttemptInfo {
-  jobId: string;
-  jobType: string;
-  attempt: number;
-  errorCategory: 'retryable' | 'permanent' | 'unknown';
-  errorMessage: string;
-  failedAt: string;
-}
+import { createManagedWorker } from './utils/worker-factory';
 
 const JOB_ATTEMPTS = 3;
-const JOB_BACKOFF_DELAY = 2000;
-const JOB_REMOVE_ON_COMPLETE = { age: 7 * 24 * 60 * 60 } as const;
-const DLQ_JOB_TTL_SECONDS = 604800;
-
-function createConnection() {
-  const redisUrl = new URL(config.redisUrl);
-  return {
-    host: redisUrl.hostname || 'localhost',
-    port: parseInt(redisUrl.port || '6379', 10),
-    password: redisUrl.password || undefined,
-    maxRetriesPerRequest: null,
-  };
-}
-
-function classifyJobError(err: Error): 'retryable' | 'permanent' {
-  const category = (err as any).category;
-  if (category === 'retryable') return 'retryable';
-  if (category === 'permanent') return 'permanent';
-
-  const msg = err.message.toLowerCase();
-  if (
-    msg.includes('timeout') ||
-    msg.includes('429') ||
-    msg.includes('network') ||
-    msg.includes('connect')
-  ) {
-    return 'retryable';
-  }
-  if (
-    msg.includes('missing required') ||
-    msg.includes('invalid') ||
-    msg.includes('not found') ||
-    msg.includes('not configured')
-  ) {
-    return 'permanent';
-  }
-  return 'retryable';
-}
-
-function getJobType(job: Job): string {
-  const data = job.data?.data || job.data;
-  return data?.jobType || data?.type || job.name || 'unknown';
-}
-
-async function logFailedJob(queueName: string, job: Job | undefined, err: Error) {
-  const jobType = job ? getJobType(job) : 'unknown';
-  const category = classifyJobError(err);
-  const attemptInfo: JobAttemptInfo = {
-    jobId: job?.id || 'unknown',
-    jobType,
-    attempt: job?.attemptsMade || 0,
-    errorCategory: category as 'retryable' | 'permanent',
-    errorMessage: err.message,
-    failedAt: new Date().toISOString(),
-  };
-  console.error(`[Worker:${queueName}] Job #${job?.id || 'unknown'} failed (attempt ${job?.attemptsMade || 0}): ${err.message}`);
-  console.error(JSON.stringify(attemptInfo));
-}
+const JOB_REMOVE_ON_COMPLETE = { age: 3600, count: 1000 };
 
 export function startWorker() {
   console.log('⚡ Starting Shikkhok Background Worker (BullMQ + Redis)...');
 
-  const connection = createConnection();
-
-  // Dead-letter queues for failed jobs
-  // BullMQ queue names cannot contain ':'. Keep the DLQ relationship explicit
-  // in the name without relying on Redis-style colon namespaces.
-  const notificationDLQ = new Queue('notifications-dlq', { connection });
-  const homeworkDLQ = new Queue('homework-dlq', { connection });
-  const curriculumDLQ = new Queue('curriculum-dlq', { connection });
-  const analyticsDLQ = new Queue('analytics-dlq', { connection });
-  const notificationQueue = new Queue('notifications', { connection });
-  const curriculumQueue = new Queue('curriculum', { connection });
-  const analyticsQueue = new Queue('analytics', { connection });
-  const homeworkQueue = new Queue('homework', { connection });
-
-  // 1. Notifications Worker
-  const notificationWorker = new Worker(
-    'notifications',
-    async (job: Job) => processNotificationJob(job),
-    {
-      connection,
-      concurrency: config.workerConcurrency,
-      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-    },
-  );
-
-  const notificationEvents = new QueueEvents('notifications', { connection });
-  notificationEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await notificationQueue.getJob(jobId);
-    if (!job) {
-      console.error(`[Worker:Notifications] Job #${jobId} failed: ${failedReason}`);
-      return;
-    }
-    const err = new Error(failedReason);
-    await logFailedJob('Notifications', job, err);
-
-    if (job.attemptsMade >= JOB_ATTEMPTS) {
-      await notificationDLQ.add(
-        'FAILED_NOTIFICATION',
-        {
-          originalJobId: job.id,
-          jobType: getJobType(job),
-          payload: job.data,
-          error: failedReason,
-          attemptsMade: job.attemptsMade,
-          failedAt: new Date().toISOString(),
-        },
-        {
-          jobId: `dlq_${job.id}`,
-          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
-          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
-        },
-      );
-      console.error(`[Worker:Notifications] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
-    }
+  const notificationManaged = createManagedWorker({
+    queueName: 'notifications',
+    processor: async (job: Job) => processNotificationJob(job),
+    concurrency: config.workerConcurrency,
+    maxAttempts: JOB_ATTEMPTS,
+    removeOnComplete: JOB_REMOVE_ON_COMPLETE,
   });
 
-  notificationWorker.on('completed', (job: Job) => {
-    console.log(`[Worker:Notifications] Job #${job.id} completed successfully`);
-  });
-  notificationWorker.on('failed', async (job: Job | undefined, err: Error) => {
-    if (job) await logFailedJob('Notifications', job, err);
-  });
-
-  // 2. Curriculum Ingestion Worker
-  const curriculumWorker = new Worker(
-    'curriculum',
-    async (job: Job) => processCurriculumJob(job),
-    {
-      connection,
-      concurrency: 2,
-      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-    },
-  );
-
-  const curriculumEvents = new QueueEvents('curriculum', { connection });
-  curriculumEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await curriculumQueue.getJob(jobId);
-    if (!job) {
-      console.error(`[Worker:Curriculum] Job #${jobId} failed: ${failedReason}`);
-      return;
-    }
-    const err = new Error(failedReason);
-    await logFailedJob('Curriculum', job, err);
-
-    if (job.attemptsMade >= JOB_ATTEMPTS) {
-      await curriculumDLQ.add(
-        'FAILED_CURRICULUM',
-        {
-          originalJobId: job.id,
-          jobType: getJobType(job),
-          payload: job.data,
-          error: failedReason,
-          attemptsMade: job.attemptsMade,
-          failedAt: new Date().toISOString(),
-        },
-        {
-          jobId: `dlq_${job.id}`,
-          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
-          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
-        },
-      );
-      console.error(`[Worker:Curriculum] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
-    }
+  const curriculumManaged = createManagedWorker({
+    queueName: 'curriculum',
+    processor: async (job: Job) => processCurriculumJob(job),
+    concurrency: 2,
+    maxAttempts: JOB_ATTEMPTS,
+    removeOnComplete: JOB_REMOVE_ON_COMPLETE,
   });
 
-  curriculumWorker.on('completed', (job: Job) => {
-    console.log(`[Worker:Curriculum] Job #${job.id} indexed into AI Service`);
-  });
-  curriculumWorker.on('failed', async (job: Job | undefined, err: Error) => {
-    if (job) await logFailedJob('Curriculum', job, err);
-  });
-
-  // 3. Analytics Worker
-  const analyticsWorker = new Worker(
-    'analytics',
-    async (job: Job) => processAnalyticsJob(job),
-    {
-      connection,
-      concurrency: config.workerConcurrency,
-      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-    },
-  );
-
-  const analyticsEvents = new QueueEvents('analytics', { connection });
-  analyticsEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await analyticsQueue.getJob(jobId);
-    if (!job) {
-      console.error(`[Worker:Analytics] Job #${jobId} failed: ${failedReason}`);
-      return;
-    }
-    const err = new Error(failedReason);
-    await logFailedJob('Analytics', job, err);
-
-    if (job.attemptsMade >= JOB_ATTEMPTS) {
-      await analyticsDLQ.add(
-        'FAILED_ANALYTICS',
-        {
-          originalJobId: job.id,
-          jobType: getJobType(job),
-          payload: job.data,
-          error: failedReason,
-          attemptsMade: job.attemptsMade,
-          failedAt: new Date().toISOString(),
-        },
-        {
-          jobId: `dlq_${job.id}`,
-          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
-          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
-        },
-      );
-      console.error(`[Worker:Analytics] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
-    }
+  const analyticsManaged = createManagedWorker({
+    queueName: 'analytics',
+    processor: async (job: Job) => processAnalyticsJob(job),
+    concurrency: config.workerConcurrency,
+    maxAttempts: JOB_ATTEMPTS,
+    removeOnComplete: JOB_REMOVE_ON_COMPLETE,
   });
 
-  analyticsWorker.on('completed', (job: Job) => {
-    console.log(`[Worker:Analytics] Job #${job.id} aggregated`);
-  });
-  analyticsWorker.on('failed', async (job: Job | undefined, err: Error) => {
-    if (job) await logFailedJob('Analytics', job, err);
-  });
-
-  // 4. Homework Evaluation Worker (REAL processor — not a stub)
-  const homeworkWorker = new Worker(
-    'homework',
-    async (job: Job) => processHomeworkJob(job),
-    {
-      connection,
-      concurrency: config.workerConcurrency,
-      removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-    },
-  );
-
-  const homeworkEvents = new QueueEvents('homework', { connection });
-  homeworkEvents.on('failed', async ({ jobId, failedReason }) => {
-    const job = await homeworkQueue.getJob(jobId);
-    if (!job) {
-      console.error(`[Worker:Homework] Job #${jobId} failed: ${failedReason}`);
-      return;
-    }
-    const err = new Error(failedReason);
-    await logFailedJob('Homework', job, err);
-
-    if (job.attemptsMade >= JOB_ATTEMPTS) {
-      await homeworkDLQ.add(
-        'FAILED_HOMEWORK',
-        {
-          originalJobId: job.id,
-          jobType: 'HOMEWORK_EVALUATION',
-          payload: job.data,
-          error: failedReason,
-          attemptsMade: job.attemptsMade,
-          failedAt: new Date().toISOString(),
-        },
-        {
-          jobId: `dlq_${job.id}`,
-          removeOnComplete: { age: DLQ_JOB_TTL_SECONDS },
-          removeOnFail: { age: DLQ_JOB_TTL_SECONDS },
-        },
-      );
-      console.error(`[Worker:Homework] Job #${job.id} moved to DLQ after ${job.attemptsMade} attempts`);
-    }
+  const homeworkManaged = createManagedWorker({
+    queueName: 'homework',
+    processor: async (job: Job) => processHomeworkJob(job),
+    concurrency: config.workerConcurrency,
+    maxAttempts: JOB_ATTEMPTS,
+    removeOnComplete: JOB_REMOVE_ON_COMPLETE,
   });
 
-  homeworkWorker.on('completed', (job: Job) => {
-    console.log(`[Worker:Homework] Job #${job.id} homework evaluation completed`);
-  });
-  homeworkWorker.on('failed', async (job: Job | undefined, err: Error) => {
-    const category = classifyJobError(err);
-    console.error(
-      `[Worker:Homework] Job #${job?.id || 'unknown'} failed (category: ${category}): ${err.message}`,
-    );
-    if (job) await logFailedJob('Homework', job, err);
-  });
-
-  const workers = [notificationWorker, curriculumWorker, analyticsWorker, homeworkWorker];
-  const queues = [
-    notificationQueue,
-    curriculumQueue,
-    analyticsQueue,
-    homeworkQueue,
-    notificationDLQ,
-    curriculumDLQ,
-    analyticsDLQ,
-    homeworkDLQ,
-  ];
+  const managedNodes = [notificationManaged, curriculumManaged, analyticsManaged, homeworkManaged];
+  const workers = managedNodes.map(m => m.worker);
+  const queues = managedNodes.flatMap(m => [m.mainQueue, m.dlqQueue]);
 
   // Health check server for Kubernetes probes
   let healthServer: any = null;
@@ -338,7 +83,7 @@ export function startWorker() {
       healthServer.close();
     }
     await Promise.all(workers.map((w) => w.close()));
-    await Promise.all(queues.map((queue) => queue.close()));
+    await Promise.all(queues.map((q) => q.close()));
     console.log('✅ All workers stopped cleanly.');
     process.exit(0);
   };

@@ -154,6 +154,7 @@ export class NotificationsService {
             },
           },
           {
+            jobId: `push-notify-${result._id?.toString?.() ?? result._id}`,
             attempts: 3,
             backoff: {
               type: 'exponential',

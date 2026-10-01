@@ -4,6 +4,8 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
 import { AdminService } from '../admin.service';
+import { Textbook } from '../../textbooks/schemas/textbook.schema';
+import { getQueueToken } from '@nestjs/bullmq';
 import { AdminAuditService } from '../admin-audit.service';
 import { User } from '../../users/schemas/user.schema';
 import { Subject } from '../../curriculum/schemas/subject.schema';
@@ -82,6 +84,8 @@ describe('AdminService', () => {
         { provide: getModelToken(HomeworkSubmission.name), useValue: homeworkSubmissionModel },
         { provide: getModelToken(StudentSubscription.name), useValue: subscriptionModel },
         { provide: getModelToken(PaymentTransaction.name), useValue: transactionModel },
+        { provide: getModelToken(Textbook.name), useValue: createMockModel() },
+        { provide: getQueueToken('curriculum'), useValue: { add: jest.fn() } },
         {
           provide: PaymentTransactionRepository,
           useValue: {
