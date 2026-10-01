@@ -12,6 +12,7 @@ describe('StudyPlanRepository', () => {
     const mockExec = jest.fn();
     const mockFindOne = jest.fn().mockReturnValue({
       sort: jest.fn().mockReturnValue({ exec: mockExec }),
+      exec: mockExec
     });
     const mockFind = jest.fn().mockReturnValue({
       sort: jest.fn().mockReturnValue({ exec: mockExec }),

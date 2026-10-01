@@ -23,8 +23,19 @@ export class StudyPlanRepository {
 
   async upsertCurrentPlan(
     userId: string,
-    data: Partial<Omit<StudyPlan, 'userId' | 'createdAt' | 'updatedAt'>>,
+    data: Partial<Omit<StudyPlan, 'userId' | 'createdAt' | 'updatedAt'>> & { updatedAt?: Date },
   ): Promise<StudyPlanDocument> {
+    const existing = await this.studyPlanModel.findOne({
+      userId,
+      status: data.status ?? StudyPlanStatus.ACTIVE
+    }).exec();
+
+    // Client Authority Last-Write-Wins logic
+    // If the server has a newer record, we skip updating it to prevent old offline data from overwriting newer server data.
+    if (existing && data.updatedAt && existing.updatedAt && existing.updatedAt > data.updatedAt) {
+      return existing; // Reject stale offline mutation, return current state
+    }
+
     return this.studyPlanModel
       .findOneAndUpdate(
         { userId, status: data.status ?? StudyPlanStatus.ACTIVE },

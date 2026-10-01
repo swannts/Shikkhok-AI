@@ -305,4 +305,16 @@ export class AdminController {
       page: page ? Number(page) : 1,
     });
   }
+
+  @Get('textbooks/indexing-status')
+  @Roles(UserRole.ADMIN)
+  async getAllTextbooksIndexingStatus() {
+    return this.adminService.getAllTextbooksIndexingStatus();
+  }
+
+  @Post('textbooks/:bookId/reindex')
+  @Roles(UserRole.ADMIN)
+  async queueTextbookForReindex(@Param('bookId') bookId: string) {
+    return this.adminService.queueTextbookForReindex(bookId);
+  }
 }
