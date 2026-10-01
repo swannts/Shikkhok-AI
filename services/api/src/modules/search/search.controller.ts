@@ -1,3 +1,4 @@
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { SearchSuggestionsQueryDto } from './dto/search-suggestions-query.dto';
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
+  @Throttle({ default: { limit: 20, ttl: 60000 } })
   @Get()
   @ApiOperation({
     summary: 'Unified search across subjects, chapters, lessons, textbooks, and practice questions',

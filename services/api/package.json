@@ -27,6 +27,7 @@
     "@nestjs/platform-socket.io": "^10.4.22",
     "@nestjs/swagger": "^7.3.0",
     "@nestjs/terminus": "^10.2.0",
+    "@nestjs/throttler": "^6.7.1",
     "@nestjs/websockets": "^10.4.22",
     "@socket.io/redis-adapter": "^8.1.0",
     "argon2": "^0.45.1",
