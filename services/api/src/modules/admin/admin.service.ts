@@ -68,6 +68,29 @@ export class AdminService {
     @Optional() @InjectQueue('curriculum') private readonly curriculumQueue?: Queue,
   ) {}
 
+  async updateCurriculumIndexingProgress(
+    bookId: string,
+    progress: {
+      status: 'processing' | 'indexed' | 'failed' | 'partially_failed';
+      indexedChunkCount?: number;
+      failedChunkCount?: number;
+      error?: string;
+    },
+  ): Promise<void> {
+    const update: Record<string, unknown> = {
+      indexingStatus: progress.status,
+      indexedChunkCount: Math.max(0, progress.indexedChunkCount ?? 0),
+      failedChunkCount: Math.max(0, progress.failedChunkCount ?? 0),
+    };
+    if (progress.status === 'processing') update.indexingStartedAt = new Date();
+    if (progress.status === 'indexed') update.lastIndexedAt = new Date();
+    if (progress.error) update.lastIndexError = progress.error.slice(0, 1000);
+    if (progress.status !== 'failed' && progress.status !== 'partially_failed') {
+      update.lastIndexError = null;
+    }
+    await this.textbookModel.updateOne({ _id: bookId }, { $set: update }).exec();
+  }
+
   async getMetricsOverview(): Promise<Record<string, any>> {
     const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
@@ -528,30 +551,49 @@ export class AdminService {
   // CURRICULUM MANAGEMENT
   // ──────────────────────────────────────────────
 
-  async getAllTextbooksIndexingStatus() {
-    const books = await this.textbookModel
+  async getAllTextbooksIndexingStatus(page = 1, limit = 50) {
+    const safePage = Math.max(1, page);
+    const safeLimit = Math.min(100, Math.max(1, limit));
+    const [books, total] = await Promise.all([
+      this.textbookModel
       .find()
       .select(
-        'title titleBn subjectId classLevel medium curriculumYear indexingStatus chunkCount failedChunkCount lastIndexedAt lastIndexError',
+        'title titleBn subjectId classLevel medium curriculumYear edition indexingStatus indexedChunkCount chunkCount failedChunkCount indexingStartedAt lastIndexedAt lastIndexError',
       )
       .populate('subjectId', 'name nameBn')
-      .exec();
+      .sort({ updatedAt: -1, _id: -1 })
+      .skip((safePage - 1) * safeLimit)
+      .limit(safeLimit)
+      .exec(),
+      this.textbookModel.countDocuments(),
+    ]);
 
-    return books.map((b: any) => ({
+    const items = books.map((b: any) => ({
       bookId: b._id,
       title: b.title,
       titleBn: b.titleBn,
       classLevel: b.classLevel,
       medium: b.medium,
       curriculumYear: b.curriculumYear,
+      edition: b.edition,
       subject: b.subjectId ? b.subjectId.name : null,
       subjectBn: b.subjectId ? b.subjectId.nameBn : null,
       indexingStatus: b.indexingStatus || 'draft',
-      chunkCount: b.chunkCount || 0,
+      indexedChunkCount: b.indexedChunkCount || b.chunkCount || 0,
       failedChunkCount: b.failedChunkCount || 0,
+      indexingStartedAt: b.indexingStartedAt,
       lastIndexedAt: b.lastIndexedAt,
       lastError: b.lastIndexError ? b.lastIndexError.split('\n')[0] : null,
     }));
+    return {
+      items,
+      pageInfo: {
+        page: safePage,
+        limit: safeLimit,
+        total,
+        hasNextPage: safePage * safeLimit < total,
+      },
+    };
   }
 
   async queueTextbookForReindex(bookId: string) {
@@ -568,6 +610,9 @@ export class AdminService {
 
     try {
       book.indexingStatus = 'queued';
+      book.indexingStartedAt = null;
+      book.indexedChunkCount = 0;
+      book.failedChunkCount = 0;
       book.lastIndexError = null;
       await book.save();
 
@@ -575,7 +620,10 @@ export class AdminService {
         'process-curriculum-indexing',
         { bookId: book._id.toString() },
         {
-          jobId: `reindex-book-${book._id.toString()}-${Date.now()}`,
+          // Stable job identity makes repeated admin clicks idempotent while a
+          // book is already queued or processing. A later retry is handled by
+          // BullMQ's attempts/backoff rather than creating duplicate jobs.
+          jobId: `reindex-book-${book._id.toString()}`,
           attempts: 3,
           backoff: { type: 'exponential', delay: 5000 },
         },

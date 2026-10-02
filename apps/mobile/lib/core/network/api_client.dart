@@ -191,11 +191,16 @@ class ApiClient {
         }
       }
 
+      final codeMessage = AppFailureMessages.forCode(errorCode);
+      if (codeMessage != null) {
+        banglaMessage = codeMessage;
+      }
+
       switch (status) {
         case 400:
           return ValidationFailure(
             message: message,
-            banglaMessage:
+            banglaMessage: codeMessage ??
                 'প্রদত্ত তথ্য সঠিক নয়। অনুগ্রহ করে আবার পরীক্ষা করুন।',
             errorCode: errorCode,
             details: details,
@@ -203,28 +208,29 @@ class ApiClient {
         case 401:
           return UnauthorizedFailure(
             message: message,
-            banglaMessage: 'আপনার সেশনের মেয়াদ শেষ হয়েছে অথবা তথ্য ভুল।',
+            banglaMessage:
+                codeMessage ?? 'আপনার সেশনের মেয়াদ শেষ হয়েছে অথবা তথ্য ভুল।',
             errorCode: errorCode,
             details: details,
           );
         case 403:
           return ForbiddenFailure(
             message: message,
-            banglaMessage: 'এই তথ্যে অ্যাক্সেস করার অনুমতি নেই।',
+            banglaMessage: codeMessage ?? 'এই তথ্যে অ্যাক্সেস করার অনুমতি নেই।',
             errorCode: errorCode,
             details: details,
           );
         case 404:
           return NotFoundFailure(
             message: message,
-            banglaMessage: 'অনুরোধকৃত তথ্য খুঁজে পাওয়া যায়নি।',
+            banglaMessage: codeMessage ?? 'অনুরোধকৃত তথ্য খুঁজে পাওয়া যায়নি।',
             errorCode: errorCode,
             details: details,
           );
         case 409:
           return ConflictFailure(
             message: message,
-            banglaMessage:
+            banglaMessage: codeMessage ??
                 'এই ইমেইল বা ফোন নম্বর দিয়ে ইতোমধ্যে অ্যাকাউন্ট খোলা হয়েছে।',
             errorCode: errorCode,
             details: details,
@@ -232,7 +238,7 @@ class ApiClient {
         case 429:
           return RateLimitFailure(
             message: message,
-            banglaMessage:
+            banglaMessage: codeMessage ??
                 'খুব বেশি অনুরোধ করা হয়েছে। কিছুক্ষণ পর চেষ্টা করুন।',
             errorCode: errorCode,
             details: details,
@@ -241,7 +247,7 @@ class ApiClient {
           if (status != null && status >= 500) {
             return ServerFailure(
               message: message,
-              banglaMessage:
+              banglaMessage: codeMessage ??
                   'সার্ভারে সাময়িক সমস্যা হয়েছে। কিছুক্ষণ পর চেষ্টা করুন।',
               errorCode: errorCode,
               details: details,

@@ -52,13 +52,13 @@ describe('AiGatewayService', () => {
   it('should stream and parse SSE chunks from FastAPI service', async () => {
     const sseResponseText = [
       'event: metadata',
-      'data: {"provider":"gemini","model":"gemini-2.5-flash","fallbackUsed":false}',
+      'data: {"provider":"gemini","model":"gemini-2.5-flash","fallbackUsed":false,"grounded":true,"retrievalUnavailable":false}',
       '',
       'event: delta',
       'data: {"text":"সুপ্রভাত! "}',
       '',
       'event: citation',
-      'data: {"citationId":"source_1","sourceId":"c1","classLevel":8}',
+      'data: {"citationId":"source_1","sourceId":"c1","sourceBook":"NCTB Math","classLevel":8,"textChunk":"বীজগণিতের একটি যাচাইকৃত অংশ"}',
       '',
       'event: done',
       'data: {"finishReason":"stop"}',

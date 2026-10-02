@@ -42,6 +42,7 @@ export const config = {
 
   aiServiceUrl: process.env.AI_SERVICE_URL || 'http://localhost:8000',
   aiHmacSecret: process.env.AI_HMAC_SECRET || process.env.AI_GATEWAY_HMAC_SECRET || '',
+  apiServiceUrl: process.env.API_SERVICE_URL || 'http://localhost:4000',
   nodeEnv: process.env.NODE_ENV || 'development',
   workerConcurrency: parseInt(process.env.WORKER_CONCURRENCY || '5', 10),
 

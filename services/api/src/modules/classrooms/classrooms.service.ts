@@ -187,6 +187,7 @@ export class ClassroomsService {
     if (!assignment || !assignment.isPublished) {
       throw new NotFoundException('Assignment not found');
     }
+    this.assertAssignmentBelongsToClassroom(assignment, classroomId);
 
     const now = new Date();
     const isLate = now.getTime() > assignment.dueDate.getTime();
@@ -214,6 +215,12 @@ export class ClassroomsService {
     }
     this.assertClassroomTeacher(currentUser, classroom);
 
+    const assignment = await this.assignmentRepository.findById(assignmentId);
+    if (!assignment) {
+      throw new NotFoundException('Assignment not found');
+    }
+    this.assertAssignmentBelongsToClassroom(assignment, classroomId);
+
     const submissions = await this.submissionRepository.findByAssignmentId(assignmentId);
     return submissions.map((s) => s.toJSON());
   }
@@ -231,6 +238,23 @@ export class ClassroomsService {
     }
     this.assertClassroomTeacher(currentUser, classroom);
 
+    const assignment = await this.assignmentRepository.findById(assignmentId);
+    if (!assignment) {
+      throw new NotFoundException('Assignment not found');
+    }
+    this.assertAssignmentBelongsToClassroom(assignment, classroomId);
+
+    const submission = await this.submissionRepository.findById(submissionId);
+    if (!submission) {
+      throw new NotFoundException('Submission not found');
+    }
+    if (
+      submission.assignmentId.toString() !== assignmentId ||
+      submission.classroomId.toString() !== classroomId
+    ) {
+      throw new NotFoundException('Submission not found');
+    }
+
     const graded = await this.submissionRepository.gradeSubmission(
       submissionId,
       dto.score,
@@ -247,6 +271,15 @@ export class ClassroomsService {
   private assertTeacherOrAdmin(currentUser: AuthenticatedUser): void {
     if (currentUser.role !== UserRole.TEACHER && currentUser.role !== UserRole.ADMIN) {
       throw new ForbiddenException('Only teachers or admins can manage classrooms');
+    }
+  }
+
+  private assertAssignmentBelongsToClassroom(
+    assignment: { classroomId?: Types.ObjectId | string },
+    classroomId: string,
+  ): void {
+    if (assignment.classroomId?.toString() !== classroomId) {
+      throw new NotFoundException('Assignment not found');
     }
   }
 

@@ -2,6 +2,20 @@ import '../../domain/entities/tutor_conversation.dart';
 import '../../domain/entities/tutor_message.dart';
 import '../../domain/entities/tutor_citation.dart';
 
+enum TutorUiStatus {
+  loading,
+  connecting,
+  retrieving,
+  streaming,
+  complete,
+  ungrounded,
+  degraded,
+  offline,
+  rateLimited,
+  cancelled,
+  error
+}
+
 class TutorState {
   final List<TutorConversation> conversations;
   final TutorConversation? activeConversation;
@@ -13,6 +27,7 @@ class TutorState {
   final bool isStartingConversation;
   final String? errorMessage;
   final List<TutorCitation> activeCitations;
+  final TutorUiStatus status;
 
   const TutorState({
     required this.conversations,
@@ -25,6 +40,7 @@ class TutorState {
     required this.isStartingConversation,
     required this.errorMessage,
     this.activeCitations = const [],
+    this.status = TutorUiStatus.loading,
   });
 
   const TutorState.initial()
@@ -37,7 +53,8 @@ class TutorState {
         isStreaming = false,
         isStartingConversation = false,
         errorMessage = null,
-        activeCitations = const [];
+        activeCitations = const [],
+        status = TutorUiStatus.loading;
 
   TutorState copyWith({
     List<TutorConversation>? conversations,
@@ -50,6 +67,7 @@ class TutorState {
     bool? isStartingConversation,
     String? errorMessage,
     List<TutorCitation>? activeCitations,
+    TutorUiStatus? status,
   }) {
     return TutorState(
       conversations: conversations ?? this.conversations,
@@ -63,6 +81,7 @@ class TutorState {
           isStartingConversation ?? this.isStartingConversation,
       errorMessage: errorMessage,
       activeCitations: activeCitations ?? this.activeCitations,
+      status: status ?? this.status,
     );
   }
 }

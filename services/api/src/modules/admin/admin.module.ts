@@ -29,6 +29,8 @@ import { AdminAuditLogRepository } from './repositories/admin-audit-log.reposito
 import { AdminAuditService } from './admin-audit.service';
 import { AdminService } from './admin.service';
 import { AdminController } from './admin.controller';
+import { CurriculumProgressController } from './curriculum-progress.controller';
+import { Textbook, TextbookSchema } from '../textbooks/schemas/textbook.schema';
 
 @Module({
   imports: [
@@ -48,10 +50,11 @@ import { AdminController } from './admin.controller';
       { name: HomeworkSubmission.name, schema: HomeworkSubmissionSchema },
       { name: StudentSubscription.name, schema: StudentSubscriptionSchema },
       { name: PaymentTransaction.name, schema: PaymentTransactionSchema },
+      { name: Textbook.name, schema: TextbookSchema },
       { name: AdminAuditLog.name, schema: AdminAuditLogSchema },
     ]),
   ],
-  controllers: [AdminController],
+  controllers: [AdminController, CurriculumProgressController],
   providers: [AdminAuditLogRepository, AdminAuditService, AdminService],
   exports: [AdminAuditService, AdminService],
 })

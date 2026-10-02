@@ -1,7 +1,7 @@
 import asyncio
 import time
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response, status
 
 from app.core.config import settings
 from app.core.dependencies import get_vector_store
@@ -24,6 +24,7 @@ async def get_health() -> HealthResponse:
 
 @router.get("/ready", response_model=ReadyResponse)
 async def get_readiness(
+    response: Response,
     vector_store: VectorStore = Depends(get_vector_store),
 ) -> ReadyResponse:
     """Readiness probe: validates critical dependencies with bounded latency."""
@@ -100,6 +101,9 @@ async def get_readiness(
     )
 
     all_ready = all(d.status == "ready" for d in dependencies)
+
+    if not all_ready:
+        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
 
     return ReadyResponse(
         status="ready" if all_ready else "not_ready",

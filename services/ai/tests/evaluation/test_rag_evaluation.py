@@ -59,6 +59,8 @@ def make_eval_request(case) -> TutorGenerationRequest:
         conversation_id="conv-eval",
         message=case["question"],
         class_level=case["class_level"],
+        curriculum_year=2026 if case["class_level"] else None,
+        medium="bangla" if case["class_level"] else None,
         subject_id=case["subject_id"],
         chapter_id=case["chapter_id"],
         lesson_id=case["lesson_id"],

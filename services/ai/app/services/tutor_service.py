@@ -295,6 +295,7 @@ class TutorService:
             },
         )
 
+        generation_started_at = time.time()
         safety_filter = StreamingOutputSafetyFilter()
         full_content = ""
         client_cancelled = False
@@ -362,12 +363,33 @@ class TutorService:
 
         # 7. Done Event
         latency_ms = int((time.time() - started_at) * 1000)
+        generation_latency_ms = int((time.time() - generation_started_at) * 1000)
+        logger.info(
+            "Tutor generation completed",
+            extra={
+                "extra_data": {
+                    "requestId": request.request_id,
+                    "conversationId": request.conversation_id,
+                    "provider": routed.provider,
+                    "model": routed.model,
+                    "grounded": grounded,
+                    "retrievalUnavailable": retrieval_unavailable,
+                    "retrievalLatencyMs": retrieval_latency_ms,
+                    "generationLatencyMs": generation_latency_ms,
+                    "totalLatencyMs": latency_ms,
+                    "retrievedChunkCount": len(retrieved_chunks),
+                    "citationCount": len(citations),
+                    "safetyPassed": safety_check.is_safe,
+                },
+            },
+        )
         yield TutorStreamEvent(
             event="done",
             data={
                 "finishReason": "stop",
                 "conversationId": request.conversation_id,
                 "latencyMs": latency_ms,
+                "generationLatencyMs": generation_latency_ms,
                 "citationCount": len(citations),
                 "retrievedChunkCount": len(retrieved_chunks),
             },

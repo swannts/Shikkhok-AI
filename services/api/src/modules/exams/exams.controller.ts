@@ -9,6 +9,8 @@ import { ExamsService } from './exams.service';
 import { ListExamsQueryDto } from './dto/list-exams-query.dto';
 import { SaveExamAnswerDto } from './dto/save-exam-answer.dto';
 import { FlagExamQuestionDto } from './dto/flag-exam-question.dto';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Exams')
 @ApiBearerAuth()
@@ -18,12 +20,14 @@ export class ExamsController {
   constructor(private readonly examsService: ExamsService) {}
 
   @Get()
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'List published exams matching student curriculum criteria' })
   async listExams(@CurrentUser() user: AuthenticatedUser, @Query() query: ListExamsQueryDto) {
     return this.examsService.listExams(user, query);
   }
 
   @Get(':examId')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Get exam metadata details by ID' })
   async getExam(
     @CurrentUser() user: AuthenticatedUser,
@@ -33,6 +37,7 @@ export class ExamsController {
   }
 
   @Post(':examId/start')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Start a timed exam session with sanitized questions' })
   @ApiResponse({
     status: 201,
@@ -46,6 +51,7 @@ export class ExamsController {
   }
 
   @Get('sessions/:sessionId')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Get active or expired exam session state with sanitized questions' })
   async getSession(
     @CurrentUser() user: AuthenticatedUser,
@@ -55,6 +61,7 @@ export class ExamsController {
   }
 
   @Put('sessions/:sessionId/answers/:questionId')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({
     summary: 'Save or update student answer for a question in an active exam session',
   })
@@ -68,6 +75,7 @@ export class ExamsController {
   }
 
   @Post('sessions/:sessionId/flag/:questionId')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Toggle flagged status for review on an exam question' })
   async flagQuestion(
     @CurrentUser() user: AuthenticatedUser,
@@ -79,6 +87,7 @@ export class ExamsController {
   }
 
   @Post('sessions/:sessionId/submit')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Submit an exam session, grade answers, and calculate final score' })
   async submitSession(
     @CurrentUser() user: AuthenticatedUser,
@@ -88,6 +97,7 @@ export class ExamsController {
   }
 
   @Get('sessions/:sessionId/result')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Get summary score and pass/fail result for a submitted exam session' })
   async getSessionResult(
     @CurrentUser() user: AuthenticatedUser,
@@ -97,6 +107,7 @@ export class ExamsController {
   }
 
   @Get('sessions/:sessionId/review')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({
     summary: 'Get full question-by-question review with correct answer keys after submission',
   })

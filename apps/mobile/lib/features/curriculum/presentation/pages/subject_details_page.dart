@@ -110,7 +110,8 @@ class SubjectDetailsPage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CacheStatusBanner(),
+                  CacheStatusBanner(
+                      cacheKey: 'subject:$subjectId', entityType: 'subject'),
                   // Hero Subject Banner
                   Container(
                     padding: const EdgeInsets.all(AppSpacing.lg),

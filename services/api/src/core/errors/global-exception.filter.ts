@@ -18,12 +18,16 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
 
     const requestId =
-      (request as any).requestId || (request.headers['x-request-id'] as string) || '';
+      typeof (request as Request & { requestId?: unknown }).requestId === 'string'
+        ? (request as Request & { requestId: string }).requestId
+        : typeof request.headers['x-request-id'] === 'string'
+          ? request.headers['x-request-id']
+          : '';
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let errorCode = 'INTERNAL_ERROR';
     let message = 'An unexpected internal server error occurred';
-    let details: Record<string, any> = {};
+    let details: Record<string, unknown> = {};
 
     if (exception instanceof HttpException) {
       status = exception.getStatus();
@@ -32,9 +36,22 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       if (typeof exceptionResponse === 'string') {
         message = exceptionResponse;
       } else if (typeof exceptionResponse === 'object' && exceptionResponse !== null) {
-        const resObj = exceptionResponse as any;
-        message = resObj.message || message;
-        details = resObj.error || resObj.details || {};
+        const resObj = exceptionResponse as {
+          code?: unknown;
+          message?: unknown;
+          error?: unknown;
+          details?: unknown;
+        };
+        if (typeof resObj.code === 'string' && resObj.code.trim()) {
+          errorCode = resObj.code;
+        }
+        if (typeof resObj.message === 'string' && resObj.message.trim()) {
+          message = resObj.message;
+        }
+        details = (resObj.details ??
+          (typeof resObj.error === 'object' && resObj.error !== null
+            ? resObj.error
+            : {})) as Record<string, unknown>;
 
         if (Array.isArray(resObj.message)) {
           errorCode = 'VALIDATION_ERROR';
@@ -64,19 +81,26 @@ export class GlobalExceptionFilter implements ExceptionFilter {
           break;
       }
     } else if (exception && typeof exception === 'object' && 'name' in exception) {
-      const errName = (exception as any).name;
+      const typedException = exception as {
+        name?: unknown;
+        code?: unknown;
+        keyPattern?: unknown;
+        errors?: unknown;
+        stack?: unknown;
+      };
+      const errName = typedException.name;
 
       // Handle MongoDB Duplicate Key (E11000)
-      if ((exception as any).code === 11000) {
+      if (typedException.code === 11000) {
         status = HttpStatus.CONFLICT;
         errorCode = 'CONFLICT';
         message = 'A resource with the specified unique field already exists';
-        details = { keyPattern: (exception as any).keyPattern };
+        details = { keyPattern: typedException.keyPattern };
       } else if (errName === 'ValidationError') {
         status = HttpStatus.BAD_REQUEST;
         errorCode = 'VALIDATION_ERROR';
         message = 'Mongoose document validation failed';
-        details = (exception as any).errors || {};
+        details = (typedException.errors as Record<string, unknown>) || {};
       }
     }
 
@@ -84,7 +108,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
       this.logger.error(
         `Unhandled exception on ${request.method} ${request.url}`,
-        (exception as any)?.stack,
+        (exception as { stack?: string })?.stack,
       );
     }
 

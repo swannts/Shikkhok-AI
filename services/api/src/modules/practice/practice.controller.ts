@@ -3,11 +3,13 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { Roles } from '../../common/decorators/roles.decorator';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { PracticeService } from './practice.service';
 import { SubmitPracticeAttemptDto } from './dto/submit-practice-attempt.dto';
 import { PracticeDifficulty } from './enums/practice-difficulty.enum';
+import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Practice')
 @ApiBearerAuth()
@@ -17,6 +19,7 @@ export class PracticeController {
   constructor(private readonly practiceService: PracticeService) {}
 
   @Get('lessons/:lessonId/questions')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'List published practice questions for a lesson' })
   @ApiResponse({ status: 200, description: 'Practice questions returned' })
   async listQuestions(
@@ -34,6 +37,7 @@ export class PracticeController {
   }
 
   @Post('submit')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Submit a practice answer for server-side evaluation' })
   @ApiResponse({ status: 200, description: 'Practice attempt evaluated successfully' })
   async submitAttempt(
@@ -44,6 +48,7 @@ export class PracticeController {
   }
 
   @Get('me/attempts')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Get recent authenticated practice attempts' })
   @ApiResponse({ status: 200, description: 'Recent attempts returned' })
   async getMyRecentAttempts(@CurrentUser() user: AuthenticatedUser) {

@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { HealthService } from './health.service';
 
@@ -17,8 +18,12 @@ export class HealthController {
   @Get('ready')
   @ApiOperation({ summary: 'Readiness check verifying MongoDB and Redis connectivity' })
   @ApiResponse({ status: 200, description: 'Service and dependencies are ready' })
-  getReadiness() {
-    return this.healthService.getReadiness();
+  async getReadiness(@Res({ passthrough: true }) response: Response) {
+    const readiness = await this.healthService.getReadiness();
+    if (readiness.status !== 'ok') {
+      response.status(HttpStatus.SERVICE_UNAVAILABLE);
+    }
+    return readiness;
   }
 
   @Get('metrics')

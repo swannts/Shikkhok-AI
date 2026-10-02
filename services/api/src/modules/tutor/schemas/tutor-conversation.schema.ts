@@ -51,3 +51,4 @@ export class TutorConversation {
 }
 
 export const TutorConversationSchema = SchemaFactory.createForClass(TutorConversation);
+TutorConversationSchema.index({ userId: 1, updatedAt: -1, _id: -1 });

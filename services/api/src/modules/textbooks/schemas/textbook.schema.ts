@@ -4,6 +4,16 @@ import { Subject } from '../../curriculum/schemas/subject.schema';
 
 export type TextbookDocument = HydratedDocument<Textbook>;
 
+export enum TextbookIndexingStatus {
+  DRAFT = 'draft',
+  QUEUED = 'queued',
+  PROCESSING = 'processing',
+  INDEXED = 'indexed',
+  PARTIALLY_FAILED = 'partially_failed',
+  FAILED = 'failed',
+  ARCHIVED = 'archived',
+}
+
 @Schema({
   collection: 'textbooks',
   timestamps: true,
@@ -54,6 +64,24 @@ export class Textbook {
 
   @Prop({ trim: true, default: '' })
   checksumSha256: string;
+
+  @Prop({ type: String, enum: Object.values(TextbookIndexingStatus), default: TextbookIndexingStatus.DRAFT, index: true })
+  indexingStatus: TextbookIndexingStatus;
+
+  @Prop({ type: Number, default: 0, min: 0 })
+  indexedChunkCount: number;
+
+  @Prop({ type: Number, default: 0, min: 0 })
+  failedChunkCount: number;
+
+  @Prop({ type: Date, default: null })
+  indexingStartedAt?: Date | null;
+
+  @Prop({ type: Date, default: null })
+  lastIndexedAt?: Date | null;
+
+  @Prop({ type: String, default: null })
+  lastIndexError?: string | null;
 
   @Prop({ type: Boolean, default: true, index: true })
   isPublished: boolean;

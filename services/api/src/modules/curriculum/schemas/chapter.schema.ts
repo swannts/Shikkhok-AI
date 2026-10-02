@@ -42,3 +42,4 @@ export class Chapter {
 
 export const ChapterSchema = SchemaFactory.createForClass(Chapter);
 ChapterSchema.index({ subjectId: 1, slug: 1 }, { unique: true });
+ChapterSchema.index({ subjectId: 1, order: 1, title: 1 });

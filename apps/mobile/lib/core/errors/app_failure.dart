@@ -3,16 +3,40 @@ sealed class AppFailure implements Exception {
   final String banglaMessage;
   final String? errorCode;
   final Map<String, dynamic>? details;
+  final bool retryable;
 
   const AppFailure({
     required this.message,
     required this.banglaMessage,
     this.errorCode,
     this.details,
+    this.retryable = false,
   });
 
   @override
   String toString() => 'AppFailure($errorCode): $message | $banglaMessage';
+}
+
+/// Stable server error codes translated once at the client boundary.
+class AppFailureMessages {
+  static String? forCode(String? code) {
+    switch (code) {
+      case 'AI_UNAVAILABLE':
+        return 'AI শিক্ষক সেবা এই মুহূর্তে পাওয়া যাচ্ছে না। কিছুক্ষণ পর আবার চেষ্টা করুন।';
+      case 'AI_DEGRADED':
+        return 'AI শিক্ষক সীমিত মোডে চলছে। পাঠ্যবইয়ের উৎস যাচাই করা যাচ্ছে না।';
+      case 'SYNC_CONFLICT':
+        return 'এই তথ্যটি অন্য জায়গা থেকে পরিবর্তন করা হয়েছে। আবার মিলিয়ে নিন।';
+      case 'STUDENT_CLASS_REQUIRED':
+        return 'AI শিক্ষক ব্যবহার করতে আগে তোমার শ্রেণি নির্বাচন করো।';
+      case 'RATE_LIMITED':
+        return 'খুব বেশি অনুরোধ করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।';
+      case 'STUDENT_NOT_FOUND':
+        return 'শিক্ষার্থীর প্রোফাইল পাওয়া যায়নি।';
+      default:
+        return null;
+    }
+  }
 }
 
 class NetworkFailure extends AppFailure {
@@ -21,6 +45,7 @@ class NetworkFailure extends AppFailure {
     super.banglaMessage =
         'ইন্টারনেট সংযোগ পাওয়া যাচ্ছে না। সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।',
     super.errorCode = 'NETWORK_ERROR',
+    super.retryable = true,
     super.details,
   });
 }
@@ -31,6 +56,7 @@ class TimeoutFailure extends AppFailure {
     super.banglaMessage =
         'অনুরোধের সময় পার হয়ে গেছে। নেটওয়ার্ক চেক করে আবার চেষ্টা করুন।',
     super.errorCode = 'REQUEST_TIMEOUT',
+    super.retryable = true,
     super.details,
   });
 }
@@ -91,6 +117,7 @@ class RateLimitFailure extends AppFailure {
     super.banglaMessage =
         'খুব বেশি অনুরোধ করা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।',
     super.errorCode = 'RATE_LIMITED',
+    super.retryable = true,
     super.details,
   });
 }

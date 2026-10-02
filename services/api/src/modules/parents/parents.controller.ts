@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } fro
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
+import { Roles } from '../../common/decorators/roles.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
@@ -10,10 +11,12 @@ import { UpsertParentProfileDto } from './dto/upsert-parent-profile.dto';
 import { LinkChildDto } from './dto/link-child.dto';
 import { UpdateParentAlertSettingsDto } from './dto/update-parent-alert-settings.dto';
 import { WeeklyReportQueryDto } from './dto/weekly-report-query.dto';
+import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Parents')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.PARENT, UserRole.ADMIN)
 @Controller({ path: 'parents', version: '1' })
 export class ParentsController {
   constructor(private readonly parentsService: ParentsService) {}

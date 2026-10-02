@@ -3,15 +3,18 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { Roles } from '../../common/decorators/roles.decorator';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { TextbooksService } from './textbooks.service';
 import { ListTextbooksQueryDto } from './dto/list-textbooks-query.dto';
 import { ManifestBundleQueryDto } from './dto/manifest-bundle-query.dto';
+import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Textbooks')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.STUDENT, UserRole.PARENT, UserRole.TEACHER, UserRole.ADMIN)
 @Controller({ path: 'textbooks', version: '1' })
 export class TextbooksController {
   constructor(private readonly textbooksService: TextbooksService) {}

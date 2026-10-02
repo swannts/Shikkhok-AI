@@ -36,3 +36,4 @@ export class RefreshSession {
 }
 
 export const RefreshSessionSchema = SchemaFactory.createForClass(RefreshSession);
+RefreshSessionSchema.index({ userId: 1, revokedAt: 1, expiresAt: 1 });

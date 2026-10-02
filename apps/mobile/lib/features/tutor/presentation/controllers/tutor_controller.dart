@@ -36,13 +36,17 @@ class TutorController extends StateNotifier<TutorState> {
     super.dispose();
   }
 
-  void stopGeneration() {
+  void stopGeneration({bool markCancelled = true}) {
+    final wasStreaming = state.isStreaming;
     _streamSubscription?.cancel();
     _streamSubscription = null;
     _cancelToken?.cancel('User cancelled generation');
     _cancelToken = null;
-    if (state.isStreaming) {
-      state = state.copyWith(isStreaming: false);
+    if (wasStreaming && markCancelled) {
+      state = state.copyWith(
+        isStreaming: false,
+        status: TutorUiStatus.cancelled,
+      );
     }
   }
 
@@ -266,6 +270,7 @@ class TutorController extends StateNotifier<TutorState> {
       isStreaming: true,
       errorMessage: null,
       activeCitations: const [],
+      status: TutorUiStatus.connecting,
     );
 
     _cancelToken = CancelToken();
@@ -305,18 +310,28 @@ class TutorController extends StateNotifier<TutorState> {
               state = state.copyWith(activeCitations: List.of(citations));
               break;
             case TutorDoneEvent():
+              state = state.copyWith(status: TutorUiStatus.complete);
               if (!completer.isCompleted) completer.complete();
-              stopGeneration();
+              stopGeneration(markCancelled: false);
               break;
             case TutorErrorEvent(:final message):
               state = state.copyWith(
                 isStreaming: false,
                 errorMessage: message,
+                status: TutorUiStatus.error,
               );
               if (!completer.isCompleted) completer.complete();
-              stopGeneration();
+              stopGeneration(markCancelled: false);
               break;
-            case TutorMetadataEvent():
+            case TutorMetadataEvent(:final grounded, :final raw):
+              final retrievalUnavailable = raw['retrievalUnavailable'] == true;
+              state = state.copyWith(
+                status: retrievalUnavailable
+                    ? TutorUiStatus.degraded
+                    : grounded == true
+                        ? TutorUiStatus.retrieving
+                        : TutorUiStatus.ungrounded,
+              );
               break;
           }
         },
@@ -324,11 +339,17 @@ class TutorController extends StateNotifier<TutorState> {
           state = state.copyWith(
             isStreaming: false,
             errorMessage: 'স্ট্রিমিং সংযোগে ত্রুটি হয়েছে।',
+            status: TutorUiStatus.error,
           );
           if (!completer.isCompleted) completer.complete();
         },
         onDone: () {
-          state = state.copyWith(isStreaming: false);
+          state = state.copyWith(
+            isStreaming: false,
+            status: state.status == TutorUiStatus.cancelled
+                ? TutorUiStatus.cancelled
+                : TutorUiStatus.complete,
+          );
           if (!completer.isCompleted) completer.complete();
         },
         cancelOnError: true,
@@ -339,6 +360,7 @@ class TutorController extends StateNotifier<TutorState> {
       state = state.copyWith(
         isStreaming: false,
         errorMessage: 'বার্তা পাঠানোর সময় সমস্যা হয়েছে।',
+        status: TutorUiStatus.error,
       );
     }
   }

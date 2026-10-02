@@ -26,6 +26,10 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
   const testEmail = `smoke_${uniqueNum}@example.com`;
   const testPhone = `017${uniqueNum}`;
   let conversationId: string;
+  let firstRefreshToken: string;
+  let secondRefreshToken: string;
+  let secondAccessToken: string;
+  let rotatedRefreshToken: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -73,6 +77,7 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
     expect(res.body.data).toHaveProperty('tokens');
     expect(res.body.data.user.email).toBe(testEmail);
     accessToken = res.body.data.tokens.accessToken;
+    firstRefreshToken = res.body.data.tokens.refreshToken;
     expect(accessToken).toBeDefined();
   });
 
@@ -89,6 +94,7 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
     expect(res.body.data).toHaveProperty('tokens');
     expect(res.body.data.tokens.accessToken).toBeDefined();
     accessToken = res.body.data.tokens.accessToken;
+    firstRefreshToken = res.body.data.tokens.refreshToken;
   });
 
   it('3. Fetch Current User via /api/v1/auth/me', async () => {
@@ -182,5 +188,70 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
     expect(checkpointRes.body).toHaveProperty('data');
     expect(checkpointRes.body.data.deviceId).toBe(deviceId);
     expect(checkpointRes.body.data.lastOperationId).toBe(opId);
+  });
+
+  it('8. Rotates refresh tokens and preserves a second simultaneous session', async () => {
+    const loginRes = await request(app.getHttpServer())
+      .post('/api/v1/auth/login')
+      .send({ identifier: testEmail, password: 'SecurePassword123!' })
+      .expect(200);
+    secondAccessToken = loginRes.body.data.tokens.accessToken;
+    secondRefreshToken = loginRes.body.data.tokens.refreshToken;
+
+    const refreshRes = await request(app.getHttpServer())
+      .post('/api/v1/auth/refresh')
+      .send({ refreshToken: firstRefreshToken })
+      .expect(200);
+    expect(refreshRes.body.data.tokens.accessToken).toBeDefined();
+    rotatedRefreshToken = refreshRes.body.data.tokens.refreshToken;
+    await request(app.getHttpServer())
+      .get('/api/v1/auth/me')
+      .set('Authorization', `Bearer ${secondAccessToken}`)
+      .expect(200);
+  });
+
+  it('9. Logout revokes only the supplied refresh-token session', async () => {
+    await request(app.getHttpServer())
+      .post('/api/v1/auth/logout')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ refreshToken: secondRefreshToken })
+      .expect(200);
+
+    await request(app.getHttpServer())
+      .post('/api/v1/auth/refresh')
+      .send({ refreshToken: secondRefreshToken })
+      .expect(401);
+  });
+
+  it('10. Rejects cross-user access to a tutor conversation', async () => {
+    const otherEmail = `smoke_other_${Date.now()}@example.com`;
+    const registerRes = await request(app.getHttpServer())
+      .post('/api/v1/auth/register')
+      .send({
+        name: 'অন্য শিক্ষার্থী',
+        email: otherEmail,
+        phone: `018${Math.floor(10000000 + Math.random() * 89999999)}`,
+        password: 'SecurePassword123!',
+        role: 'student',
+      })
+      .expect(201);
+    const otherToken = registerRes.body.data.tokens.accessToken;
+
+    await request(app.getHttpServer())
+      .get(`/api/v1/tutor/me/conversations/${conversationId}`)
+      .set('Authorization', `Bearer ${otherToken}`)
+      .expect((res) => expect([403, 404]).toContain(res.status));
+  });
+
+  it('11. Logout-all invalidates the remaining session', async () => {
+    await request(app.getHttpServer())
+      .post('/api/v1/auth/logout-all')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .expect(200);
+
+    await request(app.getHttpServer())
+      .post('/api/v1/auth/refresh')
+      .send({ refreshToken: rotatedRefreshToken })
+      .expect(401);
   });
 });

@@ -215,10 +215,12 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
           return SafeArea(
             child: Column(
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(
                       AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, 0),
-                  child: CacheStatusBanner(),
+                  child: CacheStatusBanner(
+                      cacheKey: 'lesson:${widget.lessonId!}',
+                      entityType: 'lesson'),
                 ),
                 Expanded(
                   child: SingleChildScrollView(

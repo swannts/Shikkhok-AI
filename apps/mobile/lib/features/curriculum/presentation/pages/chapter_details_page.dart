@@ -119,7 +119,9 @@ class ChapterDetailsPage extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CacheStatusBanner(),
+                        CacheStatusBanner(
+                            cacheKey: 'chapter:$chapterId',
+                            entityType: 'chapter'),
                         // Hero Title
                         Text(
                           chapter.title,

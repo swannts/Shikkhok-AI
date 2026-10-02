@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { Roles } from '../../common/decorators/roles.decorator';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { ClassroomsService } from './classrooms.service';
@@ -11,6 +12,7 @@ import { JoinClassroomDto } from './dto/join-classroom.dto';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { SubmitAssignmentDto } from './dto/submit-assignment.dto';
 import { GradeAssignmentDto } from './dto/grade-assignment.dto';
+import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Classrooms')
 @ApiBearerAuth()
@@ -20,6 +22,7 @@ export class ClassroomsController {
   constructor(private readonly classroomsService: ClassroomsService) {}
 
   @Post()
+  @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({
     summary: 'Create a new teacher classroom with auto-generated 6-character join code',
   })
@@ -29,6 +32,7 @@ export class ClassroomsController {
   }
 
   @Get('me/teaching')
+  @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'List all classrooms taught by the current teacher' })
   @ApiResponse({ status: 200, description: 'List of teaching classrooms' })
   async listTeaching(@CurrentUser() user: AuthenticatedUser) {
@@ -36,6 +40,7 @@ export class ClassroomsController {
   }
 
   @Get('me/enrolled')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'List all classrooms the student has joined' })
   @ApiResponse({ status: 200, description: 'List of enrolled classrooms' })
   async listEnrolled(@CurrentUser() user: AuthenticatedUser) {
@@ -43,6 +48,7 @@ export class ClassroomsController {
   }
 
   @Post('join')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Join a classroom using a 6-character code' })
   @ApiResponse({ status: 200, description: 'Joined classroom successfully' })
   async joinClassroom(@CurrentUser() user: AuthenticatedUser, @Body() dto: JoinClassroomDto) {
@@ -50,6 +56,7 @@ export class ClassroomsController {
   }
 
   @Get(':classroomId')
+  @Roles(UserRole.STUDENT, UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'Get classroom details, member count, and assignments' })
   @ApiResponse({ status: 200, description: 'Classroom overview returned' })
   async getClassroom(
@@ -60,6 +67,7 @@ export class ClassroomsController {
   }
 
   @Post(':classroomId/assignments')
+  @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'Create a new classroom homework or practice assignment' })
   @ApiResponse({ status: 201, description: 'Assignment created successfully' })
   async createAssignment(
@@ -71,6 +79,7 @@ export class ClassroomsController {
   }
 
   @Get(':classroomId/assignments')
+  @Roles(UserRole.STUDENT, UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'List all published assignments for the classroom' })
   @ApiResponse({ status: 200, description: 'List of assignments' })
   async listAssignments(
@@ -81,6 +90,7 @@ export class ClassroomsController {
   }
 
   @Post(':classroomId/assignments/:assignmentId/submit')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Submit student work for a classroom assignment' })
   @ApiResponse({ status: 200, description: 'Assignment submitted successfully' })
   async submitAssignment(
@@ -93,6 +103,7 @@ export class ClassroomsController {
   }
 
   @Get(':classroomId/assignments/:assignmentId/submissions')
+  @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'List all student submissions for an assignment (teacher only)' })
   @ApiResponse({ status: 200, description: 'List of student submissions' })
   async listSubmissions(
@@ -104,6 +115,7 @@ export class ClassroomsController {
   }
 
   @Put(':classroomId/assignments/:assignmentId/submissions/:submissionId/grade')
+  @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'Grade a student submission with score and teacher feedback' })
   @ApiResponse({ status: 200, description: 'Submission graded successfully' })
   async gradeSubmission(

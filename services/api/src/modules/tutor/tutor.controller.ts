@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -9,21 +10,26 @@ import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { TutorService } from './tutor.service';
 import { StartTutorConversationDto } from './dto/start-tutor-conversation.dto';
 import { SendTutorMessageDto } from './dto/send-tutor-message.dto';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Tutor')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(ThrottlerGuard)
 @Controller({ path: 'tutor', version: '1' })
 export class TutorController {
   constructor(private readonly tutorService: TutorService) {}
 
   @Get('me/conversations')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'List my tutor conversations' })
   async getMyConversations(@CurrentUser() user: AuthenticatedUser) {
     return this.tutorService.getMyConversations(user);
   }
 
   @Post('me/conversations')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Start a tutor conversation' })
   async startConversation(
     @CurrentUser() user: AuthenticatedUser,
@@ -33,6 +39,7 @@ export class TutorController {
   }
 
   @Get('me/conversations/:conversationId')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Get a tutor conversation by ID' })
   @ApiQuery({ name: 'limit', required: false, description: 'Page size, max 50' })
   @ApiQuery({ name: 'cursor', required: false, description: 'Opaque pagination cursor' })
@@ -51,6 +58,7 @@ export class TutorController {
   }
 
   @Get('me/conversations/:conversationId/messages')
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'List tutor messages for a conversation' })
   @ApiQuery({ name: 'limit', required: false, description: 'Page size, max 50' })
   @ApiQuery({ name: 'cursor', required: false, description: 'Opaque pagination cursor' })
@@ -69,6 +77,8 @@ export class TutorController {
   }
 
   @Post('me/conversations/:conversationId/messages')
+  @Throttle({ default: { limit: 20, ttl: 60000 } })
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({ summary: 'Send a tutor message (JSON reply)' })
   @ApiResponse({ status: 200, description: 'Tutor reply returned' })
   async sendMessage(
@@ -80,6 +90,8 @@ export class TutorController {
   }
 
   @Post('me/conversations/:conversationId/messages/stream')
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
+  @Roles(UserRole.STUDENT, UserRole.ADMIN)
   @ApiOperation({
     summary: 'Send a tutor message and stream the AI response using Server-Sent Events (SSE)',
   })

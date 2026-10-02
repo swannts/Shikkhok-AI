@@ -69,6 +69,14 @@ export async function processHomeworkJob(job: Job): Promise<HomeworkEvaluationRe
       throw new Error('Missing required fields in homework job payload');
     }
 
+    // A retried or redelivered job must not call the AI provider twice after a
+    // successful evaluation. The cached result is only a fast idempotency
+    // guard; the persisted submission remains the source of truth.
+    const existingResult = await checkHomeworkResult(data.submissionId);
+    if (existingResult) {
+      return existingResult;
+    }
+
     const payloadObj = {
       submission_id: data.submissionId,
       user_id: data.userId,

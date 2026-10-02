@@ -308,13 +308,19 @@ export class AdminController {
 
   @Get('textbooks/indexing-status')
   @Roles(UserRole.ADMIN)
-  async getAllTextbooksIndexingStatus() {
-    return this.adminService.getAllTextbooksIndexingStatus();
+  async getAllTextbooksIndexingStatus(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.adminService.getAllTextbooksIndexingStatus(
+      page ? Number(page) : 1,
+      limit ? Number(limit) : 50,
+    );
   }
 
   @Post('textbooks/:bookId/reindex')
   @Roles(UserRole.ADMIN)
-  async queueTextbookForReindex(@Param('bookId') bookId: string) {
+  async queueTextbookForReindex(@Param('bookId', MongoObjectIdPipe) bookId: string) {
     return this.adminService.queueTextbookForReindex(bookId);
   }
 }

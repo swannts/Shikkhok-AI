@@ -72,6 +72,15 @@ npm run dev
 
 ## 🧪 Testing & Verification
 
+### Implementation status
+
+- ✅ Implemented: NestJS/FastAPI separation, curriculum-scoped RAG, degraded AI mode, strict tutor SSE parsing, refresh-session logout semantics, HMAC OTP verification, role/ownership guards, mobile curriculum caching, offline sync queue, health/readiness endpoints, and curriculum indexing progress.
+- 🟡 Implemented / hardening: BullMQ idempotency, admin indexing lifecycle, pagination/index coverage, cache-age UX, and explicit AI Tutor UI states.
+- 🧪 Experimental: provider-dependent AI quality and vector-index evaluation fixtures.
+- ⬜ Planned: production infrastructure load testing, device-matrix testing, and final end-to-end execution against deployed dependencies.
+
+AI degraded mode is deliberate: when verified retrieval is unavailable, the tutor may provide a general explanation but returns `grounded=false`, `retrievalUnavailable=true`, and an empty citation list. It never invents NCTB provenance.
+
 ```bash
 # API service tests
 cd services/api

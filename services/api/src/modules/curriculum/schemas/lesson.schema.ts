@@ -94,3 +94,4 @@ export class Lesson {
 
 export const LessonSchema = SchemaFactory.createForClass(Lesson);
 LessonSchema.index({ chapterId: 1, slug: 1 }, { unique: true });
+LessonSchema.index({ chapterId: 1, order: 1, title: 1 });

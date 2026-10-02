@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
+import { NotFoundException } from '@nestjs/common';
 import { ClassroomsService } from '../classrooms.service';
 import { ClassroomRepository } from '../repositories/classroom.repository';
 import { ClassroomMemberRepository } from '../repositories/classroom-member.repository';
@@ -141,8 +142,10 @@ describe('ClassroomsService', () => {
 
   it('should submit assignment and mark as submitted on time', async () => {
     memberRepository.isMember.mockResolvedValue(true);
+    const assignmentId = new Types.ObjectId();
     assignmentRepository.findById.mockResolvedValue({
-      _id: new Types.ObjectId(),
+      _id: assignmentId,
+      classroomId: mockClassroom._id,
       isPublished: true,
       dueDate: new Date(Date.now() + 86400000), // future due date
     } as any);
@@ -156,7 +159,7 @@ describe('ClassroomsService', () => {
     const result = await service.submitAssignment(
       studentUser,
       mockClassroom._id.toString(),
-      new Types.ObjectId().toString(),
+      assignmentId.toString(),
       { content: 'Solution' },
     );
 
@@ -165,6 +168,14 @@ describe('ClassroomsService', () => {
 
   it('should grade submission with score and teacher feedback', async () => {
     classroomRepository.findById.mockResolvedValue(mockClassroom as any);
+    const assignmentId = new Types.ObjectId();
+    submissionRepository.findById.mockResolvedValue({
+      assignmentId,
+      classroomId: mockClassroom._id,
+    } as any);
+    assignmentRepository.findById.mockResolvedValue({
+      classroomId: mockClassroom._id,
+    } as any);
     submissionRepository.gradeSubmission.mockResolvedValue({
       status: SubmissionStatus.GRADED,
       score: 95,
@@ -179,12 +190,54 @@ describe('ClassroomsService', () => {
     const result = await service.gradeSubmission(
       teacherUser,
       mockClassroom._id.toString(),
-      new Types.ObjectId().toString(),
+      assignmentId.toString(),
       new Types.ObjectId().toString(),
       { score: 95, teacherFeedback: 'Excellent work' },
     );
 
     expect(result.status).toBe(SubmissionStatus.GRADED);
     expect(result.score).toBe(95);
+  });
+
+  it('should reject submitting an assignment from a different classroom', async () => {
+    memberRepository.isMember.mockResolvedValue(true);
+    assignmentRepository.findById.mockResolvedValue({
+      classroomId: new Types.ObjectId(),
+      isPublished: true,
+      dueDate: new Date(Date.now() + 86400000),
+    } as any);
+
+    await expect(
+      service.submitAssignment(
+        studentUser,
+        mockClassroom._id.toString(),
+        new Types.ObjectId().toString(),
+        { content: 'cross-classroom attempt' },
+      ),
+    ).rejects.toThrow(NotFoundException);
+    expect(submissionRepository.submitAssignment).not.toHaveBeenCalled();
+  });
+
+  it('should reject grading a submission from a different assignment', async () => {
+    classroomRepository.findById.mockResolvedValue(mockClassroom as any);
+    const assignmentId = new Types.ObjectId();
+    assignmentRepository.findById.mockResolvedValue({
+      classroomId: mockClassroom._id,
+    } as any);
+    submissionRepository.findById.mockResolvedValue({
+      assignmentId: new Types.ObjectId(),
+      classroomId: mockClassroom._id,
+    } as any);
+
+    await expect(
+      service.gradeSubmission(
+        teacherUser,
+        mockClassroom._id.toString(),
+        assignmentId.toString(),
+        new Types.ObjectId().toString(),
+        { score: 80 },
+      ),
+    ).rejects.toThrow(NotFoundException);
+    expect(submissionRepository.gradeSubmission).not.toHaveBeenCalled();
   });
 });

@@ -3,10 +3,12 @@ import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagg
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { Roles } from '../../common/decorators/roles.decorator';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { ProgressService } from './progress.service';
 import { UpsertLessonProgressDto } from './dto/upsert-lesson-progress.dto';
+import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Progress')
 @ApiBearerAuth()
@@ -16,6 +18,7 @@ export class ProgressController {
   constructor(private readonly progressService: ProgressService) {}
 
   @Get('me/summary')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Get authenticated learning progress summary' })
   @ApiResponse({ status: 200, description: 'Learning summary returned' })
   async getMySummary(@CurrentUser() user: AuthenticatedUser) {
@@ -23,6 +26,7 @@ export class ProgressController {
   }
 
   @Get('me/subjects/:subjectId')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Get authenticated subject progress summary' })
   @ApiResponse({ status: 200, description: 'Subject progress returned' })
   async getMySubjectProgress(
@@ -33,6 +37,7 @@ export class ProgressController {
   }
 
   @Get('me/lessons/:lessonId')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Get authenticated lesson progress' })
   @ApiResponse({ status: 200, description: 'Lesson progress returned' })
   async getMyLessonProgress(
@@ -43,6 +48,7 @@ export class ProgressController {
   }
 
   @Put('me/lessons/:lessonId')
+  @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Create or update authenticated lesson progress' })
   @ApiResponse({ status: 200, description: 'Lesson progress saved successfully' })
   async upsertMyLessonProgress(
