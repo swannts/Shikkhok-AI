@@ -11,6 +11,7 @@ import '../../../../shared/widgets/app_badge.dart';
 import '../../../../shared/widgets/app_card.dart';
 import '../../../../shared/widgets/app_progress_bar.dart';
 import '../../../../shared/widgets/app_search_field.dart';
+import '../../../../shared/widgets/student_bottom_navigation.dart';
 import '../controllers/curriculum_controller.dart';
 import '../../domain/entities/subject.dart';
 
@@ -23,7 +24,6 @@ class LearnPage extends ConsumerStatefulWidget {
 
 class _LearnPageState extends ConsumerState<LearnPage> {
   int _selectedFilterIndex = 0;
-  int _currentNavIndex = 1;
   final _searchController = TextEditingController();
 
   @override
@@ -73,13 +73,15 @@ class _LearnPageState extends ConsumerState<LearnPage> {
           Padding(
             padding: const EdgeInsets.only(right: AppSpacing.md),
             child: Center(
-              child: isOnline ? const AppBadge(
-                label: '৮ম শ্রেণি • NCTB ২০২৬',
-                variant: AppBadgeVariant.neutral,
-              ) : const AppBadge(
-                label: 'অফলাইন ক্যাশ',
-                variant: AppBadgeVariant.warning,
-              ),
+              child: isOnline
+                  ? const AppBadge(
+                      label: '৮ম শ্রেণি • NCTB ২০২৬',
+                      variant: AppBadgeVariant.neutral,
+                    )
+                  : const AppBadge(
+                      label: 'অফলাইন ক্যাশ',
+                      variant: AppBadgeVariant.warning,
+                    ),
             ),
           ),
         ],
@@ -221,50 +223,7 @@ class _LearnPageState extends ConsumerState<LearnPage> {
           ),
         ),
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentNavIndex,
-        onDestinationSelected: (index) {
-          setState(() => _currentNavIndex = index);
-          switch (index) {
-            case 0:
-              context.go('/');
-              break;
-            case 1:
-              break;
-            case 2:
-              context.go('/ai-tutor-chat');
-              break;
-            case 3:
-              context.go('/practice-setup');
-              break;
-            case 4:
-              context.go('/student-profile');
-              break;
-          }
-        },
-        destinations: const [
-          NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home_rounded),
-              label: 'হোম'),
-          NavigationDestination(
-              icon: Icon(Icons.menu_book_outlined),
-              selectedIcon: Icon(Icons.menu_book_rounded),
-              label: 'শিক্ষা'),
-          NavigationDestination(
-              icon: Icon(Icons.smart_toy_outlined),
-              selectedIcon: Icon(Icons.smart_toy_rounded),
-              label: 'টিউটর'),
-          NavigationDestination(
-              icon: Icon(Icons.quiz_outlined),
-              selectedIcon: Icon(Icons.quiz_rounded),
-              label: 'অনুশীলন'),
-          NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person_rounded),
-              label: 'প্রোফাইল'),
-        ],
-      ),
+      bottomNavigationBar: const StudentBottomNavigation(),
     );
   }
 

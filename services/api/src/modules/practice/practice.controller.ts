@@ -4,7 +4,6 @@ import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
-import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { PracticeService } from './practice.service';
 import { SubmitPracticeAttemptDto } from './dto/submit-practice-attempt.dto';
@@ -24,7 +23,7 @@ export class PracticeController {
   @ApiResponse({ status: 200, description: 'Practice questions returned' })
   async listQuestions(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('lessonId', MongoObjectIdPipe) lessonId: string,
+    @Param('lessonId') lessonId: string,
     @Query('limit') limit?: string,
     @Query('difficulty') difficulty?: PracticeDifficulty,
   ) {

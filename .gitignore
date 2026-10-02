@@ -43,3 +43,6 @@ venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+# Downloaded curriculum PDFs are reproducible from the NCTB catalogue manifest.
+/services/ai/data/curriculum/2025/
+/services/ai/data/curriculum/2026/

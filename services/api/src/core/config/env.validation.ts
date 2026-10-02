@@ -47,7 +47,7 @@ export class EnvironmentVariables {
   JWT_REFRESH_TTL: string = '7d';
 
   @IsString()
-  CORS_ORIGINS: string = 'http://localhost:3000,http://localhost:4000,http://localhost:8081';
+  CORS_ORIGINS: string = 'http://localhost:3000,http://localhost:4000,http://localhost:8080,http://localhost:8081';
 
   @IsOptional()
   @IsUrl({ require_tld: false }, { message: 'AI_GATEWAY_URL must be a valid URL' })

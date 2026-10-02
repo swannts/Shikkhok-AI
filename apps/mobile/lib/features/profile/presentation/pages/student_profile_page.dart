@@ -9,6 +9,7 @@ import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../auth/presentation/state/auth_state.dart';
 import '../../../curriculum/presentation/controllers/curriculum_controller.dart';
 import '../controllers/student_profile_controller.dart';
+import '../../../../shared/widgets/student_bottom_navigation.dart';
 
 class StudentProfilePage extends ConsumerStatefulWidget {
   const StudentProfilePage({super.key});
@@ -49,6 +50,7 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
     final progress = progressSummaryAsync.valueOrNull;
 
     return Scaffold(
+      bottomNavigationBar: const StudentBottomNavigation(),
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.surface,

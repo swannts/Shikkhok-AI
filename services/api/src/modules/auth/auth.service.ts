@@ -430,13 +430,13 @@ export class AuthService {
     const tokenHash = this.hashToken(refreshToken);
 
     await this.refreshSessionRepository.createSession({
-      _id: sessionId,
+      sessionId,
       userId: new Types.ObjectId(userId),
       tokenHash,
       deviceId,
       deviceName,
       expiresAt,
-    } as any);
+    });
 
     return { accessToken, refreshToken };
   }

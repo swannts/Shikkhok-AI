@@ -23,6 +23,11 @@ class AppTheme {
         onPrimary: AppColors.onPrimary,
       ),
       scaffoldBackgroundColor: AppColors.background,
+      dividerTheme: const DividerThemeData(
+        color: AppColors.divider,
+        space: 1,
+        thickness: 1,
+      ),
       textTheme: baseTextTheme.copyWith(
         displayLarge: AppTypography.display,
         titleLarge: AppTypography.pageTitle,
@@ -39,6 +44,15 @@ class AppTheme {
         scrolledUnderElevation: 0.0,
         iconTheme: IconThemeData(color: AppColors.textPrimary),
         titleTextStyle: AppTypography.sectionTitle,
+      ),
+      cardTheme: const CardThemeData(
+        color: AppColors.surface,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          side: BorderSide(color: AppColors.border),
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -76,6 +90,13 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: AppColors.textPrimary,
         ),
+      ),
+      navigationBarTheme: const NavigationBarThemeData(
+        backgroundColor: AppColors.surface,
+        elevation: 0,
+        indicatorColor: AppColors.primaryLight,
+        labelTextStyle: WidgetStatePropertyAll(AppTypography.captionBold),
+        height: 72,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,

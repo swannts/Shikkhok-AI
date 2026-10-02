@@ -1,0 +1,4750 @@
+{
+  "source": "NCTB 2025 catalogue",
+  "sourceUrl": "https://nctb.cloud/textbooks/2025/",
+  "officialAuthority": "https://nctb.gov.bd/",
+  "missingCatalogueRoutes": [
+    "https://nctb.cloud/textbooks/2025/primary/class-2/",
+    "https://nctb.cloud/textbooks/2025/primary/class-3/"
+  ],
+  "curriculumVersion": "2025-NCTB",
+  "curriculumYear": 2025,
+  "records": [
+    {
+      "book_id": "nctb-2025-আক-ইদ-ও-ফ-কহ-1swNHksM-0",
+      "title": "আকাইদ ও ফিকহ",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "আক-ইদ-ও-ফ-কহ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1swNHksMRhc0ypKFJ10tAPcbTOZ-EglFE",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আদদ-র-স-ল-আর-ব-য়-য-হ-1Vll8p6R-0",
+      "title": "আদদুরুসুল আরাবিয়্যাহ",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "আদদ-র-স-ল-আর-ব-য়-য-হ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Vll8p6RZUF9kWOnrG0ZDeU9rPvjevHqK",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1MTbykaB-0",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1MTbykaBdc1bTfeqNN5_W0RzPNlG_EVak",
+      "local_path": "services/ai/data/curriculum/2025/class-1/nctb-2025-আম-র-ব-ল-বই-1MTbykaB-0.pdf",
+      "sha256": "9268b3d4decb46cff922503d079005dbfe774ab92c43a0cd0a4047cdef50a4d1",
+      "status": "imported"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1XFeh1kD-1",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1XFeh1kDvWoBtYza8jft5cwrPVhEcseD5",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ক-রআন-ম-জ-দ-ও-ত-জভ-দ-1zf5MICl-0",
+      "title": "কুরআন মাজিদ ও তাজভিদ",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "ক-রআন-ম-জ-দ-ও-ত-জভ-দ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1zf5MIClKLODj3VHOJ90WlziDVUgyUBRk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গণ-ত-1UZ0x1s4-0",
+      "title": "গণিত",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1UZ0x1s4AGar08nVm9ui71cERwv_MB1rk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1sQ9gxdN-0",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1sQ9gxdNIKpsBwvbCfOV0Ek6Xmjw90W9B",
+      "local_path": "services/ai/data/curriculum/2025/class-1/nctb-2025-প-র-থম-ক-গণ-ত-1sQ9gxdN-0.pdf",
+      "sha256": "38fc5ee4e3c26b64fe438e9200380311b0920b1a3c5edabd36d52019044699bb",
+      "status": "imported"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1N6kaGOY-1",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1N6kaGOYkITwR65sKfMBE3JtX9eLgFBSC",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1vLgwbT2-0",
+      "title": "English for Today",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1vLgwbT2DOz8NoVgdZHoSpWvHzYpPPZ-n",
+      "local_path": "services/ai/data/curriculum/2025/class-1/nctb-2025-english-for-today-1vLgwbT2-0.pdf",
+      "sha256": "973530b8d39a50e224c6d10b9faa7ff9bd3e502d6bf96795fc4c6800307176ac",
+      "status": "imported"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1fEi4o-c-1",
+      "title": "English for Today",
+      "class_levels": [
+        1
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-1/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1fEi4o-cRb-uIuXb0YllOylOLwPKg9003",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আক-ইদ-ও-ফ-কহ-1GMGSL0O-0",
+      "title": "আকাইদ ও ফিকহ",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "আক-ইদ-ও-ফ-কহ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1GMGSL0Ob34h3oG8nwgAJ0hLcp87x4FtP",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আদদ-র-স-ল-আর-ব-য়-য-হ-1CH-UqnP-0",
+      "title": "আদদুরুসুল আরাবিয়্যাহ",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "আদদ-র-স-ল-আর-ব-য়-য-হ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1CH-UqnPYeP_ZXai5C3Lju3WEXFMOV4GZ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1n3TZcBd-0",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1n3TZcBdT8LQppREBDU3h6oOhTmlGlrY_",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1iO_9skw-1",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1iO_9skwiu9vnzXlXL_GLYPHsH04qrcf-",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ইসল-ম-শ-ক-ষ-1shmJzRT-0",
+      "title": "ইসলাম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ইসল-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1shmJzRTTZzGAdeKXgqFcBov1Oj5oBIOV",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ইসল-ম-শ-ক-ষ-1HtK-6UQ-1",
+      "title": "ইসলাম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ইসল-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1HtK-6UQBnV8qB0bgccP2ZEVWWXz8-6Qa",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ক-রআন-ম-জ-দ-ও-ত-জভ-দ-1uJR7Woq-0",
+      "title": "কুরআন মাজিদ ও তাজভিদ",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ক-রআন-ম-জ-দ-ও-ত-জভ-দ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1uJR7WoqlJlhTS1nqG6Gv5a5pEhYrJNR5",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-খ-র-ষ-টধর-ম-শ-ক-ষ-1fxX5PcC-0",
+      "title": "খ্রিষ্টধর্ম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "খ-র-ষ-টধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1fxX5PcCGAiy2CNUhH-B5sPqromAFVSB_",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-খ-র-ষ-টধর-ম-শ-ক-ষ-14KuLhm3-1",
+      "title": "খ্রিষ্টধর্ম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "খ-র-ষ-টধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14KuLhm3zC_PO4meGDVfTiYVbcrv1BvdQ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গণ-ত-16HC4Zwz-0",
+      "title": "গণিত",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=16HC4ZwznloIo4Su3JAAI3eWYHB6Wp8lg",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1BIpqtGy-0",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1BIpqtGydNFcZ_fmFRhRuNHxd2AjcwGT6",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1VBgIB_t-1",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VBgIB_t61oNMwHbe7J6WtUluw9ZQATKX",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-ব-জ-ঞ-ন-1I4tHlMP-0",
+      "title": "প্রাথমিক বিজ্ঞান",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "প-র-থম-ক-ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1I4tHlMPLoeCKHL_HbHgTC_UL9nOi33M7",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-ব-জ-ঞ-ন-1Nkd27g3-1",
+      "title": "প্রাথমিক বিজ্ঞান",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "প-র-থম-ক-ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Nkd27g36BtxJnFWfnhS4Oj3N7GE8EZnm",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-1LF-RvA2-0",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1LF-RvA21jpdSgvkAzNhr3kSLxPWynPHE",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-1u-YcHCs-0",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1u-YcHCshH8Zn9X04S6ZTzqJ8ebmLG-dJ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-1NodBxpg-1",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1NodBxpgoeksx8e5cZyFI_h3yWtVxFrJD",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1u1pfK9F-0",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1u1pfK9F1oa6tRBscZU6WlI7HgDTgWVQK",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-দ-ধধর-ম-শ-ক-ষ-1MvBd2bf-0",
+      "title": "বৌদ্ধধর্ম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ব-দ-ধধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1MvBd2bfO709qHvshW12ovvuwcrblXHzI",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-দ-ধধর-ম-শ-ক-ষ-1ZbmzK6J-1",
+      "title": "বৌদ্ধধর্ম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "ব-দ-ধধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ZbmzK6Jvvj3h2Tv5CEGPITbrDMKNRIgs",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-ন-দ-ধর-ম-শ-ক-ষ-1So1EDbx-0",
+      "title": "হিন্দুধর্ম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "হ-ন-দ-ধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1So1EDbx6NbWkEZ3UUMEuK6sEUaL-II4v",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-ন-দ-ধর-ম-শ-ক-ষ-1a_992uF-1",
+      "title": "হিন্দুধর্ম শিক্ষা",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "হ-ন-দ-ধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1a_992uFH1buJDzUOeZzqHgDQc21sFoQc",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1O6Uot8t-0",
+      "title": "English For Today",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1O6Uot8tmM1sktx875bablzbXoB83A1JK",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1duu1zZQ-1",
+      "title": "English For Today",
+      "class_levels": [
+        4
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-4/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1duu1zZQqri7hSgLGMsknwO_y6_dgV5KZ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1_l_RudE-0",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1_l_RudEdfGF4bjPIAFHmkzkYpKPriFvK",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ইসল-ম-শ-ক-ষ-15_Vyasy-0",
+      "title": "ইসলাম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "ইসল-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=15_VyasyRtA8MgLbpLIw1TRp6uhzAzWnJ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ইসল-ম-শ-ক-ষ-1uLZd_sO-1",
+      "title": "ইসলাম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "ইসল-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1uLZd_sOXA-0Wj9tTUPuNjTpzlK-RE46k",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-খ-র-ষ-টধর-ম-শ-ক-ষ-17uQhkiG-0",
+      "title": "খ্রিষ্টধর্ম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "খ-র-ষ-টধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=17uQhkiGbzXVd9ing6TNtakHJaaBuwDBk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-খ-র-ষ-টধর-ম-শ-ক-ষ-11lRNmqP-1",
+      "title": "খ্রিষ্টধর্ম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "খ-র-ষ-টধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=11lRNmqPmcXdJfb1ke3E9SH2JCTlAdkFi",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-18C-iB1t-0",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=18C-iB1tOSYG5qwBjRpV3NNivFqDvsCec",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-14az_s5H-1",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14az_s5HH8EVHQ7usXZ6Q8a194CrVbVoL",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-ব-জ-ঞ-ন-1ru6RSNp-0",
+      "title": "প্রাথমিক বিজ্ঞান",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "প-র-থম-ক-ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ru6RSNpp-F2MHDoIwZzkWQi5-Oq6RtqD",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-ব-জ-ঞ-ন-1Fm6OaoL-1",
+      "title": "প্রাথমিক বিজ্ঞান",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "প-র-থম-ক-ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Fm6OaoL4io2wy3n4Rpkhai5dIJOOka0Q",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-1yLV_zwZ-0",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1yLV_zwZNPLtj5YD-7UeS0Sa64lv6tm9a",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-1az66eV4-1",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1az66eV4MR9CdxYuYVwW7LPXnCVAlcfBt",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-দ-ধধর-ম-শ-ক-ষ-1IvQ5cxY-0",
+      "title": "বৌদ্ধধর্ম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "ব-দ-ধধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1IvQ5cxYu5yovmn47O_7X4MxrAfjekA0q",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-দ-ধধর-ম-শ-ক-ষ-1Qezvigs-1",
+      "title": "বৌদ্ধধর্ম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "ব-দ-ধধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1QezvigstlpDuIKKYvd6fuTPjDKhLtL6T",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-ন-দ-ধর-ম-শ-ক-ষ-122mZvsi-0",
+      "title": "হিন্দুধর্ম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "হ-ন-দ-ধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=122mZvsicBs4HG1bEP1zts0A4QrMf2e23",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-ন-দ-ধর-ম-শ-ক-ষ-1OmJKPmQ-1",
+      "title": "হিন্দুধর্ম শিক্ষা",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "হ-ন-দ-ধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1OmJKPmQ9fqxH74w8li_62x4uSUuL_gkf",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1mYMaa4i-0",
+      "title": "English For Today",
+      "class_levels": [
+        5
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/primary/class-5/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1mYMaa4iG8exP-HjtT_f7Jgss76o3Nd4H",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আনন-দপ-ঠ-16L1WW3Q-0",
+      "title": "আনন্দপাঠ",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "আনন-দপ-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=16L1WW3QTqQfai9aPayV0gyE5igRMiFeL",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-1FOF9ie0-0",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1FOF9ie0plvrxpSlsL0MIGsExNd5GQX-j",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-1HwcfcZI-1",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1HwcfcZINjLsa2Kpep_KUeBrCIMBb-hiI",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-চ-র-প-ঠ-1HMLLnPv-0",
+      "title": "চারুপাঠ",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "চ-র-প-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1HMLLnPvoFbwdLUYOyuOYKkuTma6oI0gD",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-ল-1qdERVW4-0",
+      "title": "পালি",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "প-ল",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1qdERVW4prRebbMVUR6JnDgYh5GzZHhvN",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-ব-য-করণ-ও-ন-র-ম-ত-1AQo5mML-0",
+      "title": "বাংলা ব্যাকরণ ও নির্মিতি",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "ব-ল-ব-য-করণ-ও-ন-র-ম-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1AQo5mMLwsMa_ASt0uYANyl7Cb7zaqq6i",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1EPRUddj-0",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1EPRUddjMf4jjogGagq6J7Rll1OhZRwmk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1B2R3cuq-1",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1B2R3cuqad_e7SEQVBlucFj-wREX82veT",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-গ-ত-1JGiO5Z0-0",
+      "title": "সংগীত",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "স-গ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1JGiO5Z04mKfVfjkSj3vYwqZfzEG4ZeoG",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-স-ক-ত-18Jx95IZ-0",
+      "title": "সংস্কৃত",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "স-স-ক-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=18Jx95IZP7TbgXrMZ5Z6c7bIrbQmr30cT",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-সচ-ত-র-আরব-প-ঠ-1tksx8Bw-0",
+      "title": "সচিত্র আরবি পাঠ",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "সচ-ত-র-আরব-প-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1tksx8BwhTP218yRM7P1bwmhd3xdoDHSl",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1H9OqVnq-0",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1H9OqVnqoCB63MgLkgWunue4EGE6YzS9D",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1hgI2oM5-1",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1hgI2oM5uWHacmGXIhj1m4NDUKbGzQaMq",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-1WHg5KDe-0",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1WHg5KDeLwq29t85_A18vK23Ttsp36RHp",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-10pPl7wf-1",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=10pPl7wf1jKGv5vmdbzNyHoyqqnG1O3gt",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1F2v5Pf6-0",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1F2v5Pf6br3lu_WChJ1fwiYwyct_Fs6UX",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1gab-_Sn-1",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1gab-_SnIZoqaTnXDrd84iZYDByd6Nq8c",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1e0I5Aq--0",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1e0I5Aq-3PixBdghJPc6Ile4M-GuZ-9CY",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1YDYu7f7-1",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1YDYu7f7GEi0doOgKJ9yFefZ_ocCRXP6T",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-16pUxm6P-0",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=16pUxm6P5D2W7J3ITrkeJONf3tI9e0I4L",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-1FKnBuvL-1",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1FKnBuvLbemC-uw_-1MB1h7QBDMPsLlLs",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1aX0Py2P-0",
+      "title": "English For Today",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1aX0Py2PLwSgh-NVUsTqfI0bqEplYo7WV",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-grammar-and-composition-1Tgrw_QZ-0",
+      "title": "English Grammar and Composition",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "english-grammar-and-composition",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Tgrw_QZJwpUCKV3LJzcCTZ0Dvhz-bOF0",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1tzM4rRx-0",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1tzM4rRxETJGqhYwEujFedkX_POPegG-v",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1LbuPWtN-1",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1LbuPWtNZoCzw_bBREt9ORrKJgz6v0H81",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-1u2zRiyN-0",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1u2zRiyNz6ekcFMRskixrrCUxCyJQHDkr",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-1livS4uN-1",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1livS4uNclZ_0-9jp44pcOEY5tr9iHqbj",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-1uW6-dw--0",
+      "title": "Islamic Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1uW6-dw-0KlszZ8AQjq5SDE2elq5eZYsN",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-1pmfclOd-1",
+      "title": "Islamic Studies",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1pmfclOdqssY6ve-UsmBM5IbmOXaE9jqc",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-language-and-culture-of-minority-ethnic-groups-1eSbD4d8-0",
+      "title": "Language and Culture of Minority Ethnic Groups",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "language-and-culture-of-minority-ethnic-groups",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1eSbD4d8NVJ4P7_Dqaqpuwc-m0RP0YBiI",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-language-and-culture-of-minority-ethnic-groups-1KbN2MO5-1",
+      "title": "Language and Culture of Minority Ethnic Groups",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "language-and-culture-of-minority-ethnic-groups",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1KbN2MO55vZswm2HLjzqVc7qcGvlKq0rn",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-13iUtxnh-0",
+      "title": "Mathematics",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=13iUtxnh9u1Q6rFU0gyvpPGLeCSGCEpc7",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-1FGMGsUF-1",
+      "title": "Mathematics",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1FGMGsUFo3tMWw9sc9ZlpmmEqpqFzH33F",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-and-health-1Og-1g4I-0",
+      "title": "Physical Education and Health",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "physical-education-and-health",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Og-1g4IW-XrK-QzvICG43lNWL27nvSEx",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-and-health-1ySOW8vo-1",
+      "title": "Physical Education and Health",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "physical-education-and-health",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ySOW8vohFtVi7mkIhtFzIvvOVdxJ7TNm",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-work-and-life-oriented-education-1Gy9byi4-0",
+      "title": "Work and Life Oriented Education",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "work-and-life-oriented-education",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Gy9byi4NW6bKPEiRDkp28hfrG6KIbH3Y",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-work-and-life-oriented-education-1H-lAgzr-1",
+      "title": "Work and Life Oriented Education",
+      "class_levels": [
+        6
+      ],
+      "subject_id": "work-and-life-oriented-education",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-6/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1H-lAgzrIO6Y7A2wSso8liL7cMbgWg-o9",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আনন-দপ-ঠ-1CwvHeLD-0",
+      "title": "আনন্দপাঠ",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "আনন-দপ-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1CwvHeLDkUGJU8_r6ChsRSYNs2PBXhRCE",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-1N5fgmRd-0",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1N5fgmRdPnK2iYoh_cDNDU5pWDQR2c4F6",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-1xpKioY5-1",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1xpKioY5k0aMlkcDpn_nFYvZr1lXcXX09",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-ল-1M4ogfdQ-0",
+      "title": "পালি",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "প-ল",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1M4ogfdQ2xr56iVoPVpYhtUHMpWSz3b8z",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-ব-য-করণ-ও-ন-র-ম-ত-1gWHxsoJ-0",
+      "title": "বাংলা ব্যাকরণ ও নির্মিতি",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "ব-ল-ব-য-করণ-ও-ন-র-ম-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1gWHxsoJk2BFQ03RmoPIkd-nn5-wZTvJC",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1lb7bQEz-0",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1lb7bQEzhSLG0hZZ9y14GCmhcmxjWpa15",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1Pl_mZHW-1",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Pl_mZHWr7tFkYibaM5MMlH-OgsVSNAxp",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-গ-ত-1a53-DgX-0",
+      "title": "সংগীত",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "স-গ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1a53-DgXmr1n8DyduMzyrdGHDIF8BzUaf",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-স-ক-ত-1uhBjiqw-0",
+      "title": "সংস্কৃত",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "স-স-ক-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1uhBjiqwH3jGj0-6I8AY4KuA48h-NQfsj",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-সপ-তবর-ণ-15IDsWA0-0",
+      "title": "সপ্তবর্ণা",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "সপ-তবর-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=15IDsWA0wqIThNLuq8n9ijOsRwXUQJftp",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-সহজ-আরব-প-ঠ-1-fmIPt8-0",
+      "title": "সহজ আরবি পাঠ",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "সহজ-আরব-প-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1-fmIPt8_1Zsf0P_CZweQtQh8Tbde8CpG",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1HYtDOWn-0",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1HYtDOWnpMrWYefOk5mZWn8-uMCsCpNUR",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1bOTeJWg-1",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1bOTeJWgOrKaDVFKSmVaRwy55_tt5FxoH",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-1qCVTy-R-0",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1qCVTy-Rvv8Na7XYyv58ktzFJ7Q1xgrc4",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-1tb9qoqY-1",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1tb9qoqYlcfyUv8GQh1NGLOlY4ExhJ_aB",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1Rjkz4Hj-0",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Rjkz4Hjp04VbxMnVZy1Eht1F5O62pmvR",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1V8VQPcr-1",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1V8VQPcreM7j1Mqc4doRZxaU420HTr110",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1lg43XY8-0",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1lg43XY8pbIU1xaJO4r05L5fUm-k18z8W",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1W1a0JhX-1",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1W1a0JhX4g_vpPQAYm5bQWPB_wfsFMbFX",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-1lUwwWPh-0",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1lUwwWPhm-WnGbO29CvS64vMNuM1Jf97G",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-1sahu5iV-1",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1sahu5iVn5cu8I4DJG8wcF2zI3z5b-ZhW",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1XTG6vE0-0",
+      "title": "English For Today",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1XTG6vE0RSM645eE5-XAKMirCzGUPPllz",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-grammar-and-composition-15Odrctw-0",
+      "title": "English Grammar and Composition",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "english-grammar-and-composition",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=15Odrctw-rj3DAR94NKOZEq2jilXYvXw3",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1hqm1YHf-0",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1hqm1YHfWs0pMTAR9IVyGOSgrhYJEMVsj",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1tMZLEWq-1",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1tMZLEWqgbYLoG405JMl1N42mM-6XibKD",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-1LCG5mQF-0",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1LCG5mQF2hEwCMKXeZDsPCKjbSdaxzlql",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-1EZM-Arp-1",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1EZM-Arpp7eW8Ke-4Ds8ETkbt99KZS95r",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-1sLsI5_o-0",
+      "title": "Islamic Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1sLsI5_oGua43iWq2-s7mzLWnAIZ_xw21",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-1BWNwxvv-1",
+      "title": "Islamic Studies",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1BWNwxvvIn0XUCR8oKVu3p_szbsxtn93t",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-language-and-culture-of-minority-ethnic-groups-1-C2uvXz-0",
+      "title": "Language and Culture of Minority Ethnic Groups",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "language-and-culture-of-minority-ethnic-groups",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1-C2uvXzERjBjGnsT-de5npYIajPmLA5T",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-language-and-culture-of-minority-ethnic-groups-1GHagpMQ-1",
+      "title": "Language and Culture of Minority Ethnic Groups",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "language-and-culture-of-minority-ethnic-groups",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1GHagpMQWBw03IDTpynd_7-6U4UGMCpTS",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-1iKHx1wx-0",
+      "title": "Mathematics",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1iKHx1wxYi7I6REjR-5j8fW1uVI2xT5zH",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-17nGqi6X-1",
+      "title": "Mathematics",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=17nGqi6XncqZgoZQaEaa_WZyjJoO9emZj",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-and-health-1Ro0f8_3-0",
+      "title": "Physical Education and Health",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "physical-education-and-health",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Ro0f8_3Lbihi-kXREYmwxwtNNI10xMp1",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-and-health-1VYzECNF-1",
+      "title": "Physical Education and Health",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "physical-education-and-health",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VYzECNFHKYphyWhH-GiFLJrOaJh5hO-6",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-work-and-life-oriented-education-16BrTYDe-0",
+      "title": "Work and Life Oriented Education",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "work-and-life-oriented-education",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=16BrTYDeGfher_x8ufo6FASdCq1s9xyLO",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-work-and-life-oriented-education-1Sf9IiA3-1",
+      "title": "Work and Life Oriented Education",
+      "class_levels": [
+        7
+      ],
+      "subject_id": "work-and-life-oriented-education",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-7/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Sf9IiA3aG221dfy6WrWUpMG09XVpJtcP",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আনন-দপ-ঠ-1fm9ocm4-0",
+      "title": "আনন্দপাঠ",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "আনন-দপ-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1fm9ocm4MA3n3SFRpX8KM8sNN0-8Wl_ap",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-1vODdjg4-0",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1vODdjg4T1KhM1G9bGgCMPOuGO8Bz8Wp_",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-1_YZytnP-1",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1_YZytnPwx1MOIYGBoqBliuJg4oMSyVJp",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-ল-1DeUhz6u-0",
+      "title": "পালি",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "প-ল",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1DeUhz6u87tbJ3Bnwr4zqj0MBYgqhqTd5",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-ব-য-করণ-ও-ন-র-ম-ত-117pXoJy-0",
+      "title": "বাংলা ব্যাকরণ ও নির্মিতি",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "ব-ল-ব-য-করণ-ও-ন-র-ম-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=117pXoJyf_LnJgxOy7R9-HcYMOGHeh2cq",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1a5-WIfG-0",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1a5-WIfGsqunOpFz55nCL-AK2y5XVs7zB",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1x4Pb9yt-1",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1x4Pb9ytb9CaU18NH2Y62MHgZZhKadFY8",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-গ-ত-1dNmNrKz-0",
+      "title": "সংগীত",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "স-গ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1dNmNrKz3pccmSY9lZEMvRkkwVa9C7cIp",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-স-ক-ত-1G9lQJ5p-0",
+      "title": "সংস্কৃত",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "স-স-ক-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1G9lQJ5pWvIQv3CxrsGg0uS8kxay9vC0X",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-সহজ-আরব-প-ঠ-1I4966t--0",
+      "title": "সহজ আরবি পাঠ",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "সহজ-আরব-প-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1I4966t-MMGWtMvIZeHpddEBNnedALluV",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-হ-ত-য-কণ-ক-14Hg8HRd-0",
+      "title": "সাহিত্য-কণিকা",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "স-হ-ত-য-কণ-ক",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14Hg8HRdcjqnhy2raqoAbHL8oHLUbUSwA",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1hpNzkGv-0",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1hpNzkGvJ6Q5efgSB7-Dtt1FnSYrh3zZu",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1OryZ5xR-1",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1OryZ5xRK3itFLpaZlwnmrGF_BRxPgaqp",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-1DR-3Sb7-0",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1DR-3Sb7l7jB2euT8QLfHC84o4035klz4",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-14g0JrkD-1",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14g0JrkDdzbpGGW3o2ONwQ7fc6DN8Gsq1",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1HIxFLkg-0",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1HIxFLkgo4ZLG-qUz2achu5K_v40T0cfn",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1vokuV3o-1",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1vokuV3oRerVx-p9GkxKiKH0eRj4aACuF",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1Mv7viQS-0",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Mv7viQSTOXgdUsQA71HlxRi0qmWn3apc",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1korLpjZ-1",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1korLpjZRhVZiT0Q0VB1Bdsf9hVeKokZl",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-1Zi57J9P-0",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Zi57J9PoL1Pr7kwuDaSXQ1V0qvqAlodZ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-1BSo9zr--1",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1BSo9zr-kZ5xJtsMDpDR1-FhMDBo35O5I",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1N7E-_Dg-0",
+      "title": "English For Today",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1N7E-_Dgd1xX5VC4GmJamf4Yo4VEzvTvu",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-grammar-and-composition-1MG0Kr84-0",
+      "title": "English Grammar and Composition",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "english-grammar-and-composition",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1MG0Kr84imLCw4gfAPKheQfxZo9JuQ611",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1t47vMMl-0",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1t47vMMl7N0tzBbJ85xOh40SHm45cLvfw",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1_riBeep-1",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1_riBeeporLqsvXnqXL6THAGaWQOwTKYT",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-152cFSzv-0",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=152cFSzvuZOrWo_BuYhgMav91g8pRpv9I",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-1Z3f9fIU-1",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Z3f9fIUXTADaCUM0bLZieKH2bqGJw98D",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-1108SRYa-0",
+      "title": "Islamic Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1108SRYaCP3Po5M3DU1lWe8ZtIhLFTloJ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-1zaEau5h-1",
+      "title": "Islamic Studies",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1zaEau5hFNcCMBBtaWjlnV0OzuyRRm9wM",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-1UTGLGuQ-0",
+      "title": "Mathematics",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1UTGLGuQxMMaK_YgErIivbMI_3PcvkRbc",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-19-BM0RF-1",
+      "title": "Mathematics",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=19-BM0RFDNg67dfiPjdya_ULIJCFe_Itn",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-and-health-1uHVBwpr-0",
+      "title": "Physical Education and Health",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "physical-education-and-health",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1uHVBwpr6kIxxHnd1eAAn5HOExlvX3UPb",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-and-health-11SZZ6ml-1",
+      "title": "Physical Education and Health",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "physical-education-and-health",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=11SZZ6mlK2_dHI7LopIonSmYXPf1alsxe",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-work-and-life-oriented-education-1QULadFx-0",
+      "title": "Work and Life Oriented Education",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "work-and-life-oriented-education",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1QULadFx0awbKWKzbUm068CvP5MGr4SAT",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-work-and-life-oriented-education-1wfkrsdi-1",
+      "title": "Work and Life Oriented Education",
+      "class_levels": [
+        8
+      ],
+      "subject_id": "work-and-life-oriented-education",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/class-8/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1wfkrsdi3f9kyNP7M1LYmI2gpQbdH-FoV",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-১ম-শ-র-ণ-18NByE-e-0",
+      "title": "১ম শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "১ম-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=18NByE-emXEISxESwqd2E1PNglbqs01xb",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-১ম-শ-র-ণ-104lOGol-1",
+      "title": "১ম শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "১ম-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=104lOGolWXL4LM3Vs-tNSc_limrYgJ1Nb",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-১ম-শ-র-ণ-1CAfiQNH-2",
+      "title": "১ম শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "১ম-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1CAfiQNHgA9pqrfCEwTAfk9vo_IyGi9Qj",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-১ম-শ-র-ণ-11e9dpQi-3",
+      "title": "১ম শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "১ম-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=11e9dpQiWnn456QeTVttCr4p7QQBJZbdb",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-১ম-শ-র-ণ-1biY5v6v-4",
+      "title": "১ম শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "১ম-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1biY5v6v8YvpKHS4D_zPKldhcUK_PSnQw",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-২য়-শ-র-ণ-1UInbeU1-0",
+      "title": "২য় শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "২য়-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1UInbeU1EA5kgZRiJQYorotDw33yOQ7sy",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-২য়-শ-র-ণ-1AtD9uJW-1",
+      "title": "২য় শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "২য়-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1AtD9uJWl7OskwCTe4papoB5qrrlGMEcV",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-২য়-শ-র-ণ-1mwvUyyc-2",
+      "title": "২য় শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "২য়-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1mwvUyycFbEXBGtsRsGyWfVFV-ngMxZ4z",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-২য়-শ-র-ণ-1nbk6Lru-3",
+      "title": "২য় শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "২য়-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1nbk6LruGyquMK5cXNWEv3QxkN4hQv5xo",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-২য়-শ-র-ণ-168Vbj2z-4",
+      "title": "২য় শ্রেণি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "২য়-শ-র-ণ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=168Vbj2zXRkYY2Icd8Gd3vX9O0r5N9bBS",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আক-ইদ-ও-ফ-কহ-1841PbUN-0",
+      "title": "আকাইদ ও ফিকহ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আক-ইদ-ও-ফ-কহ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1841PbUNnRB26wrW7UfRIUlxOtsptWHqN",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আক-ইদ-ও-ফ-কহ-1pCH5hwR-1",
+      "title": "আকাইদ ও ফিকহ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আক-ইদ-ও-ফ-কহ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1pCH5hwRthcgLC7Y0AF7zatqb11zXjwgN",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আক-ইদ-ও-ফ-কহ-1KwizdUo-2",
+      "title": "আকাইদ ও ফিকহ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আক-ইদ-ও-ফ-কহ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1KwizdUozKx1BHHijYbuv11kwpHXTXe5b",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আদদ-র-স-ল-আর-ব-য়-য-হ-1hNZ7Hj8-0",
+      "title": "আদদুরুসুল আরাবিয়্যাহ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আদদ-র-স-ল-আর-ব-য়-য-হ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1hNZ7Hj8DJ4OH4AsndtIfZC6s6tSxaS3L",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আদদ-র-স-ল-আর-ব-য়-য-হ-1Btw96oW-1",
+      "title": "আদদুরুসুল আরাবিয়্যাহ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আদদ-র-স-ল-আর-ব-য়-য-হ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Btw96oW5bUTJ53JlWppufHOghz9zGzEu",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আদদ-র-স-ল-আর-ব-য়-য-হ-ওয়-ল-ক-ওয়-ইদ-1mYj2X_p-0",
+      "title": "আদদুরুসুল আরাবিয়্যাহ ওয়াল কাওয়াইদ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আদদ-র-স-ল-আর-ব-য়-য-হ-ওয়-ল-ক-ওয়-ইদ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1mYj2X_pRCd9mu2eHzLGcsXtawgbTb_Ds",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1YSnqAML-0",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1YSnqAMLukNMowvfU3gSaOgO_enbDtHlr",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1VTG5E09-1",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VTG5E09kWhbMJGscXbbP0TUoxq_8DU64",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1oDk2l0n-2",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1oDk2l0nqtMTIHqLTPqHUuS-bX_CMsaYC",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-185Vy0jQ-3",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=185Vy0jQ47zJ2P0y-DljZWOwi5TyN11WQ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1GFtZxmq-4",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1GFtZxmqXeaXxYeWnmdJQ_hToOv7ZhQ6i",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1VEceNX6-5",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VEceNX6SGF9wMbI1egbjLowS76s_JBzX",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1ZAt9-62-6",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ZAt9-62RPwSmi_Hctef4-dmmRxrgudwW",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1XJRpLyd-7",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1XJRpLydiWE6lOyy-CfYqGVpmT3Maw7Gn",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1f8_AdwP-8",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1f8_AdwP728MsVP4GegLiVgWO7B1MA9sy",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1SePC2G8-9",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1SePC2G82PGZe_Nwxyne2tFyNlBsk1s_b",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1j7ydzrS-10",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1j7ydzrSlgZ8WfnyVKQvSnAZd3M-RG81m",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1XQAU7sF-11",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1XQAU7sFQzGKKr9WzY1aM1gGD6iQOLjJR",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1asmwXbs-12",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1asmwXbsU58OTOAcb57OZcpEzuIsGmMW3",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-176wpneX-13",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=176wpneXhdHMco5-9uQyrLOe76pqTFlss",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1ATxg4QZ-14",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ATxg4QZHEho8_p7ooi5T9gnmxWdXaB6_",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-14t8J9MI-15",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14t8J9MI7waz7hnzncLQ8B0RBgeMJ4642",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1VBCGUal-16",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VBCGUaloBMDEj7H4kjDGApIVinL8nL9r",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1z0L4R6D-17",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1z0L4R6Dkg5UPbruHhMJartMdQYGDqzy6",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1z8EUXLK-18",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1z8EUXLK7p8LghxXzBC2Fhlym02UQVYja",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আম-র-ব-ল-বই-1kI4QSyz-19",
+      "title": "আমার বাংলা বই",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আম-র-ব-ল-বই",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1kI4QSyz-Grgmrh_K92Yk6lRutVVWnycg",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-আরব-1S_HjYdu-0",
+      "title": "আরবি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "আরব",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1S_HjYdu8ObJ3ZZtmv6sTY1_EgJ4NObrx",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ইসল-ম-শ-ক-ষ-1GmzcsEU-0",
+      "title": "ইসলাম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ইসল-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1GmzcsEUIcZo4DQLuMuRFzLo_XTM154l0",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ইসল-ম-শ-ক-ষ-1hI0KTt1-1",
+      "title": "ইসলাম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ইসল-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1hI0KTt1q3e8th2_oLFflreZ3me1LzLgq",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ক-রআন-ম-জ-দ-ও-ত-জভ-দ-1usjJxjy-0",
+      "title": "কুরআন মাজিদ ও তাজভিদ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ক-রআন-ম-জ-দ-ও-ত-জভ-দ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1usjJxjy5XpbWg-QV3wHkhcucn-SyqQG7",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ক-রআন-ম-জ-দ-ও-ত-জভ-দ-1s_OOln2-0",
+      "title": "কুরআন মাজিদ ও তাজভিদ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ক-রআন-ম-জ-দ-ও-ত-জভ-দ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1s_OOln2QHyUGvpgTF_u2n5Uwxb3srUCW",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ক-রআন-ম-জ-দ-ও-ত-জভ-দ-1RSC_CPs-1",
+      "title": "কুরআন মাজিদ ও তাজভিদ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ক-রআন-ম-জ-দ-ও-ত-জভ-দ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1RSC_CPs2n5T3L0CPb4YhCOnAgFT3c7Mn",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ক-য-র-য়-র-শ-ক-ষ-1TEbe89E-0",
+      "title": "ক্যারিয়ার শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ক-য-র-য়-র-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1TEbe89EgyGWJVYRDWXgl-07XqTuDPtGF",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ক-য-র-য়-র-শ-ক-ষ-1fhHIJ2p-1",
+      "title": "ক্যারিয়ার শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ক-য-র-য়-র-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1fhHIJ2pSKmwqMmTlgy0V1Nv8Nmy9pTka",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-খ-র-ষ-টধর-ম-শ-ক-ষ-13NbX6JI-0",
+      "title": "খ্রিষ্টধর্ম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "খ-র-ষ-টধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=13NbX6JIfOVvtgWv-64VB10lAo_5l4vCS",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-খ-র-ষ-টধর-ম-শ-ক-ষ-1t-CPAds-1",
+      "title": "খ্রিষ্টধর্ম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "খ-র-ষ-টধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1t-CPAds7g85eua5fiRDEdOpmbZuhHj1r",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গণ-ত-1KuwwD1d-0",
+      "title": "গণিত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1KuwwD1dMZstTRalOW_7gmmKY3KAS8lLU",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গণ-ত-1udjxe7W-1",
+      "title": "গণিত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1udjxe7WpZ0krFn6-T07JS5Gce25fGw0j",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গণ-ত-1yM1yEnL-2",
+      "title": "গণিত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1yM1yEnLx4kO5J83mdqabBeEukGy9ATRL",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-1S_tT3gB-0",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1S_tT3gBp1Y2U7OTN7Iz_5uupBhMKJ6It",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-গ-র-হস-থ-যব-জ-ঞ-ন-14naWCQu-1",
+      "title": "গার্হস্থ্যবিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "গ-র-হস-থ-যব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14naWCQuPeUEzaYf-EVS_52ghlKT_fqeA",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-জ-বব-জ-ঞ-ন-1cbxXBB1-0",
+      "title": "জীববিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "জ-বব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1cbxXBB1uU4c7Q2rA54fpbmxVFSUKtZDA",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-জ-বব-জ-ঞ-ন-1XtQupmV-1",
+      "title": "জীববিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "জ-বব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1XtQupmVH4YLVdJC6AcpU4WMn_r5cKqwv",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-তথ-য-ও-য-গ-য-গ-প-রয-ক-ত-16AVZQzh-0",
+      "title": "তথ্য ও যোগাযোগ প্রযুক্তি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "তথ-য-ও-য-গ-য-গ-প-রয-ক-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=16AVZQzh9LRq4_o238_bdM16jd57ZuNC8",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-তথ-য-ও-য-গ-য-গ-প-রয-ক-ত-ই-ল-শ-ভ-র-সন-1eCW2zRZ-0",
+      "title": "তথ্য ও যোগাযোগ প্রযুক্তি (ইংলিশ ভার্সন)",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "তথ-য-ও-য-গ-য-গ-প-রয-ক-ত-ই-ল-শ-ভ-র-সন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1eCW2zRZLdp-fDrLy8SwSil5G-0u3jYyB",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-পদ-র-থব-জ-ঞ-ন-121GCSD2-0",
+      "title": "পদার্থবিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "পদ-র-থব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=121GCSD2909n-ETowJfdtzqOoVcdAe9Fx",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-পদ-র-থব-জ-ঞ-ন-1kL28DEm-1",
+      "title": "পদার্থবিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "পদ-র-থব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1kL28DEmjHdGa1ke8s9em_Bo0mIm3fPcu",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-ল-1zsokXhV-0",
+      "title": "পালি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "প-ল",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1zsokXhV-7XxKS0nRP3VqNc-9_ZEqN4CI",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1-9weJt3-0",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1-9weJt3CeJnHO1zKBJHDAe0sndJwsZqi",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1c1ehD66-1",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1c1ehD66Aw6GIW6fcAJmFJZ7FZjA9_myE",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1LDc6xGN-2",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1LDc6xGN3dHgKDp5L5mnbAm3ltAf5f-iI",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-গণ-ত-1sDPIXMv-3",
+      "title": "প্রাথমিক গণিত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "প-র-থম-ক-গণ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1sDPIXMvGJeRFDlhwsDRMMiPeQ9DZ3gTN",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-ব-জ-ঞ-ন-17qdGxwZ-0",
+      "title": "প্রাথমিক বিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "প-র-থম-ক-ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=17qdGxwZxFOlJY0qcyRwl_tNEJOltNbMG",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-প-র-থম-ক-ব-জ-ঞ-ন-1kJZvUTh-1",
+      "title": "প্রাথমিক বিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "প-র-থম-ক-ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1kJZvUThpx8ENZOkk-ZWSRjd5Aqzlq02e",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ফ-ন-য-ন-স-ও-ব-য-ক-1hUOZbxt-0",
+      "title": "ফিন্যান্স ও ব্যাংকিং",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ফ-ন-য-ন-স-ও-ব-য-ক",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1hUOZbxt7PhoCl_GIOFpBAGtUNMHRgfg_",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ফ-ন-য-ন-স-ও-ব-য-ক-17UEPHe1-1",
+      "title": "ফিন্যান্স ও ব্যাংকিং",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ফ-ন-য-ন-স-ও-ব-য-ক",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=17UEPHe1oK4nAvgSu-KBbTQHFyCJ91bY9",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-ভ-ষ-র-ব-য-করণ-ও-ন-র-ম-ত-14pcG6SD-0",
+      "title": "বাংলা ভাষার ব্যাকরণ ও নির্মিতি",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-ল-ভ-ষ-র-ব-য-করণ-ও-ন-র-ম-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14pcG6SDel6AUzrPZk2qzUjJb_9HYt-sg",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-সহপ-ঠ-1uNspy7q-0",
+      "title": "বাংলা সহপাঠ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-ল-সহপ-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1uNspy7qUYc8I8WffkaEVt9caBGlS_LCG",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-স-হ-ত-য-1EL_DZGQ-0",
+      "title": "বাংলা সাহিত্য",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-ল-স-হ-ত-য",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1EL_DZGQXh-w2qVVlHKo_BWOXkiPWGF3R",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-11aRiepL-0",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=11aRiepLVcD3IyfoPAyphvKpWXSjiHwn9",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-1MOfwfa6-1",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1MOfwfa6r-qRIuusnHCYYpwe_OgI4CEls",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-1jPioH7F-0",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1jPioH7FZuh_YL3bArM79Msm8PohIoavk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-ল-দ-শ-ও-ব-শ-বপর-চয়-19zQhbl4-1",
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-ল-দ-শ-ও-ব-শ-বপর-চয়",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=19zQhbl4Wi9TMFLnPZMX6Kz3GaXgElRiw",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-12dYZXPK-0",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=12dYZXPKDogQyp5QJUslpUB8QMJmXxLts",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1qp8zs7A-1",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1qp8zs7AWt6JxpqSbncEqh0dabyuJz6yS",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1jezGaK1-2",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1jezGaK1xLnBDXWbInggqiOx6JRqTHZ_F",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-জ-ঞ-ন-1VK2ka5Z-3",
+      "title": "বিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1VK2ka5ZkSEIGFu1DwTPgJ4MSdOSqeCfL",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-দ-ধধর-ম-শ-ক-ষ-12uwo7ct-0",
+      "title": "বৌদ্ধধর্ম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-দ-ধধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=12uwo7ctpu-5VRysFzTqTN_t_MIqBGEo9",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-ব-দ-ধধর-ম-শ-ক-ষ-15d0OpU0-1",
+      "title": "বৌদ্ধধর্ম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "ব-দ-ধধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=15d0OpU0q0tiNkTY18jQ1dgb4Gd28-zlQ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-গ-ত-1u7Cg0yC-0",
+      "title": "সংগীত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "স-গ-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1u7Cg0yCwuZy9zxkzFfV_YZst2-B2Ah3_",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-স-ক-ত-1IsfgrET-0",
+      "title": "সংস্কৃত",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "স-স-ক-ত",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1IsfgrET1A91KAgyLUfYP-kKSSVQax4Wd",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-সহপ-ঠ-1xwZ1GmH-0",
+      "title": "সহপাঠ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "সহপ-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1xwZ1GmHSRS5v39YMnsz84DsvAq8enGIE",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-স-হ-ত-যপ-ঠ-11tNq5F0-0",
+      "title": "সাহিত্যপাঠ",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "স-হ-ত-যপ-ঠ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=11tNq5F0bfYFf5QexWOWAz3VlpryMlaFD",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-ন-দ-ধর-ম-শ-ক-ষ-1xyMi4As-0",
+      "title": "হিন্দুধর্ম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "হ-ন-দ-ধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1xyMi4AszvR8MozOu3lCdoIIjaOcaofTM",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-ন-দ-ধর-ম-শ-ক-ষ-10jgCi5p-1",
+      "title": "হিন্দুধর্ম শিক্ষা",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "হ-ন-দ-ধর-ম-শ-ক-ষ",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=10jgCi5pafv6KIZ3y748rAeoHNaC5eslj",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-স-বব-জ-ঞ-ন-1cY77zp--0",
+      "title": "হিসাববিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "হ-স-বব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1cY77zp-vqOB2pPuVfyrFc2c8UHpt11Qk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-হ-স-বব-জ-ঞ-ন-1USYxWHz-1",
+      "title": "হিসাববিজ্ঞান",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "হ-স-বব-জ-ঞ-ন",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1USYxWHzOWi0PQFCiASQz_3qLiOBNrmtj",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1kLJsU1f-0",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1kLJsU1fBMO59rVOcrXkJ-QLbP6V14OC6",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-agriculture-studies-1DH0MtYn-1",
+      "title": "Agriculture Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "agriculture-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1DH0MtYnvSnK0MfISjo4bEYLc2N3p76dk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-1-eX8__u-0",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1-eX8__uesj7X8BSvR9uiwMEKA2dkXb_o",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-arts-and-crafts-1Qf1DOdP-1",
+      "title": "Arts and Crafts",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "arts-and-crafts",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Qf1DOdPo0U1Dza24btT8eNewg9PtsIpe",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1C7K6iGB-0",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1C7K6iGBpGEdr-p_vQfvEgMlDXh5ss8RI",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-bangladesh-and-global-studies-1HtBkio--1",
+      "title": "Bangladesh And Global Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "bangladesh-and-global-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1HtBkio-VGByD8PLKJ5PTaURcuC5ZkXF3",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1DfSaCPJ-0",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1DfSaCPJjdASf_7emgw_joqb3vYHYSKGE",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-buddhist-religion-studies-1FjRhLY2-1",
+      "title": "Buddhist Religion Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "buddhist-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1FjRhLY25XtUuStVNkHgwXDE8fOu3AvxX",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-business-entrepreneurship-1gBFoWrP-0",
+      "title": "Business Entrepreneurship",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "business-entrepreneurship",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1gBFoWrP_pZBTFBbjaOgAsIx31D2IYcgl",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-business-entrepreneurship-1DbSAWrM-1",
+      "title": "Business Entrepreneurship",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "business-entrepreneurship",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1DbSAWrM6Xn-k23xfhTCx3mb0mNSZofA9",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-chemistry-1m2QJVWB-0",
+      "title": "Chemistry",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "chemistry",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1m2QJVWBp1da99iU6GH-u0IldYflZuCFR",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-chemistry-1jPQhyTe-1",
+      "title": "Chemistry",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "chemistry",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1jPQhyTeNrI-e8qQdB-yWbxOhh1XKdEjr",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-11ailuI9-0",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=11ailuI9Twc709bWpN3c46NIszPscxd4B",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-christian-religion-studies-16YP-Wo--1",
+      "title": "Christian Religion Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "christian-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=16YP-Wo-hsWU7jQKIA4jmiXN2gjGbMhSN",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-civics-and-citizenship-12pHjW5l-0",
+      "title": "Civics and Citizenship",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "civics-and-citizenship",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=12pHjW5lhDAuOjsfziQbFTX5wpPJwt7Tm",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-civics-and-citizenship-1oK-YxEk-1",
+      "title": "Civics and Citizenship",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "civics-and-citizenship",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1oK-YxEkYGuZkHZCxpfxTLLjAQblF-EfC",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-economics-1aJVfyY6-0",
+      "title": "Economics",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "economics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1aJVfyY6oBBqmbgcdIqD4LLggt4ULZLWe",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-economics-1H9MOgYf-1",
+      "title": "Economics",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "economics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1H9MOgYf3_4gEVToqq_prLj7FMFuhOmDs",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1ztZFaOw-0",
+      "title": "English for Today",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ztZFaOwbguKEwqZs_lvuyXsmJgMoUMgk",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1MJuzkvo-1",
+      "title": "English for Today",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1MJuzkvoyB57hueE2qasG3ou9nokQHY7T",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1Y7ygihk-0",
+      "title": "English For Today",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Y7ygihk1dAkbWcBbPG9oFU3F_CCZ1gGa",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-16WlKOJS-1",
+      "title": "English For Today",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=16WlKOJSANce85RG922tYpxbEBLtehgzz",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1xlwFzem-2",
+      "title": "English For Today",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1xlwFzemKHnD3cos1LEbmeEfQN8TmqSnQ",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1ujdDG9N-3",
+      "title": "English For Today",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ujdDG9NfeSwDHnxExMKtYweQD1UOC4PC",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-for-today-1Ip7KuNr-4",
+      "title": "English For Today",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-for-today",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Ip7KuNrZnFssYrQ_F9J1qvr8hWdbBoho",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-english-grammar-and-composition-1iVqQ5X3-0",
+      "title": "English Grammar and Composition",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "english-grammar-and-composition",
+      "medium": "english",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1iVqQ5X3jw3UmnHKclSKkDyD4R2m9dY9J",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-geography-and-environment-1Z0mkg4d-0",
+      "title": "Geography and Environment",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "geography-and-environment",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Z0mkg4diaC-7Xaab3dEeCeHrqrx_flx_",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-geography-and-environment-1Uiwpl_K-1",
+      "title": "Geography and Environment",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "geography-and-environment",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Uiwpl_K5lHpY7yRdljCmvyyKLeWmhEfw",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-higher-mathematics-1U_q1wBT-0",
+      "title": "Higher Mathematics",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "higher-mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1U_q1wBTUS1ngtfqRr21LB-nQGjxXrrsA",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-higher-mathematics-11fvFRZ--1",
+      "title": "Higher Mathematics",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "higher-mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=11fvFRZ-ASnmEEewoNqpzfQW91EoCQUGt",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1m0a0ak7-0",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1m0a0ak7Ij776CRadXAelbINh3bnx79v9",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-hindu-religion-studies-1ydK3Y84-1",
+      "title": "Hindu Religion Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "hindu-religion-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1ydK3Y84_DU4B0kv8gP2NEPSublmOdLMA",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-history-of-bangladesh-and-world-civilization-14zEZ5cH-0",
+      "title": "History of Bangladesh and World Civilization",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "history-of-bangladesh-and-world-civilization",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=14zEZ5cHXoJMAVeaGmlD0fpEYVnqYIkW0",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-history-of-bangladesh-and-world-civilization-19imJIV5-1",
+      "title": "History of Bangladesh and World Civilization",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "history-of-bangladesh-and-world-civilization",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=19imJIV5JI01T19UfZl583TlTLrot6iOO",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-10DYq8yu-0",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=10DYq8yuMb3tgWgTZ7fXx_KThABOUJR6k",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-information-and-communication-technology-1AmD4GLe-1",
+      "title": "Information And Communication Technology",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "information-and-communication-technology",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1AmD4GLeD72M1J4FSW-TUSAfbSwG9VhBO",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-18UfJre9-0",
+      "title": "Islamic Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=18UfJre9Qz5fy7w6dejqsXKHQxxKqoAmH",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-islamic-studies-10k50ImE-1",
+      "title": "Islamic Studies",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "islamic-studies",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=10k50ImEJssJEV0Ofnv7UUz9dmU5PlQiS",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-1IuuYwHX-0",
+      "title": "Mathematics",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1IuuYwHXUpTGHOpumKq-x6Th4h2xf1b9s",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-mathematics-1qMHB4hC-1",
+      "title": "Mathematics",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "mathematics",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1qMHB4hCVg-5yPtiV5UoWyGf2Q2gpOAqm",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-health-science-and-sports-1Wc9V9py-0",
+      "title": "Physical Education, Health Science and Sports",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "physical-education-health-science-and-sports",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1Wc9V9pypVRaaZbehab-WzUIjCXo1woMx",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    },
+    {
+      "book_id": "nctb-2025-physical-education-health-science-and-sports-1hzrpvh9-1",
+      "title": "Physical Education, Health Science and Sports",
+      "class_levels": [
+        9,
+        10
+      ],
+      "subject_id": "physical-education-health-science-and-sports",
+      "medium": "bangla",
+      "curriculum_version": "2025-NCTB",
+      "curriculum_year": 2025,
+      "catalogue_url": "https://nctb.cloud/textbooks/2025/secondary/general/",
+      "download_url": "https://drive.google.com/uc?export=download&id=1hzrpvh9phDKtPmo70gIJuoB5qrD5z4nN",
+      "local_path": null,
+      "sha256": null,
+      "status": "catalogued"
+    }
+  ]
+}

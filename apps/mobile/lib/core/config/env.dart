@@ -17,12 +17,12 @@ class ENV {
 
   static const String apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://localhost:3000/api/v1',
+    defaultValue: 'http://localhost:4000/api/v1',
   );
 
   static const String aiGatewayUrl = String.fromEnvironment(
     'AI_GATEWAY_URL',
-    defaultValue: 'http://localhost:3000/api/v1/tutor',
+    defaultValue: 'http://localhost:4000/api/v1/tutor',
   );
 
   static AppEnvironment get environment {

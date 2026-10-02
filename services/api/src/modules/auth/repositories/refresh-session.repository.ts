@@ -15,13 +15,18 @@ export class RefreshSessionRepository {
   ) {}
 
   async createSession(data: {
+    sessionId?: Types.ObjectId;
     userId: Types.ObjectId;
     tokenHash: string;
     deviceId?: string;
     deviceName?: string;
     expiresAt: Date;
   }): Promise<RefreshSessionDocument> {
-    const session = new this.sessionModel(data);
+    const { sessionId, ...sessionData } = data;
+    const session = new this.sessionModel({
+      ...(sessionId ? { _id: sessionId } : {}),
+      ...sessionData,
+    });
     return session.save();
   }
 

@@ -4,6 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { Types } from 'mongoose';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UsersService } from '../users/users.service';
 import { UserRole } from '../users/enums/user-role.enum';
@@ -22,6 +23,8 @@ import { PracticeQuestionStudentResponse } from './types/practice-question-stude
 
 @Injectable()
 export class PracticeService {
+  private static readonly DEFAULT_LESSON_ID = 'lesson_default';
+
   constructor(
     private readonly practiceQuestionRepository: PracticeQuestionRepository,
     private readonly practiceAttemptRepository: PracticeAttemptRepository,
@@ -40,6 +43,18 @@ export class PracticeService {
     difficulty?: PracticeDifficulty,
   ): Promise<PracticeQuestionStudentResponse[]> {
     await this.assertStudentOrAdmin(currentUser);
+
+    // The mobile practice setup can be opened before a curriculum lesson is
+    // selected. Keep this explicit compatibility sentinel non-persistent and
+    // avoid passing it to Mongoose as an ObjectId.
+    if (lessonId === PracticeService.DEFAULT_LESSON_ID) {
+      return [];
+    }
+
+    if (!Types.ObjectId.isValid(lessonId)) {
+      throw new BadRequestException('Invalid lesson ID');
+    }
+
     const questions = await this.practiceQuestionRepository.findPublishedByLesson(
       lessonId,
       limit,

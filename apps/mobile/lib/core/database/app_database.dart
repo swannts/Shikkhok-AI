@@ -8,7 +8,16 @@ part 'app_database.g.dart';
 @DriftDatabase(tables: [SyncQueueTable, CurriculumCacheTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? e])
-      : super(e ?? driftDatabase(name: 'shikkhok_ai_db'));
+      : super(
+          e ??
+              driftDatabase(
+                name: 'shikkhok_ai_db',
+                web: DriftWebOptions(
+                  sqlite3Wasm: Uri.parse('sqlite3.wasm'),
+                  driftWorker: Uri.parse('drift_worker.js'),
+                ),
+              ),
+        );
 
   @override
   int get schemaVersion => 2;

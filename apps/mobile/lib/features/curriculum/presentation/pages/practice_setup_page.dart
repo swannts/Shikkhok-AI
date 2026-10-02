@@ -8,6 +8,7 @@ import '../../../../app/theme/app_spacing.dart';
 import '../../../../app/theme/app_typography.dart';
 import '../../../practice/domain/entities/practice_question.dart';
 import '../../../practice/presentation/controllers/practice_controller.dart';
+import '../../../../shared/widgets/student_bottom_navigation.dart';
 
 class PracticeSetupPage extends ConsumerStatefulWidget {
   final String? initialLessonId;
@@ -28,6 +29,7 @@ class _PracticeSetupPageState extends ConsumerState<PracticeSetupPage> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      bottomNavigationBar: const StudentBottomNavigation(),
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.surface,

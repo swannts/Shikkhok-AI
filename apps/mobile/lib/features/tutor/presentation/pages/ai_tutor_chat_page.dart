@@ -11,6 +11,7 @@ import '../../../../shared/widgets/app_empty_state.dart';
 import '../../../../shared/widgets/app_skeleton.dart';
 import '../../domain/entities/tutor_message.dart';
 import '../controllers/tutor_controller.dart';
+import '../../../../shared/widgets/student_bottom_navigation.dart';
 
 class AiTutorChatPage extends ConsumerStatefulWidget {
   const AiTutorChatPage({
@@ -89,6 +90,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
         : '${activeConversation.classLevel}ম শ্রেণি • ${activeConversation.medium ?? 'বাংলা'}';
 
     return Scaffold(
+      bottomNavigationBar: const StudentBottomNavigation(),
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.surface,

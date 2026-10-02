@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/config/env.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
@@ -16,8 +17,8 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _identifierController = TextEditingController(text: '01711223344');
-  final _passwordController = TextEditingController(text: 'password123');
+  final _identifierController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool _obscurePassword = true;
 
   @override
@@ -37,6 +38,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         context.go('/home');
       }
     }
+  }
+
+  void _useDemoAccount() {
+    _identifierController.text = 'demo.working@shikkhok.local';
+    _passwordController.text = 'DemoStudent!2026';
+    setState(() {});
   }
 
   @override
@@ -239,6 +246,25 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.sm),
+
+                    if (ENV.isDevelopment) ...[
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: _useDemoAccount,
+                          icon: const Icon(Icons.science_outlined, size: 18),
+                          label: const Text('ডেমো অ্যাকাউন্ট ব্যবহার করুন'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: AppColors.primary,
+                            minimumSize: const Size.fromHeight(48),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                    ],
 
                     // Login Button
                     SizedBox(

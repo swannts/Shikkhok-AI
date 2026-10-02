@@ -57,7 +57,7 @@ services:
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-shikkhok-development-only-refresh-secret-2026}
       JWT_ACCESS_TTL: ${JWT_ACCESS_TTL:-15m}
       JWT_REFRESH_TTL: ${JWT_REFRESH_TTL:-7d}
-      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:4000,http://localhost:8081}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:4000,http://localhost:8080,http://localhost:8081}
       AI_HMAC_SECRET: ${AI_HMAC_SECRET:-dev-ai-hmac-secret-32chars-minimum}
       AI_SERVICE_ENABLED: ${AI_SERVICE_ENABLED:-true}
       AI_SERVICE_BASE_URL: ${AI_SERVICE_BASE_URL:-http://ai:8000/api/v1}

@@ -52,6 +52,13 @@ export class RedisIoAdapter extends IoAdapter {
       return;
     }
 
+    if (typeof server.adapter !== 'function') {
+      this.logger.warn(
+        'Socket.IO server does not expose adapter(). Continuing without Redis broadcast adapter.',
+      );
+      return;
+    }
+
     server.adapter(createAdapter(this.pubClient, this.subClient));
     this.logger.log(`Socket.IO Redis adapter connected to ${redisUrl}`);
   }

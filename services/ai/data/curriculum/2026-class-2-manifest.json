@@ -1,0 +1,39 @@
+{
+  "source": "NCTB official Class 2 textbook page",
+  "sourceUrl": "https://nctb.gov.bd/pages/static-pages/695b9935c4774958d7b70508",
+  "curriculumVersion": "2026-NCTB",
+  "curriculumYear": 2026,
+  "classLevels": [2],
+  "records": [
+    {
+      "bookId": "nctb-2026-class-2-amar-bangla-boi",
+      "title": "আমার বাংলা বই",
+      "subjectId": "bangla",
+      "medium": "bangla",
+      "downloadUrl": "https://drive.google.com/uc?export=download&id=1XKPmmrgK1vVSjybgbzu_RZMCOVXqFHH3",
+      "localPath": "services/ai/data/curriculum/2026/class-2/amar-bangla-boi.pdf",
+      "sha256": "ca373c6d02fd4de43ddd23952e34b1b1879f4c7cd456475eccc19a14ae5f402e",
+      "status": "downloaded"
+    },
+    {
+      "bookId": "nctb-2026-class-2-english-for-today",
+      "title": "English for Today",
+      "subjectId": "english-for-today",
+      "medium": "english",
+      "downloadUrl": "https://drive.google.com/uc?export=download&id=1timM9_-X87oqE-C5yCsV5kYf2JKydzEK",
+      "localPath": "services/ai/data/curriculum/2026/class-2/english-for-today.pdf",
+      "sha256": "93f7217ac0bc70463de029148533646a895d970ee84e51f15171a3b58e957734",
+      "status": "downloaded"
+    },
+    {
+      "bookId": "nctb-2026-class-2-primary-math",
+      "title": "প্রাথমিক গণিত",
+      "subjectId": "primary-mathematics",
+      "medium": "bangla",
+      "downloadUrl": "https://drive.google.com/uc?export=download&id=1QY1URkKhpoAqVTuPRaLHgBJZ7_3lGpyq",
+      "localPath": "services/ai/data/curriculum/2026/class-2/primary-math.pdf",
+      "sha256": "d5823437e20520c522682c0194699832bd1ac84336db381684134532759ca412",
+      "status": "downloaded"
+    }
+  ]
+}

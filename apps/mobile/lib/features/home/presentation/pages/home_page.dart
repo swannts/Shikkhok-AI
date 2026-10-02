@@ -13,6 +13,7 @@ import '../../../../shared/widgets/app_badge.dart';
 import '../../../../shared/widgets/app_card.dart';
 import '../../../../shared/widgets/app_progress_bar.dart';
 import '../../../../shared/widgets/app_section_header.dart';
+import '../../../../shared/widgets/student_bottom_navigation.dart';
 import '../../../auth/presentation/controllers/auth_controller.dart';
 import '../../../auth/presentation/state/auth_state.dart';
 import '../controllers/home_dashboard_controller.dart';
@@ -25,8 +26,6 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -85,50 +84,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
         data: (dashboard) => _buildDashboardBody(context, l10n, dashboard),
       ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          setState(() => _currentIndex = index);
-          switch (index) {
-            case 0:
-              break;
-            case 1:
-              context.go(AppRoutes.learn);
-              break;
-            case 2:
-              context.go(AppRoutes.aiTutorChat);
-              break;
-            case 3:
-              context.go(AppRoutes.practiceSetup);
-              break;
-            case 4:
-              context.go(AppRoutes.studentProfile);
-              break;
-          }
-        },
-        destinations: const [
-          NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home_rounded),
-              label: 'হোম'),
-          NavigationDestination(
-              icon: Icon(Icons.menu_book_outlined),
-              selectedIcon: Icon(Icons.menu_book_rounded),
-              label: 'শিক্ষা'),
-          NavigationDestination(
-              icon: Icon(Icons.smart_toy_outlined),
-              selectedIcon: Icon(Icons.smart_toy_rounded),
-              label: 'টিউটর'),
-          NavigationDestination(
-              icon: Icon(Icons.quiz_outlined),
-              selectedIcon: Icon(Icons.quiz_rounded),
-              label: 'অনুশীলন'),
-          NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person_rounded),
-              label: 'প্রোফাইল'),
-        ],
-      ),
+      bottomNavigationBar: const StudentBottomNavigation(),
     );
   }
 
