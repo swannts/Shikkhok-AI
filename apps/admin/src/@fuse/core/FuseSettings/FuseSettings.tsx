@@ -81,7 +81,6 @@ function FuseSettings(props: FuseSettingsProps) {
 		if (!_.isEqual(settings, form)) {
 			reset(settings);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [settings]);
 
 	useEffect(() => {

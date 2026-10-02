@@ -9,7 +9,6 @@ import { UserRole } from '../users/enums/user-role.enum';
 import { StudentProfileRepository } from './repositories/student-profile.repository';
 import { UpsertStudentProfileDto } from './dto/upsert-student-profile.dto';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
-import { StudentProfileDocument } from './schemas/student-profile.schema';
 
 @Injectable()
 export class StudentsService {

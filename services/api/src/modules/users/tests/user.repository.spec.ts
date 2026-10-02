@@ -126,7 +126,7 @@ describe('UserRepository', () => {
         status: UserStatus.SUSPENDED,
       });
 
-      const result = await repository.updateStatus(userId, UserStatus.SUSPENDED);
+      await repository.updateStatus(userId, UserStatus.SUSPENDED);
 
       expect(userModel.findByIdAndUpdate).toHaveBeenCalledWith(
         userId,

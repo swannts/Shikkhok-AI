@@ -7,6 +7,7 @@ import 'package:mobile/features/tutor/domain/entities/tutor_message.dart';
 import 'package:mobile/features/tutor/domain/entities/tutor_stream_event.dart';
 import 'package:mobile/features/tutor/domain/repositories/tutor_repository.dart';
 import 'package:mobile/features/tutor/presentation/controllers/tutor_controller.dart';
+import 'package:mobile/features/tutor/presentation/state/tutor_state.dart';
 
 class FakeTutorRepository implements TutorRepository {
   @override
@@ -169,6 +170,7 @@ void main() {
           controller.state.activeCitations.first.sourceBook, contains('গণিত'));
       expect(controller.state.messages.last.content,
           contains('উভয় পক্ষে যোগ করুন।'));
+      expect(controller.state.status, TutorUiStatus.complete);
     });
 
     test('stopGeneration cancels active streaming', () async {
@@ -177,6 +179,7 @@ void main() {
       controller.stopGeneration();
 
       expect(controller.state.isStreaming, isFalse);
+      expect(controller.state.status, TutorUiStatus.cancelled);
     });
   });
 }

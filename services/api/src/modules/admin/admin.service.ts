@@ -556,15 +556,15 @@ export class AdminService {
     const safeLimit = Math.min(100, Math.max(1, limit));
     const [books, total] = await Promise.all([
       this.textbookModel
-      .find()
-      .select(
-        'title titleBn subjectId classLevel medium curriculumYear edition indexingStatus indexedChunkCount chunkCount failedChunkCount indexingStartedAt lastIndexedAt lastIndexError',
-      )
-      .populate('subjectId', 'name nameBn')
-      .sort({ updatedAt: -1, _id: -1 })
-      .skip((safePage - 1) * safeLimit)
-      .limit(safeLimit)
-      .exec(),
+        .find()
+        .select(
+          'title titleBn subjectId classLevel medium curriculumYear edition indexingStatus indexedChunkCount chunkCount failedChunkCount indexingStartedAt lastIndexedAt lastIndexError',
+        )
+        .populate('subjectId', 'name nameBn')
+        .sort({ updatedAt: -1, _id: -1 })
+        .skip((safePage - 1) * safeLimit)
+        .limit(safeLimit)
+        .exec(),
       this.textbookModel.countDocuments(),
     ]);
 

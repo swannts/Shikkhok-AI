@@ -10,11 +10,7 @@ import { StudyPlanService } from '../../study-plan/study-plan.service';
 import { StudentsService } from '../../students/students.service';
 import { UsersService } from '../../users/users.service';
 import { UserRole } from '../../users/enums/user-role.enum';
-import {
-  AiGatewayService,
-  TutorGenerationPayload,
-  TutorStreamEvent,
-} from '../../ai-gateway/services/ai-gateway.service';
+import { AiGatewayService, TutorStreamEvent } from '../../ai-gateway/services/ai-gateway.service';
 import { TutorMessageRepository } from '../repositories/tutor-message.repository';
 import { TutorMessageRole } from '../enums/tutor-message-role.enum';
 
@@ -377,9 +373,7 @@ describe('TutorService', () => {
         citations: [],
       }),
     );
-    expect(mockRes.write).not.toHaveBeenCalledWith(
-      expect.stringContaining('event: citation'),
-    );
+    expect(mockRes.write).not.toHaveBeenCalledWith(expect.stringContaining('event: citation'));
   });
 
   it('should paginate tutor messages using an opaque cursor', async () => {

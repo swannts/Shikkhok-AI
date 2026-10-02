@@ -529,19 +529,25 @@ export class AiGatewayService {
 
     switch (event) {
       case 'metadata':
-        if (typeof value.grounded !== 'boolean' || typeof value.retrievalUnavailable !== 'boolean') {
+        if (
+          typeof value.grounded !== 'boolean' ||
+          typeof value.retrievalUnavailable !== 'boolean'
+        ) {
           return null;
         }
-        return { event, data: {
-          provider: this.optionalString(value.provider),
-          model: this.optionalString(value.model),
-          grounded: value.grounded,
-          retrievalUnavailable: value.retrievalUnavailable,
-          groundingMode: this.optionalGroundingMode(value.groundingMode),
-          retrievalLatencyMs: this.optionalNumber(value.retrievalLatencyMs),
-          retrievedChunkCount: this.optionalNumber(value.retrievedChunkCount),
-          citationCount: this.optionalNumber(value.citationCount),
-        } };
+        return {
+          event,
+          data: {
+            provider: this.optionalString(value.provider),
+            model: this.optionalString(value.model),
+            grounded: value.grounded,
+            retrievalUnavailable: value.retrievalUnavailable,
+            groundingMode: this.optionalGroundingMode(value.groundingMode),
+            retrievalLatencyMs: this.optionalNumber(value.retrievalLatencyMs),
+            retrievedChunkCount: this.optionalNumber(value.retrievedChunkCount),
+            citationCount: this.optionalNumber(value.citationCount),
+          },
+        };
       case 'delta':
         return typeof value.text === 'string' ? { event, data: { text: value.text } } : null;
       case 'citation':
@@ -549,24 +555,30 @@ export class AiGatewayService {
           typeof value.sourceId === 'string' &&
           typeof value.sourceBook === 'string' &&
           typeof value.textChunk === 'string'
-          ? { event, data: {
-              citationId: value.citationId,
-              sourceId: value.sourceId,
-              sourceBook: value.sourceBook,
-              classLevel: this.optionalNumber(value.classLevel),
-              subjectId: this.optionalString(value.subjectId),
-              chapterId: this.optionalString(value.chapterId),
-              pageStart: this.optionalNumber(value.pageStart),
-              pageEnd: this.optionalNumber(value.pageEnd),
-              textChunk: value.textChunk,
-            } }
+          ? {
+              event,
+              data: {
+                citationId: value.citationId,
+                sourceId: value.sourceId,
+                sourceBook: value.sourceBook,
+                classLevel: this.optionalNumber(value.classLevel),
+                subjectId: this.optionalString(value.subjectId),
+                chapterId: this.optionalString(value.chapterId),
+                pageStart: this.optionalNumber(value.pageStart),
+                pageEnd: this.optionalNumber(value.pageEnd),
+                textChunk: value.textChunk,
+              },
+            }
           : null;
       case 'done':
-        return { event, data: {
-          messageId: this.optionalString(value.messageId),
-          conversationId: this.optionalString(value.conversationId),
-          finishReason: this.optionalString(value.finishReason),
-        } };
+        return {
+          event,
+          data: {
+            messageId: this.optionalString(value.messageId),
+            conversationId: this.optionalString(value.conversationId),
+            finishReason: this.optionalString(value.finishReason),
+          },
+        };
       case 'error':
         return typeof value.code === 'string' && typeof value.message === 'string'
           ? { event, data: { code: value.code, message: value.message } }
@@ -583,6 +595,8 @@ export class AiGatewayService {
   }
 
   private optionalGroundingMode(value: unknown): TutorMetadataEvent['data']['groundingMode'] {
-    return value === 'grounded' || value === 'ungrounded' || value === 'degraded' ? value : undefined;
+    return value === 'grounded' || value === 'ungrounded' || value === 'degraded'
+      ? value
+      : undefined;
   }
 }

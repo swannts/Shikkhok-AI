@@ -13,6 +13,7 @@ process.env.CORS_ORIGINS = 'http://localhost:3000,http://localhost:4000';
 
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe, VersioningType } from '@nestjs/common';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { TransformResponseInterceptor } from '../src/common/interceptors/transform-response.interceptor';
@@ -34,7 +35,10 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+      .overrideGuard(ThrottlerGuard)
+      .useValue({ canActivate: () => true })
+      .compile();
 
     app = moduleFixture.createNestApplication();
     app.setGlobalPrefix('api');
@@ -118,6 +122,14 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
     expect(Array.isArray(res.body.data)).toBe(true);
   });
 
+  it('4a. Completes the student curriculum profile required by Tutor', async () => {
+    await request(app.getHttpServer())
+      .put('/api/v1/students/me')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ classLevel: 8, medium: 'bangla', curriculumYear: 2026 })
+      .expect(200);
+  });
+
   it('5. List & Start Tutor Conversation via /api/v1/tutor/me/conversations', async () => {
     const startRes = await request(app.getHttpServer())
       .post('/api/v1/tutor/me/conversations')
@@ -151,6 +163,24 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
     expect(Array.isArray(res.body.data)).toBe(true);
     expect(res.body).toHaveProperty('meta');
   });
+
+  it('6a. Streams a degraded tutor answer through NestJS and FastAPI', async () => {
+    const res = await request(app.getHttpServer())
+      .post(`/api/v1/tutor/me/conversations/${conversationId}/messages/stream`)
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({ content: 'ভগ্নাংশ কীভাবে বুঝব?' })
+      .buffer(true)
+      .parse((response, callback) => {
+        let body = '';
+        response.on('data', (chunk) => (body += chunk.toString()));
+        response.on('end', () => callback(null, body));
+      })
+      .expect(201);
+
+    expect(String(res.body)).toContain('event:');
+    expect(String(res.body)).toContain('metadata');
+    expect(String(res.body)).toContain('done');
+  }, 30000);
 
   it('7. Submit Offline Sync Batch via /api/v1/sync/me/batches', async () => {
     const deviceId = `test-device-${Date.now()}`;
@@ -202,8 +232,8 @@ describe('Mobile E2E Smoke Journey against NestJS API', () => {
       .post('/api/v1/auth/refresh')
       .send({ refreshToken: firstRefreshToken })
       .expect(200);
-    expect(refreshRes.body.data.tokens.accessToken).toBeDefined();
-    rotatedRefreshToken = refreshRes.body.data.tokens.refreshToken;
+    expect(refreshRes.body.data.accessToken).toBeDefined();
+    rotatedRefreshToken = refreshRes.body.data.refreshToken;
     await request(app.getHttpServer())
       .get('/api/v1/auth/me')
       .set('Authorization', `Bearer ${secondAccessToken}`)

@@ -20,7 +20,6 @@ import { TutorMessageRole } from './enums/tutor-message-role.enum';
 import {
   AiGatewayService,
   TutorGenerationPayload,
-  TutorStreamEvent,
 } from '../ai-gateway/services/ai-gateway.service';
 import { TutorMessageRepository } from './repositories/tutor-message.repository';
 import { TutorCitation } from './types/tutor-citation.type';
@@ -51,7 +50,9 @@ export class TutorService {
       );
     }
     if (curriculumYear === undefined) {
-      throw new BadRequestException('Student curriculum year is required to start a tutor conversation.');
+      throw new BadRequestException(
+        'Student curriculum year is required to start a tutor conversation.',
+      );
     }
 
     const conversation = await this.conversationRepository.createConversation({
@@ -327,7 +328,6 @@ data: {}
     if (conversation.lessonId) {
       try {
         const lesson = await this.curriculumService.getLesson(conversation.lessonId.toString());
-        const chapter = await this.curriculumService.getChapter(conversation.chapterId.toString());
         const subject = await this.curriculumService.getSubject(conversation.subjectId.toString());
         subjectTitle = subject.title ?? subject.name ?? 'General Studies';
         contextSegments.push(`এই পাঠ: ${lesson.title}`);

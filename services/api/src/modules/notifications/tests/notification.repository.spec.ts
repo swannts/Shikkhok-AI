@@ -7,7 +7,6 @@ import { NotificationType } from '../enums/notification-type.enum';
 
 describe('NotificationRepository', () => {
   let repository: NotificationRepository;
-  let model: any;
 
   beforeEach(async () => {
     const mockExec = jest.fn();
@@ -33,7 +32,7 @@ describe('NotificationRepository', () => {
     }).compile();
 
     repository = module.get(NotificationRepository);
-    model = module.get(getModelToken(Notification.name));
+    module.get(getModelToken(Notification.name));
   });
 
   it('should create a notification', async () => {

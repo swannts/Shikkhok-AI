@@ -16,12 +16,13 @@ def test_rag_service() -> RagService:
 @pytest.mark.asyncio
 async def test_rag_returns_versioned_grounded_chunks(test_rag_service: RagService):
     # Query for Class 8 Math Algebra (present in in-memory seed)
+    seeded_scope = test_rag_service.vector_store.chunks[0]
     filter_params = RetrievalFilter(
         query="বীজগণিতীয় সূত্রাবলি ও বর্গ নির্ণয়",
         class_level=8,
         subject_id="mathematics",
-        curriculum_version="2024-NCTB",
-        academic_year=2026,
+        curriculum_version=seeded_scope["curriculum_version"],
+        academic_year=seeded_scope["academic_year"],
         min_score=0.35,
     )
     chunks = await test_rag_service.search(filter_params)
@@ -30,8 +31,8 @@ async def test_rag_returns_versioned_grounded_chunks(test_rag_service: RagServic
     assert top.score >= 0.35
     assert top.class_level == 8
     assert top.subject_id == "mathematics"
-    assert top.curriculum_version == "2024-NCTB"
-    assert top.academic_year == 2026
+    assert top.curriculum_version == seeded_scope["curriculum_version"]
+    assert top.academic_year == seeded_scope["academic_year"]
 
 
 @pytest.mark.asyncio

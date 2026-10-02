@@ -14,7 +14,6 @@ const useUpdateEffect = (effect: EffectCallback, deps: DependencyList = []) => {
 		}
 
 		return effect();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [effect, ...deps]);
 };
 

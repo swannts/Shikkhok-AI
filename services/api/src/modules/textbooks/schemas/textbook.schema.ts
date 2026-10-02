@@ -65,7 +65,12 @@ export class Textbook {
   @Prop({ trim: true, default: '' })
   checksumSha256: string;
 
-  @Prop({ type: String, enum: Object.values(TextbookIndexingStatus), default: TextbookIndexingStatus.DRAFT, index: true })
+  @Prop({
+    type: String,
+    enum: Object.values(TextbookIndexingStatus),
+    default: TextbookIndexingStatus.DRAFT,
+    index: true,
+  })
   indexingStatus: TextbookIndexingStatus;
 
   @Prop({ type: Number, default: 0, min: 0 })

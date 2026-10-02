@@ -16,9 +16,6 @@ class CacheStatusBanner extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (!visible) return const SizedBox.shrink();
     if (!ref.watch(isOnlineProvider)) {
-      final content = cacheKey == null || entityType == null
-          ? 'অফলাইন মোড: দেখানো তথ্য শেষবার সংরক্ষিত কপি। ইন্টারনেট এলে আপডেট হবে।'
-          : 'অফলাইন মোড: দেখানো তথ্য শেষবার সংরক্ষিত কপি। ইন্টারনেট এলে আপডেট হবে।';
       return Container(
         width: double.infinity,
         margin: const EdgeInsets.only(bottom: AppSpacing.md),
@@ -29,13 +26,13 @@ class CacheStatusBanner extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColors.warning.withAlpha(80)),
         ),
-        child: Row(
+        child: const Row(
           children: [
             Icon(Icons.cloud_off_rounded, size: 18, color: AppColors.warning),
             SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
-                content,
+                'অফলাইন মোড: দেখানো তথ্য শেষবার সংরক্ষিত কপি। ইন্টারনেট এলে আপডেট হবে।',
                 style: TextStyle(fontSize: 12, color: AppColors.textPrimary),
               ),
             ),

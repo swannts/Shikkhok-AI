@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
-import { StudentProfile, StudentProfileDocument } from '../schemas/student-profile.schema';
+import { StudentProfile } from '../schemas/student-profile.schema';
 import { StudentMedium } from '../enums/student-medium.enum';
 import { StudentProfileRepository } from '../repositories/student-profile.repository';
 

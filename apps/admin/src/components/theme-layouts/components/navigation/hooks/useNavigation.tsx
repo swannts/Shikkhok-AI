@@ -32,7 +32,6 @@ function useNavigation() {
 		const translatedValues = setAdditionalData(_navigation);
 
 		return translatedValues;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [navigationData, userRole, languageId]);
 
 	const flattenNavigation = useMemo(() => {

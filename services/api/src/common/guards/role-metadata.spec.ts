@@ -20,9 +20,9 @@ describe('role metadata policy', () => {
       UserRole.TEACHER,
       UserRole.ADMIN,
     ]);
-    expect(Reflect.getMetadata(ROLES_KEY, ClassroomsController.prototype.submitAssignment)).toEqual([
-      UserRole.STUDENT,
-    ]);
+    expect(Reflect.getMetadata(ROLES_KEY, ClassroomsController.prototype.submitAssignment)).toEqual(
+      [UserRole.STUDENT],
+    );
     expect(Reflect.getMetadata(ROLES_KEY, ClassroomsController.prototype.gradeSubmission)).toEqual([
       UserRole.TEACHER,
       UserRole.ADMIN,
@@ -31,9 +31,9 @@ describe('role metadata policy', () => {
 
   it('keeps student profile lookup admin-only while student self-service is student-only', () => {
     expect(Reflect.getMetadata(ROLES_KEY, StudentsController)).toEqual([UserRole.STUDENT]);
-    expect(Reflect.getMetadata(ROLES_KEY, StudentsController.prototype.getProfileByUserId)).toEqual([
-      UserRole.ADMIN,
-    ]);
+    expect(Reflect.getMetadata(ROLES_KEY, StudentsController.prototype.getProfileByUserId)).toEqual(
+      [UserRole.ADMIN],
+    );
   });
 
   it('declares textbook reads for supported authenticated roles', () => {

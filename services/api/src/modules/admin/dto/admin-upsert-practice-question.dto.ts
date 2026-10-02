@@ -1,5 +1,4 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 import {
   IsArray,
   IsBoolean,
@@ -10,9 +9,6 @@ import {
   IsString,
   MaxLength,
   ArrayMaxSize,
-  IsInt,
-  Min,
-  Max,
 } from 'class-validator';
 import { PracticeDifficulty } from '../../practice/enums/practice-difficulty.enum';
 import { PracticeQuestionType } from '../../practice/enums/practice-question-type.enum';

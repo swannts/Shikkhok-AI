@@ -25,10 +25,12 @@ export class StudyPlanRepository {
     userId: string,
     data: Partial<Omit<StudyPlan, 'userId' | 'createdAt' | 'updatedAt'>> & { updatedAt?: Date },
   ): Promise<StudyPlanDocument> {
-    const existing = await this.studyPlanModel.findOne({
-      userId,
-      status: data.status ?? StudyPlanStatus.ACTIVE
-    }).exec();
+    const existing = await this.studyPlanModel
+      .findOne({
+        userId,
+        status: data.status ?? StudyPlanStatus.ACTIVE,
+      })
+      .exec();
 
     // Client Authority Last-Write-Wins logic
     // If the server has a newer record, we skip updating it to prevent old offline data from overwriting newer server data.

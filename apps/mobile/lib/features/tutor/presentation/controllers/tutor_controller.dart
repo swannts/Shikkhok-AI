@@ -42,10 +42,10 @@ class TutorController extends StateNotifier<TutorState> {
     _streamSubscription = null;
     _cancelToken?.cancel('User cancelled generation');
     _cancelToken = null;
-    if (wasStreaming && markCancelled) {
+    if (wasStreaming) {
       state = state.copyWith(
         isStreaming: false,
-        status: TutorUiStatus.cancelled,
+        status: markCancelled ? TutorUiStatus.cancelled : state.status,
       );
     }
   }

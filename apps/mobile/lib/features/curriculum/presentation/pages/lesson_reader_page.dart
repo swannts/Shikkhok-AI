@@ -216,7 +216,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
+                  padding: const EdgeInsets.fromLTRB(
                       AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, 0),
                   child: CacheStatusBanner(
                       cacheKey: 'lesson:${widget.lessonId!}',

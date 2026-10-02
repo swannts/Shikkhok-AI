@@ -6,7 +6,6 @@ import {
   MinLength,
   MaxLength,
   Matches,
-  ValidateIf,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { PublicRegistrationRole } from '../enums/public-registration-role.enum';

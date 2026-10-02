@@ -46,7 +46,6 @@ export function useDeepCompareMemoize<T>(value: T) {
 		signalRef.current += 1;
 	}
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	return useMemo(() => ref.current, [signalRef.current]);
 }
 
@@ -59,7 +58,6 @@ function useDeepCompareEffect(callback: EffectCallbackType, dependencies: Depend
 		checkDeps(dependencies);
 	}
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	return useEffect(callback, useDeepCompareMemoize(dependencies));
 }
 
@@ -67,7 +65,6 @@ export function useDeepCompareEffectNoCheck(
 	callback: EffectCallbackType,
 	dependencies: DependencyListType
 ): UseEffectReturn {
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	return useEffect(callback, useDeepCompareMemoize(dependencies));
 }
 

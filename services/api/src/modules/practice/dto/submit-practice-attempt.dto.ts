@@ -9,7 +9,6 @@ import {
   IsObject,
   IsOptional,
   IsString,
-  Max,
   Min,
 } from 'class-validator';
 import { PracticeQuestionType } from '../enums/practice-question-type.enum';

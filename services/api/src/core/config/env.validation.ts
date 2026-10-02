@@ -108,13 +108,17 @@ export function validateConfig(config: Record<string, unknown>) {
     [Environment.Production, Environment.Staging].includes(validatedConfig.NODE_ENV) &&
     (origins.includes('*') || origins.some((origin) => origin.length === 0))
   ) {
-    throw new Error('❌ Environment Validation Error: production CORS_ORIGINS must be an explicit non-empty allowlist');
+    throw new Error(
+      '❌ Environment Validation Error: production CORS_ORIGINS must be an explicit non-empty allowlist',
+    );
   }
   if (
     [Environment.Production, Environment.Staging].includes(validatedConfig.NODE_ENV) &&
     (!validatedConfig.AI_HMAC_SECRET || !validatedConfig.AI_SERVICE_SECRET)
   ) {
-    throw new Error('❌ Environment Validation Error: AI_HMAC_SECRET and AI_SERVICE_SECRET are required outside development/test');
+    throw new Error(
+      '❌ Environment Validation Error: AI_HMAC_SECRET and AI_SERVICE_SECRET are required outside development/test',
+    );
   }
   return validatedConfig;
 }

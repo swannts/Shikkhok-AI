@@ -61,7 +61,11 @@ export class HomeworkService {
         await this.homeworkQueue.add(
           'process-homework',
           { submissionId },
-          { jobId: `process-homework-${submissionId}`, attempts: 3, backoff: { type: 'exponential', delay: 2000 } },
+          {
+            jobId: `process-homework-${submissionId}`,
+            attempts: 3,
+            backoff: { type: 'exponential', delay: 2000 },
+          },
         );
       } catch (queueErr) {
         this.logger.warn(`Failed to enqueue homework job, running inline: ${queueErr}`);
