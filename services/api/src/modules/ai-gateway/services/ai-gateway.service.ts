@@ -9,6 +9,8 @@ export interface TutorGenerationPayload {
   message: string;
   language?: 'bn' | 'en';
   classLevel?: number;
+  curriculumYear?: number;
+  medium?: 'bangla' | 'english';
   subjectId?: string | null;
   chapterId?: string | null;
   lessonId?: string | null;
@@ -25,8 +27,10 @@ export interface TutorMetadataEvent {
     model?: string;
     grounded: boolean;
     retrievalUnavailable: boolean;
+    groundingMode?: 'grounded' | 'ungrounded' | 'degraded';
+    retrievalLatencyMs?: number;
+    retrievedChunkCount?: number;
     citationCount?: number;
-    [key: string]: any;
   };
 }
 
@@ -49,21 +53,23 @@ export interface TutorCitationEvent {
     pageStart?: number;
     pageEnd?: number;
     textChunk: string;
-    [key: string]: any;
   };
 }
 
 export interface TutorDoneEvent {
   event: 'done';
-  data: Record<string, any>;
+  data: {
+    messageId?: string;
+    conversationId?: string;
+    finishReason?: string;
+  };
 }
 
 export interface TutorErrorEvent {
   event: 'error';
   data: {
-    code?: string;
-    message?: string;
-    [key: string]: any;
+    code: string;
+    message: string;
   };
 }
 
@@ -127,6 +133,8 @@ export class AiGatewayService {
       message: payload.message,
       language: payload.language ?? 'bn',
       class_level: payload.classLevel,
+      curriculum_year: payload.curriculumYear,
+      medium: payload.medium,
       subject_id: payload.subjectId ?? undefined,
       chapter_id: payload.chapterId ?? undefined,
       lesson_id: payload.lessonId ?? undefined,
@@ -502,16 +510,79 @@ export class AiGatewayService {
     if (dataLines.length === 0) return null;
 
     const dataStr = dataLines.join('\n');
-    let parsedData: any;
+    let parsedData: unknown;
     try {
       parsedData = JSON.parse(dataStr);
     } catch {
       parsedData = { text: dataStr };
     }
 
-    return {
-      event: eventName,
-      data: parsedData,
-    };
+    return this.validateTutorStreamEvent(eventName, parsedData);
+  }
+
+  private validateTutorStreamEvent(
+    event: TutorStreamEvent['event'],
+    data: unknown,
+  ): TutorStreamEvent | null {
+    if (!data || typeof data !== 'object') return null;
+    const value = data as Record<string, unknown>;
+
+    switch (event) {
+      case 'metadata':
+        if (typeof value.grounded !== 'boolean' || typeof value.retrievalUnavailable !== 'boolean') {
+          return null;
+        }
+        return { event, data: {
+          provider: this.optionalString(value.provider),
+          model: this.optionalString(value.model),
+          grounded: value.grounded,
+          retrievalUnavailable: value.retrievalUnavailable,
+          groundingMode: this.optionalGroundingMode(value.groundingMode),
+          retrievalLatencyMs: this.optionalNumber(value.retrievalLatencyMs),
+          retrievedChunkCount: this.optionalNumber(value.retrievedChunkCount),
+          citationCount: this.optionalNumber(value.citationCount),
+        } };
+      case 'delta':
+        return typeof value.text === 'string' ? { event, data: { text: value.text } } : null;
+      case 'citation':
+        return typeof value.citationId === 'string' &&
+          typeof value.sourceId === 'string' &&
+          typeof value.sourceBook === 'string' &&
+          typeof value.textChunk === 'string'
+          ? { event, data: {
+              citationId: value.citationId,
+              sourceId: value.sourceId,
+              sourceBook: value.sourceBook,
+              classLevel: this.optionalNumber(value.classLevel),
+              subjectId: this.optionalString(value.subjectId),
+              chapterId: this.optionalString(value.chapterId),
+              pageStart: this.optionalNumber(value.pageStart),
+              pageEnd: this.optionalNumber(value.pageEnd),
+              textChunk: value.textChunk,
+            } }
+          : null;
+      case 'done':
+        return { event, data: {
+          messageId: this.optionalString(value.messageId),
+          conversationId: this.optionalString(value.conversationId),
+          finishReason: this.optionalString(value.finishReason),
+        } };
+      case 'error':
+        return typeof value.code === 'string' && typeof value.message === 'string'
+          ? { event, data: { code: value.code, message: value.message } }
+          : null;
+    }
+  }
+
+  private optionalString(value: unknown): string | undefined {
+    return typeof value === 'string' ? value : undefined;
+  }
+
+  private optionalNumber(value: unknown): number | undefined {
+    return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+  }
+
+  private optionalGroundingMode(value: unknown): TutorMetadataEvent['data']['groundingMode'] {
+    return value === 'grounded' || value === 'ungrounded' || value === 'degraded' ? value : undefined;
   }
 }

@@ -1,8 +1,15 @@
 # Stage 1: Build TypeScript
-FROM node:20-alpine AS builder
+FROM node:20-alpine AS base
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
+
+FROM base AS development
+COPY tsconfig.json ./
+COPY src ./src
+CMD ["npm", "run", "dev"]
+
+FROM base AS builder
 COPY src ./src
 COPY tsconfig.json ./
 RUN npm run build

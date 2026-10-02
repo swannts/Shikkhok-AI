@@ -14,3 +14,4 @@ class CitationPayload(BaseModel):
     page_start: int | None = Field(None, alias="pageStart")
     page_end: int | None = Field(None, alias="pageEnd")
     excerpt: str | None = None
+    text_chunk: str | None = Field(None, alias="textChunk")

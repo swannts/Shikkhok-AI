@@ -6,6 +6,7 @@ import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 import '../../../../app/theme/app_typography.dart';
 import '../controllers/curriculum_controller.dart';
+import '../widgets/cache_status_banner.dart';
 
 class SubjectDetailsPage extends ConsumerWidget {
   final String? subjectId;
@@ -109,6 +110,7 @@ class SubjectDetailsPage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const CacheStatusBanner(),
                   // Hero Subject Banner
                   Container(
                     padding: const EdgeInsets.all(AppSpacing.lg),

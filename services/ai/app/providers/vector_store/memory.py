@@ -198,7 +198,7 @@ class InMemoryVectorStore:
                     page_start=c.get("page_start"),
                     page_end=c.get("page_end"),
                     curriculum_version=c.get("curriculum_version", settings.default_curriculum_version),
-                    academic_year=c.get("academic_year", 2026),
+                    academic_year=c.get("academic_year"),
                     curriculum_year=c.get("curriculum_year"),
                     medium=c.get("medium"),
                     content_version=c.get("content_version"),

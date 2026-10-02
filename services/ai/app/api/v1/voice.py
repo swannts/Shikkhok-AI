@@ -96,7 +96,9 @@ async def voice_conversation_turn(
     tutor_text_chunks: list[str] = []
     async for event in tutor_service.stream_tutor_response(tutor_req):
         if event.event == "delta" and isinstance(event.data, dict):
-            tutor_text_chunks.append(event.data.get("text", ""))
+            text = event.data.get("text")
+            if isinstance(text, str):
+                tutor_text_chunks.append(text)
 
     reply_text = "".join(tutor_text_chunks).strip()
     if not reply_text:

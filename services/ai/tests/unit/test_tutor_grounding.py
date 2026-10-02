@@ -48,6 +48,8 @@ def make_request() -> TutorGenerationRequest:
         message="বর্গ সূত্র বুঝিয়ে দাও",
         language="bn",
         class_level=8,
+        curriculum_year=2026,
+        medium="bangla",
         subject_id="mathematics",
         subject_title="গণিত",
         chapter_id="algebra",

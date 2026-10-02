@@ -43,6 +43,11 @@ export class ExamsService {
     const medium = query.medium ?? (await this.resolveMedium(currentUser.userId));
     const curriculumYear =
       query.curriculumYear ?? (await this.resolveCurriculumYear(currentUser.userId));
+    if (classLevel === undefined || medium === undefined || curriculumYear === undefined) {
+      throw new BadRequestException(
+        'Student curriculum context (class, medium, and curriculum year) is required.',
+      );
+    }
 
     const exams = await this.examRepository.findPublished({
       classLevel,
@@ -452,12 +457,12 @@ export class ExamsService {
     }
   }
 
-  private async resolveCurriculumYear(userId: string): Promise<number> {
+  private async resolveCurriculumYear(userId: string): Promise<number | undefined> {
     try {
       const profile = await this.studentsService?.getProfileByUserId?.(userId);
-      return profile?.curriculumYear ?? parseInt(process.env.DEFAULT_CURRICULUM_YEAR || '2026', 10);
+      return profile?.curriculumYear;
     } catch {
-      return parseInt(process.env.DEFAULT_CURRICULUM_YEAR || '2026', 10);
+      return undefined;
     }
   }
 }

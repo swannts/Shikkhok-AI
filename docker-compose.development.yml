@@ -1,0 +1,31 @@
+services:
+  mongodb:
+    ports: ["27017:27017"]
+  redis:
+    ports: ["6379:6379"]
+  api:
+    build:
+      context: ./services/api
+      target: development
+    command: npm run dev
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./services/api/src:/app/src
+      - ./services/api/test:/app/test
+  worker:
+    build:
+      context: ./services/worker
+      target: development
+    command: npm run dev
+    volumes:
+      - ./services/worker/src:/app/src
+  ai:
+    build:
+      context: ./services/ai
+      target: development
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      APP_ENV: development
+    volumes:
+      - ./services/ai/app:/app/app

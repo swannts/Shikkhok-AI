@@ -48,6 +48,7 @@ class CitationService:
                     pageStart=chunk.page_start,
                     pageEnd=chunk.page_end,
                     excerpt=chunk.text[:150] + "..." if len(chunk.text) > 150 else chunk.text,
+                    textChunk=chunk.text,
                 )
             )
 

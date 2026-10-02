@@ -12,6 +12,7 @@ class Settings(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore",
         case_sensitive=False,
+        populate_by_name=True,
     )
 
     # General Application
@@ -81,9 +82,11 @@ class Settings(BaseSettings):
     tutor_grounding_mode: TutorGroundingMode = "hybrid"
 
     # Curriculum Context Defaults
-    default_curriculum_version: str = "2024-NCTB"
-    default_academic_year: int = 2026
-    default_curriculum_year: int = 2026
+    # These values are optional so development can run without pretending to
+    # know the active curriculum. Production and staging validate them below.
+    default_curriculum_version: str | None = Field(default=None, validation_alias="CURRICULUM_VERSION")
+    default_academic_year: int | None = Field(default=None, validation_alias="ACADEMIC_YEAR")
+    default_curriculum_year: int | None = Field(default=None, validation_alias="CURRICULUM_YEAR")
 
     @field_validator("debug", mode="before")
     @classmethod
@@ -149,6 +152,20 @@ class Settings(BaseSettings):
             raise RuntimeError(
                 f"CRITICAL: INTERNAL_SERVICE_SECRET must be at least 32 random characters and not a development default in {self.app_env}."
             )
+
+        if self.app_env in ("production", "staging"):
+            if not self.default_curriculum_version or not self.default_curriculum_version.strip():
+                raise RuntimeError(
+                    f"CRITICAL: CURRICULUM_VERSION must be configured in {self.app_env}."
+                )
+            if self.default_curriculum_year is None or not 2000 <= self.default_curriculum_year <= 2100:
+                raise RuntimeError(
+                    f"CRITICAL: CURRICULUM_YEAR must be configured between 2000 and 2100 in {self.app_env}."
+                )
+            if self.default_academic_year is None or not 2000 <= self.default_academic_year <= 2100:
+                raise RuntimeError(
+                    f"CRITICAL: ACADEMIC_YEAR must be configured between 2000 and 2100 in {self.app_env}."
+                )
 
         if (
             self.app_env in ("production", "staging")

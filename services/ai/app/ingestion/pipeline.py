@@ -51,6 +51,16 @@ class IngestionPipeline:
         try:
             # 1. Chunk pages
             chunks = self.chunker.chunk_pages(pages=pages, metadata=metadata)
+            # Overlap and repeated source pages can produce identical content.
+            # Keep one deterministic chunk per content hash before embedding.
+            unique_chunks = []
+            seen_hashes: set[str] = set()
+            for chunk in chunks:
+                if chunk.content_hash in seen_hashes:
+                    continue
+                seen_hashes.add(chunk.content_hash)
+                unique_chunks.append(chunk)
+            chunks = unique_chunks
             if not chunks:
                 return IngestionJobResult(
                     job_id=job_id,
@@ -82,6 +92,7 @@ class IngestionPipeline:
                     subject_title=metadata.subject_title,
                     chapter_title=metadata.chapter_title,
                     lesson_title=metadata.lesson_title,
+                    curriculum_version=metadata.curriculum_version,
                     page_start=c.page_start,
                     page_end=c.page_end,
                     curriculum_year=metadata.curriculum_year,

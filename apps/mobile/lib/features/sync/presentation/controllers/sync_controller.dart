@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/database/app_database.dart';
 import '../../../../core/errors/app_failure.dart';
 import '../../../../core/network/api_client.dart';
+import '../../../../core/network/connectivity_provider.dart';
+import '../../../../core/storage/token_storage.dart';
 import '../../domain/entities/sync_operation.dart';
 import '../../domain/entities/sync_batch_result.dart';
 import '../../domain/entities/sync_checkpoint.dart';
@@ -32,6 +35,16 @@ class SyncInitial extends SyncState {
   const SyncInitial();
 }
 
+class SyncOffline extends SyncState {
+  final int pendingCount;
+  const SyncOffline(this.pendingCount);
+}
+
+class SyncPending extends SyncState {
+  final int pendingCount;
+  const SyncPending(this.pendingCount);
+}
+
 class SyncInProgress extends SyncState {
   final int pendingCount;
   const SyncInProgress(this.pendingCount);
@@ -50,9 +63,20 @@ class SyncFailureState extends SyncState {
 
 class SyncController extends StateNotifier<SyncState> {
   final SyncRepository _repository;
+  final Stream<bool>? _connectivity;
+  final Future<String> Function() _resolveDeviceId;
+  StreamSubscription<bool>? _connectivitySubscription;
+  bool _online = true;
 
-  SyncController(this._repository) : super(const SyncInitial()) {
+  SyncController(
+    this._repository, {
+    Stream<bool>? connectivity,
+    Future<String> Function()? resolveDeviceId,
+  })  : _connectivity = connectivity,
+        _resolveDeviceId = resolveDeviceId ?? TokenStorage.getOrCreateDeviceId,
+        super(const SyncInitial()) {
     _initialize();
+    _connectivitySubscription = _connectivity?.listen(handleConnectivity);
   }
 
   Future<void> _initialize() async {
@@ -63,6 +87,8 @@ class SyncController extends StateNotifier<SyncState> {
 
   Future<void> enqueueOperation(SyncOperation operation) async {
     await _repository.enqueueOperation(operation);
+    final count = await _repository.countPending();
+    state = _online ? SyncPending(count) : SyncOffline(count);
   }
 
   Future<void> enqueueLessonProgress(LessonProgressSyncPayload payload) async {
@@ -110,6 +136,11 @@ class SyncController extends StateNotifier<SyncState> {
   }
 
   Future<SyncBatchResult?> flushQueue({required String deviceId}) async {
+    if (!_online) {
+      final count = await _repository.countPending();
+      state = SyncOffline(count);
+      return null;
+    }
     final count = await _repository.countPending();
     if (count == 0) {
       const emptyResult = SyncBatchResult();
@@ -140,10 +171,34 @@ class SyncController extends StateNotifier<SyncState> {
   Future<int> getPendingCount() async {
     return _repository.countPending();
   }
+
+  Future<void> handleConnectivity(bool online) async {
+    _online = online;
+    final count = await _repository.countPending();
+    if (!online) {
+      state = SyncOffline(count);
+      return;
+    }
+    if (count > 0) {
+      await flushQueue(deviceId: await _resolveDeviceId());
+    } else {
+      state = const SyncSuccess(SyncBatchResult());
+    }
+  }
+
+  @override
+  void dispose() {
+    _connectivitySubscription?.cancel();
+    super.dispose();
+  }
 }
 
 final syncControllerProvider =
     StateNotifierProvider<SyncController, SyncState>((ref) {
   final repository = ref.watch(syncRepositoryProvider);
-  return SyncController(repository);
+  final controller = SyncController(repository);
+  ref.listen<AsyncValue<bool>>(connectivityProvider, (_, next) {
+    next.whenData(controller.handleConnectivity);
+  });
+  return controller;
 });

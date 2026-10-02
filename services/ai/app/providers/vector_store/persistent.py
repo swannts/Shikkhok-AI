@@ -274,8 +274,8 @@ class PersistentVectorStore:
     def _apply_default_scope_metadata(self) -> None:
         for chunk in self.chunks:
             chunk.setdefault("curriculum_version", settings.default_curriculum_version)
-            chunk.setdefault("academic_year", 2026)
-            chunk.setdefault("curriculum_year", 2026)
+            chunk.setdefault("academic_year", None)
+            chunk.setdefault("curriculum_year", None)
             chunk.setdefault("medium", "bangla")
 
     def _infer_metadata(self) -> VectorStoreEmbeddingMetadata:
@@ -380,7 +380,7 @@ class PersistentVectorStore:
                     page_start=chunk.get("page_start"),
                     page_end=chunk.get("page_end"),
                     curriculum_version=chunk.get("curriculum_version", settings.default_curriculum_version),
-                    academic_year=chunk.get("academic_year", 2026),
+                    academic_year=chunk.get("academic_year"),
                     curriculum_year=chunk.get("curriculum_year"),
                     medium=chunk.get("medium"),
                     content_version=chunk.get("content_version"),

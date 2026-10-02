@@ -33,7 +33,7 @@ describe('AiGatewayService SSE Parser Hardening', () => {
     const parsed = service.parseSseChunk(chunk);
     expect(parsed).not.toBeNull();
     expect(parsed?.event).toBe('delta');
-    expect(parsed?.data.text).toBe('হ্যালো');
+    expect((parsed?.data as { text?: string })?.text).toBe('হ্যালো');
   });
 
   it('should parse SSE event with CRLF line endings', () => {
@@ -41,7 +41,7 @@ describe('AiGatewayService SSE Parser Hardening', () => {
     const parsed = service.parseSseChunk(chunk);
     expect(parsed).not.toBeNull();
     expect(parsed?.event).toBe('delta');
-    expect(parsed?.data.text).toBe('সুপ্রভাত');
+    expect((parsed?.data as { text?: string })?.text).toBe('সুপ্রভাত');
   });
 
   it('should support multiline data fields joined with newlines', () => {
@@ -49,7 +49,7 @@ describe('AiGatewayService SSE Parser Hardening', () => {
     const parsed = service.parseSseChunk(chunk);
     expect(parsed).not.toBeNull();
     expect(parsed?.event).toBe('delta');
-    expect(parsed?.data.text).toBe('line 1\nline 2');
+    expect((parsed?.data as { text?: string })?.text).toBe('line 1\nline 2');
   });
 
   it('should ignore SSE comments starting with colon', () => {

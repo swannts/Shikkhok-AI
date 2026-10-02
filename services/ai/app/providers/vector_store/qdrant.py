@@ -130,7 +130,7 @@ def _qdrant_point_to_chunk(point: models.ScoredPoint) -> RetrievedChunk:
         page_start=payload.get("page_start"),
         page_end=payload.get("page_end"),
         curriculum_version=payload.get("curriculum_version", settings.default_curriculum_version),
-        academic_year=payload.get("academic_year", 2026),
+        academic_year=payload.get("academic_year"),
         curriculum_year=payload.get("curriculum_year"),
         medium=payload.get("medium"),
         content_version=payload.get("content_version"),

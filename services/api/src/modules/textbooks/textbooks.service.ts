@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UsersService } from '../users/users.service';
 import { StudentsService } from '../students/students.service';
@@ -25,6 +25,7 @@ export class TextbooksService {
     const medium = query.medium ?? (await this.resolveMedium(currentUser.userId));
     const curriculumYear =
       query.curriculumYear ?? (await this.resolveCurriculumYear(currentUser.userId));
+    this.assertCurriculumScope(classLevel, medium, curriculumYear);
 
     const textbooks = await this.textbookRepository.findPublished({
       classLevel,
@@ -88,6 +89,7 @@ export class TextbooksService {
     const medium = query.medium ?? (await this.resolveMedium(currentUser.userId));
     const curriculumYear =
       query.curriculumYear ?? (await this.resolveCurriculumYear(currentUser.userId));
+    this.assertCurriculumScope(classLevel, medium, curriculumYear);
 
     const textbooks = await this.textbookRepository.findPublished({
       classLevel,
@@ -151,12 +153,24 @@ export class TextbooksService {
     }
   }
 
-  private async resolveCurriculumYear(userId: string): Promise<number> {
+  private async resolveCurriculumYear(userId: string): Promise<number | undefined> {
     try {
       const profile = await this.studentsService?.getProfileByUserId?.(userId);
-      return profile?.curriculumYear ?? 2026;
+      return profile?.curriculumYear;
     } catch {
-      return 2026;
+      return undefined;
+    }
+  }
+
+  private assertCurriculumScope(
+    classLevel: number | undefined,
+    medium: string | undefined,
+    curriculumYear: number | undefined,
+  ): asserts classLevel is number {
+    if (classLevel === undefined || medium === undefined || curriculumYear === undefined) {
+      throw new BadRequestException(
+        'Student curriculum context (class, medium, and curriculum year) is required.',
+      );
     }
   }
 }

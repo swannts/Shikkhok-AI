@@ -102,7 +102,7 @@ describe('TutorService', () => {
     const testUserId = new Types.ObjectId().toString();
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
     (service as any).studentsService = {
-      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8, curriculumYear: 2026 }),
     };
     conversationRepository.createConversation.mockResolvedValue({
       _id: { toString: () => 'conv-1' },
@@ -247,7 +247,7 @@ describe('TutorService', () => {
           pageStart: 45,
         },
       };
-      yield { event: 'done', data: { latencyMs: 250 } };
+      yield { event: 'done', data: {} };
     }
     aiGatewayService.streamTutorResponse.mockImplementation(mockStream as any);
 
@@ -314,6 +314,72 @@ describe('TutorService', () => {
     // 5. Check conversation touched & ended
     expect(conversationRepository.touchConversation).toHaveBeenCalledWith('conv-1', 2);
     expect(mockRes.end).toHaveBeenCalled();
+  });
+
+  it('should discard citations when the stream is ungrounded or malformed', async () => {
+    usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
+    conversationRepository.findById.mockResolvedValue({
+      _id: { toString: () => 'conv-1' },
+      userId: { toString: () => 'user-1' },
+      lessonId: null,
+      chapterId: null,
+      subjectId: null,
+      classLevel: 8,
+      medium: 'bangla',
+    } as any);
+    messageRepository.createMessage.mockResolvedValue({
+      _id: { toString: () => 'asst-msg-1' },
+    } as any);
+    conversationRepository.touchConversation.mockResolvedValue({} as any);
+    studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
+    progressService.getMySummary.mockRejectedValue(new NotFoundException());
+
+    async function* mockUngroundedStream(): AsyncIterable<TutorStreamEvent> {
+      yield {
+        event: 'metadata',
+        data: { provider: 'gemini', grounded: false, retrievalUnavailable: true },
+      };
+      yield { event: 'delta', data: { text: 'সাধারণ ব্যাখ্যা।' } };
+      yield {
+        event: 'citation',
+        data: { sourceBook: 'NCTB Class 8 Math', sourceId: 'fake-source' },
+      } as unknown as TutorStreamEvent;
+      yield {
+        event: 'citation',
+        data: { sourceBook: 'NCTB Class 8 Math' },
+      } as unknown as TutorStreamEvent;
+      yield { event: 'done', data: {} };
+    }
+    aiGatewayService.streamTutorResponse.mockImplementation(mockUngroundedStream as any);
+
+    const mockRes: any = {
+      setHeader: jest.fn(),
+      write: jest.fn(),
+      end: jest.fn(),
+      flushHeaders: jest.fn(),
+    };
+
+    await service.streamMessage(
+      { userId: 'user-1', role: UserRole.STUDENT },
+      'conv-1',
+      { content: 'ব্যাখ্যা করো' },
+      mockRes,
+      { on: jest.fn() } as any,
+    );
+
+    expect(messageRepository.createMessage).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        role: TutorMessageRole.ASSISTANT,
+        content: 'সাধারণ ব্যাখ্যা।',
+        citations: [],
+      }),
+    );
+    expect(mockRes.write).not.toHaveBeenCalledWith(
+      expect.stringContaining('event: citation'),
+    );
   });
 
   it('should paginate tutor messages using an opaque cursor', async () => {

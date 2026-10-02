@@ -37,8 +37,8 @@ class VoiceTurnRequest(BaseModel):
     subject_id: str = "general"
     chapter_id: str | None = None
     lesson_id: str | None = None
-    curriculum_version: str = settings.default_curriculum_version
-    academic_year: int = settings.default_academic_year
+    curriculum_version: str | None = settings.default_curriculum_version
+    academic_year: int | None = settings.default_academic_year
     speech_rate: float = 1.0
 
 

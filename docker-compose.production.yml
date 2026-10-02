@@ -1,0 +1,38 @@
+services:
+  mongodb:
+    restart: unless-stopped
+    ports: []
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:?set MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:?set MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:?set MONGO_INITDB_DATABASE}
+  redis:
+    restart: unless-stopped
+    ports: []
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:?set REDIS_PASSWORD}
+  api:
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: ${MONGODB_URI:?set MONGODB_URI}
+      REDIS_URL: ${REDIS_URL:?set REDIS_URL}
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:?set JWT_ACCESS_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:?set JWT_REFRESH_SECRET}
+      AI_HMAC_SECRET: ${AI_HMAC_SECRET:?set AI_HMAC_SECRET}
+      AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:?set AI_SERVICE_SECRET}
+      CORS_ORIGINS: ${CORS_ORIGINS:?set CORS_ORIGINS}
+  worker:
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: ${MONGODB_URI:?set MONGODB_URI}
+      REDIS_URL: ${REDIS_URL:?set REDIS_URL}
+      AI_HMAC_SECRET: ${AI_HMAC_SECRET:?set AI_HMAC_SECRET}
+  ai:
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      INTERNAL_SERVICE_SECRET: ${AI_SERVICE_SECRET:?set AI_SERVICE_SECRET}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:?set GEMINI_API_KEY}
+      VECTOR_STORE_ALLOW_DEMO_SEED: "false"
+      VECTOR_STORE_ALLOW_LEGACY_FALLBACK: "false"

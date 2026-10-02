@@ -11,6 +11,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: shikkhok-ai-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   infrastructure:
     name: Helm Infrastructure Validation
@@ -67,7 +71,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: services/api/package.json
+          cache-dependency-path: services/api/package-lock.json
       - name: Install dependencies
         working-directory: ./services/api
         run: npm ci
@@ -132,6 +136,9 @@ jobs:
       - name: Lint
         working-directory: ./apps/admin
         run: npm run lint
+      - name: Test
+        working-directory: ./apps/admin
+        run: npm test
 
   flutter-mobile:
     name: Flutter Mobile (Analyzer & Tests)

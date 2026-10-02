@@ -44,10 +44,14 @@ export class TutorService {
   ): Promise<Record<string, any>> {
     await this.assertStudentOrAdmin(currentUser);
     const classLevel = await this.resolveClassLevel(currentUser.userId);
+    const curriculumYear = await this.resolveCurriculumYear(currentUser.userId);
     if (classLevel === undefined || classLevel === null || classLevel < 1 || classLevel > 12) {
       throw new BadRequestException(
         'Valid student class level (1-12) is required to start a tutor conversation.',
       );
+    }
+    if (curriculumYear === undefined) {
+      throw new BadRequestException('Student curriculum year is required to start a tutor conversation.');
     }
 
     const conversation = await this.conversationRepository.createConversation({
@@ -69,7 +73,7 @@ export class TutorService {
           : (dto.lessonId as any) || null,
       classLevel: await this.resolveClassLevel(currentUser.userId),
       medium: await this.resolveMedium(currentUser.userId),
-      curriculumYear: String(await this.resolveCurriculumYear(currentUser.userId)),
+      curriculumYear: String(curriculumYear),
       messageCount: 0,
       lastMessageAt: new Date(),
     });
@@ -209,6 +213,8 @@ export class TutorService {
       chapterId: conversation.chapterId?.toString?.() ?? null,
       subjectId: conversation.subjectId?.toString?.() ?? null,
       classLevel: conversation.classLevel ?? (await this.resolveClassLevel(currentUser.userId)),
+      curriculumYear: this.parseCurriculumYear(conversation.curriculumYear),
+      medium: conversation.medium === 'english' ? 'english' : 'bangla',
       subjectTitle: subjectTitle,
       language: conversation.medium === 'english' ? 'en' : 'bn',
       history: contextSegments.length
@@ -219,6 +225,7 @@ export class TutorService {
     let accumulatedContent = '';
     const collectedCitations: TutorCitation[] = [...baseCitations];
     let provider = 'gemini';
+    let grounded = false;
 
     try {
       for await (const event of this.aiGatewayService.streamTutorResponse(
@@ -233,6 +240,10 @@ export class TutorService {
           if (event.data?.provider) {
             provider = event.data.provider;
           }
+          grounded = event.data?.grounded === true && event.data?.retrievalUnavailable !== true;
+          if (!grounded) {
+            collectedCitations.length = 0;
+          }
           res.write(`event: metadata\ndata: ${JSON.stringify(event.data)}\n\n`);
         } else if (event.event === 'delta') {
           if (typeof event.data?.text === 'string') {
@@ -240,8 +251,10 @@ export class TutorService {
           }
           res.write(`event: delta\ndata: ${JSON.stringify(event.data)}\n\n`);
         } else if (event.event === 'citation') {
-          collectedCitations.push(event.data as TutorCitation);
-          res.write(`event: citation\ndata: ${JSON.stringify(event.data)}\n\n`);
+          if (grounded && this.isValidCitation(event.data)) {
+            collectedCitations.push(event.data);
+            res.write(`event: citation\ndata: ${JSON.stringify(event.data)}\n\n`);
+          }
         } else if (event.event === 'error') {
           res.write(`event: error\ndata: ${JSON.stringify(event.data)}\n\n`);
         }
@@ -361,6 +374,8 @@ data: {}
       message: prompt,
       language: conversation.medium === 'english' ? 'en' : 'bn',
       classLevel: conversation.classLevel ?? (await this.resolveClassLevel(userId)),
+      curriculumYear: this.parseCurriculumYear(conversation.curriculumYear),
+      medium: conversation.medium === 'english' ? 'english' : 'bangla',
       subjectTitle: subjectTitle,
       lessonId: conversation.lessonId?.toString?.() ?? null,
       chapterId: conversation.chapterId?.toString?.() ?? null,
@@ -371,17 +386,19 @@ data: {}
     };
 
     let content = '';
-    const rawCitations: any[] = [];
+    const rawCitations: TutorCitation[] = [];
     let provider = 'gemini';
+    let grounded = false;
 
     try {
       const stream = this.aiGatewayService.streamTutorResponse(payload);
       for await (const chunk of stream) {
         if (chunk.event === 'metadata' && chunk.data?.provider) {
           provider = chunk.data.provider;
+          grounded = chunk.data.grounded === true && chunk.data.retrievalUnavailable !== true;
         } else if (chunk.event === 'delta' && typeof chunk.data?.text === 'string') {
           content += chunk.data.text;
-        } else if (chunk.event === 'citation' && chunk.data) {
+        } else if (chunk.event === 'citation' && grounded && this.isValidCitation(chunk.data)) {
           rawCitations.push(chunk.data);
         }
       }
@@ -389,7 +406,7 @@ data: {}
       if (content.trim()) {
         return {
           content: content.trim(),
-          citations: [...citations, ...rawCitations],
+          citations: grounded ? [...citations, ...rawCitations] : [],
           provider,
         };
       }
@@ -445,6 +462,17 @@ data: {}
         hasNext,
       },
     };
+  }
+
+  private isValidCitation(value: unknown): value is TutorCitation {
+    if (!value || typeof value !== 'object') return false;
+    const citation = value as Partial<TutorCitation>;
+    return (
+      typeof citation.sourceBook === 'string' &&
+      citation.sourceBook.trim().length > 0 &&
+      typeof citation.sourceId === 'string' &&
+      citation.sourceId.trim().length > 0
+    );
   }
 
   private encodeCursor(createdAt: string, id: string): string {
@@ -520,12 +548,18 @@ data: {}
     }
   }
 
-  private async resolveCurriculumYear(userId: string): Promise<number> {
+  private async resolveCurriculumYear(userId: string): Promise<number | undefined> {
     try {
       const profile = await this.studentsService?.getProfileByUserId?.(userId);
-      return profile?.curriculumYear ?? 2026;
+      return profile?.curriculumYear ?? undefined;
     } catch {
-      return 2026;
+      return undefined;
     }
+  }
+
+  private parseCurriculumYear(value: unknown): number | undefined {
+    if (typeof value === 'number' && Number.isInteger(value)) return value;
+    if (typeof value === 'string' && /^\d{4}$/.test(value)) return Number(value);
+    return undefined;
   }
 }

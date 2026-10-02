@@ -107,3 +107,33 @@ def test_development_rejects_missing_embedding_key_without_silent_fallback():
 
     with pytest.raises(RuntimeError, match="requires an API key"):
         build_service_container(settings)
+
+
+def test_production_requires_explicit_curriculum_configuration():
+    settings = Settings(
+        app_env="production",
+        llm_provider="gemini",
+        llm_api_key="valid-key",
+        embedding_provider="gemini",
+        embedding_api_key="valid-key",
+        internal_service_secret="a" * 32,
+    )
+
+    with pytest.raises(RuntimeError, match="CURRICULUM_VERSION"):
+        settings.validate_runtime_safety()
+
+
+def test_production_accepts_valid_curriculum_configuration():
+    settings = Settings(
+        app_env="production",
+        llm_provider="gemini",
+        llm_api_key="valid-key",
+        embedding_provider="gemini",
+        embedding_api_key="valid-key",
+        internal_service_secret="a" * 32,
+        default_curriculum_version="2024-NCTB",
+        default_curriculum_year=2026,
+        default_academic_year=2026,
+    )
+
+    settings.validate_runtime_safety()

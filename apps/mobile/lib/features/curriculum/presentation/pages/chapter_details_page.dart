@@ -7,6 +7,7 @@ import '../../../../app/theme/app_spacing.dart';
 import '../../../../app/theme/app_typography.dart';
 import '../../../../app/router/app_routes.dart';
 import '../controllers/curriculum_controller.dart';
+import '../widgets/cache_status_banner.dart';
 import '../../domain/entities/lesson.dart';
 
 class ChapterDetailsPage extends ConsumerWidget {
@@ -118,6 +119,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const CacheStatusBanner(),
                         // Hero Title
                         Text(
                           chapter.title,

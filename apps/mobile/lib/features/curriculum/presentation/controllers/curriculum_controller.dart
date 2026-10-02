@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/database/app_database.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/errors/app_failure.dart';
 import '../../domain/entities/subject.dart';
@@ -19,6 +20,7 @@ final curriculumRepositoryProvider = Provider<CurriculumRepository>((ref) {
   return CurriculumRepositoryImpl(
     ref.read(curriculumRemoteDataSourceProvider),
     apiClient,
+    appDatabase,
   );
 });
 

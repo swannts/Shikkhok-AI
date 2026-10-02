@@ -204,6 +204,7 @@ class TutorService:
                     "conversationId": request.conversation_id,
                     "fallbackUsed": False,
                     "grounded": False,
+                    "retrievalUnavailable": False,
                     "groundingMode": self.grounding_mode,
                 },
             )
@@ -221,29 +222,38 @@ class TutorService:
             return
 
         # 2. RAG Retrieval with Metadata Filtering
-        filter_params = RetrievalFilter(
-            query=request.message,
-            class_level=request.class_level,
-            subject_id=request.subject_id,
-            chapter_id=request.chapter_id,
-            lesson_id=request.lesson_id,
-            curriculum_version=settings.default_curriculum_version,
-            academic_year=settings.default_academic_year,
-            curriculum_year=request.curriculum_year,
-            medium=request.medium,
-            top_k=3,
-        )
-
         retrieval_start = time.time()
         retrieved_chunks: list[RetrievedChunk] = []
         retrieval_unavailable = False
-        try:
-            retrieved_chunks = await self.rag_service.search(filter_params)
-        except Exception as rag_err:
-            logger.warning(
-                f"RAG retrieval failed for request {request.request_id}: {rag_err}; proceeding ungrounded"
+        scope_complete = (
+            request.class_level is not None
+            and request.curriculum_year is not None
+            and request.medium is not None
+        )
+        if scope_complete:
+            filter_params = RetrievalFilter(
+                query=request.message,
+                class_level=request.class_level,
+                subject_id=request.subject_id,
+                chapter_id=request.chapter_id,
+                lesson_id=request.lesson_id,
+                curriculum_version=settings.default_curriculum_version,
+                academic_year=settings.default_academic_year,
+                curriculum_year=request.curriculum_year,
+                medium=request.medium,
+                top_k=3,
             )
-            retrieval_unavailable = True
+            try:
+                retrieved_chunks = await self.rag_service.search(filter_params)
+            except Exception as rag_err:
+                logger.warning(
+                    f"RAG retrieval failed for request {request.request_id}: {rag_err}; proceeding ungrounded"
+                )
+                retrieval_unavailable = True
+        else:
+            logger.info(
+                f"Skipping curriculum retrieval for request {request.request_id}: incomplete scope"
+            )
 
         retrieval_latency_ms = int((time.time() - retrieval_start) * 1000)
 

@@ -13,6 +13,7 @@ import '../../domain/entities/lesson.dart';
 import '../../domain/entities/chapter.dart';
 import '../../domain/entities/subject.dart';
 import '../widgets/lesson_content_block_renderer.dart';
+import '../widgets/cache_status_banner.dart';
 
 class LessonReaderPage extends ConsumerStatefulWidget {
   final String? lessonId;
@@ -214,6 +215,11 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
           return SafeArea(
             child: Column(
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, 0),
+                  child: CacheStatusBanner(),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(AppSpacing.lg),

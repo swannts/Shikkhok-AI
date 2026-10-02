@@ -1,5 +1,5 @@
 # Stage 1: Build NestJS Application
-FROM node:20-slim AS builder
+FROM node:20-slim AS base
 
 WORKDIR /app
 
@@ -10,6 +10,12 @@ ENV npm_config_nodedir=/usr/local
 
 COPY package*.json ./
 RUN npm ci
+
+FROM base AS development
+COPY . .
+CMD ["npm", "run", "dev"]
+
+FROM base AS builder
 
 COPY . .
 RUN npm run build

@@ -1,4 +1,4 @@
-from typing import Any, Literal
+from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -58,4 +58,28 @@ class TutorGenerationRequest(BaseModel):
 
 class TutorStreamEvent(BaseModel):
     event: Literal["metadata", "delta", "citation", "done", "error"]
-    data: dict[str, Any]
+    data: dict[str, object]
+
+    @model_validator(mode="after")
+    def validate_event_payload(self) -> "TutorStreamEvent":
+        required: dict[str, tuple[str, ...]] = {
+            "metadata": ("grounded", "retrievalUnavailable"),
+            "delta": ("text",),
+            "citation": ("citationId", "sourceId", "sourceBook"),
+            "error": ("code", "message"),
+        }
+        for field in required.get(self.event, ()):
+            value = self.data.get(field)
+            if not isinstance(value, (str, bool)) or (isinstance(value, str) and not value.strip()):
+                raise ValueError(f"{self.event} event requires non-empty {field}")
+        if self.event == "citation" and not any(
+            isinstance(self.data.get(field), str) and str(self.data[field]).strip()
+            for field in ("textChunk", "excerpt")
+        ):
+            raise ValueError("citation event requires retrieved text")
+        if self.event == "metadata":
+            if not isinstance(self.data["grounded"], bool) or not isinstance(
+                self.data["retrievalUnavailable"], bool
+            ):
+                raise ValueError("metadata grounding flags must be boolean")
+        return self

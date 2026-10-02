@@ -19,16 +19,23 @@ async def run_ingest(args: argparse.Namespace) -> None:
     )
 
     metadata = DocumentMetadata(
+        curriculum_version=args.curriculum_version,
+        curriculum_year=args.curriculum_year,
         class_level=args.class_level,
         subject_id=args.subject_id,
         subject_title=args.subject_title,
         source_book=args.source_book or (Path(args.file).name if args.file else "NCTB Document"),
+        book_id=args.book_id,
         chapter_id=args.chapter_id,
         chapter_title=args.chapter_title,
         lesson_id=args.lesson_id,
         lesson_title=args.lesson_title,
         medium="bangla" if args.medium == "bangla" else "english",
     )
+
+    if args.reindex:
+        deleted = await vector_store.delete_by_book_id(metadata.book_id or metadata.source_book)
+        print(f"Reindex mode: removed {deleted} existing chunks for this book")
 
     if args.file:
         file_path = Path(args.file)
@@ -80,6 +87,14 @@ def main() -> None:
         "--subject-title", type=str, required=True, help="Subject Title (e.g. 'গণিত')"
     )
     parser.add_argument("--source-book", type=str, help="Name of textbook source")
+    parser.add_argument("--book-id", type=str, help="Stable textbook identifier")
+    parser.add_argument("--curriculum-version", type=str, help="Curriculum version identifier")
+    parser.add_argument("--curriculum-year", type=int, help="Curriculum year (2000-2100)")
+    parser.add_argument(
+        "--reindex",
+        action="store_true",
+        help="Delete existing chunks for this book before ingesting with current chunk IDs",
+    )
     parser.add_argument("--chapter-id", type=str, help="Chapter ID")
     parser.add_argument("--chapter-title", type=str, help="Chapter Title")
     parser.add_argument("--lesson-id", type=str, help="Lesson ID")

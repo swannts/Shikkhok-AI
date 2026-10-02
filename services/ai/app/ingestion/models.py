@@ -3,11 +3,12 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from app.core.config import settings
-
 
 class DocumentMetadata(BaseModel):
-    curriculum_year: int = Field(default_factory=lambda: settings.default_curriculum_year, description="NCTB curriculum academic year")
+    curriculum_version: str | None = Field(default=None, description="Curriculum version identifier")
+    curriculum_year: int | None = Field(
+        default=None, ge=2000, le=2100, description="NCTB curriculum academic year"
+    )
     class_level: int = Field(..., ge=1, le=12, description="Target educational class grade (1-12)")
     medium: Literal["bangla", "english"] = Field(default="bangla", description="Instruction medium")
 

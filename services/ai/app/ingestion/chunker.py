@@ -63,7 +63,7 @@ class BengaliTextChunker:
                     chunk_text = " ".join(current_sentences).strip()
                     content_hash = hashlib.sha256(chunk_text.encode("utf-8")).hexdigest()
 
-                    chunk_id = f"{book_slug}_p{page_start}_{chunk_idx:04d}"
+                    chunk_id = f"{book_slug}_p{page_start}_{chunk_idx:04d}_h{content_hash[:16]}"
                     chunks.append(
                         IngestionChunk(
                             chunk_id=chunk_id,
@@ -100,7 +100,7 @@ class BengaliTextChunker:
             chunk_text = " ".join(current_sentences).strip()
             if chunk_text:
                 content_hash = hashlib.sha256(chunk_text.encode("utf-8")).hexdigest()
-                chunk_id = f"{book_slug}_p{page_start}_{chunk_idx:04d}"
+                chunk_id = f"{book_slug}_p{page_start}_{chunk_idx:04d}_h{content_hash[:16]}"
                 chunks.append(
                     IngestionChunk(
                         chunk_id=chunk_id,

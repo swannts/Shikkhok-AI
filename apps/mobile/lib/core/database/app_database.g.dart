@@ -658,15 +658,300 @@ class SyncQueueTableCompanion extends UpdateCompanion<SyncQueueTableData> {
   }
 }
 
+class $CurriculumCacheTableTable extends CurriculumCacheTable
+    with TableInfo<$CurriculumCacheTableTable, CurriculumCacheTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CurriculumCacheTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _cacheKeyMeta =
+      const VerificationMeta('cacheKey');
+  @override
+  late final GeneratedColumn<String> cacheKey = GeneratedColumn<String>(
+      'cache_key', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _entityTypeMeta =
+      const VerificationMeta('entityType');
+  @override
+  late final GeneratedColumn<String> entityType = GeneratedColumn<String>(
+      'entity_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _payloadMeta =
+      const VerificationMeta('payload');
+  @override
+  late final GeneratedColumn<String> payload = GeneratedColumn<String>(
+      'payload', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _fetchedAtMeta =
+      const VerificationMeta('fetchedAt');
+  @override
+  late final GeneratedColumn<DateTime> fetchedAt = GeneratedColumn<DateTime>(
+      'fetched_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [cacheKey, entityType, payload, fetchedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'curriculum_cache_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<CurriculumCacheTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('cache_key')) {
+      context.handle(_cacheKeyMeta,
+          cacheKey.isAcceptableOrUnknown(data['cache_key']!, _cacheKeyMeta));
+    } else if (isInserting) {
+      context.missing(_cacheKeyMeta);
+    }
+    if (data.containsKey('entity_type')) {
+      context.handle(
+          _entityTypeMeta,
+          entityType.isAcceptableOrUnknown(
+              data['entity_type']!, _entityTypeMeta));
+    } else if (isInserting) {
+      context.missing(_entityTypeMeta);
+    }
+    if (data.containsKey('payload')) {
+      context.handle(_payloadMeta,
+          payload.isAcceptableOrUnknown(data['payload']!, _payloadMeta));
+    } else if (isInserting) {
+      context.missing(_payloadMeta);
+    }
+    if (data.containsKey('fetched_at')) {
+      context.handle(_fetchedAtMeta,
+          fetchedAt.isAcceptableOrUnknown(data['fetched_at']!, _fetchedAtMeta));
+    } else if (isInserting) {
+      context.missing(_fetchedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {cacheKey};
+  @override
+  CurriculumCacheTableData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CurriculumCacheTableData(
+      cacheKey: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cache_key'])!,
+      entityType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}entity_type'])!,
+      payload: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}payload'])!,
+      fetchedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}fetched_at'])!,
+    );
+  }
+
+  @override
+  $CurriculumCacheTableTable createAlias(String alias) {
+    return $CurriculumCacheTableTable(attachedDatabase, alias);
+  }
+}
+
+class CurriculumCacheTableData extends DataClass
+    implements Insertable<CurriculumCacheTableData> {
+  final String cacheKey;
+  final String entityType;
+  final String payload;
+  final DateTime fetchedAt;
+  const CurriculumCacheTableData(
+      {required this.cacheKey,
+      required this.entityType,
+      required this.payload,
+      required this.fetchedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['cache_key'] = Variable<String>(cacheKey);
+    map['entity_type'] = Variable<String>(entityType);
+    map['payload'] = Variable<String>(payload);
+    map['fetched_at'] = Variable<DateTime>(fetchedAt);
+    return map;
+  }
+
+  CurriculumCacheTableCompanion toCompanion(bool nullToAbsent) {
+    return CurriculumCacheTableCompanion(
+      cacheKey: Value(cacheKey),
+      entityType: Value(entityType),
+      payload: Value(payload),
+      fetchedAt: Value(fetchedAt),
+    );
+  }
+
+  factory CurriculumCacheTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CurriculumCacheTableData(
+      cacheKey: serializer.fromJson<String>(json['cacheKey']),
+      entityType: serializer.fromJson<String>(json['entityType']),
+      payload: serializer.fromJson<String>(json['payload']),
+      fetchedAt: serializer.fromJson<DateTime>(json['fetchedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'cacheKey': serializer.toJson<String>(cacheKey),
+      'entityType': serializer.toJson<String>(entityType),
+      'payload': serializer.toJson<String>(payload),
+      'fetchedAt': serializer.toJson<DateTime>(fetchedAt),
+    };
+  }
+
+  CurriculumCacheTableData copyWith(
+          {String? cacheKey,
+          String? entityType,
+          String? payload,
+          DateTime? fetchedAt}) =>
+      CurriculumCacheTableData(
+        cacheKey: cacheKey ?? this.cacheKey,
+        entityType: entityType ?? this.entityType,
+        payload: payload ?? this.payload,
+        fetchedAt: fetchedAt ?? this.fetchedAt,
+      );
+  CurriculumCacheTableData copyWithCompanion(
+      CurriculumCacheTableCompanion data) {
+    return CurriculumCacheTableData(
+      cacheKey: data.cacheKey.present ? data.cacheKey.value : this.cacheKey,
+      entityType:
+          data.entityType.present ? data.entityType.value : this.entityType,
+      payload: data.payload.present ? data.payload.value : this.payload,
+      fetchedAt: data.fetchedAt.present ? data.fetchedAt.value : this.fetchedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CurriculumCacheTableData(')
+          ..write('cacheKey: $cacheKey, ')
+          ..write('entityType: $entityType, ')
+          ..write('payload: $payload, ')
+          ..write('fetchedAt: $fetchedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(cacheKey, entityType, payload, fetchedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CurriculumCacheTableData &&
+          other.cacheKey == this.cacheKey &&
+          other.entityType == this.entityType &&
+          other.payload == this.payload &&
+          other.fetchedAt == this.fetchedAt);
+}
+
+class CurriculumCacheTableCompanion
+    extends UpdateCompanion<CurriculumCacheTableData> {
+  final Value<String> cacheKey;
+  final Value<String> entityType;
+  final Value<String> payload;
+  final Value<DateTime> fetchedAt;
+  final Value<int> rowid;
+  const CurriculumCacheTableCompanion({
+    this.cacheKey = const Value.absent(),
+    this.entityType = const Value.absent(),
+    this.payload = const Value.absent(),
+    this.fetchedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CurriculumCacheTableCompanion.insert({
+    required String cacheKey,
+    required String entityType,
+    required String payload,
+    required DateTime fetchedAt,
+    this.rowid = const Value.absent(),
+  })  : cacheKey = Value(cacheKey),
+        entityType = Value(entityType),
+        payload = Value(payload),
+        fetchedAt = Value(fetchedAt);
+  static Insertable<CurriculumCacheTableData> custom({
+    Expression<String>? cacheKey,
+    Expression<String>? entityType,
+    Expression<String>? payload,
+    Expression<DateTime>? fetchedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (cacheKey != null) 'cache_key': cacheKey,
+      if (entityType != null) 'entity_type': entityType,
+      if (payload != null) 'payload': payload,
+      if (fetchedAt != null) 'fetched_at': fetchedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CurriculumCacheTableCompanion copyWith(
+      {Value<String>? cacheKey,
+      Value<String>? entityType,
+      Value<String>? payload,
+      Value<DateTime>? fetchedAt,
+      Value<int>? rowid}) {
+    return CurriculumCacheTableCompanion(
+      cacheKey: cacheKey ?? this.cacheKey,
+      entityType: entityType ?? this.entityType,
+      payload: payload ?? this.payload,
+      fetchedAt: fetchedAt ?? this.fetchedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (cacheKey.present) {
+      map['cache_key'] = Variable<String>(cacheKey.value);
+    }
+    if (entityType.present) {
+      map['entity_type'] = Variable<String>(entityType.value);
+    }
+    if (payload.present) {
+      map['payload'] = Variable<String>(payload.value);
+    }
+    if (fetchedAt.present) {
+      map['fetched_at'] = Variable<DateTime>(fetchedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CurriculumCacheTableCompanion(')
+          ..write('cacheKey: $cacheKey, ')
+          ..write('entityType: $entityType, ')
+          ..write('payload: $payload, ')
+          ..write('fetchedAt: $fetchedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $SyncQueueTableTable syncQueueTable = $SyncQueueTableTable(this);
+  late final $CurriculumCacheTableTable curriculumCacheTable =
+      $CurriculumCacheTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [syncQueueTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [syncQueueTable, curriculumCacheTable];
 }
 
 typedef $$SyncQueueTableTableCreateCompanionBuilder = SyncQueueTableCompanion
@@ -961,10 +1246,176 @@ typedef $$SyncQueueTableTableProcessedTableManager = ProcessedTableManager<
     ),
     SyncQueueTableData,
     PrefetchHooks Function()>;
+typedef $$CurriculumCacheTableTableCreateCompanionBuilder
+    = CurriculumCacheTableCompanion Function({
+  required String cacheKey,
+  required String entityType,
+  required String payload,
+  required DateTime fetchedAt,
+  Value<int> rowid,
+});
+typedef $$CurriculumCacheTableTableUpdateCompanionBuilder
+    = CurriculumCacheTableCompanion Function({
+  Value<String> cacheKey,
+  Value<String> entityType,
+  Value<String> payload,
+  Value<DateTime> fetchedAt,
+  Value<int> rowid,
+});
+
+class $$CurriculumCacheTableTableFilterComposer
+    extends Composer<_$AppDatabase, $CurriculumCacheTableTable> {
+  $$CurriculumCacheTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get cacheKey => $composableBuilder(
+      column: $table.cacheKey, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get entityType => $composableBuilder(
+      column: $table.entityType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get payload => $composableBuilder(
+      column: $table.payload, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get fetchedAt => $composableBuilder(
+      column: $table.fetchedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$CurriculumCacheTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $CurriculumCacheTableTable> {
+  $$CurriculumCacheTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get cacheKey => $composableBuilder(
+      column: $table.cacheKey, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get entityType => $composableBuilder(
+      column: $table.entityType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get payload => $composableBuilder(
+      column: $table.payload, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get fetchedAt => $composableBuilder(
+      column: $table.fetchedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$CurriculumCacheTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CurriculumCacheTableTable> {
+  $$CurriculumCacheTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get cacheKey =>
+      $composableBuilder(column: $table.cacheKey, builder: (column) => column);
+
+  GeneratedColumn<String> get entityType => $composableBuilder(
+      column: $table.entityType, builder: (column) => column);
+
+  GeneratedColumn<String> get payload =>
+      $composableBuilder(column: $table.payload, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get fetchedAt =>
+      $composableBuilder(column: $table.fetchedAt, builder: (column) => column);
+}
+
+class $$CurriculumCacheTableTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $CurriculumCacheTableTable,
+    CurriculumCacheTableData,
+    $$CurriculumCacheTableTableFilterComposer,
+    $$CurriculumCacheTableTableOrderingComposer,
+    $$CurriculumCacheTableTableAnnotationComposer,
+    $$CurriculumCacheTableTableCreateCompanionBuilder,
+    $$CurriculumCacheTableTableUpdateCompanionBuilder,
+    (
+      CurriculumCacheTableData,
+      BaseReferences<_$AppDatabase, $CurriculumCacheTableTable,
+          CurriculumCacheTableData>
+    ),
+    CurriculumCacheTableData,
+    PrefetchHooks Function()> {
+  $$CurriculumCacheTableTableTableManager(
+      _$AppDatabase db, $CurriculumCacheTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CurriculumCacheTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CurriculumCacheTableTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CurriculumCacheTableTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> cacheKey = const Value.absent(),
+            Value<String> entityType = const Value.absent(),
+            Value<String> payload = const Value.absent(),
+            Value<DateTime> fetchedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CurriculumCacheTableCompanion(
+            cacheKey: cacheKey,
+            entityType: entityType,
+            payload: payload,
+            fetchedAt: fetchedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String cacheKey,
+            required String entityType,
+            required String payload,
+            required DateTime fetchedAt,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CurriculumCacheTableCompanion.insert(
+            cacheKey: cacheKey,
+            entityType: entityType,
+            payload: payload,
+            fetchedAt: fetchedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CurriculumCacheTableTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $CurriculumCacheTableTable,
+        CurriculumCacheTableData,
+        $$CurriculumCacheTableTableFilterComposer,
+        $$CurriculumCacheTableTableOrderingComposer,
+        $$CurriculumCacheTableTableAnnotationComposer,
+        $$CurriculumCacheTableTableCreateCompanionBuilder,
+        $$CurriculumCacheTableTableUpdateCompanionBuilder,
+        (
+          CurriculumCacheTableData,
+          BaseReferences<_$AppDatabase, $CurriculumCacheTableTable,
+              CurriculumCacheTableData>
+        ),
+        CurriculumCacheTableData,
+        PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
   $$SyncQueueTableTableTableManager get syncQueueTable =>
       $$SyncQueueTableTableTableManager(_db, _db.syncQueueTable);
+  $$CurriculumCacheTableTableTableManager get curriculumCacheTable =>
+      $$CurriculumCacheTableTableTableManager(_db, _db.curriculumCacheTable);
 }
