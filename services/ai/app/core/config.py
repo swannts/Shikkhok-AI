@@ -68,6 +68,13 @@ class Settings(BaseSettings):
     vector_store_allow_demo_seed: bool = False
     vector_store_allow_legacy_fallback: bool = False
 
+    # AI Request Limits
+    llm_max_input_length: int = 4000
+    llm_max_generation_tokens: int = 1500
+    llm_max_conversation_turns: int = 10
+    llm_max_retrieved_context_size: int = 6000
+    llm_max_streaming_duration_seconds: int = 60
+
     # Timeouts
     request_timeout_seconds: float = 30.0
     llm_timeout_seconds: float = 20.0
