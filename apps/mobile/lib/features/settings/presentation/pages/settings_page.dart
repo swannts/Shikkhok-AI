@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -17,6 +18,32 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _studyReminder = true;
   bool _voiceAssistant = true;
   double _textSize = 1.0; // 0.8: Small, 1.0: Medium, 1.2: Large
+  SharedPreferences? _prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSettings();
+  }
+
+  Future<void> _loadSettings() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _darkMode = _prefs?.getBool('darkMode') ?? false;
+      _highContrast = _prefs?.getBool('highContrast') ?? false;
+      _studyReminder = _prefs?.getBool('studyReminder') ?? true;
+      _voiceAssistant = _prefs?.getBool('voiceAssistant') ?? true;
+      _textSize = _prefs?.getDouble('textSize') ?? 1.0;
+    });
+  }
+
+  Future<void> _saveBool(String key, bool value) async {
+    await _prefs?.setBool(key, value);
+  }
+
+  Future<void> _saveDouble(String key, double value) async {
+    await _prefs?.setDouble(key, value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +121,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               color: AppColors.textPrimary)),
                       value: _darkMode,
                       activeTrackColor: AppColors.primary,
-                      onChanged: (val) => setState(() => _darkMode = val),
+                      onChanged: (val) {
+                        setState(() => _darkMode = val);
+                        _saveBool('darkMode', val);
+                      },
                     ),
                     const Divider(height: 1, color: AppColors.border),
                     SwitchListTile(
@@ -110,7 +140,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               fontSize: 12, color: AppColors.textSecondary)),
                       value: _studyReminder,
                       activeTrackColor: AppColors.primary,
-                      onChanged: (val) => setState(() => _studyReminder = val),
+                      onChanged: (val) {
+                        setState(() => _studyReminder = val);
+                        _saveBool('studyReminder', val);
+                      },
                     ),
                   ],
                 ),
@@ -154,7 +187,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       label: _textSize == 0.8
                           ? 'ছোট'
                           : (_textSize == 1.0 ? 'মাঝারি' : 'বড়'),
-                      onChanged: (val) => setState(() => _textSize = val),
+                      onChanged: (val) {
+                        setState(() => _textSize = val);
+                        _saveDouble('textSize', val);
+                      },
                     ),
                     const Divider(height: 16, color: AppColors.border),
                     SwitchListTile(
@@ -171,7 +207,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               fontSize: 12, color: AppColors.textSecondary)),
                       value: _highContrast,
                       activeTrackColor: AppColors.primary,
-                      onChanged: (val) => setState(() => _highContrast = val),
+                      onChanged: (val) {
+                        setState(() => _highContrast = val);
+                        _saveBool('highContrast', val);
+                      },
                     ),
                     const Divider(height: 16, color: AppColors.border),
                     SwitchListTile(
@@ -188,7 +227,10 @@ class _SettingsPageState extends State<SettingsPage> {
                               fontSize: 12, color: AppColors.textSecondary)),
                       value: _voiceAssistant,
                       activeTrackColor: AppColors.primary,
-                      onChanged: (val) => setState(() => _voiceAssistant = val),
+                      onChanged: (val) {
+                        setState(() => _voiceAssistant = val);
+                        _saveBool('voiceAssistant', val);
+                      },
                     ),
                   ],
                 ),

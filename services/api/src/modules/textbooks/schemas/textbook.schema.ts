@@ -53,6 +53,9 @@ export class Textbook {
   @Prop({ trim: true, default: '' })
   pdfUrl?: string;
 
+  @Prop({ trim: true, default: '' })
+  pdfStoragePath?: string;
+
   @Prop({ type: Number, default: 0, min: 0 })
   totalChapters: number;
 

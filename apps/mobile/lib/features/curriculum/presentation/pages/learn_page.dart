@@ -14,6 +14,7 @@ import '../../../../shared/widgets/app_search_field.dart';
 import '../../../../shared/widgets/student_bottom_navigation.dart';
 import '../controllers/curriculum_controller.dart';
 import '../../domain/entities/subject.dart';
+import '../../../profile/presentation/controllers/student_profile_controller.dart';
 
 class LearnPage extends ConsumerStatefulWidget {
   const LearnPage({super.key});
@@ -30,12 +31,23 @@ class _LearnPageState extends ConsumerState<LearnPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(curriculumControllerProvider.notifier).loadSubjects(
-            classLevel: 8,
-            medium: 'bangla',
-            curriculumYear: 2026,
-          );
+      _loadStudentCurriculum();
     });
+  }
+
+  Future<void> _loadStudentCurriculum() async {
+    await ref.read(studentProfileControllerProvider.notifier).loadProfile();
+    if (!mounted) return;
+
+    final profileState = ref.read(studentProfileControllerProvider);
+    if (profileState is StudentProfileLoaded) {
+      final profile = profileState.profile;
+      await ref.read(curriculumControllerProvider.notifier).loadSubjects(
+            classLevel: profile.classLevel,
+            medium: profile.medium.toApiString(),
+            curriculumYear: profile.curriculumYear,
+          );
+    }
   }
 
   @override
@@ -48,7 +60,10 @@ class _LearnPageState extends ConsumerState<LearnPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final curriculumState = ref.watch(curriculumControllerProvider);
+    final profileState = ref.watch(studentProfileControllerProvider);
     final isOnline = ref.watch(isOnlineProvider);
+    final profile =
+        profileState is StudentProfileLoaded ? profileState.profile : null;
 
     final filters = [
       l10n.allSubjects,
@@ -74,8 +89,10 @@ class _LearnPageState extends ConsumerState<LearnPage> {
             padding: const EdgeInsets.only(right: AppSpacing.md),
             child: Center(
               child: isOnline
-                  ? const AppBadge(
-                      label: '৮ম শ্রেণি • NCTB ২০২৬',
+                  ? AppBadge(
+                      label: profile == null
+                          ? 'প্রোফাইল লোড হচ্ছে'
+                          : 'শ্রেণি ${profile.classLevel} • NCTB ${profile.curriculumYear}',
                       variant: AppBadgeVariant.neutral,
                     )
                   : const AppBadge(

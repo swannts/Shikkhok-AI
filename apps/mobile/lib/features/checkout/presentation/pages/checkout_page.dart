@@ -1,30 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../subscription/presentation/controllers/subscription_controller.dart';
 
-class CheckoutPage extends StatefulWidget {
+class CheckoutPage extends ConsumerStatefulWidget {
   const CheckoutPage({super.key});
 
   @override
-  State<CheckoutPage> createState() => _CheckoutPageState();
+  ConsumerState<CheckoutPage> createState() => _CheckoutPageState();
 }
 
-class _CheckoutPageState extends State<CheckoutPage> {
+class _CheckoutPageState extends ConsumerState<CheckoutPage> {
   int _selectedPaymentMethod = 0; // 0: bKash, 1: Nagad, 2: Rocket, 3: Card
+
+  final _paymentMethodsList = [
+    (
+      'bKash (বিকাশ)',
+      Icons.account_balance_wallet_rounded,
+      Colors.pink,
+      'bkash'
+    ),
+    (
+      'Nagad (নগদ)',
+      Icons.account_balance_wallet_outlined,
+      Colors.orange,
+      'nagad'
+    ),
+    ('Rocket (রকেট)', Icons.mobile_friendly_rounded, Colors.purple, 'rocket'),
+    (
+      'Card / Net Banking',
+      Icons.credit_card_rounded,
+      AppColors.primary,
+      'card'
+    ),
+  ];
+
+  Future<void> _handlePayment() async {
+    final state = ref.read(subscriptionControllerProvider);
+    if (state is! SubscriptionLoaded) return;
+
+    final methodKey = _paymentMethodsList[_selectedPaymentMethod].$4;
+
+    final url = await ref
+        .read(subscriptionControllerProvider.notifier)
+        .initiatePayment(methodKey);
+
+    if (url != null && mounted) {
+      context.go(AppRoutes.paymentSuccess);
+    } else if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('পেমেন্ট শুরু করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final state = ref.watch(subscriptionControllerProvider);
 
-    final paymentMethods = [
-      ('bKash (বিকাশ)', Icons.account_balance_wallet_rounded, Colors.pink),
-      ('Nagad (নগদ)', Icons.account_balance_wallet_outlined, Colors.orange),
-      ('Rocket (রকেট)', Icons.mobile_friendly_rounded, Colors.purple),
-      ('Card / Net Banking', Icons.credit_card_rounded, AppColors.primary),
-    ];
+    if (state is! SubscriptionLoaded) {
+      return Scaffold(
+        appBar: AppBar(title: Text(l10n.checkoutTitle)),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final plan = state.selectedPlan;
+    if (plan == null) {
+      return Scaffold(
+        appBar: AppBar(title: Text(l10n.checkoutTitle)),
+        body: const Center(child: Text('কোন প্ল্যান নির্বাচিত হয়নি')),
+      );
+    }
+
+    final isProcessing = state.isProcessingPayment;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -34,7 +89,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded,
               color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.subscription),
+          onPressed:
+              isProcessing ? null : () => context.go(AppRoutes.subscription),
         ),
         title: Text(
           l10n.checkoutTitle,
@@ -61,53 +117,39 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: AppColors.border),
                       ),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('অর্ডার বিবরণ',
+                          const Text('অর্ডার বিবরণ',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.textPrimary)),
-                          SizedBox(height: AppSpacing.sm),
+                          const SizedBox(height: AppSpacing.sm),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Shikkhok Plus (বার্ষিক প্যাক)',
-                                  style: TextStyle(
+                              Text(plan.title,
+                                  style: const TextStyle(
                                       fontSize: 14,
                                       color: AppColors.textSecondary)),
-                              Text('৳২৪৯৯',
-                                  style: TextStyle(
+                              Text('৳${plan.priceBdt}',
+                                  style: const TextStyle(
                                       fontSize: 14,
                                       color: AppColors.textPrimary)),
                             ],
                           ),
-                          SizedBox(height: 6),
+                          const Divider(height: 20, color: AppColors.border),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('প্রোমো কোড ডিসকাউন্ট',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.green)),
-                              Text('-৳৫০০',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green)),
-                            ],
-                          ),
-                          Divider(height: 20, color: AppColors.border),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('মোট প্রদেয়',
+                              const Text('মোট প্রদেয়',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.textPrimary)),
-                              Text('৳১৯৯৯',
-                                  style: TextStyle(
+                              Text('৳${plan.priceBdt}',
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.primary)),
@@ -126,16 +168,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: paymentMethods.length,
+                      itemCount: _paymentMethodsList.length,
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 10),
                       itemBuilder: (context, index) {
-                        final pm = paymentMethods[index];
+                        final pm = _paymentMethodsList[index];
                         final isSelected = _selectedPaymentMethod == index;
 
                         return InkWell(
-                          onTap: () =>
-                              setState(() => _selectedPaymentMethod = index),
+                          onTap: isProcessing
+                              ? null
+                              : () => setState(
+                                  () => _selectedPaymentMethod = index),
                           borderRadius: BorderRadius.circular(16),
                           child: Container(
                             padding: const EdgeInsets.all(AppSpacing.md),
@@ -191,19 +235,26 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: () => context.go(AppRoutes.paymentSuccess),
+                  onPressed: isProcessing ? null : _handlePayment,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                   ),
-                  child: const Text(
-                    'পেমেন্ট সম্পন্ন করুন (৳১৯৯৯)',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
+                  child: isProcessing
+                      ? const SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(
+                              color: Colors.white, strokeWidth: 2),
+                        )
+                      : Text(
+                          'পেমেন্ট সম্পন্ন করুন (৳${plan.priceBdt})',
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
                 ),
               ),
             ),

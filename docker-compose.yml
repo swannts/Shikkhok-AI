@@ -72,6 +72,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      - ./data/curriculum-uploads:/app/uploads/curriculum
 
   # -------------------------------------------------------------
   # 4. DEDICATED FASTAPI AI SERVICE
@@ -130,6 +132,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      - ./data/curriculum-uploads:/app/uploads/curriculum
 
 volumes:
   mongodb_data:

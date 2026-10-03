@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { readFile } from 'fs/promises';
 import { Job } from 'bullmq';
 import { config } from '../config';
 
@@ -18,9 +19,10 @@ export interface CurriculumJobData {
   pageEnd?: number;
   chunkSize?: number;
   chunkOverlap?: number;
+  filePath?: string;
 }
 
-function signRequest(method: string, path: string, body: string): { timestamp: string; signature: string } {
+function signRequest(method: string, path: string, body: string | Uint8Array): { timestamp: string; signature: string } {
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const bodyHash = crypto.createHash('sha256').update(body).digest('hex');
   const canonical = `${timestamp}\n${method.toUpperCase()}\n${path}\n${bodyHash}`;
@@ -66,6 +68,10 @@ async function reportProgress(
 export async function processCurriculumJob(job: Job): Promise<Record<string, any>> {
   const jobName = job.name || job.data?.jobType || 'CURRICULUM_CHUNKING';
   const data = (job.data?.data || job.data) as CurriculumJobData;
+
+  if (data.filePath) {
+    return processCurriculumPdfJob(data);
+  }
 
   console.log(`[CurriculumProcessor] Ingesting chapter/chunk for book: ${data.bookId} (${jobName})`);
 
@@ -139,4 +145,32 @@ export async function processCurriculumJob(job: Job): Promise<Record<string, any
     console.error(`[CurriculumProcessor] Error communicating with AI service at ${targetUrl}: ${err.message}`);
     throw err;
   }
+}
+
+async function processCurriculumPdfJob(data: CurriculumJobData): Promise<Record<string, any>> {
+  const pdf = await readFile(data.filePath!);
+  const form = new FormData();
+  form.append('file', new Blob([pdf], { type: 'application/pdf' }), data.sourceBook || 'textbook.pdf');
+  form.append('class_level', String(data.classLevel));
+  form.append('subject_id', data.subjectId);
+  form.append('subject_title', data.subjectTitle || data.subjectId);
+  form.append('source_book', data.sourceBook || data.bookId);
+  form.append('medium', 'bangla');
+  const path = '/api/v1/ingestion/pdf';
+  const request = new Request(`${config.aiServiceUrl}${path}`, { method: 'POST', body: form });
+  const requestBody = new Uint8Array(await request.arrayBuffer());
+  const signed = signRequest('POST', path, requestBody);
+  const response = await fetch(`${config.aiServiceUrl}${path}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': request.headers.get('content-type') || 'application/octet-stream',
+      'X-Service-Name': 'shikkhok-worker',
+      'X-Service-Timestamp': signed.timestamp,
+      'X-Service-Signature': signed.signature,
+    },
+    body: requestBody,
+    signal: AbortSignal.timeout(120000),
+  });
+  if (!response.ok) throw new Error(`AI PDF ingestion failed (${response.status})`);
+  return { status: 'INDEXED', bookId: data.bookId, result: await response.json() };
 }

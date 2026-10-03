@@ -1,16 +1,16 @@
-# Graph Report - shikkhok-ai  (2026-09-02)
+# Graph Report - shikkhok-ai  (2026-10-03)
 
 ## Corpus Check
-- 3152 files · ~3,024,350 words
+- 3165 files · ~3,043,075 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 16978 nodes · 30625 edges · 829 communities (614 shown, 215 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 1075 edges (avg confidence: 0.85)
+- 17150 nodes · 31060 edges · 842 communities (528 shown, 235 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 1086 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `71b5bd9a`
+- Built from commit: `40642f8a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -18,54 +18,54 @@
 - app_localizations.dart
 - app_localizations_en.dart
 - app_localizations_bn.dart
-- UserRole
+- ParentsService
 - ../../../../core/network/api_client.dart
-- FuseScrollbars
-- QdrantVectorStore
+- admin/src/@fuse/core/FuseSettings/hooks/fuseThemeHooks.tsx
+- test_qdrant_store.py
 - textbook_library_page.dart
-- student-subscription.schema.ts
-- HomeworkService
+- subscriptions.service.ts
+- homework.service.ts
 - api_endpoints.dart
-- PaymentTransactionDocument
-- package:flutter_riverpod/flutter_riverpod.dart
+- payment-transaction.schema.ts
+- verify_otp_page.dart
 - curriculum_controller.dart
-- global_search_page.dart
+- settings_page.dart
 - app_database.dart
-- NotificationsService
+- notifications.service.ts
 - app_routes.dart
 - ScrumboardApi.ts
 - skeleton/src/@fuse/core/FuseSettings/hooks/fuseThemeHooks.tsx
-- .handleWebhook
+- subscriptions.module.ts
 - skeleton/src/app/App.tsx
-- server.ts
+- LLMProvider
 - SearchQueryDto
 - FuseUtils
-- home_page.dart
+- learn_page.dart
 - dependencies
 - practice_controller.dart
-- v1/voice.py
+- AudioSynthesisRequest
 - exam_controller.dart
 - ai_tutor_chat_page.dart
 - dependencies
 - student_profile_controller.dart
 - Link
-- FinanceDashboardApi.ts
+- FuseLoading
 - homework_feedback.dart
 - exam_dto.dart
 - auth_controller_test.dart
 - lesson_scoped_tutor_test.dart
 - textbooks.module.ts
 - RedisService
-- admin/src/components/PageBreadcrumb.tsx
+- FuseShortcuts
 - StatelessWidget
-- FuseSettingsConfigType
+- NotesApi.ts
 - CalendarApi.ts
 - teacher-classroom.service.ts
 - FuseSvgIcon
 - mockApi
 - devDependencies
 - sync_operation_payload.dart
-- TutorService
+- UsersService
 - UpsertStudyPlanDto
 - subscription_controller.dart
 - NotificationPanel.tsx
@@ -74,11 +74,11 @@
 - homework_controller.dart
 - notifications_controller_test.dart
 - tutor_controller.dart
-- package:flutter_test/flutter_test.dart
-- auth_controller.dart
+- feature_pages_test.dart
+- textbook_download_controller.dart
 - app_colors.dart
 - compilerOptions
-- UpsertStudentProfileDto
+- students.module.ts
 - parent_controller.dart
 - ai_gateway.py
 - AuthenticatedUser
@@ -86,29 +86,29 @@
 - AdminController
 - useAppDispatch
 - sync_operation.dart
-- package:dio/dio.dart
+- app_failure.dart
 - study_plan.dart
 - homework_dto.dart
-- PracticeController
-- FileManagerApp.tsx
+- package:flutter_test/flutter_test.dart
+- FolderItem.tsx
 - admin/src/components/theme-layouts/components/navigation/store/navigationSlice.ts
 - useAppDispatch
-- main.ts
+- MetricsService
 - lesson-content-block.ts
 - learning_routes.dart
-- auth_repository_impl.dart
+- auth_controller.dart
 - study_plan_dto.dart
 - List
 - practice.service.ts
-- admin/src/@fuse/core/FuseNavigation/FuseNavigation.tsx
-- MailToolbar
+- FuseSvgIcon
+- QdrantVectorStore
 - admin/src/app/App.tsx
 - tutor_stream_event.dart
 - sync_repository_impl_test.dart
 - ClassroomRepository
 - BoardCardForm.tsx
-- app.module.ts
-- voice_ai_tutor_page.dart
+- gamification.module.ts
+- user.schema.ts
 - ../../app/theme/app_typography.dart
 - make_hmac_headers
 - sync_queue_table.dart
@@ -117,31 +117,31 @@
 - parent_child_dto.dart
 - practice_question_dto.dart
 - textbook_manifest_dto.dart
-- AiGatewayService
+- CurriculumController
 - entities/user.dart
 - skeleton/src/@fuse/core/FuseNavigation/FuseNavigation.tsx
 - practice_question.dart
-- FuseSvgIcon
+- admin/src/components/theme-layouts/components/configurator/ThemesPanel.tsx
 - curriculum_repository_impl_test.dart
 - api_client.dart
-- exam_repository_impl.dart
+- TimelineDoc.tsx
 - student_profile.dart
-- CreateHomeworkSubmissionDto
-- domain/repositories/auth_repository.dart
+- bookmark_repository_impl.dart
+- auth_repository.dart
 - curriculum_repository.dart
 - AuthController
 - admin/src/@fuse/core/FuseSettings/FuseSettings.tsx
 - LiveClassroomService
 - tutor_conversation_dto.dart
-- useThemeMediaQuery
+- overviews.ts
 - skeleton/src/components/theme-layouts/layout1/components/navbar/style-3/NavbarStyle3Content.tsx
 - SettingsApi.ts
-- AiImageGenItem
+- AiImageGenApp.tsx
 - skeleton/src/store/store.ts
 - ContactsApi.ts
-- subscriptions.module.ts
-- demo/src/components/PageBreadcrumb.tsx
-- Course.tsx
+- PaymentStatus
+- demo/src/@fuse/core/FuseNavigation/FuseNavigation.tsx
+- Course
 - student_profile_dto.dart
 - sync.service.ts
 - RatingDoc.tsx
@@ -164,42 +164,42 @@
 - skeleton/src/components/theme-layouts/components/navigation/store/navigationSlice.ts
 - scripts
 - SpeedDialDoc.tsx
-- AuthorizationDoc.tsx
-- sync_controller_test.dart
-- PaymentMethod
+- demo/src/@auth/AuthGuardRedirect.tsx
+- NoteFormAddListItem.tsx
+- InitiatePaymentDto
 - ECommerceApi.ts
-- BoardAddCard.tsx
+- demo/src/app/App.tsx
 - compilerOptions
 - HelpCenterApi.ts
-- student_profile_page.dart
-- auth_response_dto.dart
+- subscriptionControllerProvider
+- user_dto.dart
 - MailboxApi.ts
 - lesson_dto.dart
-- ClassroomSubmissionRepository
+- classrooms.service.spec.ts
 - AppBarDoc.tsx
 - lesson_content_block.dart
 - SelectsDoc.tsx
-- exam_controller_test.dart
+- auth_repository_impl_test.dart
 - tutor_conversation.dart
 - StackDoc.tsx
 - devDependencies
 - theme_extensions.dart
-- homework_submission.dart
+- tutor_message.dart
 - demo/src/@fuse/core/FuseCountdown/index.ts
-- app.e2e-spec.ts
+- main.ts
 - exams.service.ts
 - exam_repository.dart
 - DividersDoc.tsx
 - download_task.dart
 - PersistentVectorStore
-- home_dashboard_controller.dart
+- package:flutter_riverpod/flutter_riverpod.dart
 - StreamingOutputSafetyFilter
-- sync_repository_impl.dart
+- sync_controller.dart
 - lesson_content_block_dto.dart
-- RetrievedChunk
+- RetrievalFilter
 - compilerOptions
 - env.dart
-- AiMetricsService
+- demo/src/components/theme-layouts/components/navigation/store/navigationSlice.ts
 - compilerOptions
 - TutorController
 - demo/src/store/rootReducer.ts
@@ -211,7 +211,7 @@
 - AdminUpsertTextbookDto
 - models/subject.dart
 - TooltipsDoc.tsx
-- main.py
+- container.py
 - CardsDoc.tsx
 - token_storage.dart
 - dependencies
@@ -222,11 +222,11 @@
 - MasonryDoc.tsx
 - ai-gateway/package.json
 - exam_session_page.dart
-- demo/src/@auth/forms/AuthJsForm.tsx
+- IconListPage.tsx
 - skeleton/src/components/theme-layouts/components/FuseSettingsViewerDialog.tsx
 - README.md
 - parent_dashboard_page.dart
-- admin/src/@fuse/core/FuseLayout/FuseLayout.tsx
+- devDependencies
 - SafetyCategory
 - DrawersDoc.tsx
 - exceptions.py
@@ -234,18 +234,18 @@
 - demo/src/components/Redirect.tsx
 - tutor_message_dto.dart
 - models/user.dart
-- lib/repositories/auth_repository.dart
+- demo/src/store/store.ts
 - GridDoc.tsx
 - ListsDoc.tsx
 - ProgressDoc.tsx
 - useAppDispatch
-- FuseScrollbars
-- DocumentationNavigation.ts
-- Map
-- demo/src/@fuse/core/FuseSettings/hooks/fuseThemeHooks.tsx
+- admin/src/components/theme-layouts/layout1/components/navbar/style-3/NavbarStyle3Content.tsx
+- ChangelogData.tsx
+- sync_dto.dart
+- demo/src/@fuse/core/FuseSettings/FuseSettings.tsx
 - SteppersDoc.tsx
 - FuseUtils
-- tutor_citation_dto.dart
+- UserDocument
 - demo/src/@auth/authJs.ts
 - MessengerApi.ts
 - MenusDoc.tsx
@@ -256,7 +256,7 @@
 - AvatarsDoc.tsx
 - CheckboxesDoc.tsx
 - worker/package.json
-- parent_repository_impl.dart
+- ContactForm.tsx
 - ErrorBoundary
 - ChipsDoc.tsx
 - ImageListDoc.tsx
@@ -264,7 +264,7 @@
 - migrate-tutor-messages.ts
 - RadioButtonsDoc.tsx
 - Text Field
-- container.py
+- TutorService
 - AcademyApi.ts
 - AutocompleteDoc.tsx
 - SwitchesDoc.tsx
@@ -274,7 +274,7 @@
 - skeleton/src/@fuse/core/FuseSuspense/FuseSuspense.tsx
 - aiCostControl.ts
 - StudentAiSafetyGuard
-- SubscriptionsService
+- SubscriptionsController
 - AppLocalizations
 - otp_purpose.dart
 - aiEvaluation.ts
@@ -282,7 +282,7 @@
 - worker.ts
 - message_response_dto.dart
 - study_plan_repository.dart
-- demo/src/@auth/AuthGuardRedirect.tsx
+- demo/src/components/theme-layouts/components/LanguageSwitcher.tsx
 - FuseExample
 - Grid version 2
 - types/index.ts
@@ -297,11 +297,11 @@
 - ModalDoc.tsx
 - PaginationDoc.tsx
 - Select
-- parent_child_dashboard.dart
-- PaymentWebhookService
+- FuseNavItemType
+- PaymentWebhooksController
 - admin/src/@fuse/core/FuseSearch/FuseSearch.tsx
-- CreateAssignmentDto
-- demo/src/@fuse/core/FuseSettings/FuseSettings.tsx
+- admin/src/components/theme-layouts/components/quickPanel/QuickPanel.tsx
+- LinksDoc.tsx
 - Dialog
 - Slider
 - demo/src/@fuse/core/FuseSearch/FuseSearch.tsx
@@ -310,7 +310,7 @@
 - AiImageGenPresetsMenu.tsx
 - Grid
 - Circular
-- sync_dto.dart
+- admin/src/@fuse/hooks/useDeepCompareEffect.ts
 - skeleton/src/@fuse/core/FuseSearch/FuseSearch.tsx
 - AccordionDoc.tsx
 - exam_result.dart
@@ -321,11 +321,11 @@
 - compilerOptions
 - ButtonGroupDoc.tsx
 - RegisterDto
-- classrooms.module.ts
+- CreateAssignmentDto
 - int?
 - Button
 - Snackbar
-- sync_controller.dart
+- admin/src/components/theme-layouts/components/FullScreenToggle.tsx
 - TextFieldsDoc.tsx
 - CardComment.tsx
 - demo/src/@fuse/utils/FuseUtils.ts
@@ -334,16 +334,16 @@
 - Chip
 - Table
 - Tooltip
-- demo/src/@fuse/core/FuseLayout/FuseLayout.tsx
+- subscription_repository_impl_test.dart
 - AuthService
 - admin/package.json
 - sync_repository.dart
-- auth.service.ts
+- LoginDto
 - Alert
 - Lists
 - PopperDoc.tsx
 - Radio Group
-- useAuth
+- admin/src/@fuse/core/FuseLayout/FuseLayout.tsx
 - VerifyOtpDto
 - TablePricingTable.tsx
 - FloatingActionButtonDoc.tsx
@@ -353,16 +353,16 @@
 - SliderDoc.tsx
 - Horizontal stepper
 - TableDoc.tsx
-- tutor-gateway.service.ts
+- teacher-portal/package.json
 - chapter_dto.dart
 - PaperDoc.tsx
-- auth_routes.dart
-- .activateFromPayment
+- FuseSearch
+- PaymentTransactionDocument
 - Accordion
 - Drawer
 - Stack
 - sync_batch_result.dart
-- tutor_routes.dart
+- Data Authority & Strategies
 - FuseUtils
 - Checkbox
 - EnhancedTable.tsx
@@ -370,7 +370,7 @@
 - paths
 - paths
 - Shikkhok-AI Dedicated AI Service
-- tutor_message.dart
+- RAGCurriculumPipeline
 - theme.dart
 - skeleton/src/@fuse/hooks/useDeepCompareEffect.ts
 - assessment_routes.dart
@@ -378,21 +378,21 @@
 - Divider
 - Toggle Button
 - MarkdownElement.tsx
-- exam_remote_data_source.dart
-- health.py
+- progress_summary.dart
+- DocumentationNavigation.ts
 - HelpCenterSupport.tsx
-- CreateClassroomDto
+- demo/src/configs/navigationConfig.ts
 - peerDependencies
 - BottomNavigationDoc.tsx
-- admin.service.ts
+- app.module.ts
 - Breadcrumbs
 - Skeleton
 - Speed Dial
 - Switch
-- sync_checkpoint.dart
+- ManualPaymentSubmitDto
 - Transitions
 - Typography
-- parent_repository_impl_test.dart
+- TextbookIndexingStatus
 - peerDependencies
 - 🗺️ Milestone Implementation Audit (Milestones 1 - 8)
 - GoogleMaps.tsx
@@ -406,8 +406,8 @@
 - Bangladesh Context & EdTech Product Architecture Policy
 - Rating
 - ReactVirtualizedTable.tsx
-- PlaceholderPage.tsx
-- ingestion.py
+- admin-admin.service.ts
+- DeterministicEmbeddingProvider
 - curriculum/page.tsx
 - Production Deployment Guide
 - Local Development & Setup Guide
@@ -416,12 +416,12 @@
 - Virtualize.tsx
 - Image List
 - Modal
-- skeleton/src/@fuse/core/FusePageSimple/FusePageSimple.tsx
+- ClassicForgotPasswordPage.tsx
 - Setup & Local Development
 - study_plan_controller_test.dart
 - admin/src/global.d.ts
 - ApiClient
-- exam_model.dart
+- subject_dto.dart
 - development
 - skeleton/src/app/api/mock/auth/user/[id]/route.ts
 - GloballyCustomizedOptions.tsx
@@ -444,7 +444,7 @@
 - skeleton/src/components/theme-layouts/components/FullScreenToggle.tsx
 - PopoverDoc.tsx
 - Button Group
-- app_shadows.dart
+- FullScreenReversedForgotPasswordPage.tsx
 - Popover
 - CustomizedSlider.tsx
 - CustomizedTabs.tsx
@@ -454,46 +454,46 @@
 - skeleton/public/material-ui-static/manifest.json
 - skeleton/src/utils/node-scripts/migrate-tw-classes.js
 - TransferListDoc.tsx
-- api_response_envelope.dart
+- ClassicResetPasswordPage.tsx
 - Shikkhok AI Mobile Application
-- architecture.md
+- FullScreenReversedResetPasswordPage.tsx
 - demo/config-overrides.js
 - Fuse React Versions
-- gamification_summary_dto.dart
-- DateTime
-- DetailsTab.tsx
-- database.md
-- ModernReversedForgotPasswordPage.tsx
+- SplitScreenReversedResetPasswordPage.tsx
+- ClassicUnlockSessionPage.tsx
+- FullScreenUnlockSessionPage.tsx
+- CustomizedInputsStyled.tsx
+- demo/src/components/data-table/DataTableTopToolbar.tsx
 - DirectionSnackbar.tsx
 - @emotion/cache
 - SplitScreenForgotPasswordPage.tsx
 - skeleton/config-overrides.js
 - Fuse React Versions
-- BoardAddList.tsx
-- ModernResetPasswordPage.tsx
-- tutor_citation.dart
+- ADR 008: Production hardening status
+- ResetPasswordDto
+- NewNote
 - ModernPricingPage.tsx
 - mailbox/i18n/index.ts
 - SplitScreenSignUpPage.tsx
-- HighlightedCode.tsx
-- NotesApi.ts
+- PrimarySearchAppBar.tsx
+- NoteForm.tsx
 - fcm-push.provider.ts
-- demo/src/components/theme-layouts/themeLayoutConfigs.ts
-- exam_library_page.dart
-- subscription_plan.dart
+- FormattedInputs.tsx
+- BottomAppBar.tsx
+- EnableColorOnDarkAppBar.tsx
 - SizeFormController.tsx
-- demo/src/@fuse/hooks/useDeepCompareEffect.ts
-- parent_remote_data_source.dart
+- MasonryWithVariableHeightItems.tsx
+- textbook_download_manager.dart
 - ImageGeneratorForm
-- parent_repository.dart
-- parent_controller_test.dart
+- Authentication & Authorization Architecture
+- env.ts
 - chance
 - clsx
 - draft-js
-- admin/src/app/(public)/sign-in/SignInPage.tsx
+- MainActivity.kt
 - api-envelope.ts
 - auth-flow.test.ts
-- BoardModel.ts
+- LongMenu.tsx
 - UseAutocomplete.tsx
 - @emotion/react
 - Bottom Navigation
@@ -504,7 +504,7 @@
 - @mui/x-date-pickers
 - Shikkhok-AI Mobile MVP Completion Matrix & End-to-End Audit
 - Target Kubernetes Architecture Specifications
-- TypographyDoc.tsx
+- CustomizedInputsStyleOverrides.tsx
 - perfect-scrollbar
 - Asynchronous.tsx
 - Filter.tsx
@@ -544,7 +544,7 @@
 - MailChip.tsx
 - MockApiDoc.tsx
 - ComboBox.tsx
-- ClassicSearchPage.tsx
+- demo/src/components/PageBreadcrumb.tsx
 - DiscreteSliderLabel.tsx
 - DiscreteSliderMarks.tsx
 - DiscreteSliderValues.tsx
@@ -566,7 +566,7 @@
 - useLocalStorage
 - admin/src/@fuse/utils/FuseAwaitRender.tsx
 - admin/src/utils/setIn.ts
-- @nestjs/bullmq
+- Inputs.tsx
 - CompactInvoicePage.tsx
 - ModernInvoicePage.tsx
 - MaintenancePage.tsx
@@ -577,7 +577,7 @@
 - IntroductionDoc.tsx
 - SplitScreenReversedForgotPasswordPage.tsx
 - @nestjs/passport
-- @nestjs/platform-socket.io
+- LayoutTextFields.tsx
 - @nestjs/terminus
 - @nestjs/websockets
 - Backdrop
@@ -607,8 +607,8 @@
 - workflows/graphify.md
 - admin/next.config.mjs
 - admin/next-env.d.ts
-- live-classroom.module.ts
-- CardAddChecklistItem.tsx
+- SelectTextFields.tsx
+- CardChecklist.tsx
 - history
 - @hookform/resolvers
 - keycode
@@ -637,7 +637,7 @@
 - demo/next-env.d.ts
 - ColumnGroupingTable.tsx
 - StickyHeadTable.tsx
-- SinglePricingPage.tsx
+- UseFormControl.tsx
 - date-fns
 - draft-js
 - draftjs-to-html
@@ -645,9 +645,9 @@
 - ModernForgotPasswordPage.tsx
 - @fullcalendar/core
 - @fullcalendar/daygrid
-- OrdersTableHead.tsx
+- clsx
 - @fullcalendar/timegrid
-- AiModerationService
+- lucide-react
 - keycode
 - marked
 - mobx
@@ -668,7 +668,7 @@
 - FullScreenResetPasswordPage.tsx
 - @react-spring/web
 - react-virtuoso
-- SplitScreenResetPasswordPage.tsx
+- tailwindcss
 - @reduxjs/toolkit
 - ModernSignUpPage.tsx
 - stylis
@@ -685,18 +685,18 @@
 - demo/src/utils/node-scripts/vercel-branch-deploy-guard.js
 - skeleton/next.config.mjs
 - skeleton/next-env.d.ts
-- BackgroundLetterAvatars.tsx
+- @types/react-dom
 - qs
 - ClassicSignUpPage.tsx
 - @hookform/resolvers
 - i18next
 - keycode
 - ResponsiveSpacing.tsx
-- Sequential.tsx
+- typescript-eslint
 - Argo CD Deployment
-- ExamRepository
+- core-js
 - Admin Control Center Gap Matrix
-- apexcharts
+- ColorTextFields.tsx
 - FullScreenSignUpPage.tsx
 - react-hook-form
 - FullScreenReversedSignUpPage.tsx
@@ -708,7 +708,7 @@
 - skeleton/src/utils/node-scripts/vercel-branch-deploy-guard.js
 - ModernReversedSignUpPage.tsx
 - FullScreenReversedUnlockSessionPage.tsx
-- autosuggest-highlight
+- ComposedTextField.tsx
 - SplitScreenUnlockSessionPage.tsx
 - SplitScreenReversedUnlockSessionPage.tsx
 - CustomizedTables.tsx
@@ -902,7 +902,7 @@
 - shikkhok-ai-service
 - table/DataTable.tsx
 - @emotion/react
-- HomeworkService
+- CustomizedInputBase.tsx
 - @emotion/styled
 - BasicTable.tsx
 - @fullcalendar/react
@@ -910,7 +910,7 @@
 - @mui/base
 - @mui/styles
 - next-auth
-- @nestjs/platform-express
+- InputAdornments.tsx
 - notistack
 - react-autosuggest
 - react-draft-wysiwyg
@@ -921,14 +921,23 @@
 - react-window
 - styled-components
 - uuid
-- mongoose
+- TextFieldHiddenLabel.tsx
 - @nestjs/common
-- passport
-- prom-client
-- socket.io
+- TextFieldSizes.tsx
+- ValidationTextFields.tsx
+- CREDENTIAL_ROTATION.md
 - backup-disaster-recovery.sh
 - k6-load-test.js
-- ts-node-dev
+- DOCKER_ENVIRONMENTS.md
+- @nestjs/config
+- @nestjs/jwt
+- @nestjs/mongoose
+- @nestjs/swagger
+- @nestjs/throttler
+- rxjs
+- bullmq
+- @socket.io/redis-adapter
+- prettier
 
 ## God Nodes (most connected - your core abstractions)
 1. `FuseSvgIcon()` - 256 edges
@@ -939,20 +948,20 @@
 6. `useAppDispatch` - 101 edges
 7. `useThemeMediaQuery()` - 97 edges
 8. `useAppSelector` - 87 edges
-9. `StyledFuseHighlight` - 67 edges
-10. `RetrievedChunk` - 67 edges
+9. `RetrievalFilter` - 71 edges
+10. `RetrievedChunk` - 69 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `initState` --references--> `authControllerProvider`  [EXTRACTED]
-  apps/mobile/lib/features/onboarding/presentation/pages/splash_page.dart → apps/mobile/lib/features/auth/presentation/controllers/auth_controller.dart
-- `MockHomeworkRemoteDataSource` --implements--> `HomeworkRemoteDataSource`  [EXTRACTED]
-  apps/mobile/test/features/homework/homework_repository_impl_test.dart → apps/mobile/lib/features/homework/data/datasources/homework_remote_data_source.dart
 - `GET()` --calls--> `mockApi()`  [EXTRACTED]
   apps/web/template/demo/src/app/api/mock/academy/categories/route.ts → apps/web/template/demo/src/@mock-utils/mockApi.tsx
 - `GET()` --calls--> `mockApi()`  [EXTRACTED]
   apps/web/template/demo/src/app/api/mock/academy/course-step-contents/[id]/route.ts → apps/web/template/demo/src/@mock-utils/mockApi.tsx
 - `GET()` --calls--> `mockApi()`  [EXTRACTED]
   apps/web/template/demo/src/app/api/mock/academy/course-step-contents/route.ts → apps/web/template/demo/src/@mock-utils/mockApi.tsx
+- `GET()` --calls--> `mockApi()`  [EXTRACTED]
+  apps/web/template/demo/src/app/api/mock/academy/course-steps/route.ts → apps/web/template/demo/src/@mock-utils/mockApi.tsx
+- `GET()` --calls--> `mockApi()`  [EXTRACTED]
+  apps/web/template/demo/src/app/api/mock/app-account-settings/[id]/route.ts → apps/web/template/demo/src/@mock-utils/mockApi.tsx
 
 ## Import Cycles
 - 3-file cycle: `apps/web/template/skeleton/src/@fuse/core/FuseNavigation/FuseNavigation.tsx -> apps/web/template/skeleton/src/@fuse/core/FuseNavigation/vertical/FuseNavVerticalLayout2.tsx -> apps/web/template/skeleton/src/@fuse/core/FuseNavigation/vertical/types/FuseNavVerticalTab.tsx -> apps/web/template/skeleton/src/@fuse/core/FuseNavigation/FuseNavigation.tsx`
@@ -965,127 +974,127 @@
 - 3-file cycle: `apps/admin/src/components/theme-layouts/components/navigation/store/navigationSlice.ts -> apps/admin/src/store/store.ts -> apps/admin/src/store/rootReducer.ts -> apps/admin/src/components/theme-layouts/components/navigation/store/navigationSlice.ts`
 - 3-file cycle: `apps/admin/src/@fuse/core/FuseSettings/FuseSettings.tsx -> apps/admin/src/@fuse/core/FuseSettings/palette-generator/PaletteSelector.tsx -> apps/admin/src/configs/themesConfig.ts -> apps/admin/src/@fuse/core/FuseSettings/FuseSettings.tsx`
 
-## Communities (829 total, 215 thin omitted)
+## Communities (842 total, 235 thin omitted)
 
 ### Community 0 - "app_localizations.dart"
 Cohesion: 0.01
-Nodes (238): app_localizations_bn.dart, app_localizations_en.dart, academicYear, accuracy, accuracyLabel, achievementsTitle, agreeRules, aiTutorTitle (+230 more)
+Nodes (237): app_localizations_bn.dart, app_localizations_en.dart, academicYear, accuracy, accuracyLabel, achievementsTitle, agreeRules, aiTutorTitle (+229 more)
 
 ### Community 1 - "app_localizations_en.dart"
 Cohesion: 0.01
-Nodes (226): academicYear, accuracy, accuracyLabel, achievementsTitle, agreeRules, aiTutorTitle, algebraFormulas, allSubjects (+218 more)
+Nodes (226): app_localizations.dart, academicYear, accuracy, accuracyLabel, achievementsTitle, agreeRules, aiTutorTitle, algebraFormulas (+218 more)
 
 ### Community 2 - "app_localizations_bn.dart"
 Cohesion: 0.01
-Nodes (226): app_localizations.dart, academicYear, accuracy, accuracyLabel, achievementsTitle, agreeRules, aiTutorTitle, algebraFormulas (+218 more)
+Nodes (226): academicYear, accuracy, accuracyLabel, achievementsTitle, agreeRules, aiTutorTitle, algebraFormulas, allSubjects (+218 more)
 
-### Community 3 - "UserRole"
-Cohesion: 0.03
-Nodes (95): Roles(), ROLES_KEY, InternalAuthGuard, Injectable, JwtAuthGuard, Injectable, RolesGuard, Injectable (+87 more)
+### Community 3 - "ParentsService"
+Cohesion: 0.04
+Nodes (50): LinkChildDto, ApiProperty, IsString, MaxLength, ApiPropertyOptional, IsBoolean, IsInt, IsOptional (+42 more)
 
 ### Community 4 - "../../../../core/network/api_client.dart"
 Cohesion: 0.04
-Nodes (61): ApiClient, _apiClient, generateRecommendedPlan, getCurrentPlan, StudyPlanRepositoryImpl, generateRecommendedPlan, loadCurrentPlan, refresh (+53 more)
+Nodes (47): ApiClient, generateRecommendedPlan, loadCurrentPlan, refresh, _repository, studyPlanApiClientProvider, studyPlanRepositoryProvider, loadInitial (+39 more)
 
-### Community 5 - "FuseScrollbars"
-Cohesion: 0.04
-Nodes (53): DocumentationSidebarHeader(), DocumentationSidebarHeaderProps, MainProjectSelection(), ProjectOption, projectOptions, GoToDocBox(), GoToDocBoxProps, Logo() (+45 more)
+### Community 5 - "admin/src/@fuse/core/FuseSettings/hooks/fuseThemeHooks.tsx"
+Cohesion: 0.08
+Nodes (28): LightDarkModeToggle(), LightDarkModeToggleProps, FuseSettingsViewerDialog(), FooterLayout1(), FooterLayout1Props, FooterLayout2(), FooterLayout2Props, FooterLayout3() (+20 more)
 
-### Community 6 - "QdrantVectorStore"
-Cohesion: 0.04
-Nodes (50): AsyncQdrantClient, Record, Gracefully shutdown and release all network resources., _build_payload(), _deterministic_point_id(), _keyword_overlap_score(), Any, Filter (+42 more)
+### Community 6 - "test_qdrant_store.py"
+Cohesion: 0.06
+Nodes (29): ScoredPoint, _build_payload(), _deterministic_point_id(), Any, Filter, _qdrant_point_to_chunk(), _scope_to_qdrant_filter(), _select_active_version_chunks() (+21 more)
 
 ### Community 7 - "textbook_library_page.dart"
-Cohesion: 0.13
-Nodes (17): offlineTextbooksProvider, build, createState, _formatDownloadSize, OfflineDownloadsPage, _OfflineDownloadsPageState, sizeMb, createState (+9 more)
+Cohesion: 0.11
+Nodes (21): offlineTextbooksProvider, build, createState, _formatDownloadSize, OfflineDownloadsPage, _OfflineDownloadsPageState, sizeMb, build (+13 more)
 
-### Community 8 - "student-subscription.schema.ts"
-Cohesion: 0.09
-Nodes (26): BillingCycle, LIFETIME, MONTHLY, QUARTERLY, YEARLY, SubscriptionStatus, ACTIVE, CANCELLED (+18 more)
+### Community 8 - "subscriptions.service.ts"
+Cohesion: 0.10
+Nodes (32): BillingCycle, LIFETIME, MONTHLY, QUARTERLY, YEARLY, SubscriptionStatus, ACTIVE, CANCELLED (+24 more)
 
-### Community 9 - "HomeworkService"
-Cohesion: 0.05
-Nodes (35): Processor, ListHomeworkQueryDto, ApiPropertyOptional, IsEnum, IsInt, IsOptional, Max, Min (+27 more)
+### Community 9 - "homework.service.ts"
+Cohesion: 0.04
+Nodes (60): ArrayMinSize, Processor, CreateHomeworkSubmissionDto, ApiProperty, ApiPropertyOptional, ArrayMaxSize, IsArray, IsOptional (+52 more)
 
 ### Community 10 - "api_endpoints.dart"
 Cohesion: 0.03
 Nodes (76): ApiEndpoints, curriculumChapter, curriculumChapters, curriculumLesson, curriculumLessons, curriculumSubject, curriculumSubjects, exam (+68 more)
 
-### Community 11 - "PaymentTransactionDocument"
-Cohesion: 0.09
-Nodes (16): BkashPaymentProvider, Injectable, MockPaymentProvider, Injectable, NagadPaymentProvider, Injectable, PaymentInitiationResult, PaymentProvider (+8 more)
+### Community 11 - "payment-transaction.schema.ts"
+Cohesion: 0.12
+Nodes (11): MockPaymentProvider, Injectable, NagadPaymentProvider, Injectable, PaymentInitiationResult, PaymentProvider, PaymentVerificationResult, SslCommerzPaymentProvider (+3 more)
 
-### Community 12 - "package:flutter_riverpod/flutter_riverpod.dart"
-Cohesion: 0.03
-Nodes (75): app.dart, bootstrap, authControllerProvider, build, createState, dispose, _identifierController, _isResetMode (+67 more)
+### Community 12 - "verify_otp_page.dart"
+Cohesion: 0.02
+Nodes (113): authControllerProvider, build, createState, dispose, ForgotPasswordPage, _ForgotPasswordPageState, _identifierController, _isResetMode (+105 more)
 
 ### Community 13 - "curriculum_controller.dart"
 Cohesion: 0.04
-Nodes (52): averageMastery, chapterId, ChapterProgress, completedLessons, completionRate, title, totalLessons, averageScore (+44 more)
+Nodes (54): averageMastery, chapterId, ChapterProgressDto, completedLessons, completionRate, fromJson, title, toDomain (+46 more)
 
-### Community 14 - "global_search_page.dart"
-Cohesion: 0.05
-Nodes (51): build, _buildRoleCard, createState, RoleSelectionPage, _RoleSelectionPageState, _selectedRole, CheckoutPage, _CheckoutPageState (+43 more)
+### Community 14 - "settings_page.dart"
+Cohesion: 0.03
+Nodes (66): AnimationController, RoleSelectionPage, _RoleSelectionPageState, bookId, build, createState, _currentPage, _isBookmarked (+58 more)
 
 ### Community 15 - "app_database.dart"
 Cohesion: 0.03
-Nodes (63): migration, schemaVersion, class SyncQueueTableData extends, ColumnFilters, ColumnOrderings, GeneratedColumn, GeneratedDatabase, _ (+55 more)
+Nodes (73): migration, schemaVersion, class CurriculumCacheTableData extends, class SyncQueueTableData extends, ColumnFilters, ColumnOrderings, GeneratedColumn, GeneratedDatabase (+65 more)
 
-### Community 16 - "NotificationsService"
+### Community 16 - "notifications.service.ts"
 Cohesion: 0.04
-Nodes (57): CreateNotificationDto, ApiProperty, ApiPropertyOptional, IsEnum, IsObject, IsOptional, IsString, MaxLength (+49 more)
+Nodes (58): PaginatedResult, CreateNotificationDto, ApiProperty, ApiPropertyOptional, IsEnum, IsObject, IsOptional, IsString (+50 more)
 
 ### Community 17 - "app_routes.dart"
 Cohesion: 0.04
 Nodes (56): aiTutorChat, aiTutorHistory, AppRoutes, capturedHomeworkReview, chapter, checkout, classSelection, curriculumSelection (+48 more)
 
 ### Community 18 - "ScrumboardApi.ts"
-Cohesion: 0.04
-Nodes (55): addTagTypes, CreateScrumboardBoardApiArg, CreateScrumboardBoardApiResponse, CreateScrumboardBoardCardApiArg, CreateScrumboardBoardCardApiResponse, CreateScrumboardBoardLabelApiArg, CreateScrumboardBoardLabelApiResponse, CreateScrumboardBoardListApiArg (+47 more)
+Cohesion: 0.03
+Nodes (62): BoardModel(), CardIdsType, CardModel(), addTagTypes, CreateScrumboardBoardApiArg, CreateScrumboardBoardApiResponse, CreateScrumboardBoardCardApiArg, CreateScrumboardBoardCardApiResponse (+54 more)
 
 ### Community 19 - "skeleton/src/@fuse/core/FuseSettings/hooks/fuseThemeHooks.tsx"
 Cohesion: 0.11
 Nodes (23): LightDarkModeToggle(), LightDarkModeToggleProps, FooterLayout1(), FooterLayout1Props, FooterLayout2(), FooterLayout2Props, FooterLayout3(), FooterLayout3Props (+15 more)
 
-### Community 20 - ".handleWebhook"
-Cohesion: 0.20
-Nodes (8): PaymentWebhookEventRepository, Injectable, InjectModel, PaymentWebhookEvent, PaymentWebhookEventDocument, PaymentWebhookEventSchema, Prop, Schema
+### Community 20 - "subscriptions.module.ts"
+Cohesion: 0.09
+Nodes (26): PaymentMethod, BKASH, MANUAL, NAGAD, ROCKET, SSLCOMMERZ, PaymentWebhookService, Injectable (+18 more)
 
 ### Community 21 - "skeleton/src/app/App.tsx"
-Cohesion: 0.09
-Nodes (17): App(), AppProps, metadata, LanguageSwitcher(), AppContext, AppContextType, ErrorBoundary, ErrorBoundaryProps (+9 more)
-
-### Community 22 - "server.ts"
 Cohesion: 0.07
-Nodes (16): AuthenticatedRequest, authenticateStudent(), AiGatewayPipeline, PromptContext, GeminiProvider, ClaudeProvider, OpenAIProvider, LLMProvider (+8 more)
+Nodes (21): App(), AppProps, locale, locale, locale, metadata, LanguageSwitcher(), AppContext (+13 more)
+
+### Community 22 - "LLMProvider"
+Cohesion: 0.09
+Nodes (14): AuthenticatedRequest, authenticateStudent(), AiGatewayPipeline, PromptContext, GeminiProvider, ClaudeProvider, OpenAIProvider, LLMProvider (+6 more)
 
 ### Community 23 - "SearchQueryDto"
 Cohesion: 0.06
-Nodes (36): SearchQueryDto, ApiProperty, ApiPropertyOptional, IsInt, IsNotEmpty, IsOptional, IsString, Max (+28 more)
+Nodes (37): SearchQueryDto, ApiProperty, ApiPropertyOptional, IsInt, IsNotEmpty, IsOptional, IsString, Max (+29 more)
 
 ### Community 24 - "FuseUtils"
-Cohesion: 0.11
+Cohesion: 0.10
 Nodes (3): ScrumboardLabel, ScrumboardMember, FuseUtils
 
-### Community 25 - "home_page.dart"
-Cohesion: 0.08
-Nodes (26): curriculumControllerProvider, build, _buildDynamicSubjectCard, createState, _currentNavIndex, dispose, initState, LearnPage (+18 more)
+### Community 25 - "learn_page.dart"
+Cohesion: 0.04
+Nodes (61): connectivity, connectivityProvider, initialResult, isOnlineProvider, state, true, curriculumControllerProvider, build (+53 more)
 
 ### Community 26 - "dependencies"
-Cohesion: 0.05
-Nodes (40): dependencies, autoprefixer, axios, clsx, date-fns, lucide-react, next, react (+32 more)
+Cohesion: 0.12
+Nodes (17): dependencies, autoprefixer, axios, clsx, date-fns, next, react, react-dom (+9 more)
 
 ### Community 27 - "practice_controller.dart"
 Cohesion: 0.03
-Nodes (69): PracticeMapper, toDomainAttemptResult, toDomainQuestion, _apiClient, listQuestions, PracticeRepositoryImpl, _remoteDataSource, submitAttempt (+61 more)
+Nodes (70): PracticeMapper, toDomainAttemptResult, toDomainQuestion, _apiClient, listQuestions, PracticeRepositoryImpl, _remoteDataSource, submitAttempt (+62 more)
 
-### Community 28 - "v1/voice.py"
-Cohesion: 0.14
-Nodes (24): post, Response, TutorService, synthesize_speech(), transcribe_audio(), voice_conversation_turn(), Protocol, Transcribe audio bytes to text. (+16 more)
+### Community 28 - "AudioSynthesisRequest"
+Cohesion: 0.13
+Nodes (22): post, Response, synthesize_speech(), transcribe_audio(), Protocol, Transcribe audio bytes to text., Synthesize text into audio bytes., SpeechToTextProvider (+14 more)
 
 ### Community 29 - "exam_controller.dart"
-Cohesion: 0.07
-Nodes (33): apiClient, copyWith, currentQuestion, currentQuestionIndex, ExamLibraryController, ExamLibraryError, ExamLibraryInitial, ExamLibraryLoaded (+25 more)
+Cohesion: 0.03
+Nodes (91): _apiClient, ExamRemoteDataSource, ExamRemoteDataSourceImpl, flagQuestion, getExam, getSession, getSessionResult, listExams (+83 more)
 
 ### Community 30 - "ai_tutor_chat_page.dart"
 Cohesion: 0.05
@@ -1093,19 +1102,19 @@ Nodes (49): build, createState, dispose, _formatRelativeTime, _handleScroll, _ic
 
 ### Community 31 - "dependencies"
 Cohesion: 0.06
-Nodes (31): argon2, class-transformer, class-validator, @nestjs/config, @nestjs/core, @nestjs/jwt, @nestjs/mongoose, @nestjs/swagger (+23 more)
+Nodes (31): argon2, class-transformer, class-validator, mongoose, @nestjs/bullmq, @nestjs/core, @nestjs/platform-express, @nestjs/platform-socket.io (+23 more)
 
 ### Community 32 - "student_profile_controller.dart"
-Cohesion: 0.05
-Nodes (45): StudentRemoteDataSource, StudentRemoteDataSourceImpl, StudentProfileMapper, toDomain, toDto, _apiClient, getMyProfile, _remoteDataSource (+37 more)
+Cohesion: 0.07
+Nodes (31): StudentRepositoryImpl, getMyProfile, StudentRepository, upsertMyProfile, apiClient, draftAcademicStream, draftClassLevel, draftCurriculumYear (+23 more)
 
 ### Community 33 - "Link"
-Cohesion: 0.01
-Nodes (93): ProductsTab(), GuideCategory(), GuideCategories(), GuideListMenu(), GuideListMenuProps, NoteLabel(), NoteLabelProps, ClassicConfirmationRequiredPage() (+85 more)
+Cohesion: 0.02
+Nodes (82): ProductsTab(), NoteLabel(), NoteLabelProps, ClassicConfirmationRequiredPage(), FullScreenConfirmationRequiredPage(), FullScreenReversedConfirmationRequiredPage(), ModernConfirmationRequiredPage(), ModernReversedConfirmationRequiredPage() (+74 more)
 
-### Community 34 - "FinanceDashboardApi.ts"
-Cohesion: 0.08
-Nodes (24): addTagTypes, FinanceDashboardApi, GetFinanceDashboardWidgetsApiArg, GetFinanceDashboardWidgetsApiResponse, LazyLoadedSlices, selectFinanceDashboardWidgets, @/store/rootReducer, { useGetFinanceDashboardWidgetsQuery } (+16 more)
+### Community 34 - "FuseLoading"
+Cohesion: 0.02
+Nodes (133): Course, CourseCategory(), CourseCategoryProps, CourseInfo(), CourseInfoProps, CourseProgress(), CourseProgressProps, CourseStepContent() (+125 more)
 
 ### Community 35 - "homework_feedback.dart"
 Cohesion: 0.13
@@ -1116,48 +1125,44 @@ Cohesion: 0.06
 Nodes (35): classLevel, correctAnswers, description, durationMinutes, ExamDto, examId, ExamResultDto, ExamSessionDto (+27 more)
 
 ### Community 37 - "auth_controller_test.dart"
-Cohesion: 0.03
-Nodes (69): Authenticated, AuthFailureState, AuthInitial, AuthLoading, AuthState, failure, loadingMessage, message (+61 more)
+Cohesion: 0.05
+Nodes (51): Authenticated, AuthFailureState, AuthInitial, AuthLoading, AuthState, failure, loadingMessage, message (+43 more)
 
 ### Community 38 - "lesson_scoped_tutor_test.dart"
 Cohesion: 0.07
-Nodes (29): capturedChapterId, capturedInitialMessage, capturedLessonId, capturedSubjectId, capturedTitle, getConversation, getConversationMessages, getMyConversations (+21 more)
+Nodes (30): capturedChapterId, capturedInitialMessage, capturedLessonId, capturedSubjectId, capturedTitle, getConversation, getConversationMessages, getMyConversations (+22 more)
 
 ### Community 39 - "textbooks.module.ts"
 Cohesion: 0.05
-Nodes (51): ListTextbooksQueryDto, ApiPropertyOptional, IsInt, IsOptional, IsString, Max, Min, Type (+43 more)
+Nodes (46): ListTextbooksQueryDto, ApiPropertyOptional, IsInt, IsOptional, IsString, Max, Min, Type (+38 more)
 
 ### Community 40 - "RedisService"
 Cohesion: 0.11
-Nodes (13): InjectConnection, HealthController, ApiOperation, ApiResponse, ApiTags, Controller, Get, HealthModule (+5 more)
-
-### Community 41 - "admin/src/components/PageBreadcrumb.tsx"
-Cohesion: 0.07
-Nodes (16): ErrorProps, getNavigationItem(), PageBreadcrumb(), PageBreadcrumbProps, PageTitleProps, DocumentationButton(), DocumentationButtonProps, PoweredByLinks() (+8 more)
+Nodes (14): InjectConnection, HealthController, ApiOperation, ApiResponse, ApiTags, Controller, Get, Res (+6 more)
 
 ### Community 42 - "StatelessWidget"
-Cohesion: 0.03
-Nodes (78): ../../app/theme/app_shadows.dart, backgroundColor, border, borderRadius, build, child, controller, height (+70 more)
+Cohesion: 0.02
+Nodes (104): app_button.dart, app_card.dart, ../../app/theme/app_shadows.dart, backgroundColor, border, borderRadius, build, child (+96 more)
 
-### Community 43 - "FuseSettingsConfigType"
-Cohesion: 0.10
-Nodes (21): NumberFormController(), NumberFormControllerProps, NumberTextFieldProps, RadioFormController(), RadioFormControllerProps, SwitchFormController(), SwitchFormControllerProps, FuseLayoutConfig() (+13 more)
+### Community 43 - "NotesApi.ts"
+Cohesion: 0.06
+Nodes (34): defaultValues, FormType, NewLabelForm(), onSubmit(), LabelModel(), addTagTypes, CreateNotesItemApiArg, CreateNotesItemApiResponse (+26 more)
 
 ### Community 44 - "CalendarApi.ts"
-Cohesion: 0.05
-Nodes (45): addTagTypes, CalendarApi, CalendarApiType, CreateCalendarEventApiArg, CreateCalendarEventApiResponse, CreateCalendarLabelApiArg, CreateCalendarLabelApiResponse, DeleteCalendarEventApiArg (+37 more)
+Cohesion: 0.04
+Nodes (49): addTagTypes, CalendarApi, CalendarApiType, CreateCalendarEventApiArg, CreateCalendarEventApiResponse, CreateCalendarLabelApiArg, CreateCalendarLabelApiResponse, DeleteCalendarEventApiArg (+41 more)
 
 ### Community 45 - "teacher-classroom.service.ts"
 Cohesion: 0.10
-Nodes (18): LoginPage(), metadata, AssignmentsOverviewPage(), DashboardPage(), PortalLayout(), apiClient, AuthContext, AuthContextType (+10 more)
+Nodes (19): LoginPage(), metadata, AssignmentsOverviewPage(), DashboardPage(), PortalLayout(), apiClient, AuthContext, AuthContextType (+11 more)
 
 ### Community 46 - "FuseSvgIcon"
-Cohesion: 0.01
-Nodes (154): AiImageGenListItemProps, AiImageGenPresetItemProps, ContactView(), ContactsSidebarContentProps, EcommerceProduct, ProductHeader(), Root, Products() (+146 more)
+Cohesion: 0.02
+Nodes (105): AiImageGenPresetItemProps, Label, NewLabelForm(), NewLabelFormProps, schema, defaultValues, NewLabelForm(), onSubmit() (+97 more)
 
 ### Community 47 - "mockApi"
-Cohesion: 0.03
-Nodes (105): DELETE(), GET(), PUT(), GET(), DELETE(), GET(), PUT(), GET() (+97 more)
+Cohesion: 0.02
+Nodes (112): DELETE(), GET(), PUT(), GET(), DELETE(), GET(), PUT(), GET() (+104 more)
 
 ### Community 48 - "devDependencies"
 Cohesion: 0.05
@@ -1167,21 +1172,21 @@ Nodes (37): jest, @nestjs/testing, devDependencies, eslint, eslint-config-pretti
 Cohesion: 0.08
 Nodes (27): apiValue, chapterId, completedTaskIds, fromApiString, fromJson, isCompleted, lastPositionSeconds, lessonId (+19 more)
 
-### Community 50 - "TutorService"
-Cohesion: 0.07
-Nodes (25): TutorMessageRole, ASSISTANT, SYSTEM, USER, Injectable, InjectModel, TutorConversationRepository, Injectable (+17 more)
+### Community 50 - "UsersService"
+Cohesion: 0.03
+Nodes (83): AiGatewayModule, Module, AiGatewayService, Injectable, TutorCitationEvent, TutorDeltaEvent, TutorDoneEvent, TutorErrorEvent (+75 more)
 
 ### Community 51 - "UpsertStudyPlanDto"
-Cohesion: 0.08
-Nodes (31): StudyPlanItemDto, ApiProperty, ApiPropertyOptional, ArrayNotEmpty, IsArray, IsBoolean, IsDateString, IsEnum (+23 more)
+Cohesion: 0.18
+Nodes (16): StudyPlanItemDto, ApiProperty, ApiPropertyOptional, ArrayNotEmpty, IsArray, IsBoolean, IsDateString, IsEnum (+8 more)
 
 ### Community 52 - "subscription_controller.dart"
-Cohesion: 0.04
-Nodes (59): SubscriptionMapper, toDomainPlan, toDomainSubscription, _apiClient, getMySubscription, initiatePayment, listPlans, _remoteDataSource (+51 more)
+Cohesion: 0.03
+Nodes (66): _apiClient, getMySubscription, initiatePayment, listPlans, submitManualPayment, SubscriptionRemoteDataSource, SubscriptionRemoteDataSourceImpl, SubscriptionMapper (+58 more)
 
 ### Community 53 - "NotificationPanel.tsx"
-Cohesion: 0.09
-Nodes (25): NotificationModel(), addTagTypes, CreateNotificationApiArg, CreateNotificationApiResponse, DeleteNotificationApiArg, DeleteNotificationApiResponse, DeleteNotificationsApiArg, DeleteNotificationsApiResponse (+17 more)
+Cohesion: 0.06
+Nodes (29): Chat(), ChatProps, StyledMessageRow, Root, NotificationModel(), Notification, NotificationCard(), NotificationCardProps (+21 more)
 
 ### Community 54 - "skeleton/src/@fuse/core/FuseSettings/FuseSettings.tsx"
 Cohesion: 0.03
@@ -1193,7 +1198,7 @@ Nodes (24): AppRadius, borderLg, borderMd, borderPill, borderSm, borderXl, borde
 
 ### Community 56 - "homework_controller.dart"
 Cohesion: 0.03
-Nodes (76): AuthController, _apiClient, createSubmission, getFeedback, getMySubmissions, getSubmission, HomeworkRemoteDataSource, HomeworkRemoteDataSourceImpl (+68 more)
+Nodes (78): AuthController, _apiClient, createSubmission, getFeedback, getMySubmissions, getSubmission, HomeworkRemoteDataSource, HomeworkRemoteDataSourceImpl (+70 more)
 
 ### Community 57 - "notifications_controller_test.dart"
 Cohesion: 0.06
@@ -1201,59 +1206,59 @@ Nodes (31): NotificationsRepositoryImpl, getMyNotifications, getUnreadCount, mar
 
 ### Community 58 - "tutor_controller.dart"
 Cohesion: 0.03
-Nodes (64): _parseDate, _parseRole, toCitation, toConversation, _toMessage, toThread, TutorMapper, _apiClient (+56 more)
+Nodes (69): _parseDate, _parseRole, toCitation, toConversation, _toMessage, toThread, TutorMapper, _apiClient (+61 more)
 
-### Community 59 - "package:flutter_test/flutter_test.dart"
-Cohesion: 0.03
-Nodes (84): CurriculumRepositoryImpl, CurriculumRepository, main, main, createTestApp, FakeCurriculumRepository, getChapter, getLesson (+76 more)
+### Community 59 - "feature_pages_test.dart"
+Cohesion: 0.04
+Nodes (60): CurriculumRepositoryImpl, CurriculumRepository, createTestApp, FakeCurriculumRepository, getChapter, getLesson, getMyProfile, getMyProgressSummary (+52 more)
 
-### Community 60 - "auth_controller.dart"
-Cohesion: 0.02
-Nodes (82): dispose, _eventController, events, notifyLoggedOut, notifySessionExpired, SessionEvent, SessionManager, sessionManagerProvider (+74 more)
+### Community 60 - "textbook_download_controller.dart"
+Cohesion: 0.09
+Nodes (23): TextbookDownloadManager, activeDownloads, apiClient, availableTextbooks, copyWith, deleteBook, dispose, downloadAllForGrade (+15 more)
 
 ### Community 61 - "app_colors.dart"
-Cohesion: 0.08
-Nodes (24): AppColors, background, border, divider, error, errorLight, info, infoLight (+16 more)
+Cohesion: 0.05
+Nodes (40): AppColors, background, border, divider, error, errorLight, info, infoLight (+32 more)
 
 ### Community 62 - "compilerOptions"
 Cohesion: 0.07
 Nodes (26): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+18 more)
 
-### Community 63 - "UpsertStudentProfileDto"
+### Community 63 - "students.module.ts"
 Cohesion: 0.06
 Nodes (36): IsPhoneNumber, ApiProperty, ApiPropertyOptional, ArrayNotEmpty, IsArray, IsDateString, IsEnum, IsInt (+28 more)
 
 ### Community 64 - "parent_controller.dart"
-Cohesion: 0.10
-Nodes (24): activeChild, activeChildDashboard, apiClient, children, copyWith, linkChild, loadChildren, message (+16 more)
+Cohesion: 0.03
+Nodes (72): ParentMapper, toDomainChild, toDomainDashboard, toDomainSubject, _apiClient, getChildDashboard, linkChild, listLinkedChildren (+64 more)
 
 ### Community 65 - "ai_gateway.py"
 Cohesion: 0.08
-Nodes (22): Enum, AiGateway, GatewayGenerateResult, GatewayRequest, GatewayStrategy, Any, BaseModel, Returns a lightweight health summary of registered providers. (+14 more)
+Nodes (21): AiGateway, GatewayGenerateResult, GatewayRequest, GatewayStrategy, Any, BaseModel, Streams a chat completion, routing through the configured strategy. Currently…, Returns a lightweight health summary of registered providers. (+13 more)
 
 ### Community 66 - "AuthenticatedUser"
-Cohesion: 0.04
-Nodes (67): CurrentUser, AuthenticatedUser, ClassroomsController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body (+59 more)
+Cohesion: 0.03
+Nodes (111): CurrentUser, Roles(), ROLES_KEY, InternalAuthGuard, Injectable, JwtAuthGuard, Injectable, RolesGuard (+103 more)
 
 ### Community 67 - "demo/src/store/apiService.ts"
-Cohesion: 0.07
-Nodes (21): addTagTypes, DeleteFileManagerFolderApiArg, DeleteFileManagerFolderApiResponse, FileManagerApi, FileManagerApiType, FileManagerPath, GetFileManagerAllFolderItemsApiArg, GetFileManagerAllFolderItemsApiResponse (+13 more)
+Cohesion: 0.05
+Nodes (32): addTagTypes, DeleteFileManagerFolderApiArg, DeleteFileManagerFolderApiResponse, FileManagerApi, FileManagerApiType, FileManagerPath, GetFileManagerAllFolderItemsApiArg, GetFileManagerAllFolderItemsApiResponse (+24 more)
 
 ### Community 68 - "AdminController"
-Cohesion: 0.05
-Nodes (47): AdminAuditService, Injectable, AdminController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body (+39 more)
+Cohesion: 0.04
+Nodes (54): AdminController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body, Controller, Delete (+46 more)
 
 ### Community 69 - "useAppDispatch"
 Cohesion: 0.05
-Nodes (70): initialState, initialStateProps, injectedSlice, LazyLoadedSlices, navbarSlice, navbarSliceType, @/store/rootReducer, NavbarToggleFab() (+62 more)
+Nodes (79): AdjustFontSize(), AdjustFontSizeProps, marks, NavbarPinToggleButton(), NavbarPinToggleButtonProps, initialState, initialStateProps, injectedSlice (+71 more)
 
 ### Community 70 - "sync_operation.dart"
 Cohesion: 0.08
 Nodes (24): copyWith, createdAt, payload, entityId, entityType, fromString, id, isApplied (+16 more)
 
-### Community 71 - "package:dio/dio.dart"
-Cohesion: 0.15
-Nodes (19): AppFailure, banglaMessage, ConflictFailure, details, errorCode, fields, ForbiddenFailure, message (+11 more)
+### Community 71 - "app_failure.dart"
+Cohesion: 0.13
+Nodes (22): AppFailure, AppFailureMessages, banglaMessage, ConflictFailure, details, errorCode, fields, ForbiddenFailure (+14 more)
 
 ### Community 72 - "study_plan.dart"
 Cohesion: 0.08
@@ -1263,105 +1268,105 @@ Nodes (23): classLevel, completedAt, completedCount, completedMinutes, createdAt
 Cohesion: 0.08
 Nodes (23): citations, createdAt, detailedExplanation, explanation, fromJson, HomeworkCorrectionStepDto, HomeworkFeedbackDto, HomeworkSubmissionDto (+15 more)
 
-### Community 74 - "PracticeController"
-Cohesion: 0.17
-Nodes (12): PracticeController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body, Controller, Get (+4 more)
+### Community 74 - "package:flutter_test/flutter_test.dart"
+Cohesion: 0.07
+Nodes (26): main, main, main, main, main, main, main, main (+18 more)
 
-### Community 75 - "FileManagerApp.tsx"
-Cohesion: 0.12
-Nodes (19): DetailSidebarContent(), FileItem(), FileItemProps, FileManagerItem, FileManagerApp(), FileManagerAppProps, fileManagerAppSlice, initialState (+11 more)
+### Community 75 - "FolderItem.tsx"
+Cohesion: 0.13
+Nodes (17): FileItem(), FileItemProps, FileManagerItem, fileManagerAppSlice, initialState, injectedSlice, LazyLoadedSlices, selectedItemIdSliceType (+9 more)
 
 ### Community 76 - "admin/src/components/theme-layouts/components/navigation/store/navigationSlice.ts"
-Cohesion: 0.13
-Nodes (13): User, appendNavigationItem(), emptyInitialState, initialState, navigationAdapter, navigationSliceType, prependNavigationItem(), {
+Cohesion: 0.12
+Nodes (14): User, appendNavigationItem(), emptyInitialState, initialState, navigationAdapter, navigationSliceType, prependNavigationItem(), {
 	selectAll: selectNavigationAll,
 	selectIds: selectNavigationIds,
 	selectById: selectNavigationItemById
-} (+5 more)
+} (+6 more)
 
 ### Community 77 - "useAppDispatch"
 Cohesion: 0.04
-Nodes (84): NavbarPinToggleButton(), NavbarPinToggleButtonProps, initialState, initialStateProps, injectedSlice, LazyLoadedSlices, navbarSlice, navbarSliceType (+76 more)
+Nodes (87): AdjustFontSize(), AdjustFontSizeProps, marks, NavbarPinToggleButton(), NavbarPinToggleButtonProps, initialState, initialStateProps, injectedSlice (+79 more)
 
-### Community 78 - "main.ts"
-Cohesion: 0.09
-Nodes (15): MetricsInterceptor, Injectable, MetricsController, ApiOperation, ApiResponse, ApiTags, Controller, Get (+7 more)
+### Community 78 - "MetricsService"
+Cohesion: 0.11
+Nodes (14): MetricsInterceptor, Injectable, MetricsController, ApiOperation, ApiResponse, ApiTags, Controller, Get (+6 more)
 
 ### Community 79 - "lesson-content-block.ts"
 Cohesion: 0.06
-Nodes (76): AdminCreateLessonDto, AdminLessonCitationBlockDto, AdminLessonContentBlockDto, AdminLessonExampleBlockDto, AdminLessonFormulaBlockDto, AdminLessonHeadingBlockDto, AdminLessonImageBlockDto, AdminLessonImportantNoteBlockDto (+68 more)
+Nodes (78): AdminCreateLessonDto, AdminLessonCitationBlockDto, AdminLessonContentBlockDto, AdminLessonExampleBlockDto, AdminLessonFormulaBlockDto, AdminLessonHeadingBlockDto, AdminLessonImageBlockDto, AdminLessonImportantNoteBlockDto (+70 more)
 
 ### Community 80 - "learning_routes.dart"
-Cohesion: 0.09
-Nodes (21): learningRoutes, ../../features/analytics/presentation/pages/math_progress_detail_page.dart, ../../features/analytics/presentation/pages/student_progress_dashboard_page.dart, ../../features/analytics/presentation/pages/weekly_learning_report_page.dart, ../../features/curriculum/presentation/pages/chapter_details_page.dart, ../../features/curriculum/presentation/pages/learn_page.dart, ../../features/curriculum/presentation/pages/lesson_reader_page.dart, ../../features/curriculum/presentation/pages/offline_downloads_page.dart (+13 more)
+Cohesion: 0.06
+Nodes (33): app_routes.dart, learningRoutes, parentRoutes, tutorRoutes, ../../features/analytics/presentation/pages/math_progress_detail_page.dart, ../../features/analytics/presentation/pages/student_progress_dashboard_page.dart, ../../features/analytics/presentation/pages/weekly_learning_report_page.dart, ../../features/checkout/presentation/pages/checkout_page.dart (+25 more)
 
-### Community 81 - "auth_repository_impl.dart"
-Cohesion: 0.04
-Nodes (55): AuthRemoteDataSource, AuthRemoteDataSourceImpl, _client, _extractData, forgotPassword, getCurrentUser, login, logout (+47 more)
+### Community 81 - "auth_controller.dart"
+Cohesion: 0.03
+Nodes (63): AuthRemoteDataSource, AuthRemoteDataSourceImpl, _client, _extractData, forgotPassword, getCurrentUser, login, logout (+55 more)
 
 ### Community 82 - "study_plan_dto.dart"
 Cohesion: 0.09
 Nodes (21): classLevel, completedAt, createdAt, curriculumYear, dailyTargetMinutes, description, endsAt, focusChapterIds (+13 more)
 
 ### Community 83 - "List"
-Cohesion: 0.10
-Nodes (18): GamificationSummary, recentBadges, streakDays, streakFreezeRemaining, tierName, totalPoints, fromJson, hasNext (+10 more)
+Cohesion: 0.05
+Nodes (38): SseEvent, bind, _parseBuffer, _parseEventBlock, SseParser, _SseStringParser, fromJson, GamificationSummaryDto (+30 more)
 
 ### Community 84 - "practice.service.ts"
 Cohesion: 0.02
-Nodes (117): AdminListPracticeQuestionsQueryDto, ApiPropertyOptional, IsEnum, IsInt, IsOptional, IsString, Max, Min (+109 more)
+Nodes (106): AdminListPracticeQuestionsQueryDto, ApiPropertyOptional, IsEnum, IsInt, IsOptional, IsString, Max, Min (+98 more)
 
-### Community 85 - "admin/src/@fuse/core/FuseNavigation/FuseNavigation.tsx"
-Cohesion: 0.05
-Nodes (58): NavbarStyle3Content(), NavbarStyle3ContentProps, needsToBeOpened(), Root, StyledPanel, StyledPanelProps, FuseNavBadgeProps, Root (+50 more)
+### Community 85 - "FuseSvgIcon"
+Cohesion: 0.04
+Nodes (69): ErrorProps, PageTitleProps, PlaceholderPageProps, DocumentationButton(), DocumentationButtonProps, FuseSettingsViewerDialogProps, NavigationProps, PoweredByLinks() (+61 more)
 
-### Community 86 - "MailToolbar"
-Cohesion: 0.20
-Nodes (10): useGetMails(), MailList(), Mails(), MailsProps, MailToolbar(), handleCheckChange(), handleDeselectAll(), handleMenuClose() (+2 more)
+### Community 86 - "QdrantVectorStore"
+Cohesion: 0.14
+Nodes (21): AsyncQdrantClient, Gracefully shutdown and release all network resources., _keyword_overlap_score(), QdrantVectorStore, _can_connect(), embedding_metadata(), asyncio, fixture (+13 more)
 
 ### Community 87 - "admin/src/app/App.tsx"
 Cohesion: 0.08
-Nodes (15): App(), AppProps, metadata, AppContext, AppContextType, emotionCacheOptions, MainThemeProvider(), MainThemeProviderProps (+7 more)
+Nodes (19): App(), AppProps, metadata, LanguageSwitcher(), AppContext, AppContextType, ErrorBoundary, ErrorBoundaryProps (+11 more)
 
 ### Community 88 - "tutor_stream_event.dart"
-Cohesion: 0.08
-Nodes (30): TutorRepositoryImpl, citation, code, conversationId, grounded, message, messageId, provider (+22 more)
+Cohesion: 0.09
+Nodes (25): TutorRepositoryImpl, citation, code, conversationId, grounded, message, messageId, provider (+17 more)
 
 ### Community 89 - "sync_repository_impl_test.dart"
-Cohesion: 0.07
-Nodes (27): main, main, localDataSource, main, countPending, deleteApplied, enqueue, getMyCheckpoint (+19 more)
+Cohesion: 0.05
+Nodes (38): main, main, countPending, enqueueOperation, flushPending, getCheckpoint, listPending, main (+30 more)
 
 ### Community 90 - "ClassroomRepository"
 Cohesion: 0.09
-Nodes (16): ClassroomRole, CO_TEACHER, STUDENT, TEACHER, ClassroomMemberRepository, Injectable, InjectModel, ClassroomRepository (+8 more)
+Nodes (20): ClassroomRole, CO_TEACHER, STUDENT, TEACHER, ClassroomMemberRepository, Injectable, InjectModel, ClassroomRepository (+12 more)
 
 ### Community 91 - "BoardCardForm.tsx"
-Cohesion: 0.04
-Nodes (46): BoardCard(), BoardCardProps, StyledCard, BoardCardCheckItems(), BoardCardCheckItemsProps, BoardCardDueDate(), BoardCardDueDateProps, CardAttachment() (+38 more)
-
-### Community 92 - "app.module.ts"
 Cohesion: 0.03
-Nodes (76): DatabaseModule, Module, QueueModule, Global, Module, AdminModule, Module, AiGatewayModule (+68 more)
+Nodes (60): Board(), BoardAddCard(), handleCloseForm(), onSubmit(), BoardAddCardProps, defaultValues, FormType, schema (+52 more)
 
-### Community 93 - "voice_ai_tutor_page.dart"
-Cohesion: 0.12
-Nodes (18): AnimationController, _animationController, build, createState, dispose, initState, SplashPage, _SplashPageState (+10 more)
+### Community 92 - "gamification.module.ts"
+Cohesion: 0.05
+Nodes (36): RecordActivityDto, ApiPropertyOptional, IsDateString, IsOptional, AchievementCategory, CURRICULUM, EXAM, HOMEWORK (+28 more)
+
+### Community 93 - "user.schema.ts"
+Cohesion: 0.11
+Nodes (20): AdminUpdateUserStatusDto, ApiProperty, ApiPropertyOptional, IsEnum, IsOptional, IsString, MaxLength, OtpState (+12 more)
 
 ### Community 94 - "../../app/theme/app_typography.dart"
-Cohesion: 0.02
-Nodes (83): app_button.dart, app_card.dart, ../../app/theme/app_radius.dart, ../../app/theme/app_typography.dart, AppBadge, AppBadgeVariant, build, icon (+75 more)
+Cohesion: 0.03
+Nodes (60): ../../app/theme/app_radius.dart, ../../app/theme/app_typography.dart, AppBadge, AppBadgeVariant, build, icon, label, onTap (+52 more)
 
 ### Community 95 - "make_hmac_headers"
-Cohesion: 0.18
-Nodes (19): make_hmac_headers(), TestClient, test_homework_evaluate_api_success(), test_homework_evaluate_unauthorized(), TestClient, test_delete_book_api(), test_ingestion_stats_api(), test_ingestion_text_api() (+11 more)
+Cohesion: 0.14
+Nodes (26): compute_body_sha256(), compute_hmac_signature(), client(), make_hmac_headers(), fixture, TestClient, TestClient, test_homework_evaluate_api_success() (+18 more)
 
 ### Community 96 - "sync_queue_table.dart"
-Cohesion: 0.10
-Nodes (20): createdAt, entityId, entityType, id, lastErrorCode, lastErrorMessage, nextRetryAt, operationId (+12 more)
+Cohesion: 0.07
+Nodes (28): cacheKey, CurriculumCacheTable, customConstraints, entityType, fetchedAt, payload, primaryKey, createdAt (+20 more)
 
 ### Community 97 - "todays_study_plan_page.dart"
-Cohesion: 0.08
-Nodes (28): StudyPlanMapper, toDomain, studyPlanControllerProvider, build, createState, _formatMinutes, _generatePlan, initState (+20 more)
+Cohesion: 0.07
+Nodes (36): build, build, StudyPlanMapper, toDomain, studyPlanControllerProvider, build, _buildTaskCard, createState (+28 more)
 
 ### Community 98 - "exam_session.dart"
 Cohesion: 0.10
@@ -1379,9 +1384,9 @@ Nodes (20): chapterId, correctAnswer, difficulty, explanation, feedback, fromJso
 Cohesion: 0.08
 Nodes (24): checksumSha256, classLevel, coverImageUrl, curriculumYear, downloadSizeBytes, fileSizeBytes, fromJson, id (+16 more)
 
-### Community 102 - "AiGatewayService"
-Cohesion: 0.13
-Nodes (7): AiGatewayService, Injectable, TutorGenerationPayload, TutorStreamEvent, HmacSignerService, SignedHeaders, Injectable
+### Community 102 - "CurriculumController"
+Cohesion: 0.14
+Nodes (17): CurriculumController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Controller, Get, Param (+9 more)
 
 ### Community 103 - "entities/user.dart"
 Cohesion: 0.10
@@ -1393,11 +1398,11 @@ Nodes (59): DocumentationButton(), DocumentationButtonProps, PoweredByLinks(), P
 
 ### Community 105 - "practice_question.dart"
 Cohesion: 0.10
-Nodes (20): chapterId, difficulty, fromString, hard, id, lessonId, options, ordering (+12 more)
+Nodes (19): chapterId, difficulty, fromString, hard, id, lessonId, options, ordering (+11 more)
 
-### Community 106 - "FuseSvgIcon"
-Cohesion: 0.04
-Nodes (62): useUser(), LightDarkModeToggle(), LightDarkModeToggleProps, AdjustFontSize(), AdjustFontSizeProps, marks, Configurator(), Root (+54 more)
+### Community 106 - "admin/src/components/theme-layouts/components/configurator/ThemesPanel.tsx"
+Cohesion: 0.08
+Nodes (22): useUser(), getNavigationItem(), PageBreadcrumb(), PageBreadcrumbProps, Configurator(), Root, SettingsPanel(), SettingsPanelProps (+14 more)
 
 ### Community 107 - "curriculum_repository_impl_test.dart"
 Cohesion: 0.09
@@ -1405,35 +1410,35 @@ Nodes (21): LessonParagraphContentBlockDto, getChapter, getLesson, getMyProgress
 
 ### Community 108 - "api_client.dart"
 Cohesion: 0.04
-Nodes (49): api_endpoints.dart, aiGatewayClient, aiGatewayClientProvider, ApiClient, apiClientProvider, dio, _handleSingleFlightRefresh, _isRefreshing (+41 more)
+Nodes (45): api_endpoints.dart, aiGatewayClient, aiGatewayClientProvider, ApiClient, apiClientProvider, dio, _handleSingleFlightRefresh, isNetworkError (+37 more)
 
-### Community 109 - "exam_repository_impl.dart"
-Cohesion: 0.09
-Nodes (21): ExamMapper, toDomainExam, toDomainResult, toDomainSession, toDomainSessionQuestion, _apiClient, flagQuestion, getExam (+13 more)
+### Community 109 - "TimelineDoc.tsx"
+Cohesion: 0.12
+Nodes (12): AlternateReverseTimeline(), AlternateTimeline(), BasicTimeline(), ColorsTimeline(), CustomizedTimeline(), LeftAlignedTimeline(), LeftPositionedTimeline(), NoOppositeContent() (+4 more)
 
 ### Community 110 - "student_profile.dart"
 Cohesion: 0.09
-Nodes (22): academicStream, board, classDisplayName, classLevel, copyWith, curriculumYear, dateOfBirth, district (+14 more)
+Nodes (21): academicStream, board, classDisplayName, classLevel, copyWith, curriculumYear, dateOfBirth, district (+13 more)
 
-### Community 111 - "CreateHomeworkSubmissionDto"
-Cohesion: 0.11
-Nodes (21): ArrayMinSize, CreateHomeworkSubmissionDto, ApiProperty, ApiPropertyOptional, ArrayMaxSize, IsArray, IsOptional, IsString (+13 more)
+### Community 111 - "bookmark_repository_impl.dart"
+Cohesion: 0.09
+Nodes (21): bookmarkLesson, BookmarkRepositoryImpl, clearUserBookmarks, getBookmarkedLessonIds, _getStorageKey, isLessonBookmarked, removeLessonBookmark, _storage (+13 more)
 
-### Community 112 - "domain/repositories/auth_repository.dart"
-Cohesion: 0.07
-Nodes (28): AuthRepositoryImpl, AuthRepository, forgotPassword, getCurrentUser, login, logout, logoutAll, refreshTokens (+20 more)
+### Community 112 - "auth_repository.dart"
+Cohesion: 0.08
+Nodes (27): AuthRepositoryImpl, AuthRepository, forgotPassword, getCurrentUser, login, logout, logoutAll, refreshTokens (+19 more)
 
 ### Community 113 - "curriculum_repository.dart"
 Cohesion: 0.13
 Nodes (14): getChapter, getLesson, getMyProgressSummary, getMySubjectProgress, getSubject, listChapters, listLessons, listSubjects (+6 more)
 
 ### Community 114 - "AuthController"
-Cohesion: 0.30
-Nodes (11): AuthController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body, Controller, Get (+3 more)
+Cohesion: 0.19
+Nodes (15): AuthController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body, Controller, Get (+7 more)
 
 ### Community 115 - "admin/src/@fuse/core/FuseSettings/FuseSettings.tsx"
-Cohesion: 0.03
-Nodes (81): FooterLayout1(), FooterLayout1Props, Layout1Config, FooterLayout2(), FooterLayout2Props, Layout2Config, Layout2ConfigDefaultsType, FooterLayout3() (+73 more)
+Cohesion: 0.04
+Nodes (62): Layout1Config, Layout2Config, Layout2ConfigDefaultsType, Layout3Config, Layout3ConfigDefaultsType, themeLayoutConfigs, themeLayoutConfigsProps, themeLayoutDefaultsProps (+54 more)
 
 ### Community 116 - "LiveClassroomService"
 Cohesion: 0.18
@@ -1443,49 +1448,49 @@ Nodes (9): ChatMessage, Participant, QuizQuestion, QuizSubmission, WhiteboardStr
 Cohesion: 0.11
 Nodes (18): chapterId, classLevel, createdAt, curriculumYear, fromJson, hasNext, id, lastMessageAt (+10 more)
 
-### Community 118 - "useThemeMediaQuery"
-Cohesion: 0.02
-Nodes (120): container, Courses(), item, Root, AiImageGenApp(), Root, AiImageGenContent(), tabValues (+112 more)
+### Community 118 - "overviews.ts"
+Cohesion: 0.05
+Nodes (47): GuestRoleExample(), CardedFullWidthContentScrollComponent(), Root, CardedFullWidthNormalScrollComponent(), Root, CardedFullWidthPageScrollComponent(), Root, CardedWithSidebarsContentScrollComponent() (+39 more)
 
 ### Community 119 - "skeleton/src/components/theme-layouts/layout1/components/navbar/style-3/NavbarStyle3Content.tsx"
-Cohesion: 0.04
-Nodes (49): MainProjectSelection(), ProjectOption, projectOptions, AdjustFontSize(), AdjustFontSizeProps, marks, GoToDocBox(), GoToDocBoxProps (+41 more)
+Cohesion: 0.03
+Nodes (58): Example(), Root, MainProjectSelection(), ProjectOption, projectOptions, GoToDocBox(), GoToDocBoxProps, Logo() (+50 more)
 
 ### Community 120 - "SettingsApi.ts"
 Cohesion: 0.03
-Nodes (62): GET(), PUT(), GET(), GET(), PUT(), GET(), GET(), PUT() (+54 more)
+Nodes (65): GET(), PUT(), GET(), GET(), PUT(), GET(), GET(), PUT() (+57 more)
 
-### Community 121 - "AiImageGenItem"
-Cohesion: 0.18
-Nodes (5): AiImageGenItem, AiImageGenList(), AiImageGenListProps, AiImageGenListItem(), mockGeneratedImagesList
+### Community 121 - "AiImageGenApp.tsx"
+Cohesion: 0.12
+Nodes (15): AiImageGenItem, AiImageGenApp(), Root, AiImageGenContent(), AiImageGenHeader(), AiImageGenHeaderProps, AiImageGenList(), AiImageGenListProps (+7 more)
 
 ### Community 122 - "skeleton/src/store/store.ts"
-Cohesion: 0.04
-Nodes (45): navigationSlice, dataSliceType, exampleData, injectedSlice, LazyLoadedSlices, quickPanelSlice, @/store/rootReducer, dialogSliceType (+37 more)
+Cohesion: 0.05
+Nodes (40): navigationSlice, dataSliceType, exampleData, injectedSlice, LazyLoadedSlices, quickPanelSlice, @/store/rootReducer, dialogSliceType (+32 more)
 
 ### Community 123 - "ContactsApi.ts"
-Cohesion: 0.03
-Nodes (71): GET(), POST(), DELETE(), GET(), PUT(), GET(), POST(), GET() (+63 more)
+Cohesion: 0.04
+Nodes (55): DELETE(), GET(), PUT(), GET(), POST(), GET(), ContactEmailSelector(), ContactEmailSelectorProps (+47 more)
 
-### Community 124 - "subscriptions.module.ts"
-Cohesion: 0.16
-Nodes (21): PaymentStatus, CANCELLED, COMPLETED, EXPIRED, FAILED, PENDING, PENDING_VERIFICATION, PROCESSING (+13 more)
+### Community 124 - "PaymentStatus"
+Cohesion: 0.20
+Nodes (9): PaymentStatus, CANCELLED, COMPLETED, EXPIRED, FAILED, PENDING, PENDING_VERIFICATION, PROCESSING (+1 more)
 
-### Community 125 - "demo/src/components/PageBreadcrumb.tsx"
-Cohesion: 0.03
-Nodes (85): Orders(), OrdersHeader(), OrdersTable(), HelpCenterGuide(), MailboxAppSidebarContent(), NewLabelForm(), SettingsAppHeader(), SettingsAppHeaderProps (+77 more)
+### Community 125 - "demo/src/@fuse/core/FuseNavigation/FuseNavigation.tsx"
+Cohesion: 0.04
+Nodes (67): ContactListItem(), ContactListItemPropsType, ContactsList(), Contact, selectFilteredContactList(), selectGroupedFilteredContacts(), ContactsApp(), ContactsAppProps (+59 more)
 
-### Community 126 - "Course.tsx"
-Cohesion: 0.11
-Nodes (17): Course, CourseCategory(), CourseCategoryProps, CourseInfo(), CourseInfoProps, CourseProgress(), CourseProgressProps, Course() (+9 more)
+### Community 126 - "Course"
+Cohesion: 0.53
+Nodes (5): Course(), handleBack(), handleNext(), handleStepChange(), updateCurrentStep()
 
 ### Community 127 - "student_profile_dto.dart"
 Cohesion: 0.11
 Nodes (17): academicStream, board, classLevel, curriculumYear, dateOfBirth, district, fromJson, guardianPhone (+9 more)
 
 ### Community 128 - "sync.service.ts"
-Cohesion: 0.05
-Nodes (58): SubmitSyncBatchDto, SubmitSyncBatchResponseDto, SyncBatchSummaryDto, SyncOperationDto, SyncOperationResultDto, ApiProperty, ApiPropertyOptional, ArrayMaxSize (+50 more)
+Cohesion: 0.04
+Nodes (60): NotificationsModule, Module, SubmitSyncBatchDto, SubmitSyncBatchResponseDto, SyncBatchSummaryDto, SyncOperationDto, SyncOperationResultDto, ApiProperty (+52 more)
 
 ### Community 129 - "RatingDoc.tsx"
 Cohesion: 0.11
@@ -1500,8 +1505,8 @@ Cohesion: 0.04
 Nodes (27): AuthenticationDoc(), RoutingDoc(), SettingsDoc(), DevelopmentServerDoc(), DirectoryStructureDoc(), IDEsDoc(), MultiLanguageDoc(), ProductionDoc() (+19 more)
 
 ### Community 132 - "sync_local_data_source.dart"
-Cohesion: 0.10
-Nodes (21): _, @DriftDatabase, AppDatabase, countPending, _db, deleteApplied, enqueue, incrementRetry (+13 more)
+Cohesion: 0.09
+Nodes (22): _, @DriftDatabase, AppDatabase, countPending, _db, deleteApplied, enqueue, incrementRetry (+14 more)
 
 ### Community 133 - "skeleton/src/@auth/AuthGuardRedirect.tsx"
 Cohesion: 0.04
@@ -1509,7 +1514,7 @@ Nodes (40): ErrorProps, Error401Page(), Error404Page(), SignInPage(), SignOutPag
 
 ### Community 134 - "dependencies"
 Cohesion: 0.03
-Nodes (71): dependencies, autosuggest-highlight, clsx, core-js, @emotion/cache, @fullcalendar/interaction, @hello-pangea/dnd, history (+63 more)
+Nodes (71): apexcharts, dependencies, apexcharts, autosuggest-highlight, clsx, @emotion/cache, @fullcalendar/interaction, @hello-pangea/dnd (+63 more)
 
 ### Community 135 - "devDependencies"
 Cohesion: 0.03
@@ -1517,15 +1522,15 @@ Nodes (69): devDependencies, eslint, eslint-config-next, eslint-config-prettier,
 
 ### Community 136 - "compilerOptions"
 Cohesion: 0.12
-Nodes (16): test/**/*, compilerOptions, allowSyntheticDefaultImports, baseUrl, declaration, emitDecoratorMetadata, experimentalDecorators, incremental (+8 more)
+Nodes (16): compilerOptions, allowSyntheticDefaultImports, baseUrl, declaration, emitDecoratorMetadata, experimentalDecorators, incremental, module (+8 more)
 
 ### Community 137 - "admin/src/store/store.ts"
 Cohesion: 0.04
-Nodes (45): navigationSlice, dataSliceType, exampleData, injectedSlice, LazyLoadedSlices, quickPanelSlice, @/store/rootReducer, dialogSliceType (+37 more)
+Nodes (46): navigationSlice, dataSliceType, exampleData, injectedSlice, LazyLoadedSlices, quickPanelSlice, @/store/rootReducer, dialogSliceType (+38 more)
 
 ### Community 138 - "AnalyticsDashboardApi.ts"
 Cohesion: 0.06
-Nodes (44): addTagTypes, AnalyticsDashboardApi, GetAnalyticsDashboardWidgetsApiArg, GetAnalyticsDashboardWidgetsApiResponse, LazyLoadedSlices, selectWidget(), @/store/rootReducer, { useGetAnalyticsDashboardWidgetsQuery } (+36 more)
+Nodes (43): addTagTypes, AnalyticsDashboardApi, GetAnalyticsDashboardWidgetsApiArg, GetAnalyticsDashboardWidgetsApiResponse, LazyLoadedSlices, selectWidget(), @/store/rootReducer, { useGetAnalyticsDashboardWidgetsQuery } (+35 more)
 
 ### Community 139 - "BreadcrumbsDoc.tsx"
 Cohesion: 0.11
@@ -1540,16 +1545,16 @@ Cohesion: 0.20
 Nodes (6): ConnectedSocket, MessageBody, LiveClassroomGateway, SubscribeMessage, WebSocketGateway, WebSocketServer
 
 ### Community 142 - "CryptoDashboardApi.ts"
-Cohesion: 0.05
-Nodes (41): addTagTypes, CryptoDashboardApi, GetCryptoDashboardWidgetsApiArg, GetCryptoDashboardWidgetsApiResponse, LazyLoadedSlices, @/store/rootReducer, { useGetCryptoDashboardWidgetsQuery }, CryptoDashboardApp() (+33 more)
+Cohesion: 0.06
+Nodes (35): addTagTypes, CryptoDashboardApi, CryptoDashboardWidgetType, GetCryptoDashboardWidgetsApiArg, GetCryptoDashboardWidgetsApiResponse, LazyLoadedSlices, @/store/rootReducer, CryptoDashboardAppContent() (+27 more)
 
 ### Community 143 - "curriculum_repository_impl.dart"
-Cohesion: 0.04
-Nodes (50): _client, CurriculumRemoteDataSource, CurriculumRemoteDataSourceImpl, _extractData, getChapter, getLesson, getMyProgressSummary, getMySubjectProgress (+42 more)
+Cohesion: 0.05
+Nodes (43): _client, CurriculumRemoteDataSource, CurriculumRemoteDataSourceImpl, _extractData, getChapter, getLesson, getMyProgressSummary, getMySubjectProgress (+35 more)
 
 ### Community 144 - "useUser"
-Cohesion: 0.06
-Nodes (35): authCreateDbUser(), authGetDbUser(), authGetDbUserByEmail(), authUpdateDbUser(), AuthJsProvider, config, { handlers, auth, signIn, signOut }, providers (+27 more)
+Cohesion: 0.05
+Nodes (40): authCreateDbUser(), authGetDbUser(), authGetDbUserByEmail(), authUpdateDbUser(), AuthJsProvider, config, { handlers, auth, signIn, signOut }, providers (+32 more)
 
 ### Community 145 - "subscription_dto.dart"
 Cohesion: 0.12
@@ -1571,25 +1576,25 @@ Nodes (11): scripts, build, dev, format, format:check, lint, lint:check, migrate
 Cohesion: 0.14
 Nodes (12): actions, BasicSpeedDial(), actions, ControlledOpenSpeedDial(), actions, OpenIconSpeedDial(), actions, PlaygroundSpeedDial() (+4 more)
 
-### Community 149 - "AuthorizationDoc.tsx"
+### Community 149 - "demo/src/@auth/AuthGuardRedirect.tsx"
+Cohesion: 0.05
+Nodes (34): AdminRoleExample(), StaffRoleExample(), AuthorizationDoc(), authProtectedNavigationExamples, SignInPage(), SignOutPage(), SignUpPage(), AuthGuardProps (+26 more)
+
+### Community 150 - "NoteFormAddListItem.tsx"
 Cohesion: 0.13
-Nodes (8): AdminRoleExample(), StaffRoleExample(), AuthorizationDoc(), authProtectedNavigationExamples, SignInPage(), SignUpPage(), authRoles, AuthJsForm()
+Nodes (15): defaultValues, FormType, NoteFormAddListItem(), onSubmit(), NoteFormAddListItemProps, schema, NoteFormList(), NoteFormListProps (+7 more)
 
-### Community 150 - "sync_controller_test.dart"
-Cohesion: 0.17
-Nodes (11): countPending, enqueueOperation, flushPending, getCheckpoint, listPending, main, _queue, restoreStuckProcessing (+3 more)
-
-### Community 151 - "PaymentMethod"
-Cohesion: 0.09
-Nodes (20): InitiatePaymentDto, ApiProperty, ApiPropertyOptional, IsEnum, IsNotEmpty, IsOptional, IsString, ManualPaymentSubmitDto (+12 more)
+### Community 151 - "InitiatePaymentDto"
+Cohesion: 0.25
+Nodes (7): InitiatePaymentDto, ApiProperty, ApiPropertyOptional, IsEnum, IsNotEmpty, IsOptional, IsString
 
 ### Community 152 - "ECommerceApi.ts"
-Cohesion: 0.05
-Nodes (35): DELETE(), GET(), PUT(), DELETE(), GET(), addTagTypes, CreateECommerceProductApiArg, CreateECommerceProductApiResponse (+27 more)
+Cohesion: 0.04
+Nodes (45): DELETE(), GET(), PUT(), DELETE(), GET(), addTagTypes, CreateECommerceProductApiArg, CreateECommerceProductApiResponse (+37 more)
 
-### Community 153 - "BoardAddCard.tsx"
-Cohesion: 0.10
-Nodes (17): BoardAddCard(), handleCloseForm(), onSubmit(), BoardAddCardProps, defaultValues, FormType, schema, BoardList() (+9 more)
+### Community 153 - "demo/src/app/App.tsx"
+Cohesion: 0.11
+Nodes (11): App(), AppProps, metadata, AppContext, AppContextType, emotionCacheOptions, MainThemeProvider(), MainThemeProviderProps (+3 more)
 
 ### Community 154 - "compilerOptions"
 Cohesion: 0.13
@@ -1599,29 +1604,29 @@ Nodes (14): src/__tests__/**/*, compilerOptions, esModuleInterop, forceConsisten
 Cohesion: 0.05
 Nodes (33): GET(), GET(), GET(), GET(), GET(), container, FaqList(), FaqListProps (+25 more)
 
-### Community 156 - "student_profile_page.dart"
-Cohesion: 0.12
-Nodes (19): build, progressSummaryFutureProvider, studentProfileControllerProvider, build, _buildMenuTile, _buildStatCol, createState, initState (+11 more)
+### Community 156 - "subscriptionControllerProvider"
+Cohesion: 0.25
+Nodes (8): build, _handlePayment, subscriptionControllerProvider, build, initState, AppRoutes.paymentSuccess, AppRoutes.studentProfile, AppRoutes.subscription
 
-### Community 157 - "auth_response_dto.dart"
-Cohesion: 0.14
-Nodes (12): AuthResponseDto, fromJson, toJson, tokens, user, accessToken, fromJson, refreshToken (+4 more)
+### Community 157 - "user_dto.dart"
+Cohesion: 0.07
+Nodes (25): AuthResponseDto, fromJson, toJson, tokens, user, accessToken, fromJson, refreshToken (+17 more)
 
 ### Community 158 - "MailboxApi.ts"
 Cohesion: 0.03
-Nodes (55): GET(), GET(), DELETE(), PUT(), GET(), POST(), GET(), GET() (+47 more)
+Nodes (50): GET(), GET(), DELETE(), PUT(), GET(), POST(), MailAttachment(), MailAttachmentProps (+42 more)
 
 ### Community 159 - "lesson_dto.dart"
 Cohesion: 0.12
 Nodes (16): chapterId, contentBlocks, contentVersion, fromJson, id, isPublished, LessonDto, order (+8 more)
 
-### Community 160 - "ClassroomSubmissionRepository"
-Cohesion: 0.31
-Nodes (4): ClassroomSubmissionRepository, Injectable, InjectModel, ClassroomSubmissionDocument
+### Community 160 - "classrooms.service.spec.ts"
+Cohesion: 0.14
+Nodes (13): SubmissionStatus, GRADED, LATE, PENDING, SUBMITTED, ClassroomSubmissionRepository, Injectable, InjectModel (+5 more)
 
 ### Community 161 - "AppBarDoc.tsx"
-Cohesion: 0.08
-Nodes (21): BackToTop(), Props, BottomAppBar(), messages, StyledFab, ButtonAppBar(), DenseAppBar(), appBarLabel() (+13 more)
+Cohesion: 0.14
+Nodes (11): BackToTop(), Props, ButtonAppBar(), DenseAppBar(), MenuAppBar(), ProminentAppBar(), StyledToolbar, pages (+3 more)
 
 ### Community 162 - "lesson_content_block.dart"
 Cohesion: 0.05
@@ -1631,9 +1636,9 @@ Nodes (44): altText, apiValue, attribution, body, bookName, caption, chapter, de
 Cohesion: 0.06
 Nodes (30): BasicSelect(), ControlledOpenSelect(), BootstrapInput, CustomizedSelects(), DialogSelect(), GroupedSelect(), getStyles(), MenuProps (+22 more)
 
-### Community 164 - "exam_controller_test.dart"
-Cohesion: 0.10
-Nodes (21): ExamSessionActive, ExamSessionController, ExamSessionError, ExamSessionInitial, ExamSessionLoading, ExamSessionState, ExamSessionSubmitted, flagQuestion (+13 more)
+### Community 164 - "auth_repository_impl_test.dart"
+Cohesion: 0.11
+Nodes (18): forgotPassword, getCurrentUser, login, logout, logoutAll, main, refreshTokens, register (+10 more)
 
 ### Community 165 - "tutor_conversation.dart"
 Cohesion: 0.14
@@ -1648,24 +1653,24 @@ Cohesion: 0.04
 Nodes (47): devDependencies, autoprefixer, eslint, eslint-config-next, eslint-config-prettier, @eslint/eslintrc, @eslint/js, eslint-plugin-prettier (+39 more)
 
 ### Community 168 - "theme_extensions.dart"
-Cohesion: 0.17
-Nodes (12): @immutable, app_shadows.dart, cardShadow, copyWith, lerp, light, ShikkhokThemeExtension, softShadow (+4 more)
+Cohesion: 0.15
+Nodes (13): copyWith, errorLight, infoLight, lerp, light, ShikkhokThemeExtension, success, successLight (+5 more)
 
-### Community 169 - "homework_submission.dart"
-Cohesion: 0.09
-Nodes (20): createdAt, HomeworkSubmission, id, imageUrls, isCompleted, isFailed, isProcessing, prompt (+12 more)
+### Community 169 - "tutor_message.dart"
+Cohesion: 0.05
+Nodes (42): createdAt, HomeworkSubmission, id, imageUrls, isCompleted, isFailed, isProcessing, prompt (+34 more)
 
 ### Community 170 - "demo/src/@fuse/core/FuseCountdown/index.ts"
 Cohesion: 0.05
 Nodes (22): ClassicComingSoonPage(), defaultValues, schema, defaultValues, FullScreenComingSoonPage(), schema, defaultValues, FullScreenReversedComingSoonPage() (+14 more)
 
-### Community 171 - "app.e2e-spec.ts"
-Cohesion: 0.15
-Nodes (9): Catch, AppModule, Module, RequestIdInterceptor, Injectable, StandardApiResponse, TransformResponseInterceptor, Injectable (+1 more)
+### Community 171 - "main.ts"
+Cohesion: 0.13
+Nodes (11): Catch, AppModule, Module, RequestIdInterceptor, Injectable, StandardApiResponse, TransformResponseInterceptor, Injectable (+3 more)
 
 ### Community 172 - "exams.service.ts"
-Cohesion: 0.03
-Nodes (89): AdminListExamsQueryDto, ApiPropertyOptional, IsEnum, IsInt, IsOptional, IsString, Max, Min (+81 more)
+Cohesion: 0.04
+Nodes (50): FlagExamQuestionDto, ApiPropertyOptional, IsBoolean, IsOptional, ListExamsQueryDto, ApiPropertyOptional, IsInt, IsOptional (+42 more)
 
 ### Community 173 - "exam_repository.dart"
 Cohesion: 0.15
@@ -1680,28 +1685,28 @@ Cohesion: 0.11
 Nodes (18): actualChecksumSha256, bytesDownloaded, classLevel, completedAt, copyWith, DownloadStatus, DownloadTask, downloadUrl (+10 more)
 
 ### Community 176 - "PersistentVectorStore"
-Cohesion: 0.13
-Nodes (14): MonkeyPatch, PersistentVectorStore, Any, Path, VectorStoreIndexNotFoundError, VectorStoreEmbeddingMetadata, asyncio, Path (+6 more)
+Cohesion: 0.11
+Nodes (20): MonkeyPatch, validate_embedding_compatibility(), PersistentVectorStore, Any, Path, VectorStoreIndexNotFoundError, active_version_key(), build_retrieval_scope_chain() (+12 more)
 
-### Community 177 - "home_dashboard_controller.dart"
-Cohesion: 0.04
-Nodes (58): ForgotPasswordPage, _ForgotPasswordPageState, LoginPage, _LoginPageState, SignupPage, _SignupPageState, PracticeSetupPage, _PracticeSetupPageState (+50 more)
+### Community 177 - "package:flutter_riverpod/flutter_riverpod.dart"
+Cohesion: 0.05
+Nodes (45): app.dart, bootstrap, AppShadows, card, dropdown, modal, soft, build (+37 more)
 
 ### Community 178 - "StreamingOutputSafetyFilter"
 Cohesion: 0.21
 Nodes (9): Appends chunk to rolling buffer and returns safe prefix text to emit., Incremental streaming output safety filter with a rolling buffer. Prevents…, Flushes and sanitizes any remaining text held in the rolling buffer., StreamingOutputSafetyFilter, test_bangla_unicode_boundaries(), test_redacts_api_key_split_across_chunks(), test_redacts_internal_secret_split_across_chunks(), test_redacts_unsafe_phrase_split_across_chunks() (+1 more)
 
-### Community 179 - "sync_repository_impl.dart"
-Cohesion: 0.07
-Nodes (30): _apiClient, getMyCheckpoint, submitBatch, SyncRemoteDataSource, SyncRemoteDataSourceImpl, SyncCheckpointMapper, toDomain, _apiClient (+22 more)
+### Community 179 - "sync_controller.dart"
+Cohesion: 0.03
+Nodes (85): dispose, _eventController, events, notifyLoggedOut, notifySessionExpired, SessionEvent, SessionManager, sessionManagerProvider (+77 more)
 
 ### Community 180 - "lesson_content_block_dto.dart"
 Cohesion: 0.06
-Nodes (41): altText, attribution, body, bookName, caption, chapter, description, excerpt (+33 more)
+Nodes (40): altText, attribution, body, bookName, caption, chapter, description, excerpt (+32 more)
 
-### Community 181 - "RetrievedChunk"
+### Community 181 - "RetrievalFilter"
 Cohesion: 0.07
-Nodes (49): post, search_curriculum(), RetrievalError, DeterministicEmbeddingProvider, Search vector collection with metadata filtering., validate_embedding_compatibility(), InMemoryVectorStore, Any (+41 more)
+Nodes (47): post, search_curriculum(), RetrievalError, Search vector collection with metadata filtering., Upsert chunks with corresponding embedding vectors. Returns number of…, InMemoryVectorStore, Any, BaseModel (+39 more)
 
 ### Community 182 - "compilerOptions"
 Cohesion: 0.13
@@ -1711,9 +1716,9 @@ Nodes (14): src/**/*.spec.ts, compilerOptions, esModuleInterop, forceConsistentC
 Cohesion: 0.17
 Nodes (11): aiGatewayUrl, apiBaseUrl, appEnv, AppEnvironment, ENV, isDevelopment, isProduction, useMockApi (+3 more)
 
-### Community 184 - "AiMetricsService"
-Cohesion: 0.17
-Nodes (4): AiMetricsService, Injectable, Injectable, TutorGatewayService
+### Community 184 - "demo/src/components/theme-layouts/components/navigation/store/navigationSlice.ts"
+Cohesion: 0.20
+Nodes (13): navigationShowcase, FuseNavigationDoc(), appendNavigationItem(), emptyInitialState, initialState, navigationAdapter, navigationSliceType, prependNavigationItem() (+5 more)
 
 ### Community 185 - "compilerOptions"
 Cohesion: 0.05
@@ -1721,27 +1726,27 @@ Nodes (40): compilerOptions, allowJs, allowSyntheticDefaultImports, baseUrl, dec
 
 ### Community 186 - "TutorController"
 Cohesion: 0.10
-Nodes (24): SendTutorMessageDto, ApiProperty, IsString, MaxLength, StartTutorConversationDto, ApiPropertyOptional, IsOptional, IsString (+16 more)
+Nodes (25): SendTutorMessageDto, ApiProperty, IsString, MaxLength, StartTutorConversationDto, ApiPropertyOptional, IsOptional, IsString (+17 more)
 
 ### Community 187 - "demo/src/store/rootReducer.ts"
-Cohesion: 0.03
-Nodes (64): contactsAppSlice, initialState, injectedSlice, LazyLoadedSlices, searchTextSliceType, @/store/rootReducer, initialState, injectedSlice (+56 more)
+Cohesion: 0.04
+Nodes (52): contactsAppSlice, initialState, injectedSlice, LazyLoadedSlices, searchTextSliceType, @/store/rootReducer, MailboxMail, initialState (+44 more)
 
 ### Community 188 - "lesson.dart"
 Cohesion: 0.13
 Nodes (14): chapterId, contentBlocks, contentVersion, id, isPublished, Lesson, order, pageEnd (+6 more)
 
 ### Community 189 - "homework_repository_impl_test.dart"
-Cohesion: 0.05
-Nodes (34): createSubmission, getFeedback, getMySubmissions, getSubmission, main, MockHomeworkRemoteDataSource, rateFeedback, retrySubmission (+26 more)
+Cohesion: 0.06
+Nodes (32): createSubmission, getFeedback, getMySubmissions, getSubmission, main, rateFeedback, retrySubmission, getChildDashboard (+24 more)
 
 ### Community 190 - "Autocomplete"
 Cohesion: 0.05
 Nodes (40): Accessibility, Advanced, Arguments, Asynchronous requests, Autocomplete, autocomplete/autofill, Checkboxes, Combo box (+32 more)
 
 ### Community 191 - "app_router.dart"
-Cohesion: 0.10
-Nodes (19): _GoRouterRefreshNotifier, _homeForRole, isPublicRoute, _publicRoutes, refresh, refreshNotifier, resolveAppRedirect, state (+11 more)
+Cohesion: 0.06
+Nodes (33): _GoRouterRefreshNotifier, _homeForRole, isPublicRoute, _publicRoutes, refresh, refreshNotifier, resolveAppRedirect, state (+25 more)
 
 ### Community 192 - "ButtonsDoc.tsx"
 Cohesion: 0.07
@@ -1759,33 +1764,33 @@ Nodes (11): bnName, chapterCount, classId, colorBg, enName, fromJson, icon, id (
 Cohesion: 0.07
 Nodes (22): AccessibilityTooltips(), AnchorElTooltips(), ArrowTooltips(), BasicTooltip(), ControlledTooltips(), BootstrapTooltip, CustomizedTooltips(), HtmlTooltip (+14 more)
 
-### Community 196 - "main.py"
-Cohesion: 0.08
-Nodes (37): exception_handler, FastAPI, JSONResponse, Logger, LogRecord, middleware, RequestValidationError, InternalAuthenticationError (+29 more)
+### Community 196 - "container.py"
+Cohesion: 0.04
+Nodes (78): exception_handler, FastAPI, JSONResponse, Logger, LogRecord, middleware, RequestValidationError, get_health() (+70 more)
 
 ### Community 197 - "CardsDoc.tsx"
 Cohesion: 0.14
 Nodes (11): ActionAreaCard(), BasicCard(), ImgMediaCard(), MediaCard(), MediaControlCard(), MultiActionAreaCard(), OutlinedCard(), ExpandMore (+3 more)
 
 ### Community 198 - "token_storage.dart"
-Cohesion: 0.04
-Nodes (44): _accessTokenKey, clearTokens, _deviceIdKey, getAccessToken, getOrCreateDeviceId, getRefreshToken, getUserId, getUserRole (+36 more)
+Cohesion: 0.08
+Nodes (23): _accessTokenKey, clearTokens, _deviceIdKey, getAccessToken, getOrCreateDeviceId, getRefreshToken, getUserId, getUserRole (+15 more)
 
 ### Community 199 - "dependencies"
 Cohesion: 0.05
-Nodes (39): dependencies, clsx, core-js, date-fns, @emotion/react, @emotion/styled, i18next, @mui/material (+31 more)
+Nodes (39): dependencies, autosuggest-highlight, core-js, date-fns, @emotion/react, @emotion/styled, i18next, @mui/material (+31 more)
 
 ### Community 200 - "String?"
 Cohesion: 0.03
-Nodes (70): chapterId, completed, fromJson, lessonId, note, StudyPlanItemDto, subjectId, targetMinutes (+62 more)
+Nodes (63): chapterId, completed, fromJson, lessonId, note, StudyPlanItemDto, subjectId, targetMinutes (+55 more)
 
 ### Community 201 - "auth.module.ts"
 Cohesion: 0.14
 Nodes (12): AuthModule, Module, RefreshSessionRepository, Injectable, InjectModel, RefreshSession, RefreshSessionDocument, RefreshSessionSchema (+4 more)
 
 ### Community 202 - "package:flutter/material.dart"
-Cohesion: 0.04
-Nodes (77): ../../../../app/localization/l10n/app_localizations.dart, ../../../../app/router/app_routes.dart, ../../app/theme/app_colors.dart, ../../app/theme/app_spacing.dart, build, MathProgressDetailPage, build, _buildTimeMetric (+69 more)
+Cohesion: 0.05
+Nodes (70): ../../../../app/localization/l10n/app_localizations.dart, ../../app/router/app_routes.dart, ../../app/theme/app_colors.dart, ../../app/theme/app_spacing.dart, build, _buildRoleCard, createState, _selectedRole (+62 more)
 
 ### Community 203 - "Grid2Doc.tsx"
 Cohesion: 0.07
@@ -1801,31 +1806,31 @@ Nodes (34): cors, express, @google/generative-ai, jsonwebtoken, dependencies, co
 
 ### Community 206 - "exam_session_page.dart"
 Cohesion: 0.05
-Nodes (52): build, ShikkhokApp, appRouterProvider, chapterDetailsProvider, subjectDetailsProvider, build, ChapterDetailsPage, build (+44 more)
+Nodes (56): build, ShikkhokApp, appRouterProvider, build, StudentProgressDashboardPage, WeeklyLearningReportPage, chapterDetailsProvider, progressSummaryFutureProvider (+48 more)
 
-### Community 207 - "demo/src/@auth/forms/AuthJsForm.tsx"
-Cohesion: 0.14
-Nodes (12): authJsProviderMap, AuthJsCredentialsSignInForm(), defaultValues, FormType, schema, AuthJsCredentialsSignUpForm(), defaultValues, FormType (+4 more)
+### Community 207 - "IconListPage.tsx"
+Cohesion: 0.15
+Nodes (5): IconItemProps, IconListItem, IconListPage, IconListPageProps, { useGetIconsListQuery }
 
 ### Community 208 - "skeleton/src/components/theme-layouts/components/FuseSettingsViewerDialog.tsx"
 Cohesion: 0.10
 Nodes (13): FuseSettingsViewerDialog(), FuseSettingsViewerDialogProps, DemoFrame(), DemoFrameProps, Frame, FramedDemo(), FramedDemoProps, FuseExample() (+5 more)
 
 ### Community 209 - "README.md"
-Cohesion: 0.22
-Nodes (5): 1. Authentication Strategy, 2. Authorization & IDOR Protection Matrix, Authentication & Authorization Architecture, RAG Retrieval Pipeline Steps, Retrieval-Augmented Generation (RAG) & Citation Architecture
+Cohesion: 0.18
+Nodes (6): Modular Service Architecture, System Architecture & Technical Specifications, Database & Data Model Specifications, Key Schema & Performance Patterns, RAG Retrieval Pipeline Steps, Retrieval-Augmented Generation (RAG) & Citation Architecture
 
 ### Community 210 - "parent_dashboard_page.dart"
 Cohesion: 0.24
 Nodes (10): parentControllerProvider, build, _buildContent, _buildMetricStat, createState, initState, ParentDashboardPage, _ParentDashboardPageState (+2 more)
 
-### Community 211 - "admin/src/@fuse/core/FuseLayout/FuseLayout.tsx"
-Cohesion: 0.22
-Nodes (7): MainLayout(), MainLayoutProps, FuseLayout(), FuseLayoutProps, FuseRouteObjectType, FuseLayoutSettingsContext, FuseLayoutSettingsContextType
+### Community 211 - "devDependencies"
+Cohesion: 0.12
+Nodes (17): devDependencies, eslint, eslint-config-next, @eslint/js, @next/eslint-plugin-next, postcss, @types/node, @types/react (+9 more)
 
 ### Community 212 - "SafetyCategory"
-Cohesion: 0.16
-Nodes (13): SafetyCategory, BULLYING, GENERAL_WELLBEING, HATE, ILLEGAL_ACTIVITY, JAILBREAK, PERSONAL_DATA, SAFE_EDUCATIONAL (+5 more)
+Cohesion: 0.15
+Nodes (12): SafetyCategory, BULLYING, GENERAL_WELLBEING, HATE, ILLEGAL_ACTIVITY, JAILBREAK, PERSONAL_DATA, SAFE_EDUCATIONAL (+4 more)
 
 ### Community 213 - "DrawersDoc.tsx"
 Cohesion: 0.06
@@ -1847,13 +1852,13 @@ Nodes (11): citations, content, conversationId, createdAt, fromJson, id, provide
 Cohesion: 0.20
 Nodes (9): classId, className, fromJson, id, language, name, StudentProfile, toJson (+1 more)
 
-### Community 219 - "lib/repositories/auth_repository.dart"
-Cohesion: 0.20
-Nodes (9): AuthRepository, getCurrentUser, login, logout, signup, verifyOtp, ../core/config/env.dart, ../core/network/http_client.dart (+1 more)
+### Community 219 - "demo/src/store/store.ts"
+Cohesion: 0.15
+Nodes (12): addAppMiddleware, Config, createAppDispatchWithMiddlewareHook, dynamicInstance, withAppMiddleware, AppAction, AppDispatch, AppStore (+4 more)
 
 ### Community 220 - "GridDoc.tsx"
-Cohesion: 0.07
-Nodes (23): AutoGrid(), Item, AutoGridNoWrap(), StyledPaper, BasicGrid(), Item, ColumnsGrid(), Item (+15 more)
+Cohesion: 0.06
+Nodes (30): SpacingGrid(), AutoGrid(), Item, AutoGridNoWrap(), StyledPaper, BasicGrid(), Item, ColumnsGrid() (+22 more)
 
 ### Community 221 - "ListsDoc.tsx"
 Cohesion: 0.08
@@ -1865,23 +1870,23 @@ Nodes (16): CircularColor(), CircularDeterminate(), CircularIndeterminate(), Cir
 
 ### Community 223 - "useAppDispatch"
 Cohesion: 0.02
-Nodes (138): CalendarApp(), Root, CalendarAppSidebar(), CalendarHeader(), CalendarHeaderProps, CalendarViewMenu(), CalendarViewMenuProps, viewNamesObj (+130 more)
+Nodes (174): DetailSidebarContent(), FileManagerApp(), FileManagerAppProps, useGetMails(), MailboxApp(), MailboxLayoutProps, Root, MailList() (+166 more)
 
-### Community 224 - "FuseScrollbars"
-Cohesion: 0.04
-Nodes (47): GoToDocBox(), GoToDocBoxProps, Logo(), Root, NavbarPinToggleButton(), NavbarStyle1ContentProps, Root, StyledContent (+39 more)
-
-### Community 225 - "DocumentationNavigation.ts"
-Cohesion: 0.16
-Nodes (10): ChangelogCard(), ChangelogCardProps, StyledBadge, changelogData, ChangelogItemType, ChangelogDoc(), DocumentationNavigation, FuseComponentsNavigation (+2 more)
-
-### Community 226 - "Map"
-Cohesion: 0.12
-Nodes (15): ApiResponse, data, fromJson, meta, requestId, averageScore, fromJson, ProgressSummaryDto (+7 more)
-
-### Community 227 - "demo/src/@fuse/core/FuseSettings/hooks/fuseThemeHooks.tsx"
+### Community 224 - "admin/src/components/theme-layouts/layout1/components/navbar/style-3/NavbarStyle3Content.tsx"
 Cohesion: 0.03
-Nodes (84): AppProps, HelpCenterHome(), ProjectDashboardAppHeader(), useUser, handleUpdateUser(), handleUpdateUserSettings(), LightDarkModeToggle(), LightDarkModeToggleProps (+76 more)
+Nodes (55): GoToDocBox(), GoToDocBoxProps, Logo(), Root, Navigation(), UserMenu(), UserMenuProps, NavbarStyle1ContentProps (+47 more)
+
+### Community 225 - "ChangelogData.tsx"
+Cohesion: 0.29
+Nodes (6): ChangelogCard(), ChangelogCardProps, StyledBadge, changelogData, ChangelogItemType, ChangelogDoc()
+
+### Community 226 - "sync_dto.dart"
+Cohesion: 0.05
+Nodes (37): ApiResponse, data, ApiResponseEnvelope, data, extractMeta, fromResponse, meta, requestId (+29 more)
+
+### Community 227 - "demo/src/@fuse/core/FuseSettings/FuseSettings.tsx"
+Cohesion: 0.02
+Nodes (128): HelpCenterHome(), useUser, handleUpdateUser(), handleUpdateUserSettings(), LightDarkModeToggle(), LightDarkModeToggleProps, Configurator(), Root (+120 more)
 
 ### Community 228 - "SteppersDoc.tsx"
 Cohesion: 0.08
@@ -1891,21 +1896,21 @@ Nodes (21): ColorlibConnector, ColorlibStepIconRoot, CustomizedSteppers(), Qonto
 Cohesion: 0.08
 Nodes (9): EventEmitter, Color, FuseRouteConfigsType, FuseRouteConfigType, FuseRouteItemType, FuseRoutesType, FuseUtils, hueTypes (+1 more)
 
-### Community 230 - "tutor_citation_dto.dart"
-Cohesion: 0.18
-Nodes (10): chapter, classLevel, excerpt, fromJson, pageNumber, sourceBook, sourceId, sourceUrl (+2 more)
+### Community 230 - "UserDocument"
+Cohesion: 0.19
+Nodes (5): ForgotPasswordDto, ApiProperty, IsString, InjectModel, UserDocument
 
 ### Community 231 - "demo/src/@auth/authJs.ts"
-Cohesion: 0.08
-Nodes (24): GET(), PUT(), GET(), PUT(), GET(), POST(), App(), metadata (+16 more)
+Cohesion: 0.09
+Nodes (24): GET(), PUT(), GET(), PUT(), GET(), POST(), authCreateDbUser(), authGetDbUser() (+16 more)
 
 ### Community 232 - "MessengerApi.ts"
 Cohesion: 0.03
-Nodes (69): GET(), POST(), GET(), POST(), GET(), PUT(), GET(), Chat() (+61 more)
+Nodes (65): GET(), GET(), Chat(), ChatProps, StyledMessageRow, MainSidebarMoreMenu(), MainSidebarMoreMenuProps, Statuses (+57 more)
 
 ### Community 233 - "MenusDoc.tsx"
-Cohesion: 0.09
-Nodes (17): AccountMenu(), BasicMenu(), ContextMenu(), CustomizedMenus(), StyledMenu, DenseMenu(), FadeMenu(), IconMenu() (+9 more)
+Cohesion: 0.10
+Nodes (15): AccountMenu(), BasicMenu(), ContextMenu(), CustomizedMenus(), StyledMenu, DenseMenu(), FadeMenu(), IconMenu() (+7 more)
 
 ### Community 234 - "build.ts"
 Cohesion: 0.12
@@ -1916,16 +1921,16 @@ Cohesion: 0.07
 Nodes (20): AlertDialog(), AlertDialogSlide(), Transition, ConfirmationDialog(), ConfirmationDialogRawProps, options, CookiesBanner(), BootstrapDialog (+12 more)
 
 ### Community 236 - "AiImageGenApi.ts"
-Cohesion: 0.11
-Nodes (18): addTagTypes, CreateAiImageGenItemApiArg, CreateAiImageGenItemApiResponse, CreateAiImageGenPresetApiArg, CreateAiImageGenPresetApiResponse, DeleteAiImageGenItemApiArg, DeleteAiImageGenItemApiResponse, DeleteAiImageGenPresetApiArg (+10 more)
+Cohesion: 0.10
+Nodes (19): addTagTypes, CreateAiImageGenItemApiArg, CreateAiImageGenItemApiResponse, CreateAiImageGenPresetApiArg, CreateAiImageGenPresetApiResponse, DeleteAiImageGenItemApiArg, DeleteAiImageGenItemApiResponse, DeleteAiImageGenPresetApiArg (+11 more)
 
 ### Community 237 - "ProfileApi.ts"
-Cohesion: 0.08
-Nodes (25): GET(), GET(), GET(), GET(), GET(), addTagTypes, GetProfileAboutApiArg, GetProfileAboutApiResponse (+17 more)
+Cohesion: 0.07
+Nodes (27): GET(), GET(), GET(), GET(), GET(), addTagTypes, GetProfileAboutApiArg, GetProfileAboutApiResponse (+19 more)
 
 ### Community 238 - "AvatarsDoc.tsx"
-Cohesion: 0.11
-Nodes (14): BadgeAvatars(), SmallAvatar, StyledBadge, CustomSurplusAvatars(), FallbackAvatars(), GroupAvatars(), IconAvatars(), ImageAvatars() (+6 more)
+Cohesion: 0.10
+Nodes (17): BackgroundLetterAvatars(), stringAvatar(), stringToColor(), BadgeAvatars(), SmallAvatar, StyledBadge, CustomSurplusAvatars(), FallbackAvatars() (+9 more)
 
 ### Community 239 - "CheckboxesDoc.tsx"
 Cohesion: 0.09
@@ -1935,17 +1940,17 @@ Nodes (17): Checkboxes(), label, CheckboxesGroup(), CheckboxLabels(), ColorCheck
 Cohesion: 0.07
 Nodes (28): firebase-admin, dependencies, axios, bullmq, dotenv, firebase-admin, ioredis, devDependencies (+20 more)
 
-### Community 241 - "parent_repository_impl.dart"
-Cohesion: 0.12
-Nodes (15): ParentMapper, toDomainChild, toDomainDashboard, toDomainSubject, _apiClient, getChildDashboard, linkChild, listLinkedChildren (+7 more)
+### Community 241 - "ContactForm.tsx"
+Cohesion: 0.19
+Nodes (8): BirtdayIcon(), ContactEmailSchema, ContactForm(), ContactFormProps, ContactPhoneNumberSchema, FormType, schema, ContactPage()
 
 ### Community 242 - "ErrorBoundary"
 Cohesion: 0.25
 Nodes (3): ErrorBoundary, ErrorBoundaryProps, ErrorBoundaryState
 
 ### Community 243 - "ChipsDoc.tsx"
-Cohesion: 0.05
-Nodes (27): AvatarChips(), BasicChips(), ChipData, ChipsArray(), ListItem, ClickableAndDeletableChips(), ClickableChips(), ClickableLinkChips() (+19 more)
+Cohesion: 0.10
+Nodes (15): AvatarChips(), BasicChips(), ChipData, ChipsArray(), ListItem, ClickableAndDeletableChips(), ClickableChips(), ClickableLinkChips() (+7 more)
 
 ### Community 244 - "ImageListDoc.tsx"
 Cohesion: 0.10
@@ -1967,9 +1972,9 @@ Nodes (15): ColorRadioButtons(), ControlledRadioButtonsGroup(), BpCheckedIcon, B
 Cohesion: 0.07
 Nodes (28): Accessibility, Basic TextField, Color, Components, Customization, Floating label, Form props, Full width (+20 more)
 
-### Community 249 - "container.py"
-Cohesion: 0.06
-Nodes (61): OutputSafetyService, post, Request, TutorService, stream_tutor(), AiServiceContainer, MockLlmProvider, BaseModel (+53 more)
+### Community 249 - "TutorService"
+Cohesion: 0.05
+Nodes (81): evaluate_homework(), HomeworkService, post, Evaluates student homework with step-by-step correction and curriculum…, post, Request, TutorService, stream_tutor() (+73 more)
 
 ### Community 250 - "AcademyApi.ts"
 Cohesion: 0.08
@@ -1984,8 +1989,8 @@ Cohesion: 0.10
 Nodes (17): BasicSwitches(), label, ColorSwitches(), label, PinkSwitch, ControlledSwitches(), Android12Switch, AntSwitch (+9 more)
 
 ### Community 253 - "admin/src/@fuse/hooks/index.ts"
-Cohesion: 0.10
-Nodes (13): FuseLoading(), FuseLoadingProps, FuseSuspenseProps, checkDeps(), DependencyListType, EffectCallbackType, isPrimitive(), useDeepCompareEffect() (+5 more)
+Cohesion: 0.17
+Nodes (4): FuseLoading(), FuseLoadingProps, FuseSuspenseProps, useTimeout()
 
 ### Community 254 - "SkeletonDoc.tsx"
 Cohesion: 0.10
@@ -2003,9 +2008,9 @@ Nodes (4): FuseLoading(), FuseLoadingProps, FuseSuspenseProps, useTimeout()
 Cohesion: 0.33
 Nodes (3): AiCostControlManager, AiRequestType, AiUsageTelemetry
 
-### Community 259 - "SubscriptionsService"
-Cohesion: 0.14
-Nodes (12): SubscriptionsController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body, Controller, Get (+4 more)
+### Community 259 - "SubscriptionsController"
+Cohesion: 0.23
+Nodes (10): SubscriptionsController, ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, Body, Controller, Get (+2 more)
 
 ### Community 260 - "AppLocalizations"
 Cohesion: 0.40
@@ -2025,8 +2030,8 @@ Cohesion: 0.12
 Nodes (14): AccessibleBadges(), notificationsLabel(), BadgeMax(), BadgeOverlap(), shapeCircleStyles, shapeStyles, BadgeVisibility(), ColorBadge() (+6 more)
 
 ### Community 264 - "worker.ts"
-Cohesion: 0.08
-Nodes (37): config, getRedisClient(), startHealthServer(), AnalyticsJobData, processAnalyticsJob(), CurriculumJobData, processCurriculumJob(), signRequest() (+29 more)
+Cohesion: 0.07
+Nodes (39): config, getRedisClient(), startHealthServer(), AnalyticsJobData, processAnalyticsJob(), CurriculumJobData, processCurriculumJob(), reportProgress() (+31 more)
 
 ### Community 265 - "message_response_dto.dart"
 Cohesion: 0.40
@@ -2036,13 +2041,13 @@ Nodes (4): fromJson, message, MessageResponseDto, toJson
 Cohesion: 0.40
 Nodes (4): generateRecommendedPlan, getCurrentPlan, StudyPlanRepository, ../entities/study_plan.dart
 
-### Community 267 - "demo/src/@auth/AuthGuardRedirect.tsx"
-Cohesion: 0.20
-Nodes (7): GuestRoleExample(), SignOutPage(), AuthGuardProps, AuthGuardRedirect(), getSessionRedirectUrl(), resetSessionRedirectUrl(), setSessionRedirectUrl()
+### Community 267 - "demo/src/components/theme-layouts/components/LanguageSwitcher.tsx"
+Cohesion: 0.26
+Nodes (8): LanguageSwitcher(), I18nContext, I18nContextType, LanguageType, I18nProvider(), I18nProviderProps, languages, useI18n()
 
 ### Community 268 - "FuseExample"
 Cohesion: 0.05
-Nodes (27): SimpleBackdrop(), BoxBasic(), BoxSx(), FixedContainer(), SimpleContainer(), ButtonLink(), UnderlineLink(), a11yProps() (+19 more)
+Nodes (28): SimpleBackdrop(), BoxBasic(), BoxSx(), FixedContainer(), SimpleContainer(), a11yProps(), BasicTabs(), TabPanelProps (+20 more)
 
 ### Community 269 - "Grid version 2"
 Cohesion: 0.08
@@ -2061,8 +2066,8 @@ Cohesion: 0.13
 Nodes (13): Area(), Chart, Bar(), Chart, Chart, Column(), Chart, Donut() (+5 more)
 
 ### Community 273 - "api/api-client.ts"
-Cohesion: 0.14
-Nodes (13): ENV, Environment, RequestOptions, SessionExpiredHandler, ApiError, ConflictError, ForbiddenError, NetworkError (+5 more)
+Cohesion: 0.17
+Nodes (12): RequestOptions, SessionExpiredHandler, AuthProvider(), ApiError, ConflictError, ForbiddenError, NetworkError, NotFoundError (+4 more)
 
 ### Community 276 - "demo/package.json"
 Cohesion: 0.09
@@ -2084,25 +2089,21 @@ Nodes (11): BasicPagination(), CustomIcons(), PaginationButtons(), PaginationCon
 Cohesion: 0.09
 Nodes (22): Accessibility, Advanced features, Auto width, Basic select, Checkmarks, Chip, Controlling the open state, Customization (+14 more)
 
-### Community 284 - "parent_child_dashboard.dart"
-Cohesion: 0.13
-Nodes (14): aiWeeklyInsightBangla, averageAccuracy, childUserId, classLevel, completedLessons, masteryPercentage, name, ParentChildDashboard (+6 more)
-
-### Community 285 - "PaymentWebhookService"
-Cohesion: 0.23
-Nodes (11): Headers, PaymentWebhookService, Injectable, PaymentWebhooksController, ApiOperation, ApiResponse, ApiTags, Body (+3 more)
+### Community 285 - "PaymentWebhooksController"
+Cohesion: 0.31
+Nodes (9): Headers, PaymentWebhooksController, ApiOperation, ApiResponse, ApiTags, Body, Controller, HttpCode (+1 more)
 
 ### Community 286 - "admin/src/@fuse/core/FuseSearch/FuseSearch.tsx"
 Cohesion: 0.12
 Nodes (14): ActionType, FuseSearch(), escFunction(), handleClickAway(), handleSuggestionSelected(), hideSearch(), showSearch(), FuseSearchProps (+6 more)
 
-### Community 287 - "CreateAssignmentDto"
-Cohesion: 0.17
-Nodes (12): CreateAssignmentDto, ApiProperty, ApiPropertyOptional, IsDateString, IsEnum, IsInt, IsNotEmpty, IsOptional (+4 more)
+### Community 287 - "admin/src/components/theme-layouts/components/quickPanel/QuickPanel.tsx"
+Cohesion: 0.24
+Nodes (4): StyledSwipeableDrawer, QuickPanel, QuickPanel, QuickPanel
 
-### Community 288 - "demo/src/@fuse/core/FuseSettings/FuseSettings.tsx"
-Cohesion: 0.10
-Nodes (18): layoutConfigOnlyMain, layoutConfigOnlyMainFullWidth, layoutNoContainer, FuseSettings(), FuseSettingsProps, FuseThemeType, Root, PalettePreview() (+10 more)
+### Community 288 - "LinksDoc.tsx"
+Cohesion: 0.24
+Nodes (3): ButtonLink(), UnderlineLink(), LinksDoc()
 
 ### Community 289 - "Dialog"
 Cohesion: 0.09
@@ -2113,8 +2114,8 @@ Cohesion: 0.09
 Nodes (21): Accessibility, Color, Continuous sliders, Custom marks, Customization, Discrete sliders, Inverted track, Label always visible (+13 more)
 
 ### Community 291 - "demo/src/@fuse/core/FuseSearch/FuseSearch.tsx"
-Cohesion: 0.12
-Nodes (14): ActionType, FuseSearch(), escFunction(), handleClickAway(), handleSuggestionSelected(), hideSearch(), showSearch(), FuseSearchProps (+6 more)
+Cohesion: 0.17
+Nodes (8): ActionType, FuseSearchProps, getSuggestions(), initialState, reducer(), RenderInputComponentType, Root, StateType
 
 ### Community 292 - "skeleton/package.json"
 Cohesion: 0.09
@@ -2136,9 +2137,9 @@ Nodes (20): Auto-layout, Basic grid, Columns, Complex Grid, CSS Grid Layout, dir
 Cohesion: 0.10
 Nodes (20): Circular, Circular color, Circular determinate, Circular indeterminate, Circular size, Circular with label, Customization, Delaying appearance (+12 more)
 
-### Community 297 - "sync_dto.dart"
-Cohesion: 0.14
-Nodes (13): applied, errorCode, errorMessage, failed, fromJson, operationId, received, replayed (+5 more)
+### Community 297 - "admin/src/@fuse/hooks/useDeepCompareEffect.ts"
+Cohesion: 0.29
+Nodes (9): checkDeps(), DependencyListType, EffectCallbackType, isPrimitive(), useDeepCompareEffect(), useDeepCompareEffectNoCheck(), useDeepCompareMemoize(), UseEffectParamsType (+1 more)
 
 ### Community 298 - "skeleton/src/@fuse/core/FuseSearch/FuseSearch.tsx"
 Cohesion: 0.12
@@ -2177,16 +2178,16 @@ Cohesion: 0.16
 Nodes (10): BasicButtonGroup(), DisableElevation(), buttons, GroupOrientation(), buttons, GroupSizesColors(), options, SplitButton() (+2 more)
 
 ### Community 307 - "RegisterDto"
-Cohesion: 0.20
-Nodes (10): IsEmail, RegisterDto, ApiProperty, ApiPropertyOptional, IsEnum, IsOptional, IsString, Matches (+2 more)
+Cohesion: 0.15
+Nodes (13): IsEmail, RegisterDto, ApiProperty, ApiPropertyOptional, IsEnum, IsOptional, IsString, Matches (+5 more)
 
-### Community 308 - "classrooms.module.ts"
-Cohesion: 0.09
-Nodes (26): AssignmentType, EXAM, HOMEWORK, PRACTICE, READING, SubmissionStatus, GRADED, LATE (+18 more)
+### Community 308 - "CreateAssignmentDto"
+Cohesion: 0.08
+Nodes (25): CreateAssignmentDto, ApiProperty, ApiPropertyOptional, IsDateString, IsEnum, IsInt, IsNotEmpty, IsOptional (+17 more)
 
 ### Community 309 - "int?"
-Cohesion: 0.12
-Nodes (15): data, event, id, retry, toString, Chapter, estimatedMinutes, id (+7 more)
+Cohesion: 0.05
+Nodes (34): data, event, id, retry, toString, Chapter, estimatedMinutes, id (+26 more)
 
 ### Community 310 - "Button"
 Cohesion: 0.11
@@ -2196,13 +2197,13 @@ Nodes (18): Basic button, Button, Buttons with icons and label, Color, Colors, C
 Cohesion: 0.11
 Nodes (18): Accessibility, Anatomy, Automatic dismiss, Basics, Common examples, Consecutive Snackbars, Content, Customization (+10 more)
 
-### Community 312 - "sync_controller.dart"
-Cohesion: 0.08
-Nodes (29): apiClient, appDatabase, checkpoint, enqueueLessonProgress, enqueueNotificationRead, enqueueOperation, enqueueStudyPlan, flushQueue (+21 more)
+### Community 312 - "admin/src/components/theme-layouts/components/FullScreenToggle.tsx"
+Cohesion: 0.28
+Nodes (7): FullScreenDocumentType, FullScreenHTMLElementType, HeaderFullScreenToggle(), closeFullscreen(), openFullscreen(), toggleFullScreen(), HeaderFullScreenToggleProps
 
 ### Community 313 - "TextFieldsDoc.tsx"
-Cohesion: 0.05
-Nodes (33): BasicTextFields(), ColorTextFields(), ComposedTextField(), CustomizedInputBase(), BootstrapInput, CssTextField, CustomizedInputsStyled(), RedditTextField (+25 more)
+Cohesion: 0.16
+Nodes (9): BasicTextFields(), FormPropsTextFields(), FullWidthTextField(), HelperTextAligned(), HelperTextMisaligned(), InputWithIcon(), MultilineTextFields(), StateTextFields() (+1 more)
 
 ### Community 314 - "CardComment.tsx"
 Cohesion: 0.22
@@ -2213,8 +2214,8 @@ Cohesion: 0.17
 Nodes (8): EventEmitter, Color, FuseRouteConfigsType, FuseRouteConfigType, FuseRouteItemType, FuseRoutesType, hueTypes, TreeNode
 
 ### Community 316 - "AiImageGenForm.tsx"
-Cohesion: 0.16
-Nodes (14): AiImageGenApiResponse, AiImageGenSettings, defaultValues, FormType, schema, StyleOption, StyleSelectFormController(), StyleSelectFormControllerProps (+6 more)
+Cohesion: 0.20
+Nodes (12): AiImageGenApiResponse, AiImageGenSettings, defaultValues, FormType, schema, StyleOption, StyleSelectFormController(), StyleSelectFormControllerProps (+4 more)
 
 ### Community 317 - "exam_repository_impl_test.dart"
 Cohesion: 0.15
@@ -2232,9 +2233,13 @@ Nodes (17): Accessibility, Basic table, Caption, Collapsible table, Column group
 Cohesion: 0.11
 Nodes (17): Accessibility, Arrow tooltips, Basic tooltip, Controlled tooltips, Custom child element, Customization, Disabled elements, Distance from anchor (+9 more)
 
-### Community 321 - "demo/src/@fuse/core/FuseLayout/FuseLayout.tsx"
-Cohesion: 0.18
-Nodes (9): MainLayout(), MainLayoutProps, themeLayouts, themeLayoutsType, FuseLayout(), FuseLayoutProps, FuseRouteObjectType, FuseLayoutSettingsContext (+1 more)
+### Community 321 - "subscription_repository_impl_test.dart"
+Cohesion: 0.22
+Nodes (8): getMySubscription, initiatePayment, listPlans, main, submitManualPayment, package:mobile/features/subscription/data/datasources/subscription_remote_data_source.dart, package:mobile/features/subscription/data/dto/subscription_dto.dart, package:mobile/features/subscription/data/repositories/subscription_repository_impl.dart
+
+### Community 322 - "AuthService"
+Cohesion: 0.13
+Nodes (7): AuthService, Injectable, RequestOtpDto, ApiProperty, IsEnum, IsString, Matches
 
 ### Community 323 - "admin/package.json"
 Cohesion: 0.12
@@ -2244,9 +2249,9 @@ Nodes (16): name, overrides, react, react-dom, redux, semver, private, scripts (
 Cohesion: 0.15
 Nodes (12): SyncRepositoryImpl, countPending, enqueueOperation, flushPending, getCheckpoint, listPending, restoreStuckProcessing, SyncRepository (+4 more)
 
-### Community 325 - "auth.service.ts"
-Cohesion: 0.09
-Nodes (26): OtpState, TokenPair, ForgotPasswordDto, ApiProperty, IsString, LoginDto, ApiProperty, ApiPropertyOptional (+18 more)
+### Community 325 - "LoginDto"
+Cohesion: 0.33
+Nodes (5): LoginDto, ApiProperty, ApiPropertyOptional, IsOptional, IsString
 
 ### Community 326 - "Alert"
 Cohesion: 0.12
@@ -2264,12 +2269,12 @@ Nodes (9): PopperPopupState(), PositionedPopper(), SimplePopper(), Fade, FadePro
 Cohesion: 0.12
 Nodes (16): Accessibility, API, Color, Controlled, Customization, Direction, Example, Label placement (+8 more)
 
-### Community 330 - "useAuth"
-Cohesion: 0.18
-Nodes (6): ForbiddenPage(), Error404Page(), SignOutPage(), AdminGuard(), AdminGuardProps, useAuth()
+### Community 330 - "admin/src/@fuse/core/FuseLayout/FuseLayout.tsx"
+Cohesion: 0.08
+Nodes (18): ForbiddenPage(), Error404Page(), SignInFormData, SignInPage(), signInSchema, SignOutPage(), MainLayout(), MainLayoutProps (+10 more)
 
 ### Community 331 - "VerifyOtpDto"
-Cohesion: 0.20
+Cohesion: 0.18
 Nodes (10): OtpPurpose, LOGIN, PASSWORD_RESET, REGISTRATION, ApiProperty, IsEnum, IsString, Length (+2 more)
 
 ### Community 332 - "TablePricingTable.tsx"
@@ -2304,9 +2309,9 @@ Nodes (15): Alternative label, Basics, Customized horizontal stepper, Dots, Erro
 Cohesion: 0.16
 Nodes (7): AccessibleTable(), rows, CollapsibleTable(), rows, DenseTable(), rows, TableDoc()
 
-### Community 340 - "tutor-gateway.service.ts"
-Cohesion: 0.16
-Nodes (9): Inject, CitationValidatorService, Injectable, OutputSafetyService, Injectable, Optional, TutorGatewayReply, TutorGatewayRequest (+1 more)
+### Community 340 - "teacher-portal/package.json"
+Cohesion: 0.22
+Nodes (8): name, private, scripts, build, dev, lint, start, version
 
 ### Community 341 - "chapter_dto.dart"
 Cohesion: 0.17
@@ -2316,13 +2321,13 @@ Nodes (11): ChapterDto, estimatedMinutes, fromJson, id, isPublished, order, slug
 Cohesion: 0.17
 Nodes (10): darkTheme, Elevation(), Item, lightTheme, SimplePaper(), DemoPaper, SquareCorners(), DemoPaper (+2 more)
 
-### Community 343 - "auth_routes.dart"
-Cohesion: 0.12
-Nodes (15): authRoutes, ../../features/auth/domain/entities/otp_purpose.dart, ../../features/auth/domain/entities/user.dart, ../../features/auth/presentation/pages/forgot_password_page.dart, ../../features/auth/presentation/pages/login_page.dart, ../../features/auth/presentation/pages/role_selection_page.dart, ../../features/auth/presentation/pages/signup_page.dart, ../../features/auth/presentation/pages/verify_otp_page.dart (+7 more)
+### Community 343 - "FuseSearch"
+Cohesion: 0.33
+Nodes (6): FuseSearch(), escFunction(), handleClickAway(), handleSuggestionSelected(), hideSearch(), showSearch()
 
-### Community 344 - ".activateFromPayment"
-Cohesion: 0.18
-Nodes (4): ApiProperty, IsNotEmpty, IsString, VerifyPaymentDto
+### Community 344 - "PaymentTransactionDocument"
+Cohesion: 0.08
+Nodes (10): ApiProperty, IsNotEmpty, IsString, VerifyPaymentDto, PaymentTransactionRepository, Injectable, InjectModel, PaymentTransactionDocument (+2 more)
 
 ### Community 345 - "Accordion"
 Cohesion: 0.13
@@ -2340,9 +2345,9 @@ Nodes (14): Anatomy, Basics, Direction, Dividers, Flexbox gap, Interactive demo,
 Cohesion: 0.13
 Nodes (14): applied, errorCode, errorMessage, failed, isAllSuccessful, isSuccessful, operationId, received (+6 more)
 
-### Community 349 - "tutor_routes.dart"
-Cohesion: 0.14
-Nodes (12): app_routes.dart, parentRoutes, tutorRoutes, ../../features/checkout/presentation/pages/checkout_page.dart, ../../features/checkout/presentation/pages/payment_success_page.dart, ../../features/parent/presentation/pages/parent_dashboard_page.dart, ../../features/subscription/presentation/pages/subscription_page.dart, ../../features/tutor/presentation/pages/ai_tutor_chat_page.dart (+4 more)
+### Community 349 - "Data Authority & Strategies"
+Cohesion: 0.22
+Nodes (8): 1. Progress Metrics (Merge / Additive), 2. Study Plans (Last-Write-Wins with Timestamp), 3. Notifications (Idempotent State), 4. Conversations & Tutor Messages (Append-Only), Data Authority & Strategies, Overview, Safe Replays, Shikkhok-AI Sync & Conflict Handling Strategies
 
 ### Community 350 - "FuseUtils"
 Cohesion: 0.08
@@ -2372,9 +2377,9 @@ Nodes (14): paths, ./src/@auth/*, ./src/@fuse/*, ./src/@history, ./src/@i18n/*, 
 Cohesion: 0.17
 Nodes (12): Architectural Separation of Responsibilities, Architecture, Client Cancellation Semantics, Hardened SSE Parser, Internal Service Authentication (HMAC-SHA256), Lifecycle & Dependency Injection (`AiServiceContainer`), Production Rules, Runtime Environments & Safety Policies (+4 more)
 
-### Community 357 - "tutor_message.dart"
-Cohesion: 0.14
-Nodes (13): citations, content, conversationId, createdAt, id, isUser, provider, role (+5 more)
+### Community 357 - "RAGCurriculumPipeline"
+Cohesion: 0.28
+Nodes (3): CurriculumChunk, NctbDocumentMetadata, RAGCurriculumPipeline
 
 ### Community 358 - "theme.dart"
 Cohesion: 0.17
@@ -2404,21 +2409,21 @@ Nodes (12): Accessibility, ARIA, Color, Customization, Enforce value set, Exclus
 Cohesion: 0.18
 Nodes (5): lex(), LexerThisType, MarkdownElementProps, renderer, Root
 
-### Community 365 - "exam_remote_data_source.dart"
-Cohesion: 0.15
-Nodes (13): _apiClient, ExamRemoteDataSource, ExamRemoteDataSourceImpl, flagQuestion, getExam, getSession, getSessionResult, listExams (+5 more)
+### Community 365 - "progress_summary.dart"
+Cohesion: 0.25
+Nodes (7): averageScore, ProgressSummary, streakDays, subjectMastery, totalLessonsCompleted, totalMinutesStudied, totalPracticeSessions
 
-### Community 366 - "health.py"
-Cohesion: 0.29
-Nodes (11): get_health(), get_readiness(), get, Liveness probe: verifies process availability (no dependency checks)., Readiness probe: validates critical dependencies with bounded latency., DependencyStatus, ErrorDetail, ErrorResponse (+3 more)
+### Community 366 - "DocumentationNavigation.ts"
+Cohesion: 0.36
+Nodes (4): DocumentationNavigation, FuseComponentsNavigation, MaterialUIComponentsNavigation, ThirdPartyComponentsNavigation
 
 ### Community 367 - "HelpCenterSupport.tsx"
 Cohesion: 0.33
 Nodes (4): defaultValues, formValuesType, HelpCenterSupport(), schema
 
-### Community 368 - "CreateClassroomDto"
-Cohesion: 0.17
-Nodes (12): CreateClassroomDto, ApiProperty, ApiPropertyOptional, IsInt, IsNotEmpty, IsOptional, IsString, Max (+4 more)
+### Community 368 - "demo/src/configs/navigationConfig.ts"
+Cohesion: 0.36
+Nodes (4): locale, locale, locale, navigationConfig
 
 ### Community 369 - "peerDependencies"
 Cohesion: 0.17
@@ -2428,9 +2433,9 @@ Nodes (12): react, react-dom, autoprefixer, autoprefixer, postcss, react, react-
 Cohesion: 0.24
 Nodes (7): FixedBottomNavigation(), MessageExample, messageExamples, refreshMessages(), LabelBottomNavigation(), SimpleBottomNavigation(), BottomNavigationDoc()
 
-### Community 371 - "admin.service.ts"
-Cohesion: 0.03
-Nodes (85): InjectModel, AdminCreateSubjectDto, ApiProperty, ApiPropertyOptional, IsBoolean, IsEnum, IsInt, IsNotEmpty (+77 more)
+### Community 371 - "app.module.ts"
+Cohesion: 0.02
+Nodes (135): DatabaseModule, Module, QueueModule, Global, Module, RedisModule, Global, Module (+127 more)
 
 ### Community 372 - "Breadcrumbs"
 Cohesion: 0.17
@@ -2448,9 +2453,9 @@ Nodes (11): Accessibility, ARIA, Basic speed dial, Controlled speed dial, Custom
 Cohesion: 0.17
 Nodes (11): Accessibility, Basic switches, Color, Controlled, Customization, Label, Label placement, Size (+3 more)
 
-### Community 376 - "sync_checkpoint.dart"
-Cohesion: 0.20
-Nodes (9): deviceId, fromString, lastBatchSize, lastOperationId, lastSyncedAt, status, SyncCheckpoint, SyncCheckpointStatus (+1 more)
+### Community 376 - "ManualPaymentSubmitDto"
+Cohesion: 0.25
+Nodes (7): ManualPaymentSubmitDto, ApiProperty, IsEnum, IsNotEmpty, IsString, Length, Matches
 
 ### Community 377 - "Transitions"
 Cohesion: 0.17
@@ -2460,9 +2465,9 @@ Nodes (11): Child requirement, Collapse, Fade, Grow, Performance & SEO, Slide, S
 Cohesion: 0.17
 Nodes (11): Accessibility, Adding & disabling variants, Changing the semantic element, Component, Customization, Google Web Fonts, Roboto font, System props (+3 more)
 
-### Community 379 - "parent_repository_impl_test.dart"
-Cohesion: 0.22
-Nodes (8): getChildDashboard, linkChild, listLinkedChildren, main, unlinkChild, package:mobile/features/parent/data/datasources/parent_remote_data_source.dart, package:mobile/features/parent/data/dto/parent_child_dto.dart, package:mobile/features/parent/data/repositories/parent_repository_impl.dart
+### Community 379 - "TextbookIndexingStatus"
+Cohesion: 0.25
+Nodes (8): TextbookIndexingStatus, ARCHIVED, DRAFT, FAILED, INDEXED, PARTIALLY_FAILED, PROCESSING, QUEUED
 
 ### Community 380 - "peerDependencies"
 Cohesion: 0.17
@@ -2497,8 +2502,8 @@ Cohesion: 0.18
 Nodes (10): Approach, Color scheme, CSS Baseline, Customization, Global reset, Layout, Page, Scoping on children (+2 more)
 
 ### Community 388 - "🎓 Shikkhok AI (শিক্ষক এআই) — AI-Powered Learning Platform for Bangladesh"
-Cohesion: 0.29
-Nodes (7): 🚀 Local Development Quickstart, 🗺️ Product Roadmap, 🎓 Shikkhok AI (শিক্ষক এআই) — AI-Powered Learning Platform for Bangladesh, 🏗️ Technical Architecture & Monorepo Structure, 📚 Technical Specifications & Documentation Index, 🛠️ Technology Stack, 🧪 Testing & Verification
+Cohesion: 0.25
+Nodes (8): Implementation status, 🚀 Local Development Quickstart, 🗺️ Product Roadmap, 🎓 Shikkhok AI (শিক্ষক এআই) — AI-Powered Learning Platform for Bangladesh, 🏗️ Technical Architecture & Monorepo Structure, 📚 Technical Specifications & Documentation Index, 🛠️ Technology Stack, 🧪 Testing & Verification
 
 ### Community 389 - "AppLoggerService"
 Cohesion: 0.22
@@ -2516,9 +2521,13 @@ Nodes (10): Accessibility, ARIA, Basic rating, Customization, Hover feedback, Ke
 Cohesion: 0.20
 Nodes (8): chance, ColumnData, columns, createData(), Data, ReactVirtualizedTable(), rows, VirtuosoTableComponents
 
-### Community 394 - "ingestion.py"
-Cohesion: 0.07
-Nodes (46): Namespace, PdfReader, delete_book_chunks(), get_ingestion_stats(), ingest_pdf_upload(), ingest_structured_text(), IngestionStats, Any (+38 more)
+### Community 393 - "admin-admin.service.ts"
+Cohesion: 0.20
+Nodes (8): adminAdminService, AdminMetrics, AdminUser, AuditLog, PendingPayment, UserListResponse, UserRole, UserStatus
+
+### Community 394 - "DeterministicEmbeddingProvider"
+Cohesion: 0.11
+Nodes (27): Namespace, PdfReader, main(), run_ingest(), BengaliTextChunker, DocumentMetadata, ExtractedPage, IngestionChunk (+19 more)
 
 ### Community 395 - "curriculum/page.tsx"
 Cohesion: 0.18
@@ -2533,8 +2542,8 @@ Cohesion: 0.40
 Nodes (4): Local Development & Setup Guide, Prerequisites, Quickstart, Verification
 
 ### Community 398 - "build_service_container"
-Cohesion: 0.16
-Nodes (14): BaseSettings, RuntimeError, field_validator, Validates configuration safety. Rejects mock providers and weak secrets in…, Settings, build_service_container(), FixedRagService, test_development_rejects_missing_embedding_key_without_silent_fallback() (+6 more)
+Cohesion: 0.17
+Nodes (16): BaseSettings, RuntimeError, field_validator, Validates configuration safety. Rejects mock providers and weak secrets in…, Settings, build_service_container(), test_development_rejects_missing_embedding_key_without_silent_fallback(), test_development_rejects_missing_llm_key_without_silent_fallback() (+8 more)
 
 ### Community 399 - "GitHubLabel.tsx"
 Cohesion: 0.22
@@ -2552,25 +2561,25 @@ Nodes (9): Custom image list, Image List, Image list with title bars, Masonry im
 Cohesion: 0.20
 Nodes (9): Accessibility, Basic modal, Focus trap, Limitations, Modal, Nested modal, Performance, Server-side modal (+1 more)
 
-### Community 403 - "skeleton/src/@fuse/core/FusePageSimple/FusePageSimple.tsx"
-Cohesion: 0.08
-Nodes (16): Example(), Root, locale, locale, locale, FusePageSimple(), FusePageSimpleProps, Root (+8 more)
+### Community 403 - "ClassicForgotPasswordPage.tsx"
+Cohesion: 0.40
+Nodes (3): ClassicForgotPasswordPage(), defaultValues, schema
 
 ### Community 404 - "Setup & Local Development"
 Cohesion: 0.50
 Nodes (4): Installation & Run, Prerequisites, Setup & Local Development, Testing, Linting & Typing
 
 ### Community 405 - "study_plan_controller_test.dart"
-Cohesion: 0.15
-Nodes (12): StudyPlanController, StudyPlanState, buildPlan, generateRecommendedPlan, getCurrentPlan, main, plan, package:mobile/features/curriculum/domain/entities/study_plan.dart (+4 more)
+Cohesion: 0.09
+Nodes (22): StudyPlanRepositoryImpl, StudyPlanController, copyWith, errorMessage, initial, isGenerating, isLoading, plan (+14 more)
 
 ### Community 406 - "admin/src/global.d.ts"
 Cohesion: 0.22
 Nodes (8): *.css, HotModule, PartialDeep, _PartialDeepArray, _PartialDeepObject, ProcessType, *?raw, type-fest
 
-### Community 408 - "exam_model.dart"
-Cohesion: 0.15
-Nodes (12): classLevel, description, durationMinutes, ExamModel, id, isPublished, passingMarks, questionCount (+4 more)
+### Community 408 - "subject_dto.dart"
+Cohesion: 0.07
+Nodes (24): classLevel, curriculumYear, description, fromJson, id, isPublished, medium, name (+16 more)
 
 ### Community 409 - "development"
 Cohesion: 0.22
@@ -2660,9 +2669,9 @@ Nodes (5): BasicPopover(), MouseHoverPopover(), PopoverPopupState(), VirtualElem
 Cohesion: 0.25
 Nodes (7): Basic button group, Button Group, Button variants, Disabled elevation, Sizes and colors, Split button, Vertical group
 
-### Community 431 - "app_shadows.dart"
-Cohesion: 0.29
-Nodes (6): AppShadows, card, dropdown, modal, soft, static List
+### Community 431 - "FullScreenReversedForgotPasswordPage.tsx"
+Cohesion: 0.40
+Nodes (3): defaultValues, FullScreenReversedForgotPasswordPage(), schema
 
 ### Community 432 - "Popover"
 Cohesion: 0.25
@@ -2677,8 +2686,8 @@ Cohesion: 0.25
 Nodes (6): AntTab, AntTabs, StyledTab, StyledTabProps, StyledTabs, StyledTabsProps
 
 ### Community 435 - "app_theme.dart"
-Cohesion: 0.25
-Nodes (7): app_colors.dart, app_radius.dart, app_spacing.dart, app_typography.dart, AppTheme, package:google_fonts/google_fonts.dart, theme_extensions.dart
+Cohesion: 0.29
+Nodes (6): app_colors.dart, app_spacing.dart, app_typography.dart, AppTheme, package:google_fonts/google_fonts.dart, theme_extensions.dart
 
 ### Community 436 - "demo/src/utils/node-scripts/migrate-tw-classes.js"
 Cohesion: 0.29
@@ -2700,13 +2709,17 @@ Nodes (7): __dirname, __filename, replaceClassesInFile(), spacingProperties, spa
 Cohesion: 0.30
 Nodes (8): intersection(), not(), SelectAllTransferList(), union(), intersection(), not(), TransferList(), TransferListDoc()
 
-### Community 441 - "api_response_envelope.dart"
-Cohesion: 0.20
-Nodes (9): ApiResponseEnvelope, data, extractMeta, fromResponse, meta, requestId, unwrap, unwrapList (+1 more)
+### Community 441 - "ClassicResetPasswordPage.tsx"
+Cohesion: 0.40
+Nodes (3): ClassicResetPasswordPage(), defaultValues, schema
 
 ### Community 442 - "Shikkhok AI Mobile Application"
 Cohesion: 0.29
 Nodes (6): Architecture Highlights, Build Profiles, Development & Testing, Environment Configuration, Shikkhok AI Mobile Application, Source Layout
+
+### Community 443 - "FullScreenReversedResetPasswordPage.tsx"
+Cohesion: 0.40
+Nodes (3): defaultValues, FullScreenReversedResetPasswordPage(), schema
 
 ### Community 444 - "demo/config-overrides.js"
 Cohesion: 0.29
@@ -2716,21 +2729,25 @@ Nodes (6): alias, aliases, { aliasWebpack }, options, path, resolvedAliases
 Cohesion: 0.29
 Nodes (6): Available Versions, CLI Reference Links, Fuse React Versions, GitHub Branches, License, More
 
-### Community 446 - "gamification_summary_dto.dart"
-Cohesion: 0.20
-Nodes (9): fromJson, GamificationSummaryDto, recentBadges, streakDays, streakFreezeRemaining, tierName, toDomain, totalPoints (+1 more)
-
-### Community 447 - "DateTime"
-Cohesion: 0.20
-Nodes (9): body, copyWith, createdAt, id, isRead, NotificationItem, title, type (+1 more)
-
-### Community 448 - "DetailsTab.tsx"
-Cohesion: 0.24
-Nodes (7): orderStatuses, DetailsTab(), containerStyle, GoogleAddressMap(), GoogleAddressMapProps, OrdersStatus(), OrdersStatusProps
-
-### Community 450 - "ModernReversedForgotPasswordPage.tsx"
+### Community 446 - "SplitScreenReversedResetPasswordPage.tsx"
 Cohesion: 0.40
-Nodes (3): defaultValues, ModernReversedForgotPasswordPage(), schema
+Nodes (3): defaultValues, schema, SplitScreenReversedResetPasswordPage()
+
+### Community 447 - "ClassicUnlockSessionPage.tsx"
+Cohesion: 0.40
+Nodes (3): ClassicUnlockSessionPage(), defaultValues, schema
+
+### Community 448 - "FullScreenUnlockSessionPage.tsx"
+Cohesion: 0.40
+Nodes (3): defaultValues, FullScreenUnlockSessionPage(), schema
+
+### Community 449 - "CustomizedInputsStyled.tsx"
+Cohesion: 0.33
+Nodes (5): BootstrapInput, CssTextField, CustomizedInputsStyled(), RedditTextField, ValidationTextField
+
+### Community 450 - "demo/src/components/data-table/DataTableTopToolbar.tsx"
+Cohesion: 0.47
+Nodes (3): DataTableTopToolbar(), MRT_TopToolbarProps, parseFromValuesOrFunc()
 
 ### Community 451 - "DirectionSnackbar.tsx"
 Cohesion: 0.48
@@ -2748,85 +2765,73 @@ Nodes (6): alias, aliases, { aliasWebpack }, options, path, resolvedAliases
 Cohesion: 0.29
 Nodes (6): Available Versions, CLI Reference Links, Fuse React Versions, GitHub Branches, License, More
 
-### Community 456 - "BoardAddList.tsx"
-Cohesion: 0.20
-Nodes (7): BoardAddList(), handleCloseForm(), onSubmit(), defaultValues, FormType, schema, ScrumboardList
+### Community 456 - "ADR 008: Production hardening status"
+Cohesion: 0.33
+Nodes (5): ADR 008: Production hardening status, Alternatives, Consequences, Context, Decision
 
-### Community 457 - "ModernResetPasswordPage.tsx"
-Cohesion: 0.40
-Nodes (3): defaultValues, ModernResetPasswordPage(), schema
+### Community 457 - "ResetPasswordDto"
+Cohesion: 0.33
+Nodes (5): ResetPasswordDto, ApiProperty, IsString, MaxLength, MinLength
 
-### Community 458 - "tutor_citation.dart"
-Cohesion: 0.20
-Nodes (9): chapter, classLevel, excerpt, pageNumber, sourceBook, sourceId, sourceUrl, subject (+1 more)
+### Community 458 - "NewNote"
+Cohesion: 0.70
+Nodes (5): NewNote(), escFunction(), handleClickAway(), handleFormClose(), handleFormOpen()
 
 ### Community 459 - "ModernPricingPage.tsx"
 Cohesion: 0.33
 Nodes (6): ModernPricingCard(), ModernPricingCardProps, ModernPricingFeatureItem(), ModernPricingFeatureItemProps, ModernPricingItemType, ModernPricingPage()
 
 ### Community 460 - "mailbox/i18n/index.ts"
-Cohesion: 0.43
-Nodes (3): locale, locale, locale
+Cohesion: 0.27
+Nodes (4): locale, locale, locale, resources
 
 ### Community 461 - "SplitScreenSignUpPage.tsx"
 Cohesion: 0.40
 Nodes (3): defaultValues, schema, SplitScreenSignUpPage()
 
-### Community 462 - "HighlightedCode.tsx"
-Cohesion: 0.24
-Nodes (7): SpacingGrid(), GridItemsAlignment, GridJustification, InteractiveGrid(), SpacingGrid(), HighlightedCode(), HighlightedCodeProps
+### Community 462 - "PrimarySearchAppBar.tsx"
+Cohesion: 0.40
+Nodes (4): PrimarySearchAppBar(), Search, SearchIconWrapper, StyledInputBase
 
-### Community 463 - "NotesApi.ts"
-Cohesion: 0.03
-Nodes (79): NewNote(), escFunction(), handleClickAway(), handleFormClose(), handleFormOpen(), NoteForm(), NoteFormProps, schema (+71 more)
+### Community 463 - "NoteForm.tsx"
+Cohesion: 0.06
+Nodes (26): NoteForm(), NoteFormProps, schema, tasksSchema, NoteFormLabelMenu(), NoteFormLabelMenuProps, NoteFormReminder(), NoteFormReminderProps (+18 more)
 
 ### Community 464 - "fcm-push.provider.ts"
 Cohesion: 0.31
 Nodes (5): FcmPushProvider, Injectable, PushDeliveryResult, PushPayload, PushProvider
 
-### Community 465 - "demo/src/components/theme-layouts/themeLayoutConfigs.ts"
-Cohesion: 0.25
-Nodes (8): Layout1Config, Layout2Config, Layout2ConfigDefaultsType, Layout3Config, Layout3ConfigDefaultsType, themeLayoutConfigsProps, themeLayoutDefaultsProps, themeLayoutProps
+### Community 465 - "FormattedInputs.tsx"
+Cohesion: 0.40
+Nodes (4): CustomProps, FormattedInputs(), NumericFormatCustom, TextMaskCustom
 
-### Community 466 - "exam_library_page.dart"
-Cohesion: 0.27
-Nodes (9): examLibraryControllerProvider, build, _buildBody, createState, ExamLibraryPage, _ExamLibraryPageState, initState, _selectedTabIndex (+1 more)
+### Community 466 - "BottomAppBar.tsx"
+Cohesion: 0.50
+Nodes (3): BottomAppBar(), messages, StyledFab
 
-### Community 467 - "subscription_plan.dart"
-Cohesion: 0.22
-Nodes (8): description, durationDays, features, id, isPopular, priceBdt, SubscriptionPlan, title
+### Community 467 - "EnableColorOnDarkAppBar.tsx"
+Cohesion: 0.67
+Nodes (3): appBarLabel(), darkTheme, EnableColorOnDarkAppBar()
 
 ### Community 468 - "SizeFormController.tsx"
+Cohesion: 0.24
+Nodes (5): SizeFormController(), SizeFormControllerProps, sizeOptions, FormSection(), FormSectionProps
+
+### Community 469 - "MasonryWithVariableHeightItems.tsx"
 Cohesion: 0.50
-Nodes (3): SizeFormController(), SizeFormControllerProps, sizeOptions
+Nodes (3): heights, MasonryWithVariableHeightItems(), StyledAccordion
 
-### Community 469 - "demo/src/@fuse/hooks/useDeepCompareEffect.ts"
-Cohesion: 0.28
-Nodes (8): checkDeps(), DependencyListType, EffectCallbackType, isPrimitive(), useDeepCompareEffectNoCheck(), useDeepCompareMemoize(), UseEffectParamsType, UseEffectReturn
+### Community 470 - "textbook_download_manager.dart"
+Cohesion: 0.03
+Nodes (57): _apiClient, _cancelTokens, _computeSha256Checksum, currentTasks, deleteDownloadedTextbook, dispose, downloadTextbook, fetchManifestBundle (+49 more)
 
-### Community 470 - "parent_remote_data_source.dart"
-Cohesion: 0.22
-Nodes (9): _apiClient, getChildDashboard, linkChild, listLinkedChildren, ParentRemoteDataSource, ParentRemoteDataSourceImpl, unlinkChild, MockParentRemoteDataSource (+1 more)
-
-### Community 472 - "parent_repository.dart"
-Cohesion: 0.20
-Nodes (9): ParentRepositoryImpl, getChildDashboard, linkChild, listLinkedChildren, ParentRepository, unlinkChild, FakeParentRepository, ../entities/parent_child.dart (+1 more)
-
-### Community 473 - "parent_controller_test.dart"
-Cohesion: 0.20
-Nodes (9): getChildDashboard, linkChild, listLinkedChildren, main, unlinkChild, package:mobile/features/parent/domain/entities/parent_child.dart, package:mobile/features/parent/domain/entities/parent_child_dashboard.dart, package:mobile/features/parent/domain/repositories/parent_repository.dart (+1 more)
-
-### Community 477 - "admin/src/app/(public)/sign-in/SignInPage.tsx"
-Cohesion: 0.40
-Nodes (3): SignInFormData, SignInPage(), signInSchema
+### Community 472 - "Authentication & Authorization Architecture"
+Cohesion: 0.50
+Nodes (3): 1. Authentication Strategy, 2. Authorization & IDOR Protection Matrix, Authentication & Authorization Architecture
 
 ### Community 478 - "api-envelope.ts"
 Cohesion: 0.60
 Nodes (4): ApiEnvelope, extractMeta(), isApiEnvelope(), unwrapEnvelope()
-
-### Community 480 - "BoardModel.ts"
-Cohesion: 0.24
-Nodes (7): BoardModel(), CardIdsType, CardModel(), ScrumboardApi, ScrumboardBoardList, reorder(), reorderQuoteMap()
 
 ### Community 481 - "UseAutocomplete.tsx"
 Cohesion: 0.33
@@ -2847,10 +2852,6 @@ Nodes (5): 1. Feature Completion Matrix, 2. Verification Summary, 3. End-to-End 
 ### Community 490 - "Target Kubernetes Architecture Specifications"
 Cohesion: 0.29
 Nodes (6): 1. Target Microservice Deployments, 2. Standard Manifest Components per Service, 3. Ingress & Helm Package Strategy, Deployment Checklist, Kubernetes (k8s) & Helm Deployment Architecture Strategy, Target Kubernetes Architecture Specifications
-
-### Community 491 - "TypographyDoc.tsx"
-Cohesion: 0.36
-Nodes (4): Types(), Div, TypographyTheme(), TypographyDoc()
 
 ### Community 493 - "Asynchronous.tsx"
 Cohesion: 0.50
@@ -2968,9 +2969,9 @@ Nodes (3): compat, __dirname, __filename
 Cohesion: 0.50
 Nodes (3): compat, __dirname, __filename
 
-### Community 532 - "ClassicSearchPage.tsx"
-Cohesion: 0.40
-Nodes (4): ClassicSearchPage(), exampleSearchResponse, ModernSearchPage(), SearchItemType
+### Community 532 - "demo/src/components/PageBreadcrumb.tsx"
+Cohesion: 0.05
+Nodes (30): Orders(), OrdersHeader(), OrdersTable(), Products(), ProductsHeader(), ProductsTable(), GuideCategory(), HelpCenterGuide() (+22 more)
 
 ### Community 536 - "NonLinearSlider.tsx"
 Cohesion: 0.83
@@ -3001,16 +3002,12 @@ Cohesion: 0.67
 Nodes (3): TestClient, test_health_endpoint(), test_readiness_endpoint()
 
 ### Community 567 - "SplitScreenReversedForgotPasswordPage.tsx"
-Cohesion: 0.12
-Nodes (9): defaultValues, schema, SplitScreenReversedForgotPasswordPage(), ClassicResetPasswordPage(), defaultValues, schema, ClassicUnlockSessionPage(), defaultValues (+1 more)
+Cohesion: 0.40
+Nodes (3): defaultValues, schema, SplitScreenReversedForgotPasswordPage()
 
-### Community 603 - "live-classroom.module.ts"
-Cohesion: 0.25
-Nodes (7): RedisModule, Global, Module, ClassroomsModule, Module, LiveClassroomModule, Module
-
-### Community 604 - "CardAddChecklistItem.tsx"
-Cohesion: 0.39
-Nodes (6): CardAddChecklistItem(), onSubmit(), CardAddChecklistItemProps, schema, ChecklistItemModel(), ScrumboardCheckListItem
+### Community 604 - "CardChecklist.tsx"
+Cohesion: 0.11
+Nodes (19): CardAddChecklistItem(), onSubmit(), CardAddChecklistItemProps, schema, CardChecklist(), handleMenuClose(), handleOpenNameForm(), CardChecklistProps (+11 more)
 
 ### Community 634 - "ColumnGroupingTable.tsx"
 Cohesion: 0.29
@@ -3020,10 +3017,6 @@ Nodes (5): Column, ColumnGroupingTable(), columns, Data, rows
 Cohesion: 0.29
 Nodes (5): Column, columns, Data, rows, StickyHeadTable()
 
-### Community 636 - "SinglePricingPage.tsx"
-Cohesion: 0.36
-Nodes (4): SinglePricingCard(), SinglePricingFeatureItem(), SinglePricingFeatureItemProps, SinglePricingPage()
-
 ### Community 640 - "FullScreenForgotPasswordPage.tsx"
 Cohesion: 0.40
 Nodes (3): defaultValues, FullScreenForgotPasswordPage(), schema
@@ -3031,14 +3024,6 @@ Nodes (3): defaultValues, FullScreenForgotPasswordPage(), schema
 ### Community 641 - "ModernForgotPasswordPage.tsx"
 Cohesion: 0.40
 Nodes (3): defaultValues, ModernForgotPasswordPage(), schema
-
-### Community 644 - "OrdersTableHead.tsx"
-Cohesion: 0.29
-Nodes (4): OrdersTableHead(), OrdersTableHeadProps, rows, rowType
-
-### Community 646 - "AiModerationService"
-Cohesion: 0.38
-Nodes (3): AiModerationService, ModerationResult, Injectable
 
 ### Community 650 - "ModernReversedResetPasswordPage.tsx"
 Cohesion: 0.40
@@ -3052,10 +3037,6 @@ Nodes (4): BoardCardLabel(), BoardCardLabelProps, useSelectLabel(), useSelectLab
 Cohesion: 0.40
 Nodes (3): defaultValues, FullScreenResetPasswordPage(), schema
 
-### Community 670 - "SplitScreenResetPasswordPage.tsx"
-Cohesion: 0.40
-Nodes (3): defaultValues, schema, SplitScreenResetPasswordPage()
-
 ### Community 672 - "ModernSignUpPage.tsx"
 Cohesion: 0.40
 Nodes (3): defaultValues, ModernSignUpPage(), schema
@@ -3068,10 +3049,6 @@ Nodes (4): Search, SearchAppBar(), SearchIconWrapper, StyledInputBase
 Cohesion: 0.50
 Nodes (3): DrawerAppBar(), navItems, Props
 
-### Community 722 - "BackgroundLetterAvatars.tsx"
-Cohesion: 0.83
-Nodes (3): BackgroundLetterAvatars(), stringAvatar(), stringToColor()
-
 ### Community 724 - "ClassicSignUpPage.tsx"
 Cohesion: 0.40
 Nodes (3): ClassicSignUpPage(), defaultValues, schema
@@ -3080,17 +3057,9 @@ Nodes (3): ClassicSignUpPage(), defaultValues, schema
 Cohesion: 0.50
 Nodes (3): heights, Item, ResponsiveSpacing()
 
-### Community 729 - "Sequential.tsx"
-Cohesion: 0.50
-Nodes (3): heights, Item, Sequential()
-
 ### Community 730 - "Argo CD Deployment"
 Cohesion: 0.50
 Nodes (3): Argo CD Deployment, Bootstrap, Verification
-
-### Community 731 - "ExamRepository"
-Cohesion: 0.67
-Nodes (3): ExamRepositoryImpl, FakeExamRepository, ExamRepository
 
 ### Community 734 - "FullScreenSignUpPage.tsx"
 Cohesion: 0.40
@@ -3128,28 +3097,24 @@ Nodes (3): CustomPaginationActionsTable(), rows, TablePaginationActionsProps
 Cohesion: 0.40
 Nodes (4): columns, DataTable(), paginationModel, rows
 
-### Community 801 - "HomeworkService"
-Cohesion: 0.11
-Nodes (26): evaluate_homework(), HomeworkService, post, Evaluates student homework with step-by-step correction and curriculum…, get_container(), get_embedding_provider(), get_homework_service(), get_rag_service() (+18 more)
-
 ## Knowledge Gaps
-- **6581 isolated node(s):** `__filename`, `__dirname`, `compat`, `nextConfig`, `name` (+6576 more)
-  These have ≤1 connection - possible missing edges or undocumented components.
-- **215 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **6681 isolated node(s):** `__filename`, `__dirname`, `compat`, `nextConfig`, `name` (+6676 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 8930 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **235 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `List` connect `List` to `package:flutter_riverpod/flutter_riverpod.dart`, `curriculum_controller.dart`, `app_database.dart`, `subscription_dto.dart`, `sync_controller_test.dart`, `PaginationDoc.tsx`, `practice_controller.dart`, `parent_child_dashboard.dart`, `exam_controller.dart`, `lesson_dto.dart`, `student_profile_controller.dart`, `lesson_content_block.dart`, `homework_feedback.dart`, `exam_dto.dart`, `theme_extensions.dart`, `homework_submission.dart`, `StatelessWidget`, `sync_dto.dart`, `home_dashboard_controller.dart`, `sync_operation_payload.dart`, `lesson_content_block_dto.dart`, `subscription_controller.dart`, `homework_controller.dart`, `notifications_controller_test.dart`, `tutor_controller.dart`, `package:flutter_test/flutter_test.dart`, `auth_controller.dart`, `lesson.dart`, `gamification_summary_dto.dart`, `parent_controller.dart`, `study_plan.dart`, `homework_dto.dart`, `learning_routes.dart`, `study_plan_dto.dart`, `subscription_plan.dart`, `auth_routes.dart`, `tutor_message_dto.dart`, `sync_batch_result.dart`, `tutor_routes.dart`, `exam_session.dart`, `parent_child_dto.dart`, `practice_question_dto.dart`, `tutor_message.dart`, `assessment_routes.dart`, `practice_question.dart`, `api_client.dart`, `student_profile.dart`, `tutor_conversation_dto.dart`, `student_profile_dto.dart`?**
-  _High betweenness centrality (0.198) - this node is a cross-community bridge._
-- **Why does `FuseSvgIcon()` connect `FuseSvgIcon` to `FuseScrollbars`, `ClassicSearchPage.tsx`, `Link`, `FinanceDashboardApi.ts`, `CalendarApi.ts`, `NotificationPanel.tsx`, `FileManagerApp.tsx`, `BoardCardForm.tsx`, `CardAddChecklistItem.tsx`, `useThemeMediaQuery`, `SettingsApi.ts`, `ContactsApi.ts`, `SinglePricingPage.tsx`, `demo/src/components/PageBreadcrumb.tsx`, `Course.tsx`, `RatingDoc.tsx`, `StyledFuseHighlight`, `OrdersTableHead.tsx`, `AnalyticsDashboardApi.ts`, `BreadcrumbsDoc.tsx`, `CryptoDashboardApi.ts`, `SpeedDialDoc.tsx`, `BoardAddCard.tsx`, `HelpCenterApi.ts`, `MailboxApi.ts`, `AppBarDoc.tsx`, `SelectsDoc.tsx`, `StackDoc.tsx`, `DividersDoc.tsx`, `ButtonsDoc.tsx`, `TooltipsDoc.tsx`, `CardsDoc.tsx`, `Grid2Doc.tsx`, `MasonryDoc.tsx`, `DrawersDoc.tsx`, `GridDoc.tsx`, `ListsDoc.tsx`, `ProgressDoc.tsx`, `useAppDispatch`, `DocumentationNavigation.ts`, `demo/src/@fuse/core/FuseSettings/hooks/fuseThemeHooks.tsx`, `SteppersDoc.tsx`, `MessengerApi.ts`, `MenusDoc.tsx`, `DialogsDoc.tsx`, `AvatarsDoc.tsx`, `CheckboxesDoc.tsx`, `ChipsDoc.tsx`, `ImageListDoc.tsx`, `RadioButtonsDoc.tsx`, `AutocompleteDoc.tsx`, `SwitchesDoc.tsx`, `SkeletonDoc.tsx`, `SnackbarsDoc.tsx`, `BadgesDoc.tsx`, `FuseExample`, `ReactApexchartsDoc.tsx`, `ModalDoc.tsx`, `PaginationDoc.tsx`, `demo/src/@fuse/core/FuseSearch/FuseSearch.tsx`, `AlertDoc.tsx`, `AiImageGenPresetsMenu.tsx`, `AccordionDoc.tsx`, `ToggleButtonDoc.tsx`, `TransitionsDoc.tsx`, `ButtonGroupDoc.tsx`, `TextFieldsDoc.tsx`, `AiImageGenForm.tsx`, `PopperDoc.tsx`, `TablePricingTable.tsx`, `FloatingActionButtonDoc.tsx`, `SliderDoc.tsx`, `TableDoc.tsx`, `PaperDoc.tsx`, `BottomNavigationDoc.tsx`, `SimplePricingPage.tsx`, `PopoverDoc.tsx`, `TransferListDoc.tsx`, `DetailsTab.tsx`, `BoardAddList.tsx`, `ModernPricingPage.tsx`, `NotesApi.ts`, `TypographyDoc.tsx`?**
-  _High betweenness centrality (0.101) - this node is a cross-community bridge._
-- **Why does `StyledFuseHighlight` connect `StyledFuseHighlight` to `demo/src/@auth/AuthGuardRedirect.tsx`, `FuseExample`, `AuthorizationDoc.tsx`, `ModalDoc.tsx`, `PaginationDoc.tsx`, `Link`, `AppBarDoc.tsx`, `SelectsDoc.tsx`, `AlertDoc.tsx`, `StackDoc.tsx`, `AccordionDoc.tsx`, `PopoverDoc.tsx`, `DividersDoc.tsx`, `ToggleButtonDoc.tsx`, `TransitionsDoc.tsx`, `FuseSvgIcon`, `TextFieldsDoc.tsx`, `ButtonsDoc.tsx`, `TooltipsDoc.tsx`, `CardsDoc.tsx`, `Grid2Doc.tsx`, `HighlightedCode.tsx`, `TableDoc.tsx`, `DrawersDoc.tsx`, `PaperDoc.tsx`, `GridDoc.tsx`, `ListsDoc.tsx`, `ProgressDoc.tsx`, `useAppDispatch`, `SteppersDoc.tsx`, `DialogsDoc.tsx`, `TypographyDoc.tsx`, `CheckboxesDoc.tsx`, `useThemeMediaQuery`, `RadioButtonsDoc.tsx`, `AutocompleteDoc.tsx`, `SwitchesDoc.tsx`, `demo/src/components/PageBreadcrumb.tsx`, `SkeletonDoc.tsx`, `SnackbarsDoc.tsx`?**
-  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+- **Why does `List` connect `List` to `verify_otp_page.dart`, `curriculum_controller.dart`, `app_database.dart`, `subscription_dto.dart`, `PaginationDoc.tsx`, `practice_controller.dart`, `exam_controller.dart`, `lesson_dto.dart`, `student_profile_controller.dart`, `lesson_content_block.dart`, `homework_feedback.dart`, `exam_dto.dart`, `tutor_message.dart`, `StatelessWidget`, `package:flutter_riverpod/flutter_riverpod.dart`, `sync_operation_payload.dart`, `lesson_content_block_dto.dart`, `subscription_controller.dart`, `homework_controller.dart`, `notifications_controller_test.dart`, `tutor_controller.dart`, `feature_pages_test.dart`, `textbook_download_controller.dart`, `lesson.dart`, `app_router.dart`, `parent_controller.dart`, `study_plan.dart`, `homework_dto.dart`, `String?`, `learning_routes.dart`, `study_plan_dto.dart`, `tutor_message_dto.dart`, `sync_repository_impl_test.dart`, `sync_batch_result.dart`, `sync_queue_table.dart`, `exam_session.dart`, `parent_child_dto.dart`, `practice_question_dto.dart`, `sync_dto.dart`, `assessment_routes.dart`, `practice_question.dart`, `api_client.dart`, `student_profile.dart`, `tutor_conversation_dto.dart`, `student_profile_dto.dart`?**
+  _High betweenness centrality (0.186) - this node is a cross-community bridge._
+- **Why does `FuseSvgIcon()` connect `FuseSvgIcon` to `demo/src/components/PageBreadcrumb.tsx`, `Link`, `FuseLoading`, `NotesApi.ts`, `CalendarApi.ts`, `NotificationPanel.tsx`, `FolderItem.tsx`, `BoardCardForm.tsx`, `CardChecklist.tsx`, `TimelineDoc.tsx`, `overviews.ts`, `SettingsApi.ts`, `AiImageGenApp.tsx`, `ContactsApi.ts`, `demo/src/@fuse/core/FuseNavigation/FuseNavigation.tsx`, `RatingDoc.tsx`, `StyledFuseHighlight`, `AnalyticsDashboardApi.ts`, `BreadcrumbsDoc.tsx`, `CryptoDashboardApi.ts`, `SpeedDialDoc.tsx`, `demo/src/@auth/AuthGuardRedirect.tsx`, `NoteFormAddListItem.tsx`, `ECommerceApi.ts`, `HelpCenterApi.ts`, `MailboxApi.ts`, `AppBarDoc.tsx`, `SelectsDoc.tsx`, `StackDoc.tsx`, `DividersDoc.tsx`, `ButtonsDoc.tsx`, `TooltipsDoc.tsx`, `CardsDoc.tsx`, `Grid2Doc.tsx`, `MasonryDoc.tsx`, `IconListPage.tsx`, `DrawersDoc.tsx`, `GridDoc.tsx`, `ListsDoc.tsx`, `ProgressDoc.tsx`, `useAppDispatch`, `ChangelogData.tsx`, `demo/src/@fuse/core/FuseSettings/FuseSettings.tsx`, `SteppersDoc.tsx`, `MessengerApi.ts`, `MenusDoc.tsx`, `DialogsDoc.tsx`, `ProfileApi.ts`, `AvatarsDoc.tsx`, `CheckboxesDoc.tsx`, `ContactForm.tsx`, `ChipsDoc.tsx`, `ImageListDoc.tsx`, `RadioButtonsDoc.tsx`, `AutocompleteDoc.tsx`, `SwitchesDoc.tsx`, `SkeletonDoc.tsx`, `SnackbarsDoc.tsx`, `BadgesDoc.tsx`, `FuseExample`, `ReactApexchartsDoc.tsx`, `ModalDoc.tsx`, `PaginationDoc.tsx`, `LinksDoc.tsx`, `demo/src/@fuse/core/FuseSearch/FuseSearch.tsx`, `AlertDoc.tsx`, `AiImageGenPresetsMenu.tsx`, `AccordionDoc.tsx`, `ToggleButtonDoc.tsx`, `TransitionsDoc.tsx`, `ButtonGroupDoc.tsx`, `TextFieldsDoc.tsx`, `AiImageGenForm.tsx`, `PopperDoc.tsx`, `TablePricingTable.tsx`, `FloatingActionButtonDoc.tsx`, `SliderDoc.tsx`, `TableDoc.tsx`, `PaperDoc.tsx`, `BottomNavigationDoc.tsx`, `SimplePricingPage.tsx`, `PopoverDoc.tsx`, `TransferListDoc.tsx`, `ModernPricingPage.tsx`, `NoteForm.tsx`?**
+  _High betweenness centrality (0.096) - this node is a cross-community bridge._
+- **Why does `Widget` connect `StatelessWidget` to `../../app/theme/app_typography.dart`?**
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **What connects `__filename`, `__dirname`, `compat` to the rest of the system?**
-  _6581 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _6681 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `app_localizations.dart` be split into smaller, more focused modules?**
-  _Cohesion score 0.008368200836820083 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.008403361344537815 - nodes in this community are weakly interconnected._
 - **Should `app_localizations_en.dart` be split into smaller, more focused modules?**
   _Cohesion score 0.00881057268722467 - nodes in this community are weakly interconnected._
 - **Should `app_localizations_bn.dart` be split into smaller, more focused modules?**

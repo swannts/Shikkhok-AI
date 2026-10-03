@@ -31,9 +31,17 @@ class StudentBottomNavigation extends StatelessWidget {
         label: 'প্রোফাইল'),
   ];
 
+  String _currentPath(BuildContext context) {
+    try {
+      return GoRouterState.of(context).uri.path;
+    } catch (_) {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final path = GoRouterState.of(context).uri.path;
+    final path = _currentPath(context);
     return NavigationBar(
       selectedIndex: _selectedIndex(path),
       onDestinationSelected: (index) => _go(context, index),
@@ -62,7 +70,7 @@ class StudentBottomNavigation extends StatelessWidget {
       AppRoutes.practiceSetup,
       AppRoutes.studentProfile,
     ][index];
-    if (GoRouterState.of(context).uri.path != route) {
+    if (_currentPath(context) != route) {
       context.go(route);
     }
   }

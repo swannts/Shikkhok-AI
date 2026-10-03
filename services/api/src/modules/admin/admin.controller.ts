@@ -8,8 +8,11 @@ import {
   Put,
   Query,
   Req,
+  UploadedFile,
+  UseInterceptors,
   UseGuards,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -28,6 +31,13 @@ import { AdminCreateSubjectDto } from './dto/admin-create-subject.dto';
 import { AdminCreateChapterDto } from './dto/admin-create-chapter.dto';
 import { AdminCreateLessonDto } from './dto/admin-create-lesson.dto';
 import { ContentWorkflowStatus } from '../curriculum/enums/content-workflow-status.enum';
+import { AdminUploadTextbookDto } from './dto/admin-upload-textbook.dto';
+
+interface UploadedPdfFile {
+  buffer: Buffer;
+  mimetype: string;
+  size: number;
+}
 
 @ApiTags('Admin')
 @ApiBearerAuth()
@@ -322,5 +332,16 @@ export class AdminController {
   @Roles(UserRole.ADMIN)
   async queueTextbookForReindex(@Param('bookId', MongoObjectIdPipe) bookId: string) {
     return this.adminService.queueTextbookForReindex(bookId);
+  }
+
+  @Post('textbooks/upload')
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiOperation({ summary: 'Upload a curriculum PDF and queue it for indexing' })
+  async uploadTextbook(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @UploadedFile() file: UploadedPdfFile,
+    @Body() dto: AdminUploadTextbookDto,
+  ) {
+    return this.adminService.uploadTextbook(adminUser.userId, file, dto);
   }
 }

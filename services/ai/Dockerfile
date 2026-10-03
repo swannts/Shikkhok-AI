@@ -11,6 +11,11 @@ RUN uv sync --no-dev --frozen || uv sync --no-dev
 
 FROM python:3.12-slim AS runner
 
+# OCR support for scanned NCTB PDFs. Jobs fail closed if OCR produces no text.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    poppler-utils tesseract-ocr tesseract-ocr-ben \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Create non-root user

@@ -34,7 +34,7 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
   @override
   void initState() {
     super.initState();
-    _phone = widget.phone ?? '01711223344';
+    _phone = widget.phone ?? '';
     _startCountdown();
   }
 

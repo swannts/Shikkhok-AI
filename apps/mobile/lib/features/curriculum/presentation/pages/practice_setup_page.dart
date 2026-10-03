@@ -178,9 +178,20 @@ class _PracticeSetupPageState extends ConsumerState<PracticeSetupPage> {
                   onPressed: _isLoading
                       ? null
                       : () async {
+                          final lessonId = widget.initialLessonId;
+                          if (lessonId == null ||
+                              lessonId == 'lesson_default') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'অনুশীলন শুরু করতে শিক্ষা বিভাগ থেকে একটি পাঠ নির্বাচন করুন।',
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+
                           setState(() => _isLoading = true);
-                          final lessonId =
-                              widget.initialLessonId ?? 'lesson_default';
                           try {
                             await ref
                                 .read(practiceControllerProvider.notifier)
@@ -190,7 +201,10 @@ class _PracticeSetupPageState extends ConsumerState<PracticeSetupPage> {
                                   difficulty: _selectedDifficulty,
                                 );
                             if (context.mounted) {
-                              context.go(AppRoutes.practiceSessionMcq);
+                              if (ref.read(practiceControllerProvider)
+                                  is PracticeActiveSession) {
+                                context.go(AppRoutes.practiceSessionMcq);
+                              }
                             }
                           } finally {
                             if (mounted) {

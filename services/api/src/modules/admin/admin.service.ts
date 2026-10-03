@@ -39,6 +39,16 @@ import { SubscriptionStatus } from '../subscriptions/enums/subscription-status.e
 import { PaymentStatus } from '../subscriptions/enums/payment-status.enum';
 import { UserStatus } from '../users/enums/user-status.enum';
 import { ContentWorkflowStatus } from '../curriculum/enums/content-workflow-status.enum';
+import { AdminUploadTextbookDto } from './dto/admin-upload-textbook.dto';
+import { createHash } from 'crypto';
+import { mkdir, writeFile } from 'fs/promises';
+import { join } from 'path';
+
+interface UploadedPdfFile {
+  buffer: Buffer;
+  mimetype: string;
+  size: number;
+}
 
 import { PaymentTransactionRepository } from '../subscriptions/repositories/payment-transaction.repository';
 import { SubscriptionActivationService } from '../subscriptions/services/subscription-activation.service';
@@ -637,5 +647,70 @@ export class AdminService {
       this.logger.error(`Failed to enqueue textbook reindexing: ${e.message}`, e.stack);
       throw new InternalServerErrorException('Failed to communicate with background worker queue');
     }
+  }
+
+  async uploadTextbook(
+    actorUserId: string,
+    file: UploadedPdfFile | undefined,
+    dto: AdminUploadTextbookDto,
+  ): Promise<{ bookId: string; status: string }> {
+    if (!file || file.mimetype !== 'application/pdf') {
+      throw new BadRequestException('A PDF file is required');
+    }
+
+    const subject = await this.subjectModel.findOne({
+      _id: dto.subjectId,
+      classLevel: dto.classLevel,
+      medium: dto.medium,
+      curriculumYear: dto.curriculumYear,
+    }).exec();
+    if (!subject) {
+      throw new BadRequestException('Subject does not match the supplied curriculum scope');
+    }
+
+    const checksumSha256 = createHash('sha256').update(file.buffer).digest('hex');
+    const uploadDir = process.env.CURRICULUM_UPLOAD_DIR || '/app/uploads/curriculum';
+    await mkdir(uploadDir, { recursive: true });
+    const storagePath = join(uploadDir, `${checksumSha256}.pdf`);
+    await writeFile(storagePath, file.buffer, { flag: 'wx' }).catch((error: NodeJS.ErrnoException) => {
+      if (error.code !== 'EEXIST') throw error;
+    });
+
+    const book = await this.textbookModel.findOneAndUpdate(
+      { checksumSha256 },
+      {
+        $set: {
+          title: dto.title,
+          titleBn: dto.titleBn,
+          subjectId: subject._id,
+          classLevel: dto.classLevel,
+          medium: dto.medium,
+          curriculumYear: dto.curriculumYear,
+          fileSizeBytes: file.size,
+          pdfStoragePath: storagePath,
+          indexingStatus: 'queued',
+          lastIndexError: null,
+        },
+        $setOnInsert: { isPublished: true },
+      },
+      { upsert: true, new: true, setDefaultsOnInsert: true },
+    ).exec();
+
+    if (!this.curriculumQueue) {
+      throw new InternalServerErrorException('Curriculum worker queue is not configured');
+    }
+    await this.curriculumQueue.add(
+      'process-curriculum-indexing',
+      { bookId: book._id.toString(), filePath: storagePath },
+      { jobId: `index-book-${book._id.toString()}`, attempts: 3, backoff: { type: 'exponential', delay: 5000 } },
+    );
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'UPLOAD_CURRICULUM_BOOK',
+      resourceType: 'TEXTBOOK',
+      resourceId: book._id.toString(),
+      metadata: { checksumSha256, fileSizeBytes: file.size },
+    });
+    return { bookId: book._id.toString(), status: 'queued' };
   }
 }

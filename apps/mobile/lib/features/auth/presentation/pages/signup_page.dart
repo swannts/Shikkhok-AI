@@ -22,15 +22,15 @@ class SignupPage extends ConsumerStatefulWidget {
 
 class _SignupPageState extends ConsumerState<SignupPage> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController(text: 'আরিফ হোসেন');
-  final _phoneController = TextEditingController(text: '01711223344');
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController(text: 'password123');
-  final _confirmPasswordController = TextEditingController(text: 'password123');
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
-  bool _acceptedTerms = true;
+  bool _acceptedTerms = false;
   late UserRole _selectedRole;
 
   @override
