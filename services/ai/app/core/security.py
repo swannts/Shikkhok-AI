@@ -97,7 +97,12 @@ async def verify_service_hmac(
             _cleanup_old_request_ids(current_time, settings.allowed_clock_skew_seconds)
 
     # 4. Read body bytes
-    body_bytes = await request.body()
+    # The request middleware caches the raw bytes before multipart parsing.
+    # Reading request.body() here would fail because FastAPI may already have
+    # consumed the multipart stream while resolving form fields.
+    body_bytes = getattr(request.state, "raw_body", None)
+    if body_bytes is None:
+        body_bytes = await request.body()
 
     # 5. Verify signature using constant-time comparison
     expected_signature = compute_hmac_signature(

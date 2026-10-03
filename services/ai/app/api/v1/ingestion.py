@@ -52,6 +52,9 @@ async def ingest_pdf_upload(
     lesson_id: str | None = Form(None),
     lesson_title: str | None = Form(None),
     medium: str = Form("bangla"),
+    curriculum_year: int | None = Form(None),
+    curriculum_version: str | None = Form(None),
+    book_id: str | None = Form(None),
     _caller: str = Depends(verify_service_hmac),
     vector_store: VectorStore = Depends(get_vector_store),
     embedding_provider: EmbeddingProvider = Depends(get_embedding_provider),
@@ -59,6 +62,8 @@ async def ingest_pdf_upload(
     """Ingests an uploaded NCTB PDF textbook into the vector store."""
     pdf_bytes = await file.read()
     metadata = DocumentMetadata(
+        curriculum_year=curriculum_year,
+        curriculum_version=curriculum_version,
         class_level=class_level,
         subject_id=subject_id,
         subject_title=subject_title,
@@ -68,6 +73,7 @@ async def ingest_pdf_upload(
         lesson_id=lesson_id,
         lesson_title=lesson_title,
         medium="bangla" if medium == "bangla" else "english",
+        book_id=book_id,
     )
     pipeline = IngestionPipeline(
         embedding_provider=embedding_provider,

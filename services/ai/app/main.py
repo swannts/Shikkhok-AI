@@ -65,6 +65,13 @@ async def request_id_and_metrics_middleware(
     incoming_id = request.headers.get("X-Request-Id")
     active_req_id = set_request_id(incoming_id)
 
+    # Cache the request body before dependency validation. This is required for
+    # signed multipart uploads: FastAPI's form parser consumes the ASGI stream
+    # before verify_service_hmac can calculate the request signature.
+    # Request.body() stores the bytes on the Request instance and subsequent
+    # consumers (including multipart parsing) can read the cached body.
+    request.state.raw_body = await request.body()
+
     response: Response = await call_next(request)
     duration = time.time() - start_time
 

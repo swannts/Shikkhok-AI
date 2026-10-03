@@ -1,3 +1,4 @@
+import re
 import time
 import uuid
 from pathlib import Path
@@ -7,6 +8,7 @@ from app.ingestion.chunker import BengaliTextChunker
 from app.ingestion.models import (
     DocumentMetadata,
     ExtractedPage,
+    ExtractedSection,
     IngestionJobResult,
 )
 from app.ingestion.pdf_parser import NctbPdfParser
@@ -123,6 +125,7 @@ class IngestionPipeline:
                 vectors_generated=len(vectors),
                 duration_ms=duration_ms,
                 status="success",
+                sections=self._extract_sections(pages),
             )
         except Exception as e:
             duration_ms = int((time.time() - start_time) * 1000)
@@ -137,6 +140,45 @@ class IngestionPipeline:
                 status="failed",
                 error=str(e),
             )
+
+    def _extract_sections(self, pages: list[ExtractedPage]) -> list[ExtractedSection]:
+        chapter_pattern = re.compile(r"^(?:অধ্যায়|অধ্যায়|chapter)\s*[-:.]?\s*(.*)$", re.I)
+        lesson_pattern = re.compile(r"^(?:পাঠ|lesson|unit)\s*[-:.]?\s*(.*)$", re.I)
+        sections: list[ExtractedSection] = []
+        chapter = ""
+        lesson = ""
+        buffer: list[str] = []
+        start = 1
+
+        def flush(end: int) -> None:
+            if chapter and lesson and " ".join(buffer).strip():
+                sections.append(ExtractedSection(
+                    chapter_title=chapter[:240], lesson_title=lesson[:240],
+                    page_start=start, page_end=end, text=" ".join(buffer).strip(),
+                ))
+
+        for page in pages:
+            for raw_line in page.text.splitlines():
+                line = " ".join(raw_line.split()).strip()
+                if not line:
+                    continue
+                chapter_match = chapter_pattern.match(line)
+                lesson_match = lesson_pattern.match(line)
+                if chapter_match:
+                    flush(page.page_number - 1)
+                    chapter = chapter_match.group(1).strip() or line
+                    lesson = ""
+                    buffer.clear()
+                    start = page.page_number
+                elif lesson_match and chapter:
+                    flush(page.page_number - 1)
+                    lesson = lesson_match.group(1).strip() or line
+                    buffer.clear()
+                    start = page.page_number
+                elif chapter and lesson:
+                    buffer.append(line)
+        flush(pages[-1].page_number if pages else 1)
+        return sections
 
     async def ingest_pdf_file(
         self,

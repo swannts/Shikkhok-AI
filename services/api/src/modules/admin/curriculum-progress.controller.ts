@@ -10,6 +10,16 @@ interface CurriculumProgressDto {
   error?: string;
 }
 
+interface CurriculumStructureDto {
+  sections: Array<{
+    chapter_title: string;
+    lesson_title: string;
+    page_start: number;
+    page_end: number;
+    text: string;
+  }>;
+}
+
 @Controller({ path: 'internal/curriculum', version: '1' })
 @UseGuards(InternalAuthGuard)
 export class CurriculumProgressController {
@@ -22,5 +32,13 @@ export class CurriculumProgressController {
   ): Promise<{ ok: true }> {
     await this.adminService.updateCurriculumIndexingProgress(bookId, progress);
     return { ok: true };
+  }
+
+  @Post(':bookId/structure')
+  async persistStructure(
+    @Param('bookId', MongoObjectIdPipe) bookId: string,
+    @Body() structure: CurriculumStructureDto,
+  ): Promise<{ ok: true; chapters: number; lessons: number }> {
+    return this.adminService.persistExtractedStructure(bookId, structure.sections);
   }
 }

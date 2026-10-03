@@ -148,7 +148,9 @@ export async function processCurriculumJob(job: Job): Promise<Record<string, any
 }
 
 async function processCurriculumPdfJob(data: CurriculumJobData): Promise<Record<string, any>> {
-  const pdf = await readFile(data.filePath!);
+  await reportProgress(data.bookId, 'processing');
+  try {
+    const pdf = await readFile(data.filePath!);
   const form = new FormData();
   form.append('file', new Blob([pdf], { type: 'application/pdf' }), data.sourceBook || 'textbook.pdf');
   form.append('class_level', String(data.classLevel));
@@ -156,6 +158,9 @@ async function processCurriculumPdfJob(data: CurriculumJobData): Promise<Record<
   form.append('subject_title', data.subjectTitle || data.subjectId);
   form.append('source_book', data.sourceBook || data.bookId);
   form.append('medium', 'bangla');
+  form.append('curriculum_year', String(data.academicYear));
+  form.append('curriculum_version', data.curriculumVersion);
+  form.append('book_id', data.bookId);
   const path = '/api/v1/ingestion/pdf';
   const request = new Request(`${config.aiServiceUrl}${path}`, { method: 'POST', body: form });
   const requestBody = new Uint8Array(await request.arrayBuffer());
@@ -169,8 +174,40 @@ async function processCurriculumPdfJob(data: CurriculumJobData): Promise<Record<
       'X-Service-Signature': signed.signature,
     },
     body: requestBody,
-    signal: AbortSignal.timeout(120000),
+    signal: AbortSignal.timeout(900000),
   });
   if (!response.ok) throw new Error(`AI PDF ingestion failed (${response.status})`);
-  return { status: 'INDEXED', bookId: data.bookId, result: await response.json() };
+  const result = await response.json() as { sections?: unknown[] };
+  const sections = Array.isArray(result.sections) ? result.sections : [];
+  if (sections.length > 0) {
+    const structurePath = `/api/v1/internal/curriculum/${data.bookId}/structure`;
+    const structureBody = JSON.stringify({ sections });
+    const structureSignature = signRequest('POST', structurePath, structureBody);
+    const structureResponse = await fetch(`${config.apiServiceUrl}${structurePath}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Service-Name': 'shikkhok-worker',
+        'X-Service-Timestamp': structureSignature.timestamp,
+        'X-Service-Signature': structureSignature.signature,
+        'X-Request-Id': `worker_structure_${data.bookId}_${Date.now()}`,
+      },
+      body: structureBody,
+      signal: AbortSignal.timeout(30000),
+    });
+    if (!structureResponse.ok) {
+      throw new Error(`Curriculum structure persistence failed (${structureResponse.status})`);
+    }
+  }
+  await reportProgress(data.bookId, sections.length ? 'indexed' : 'partially_failed', {
+    indexedChunkCount: Number((result as { vectors_generated?: number }).vectors_generated ?? 0),
+    failedChunkCount: sections.length ? 0 : 1,
+  });
+  return { status: sections.length ? 'INDEXED' : 'PARTIALLY_INDEXED', bookId: data.bookId, result };
+  } catch (err) {
+    await reportProgress(data.bookId, 'failed', {
+      error: err instanceof Error ? err.message : 'Curriculum PDF indexing failed',
+    });
+    throw err;
+  }
 }

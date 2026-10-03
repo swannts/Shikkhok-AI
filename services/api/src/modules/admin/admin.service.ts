@@ -39,6 +39,7 @@ import { SubscriptionStatus } from '../subscriptions/enums/subscription-status.e
 import { PaymentStatus } from '../subscriptions/enums/payment-status.enum';
 import { UserStatus } from '../users/enums/user-status.enum';
 import { ContentWorkflowStatus } from '../curriculum/enums/content-workflow-status.enum';
+import { LessonContentBlockType } from '../curriculum/types/lesson-content-block';
 import { AdminUploadTextbookDto } from './dto/admin-upload-textbook.dto';
 import { createHash } from 'crypto';
 import { mkdir, writeFile } from 'fs/promises';
@@ -99,6 +100,71 @@ export class AdminService {
       update.lastIndexError = null;
     }
     await this.textbookModel.updateOne({ _id: bookId }, { $set: update }).exec();
+  }
+
+  async persistExtractedStructure(
+    bookId: string,
+    sections: Array<{
+      chapter_title: string;
+      lesson_title: string;
+      page_start: number;
+      page_end: number;
+      text: string;
+    }>,
+  ): Promise<{ ok: true; chapters: number; lessons: number }> {
+    const book = await this.textbookModel.findById(bookId).exec();
+    if (!book || !sections.length) return { ok: true, chapters: 0, lessons: 0 };
+    const grouped = new Map<string, typeof sections>();
+    for (const section of sections) {
+      const current = grouped.get(section.chapter_title) ?? [];
+      current.push(section);
+      grouped.set(section.chapter_title, current);
+    }
+    let lessonCount = 0;
+    let chapterOrder = 0;
+    for (const [chapterTitle, chapterSections] of grouped) {
+      const chapter = await this.chapterModel.findOneAndUpdate(
+        { subjectId: book.subjectId, slug: this.slugify(chapterTitle) },
+        { $set: { title: chapterTitle, order: chapterOrder++, isPublished: true } },
+        { upsert: true, new: true, setDefaultsOnInsert: true },
+      ).exec();
+      let lessonOrder = 0;
+      for (const section of chapterSections) {
+        const text = section.text.trim();
+        if (!text) continue;
+        await this.lessonModel.findOneAndUpdate(
+          { chapterId: chapter._id, slug: this.slugify(section.lesson_title) },
+          {
+            $set: {
+              title: section.lesson_title,
+              order: lessonOrder++,
+              pageStart: section.page_start,
+              pageEnd: section.page_end,
+              isPublished: true,
+              workflowStatus: ContentWorkflowStatus.PUBLISHED,
+              publishedAt: new Date(),
+              contentBlocks: [{
+                id: `ocr-${bookId}-${section.page_start}`,
+                type: LessonContentBlockType.PARAGRAPH,
+                order: 0,
+                text,
+              }],
+            },
+          },
+          { upsert: true, new: true, setDefaultsOnInsert: true },
+        ).exec();
+        lessonCount++;
+      }
+    }
+    await this.textbookModel.updateOne(
+      { _id: bookId },
+      { $set: { totalChapters: grouped.size, totalLessons: lessonCount } },
+    ).exec();
+    return { ok: true, chapters: grouped.size, lessons: lessonCount };
+  }
+
+  private slugify(value: string): string {
+    return value.trim().toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || 'section';
   }
 
   async getMetricsOverview(): Promise<Record<string, any>> {
@@ -701,7 +767,16 @@ export class AdminService {
     }
     await this.curriculumQueue.add(
       'process-curriculum-indexing',
-      { bookId: book._id.toString(), filePath: storagePath },
+      {
+        bookId: book._id.toString(),
+        filePath: storagePath,
+        sourceBook: dto.titleBn || dto.title,
+        subjectTitle: dto.titleBn || dto.title,
+        subjectId: subject._id.toString(),
+        classLevel: dto.classLevel,
+        curriculumVersion: `${dto.curriculumYear}-NCTB`,
+        academicYear: dto.curriculumYear,
+      },
       { jobId: `index-book-${book._id.toString()}`, attempts: 3, backoff: { type: 'exponential', delay: 5000 } },
     );
     await this.auditService.recordAudit({

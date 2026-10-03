@@ -42,6 +42,14 @@ class IngestionChunk(BaseModel):
     content_hash: str
 
 
+class ExtractedSection(BaseModel):
+    chapter_title: str
+    lesson_title: str
+    page_start: int
+    page_end: int
+    text: str
+
+
 class IngestionJobResult(BaseModel):
     job_id: str
     source_name: str
@@ -51,3 +59,4 @@ class IngestionJobResult(BaseModel):
     duration_ms: int
     status: Literal["success", "partial", "failed"]
     error: str | None = None
+    sections: list[ExtractedSection] = Field(default_factory=list)

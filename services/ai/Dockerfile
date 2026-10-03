@@ -6,7 +6,7 @@ WORKDIR /app
 # Install uv for fast, reliable dependency resolution
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-COPY pyproject.toml .
+COPY pyproject.toml uv.lock .
 RUN uv sync --no-dev --frozen || uv sync --no-dev
 
 FROM python:3.12-slim AS runner
