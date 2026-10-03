@@ -35,7 +35,7 @@ class StudentProfileDto {
     return StudentProfileDto(
       id: (json['_id'] ?? json['id'] ?? '').toString(),
       userId: (json['userId'] ?? '').toString(),
-      classLevel: (json['classLevel'] as num?)?.toInt() ?? 8,
+      classLevel: _requiredClassLevel(json['classLevel']),
       medium: (json['medium'] as String?) ?? 'bangla',
       curriculumYear: (json['curriculumYear'] as num?)?.toInt() ?? 2026,
       schoolName: json['schoolName'] as String?,
@@ -54,6 +54,15 @@ class StudentProfileDto {
           const [],
       dateOfBirth: json['dateOfBirth'] as String?,
     );
+  }
+
+  static int _requiredClassLevel(Object? value) {
+    final classLevel = (value as num?)?.toInt();
+    if (classLevel == null || classLevel < 1 || classLevel > 12) {
+      throw const FormatException(
+          'Student class level is required and must be 1-12');
+    }
+    return classLevel;
   }
 
   Map<String, dynamic> toJson() => {

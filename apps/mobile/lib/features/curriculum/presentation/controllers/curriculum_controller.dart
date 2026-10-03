@@ -10,6 +10,8 @@ import '../../domain/entities/progress_summary.dart';
 import '../../domain/repositories/curriculum_repository.dart';
 import '../../data/datasources/curriculum_remote_data_source.dart';
 import '../../data/repositories/curriculum_repository_impl.dart';
+import '../../data/dto/textbook_manifest_dto.dart';
+import 'textbook_download_controller.dart';
 
 final curriculumRemoteDataSourceProvider =
     Provider<CurriculumRemoteDataSource>((ref) {
@@ -190,6 +192,17 @@ final chapterDetailsProvider =
     subject: subject,
     lessons: lessons,
     progress: progress,
+  );
+});
+
+final textbooksForSubjectProvider =
+    FutureProvider.family<List<TextbookItemDto>, Subject>((ref, subject) async {
+  final manager = ref.watch(textbookDownloadManagerProvider);
+  return manager.fetchTextbooks(
+    classLevel: subject.classLevel,
+    medium: subject.medium,
+    curriculumYear: subject.curriculumYear,
+    subjectId: subject.id,
   );
 });
 

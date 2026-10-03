@@ -74,7 +74,11 @@ class NctbPdfParser:
 
     def _ocr(self, pdf_bytes: bytes, source_name: str) -> list[ExtractedPage]:
         try:
-            images = convert_from_bytes(pdf_bytes, dpi=180, fmt="png")
+            # Structure-only ingestion needs headings and page boundaries, not
+            # embedding-quality OCR. A moderate resolution keeps local chapter
+            # extraction practical for scanned NCTB books while preserving Bangla
+            # heading recognition.
+            images = convert_from_bytes(pdf_bytes, dpi=140, fmt="png")
             pages: list[ExtractedPage] = []
             for page_number, image in enumerate(images, start=1):
                 text = pytesseract.image_to_string(image, lang="ben+eng").strip()

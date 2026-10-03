@@ -1,5 +1,7 @@
 from typing import Any
 
+import asyncio
+
 from fastapi import APIRouter, Depends, File, Form, UploadFile
 from pydantic import BaseModel
 
@@ -7,6 +9,7 @@ from app.core.dependencies import get_embedding_provider, get_vector_store
 from app.core.security import verify_service_hmac
 from app.ingestion.models import DocumentMetadata, ExtractedPage, IngestionJobResult
 from app.ingestion.pipeline import IngestionPipeline
+from app.ingestion.pdf_parser import NctbPdfParser
 from app.providers.embeddings.base import EmbeddingProvider
 from app.providers.vector_store.base import VectorStore
 
@@ -55,6 +58,7 @@ async def ingest_pdf_upload(
     curriculum_year: int | None = Form(None),
     curriculum_version: str | None = Form(None),
     book_id: str | None = Form(None),
+    structure_only: bool = Form(False),
     _caller: str = Depends(verify_service_hmac),
     vector_store: VectorStore = Depends(get_vector_store),
     embedding_provider: EmbeddingProvider = Depends(get_embedding_provider),
@@ -75,6 +79,21 @@ async def ingest_pdf_upload(
         medium="bangla" if medium == "bangla" else "english",
         book_id=book_id,
     )
+    if structure_only:
+        parser = NctbPdfParser()
+        pages = await asyncio.to_thread(parser.extract_pages_from_bytes, pdf_bytes, source_book)
+        structure_pipeline = IngestionPipeline.__new__(IngestionPipeline)
+        sections = structure_pipeline._extract_sections(pages)
+        return IngestionJobResult(
+            job_id=f"structure_{book_id or source_book}",
+            source_name=source_book,
+            pages_extracted=len(pages),
+            chunks_created=0,
+            vectors_generated=0,
+            duration_ms=0,
+            status="partial",
+            sections=sections,
+        )
     pipeline = IngestionPipeline(
         embedding_provider=embedding_provider,
         vector_store=vector_store,

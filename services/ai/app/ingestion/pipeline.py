@@ -1,3 +1,4 @@
+import asyncio
 import re
 import time
 import uuid
@@ -137,8 +138,12 @@ class IngestionPipeline:
                 chunks_created=0,
                 vectors_generated=0,
                 duration_ms=duration_ms,
-                status="failed",
+                # Preserve OCR-derived structure even when embeddings fail.
+                # Chapter/lesson navigation is independent from vector search;
+                # callers can persist this structure and mark indexing partial.
+                status="partial",
                 error=str(e),
+                sections=self._extract_sections(pages),
             )
 
     def _extract_sections(self, pages: list[ExtractedPage]) -> list[ExtractedSection]:
@@ -170,7 +175,13 @@ class IngestionPipeline:
                     lesson = ""
                     buffer.clear()
                     start = page.page_number
-                elif lesson_match and chapter:
+                elif lesson_match:
+                    # Some NCTB primary books are organized directly as
+                    # numbered lessons and do not contain explicit chapter
+                    # headings. Keep the source structure truthful by using a
+                    # single navigation group rather than inventing chapters.
+                    if not chapter:
+                        chapter = "পাঠসমূহ"
                     flush(page.page_number - 1)
                     lesson = lesson_match.group(1).strip() or line
                     buffer.clear()
@@ -185,7 +196,7 @@ class IngestionPipeline:
         pdf_path: str | Path,
         metadata: DocumentMetadata,
     ) -> IngestionJobResult:
-        pages = self.pdf_parser.extract_pages_from_file(pdf_path)
+        pages = await asyncio.to_thread(self.pdf_parser.extract_pages_from_file, pdf_path)
         return await self.ingest_pages(pages, metadata)
 
     async def ingest_pdf_bytes(
@@ -193,5 +204,9 @@ class IngestionPipeline:
         pdf_bytes: bytes,
         metadata: DocumentMetadata,
     ) -> IngestionJobResult:
-        pages = self.pdf_parser.extract_pages_from_bytes(pdf_bytes, metadata.source_book)
+        pages = await asyncio.to_thread(
+            self.pdf_parser.extract_pages_from_bytes,
+            pdf_bytes,
+            metadata.source_book,
+        )
         return await self.ingest_pages(pages, metadata)

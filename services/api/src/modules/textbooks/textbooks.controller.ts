@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, StreamableFile, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -57,5 +57,14 @@ export class TextbooksController {
     @Param('textbookId', MongoObjectIdPipe) textbookId: string,
   ) {
     return this.textbooksService.getTextbookManifest(user, textbookId);
+  }
+
+  @Get(':textbookId/pdf')
+  @ApiOperation({ summary: 'Stream the authenticated textbook PDF' })
+  async streamTextbookPdf(
+    @CurrentUser() user: AuthenticatedUser,
+    @Param('textbookId', MongoObjectIdPipe) textbookId: string,
+  ): Promise<StreamableFile> {
+    return this.textbooksService.streamTextbookPdf(user, textbookId);
   }
 }

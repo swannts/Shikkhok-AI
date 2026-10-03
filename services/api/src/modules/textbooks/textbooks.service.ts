@@ -1,4 +1,7 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, StreamableFile } from '@nestjs/common';
+import { createReadStream } from 'node:fs';
+import { access } from 'node:fs/promises';
+import { basename, resolve } from 'node:path';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UsersService } from '../users/users.service';
 import { StudentsService } from '../students/students.service';
@@ -79,6 +82,31 @@ export class TextbooksService {
       manifest: manifest.toJSON(),
       textbook: textbook.toJSON(),
     };
+  }
+
+  async streamTextbookPdf(
+    _currentUser: AuthenticatedUser,
+    textbookId: string,
+  ): Promise<StreamableFile> {
+    const textbook = await this.textbookRepository.findById(textbookId);
+    if (!textbook || !textbook.isPublished || !textbook.pdfStoragePath) {
+      throw new NotFoundException('Textbook PDF not found');
+    }
+
+    const configuredRoot = resolve(process.env.CURRICULUM_UPLOAD_DIR || '/app/uploads/curriculum');
+    const filePath = resolve(textbook.pdfStoragePath);
+    if (filePath !== configuredRoot && !filePath.startsWith(`${configuredRoot}/`)) {
+      throw new NotFoundException('Textbook PDF not found');
+    }
+    try {
+      await access(filePath);
+    } catch {
+      throw new NotFoundException('Textbook PDF is not available yet');
+    }
+    return new StreamableFile(createReadStream(filePath), {
+      type: 'application/pdf',
+      disposition: `inline; filename="${basename(filePath)}"`,
+    });
   }
 
   async getManifestBundle(

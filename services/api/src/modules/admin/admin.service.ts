@@ -156,11 +156,25 @@ export class AdminService {
         lessonCount++;
       }
     }
+    // Structure extraction may arrive in multiple idempotent batches. Count
+    // the persisted lessons for this subject instead of replacing the
+    // textbook total with only the current batch size.
+    const subjectChapters = await this.chapterModel
+      .find({ subjectId: book.subjectId })
+      .select({ _id: 1 })
+      .lean()
+      .exec();
+    const persistedLessonCount = await this.lessonModel
+      .countDocuments({ chapterId: { $in: subjectChapters.map((chapter) => chapter._id) } })
+      .exec();
+    const persistedChapterCount = await this.chapterModel
+      .countDocuments({ subjectId: book.subjectId })
+      .exec();
     await this.textbookModel.updateOne(
       { _id: bookId },
-      { $set: { totalChapters: grouped.size, totalLessons: lessonCount } },
+      { $set: { totalChapters: persistedChapterCount, totalLessons: persistedLessonCount } },
     ).exec();
-    return { ok: true, chapters: grouped.size, lessons: lessonCount };
+    return { ok: true, chapters: persistedChapterCount, lessons: persistedLessonCount };
   }
 
   private slugify(value: string): string {

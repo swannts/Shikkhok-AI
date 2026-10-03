@@ -123,6 +123,7 @@ services:
       MONGODB_URI: ${MONGODB_URI:-mongodb://shikkhok_admin:shikkhok_secure_password@mongodb:27017/shikkhok_db?authSource=admin}
       AI_SERVICE_URL: http://ai:8000
       AI_HMAC_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
+      API_SERVICE_URL: http://api:4000
       WORKER_HEALTH_PORT: 3100
       FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:-}
       FIREBASE_CLIENT_EMAIL: ${FIREBASE_CLIENT_EMAIL:-}

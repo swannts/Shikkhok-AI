@@ -4,6 +4,7 @@ import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
+import * as express from 'express';
 import { AppModule } from './app.module';
 import { RedisIoAdapter } from './core/socket/redis-io.adapter';
 import { RequestIdInterceptor } from './common/interceptors/request-id.interceptor';
@@ -16,7 +17,13 @@ import { MetricsInterceptor } from './common/interceptors/metrics.interceptor';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new AppLoggerService(),
+    bodyParser: false,
   });
+  // OCR structure callbacks contain the full page text for a book. Keep the
+  // internal callback bounded, but large enough for scanned textbooks; the
+  // previous Express default rejected valid multi-page OCR payloads with 413.
+  app.use(express.json({ limit: '25mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '25mb' }));
   app.getHttpAdapter().getInstance().set('trust proxy', true);
 
   const configService = app.get(ConfigService);

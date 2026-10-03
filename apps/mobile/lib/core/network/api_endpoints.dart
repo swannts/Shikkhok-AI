@@ -127,6 +127,7 @@ class ApiEndpoints {
   static const String textbookManifestBundle = '/textbooks/manifests/bundle';
   static String textbook(String id) => '/textbooks/$id';
   static String textbookManifest(String id) => '/textbooks/$id/manifest';
+  static String textbookPdf(String id) => '/textbooks/$id/pdf';
 
   // Health
   static const String healthLive = '/health/live';

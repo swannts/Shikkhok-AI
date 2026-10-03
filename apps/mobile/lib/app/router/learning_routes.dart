@@ -80,6 +80,7 @@ final List<RouteBase> learningRoutes = [
     path: '/textbooks/:bookId',
     builder: (context, state) => TextbookReaderPage(
       bookId: state.pathParameters['bookId'],
+      initialPage: int.tryParse(state.uri.queryParameters['page'] ?? '') ?? 1,
     ),
   ),
   GoRoute(

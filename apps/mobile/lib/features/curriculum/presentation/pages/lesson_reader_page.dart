@@ -287,6 +287,8 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                             ],
                           ],
                         ),
+                        if (subject != null && lesson.pageStart != null)
+                          _sourcePageAction(subject, lesson.pageStart!),
                         const Divider(height: AppSpacing.xl),
 
                         Text(
@@ -527,5 +529,25 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
         child: const Icon(Icons.smart_toy_rounded, color: Colors.white),
       ),
     );
+  }
+
+  Widget _sourcePageAction(Subject subject, int page) {
+    return ref.watch(textbooksForSubjectProvider(subject)).when(
+          loading: () => const SizedBox(height: AppSpacing.sm),
+          error: (error, stackTrace) => const SizedBox.shrink(),
+          data: (books) {
+            if (books.isEmpty) return const SizedBox.shrink();
+            return Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: () => context.push(
+                  '${AppRoutes.textbook(books.first.id)}?page=$page',
+                ),
+                icon: const Icon(Icons.menu_book_rounded),
+                label: Text('মূল বইয়ের পৃষ্ঠা $page পড়ো'),
+              ),
+            );
+          },
+        );
   }
 }

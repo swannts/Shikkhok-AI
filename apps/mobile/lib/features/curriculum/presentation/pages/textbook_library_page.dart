@@ -170,9 +170,10 @@ class _TextbookLibraryPageState extends ConsumerState<TextbookLibraryPage> {
 
                             return InkWell(
                               onTap: () {
-                                if (isCompleted) {
-                                  context.push('/textbook-reader');
-                                } else if (!isDownloading) {
+                                if (!isDownloading) {
+                                  context.push('/textbooks/${book.id}');
+                                }
+                                if (!isCompleted && !isDownloading) {
                                   notifier.downloadBook(book);
                                 }
                               },

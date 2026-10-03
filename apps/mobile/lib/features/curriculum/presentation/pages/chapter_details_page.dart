@@ -286,38 +286,6 @@ class ChapterDetailsPage extends ConsumerWidget {
                                     ),
                                 ],
                               ),
-                              const SizedBox(height: AppSpacing.md),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton.icon(
-                                      onPressed: () =>
-                                          context.go(AppRoutes.practiceSetup),
-                                      icon: const Icon(
-                                        Icons.edit_note_rounded,
-                                        size: 20,
-                                        color: Colors.white,
-                                      ),
-                                      label: Text(
-                                        l10n.practiceAction,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: AppColors.primary,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(14),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -372,38 +340,6 @@ class ChapterDetailsPage extends ConsumerWidget {
                           ),
                         ],
                       ],
-                    ),
-                  ),
-                ),
-                // Bottom Sticky Exam Action
-                Container(
-                  padding: const EdgeInsets.all(AppSpacing.md),
-                  decoration: const BoxDecoration(
-                    color: AppColors.surface,
-                    border: Border(top: BorderSide(color: AppColors.border)),
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: OutlinedButton.icon(
-                      onPressed: () => context.go(AppRoutes.examLibrary),
-                      icon: const Icon(Icons.assignment_outlined,
-                          color: AppColors.primary),
-                      label: Text(
-                        l10n.chapterExam,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                            color: AppColors.primary, width: 2),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
                     ),
                   ),
                 ),

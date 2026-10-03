@@ -24,7 +24,9 @@ export function startWorker() {
   const curriculumManaged = createManagedWorker({
     queueName: 'curriculum',
     processor: async (job: Job) => processCurriculumJob(job),
-    concurrency: 2,
+    // Bengali OCR is CPU/memory intensive. Process one textbook at a time so
+    // the AI service does not drop concurrent multipart requests.
+    concurrency: 1,
     maxAttempts: JOB_ATTEMPTS,
     removeOnComplete: JOB_REMOVE_ON_COMPLETE,
   });

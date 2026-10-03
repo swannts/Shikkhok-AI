@@ -26,13 +26,22 @@ class SubjectDto {
       id: (json['_id'] ?? json['id'] ?? '').toString(),
       name: (json['name'] ?? '').toString(),
       slug: (json['slug'] ?? '').toString(),
-      classLevel: (json['classLevel'] as num?)?.toInt() ?? 8,
+      classLevel: _requiredClassLevel(json['classLevel']),
       medium: (json['medium'] ?? 'bangla').toString(),
       curriculumYear: (json['curriculumYear'] as num?)?.toInt() ?? 2026,
       description: json['description'] as String?,
       order: (json['order'] as num?)?.toInt() ?? 0,
       isPublished: json['isPublished'] as bool? ?? true,
     );
+  }
+
+  static int _requiredClassLevel(Object? value) {
+    final classLevel = (value as num?)?.toInt();
+    if (classLevel == null || classLevel < 1 || classLevel > 12) {
+      throw const FormatException(
+          'Subject class level is required and must be 1-12');
+    }
+    return classLevel;
   }
 
   Map<String, dynamic> toJson() => {

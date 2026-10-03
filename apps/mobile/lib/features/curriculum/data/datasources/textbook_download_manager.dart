@@ -39,6 +39,7 @@ class TextbookDownloadManager {
     int? classLevel,
     String? medium,
     int? curriculumYear,
+    String? subjectId,
   }) async {
     final res = await _apiClient.dio.get(
       ApiEndpoints.textbooks,
@@ -46,6 +47,7 @@ class TextbookDownloadManager {
         if (classLevel != null) 'classLevel': classLevel,
         if (medium != null) 'medium': medium,
         if (curriculumYear != null) 'curriculumYear': curriculumYear,
+        if (subjectId != null) 'subjectId': subjectId,
       },
     );
 

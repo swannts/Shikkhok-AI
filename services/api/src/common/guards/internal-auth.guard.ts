@@ -77,9 +77,12 @@ export class InternalAuthGuard implements CanActivate {
 
     const bodyHash = crypto.createHash('sha256').update(bodyForVerification).digest('hex');
     const method = (request.method || 'POST').toUpperCase();
-    const path = request.route?.path
-      ? `/api/v1/${request.route.path}`
-      : request.url?.split('?')[0] || '';
+    // Signatures are created by internal callers with the concrete URL
+    // (including the ObjectId). Using Nest's route template here, such as
+    // `/api/v1/internal/curriculum/:bookId/structure`, makes valid worker
+    // callbacks fail authentication because the signed path contains the
+    // actual book id.
+    const path = (request.originalUrl || request.url || '').split('?')[0];
 
     const canonical = `${timestamp}\n${method}\n${path}\n${bodyHash}`;
     const expectedSignature = crypto

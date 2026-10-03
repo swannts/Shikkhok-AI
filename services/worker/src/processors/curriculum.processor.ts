@@ -20,6 +20,7 @@ export interface CurriculumJobData {
   chunkSize?: number;
   chunkOverlap?: number;
   filePath?: string;
+  structureOnly?: boolean;
 }
 
 function signRequest(method: string, path: string, body: string | Uint8Array): { timestamp: string; signature: string } {
@@ -161,6 +162,7 @@ async function processCurriculumPdfJob(data: CurriculumJobData): Promise<Record<
   form.append('curriculum_year', String(data.academicYear));
   form.append('curriculum_version', data.curriculumVersion);
   form.append('book_id', data.bookId);
+  form.append('structure_only', String(data.structureOnly ?? false));
   const path = '/api/v1/ingestion/pdf';
   const request = new Request(`${config.aiServiceUrl}${path}`, { method: 'POST', body: form });
   const requestBody = new Uint8Array(await request.arrayBuffer());

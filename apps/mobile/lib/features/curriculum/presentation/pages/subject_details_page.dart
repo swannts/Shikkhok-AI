@@ -7,6 +7,7 @@ import '../../../../app/theme/app_spacing.dart';
 import '../../../../app/theme/app_typography.dart';
 import '../controllers/curriculum_controller.dart';
 import '../widgets/cache_status_banner.dart';
+import '../../domain/entities/subject.dart';
 
 class SubjectDetailsPage extends ConsumerWidget {
   final String? subjectId;
@@ -102,7 +103,13 @@ class SubjectDetailsPage extends ConsumerWidget {
         ),
         data: (viewData) {
           final subject = viewData.subject;
-          final chapters = viewData.chapters;
+          // OCR imported this book under a generic navigation group and
+          // generated lesson names from fragments of page text. Do not present
+          // that placeholder as an actual NCTB chapter.
+          final chapters = viewData.chapters.where((chapter) {
+            final normalizedTitle = chapter.title.trim().toLowerCase();
+            return chapter.slug != 'pathsomuh' && normalizedTitle != 'পাঠসমূহ';
+          }).toList();
 
           return SafeArea(
             child: SingleChildScrollView(
@@ -168,6 +175,8 @@ class SubjectDetailsPage extends ConsumerWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: AppSpacing.md),
+                  _TextbookReadAction(subject: subject),
                   const SizedBox(height: AppSpacing.xl),
                   const Text(
                     'অধ্যায়সমূহ',
@@ -189,7 +198,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                                 color: AppColors.textSecondary, size: 48),
                             const SizedBox(height: AppSpacing.sm),
                             Text(
-                              'এই বিষয়ের কোনো অধ্যায় এখনো যুক্ত করা হয়নি।',
+                              'এই বইয়ের নির্ভরযোগ্য অধ্যায় তালিকা এখনো প্রস্তুত নয়। মূল বই পড়তে উপরের PDF বোতামটি ব্যবহার করো।',
                               style: AppTypography.body
                                   .copyWith(color: AppColors.textSecondary),
                               textAlign: TextAlign.center,
@@ -283,6 +292,59 @@ class SubjectDetailsPage extends ConsumerWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class _TextbookReadAction extends ConsumerWidget {
+  final Subject subject;
+
+  const _TextbookReadAction({required this.subject});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textbooks = ref.watch(textbooksForSubjectProvider(subject));
+    return textbooks.when(
+      loading: () => const LinearProgressIndicator(
+        color: AppColors.primary,
+        minHeight: 2,
+      ),
+      error: (error, stackTrace) => const SizedBox.shrink(),
+      data: (books) {
+        if (books.isEmpty) {
+          return Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(AppSpacing.md),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: const Text(
+              'এই বইয়ের PDF এখনো পাওয়া যায়নি। নিচের অধ্যায়গুলো থেকে পড়া চালিয়ে যাও।',
+              style: AppTypography.caption,
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+        final book = books.first;
+        return SizedBox(
+          width: double.infinity,
+          height: 52,
+          child: OutlinedButton.icon(
+            onPressed: () => context.push(AppRoutes.textbook(book.id)),
+            icon: const Icon(Icons.chrome_reader_mode_rounded),
+            label: const Text('সম্পূর্ণ পাঠ্যবই পড়ো'),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppColors.primary,
+              side: const BorderSide(color: AppColors.primary),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
