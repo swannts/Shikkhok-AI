@@ -1,0 +1,5707 @@
+{
+  "schema_version": "1.0",
+  "book": {
+    "title_bn": "ইসলাম শিক্ষা",
+    "grade": 3,
+    "language": "bn-BD",
+    "source_filename": "islamic-studies.pdf",
+    "total_pdf_pages": 74,
+    "printed_to_pdf_offset": 5,
+    "source_type": "image_only_scan"
+  },
+  "counts": {
+    "chapters": 5,
+    "lessons": 28,
+    "sessions": 84,
+    "starter_questions": 28,
+    "split_pdfs": 28
+  },
+  "chapters": [
+    {
+      "id": "islam3-c01",
+      "order": 1,
+      "title_bn": "স্রষ্টা ও সৃষ্টি",
+      "source": {
+        "printed_pages": [
+          1,
+          29
+        ],
+        "pdf_pages_1_based": [
+          6,
+          34
+        ]
+      },
+      "lesson_ids": [
+        "islam3-c01-l01",
+        "islam3-c01-l02",
+        "islam3-c01-l03",
+        "islam3-c01-l04",
+        "islam3-c01-l05",
+        "islam3-c01-l06",
+        "islam3-c01-l07",
+        "islam3-c01-l08",
+        "islam3-c01-l09",
+        "islam3-c01-l10",
+        "islam3-c01-l11",
+        "islam3-c01-l12",
+        "islam3-c01-l13"
+      ]
+    },
+    {
+      "id": "islam3-c02",
+      "order": 2,
+      "title_bn": "রাসুল (স.) ও তাঁর সাহাবিগণের জীবনচরিত অনুসরণ",
+      "source": {
+        "printed_pages": [
+          30,
+          39
+        ],
+        "pdf_pages_1_based": [
+          35,
+          44
+        ]
+      },
+      "lesson_ids": [
+        "islam3-c02-l01",
+        "islam3-c02-l02",
+        "islam3-c02-l03",
+        "islam3-c02-l04",
+        "islam3-c02-l05"
+      ]
+    },
+    {
+      "id": "islam3-c03",
+      "order": 3,
+      "title_bn": "নৈতিক ও মানবিক গুণাবলি অর্জন",
+      "source": {
+        "printed_pages": [
+          40,
+          49
+        ],
+        "pdf_pages_1_based": [
+          45,
+          54
+        ]
+      },
+      "lesson_ids": [
+        "islam3-c03-l01",
+        "islam3-c03-l02",
+        "islam3-c03-l03",
+        "islam3-c03-l04",
+        "islam3-c03-l05"
+      ]
+    },
+    {
+      "id": "islam3-c04",
+      "order": 4,
+      "title_bn": "ধর্মীয় সম্প্রীতি",
+      "source": {
+        "printed_pages": [
+          50,
+          59
+        ],
+        "pdf_pages_1_based": [
+          55,
+          64
+        ]
+      },
+      "lesson_ids": [
+        "islam3-c04-l01",
+        "islam3-c04-l02",
+        "islam3-c04-l03"
+      ]
+    },
+    {
+      "id": "islam3-c05",
+      "order": 5,
+      "title_bn": "জীবজগৎ ও প্রকৃতির প্রতি ভালোবাসা",
+      "source": {
+        "printed_pages": [
+          60,
+          68
+        ],
+        "pdf_pages_1_based": [
+          65,
+          73
+        ]
+      },
+      "lesson_ids": [
+        "islam3-c05-l01",
+        "islam3-c05-l02"
+      ]
+    }
+  ],
+  "lessons": [
+    {
+      "id": "islam3-c01-l01",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 1,
+      "title_bn": "মহান আল্লাহর পরিচয়",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "মহান আল্লাহর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          1,
+          3
+        ],
+        "pdf_pages_1_based": [
+          6,
+          8
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l01.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের আলোকে সৃষ্টি সম্পর্কে দুটি উদাহরণ বলো।",
+      "session_ids": [
+        "islam3-c01-l01-s1",
+        "islam3-c01-l01-s2",
+        "islam3-c01-l01-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l01-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l02",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 2,
+      "title_bn": "ইমানের পরিচয়",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "ইমানের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          4,
+          5
+        ],
+        "pdf_pages_1_based": [
+          9,
+          10
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l02.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠে ইমানের পরিচয় দেখে নিজের ভাষায় বলো।",
+      "session_ids": [
+        "islam3-c01-l02-s1",
+        "islam3-c01-l02-s2",
+        "islam3-c01-l02-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l02-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l03",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 3,
+      "title_bn": "ইসলামের পরিচয়",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "ইসলামের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          6,
+          7
+        ],
+        "pdf_pages_1_based": [
+          11,
+          12
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l03.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের পাঁচটি স্তম্ভের নাম কার্ডের সঙ্গে মিলাও।",
+      "session_ids": [
+        "islam3-c01-l03-s1",
+        "islam3-c01-l03-s2",
+        "islam3-c01-l03-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l03-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l04",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 4,
+      "title_bn": "পবিত্রতা ও পরিচ্ছন্নতা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "পবিত্রতা ও পরিচ্ছন্নতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          8,
+          9
+        ],
+        "pdf_pages_1_based": [
+          13,
+          14
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l04.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পরিচ্ছন্ন থাকার দুটি অভ্যাস ছবিতে চিহ্নিত করো।",
+      "session_ids": [
+        "islam3-c01-l04-s1",
+        "islam3-c01-l04-s2",
+        "islam3-c01-l04-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l04-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l05",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 5,
+      "title_bn": "সালাতের গুরুত্ব",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "সালাতের গুরুত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          10,
+          11
+        ],
+        "pdf_pages_1_based": [
+          15,
+          16
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l05.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠে সালাত সম্পর্কে শেখা একটি বিষয় বলো।",
+      "session_ids": [
+        "islam3-c01-l05-s1",
+        "islam3-c01-l05-s2",
+        "islam3-c01-l05-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l05-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l06",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 6,
+      "title_bn": "সালাত ও তাসবিহ",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "সালাত ও তাসবিহ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          12,
+          13
+        ],
+        "pdf_pages_1_based": [
+          17,
+          18
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l06.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসচিত্রের সালাতের ধাপ শিক্ষকসহ আলোচনা করো।",
+      "session_ids": [
+        "islam3-c01-l06-s1",
+        "islam3-c01-l06-s2",
+        "islam3-c01-l06-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l06-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l07",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 7,
+      "title_bn": "ছোট সুরা: আল-ফালাক",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "ছোট সুরা: আল-ফালাক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          14,
+          15
+        ],
+        "pdf_pages_1_based": [
+          19,
+          20
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l07.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "যাচাইকৃত শিক্ষক পাঠের সঙ্গে উৎস পৃষ্ঠা অনুসরণ করো।",
+      "session_ids": [
+        "islam3-c01-l07-s1",
+        "islam3-c01-l07-s2",
+        "islam3-c01-l07-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l07-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l08",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 8,
+      "title_bn": "ছোট সুরা: আন-নাস",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "ছোট সুরা: আন-নাস সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          16,
+          17
+        ],
+        "pdf_pages_1_based": [
+          21,
+          22
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l08.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "শিক্ষকের পাঠ শুনে উৎস পৃষ্ঠায় অনুসরণ করো।",
+      "session_ids": [
+        "islam3-c01-l08-s1",
+        "islam3-c01-l08-s2",
+        "islam3-c01-l08-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l08-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l09",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 9,
+      "title_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          18,
+          20
+        ],
+        "pdf_pages_1_based": [
+          23,
+          25
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l09.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসে থাকা আরবি বর্ণ শিক্ষকের সঙ্গে চিহ্নিত করো।",
+      "session_ids": [
+        "islam3-c01-l09-s1",
+        "islam3-c01-l09-s2",
+        "islam3-c01-l09-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l09-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l10",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 10,
+      "title_bn": "হরকত পরিচিতি",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "হরকত পরিচিতি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          21,
+          22
+        ],
+        "pdf_pages_1_based": [
+          26,
+          27
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l10.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসের হরকত চিহ্ন শিক্ষকসহ মিলাও; উচ্চারণ শিক্ষক যাচাই করবেন।",
+      "session_ids": [
+        "islam3-c01-l10-s1",
+        "islam3-c01-l10-s2",
+        "islam3-c01-l10-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l10-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l11",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 11,
+      "title_bn": "আসমানি কিতাব",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "আসমানি কিতাব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          23,
+          23
+        ],
+        "pdf_pages_1_based": [
+          28,
+          28
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l11.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের কিতাবের নাম কার্ডে চিহ্নিত করো।",
+      "session_ids": [
+        "islam3-c01-l11-s1",
+        "islam3-c01-l11-s2",
+        "islam3-c01-l11-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l11-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l12",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 12,
+      "title_bn": "কুরআন ও জীবনবিধান",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "কুরআন ও জীবনবিধান সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          24,
+          26
+        ],
+        "pdf_pages_1_based": [
+          29,
+          31
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l12.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের ভালো আচরণের উদাহরণ নিয়ে আলোচনা করো।",
+      "session_ids": [
+        "islam3-c01-l12-s1",
+        "islam3-c01-l12-s2",
+        "islam3-c01-l12-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l12-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c01-l13",
+      "chapter_id": "islam3-c01",
+      "order_in_chapter": 13,
+      "title_bn": "অধ্যায় ১: পুনরালোচনা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "অধ্যায় ১: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          27,
+          29
+        ],
+        "pdf_pages_1_based": [
+          32,
+          34
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c01-l13.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসের অনুশীলনী শিক্ষকসহ করো; ভুল হলে সংশ্লিষ্ট পাঠ দেখো।",
+      "session_ids": [
+        "islam3-c01-l13-s1",
+        "islam3-c01-l13-s2",
+        "islam3-c01-l13-s3"
+      ],
+      "question_ids": [
+        "islam3-c01-l13-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c02-l01",
+      "chapter_id": "islam3-c02",
+      "order_in_chapter": 1,
+      "title_bn": "মহানবি (স.)-এর জীবন পরিচয়",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "মহানবি (স.)-এর জীবন পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          30,
+          31
+        ],
+        "pdf_pages_1_based": [
+          35,
+          36
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c02-l01.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসে বর্ণিত জীবনের ঘটনাগুলো ক্রমে সাজাও।",
+      "session_ids": [
+        "islam3-c02-l01-s1",
+        "islam3-c02-l01-s2",
+        "islam3-c02-l01-s3"
+      ],
+      "question_ids": [
+        "islam3-c02-l01-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c02-l02",
+      "chapter_id": "islam3-c02",
+      "order_in_chapter": 2,
+      "title_bn": "মহানবি (স.)-এর জীবনাদর্শ",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "মহানবি (স.)-এর জীবনাদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          32,
+          33
+        ],
+        "pdf_pages_1_based": [
+          37,
+          38
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c02-l02.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের আদর্শের সঙ্গে একটি ভালো আচরণ মিলাও।",
+      "session_ids": [
+        "islam3-c02-l02-s1",
+        "islam3-c02-l02-s2",
+        "islam3-c02-l02-s3"
+      ],
+      "question_ids": [
+        "islam3-c02-l02-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c02-l03",
+      "chapter_id": "islam3-c02",
+      "order_in_chapter": 3,
+      "title_bn": "হজরত আবু বকর (রা.)-এর পরিচয়",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "হজরত আবু বকর (রা.)-এর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          34,
+          35
+        ],
+        "pdf_pages_1_based": [
+          39,
+          40
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c02-l03.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসে থাকা পরিচয় পড়ে একটি তথ্য বলো।",
+      "session_ids": [
+        "islam3-c02-l03-s1",
+        "islam3-c02-l03-s2",
+        "islam3-c02-l03-s3"
+      ],
+      "question_ids": [
+        "islam3-c02-l03-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c02-l04",
+      "chapter_id": "islam3-c02",
+      "order_in_chapter": 4,
+      "title_bn": "হজরত আবু বকর (রা.)-এর আদর্শ",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "হজরত আবু বকর (রা.)-এর আদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          36,
+          37
+        ],
+        "pdf_pages_1_based": [
+          41,
+          42
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c02-l04.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের গুণাবলির সঙ্গে দৈনন্দিন আচরণ মিলাও।",
+      "session_ids": [
+        "islam3-c02-l04-s1",
+        "islam3-c02-l04-s2",
+        "islam3-c02-l04-s3"
+      ],
+      "question_ids": [
+        "islam3-c02-l04-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c02-l05",
+      "chapter_id": "islam3-c02",
+      "order_in_chapter": 5,
+      "title_bn": "অধ্যায় ২: পুনরালোচনা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "অধ্যায় ২: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          38,
+          39
+        ],
+        "pdf_pages_1_based": [
+          43,
+          44
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c02-l05.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসের অনুশীলনী ও জীবনাদর্শের উদাহরণ আলোচনা করো।",
+      "session_ids": [
+        "islam3-c02-l05-s1",
+        "islam3-c02-l05-s2",
+        "islam3-c02-l05-s3"
+      ],
+      "question_ids": [
+        "islam3-c02-l05-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c03-l01",
+      "chapter_id": "islam3-c03",
+      "order_in_chapter": 1,
+      "title_bn": "নৈতিক ও মানবিক গুণাবলি",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "নৈতিক ও মানবিক গুণাবলি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          40,
+          41
+        ],
+        "pdf_pages_1_based": [
+          45,
+          46
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c03-l01.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের ভালো আচরণ কার্ড চিহ্নিত করো।",
+      "session_ids": [
+        "islam3-c03-l01-s1",
+        "islam3-c03-l01-s2",
+        "islam3-c03-l01-s3"
+      ],
+      "question_ids": [
+        "islam3-c03-l01-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c03-l02",
+      "chapter_id": "islam3-c03",
+      "order_in_chapter": 2,
+      "title_bn": "সত্যবাদিতা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "সত্যবাদিতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          42,
+          43
+        ],
+        "pdf_pages_1_based": [
+          47,
+          48
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c03-l02.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "কাল্পনিক ঘটনায় সত্য বলার উপায় বলো; সূচনা আগের পৃষ্ঠায় দেখো।",
+      "session_ids": [
+        "islam3-c03-l02-s1",
+        "islam3-c03-l02-s2",
+        "islam3-c03-l02-s3"
+      ],
+      "question_ids": [
+        "islam3-c03-l02-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c03-l03",
+      "chapter_id": "islam3-c03",
+      "order_in_chapter": 3,
+      "title_bn": "উদারতা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "উদারতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          44,
+          45
+        ],
+        "pdf_pages_1_based": [
+          49,
+          50
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c03-l03.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "ভাগ করে দেওয়ার একটি কাল্পনিক উদাহরণ বলো।",
+      "session_ids": [
+        "islam3-c03-l03-s1",
+        "islam3-c03-l03-s2",
+        "islam3-c03-l03-s3"
+      ],
+      "question_ids": [
+        "islam3-c03-l03-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c03-l04",
+      "chapter_id": "islam3-c03",
+      "order_in_chapter": 4,
+      "title_bn": "দেশপ্রেম",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          46,
+          47
+        ],
+        "pdf_pages_1_based": [
+          51,
+          52
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c03-l04.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "দেশ ও মানুষের কল্যাণে একটি কাজের উদাহরণ বলো।",
+      "session_ids": [
+        "islam3-c03-l04-s1",
+        "islam3-c03-l04-s2",
+        "islam3-c03-l04-s3"
+      ],
+      "question_ids": [
+        "islam3-c03-l04-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c03-l05",
+      "chapter_id": "islam3-c03",
+      "order_in_chapter": 5,
+      "title_bn": "অধ্যায় ৩: পুনরালোচনা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "অধ্যায় ৩: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          48,
+          49
+        ],
+        "pdf_pages_1_based": [
+          53,
+          54
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c03-l05.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের অনুশীলনী করে আচরণের কারণ বলো।",
+      "session_ids": [
+        "islam3-c03-l05-s1",
+        "islam3-c03-l05-s2",
+        "islam3-c03-l05-s3"
+      ],
+      "question_ids": [
+        "islam3-c03-l05-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c04-l01",
+      "chapter_id": "islam3-c04",
+      "order_in_chapter": 1,
+      "title_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          50,
+          51
+        ],
+        "pdf_pages_1_based": [
+          55,
+          56
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c04-l01.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "পাঠের ঘটনা দেখে বন্ধুত্বপূর্ণ আচরণ বলো।",
+      "session_ids": [
+        "islam3-c04-l01-s1",
+        "islam3-c04-l01-s2",
+        "islam3-c04-l01-s3"
+      ],
+      "question_ids": [
+        "islam3-c04-l01-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c04-l02",
+      "chapter_id": "islam3-c04",
+      "order_in_chapter": 2,
+      "title_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          52,
+          54
+        ],
+        "pdf_pages_1_based": [
+          57,
+          59
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c04-l02.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "কাল্পনিক সহপাঠীর অনুভূতি বুঝে সম্মানজনক কথা বলো।",
+      "session_ids": [
+        "islam3-c04-l02-s1",
+        "islam3-c04-l02-s2",
+        "islam3-c04-l02-s3"
+      ],
+      "question_ids": [
+        "islam3-c04-l02-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c04-l03",
+      "chapter_id": "islam3-c04",
+      "order_in_chapter": 3,
+      "title_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          55,
+          59
+        ],
+        "pdf_pages_1_based": [
+          60,
+          64
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c04-l03.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসের সহযোগিতার উদাহরণ ও অনুশীলনী আলোচনা করো।",
+      "session_ids": [
+        "islam3-c04-l03-s1",
+        "islam3-c04-l03-s2",
+        "islam3-c04-l03-s3"
+      ],
+      "question_ids": [
+        "islam3-c04-l03-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c05-l01",
+      "chapter_id": "islam3-c05",
+      "order_in_chapter": 1,
+      "title_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          60,
+          63
+        ],
+        "pdf_pages_1_based": [
+          65,
+          68
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c05-l01.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসের ছবি থেকে মানুষ, গাছ ও প্রাণীর সম্পর্ক বলো।",
+      "session_ids": [
+        "islam3-c05-l01-s1",
+        "islam3-c05-l01-s2",
+        "islam3-c05-l01-s3"
+      ],
+      "question_ids": [
+        "islam3-c05-l01-q1"
+      ],
+      "publication_status": "draft"
+    },
+    {
+      "id": "islam3-c05-l02",
+      "chapter_id": "islam3-c05",
+      "order_in_chapter": 2,
+      "title_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা",
+      "title_origin": "app_proposed_topic",
+      "objective_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "source": {
+        "printed_pages": [
+          64,
+          68
+        ],
+        "pdf_pages_1_based": [
+          69,
+          73
+        ],
+        "split_pdf": "lesson-pdfs/islam3-c05-l02.pdf",
+        "boundary_note": "Continuous proposed segment; some topic headings and endings occur on neighbouring pages. Consult adjacent source pages, especially printed 10,14,17,23,24,41,44,53,55,62,64."
+      },
+      "activity_bn": "উৎসের যত্নের উদাহরণ চিহ্নিত করে অনুশীলনী করো।",
+      "session_ids": [
+        "islam3-c05-l02-s1",
+        "islam3-c05-l02-s2",
+        "islam3-c05-l02-s3"
+      ],
+      "question_ids": [
+        "islam3-c05-l02-q1"
+      ],
+      "publication_status": "draft"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "islam3-c01-l01-s1",
+      "lesson_id": "islam3-c01-l01",
+      "sequence": 1,
+      "title_bn": "মহান আল্লাহর পরিচয় · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        6,
+        8
+      ],
+      "objective_bn": "মহান আল্লাহর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l01-s2",
+      "lesson_id": "islam3-c01-l01",
+      "sequence": 2,
+      "title_bn": "মহান আল্লাহর পরিচয় · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        6,
+        8
+      ],
+      "objective_bn": "মহান আল্লাহর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের আলোকে সৃষ্টি সম্পর্কে দুটি উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l01-s3",
+      "lesson_id": "islam3-c01-l01",
+      "sequence": 3,
+      "title_bn": "মহান আল্লাহর পরিচয় · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        6,
+        8
+      ],
+      "objective_bn": "মহান আল্লাহর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের আলোকে সৃষ্টি সম্পর্কে দুটি উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l02-s1",
+      "lesson_id": "islam3-c01-l02",
+      "sequence": 1,
+      "title_bn": "ইমানের পরিচয় · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        9,
+        10
+      ],
+      "objective_bn": "ইমানের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l02-s2",
+      "lesson_id": "islam3-c01-l02",
+      "sequence": 2,
+      "title_bn": "ইমানের পরিচয় · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        9,
+        10
+      ],
+      "objective_bn": "ইমানের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠে ইমানের পরিচয় দেখে নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l02-s3",
+      "lesson_id": "islam3-c01-l02",
+      "sequence": 3,
+      "title_bn": "ইমানের পরিচয় · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        9,
+        10
+      ],
+      "objective_bn": "ইমানের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠে ইমানের পরিচয় দেখে নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l03-s1",
+      "lesson_id": "islam3-c01-l03",
+      "sequence": 1,
+      "title_bn": "ইসলামের পরিচয় · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        11,
+        12
+      ],
+      "objective_bn": "ইসলামের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l03-s2",
+      "lesson_id": "islam3-c01-l03",
+      "sequence": 2,
+      "title_bn": "ইসলামের পরিচয় · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        11,
+        12
+      ],
+      "objective_bn": "ইসলামের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের পাঁচটি স্তম্ভের নাম কার্ডের সঙ্গে মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l03-s3",
+      "lesson_id": "islam3-c01-l03",
+      "sequence": 3,
+      "title_bn": "ইসলামের পরিচয় · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        11,
+        12
+      ],
+      "objective_bn": "ইসলামের পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের পাঁচটি স্তম্ভের নাম কার্ডের সঙ্গে মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l04-s1",
+      "lesson_id": "islam3-c01-l04",
+      "sequence": 1,
+      "title_bn": "পবিত্রতা ও পরিচ্ছন্নতা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        13,
+        14
+      ],
+      "objective_bn": "পবিত্রতা ও পরিচ্ছন্নতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l04-s2",
+      "lesson_id": "islam3-c01-l04",
+      "sequence": 2,
+      "title_bn": "পবিত্রতা ও পরিচ্ছন্নতা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        13,
+        14
+      ],
+      "objective_bn": "পবিত্রতা ও পরিচ্ছন্নতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পরিচ্ছন্ন থাকার দুটি অভ্যাস ছবিতে চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l04-s3",
+      "lesson_id": "islam3-c01-l04",
+      "sequence": 3,
+      "title_bn": "পবিত্রতা ও পরিচ্ছন্নতা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        13,
+        14
+      ],
+      "objective_bn": "পবিত্রতা ও পরিচ্ছন্নতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পরিচ্ছন্ন থাকার দুটি অভ্যাস ছবিতে চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l04-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l05-s1",
+      "lesson_id": "islam3-c01-l05",
+      "sequence": 1,
+      "title_bn": "সালাতের গুরুত্ব · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        15,
+        16
+      ],
+      "objective_bn": "সালাতের গুরুত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l05-s2",
+      "lesson_id": "islam3-c01-l05",
+      "sequence": 2,
+      "title_bn": "সালাতের গুরুত্ব · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        15,
+        16
+      ],
+      "objective_bn": "সালাতের গুরুত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠে সালাত সম্পর্কে শেখা একটি বিষয় বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l05-s3",
+      "lesson_id": "islam3-c01-l05",
+      "sequence": 3,
+      "title_bn": "সালাতের গুরুত্ব · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        15,
+        16
+      ],
+      "objective_bn": "সালাতের গুরুত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠে সালাত সম্পর্কে শেখা একটি বিষয় বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l05-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l06-s1",
+      "lesson_id": "islam3-c01-l06",
+      "sequence": 1,
+      "title_bn": "সালাত ও তাসবিহ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        17,
+        18
+      ],
+      "objective_bn": "সালাত ও তাসবিহ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l06-s2",
+      "lesson_id": "islam3-c01-l06",
+      "sequence": 2,
+      "title_bn": "সালাত ও তাসবিহ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        17,
+        18
+      ],
+      "objective_bn": "সালাত ও তাসবিহ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসচিত্রের সালাতের ধাপ শিক্ষকসহ আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l06-s3",
+      "lesson_id": "islam3-c01-l06",
+      "sequence": 3,
+      "title_bn": "সালাত ও তাসবিহ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        17,
+        18
+      ],
+      "objective_bn": "সালাত ও তাসবিহ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসচিত্রের সালাতের ধাপ শিক্ষকসহ আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l06-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l07-s1",
+      "lesson_id": "islam3-c01-l07",
+      "sequence": 1,
+      "title_bn": "ছোট সুরা: আল-ফালাক · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        19,
+        20
+      ],
+      "objective_bn": "ছোট সুরা: আল-ফালাক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l07-s2",
+      "lesson_id": "islam3-c01-l07",
+      "sequence": 2,
+      "title_bn": "ছোট সুরা: আল-ফালাক · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        19,
+        20
+      ],
+      "objective_bn": "ছোট সুরা: আল-ফালাক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "যাচাইকৃত শিক্ষক পাঠের সঙ্গে উৎস পৃষ্ঠা অনুসরণ করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l07-s3",
+      "lesson_id": "islam3-c01-l07",
+      "sequence": 3,
+      "title_bn": "ছোট সুরা: আল-ফালাক · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        19,
+        20
+      ],
+      "objective_bn": "ছোট সুরা: আল-ফালাক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "যাচাইকৃত শিক্ষক পাঠের সঙ্গে উৎস পৃষ্ঠা অনুসরণ করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l07-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l08-s1",
+      "lesson_id": "islam3-c01-l08",
+      "sequence": 1,
+      "title_bn": "ছোট সুরা: আন-নাস · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        21,
+        22
+      ],
+      "objective_bn": "ছোট সুরা: আন-নাস সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l08-s2",
+      "lesson_id": "islam3-c01-l08",
+      "sequence": 2,
+      "title_bn": "ছোট সুরা: আন-নাস · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        21,
+        22
+      ],
+      "objective_bn": "ছোট সুরা: আন-নাস সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "শিক্ষকের পাঠ শুনে উৎস পৃষ্ঠায় অনুসরণ করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l08-s3",
+      "lesson_id": "islam3-c01-l08",
+      "sequence": 3,
+      "title_bn": "ছোট সুরা: আন-নাস · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        21,
+        22
+      ],
+      "objective_bn": "ছোট সুরা: আন-নাস সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "শিক্ষকের পাঠ শুনে উৎস পৃষ্ঠায় অনুসরণ করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l08-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l09-s1",
+      "lesson_id": "islam3-c01-l09",
+      "sequence": 1,
+      "title_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        23,
+        25
+      ],
+      "objective_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l09-s2",
+      "lesson_id": "islam3-c01-l09",
+      "sequence": 2,
+      "title_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        23,
+        25
+      ],
+      "objective_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে থাকা আরবি বর্ণ শিক্ষকের সঙ্গে চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l09-s3",
+      "lesson_id": "islam3-c01-l09",
+      "sequence": 3,
+      "title_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        23,
+        25
+      ],
+      "objective_bn": "কুরআন তিলাওয়াত ও আরবি বর্ণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে থাকা আরবি বর্ণ শিক্ষকের সঙ্গে চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l09-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l10-s1",
+      "lesson_id": "islam3-c01-l10",
+      "sequence": 1,
+      "title_bn": "হরকত পরিচিতি · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        26,
+        27
+      ],
+      "objective_bn": "হরকত পরিচিতি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l10-s2",
+      "lesson_id": "islam3-c01-l10",
+      "sequence": 2,
+      "title_bn": "হরকত পরিচিতি · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        26,
+        27
+      ],
+      "objective_bn": "হরকত পরিচিতি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের হরকত চিহ্ন শিক্ষকসহ মিলাও; উচ্চারণ শিক্ষক যাচাই করবেন।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l10-s3",
+      "lesson_id": "islam3-c01-l10",
+      "sequence": 3,
+      "title_bn": "হরকত পরিচিতি · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        26,
+        27
+      ],
+      "objective_bn": "হরকত পরিচিতি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের হরকত চিহ্ন শিক্ষকসহ মিলাও; উচ্চারণ শিক্ষক যাচাই করবেন।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l10-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l11-s1",
+      "lesson_id": "islam3-c01-l11",
+      "sequence": 1,
+      "title_bn": "আসমানি কিতাব · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        28,
+        28
+      ],
+      "objective_bn": "আসমানি কিতাব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l11-s2",
+      "lesson_id": "islam3-c01-l11",
+      "sequence": 2,
+      "title_bn": "আসমানি কিতাব · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        28,
+        28
+      ],
+      "objective_bn": "আসমানি কিতাব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের কিতাবের নাম কার্ডে চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l11-s3",
+      "lesson_id": "islam3-c01-l11",
+      "sequence": 3,
+      "title_bn": "আসমানি কিতাব · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        28,
+        28
+      ],
+      "objective_bn": "আসমানি কিতাব সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের কিতাবের নাম কার্ডে চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l11-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l12-s1",
+      "lesson_id": "islam3-c01-l12",
+      "sequence": 1,
+      "title_bn": "কুরআন ও জীবনবিধান · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        29,
+        31
+      ],
+      "objective_bn": "কুরআন ও জীবনবিধান সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l12-s2",
+      "lesson_id": "islam3-c01-l12",
+      "sequence": 2,
+      "title_bn": "কুরআন ও জীবনবিধান · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        29,
+        31
+      ],
+      "objective_bn": "কুরআন ও জীবনবিধান সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ভালো আচরণের উদাহরণ নিয়ে আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l12-s3",
+      "lesson_id": "islam3-c01-l12",
+      "sequence": 3,
+      "title_bn": "কুরআন ও জীবনবিধান · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        29,
+        31
+      ],
+      "objective_bn": "কুরআন ও জীবনবিধান সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ভালো আচরণের উদাহরণ নিয়ে আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l12-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l13-s1",
+      "lesson_id": "islam3-c01-l13",
+      "sequence": 1,
+      "title_bn": "অধ্যায় ১: পুনরালোচনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        32,
+        34
+      ],
+      "objective_bn": "অধ্যায় ১: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l13-s2",
+      "lesson_id": "islam3-c01-l13",
+      "sequence": 2,
+      "title_bn": "অধ্যায় ১: পুনরালোচনা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        32,
+        34
+      ],
+      "objective_bn": "অধ্যায় ১: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের অনুশীলনী শিক্ষকসহ করো; ভুল হলে সংশ্লিষ্ট পাঠ দেখো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c01-l13-s3",
+      "lesson_id": "islam3-c01-l13",
+      "sequence": 3,
+      "title_bn": "অধ্যায় ১: পুনরালোচনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        32,
+        34
+      ],
+      "objective_bn": "অধ্যায় ১: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের অনুশীলনী শিক্ষকসহ করো; ভুল হলে সংশ্লিষ্ট পাঠ দেখো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c01-l13-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l01-s1",
+      "lesson_id": "islam3-c02-l01",
+      "sequence": 1,
+      "title_bn": "মহানবি (স.)-এর জীবন পরিচয় · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        35,
+        36
+      ],
+      "objective_bn": "মহানবি (স.)-এর জীবন পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l01-s2",
+      "lesson_id": "islam3-c02-l01",
+      "sequence": 2,
+      "title_bn": "মহানবি (স.)-এর জীবন পরিচয় · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        35,
+        36
+      ],
+      "objective_bn": "মহানবি (স.)-এর জীবন পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে বর্ণিত জীবনের ঘটনাগুলো ক্রমে সাজাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l01-s3",
+      "lesson_id": "islam3-c02-l01",
+      "sequence": 3,
+      "title_bn": "মহানবি (স.)-এর জীবন পরিচয় · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        35,
+        36
+      ],
+      "objective_bn": "মহানবি (স.)-এর জীবন পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে বর্ণিত জীবনের ঘটনাগুলো ক্রমে সাজাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c02-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l02-s1",
+      "lesson_id": "islam3-c02-l02",
+      "sequence": 1,
+      "title_bn": "মহানবি (স.)-এর জীবনাদর্শ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        37,
+        38
+      ],
+      "objective_bn": "মহানবি (স.)-এর জীবনাদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l02-s2",
+      "lesson_id": "islam3-c02-l02",
+      "sequence": 2,
+      "title_bn": "মহানবি (স.)-এর জীবনাদর্শ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        37,
+        38
+      ],
+      "objective_bn": "মহানবি (স.)-এর জীবনাদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের আদর্শের সঙ্গে একটি ভালো আচরণ মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l02-s3",
+      "lesson_id": "islam3-c02-l02",
+      "sequence": 3,
+      "title_bn": "মহানবি (স.)-এর জীবনাদর্শ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        37,
+        38
+      ],
+      "objective_bn": "মহানবি (স.)-এর জীবনাদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের আদর্শের সঙ্গে একটি ভালো আচরণ মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c02-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l03-s1",
+      "lesson_id": "islam3-c02-l03",
+      "sequence": 1,
+      "title_bn": "হজরত আবু বকর (রা.)-এর পরিচয় · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        39,
+        40
+      ],
+      "objective_bn": "হজরত আবু বকর (রা.)-এর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l03-s2",
+      "lesson_id": "islam3-c02-l03",
+      "sequence": 2,
+      "title_bn": "হজরত আবু বকর (রা.)-এর পরিচয় · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        39,
+        40
+      ],
+      "objective_bn": "হজরত আবু বকর (রা.)-এর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে থাকা পরিচয় পড়ে একটি তথ্য বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l03-s3",
+      "lesson_id": "islam3-c02-l03",
+      "sequence": 3,
+      "title_bn": "হজরত আবু বকর (রা.)-এর পরিচয় · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        39,
+        40
+      ],
+      "objective_bn": "হজরত আবু বকর (রা.)-এর পরিচয় সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে থাকা পরিচয় পড়ে একটি তথ্য বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c02-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l04-s1",
+      "lesson_id": "islam3-c02-l04",
+      "sequence": 1,
+      "title_bn": "হজরত আবু বকর (রা.)-এর আদর্শ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        41,
+        42
+      ],
+      "objective_bn": "হজরত আবু বকর (রা.)-এর আদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l04-s2",
+      "lesson_id": "islam3-c02-l04",
+      "sequence": 2,
+      "title_bn": "হজরত আবু বকর (রা.)-এর আদর্শ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        41,
+        42
+      ],
+      "objective_bn": "হজরত আবু বকর (রা.)-এর আদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের গুণাবলির সঙ্গে দৈনন্দিন আচরণ মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l04-s3",
+      "lesson_id": "islam3-c02-l04",
+      "sequence": 3,
+      "title_bn": "হজরত আবু বকর (রা.)-এর আদর্শ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        41,
+        42
+      ],
+      "objective_bn": "হজরত আবু বকর (রা.)-এর আদর্শ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের গুণাবলির সঙ্গে দৈনন্দিন আচরণ মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c02-l04-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l05-s1",
+      "lesson_id": "islam3-c02-l05",
+      "sequence": 1,
+      "title_bn": "অধ্যায় ২: পুনরালোচনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        43,
+        44
+      ],
+      "objective_bn": "অধ্যায় ২: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l05-s2",
+      "lesson_id": "islam3-c02-l05",
+      "sequence": 2,
+      "title_bn": "অধ্যায় ২: পুনরালোচনা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        43,
+        44
+      ],
+      "objective_bn": "অধ্যায় ২: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের অনুশীলনী ও জীবনাদর্শের উদাহরণ আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c02-l05-s3",
+      "lesson_id": "islam3-c02-l05",
+      "sequence": 3,
+      "title_bn": "অধ্যায় ২: পুনরালোচনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        43,
+        44
+      ],
+      "objective_bn": "অধ্যায় ২: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের অনুশীলনী ও জীবনাদর্শের উদাহরণ আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c02-l05-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l01-s1",
+      "lesson_id": "islam3-c03-l01",
+      "sequence": 1,
+      "title_bn": "নৈতিক ও মানবিক গুণাবলি · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        45,
+        46
+      ],
+      "objective_bn": "নৈতিক ও মানবিক গুণাবলি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l01-s2",
+      "lesson_id": "islam3-c03-l01",
+      "sequence": 2,
+      "title_bn": "নৈতিক ও মানবিক গুণাবলি · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        45,
+        46
+      ],
+      "objective_bn": "নৈতিক ও মানবিক গুণাবলি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ভালো আচরণ কার্ড চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l01-s3",
+      "lesson_id": "islam3-c03-l01",
+      "sequence": 3,
+      "title_bn": "নৈতিক ও মানবিক গুণাবলি · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        45,
+        46
+      ],
+      "objective_bn": "নৈতিক ও মানবিক গুণাবলি সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ভালো আচরণ কার্ড চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c03-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l02-s1",
+      "lesson_id": "islam3-c03-l02",
+      "sequence": 1,
+      "title_bn": "সত্যবাদিতা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        47,
+        48
+      ],
+      "objective_bn": "সত্যবাদিতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l02-s2",
+      "lesson_id": "islam3-c03-l02",
+      "sequence": 2,
+      "title_bn": "সত্যবাদিতা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        47,
+        48
+      ],
+      "objective_bn": "সত্যবাদিতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "কাল্পনিক ঘটনায় সত্য বলার উপায় বলো; সূচনা আগের পৃষ্ঠায় দেখো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l02-s3",
+      "lesson_id": "islam3-c03-l02",
+      "sequence": 3,
+      "title_bn": "সত্যবাদিতা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        47,
+        48
+      ],
+      "objective_bn": "সত্যবাদিতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "কাল্পনিক ঘটনায় সত্য বলার উপায় বলো; সূচনা আগের পৃষ্ঠায় দেখো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c03-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l03-s1",
+      "lesson_id": "islam3-c03-l03",
+      "sequence": 1,
+      "title_bn": "উদারতা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        49,
+        50
+      ],
+      "objective_bn": "উদারতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l03-s2",
+      "lesson_id": "islam3-c03-l03",
+      "sequence": 2,
+      "title_bn": "উদারতা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        49,
+        50
+      ],
+      "objective_bn": "উদারতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "ভাগ করে দেওয়ার একটি কাল্পনিক উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l03-s3",
+      "lesson_id": "islam3-c03-l03",
+      "sequence": 3,
+      "title_bn": "উদারতা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        49,
+        50
+      ],
+      "objective_bn": "উদারতা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "ভাগ করে দেওয়ার একটি কাল্পনিক উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c03-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l04-s1",
+      "lesson_id": "islam3-c03-l04",
+      "sequence": 1,
+      "title_bn": "দেশপ্রেম · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        51,
+        52
+      ],
+      "objective_bn": "দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l04-s2",
+      "lesson_id": "islam3-c03-l04",
+      "sequence": 2,
+      "title_bn": "দেশপ্রেম · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        51,
+        52
+      ],
+      "objective_bn": "দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "দেশ ও মানুষের কল্যাণে একটি কাজের উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l04-s3",
+      "lesson_id": "islam3-c03-l04",
+      "sequence": 3,
+      "title_bn": "দেশপ্রেম · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        51,
+        52
+      ],
+      "objective_bn": "দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "দেশ ও মানুষের কল্যাণে একটি কাজের উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c03-l04-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l05-s1",
+      "lesson_id": "islam3-c03-l05",
+      "sequence": 1,
+      "title_bn": "অধ্যায় ৩: পুনরালোচনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        53,
+        54
+      ],
+      "objective_bn": "অধ্যায় ৩: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l05-s2",
+      "lesson_id": "islam3-c03-l05",
+      "sequence": 2,
+      "title_bn": "অধ্যায় ৩: পুনরালোচনা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        53,
+        54
+      ],
+      "objective_bn": "অধ্যায় ৩: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের অনুশীলনী করে আচরণের কারণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c03-l05-s3",
+      "lesson_id": "islam3-c03-l05",
+      "sequence": 3,
+      "title_bn": "অধ্যায় ৩: পুনরালোচনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        53,
+        54
+      ],
+      "objective_bn": "অধ্যায় ৩: পুনরালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের অনুশীলনী করে আচরণের কারণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c03-l05-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l01-s1",
+      "lesson_id": "islam3-c04-l01",
+      "sequence": 1,
+      "title_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        55,
+        56
+      ],
+      "objective_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l01-s2",
+      "lesson_id": "islam3-c04-l01",
+      "sequence": 2,
+      "title_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        55,
+        56
+      ],
+      "objective_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ঘটনা দেখে বন্ধুত্বপূর্ণ আচরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l01-s3",
+      "lesson_id": "islam3-c04-l01",
+      "sequence": 3,
+      "title_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        55,
+        56
+      ],
+      "objective_bn": "ভিন্ন ধর্মাবলম্বীদের সঙ্গে সুসম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ঘটনা দেখে বন্ধুত্বপূর্ণ আচরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c04-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l02-s1",
+      "lesson_id": "islam3-c04-l02",
+      "sequence": 1,
+      "title_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        57,
+        59
+      ],
+      "objective_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l02-s2",
+      "lesson_id": "islam3-c04-l02",
+      "sequence": 2,
+      "title_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        57,
+        59
+      ],
+      "objective_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "কাল্পনিক সহপাঠীর অনুভূতি বুঝে সম্মানজনক কথা বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l02-s3",
+      "lesson_id": "islam3-c04-l02",
+      "sequence": 3,
+      "title_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        57,
+        59
+      ],
+      "objective_bn": "সহমর্মী ও শ্রদ্ধাশীল আচরণ সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "কাল্পনিক সহপাঠীর অনুভূতি বুঝে সম্মানজনক কথা বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c04-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l03-s1",
+      "lesson_id": "islam3-c04-l03",
+      "sequence": 1,
+      "title_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        60,
+        64
+      ],
+      "objective_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l03-s2",
+      "lesson_id": "islam3-c04-l03",
+      "sequence": 2,
+      "title_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        60,
+        64
+      ],
+      "objective_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের সহযোগিতার উদাহরণ ও অনুশীলনী আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c04-l03-s3",
+      "lesson_id": "islam3-c04-l03",
+      "sequence": 3,
+      "title_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        60,
+        64
+      ],
+      "objective_bn": "সহযোগিতা ও অধ্যায় ৪ পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের সহযোগিতার উদাহরণ ও অনুশীলনী আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c04-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c05-l01-s1",
+      "lesson_id": "islam3-c05-l01",
+      "sequence": 1,
+      "title_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        65,
+        68
+      ],
+      "objective_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c05-l01-s2",
+      "lesson_id": "islam3-c05-l01",
+      "sequence": 2,
+      "title_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        65,
+        68
+      ],
+      "objective_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি থেকে মানুষ, গাছ ও প্রাণীর সম্পর্ক বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c05-l01-s3",
+      "lesson_id": "islam3-c05-l01",
+      "sequence": 3,
+      "title_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        65,
+        68
+      ],
+      "objective_bn": "প্রকৃতি, জীবজগৎ ও পারস্পরিক সম্পর্ক সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি থেকে মানুষ, গাছ ও প্রাণীর সম্পর্ক বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c05-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c05-l02-s1",
+      "lesson_id": "islam3-c05-l02",
+      "sequence": 1,
+      "title_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        69,
+        73
+      ],
+      "objective_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছোট পাঠাংশ শিক্ষকসহ দেখো ও মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c05-l02-s2",
+      "lesson_id": "islam3-c05-l02",
+      "sequence": 2,
+      "title_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        69,
+        73
+      ],
+      "objective_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের যত্নের উদাহরণ চিহ্নিত করে অনুশীলনী করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "islam3-c05-l02-s3",
+      "lesson_id": "islam3-c05-l02",
+      "sequence": 3,
+      "title_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        69,
+        73
+      ],
+      "objective_bn": "ভালোবাসা, পরিচর্যা ও পর্যালোচনা সম্পর্কে উৎসের আলোকে একটি ধারণা বা উদাহরণ বলতে পারবে।",
+      "steps": [
+        {
+          "type": "warmup",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের যত্নের উদাহরণ চিহ্নিত করে অনুশীলনী করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "একটি উদাহরণ বলো বা উৎসের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "islam3-c05-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে উত্তর মেলে",
+          "একটি ধারণা বা উদাহরণ বলতে পারে"
+        ],
+        "starter_mcq_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_arabic_text": null,
+        "teacher_approved_recitation_audio": null,
+        "narration": null
+      },
+      "publication_status": "draft_requires_teacher_review"
+    }
+  ],
+  "questions": [
+    {
+      "id": "islam3-c01-l01-q1",
+      "lesson_id": "islam3-c01-l01",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "পাঠে স্রষ্টা হিসেবে কার পরিচয় দেওয়া হয়েছে?",
+      "options_bn": [
+        "মহান আল্লাহ",
+        "মানুষ",
+        "পাখি"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: মহান আল্লাহ। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        6,
+        8
+      ]
+    },
+    {
+      "id": "islam3-c01-l02-q1",
+      "lesson_id": "islam3-c01-l02",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "ইমানের আলোচনায় কোন ধারণাটি প্রধান?",
+      "options_bn": [
+        "খেলাধুলা",
+        "গণনা",
+        "বিশ্বাস"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: বিশ্বাস। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        9,
+        10
+      ]
+    },
+    {
+      "id": "islam3-c01-l03-q1",
+      "lesson_id": "islam3-c01-l03",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "ইসলামের স্তম্ভ কয়টি?",
+      "options_bn": [
+        "সাতটি",
+        "পাঁচটি",
+        "দুটি"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: পাঁচটি। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": "islam3-c01-l04-q1",
+      "lesson_id": "islam3-c01-l04",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি পরিচ্ছন্নতার অভ্যাস?",
+      "options_bn": [
+        "হাত পরিষ্কার করা",
+        "আবর্জনা ছড়ানো",
+        "ময়লা কাপড় রাখা"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: হাত পরিষ্কার করা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        13,
+        14
+      ]
+    },
+    {
+      "id": "islam3-c01-l05-q1",
+      "lesson_id": "islam3-c01-l05",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "সালাত কোন বিষয়ের অন্তর্ভুক্ত?",
+      "options_bn": [
+        "যানবাহন",
+        "ফসল",
+        "ইবাদত"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: ইবাদত। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        15,
+        16
+      ]
+    },
+    {
+      "id": "islam3-c01-l06-q1",
+      "lesson_id": "islam3-c01-l06",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "তাসবিহের আলোচনায় কাকে স্মরণ করা হয়?",
+      "options_bn": [
+        "একটি যানকে",
+        "আল্লাহকে",
+        "একটি খেলনাকে"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: আল্লাহকে। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        17,
+        18
+      ]
+    },
+    {
+      "id": "islam3-c01-l07-q1",
+      "lesson_id": "islam3-c01-l07",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "এই অংশে কোন সুরা শেখানো হয়েছে?",
+      "options_bn": [
+        "আল-ফালাক",
+        "আন-নাস",
+        "আল-ফাতিহা"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: আল-ফালাক। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        19,
+        20
+      ]
+    },
+    {
+      "id": "islam3-c01-l08-q1",
+      "lesson_id": "islam3-c01-l08",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "এই অংশে কোন সুরা শেখানো হয়েছে?",
+      "options_bn": [
+        "আল-ফালাক",
+        "আল-ফাতিহা",
+        "আন-নাস"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: আন-নাস। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        21,
+        22
+      ]
+    },
+    {
+      "id": "islam3-c01-l09-q1",
+      "lesson_id": "islam3-c01-l09",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কুরআন তিলাওয়াতের বর্ণ শেখায় কোন ভাষার বর্ণ ব্যবহৃত হয়?",
+      "options_bn": [
+        "চীনা",
+        "আরবি",
+        "ইংরেজি"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: আরবি। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        23,
+        25
+      ]
+    },
+    {
+      "id": "islam3-c01-l10-q1",
+      "lesson_id": "islam3-c01-l10",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "হরকত শেখার উদ্দেশ্য কী?",
+      "options_bn": [
+        "বর্ণের উচ্চারণ শেখা",
+        "ছবির রং বদলানো",
+        "সংখ্যা গোনা"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: বর্ণের উচ্চারণ শেখা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        26,
+        27
+      ]
+    },
+    {
+      "id": "islam3-c01-l11-q1",
+      "lesson_id": "islam3-c01-l11",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি এই পাঠের আসমানি কিতাবের উদাহরণ?",
+      "options_bn": [
+        "ছবির খাতা",
+        "গণিতের খাতা",
+        "কুরআন"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: কুরআন। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        28,
+        28
+      ]
+    },
+    {
+      "id": "islam3-c01-l12-q1",
+      "lesson_id": "islam3-c01-l12",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "পাঠে কুরআন সম্পর্কে কোন ধারণা রয়েছে?",
+      "options_bn": [
+        "যানের সময়সূচি",
+        "জীবনের দিকনির্দেশনা",
+        "খেলার স্কোর"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: জীবনের দিকনির্দেশনা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        29,
+        31
+      ]
+    },
+    {
+      "id": "islam3-c01-l13-q1",
+      "lesson_id": "islam3-c01-l13",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "পরিচ্ছন্নতার ভালো উদাহরণ কোনটি?",
+      "options_bn": [
+        "পরিষ্কার পোশাক পরা",
+        "ময়লা ছড়ানো",
+        "হাত না ধোয়া"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: পরিষ্কার পোশাক পরা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        32,
+        34
+      ]
+    },
+    {
+      "id": "islam3-c02-l01-q1",
+      "lesson_id": "islam3-c02-l01",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "এই অংশে কার জীবন পরিচয় রয়েছে?",
+      "options_bn": [
+        "হজরত আবু বকর (রা.)",
+        "একজন কাল্পনিক চরিত্র",
+        "হজরত মুহাম্মদ (স.)"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: হজরত মুহাম্মদ (স.)। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        35,
+        36
+      ]
+    },
+    {
+      "id": "islam3-c02-l02-q1",
+      "lesson_id": "islam3-c02-l02",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোন আচরণ ভালো আদর্শের উদাহরণ?",
+      "options_bn": [
+        "অন্যকে কষ্ট দেওয়া",
+        "সত্য বলা",
+        "মিথ্যা বলা"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: সত্য বলা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        37,
+        38
+      ]
+    },
+    {
+      "id": "islam3-c02-l03-q1",
+      "lesson_id": "islam3-c02-l03",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "এই পাঠে কার পরিচয় দেওয়া হয়েছে?",
+      "options_bn": [
+        "হজরত আবু বকর (রা.)",
+        "একজন কাল্পনিক রাজা",
+        "একজন কাল্পনিক খেলোয়াড়"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: হজরত আবু বকর (রা.)। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        39,
+        40
+      ]
+    },
+    {
+      "id": "islam3-c02-l04-q1",
+      "lesson_id": "islam3-c02-l04",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি সহযোগিতার উদাহরণ?",
+      "options_bn": [
+        "উপহাস করা",
+        "ধাক্কা দেওয়া",
+        "প্রয়োজনে সাহায্য করা"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: প্রয়োজনে সাহায্য করা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        41,
+        42
+      ]
+    },
+    {
+      "id": "islam3-c02-l05-q1",
+      "lesson_id": "islam3-c02-l05",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোন আচরণ অনুশীলন করা ভালো?",
+      "options_bn": [
+        "অবজ্ঞা",
+        "সততা",
+        "প্রতারণা"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: সততা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        43,
+        44
+      ]
+    },
+    {
+      "id": "islam3-c03-l01-q1",
+      "lesson_id": "islam3-c03-l01",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি মানবিক আচরণ?",
+      "options_bn": [
+        "সহমর্মিতা",
+        "নিষ্ঠুরতা",
+        "উপহাস"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: সহমর্মিতা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        45,
+        46
+      ]
+    },
+    {
+      "id": "islam3-c03-l02-q1",
+      "lesson_id": "islam3-c03-l02",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "নিজের ভুল হলে কী করা ভালো?",
+      "options_bn": [
+        "অন্যকে দোষ দেওয়া",
+        "মিথ্যা বানানো",
+        "সত্য বলা"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: সত্য বলা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        47,
+        48
+      ]
+    },
+    {
+      "id": "islam3-c03-l03-q1",
+      "lesson_id": "islam3-c03-l03",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি উদারতার উদাহরণ?",
+      "options_bn": [
+        "অন্যের জিনিস নেওয়া",
+        "প্রয়োজনে ভাগ করে দেওয়া",
+        "সব লুকিয়ে রাখা"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: প্রয়োজনে ভাগ করে দেওয়া। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        49,
+        50
+      ]
+    },
+    {
+      "id": "islam3-c03-l04-q1",
+      "lesson_id": "islam3-c03-l04",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি দেশের কল্যাণে সাহায্য করে?",
+      "options_bn": [
+        "পরিবেশ পরিষ্কার রাখা",
+        "আবর্জনা ছড়ানো",
+        "গাছ নষ্ট করা"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: পরিবেশ পরিষ্কার রাখা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        51,
+        52
+      ]
+    },
+    {
+      "id": "islam3-c03-l05-q1",
+      "lesson_id": "islam3-c03-l05",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি ভালো গুণ?",
+      "options_bn": [
+        "প্রতারণা",
+        "নিষ্ঠুরতা",
+        "সত্যবাদিতা"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: সত্যবাদিতা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        53,
+        54
+      ]
+    },
+    {
+      "id": "islam3-c04-l01-q1",
+      "lesson_id": "islam3-c04-l01",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "ভিন্ন ধর্মের সহপাঠীর সঙ্গে কেমন আচরণ করা ভালো?",
+      "options_bn": [
+        "বৈরী",
+        "বন্ধুত্বপূর্ণ",
+        "অপমানজনক"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: বন্ধুত্বপূর্ণ। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        55,
+        56
+      ]
+    },
+    {
+      "id": "islam3-c04-l02-q1",
+      "lesson_id": "islam3-c04-l02",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি শ্রদ্ধাশীল আচরণ?",
+      "options_bn": [
+        "মনোযোগ দিয়ে শোনা",
+        "উপহাস করা",
+        "অপমান করা"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: মনোযোগ দিয়ে শোনা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        57,
+        59
+      ]
+    },
+    {
+      "id": "islam3-c04-l03-q1",
+      "lesson_id": "islam3-c04-l03",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "সাহায্যের প্রয়োজন হলে কোনটি ভালো?",
+      "options_bn": [
+        "উপহাস করা",
+        "দূরে ঠেলে দেওয়া",
+        "ধর্মভেদ না করে সাহায্য করা"
+      ],
+      "correct_option_index": 2,
+      "feedback_bn": "সঠিক উত্তর: ধর্মভেদ না করে সাহায্য করা। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        60,
+        64
+      ]
+    },
+    {
+      "id": "islam3-c05-l01-q1",
+      "lesson_id": "islam3-c05-l01",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি জীবজগতের উদাহরণ?",
+      "options_bn": [
+        "বেঞ্চ",
+        "গাছ",
+        "পেন্সিল"
+      ],
+      "correct_option_index": 1,
+      "feedback_bn": "সঠিক উত্তর: গাছ। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        65,
+        68
+      ]
+    },
+    {
+      "id": "islam3-c05-l02-q1",
+      "lesson_id": "islam3-c05-l02",
+      "origin": "app_authored_starter_check",
+      "type": "single_choice",
+      "question_bn": "কোনটি প্রকৃতির পরিচর্যা?",
+      "options_bn": [
+        "গাছের যত্ন নেওয়া",
+        "গাছ নষ্ট করা",
+        "আবর্জনা ছড়ানো"
+      ],
+      "correct_option_index": 0,
+      "feedback_bn": "সঠিক উত্তর: গাছের যত্ন নেওয়া। সংশ্লিষ্ট উৎস পৃষ্ঠা দেখে আলোচনা করো।",
+      "source_pdf_pages_1_based": [
+        69,
+        73
+      ]
+    }
+  ],
+  "excluded_pdf_pages_1_based": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    74
+  ],
+  "tutor_policy": {
+    "language": "bn-BD",
+    "one_question_at_a_time": true,
+    "grounding": "Use verified source text or source page images. Do not invent quotations, hadith, duas or Arabic spellings.",
+    "recitation": "Require qualified teacher verification of Arabic, harakat and recitation audio. Do not infer pronunciation accuracy from text input or an unvalidated speech score.",
+    "scope": "Explain the textbook at grade-3 level; refer questions beyond the text to a teacher rather than issuing independent religious rulings.",
+    "respect": "Treat people of all religions respectfully; discuss behaviour without judging a child’s faith.",
+    "hints_bn": [
+      "উৎসের একটি সূত্র দেখাও।",
+      "ছোট উদাহরণ দাও।",
+      "আবার চেষ্টা করতে দাও।"
+    ],
+    "assessment": "Open responses use flexible rubrics. Starter questions are app-authored, not the complete textbook exercise bank.",
+    "accessibility": "Offer touch, text or teacher-guided oral responses; prerequisites and unlocking remain teacher-controlled."
+  }
+}

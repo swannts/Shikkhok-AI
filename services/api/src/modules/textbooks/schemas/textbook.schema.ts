@@ -44,6 +44,9 @@ export class Textbook {
   @Prop({ type: Number, required: true, min: 2020, max: 2100, index: true })
   curriculumYear: number;
 
+  @Prop({ trim: true })
+  curriculumVersion?: string;
+
   @Prop({ trim: true, default: '2026 Revised Edition' })
   edition: string;
 

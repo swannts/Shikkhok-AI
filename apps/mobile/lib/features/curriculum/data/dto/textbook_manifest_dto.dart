@@ -61,6 +61,7 @@ class TextbookItemDto {
   final int classLevel;
   final String medium;
   final int curriculumYear;
+  final String? curriculumVersion;
   final String? coverImageUrl;
   final String? pdfUrl;
   final int? fileSizeBytes;
@@ -74,6 +75,7 @@ class TextbookItemDto {
     required this.classLevel,
     required this.medium,
     required this.curriculumYear,
+    this.curriculumVersion,
     this.coverImageUrl,
     this.pdfUrl,
     this.fileSizeBytes,
@@ -89,6 +91,7 @@ class TextbookItemDto {
       classLevel: _requiredInt(json, ['classLevel'], 'classLevel'),
       medium: _requiredString(json, ['medium'], 'medium'),
       curriculumYear: _requiredInt(json, ['curriculumYear'], 'curriculumYear'),
+      curriculumVersion: json['curriculumVersion']?.toString(),
       coverImageUrl: json['coverImageUrl']?.toString(),
       pdfUrl: json['pdfUrl']?.toString(),
       fileSizeBytes: (json['fileSizeBytes'] as num?)?.toInt(),

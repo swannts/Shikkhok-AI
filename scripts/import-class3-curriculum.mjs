@@ -1,7 +1,7 @@
 import { createRequire } from 'node:module';
 import { readFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { resolve, basename } from 'node:path';
+import { resolve, basename, dirname } from 'node:path';
 
 const require = createRequire(new URL('../services/api/package.json', import.meta.url));
 const mongoose = require('mongoose');
@@ -9,28 +9,49 @@ const repoRoot = fileURLToPath(new URL('../', import.meta.url));
 const applyChanges = process.argv.includes('--apply');
 const books = [
   {
-    directory: 'books/class-3/bangla-class3',
-    curriculumFile: 'bangla-class3-curriculum.json',
     subjectSlug: 'bangla',
-    sourcePdf: 'data/curriculum-uploads/amar-bangla-boi.pdf',
     groupMode: 'single-reading-list',
     managedPrefix: 'bn3-',
   },
   {
-    directory: 'books/class-3/english-class3',
-    curriculumFile: 'english-class3-curriculum.json',
     subjectSlug: 'english-for-today',
-    sourcePdf: 'data/curriculum-uploads/class-3-english-for-today.pdf',
     groupMode: 'units',
     managedPrefix: 'en3-',
   },
   {
-    directory: 'books/class-3/math-class3',
-    curriculumFile: 'math-class3-curriculum.json',
     subjectSlug: 'primary-mathematics',
-    sourcePdf: 'data/curriculum-uploads/class-3-primary-math.pdf',
     groupMode: 'units',
     managedPrefix: 'math3-',
+  },
+  {
+    subjectSlug: 'primary-science',
+    groupMode: 'chapters-lessons',
+    managedPrefix: 'science3-',
+  },
+  {
+    subjectSlug: 'bangladesh-and-global-studies',
+    groupMode: 'chapters-lessons',
+    managedPrefix: 'bgs3-',
+  },
+  {
+    subjectSlug: 'islamic-studies',
+    groupMode: 'chapters-lessons',
+    managedPrefix: 'islam3-',
+  },
+  {
+    subjectSlug: 'hindu-religion-studies',
+    groupMode: 'chapters-lessons',
+    managedPrefix: 'hindu3-',
+  },
+  {
+    subjectSlug: 'buddhist-religion-studies',
+    groupMode: 'chapters-lessons',
+    managedPrefix: 'buddhist3-',
+  },
+  {
+    subjectSlug: 'christian-religion-studies',
+    groupMode: 'chapters-lessons',
+    managedPrefix: 'christian3-',
   },
 ];
 
@@ -84,16 +105,29 @@ function makeObjectiveBlocks(id, heading, objective, focusWords = []) {
 }
 
 async function loadBook(config) {
-  const directory = resolve(repoRoot, config.directory);
+  const catalog = JSON.parse(
+    await readFile(resolve(repoRoot, 'books/catalog.json'), 'utf8'),
+  );
+  const catalogBook = catalog.books.find(
+    (entry) => entry.classLevel === 3 && entry.subjectSlug === config.subjectSlug,
+  );
+  if (!catalogBook?.curriculumMap || !['draft', 'published'].includes(catalogBook.curriculumState)) {
+    throw new Error(`No Class 3 textbook catalog entry for ${config.subjectSlug}`);
+  }
+  const curriculumPath = resolve(repoRoot, catalogBook.curriculumMap);
+  if (!curriculumPath.startsWith(`${repoRoot}${repoRoot.endsWith('/') ? '' : '/'}`)) {
+    throw new Error(`Curriculum map escapes repository root: ${catalogBook.curriculumMap}`);
+  }
+  const directory = dirname(curriculumPath);
   const curriculum = JSON.parse(
-    await readFile(resolve(directory, config.curriculumFile), 'utf8'),
+    await readFile(curriculumPath, 'utf8'),
   );
   const grade = curriculum.book?.grade;
   const totalPdfPages = curriculum.book?.total_pdf_pages;
-  if (grade !== 3 || !Number.isInteger(totalPdfPages)) {
-    throw new Error(`${config.curriculumFile} has invalid grade/page metadata`);
+  if (grade !== catalogBook.classLevel || !Number.isInteger(totalPdfPages)) {
+    throw new Error(`${catalogBook.curriculumMap} has invalid grade/page metadata`);
   }
-  await stat(resolve(repoRoot, config.sourcePdf));
+  await stat(resolve(repoRoot, catalogBook.sourceFile));
 
   let groups;
   let lessons;
@@ -156,6 +190,33 @@ async function loadBook(config) {
         focusWords: lesson.focus_vocabulary?.words ?? [],
       };
     });
+  } else if (config.groupMode === 'chapters-lessons') {
+    groups = curriculum.chapters.map((chapter) => ({
+      id: chapter.id,
+      order: chapter.order,
+      slug: chapter.id,
+      title: chapter.textbook_title_bn ?? chapter.title_bn,
+      summary: null,
+    }));
+    const groupIds = new Set(groups.map((group) => group.id));
+    lessons = curriculum.lessons.map((lesson) => {
+      if (!groupIds.has(lesson.chapter_id)) {
+        throw new Error(`Unknown chapter reference in ${lesson.id}`);
+      }
+      const printedPages = lesson.source?.printed_pages;
+      const pdfPages = lesson.source?.pdf_pages_1_based;
+      return {
+        id: lesson.id,
+        groupId: lesson.chapter_id,
+        order: lesson.order_in_chapter ?? lesson.global_order,
+        title: lesson.title_bn ?? lesson.textbook_title,
+        summary: lesson.objective_bn ?? lesson.objective,
+        publicationStatus: lesson.publication_status,
+        printedPages: pageRange(printedPages, `${lesson.id}.printed`, 9999),
+        pdfPages: pageRange(pdfPages, `${lesson.id}.pdf`, totalPdfPages),
+        focusWords: lesson.focus_vocabulary?.words ?? [],
+      };
+    });
   } else {
     groups = curriculum.chapters.map((chapter) => ({
       id: chapter.id,
@@ -190,7 +251,13 @@ async function loadBook(config) {
   }
 
   if (!Array.isArray(groups) || groups.length === 0 || lessons.length === 0) {
-    throw new Error(`${config.curriculumFile} has no importable groups/lessons`);
+    throw new Error(`${catalogBook.curriculumMap} has no importable groups/lessons`);
+  }
+  if (
+    catalogBook.curriculumState === 'draft' &&
+    lessons.some((lesson) => !lesson.publicationStatus?.toLowerCase().includes('draft'))
+  ) {
+    throw new Error(`${catalogBook.curriculumMap} contains lesson(s) not marked as draft`);
   }
   const splitPdfs = [
     ...new Set(
@@ -204,7 +271,16 @@ async function loadBook(config) {
     await stat(resolve(directory, relativePath));
   }
 
-  return { ...config, curriculum, groups, lessons, grade, totalPdfPages };
+  return {
+    ...config,
+    sourcePdf: catalogBook.sourceFile,
+    curriculum,
+    groups,
+    lessons,
+    grade,
+    totalPdfPages,
+    publicationMode: catalogBook.curriculumState,
+  };
 }
 
 async function main() {
@@ -248,7 +324,7 @@ async function main() {
     }
 
     console.log(
-      `- ${subject.name}: ${book.groups.length} navigation groups, ${book.lessons.length} lessons, ${book.totalPdfPages} source PDF pages`,
+      `- ${subject.name}: ${book.groups.length} groups, ${book.lessons.length} lessons, ${book.totalPdfPages} PDF pages${book.publicationMode === 'draft' ? ' (draft; admin review required)' : ''}`,
     );
     const desiredGroupSlugs = new Set(book.groups.map((group) => group.slug));
     const desiredLessonSlugs = new Set(book.lessons.map((lesson) => lesson.id));
@@ -270,7 +346,7 @@ async function main() {
     for (const group of obsoleteGroups) {
       if (applyChanges) {
         const archived = await db.collection('lessons').updateMany(
-          { chapterId: group._id, isPublished: { $ne: false } },
+          { chapterId: group._id, workflowStatus: { $ne: 'ARCHIVED' } },
           { $set: { isPublished: false, workflowStatus: 'ARCHIVED' } },
         );
         totalArchivedLessons += archived.modifiedCount;
@@ -284,12 +360,14 @@ async function main() {
     const groupIds = new Map();
     for (const group of book.groups) {
       const filter = { subjectId: subject._id, slug: group.slug };
+      const existingGroup = await db.collection('chapters').findOne(filter);
       const values = {
         subjectId: subject._id,
         title: group.title,
         slug: group.slug,
         order: group.order,
-        isPublished: true,
+        isPublished:
+          book.publicationMode === 'published' || existingGroup?.isPublished === true,
         ...(group.summary ? { summary: group.summary } : {}),
       };
       if (applyChanges) {
@@ -315,6 +393,11 @@ async function main() {
         ? `মুদ্রিত পৃষ্ঠা ${printedStart}`
         : `মুদ্রিত পৃষ্ঠা ${printedStart}–${printedEnd}`;
       const filter = { chapterId, slug: lesson.id };
+      const existingLesson = await db.collection('lessons').findOne(filter);
+      const existingWorkflowStatus = existingLesson?.workflowStatus;
+      const preserveReviewedStatus =
+        book.publicationMode === 'draft' &&
+        ['APPROVED', 'PUBLISHED'].includes(existingWorkflowStatus);
       const values = {
         chapterId,
         title: lesson.title,
@@ -326,8 +409,15 @@ async function main() {
         pageEnd: printedEnd,
         sourcePdfPageStart: pdfStart,
         sourcePdfPageEnd: pdfEnd,
-        isPublished: true,
-        workflowStatus: 'PUBLISHED',
+        isPublished:
+          book.publicationMode === 'published' ||
+          (preserveReviewedStatus && existingLesson?.isPublished === true),
+        workflowStatus:
+          book.publicationMode === 'published'
+            ? 'PUBLISHED'
+            : preserveReviewedStatus
+              ? existingWorkflowStatus
+              : 'DRAFT',
         contentVersion: 1,
         contentBlocks: makeObjectiveBlocks(
           lesson.id,
@@ -344,14 +434,14 @@ async function main() {
     for (const group of book.groups) {
       const chapterId = groupIds.get(group.id);
       if (!chapterId || !applyChanges) continue;
-      const obsoleteLessons = await db.collection('lessons').updateMany(
-        {
-          chapterId,
-          slug: { $regex: prefixPattern, $nin: [...desiredLessonSlugs] },
-          isPublished: { $ne: false },
-        },
-        { $set: { isPublished: false, workflowStatus: 'ARCHIVED' } },
-      );
+        const obsoleteLessons = await db.collection('lessons').updateMany(
+          {
+            chapterId,
+            slug: { $regex: prefixPattern, $nin: [...desiredLessonSlugs] },
+            workflowStatus: { $ne: 'ARCHIVED' },
+          },
+          { $set: { isPublished: false, workflowStatus: 'ARCHIVED' } },
+        );
       totalArchivedLessons += obsoleteLessons.modifiedCount;
     }
 

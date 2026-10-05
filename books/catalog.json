@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "curriculumYear": 2026,
+  "curriculumVersion": "2026-NCTB",
+  "medium": "bangla",
+  "availableClasses": [2, 3],
+  "books": [
+    {
+      "classLevel": 2,
+      "subjectSlug": "bangla",
+      "subjectName": "আমার বাংলা বই",
+      "subjectOrder": 1,
+      "title": "আমার বাংলা বই",
+      "titleBn": "আমার বাংলা বই",
+      "sourceFile": "data/curriculum-uploads/class-2-amar-bangla-boi.pdf"
+    },
+    {
+      "classLevel": 2,
+      "subjectSlug": "english-for-today",
+      "subjectName": "English for Today",
+      "subjectOrder": 2,
+      "title": "English for Today",
+      "titleBn": "English for Today",
+      "sourceFile": "data/curriculum-uploads/class-2-english-for-today.pdf"
+    },
+    {
+      "classLevel": 2,
+      "subjectSlug": "primary-mathematics",
+      "subjectName": "প্রাথমিক গণিত",
+      "subjectOrder": 3,
+      "title": "প্রাথমিক গণিত",
+      "titleBn": "প্রাথমিক গণিত",
+      "sourceFile": "data/curriculum-uploads/class-2-primary-math.pdf"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "bangla",
+      "subjectName": "আমার বাংলা বই",
+      "subjectOrder": 1,
+      "title": "Amar Bangla Book",
+      "titleBn": "আমার বাংলা বই",
+      "sourceFile": "data/curriculum-uploads/amar-bangla-boi.pdf",
+      "curriculumMap": "books/class-3/bangla-class3/bangla-class3-curriculum.json",
+      "curriculumState": "published"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "english-for-today",
+      "subjectName": "English for Today",
+      "subjectOrder": 2,
+      "title": "English for Today",
+      "titleBn": "English for Today",
+      "sourceFile": "data/curriculum-uploads/class-3-english-for-today.pdf",
+      "curriculumMap": "books/class-3/english-class3/english-class3-curriculum.json",
+      "curriculumState": "published"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "primary-mathematics",
+      "subjectName": "প্রাথমিক গণিত",
+      "subjectOrder": 3,
+      "title": "প্রাথমিক গণিত",
+      "titleBn": "প্রাথমিক গণিত",
+      "sourceFile": "data/curriculum-uploads/class-3-primary-math.pdf",
+      "curriculumMap": "books/class-3/math-class3/math-class3-curriculum.json",
+      "curriculumState": "published"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "primary-science",
+      "subjectName": "প্রাথমিক বিজ্ঞান",
+      "subjectOrder": 4,
+      "title": "প্রাথমিক বিজ্ঞান",
+      "titleBn": "প্রাথমিক বিজ্ঞান",
+      "sourceFile": "data/curriculum-uploads/class-3-primary-science.pdf",
+      "curriculumMap": "books/class-3/science-class3/science-class3-curriculum.json",
+      "curriculumState": "draft"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "bangladesh-and-global-studies",
+      "subjectName": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "subjectOrder": 5,
+      "title": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "titleBn": "বাংলাদেশ ও বিশ্বপরিচয়",
+      "sourceFile": "data/curriculum-uploads/class-3-bangladesh-and-global-studies.pdf",
+      "curriculumMap": "books/class-3/bgs-class-3/bgs-class3-curriculum.json",
+      "curriculumState": "draft"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "islamic-studies",
+      "subjectName": "ইসলাম শিক্ষা",
+      "subjectOrder": 6,
+      "title": "ইসলাম শিক্ষা",
+      "titleBn": "ইসলাম শিক্ষা",
+      "sourceFile": "data/curriculum-uploads/class-3-islamic-studies.pdf",
+      "curriculumMap": "books/class-3/islamic-class3/islamic-studies-class3-curriculum.json",
+      "curriculumState": "draft"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "hindu-religion-studies",
+      "subjectName": "হিন্দুধর্ম শিক্ষা",
+      "subjectOrder": 7,
+      "title": "হিন্দুধর্ম শিক্ষা",
+      "titleBn": "হিন্দুধর্ম শিক্ষা",
+      "sourceFile": "data/curriculum-uploads/class-3-hindu-religion-studies.pdf",
+      "curriculumMap": "books/class-3/hindu-class3/hindu-religion-studies-class3-curriculum.json",
+      "curriculumState": "draft"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "buddhist-religion-studies",
+      "subjectName": "বৌদ্ধধর্ম শিক্ষা",
+      "subjectOrder": 8,
+      "title": "বৌদ্ধধর্ম শিক্ষা",
+      "titleBn": "বৌদ্ধধর্ম শিক্ষা",
+      "sourceFile": "data/curriculum-uploads/class-3-buddhist-religion-studies.pdf",
+      "curriculumMap": "books/class-3/buddhist-class3/buddhist-religion-studies-class3-curriculum.json",
+      "curriculumState": "draft"
+    },
+    {
+      "classLevel": 3,
+      "subjectSlug": "christian-religion-studies",
+      "subjectName": "খ্রিষ্টধর্ম শিক্ষা",
+      "subjectOrder": 9,
+      "title": "খ্রিষ্টধর্ম শিক্ষা",
+      "titleBn": "খ্রিষ্টধর্ম শিক্ষা",
+      "sourceFile": "data/curriculum-uploads/class-3-christian-religion-studies.pdf",
+      "curriculumMap": "books/class-3/christian-class3/christian-religion-studies-class3-curriculum.json",
+      "curriculumState": "draft"
+    }
+  ]
+}

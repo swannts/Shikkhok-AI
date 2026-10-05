@@ -24,6 +24,9 @@ export class Subject {
   @Prop({ required: true, min: 2020, max: 2100, index: true })
   curriculumYear: number;
 
+  @Prop({ trim: true })
+  curriculumVersion?: string;
+
   @Prop({ required: true, trim: true })
   name: string;
 
