@@ -46,6 +46,8 @@ class CurriculumMapper {
       order: dto.order,
       pageStart: dto.pageStart,
       pageEnd: dto.pageEnd,
+      sourcePdfPageStart: dto.sourcePdfPageStart,
+      sourcePdfPageEnd: dto.sourcePdfPageEnd,
       isPublished: dto.isPublished,
       contentVersion: dto.contentVersion,
       contentBlocks:

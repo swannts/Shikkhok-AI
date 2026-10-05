@@ -1,0 +1,6128 @@
+{
+  "schema_version": "1.0",
+  "book": {
+    "title_bn": "আমার বাংলা বই",
+    "grade": 3,
+    "subject": "Bangla",
+    "language": "bn-BD",
+    "source_filename": "amar-bangla-boi.pdf",
+    "total_pdf_pages": 110,
+    "printed_to_pdf_offset": 9,
+    "source_type": "image_only_scanned_pdf"
+  },
+  "scope": "Complete 29-unit mapping and 87 app-authored session plans; not a full textbook transcription or production-ready course.",
+  "units": [
+    {
+      "id": "bn3-u01",
+      "order": 1,
+      "title_bn": "আমাদের কথা",
+      "genre": "dialogue",
+      "learning_objective_bn": "নিজের পরিচয় দেওয়া ও অন্যের কথা মনোযোগ দিয়ে শোনা",
+      "source": {
+        "printed_pages": [
+          1,
+          2
+        ],
+        "pdf_pages_1_based": [
+          10,
+          11
+        ],
+        "reading_printed_pages": [
+          1,
+          2
+        ],
+        "exercise_printed_pages": null,
+        "split_pdf": "lesson-pdfs/01-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u01-s1",
+        "bn3-u01-s2",
+        "bn3-u01-s3"
+      ],
+      "prerequisite_unit_ids": [],
+      "original_practice_bn": "নিজের পরিচয় দুই বাক্যে বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "নিজের পরিচয় দিতে কোন তথ্যটি বলা যায়?",
+        "options_bn": [
+          "নিজের নাম",
+          "গোপন পাসওয়ার্ড",
+          "ব্যাংকের তথ্য"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: নিজের নাম।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u02",
+      "order": 2,
+      "title_bn": "আমাদের পরিবার ও আমাদের প্রতিবেশী",
+      "genre": "prose",
+      "learning_objective_bn": "পরিবার ও প্রতিবেশীর ভূমিকা বোঝা",
+      "source": {
+        "printed_pages": [
+          3,
+          5
+        ],
+        "pdf_pages_1_based": [
+          12,
+          14
+        ],
+        "reading_printed_pages": [
+          3,
+          4
+        ],
+        "exercise_printed_pages": [
+          5,
+          5
+        ],
+        "split_pdf": "lesson-pdfs/02-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u02-s1",
+        "bn3-u02-s2",
+        "bn3-u02-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u01"
+      ],
+      "original_practice_bn": "প্রতিবেশীকে সাহায্য করার একটি উপায় বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "প্রতিবেশীর সঙ্গে কেমন আচরণ করা উচিত?",
+        "options_bn": [
+          "অভদ্র",
+          "সহযোগিতাপূর্ণ",
+          "উপেক্ষাপূর্ণ"
+        ],
+        "correct_option_index": 1,
+        "feedback_bn": "সঠিক উত্তর: সহযোগিতাপূর্ণ।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u03",
+      "order": 3,
+      "title_bn": "ময়লার বাকসো",
+      "genre": "picture_story",
+      "learning_objective_bn": "ছবির ঘটনা অনুসরণ করা ও পরিচ্ছন্নতার অভ্যাস গড়া",
+      "source": {
+        "printed_pages": [
+          6,
+          11
+        ],
+        "pdf_pages_1_based": [
+          15,
+          20
+        ],
+        "reading_printed_pages": [
+          6,
+          10
+        ],
+        "exercise_printed_pages": [
+          11,
+          11
+        ],
+        "split_pdf": "lesson-pdfs/03-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u03-s1",
+        "bn3-u03-s2",
+        "bn3-u03-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u02"
+      ],
+      "original_practice_bn": "ছবিগুলো দেখে ঘটনার শুরু, মাঝ ও শেষ বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "ময়লা কোথায় ফেলব?",
+        "options_bn": [
+          "রাস্তায়",
+          "নদীতে",
+          "ময়লার বাকসে"
+        ],
+        "correct_option_index": 2,
+        "feedback_bn": "সঠিক উত্তর: ময়লার বাকসে।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u04",
+      "order": 4,
+      "title_bn": "আবার পড়ি কারচিহ্ন",
+      "genre": "orthography",
+      "learning_objective_bn": "কারচিহ্ন চিনে শব্দ পড়া ও লেখা",
+      "source": {
+        "printed_pages": [
+          12,
+          14
+        ],
+        "pdf_pages_1_based": [
+          21,
+          23
+        ],
+        "reading_printed_pages": [
+          12,
+          13
+        ],
+        "exercise_printed_pages": [
+          14,
+          14
+        ],
+        "split_pdf": "lesson-pdfs/04-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u04-s1",
+        "bn3-u04-s2",
+        "bn3-u04-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u03"
+      ],
+      "original_practice_bn": "ক বর্ণে া, ি ও ু বসিয়ে পড়ো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "ক + ি দিয়ে কোনটি হয়?",
+        "options_bn": [
+          "কা",
+          "কি",
+          "কু"
+        ],
+        "correct_option_index": 1,
+        "feedback_bn": "সঠিক উত্তর: কি।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u05",
+      "order": 5,
+      "title_bn": "আবার পড়ি ফলাচিহ্ন",
+      "genre": "orthography",
+      "learning_objective_bn": "ফলাচিহ্ন শনাক্ত করা ও শব্দে প্রয়োগ করা",
+      "source": {
+        "printed_pages": [
+          15,
+          18
+        ],
+        "pdf_pages_1_based": [
+          24,
+          27
+        ],
+        "reading_printed_pages": [
+          15,
+          18
+        ],
+        "exercise_printed_pages": null,
+        "split_pdf": "lesson-pdfs/05-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u05-s1",
+        "bn3-u05-s2",
+        "bn3-u05-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u04"
+      ],
+      "original_practice_bn": "পাঠের তিনটি শব্দে ফলাচিহ্ন চিহ্নিত করো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "বন্ধু শব্দে কোন ফলা আছে?",
+        "options_bn": [
+          "র-ফলা",
+          "য-ফলা",
+          "ব-ফলা"
+        ],
+        "correct_option_index": 2,
+        "feedback_bn": "সঠিক উত্তর: ব-ফলা।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u06",
+      "order": 6,
+      "title_bn": "দেখে বুঝে কাজ করি",
+      "genre": "signs",
+      "learning_objective_bn": "দৈনন্দিন চিহ্ন দেখে অর্থ ও করণীয় বোঝা",
+      "source": {
+        "printed_pages": [
+          19,
+          19
+        ],
+        "pdf_pages_1_based": [
+          28,
+          28
+        ],
+        "reading_printed_pages": [
+          19,
+          19
+        ],
+        "exercise_printed_pages": null,
+        "split_pdf": "lesson-pdfs/06-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u06-s1",
+        "bn3-u06-s2",
+        "bn3-u06-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u05"
+      ],
+      "original_practice_bn": "পাঠের দুটি চিহ্ন দেখে কী করতে হবে বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "লাল ট্রাফিক বাতি কী বোঝায়?",
+        "options_bn": [
+          "থামো",
+          "দৌড়াও",
+          "এগিয়ে যাও"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: থামো।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u07",
+      "order": 7,
+      "title_bn": "ঘাসফড়িং আর পিঁপড়ার গল্প",
+      "genre": "story",
+      "learning_objective_bn": "ঘটনার ক্রম ও কাজের ফল বোঝা",
+      "source": {
+        "printed_pages": [
+          20,
+          22
+        ],
+        "pdf_pages_1_based": [
+          29,
+          31
+        ],
+        "reading_printed_pages": [
+          20,
+          21
+        ],
+        "exercise_printed_pages": [
+          22,
+          22
+        ],
+        "split_pdf": "lesson-pdfs/07-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u07-s1",
+        "bn3-u07-s2",
+        "bn3-u07-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u06"
+      ],
+      "original_practice_bn": "গল্পের দুটি চরিত্রের কাজ তুলনা করো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "আগে থেকে প্রস্তুতি নিলে কী সুবিধা হয়?",
+        "options_bn": [
+          "সব কাজ বন্ধ হয়",
+          "প্রয়োজনের সময় সাহায্য হয়",
+          "কিছু শেখা যায় না"
+        ],
+        "correct_option_index": 1,
+        "feedback_bn": "সঠিক উত্তর: প্রয়োজনের সময় সাহায্য হয়।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u08",
+      "order": 8,
+      "title_bn": "আমি হব",
+      "genre": "poem",
+      "learning_objective_bn": "কবিতার ভাব বোঝা ও নিজের ইচ্ছা প্রকাশ করা",
+      "source": {
+        "printed_pages": [
+          23,
+          25
+        ],
+        "pdf_pages_1_based": [
+          32,
+          34
+        ],
+        "reading_printed_pages": [
+          23,
+          23
+        ],
+        "exercise_printed_pages": [
+          24,
+          25
+        ],
+        "split_pdf": "lesson-pdfs/08-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u08-s1",
+        "bn3-u08-s2",
+        "bn3-u08-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u07"
+      ],
+      "original_practice_bn": "বড় হয়ে তুমি কী করতে চাও? কেন?",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "আমি হব কথাটি কী প্রকাশ করে?",
+        "options_bn": [
+          "অতীতের ঘটনা",
+          "নিজের ইচ্ছা",
+          "কারও ঠিকানা"
+        ],
+        "correct_option_index": 1,
+        "feedback_bn": "সঠিক উত্তর: নিজের ইচ্ছা।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u09",
+      "order": 9,
+      "title_bn": "ব্যাঙের সাজা",
+      "genre": "story",
+      "learning_objective_bn": "চরিত্রের আচরণ ও ঘটনার কারণ ব্যাখ্যা করা",
+      "source": {
+        "printed_pages": [
+          26,
+          30
+        ],
+        "pdf_pages_1_based": [
+          35,
+          39
+        ],
+        "reading_printed_pages": [
+          26,
+          27
+        ],
+        "exercise_printed_pages": [
+          28,
+          30
+        ],
+        "split_pdf": "lesson-pdfs/09-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u09-s1",
+        "bn3-u09-s2",
+        "bn3-u09-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u08"
+      ],
+      "original_practice_bn": "একটি ঘটনা বেছে বলো: কেন ঘটল, পরে কী হলো?",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "গল্পের ঘটনার ক্রম বলতে কী বোঝায়?",
+        "options_bn": [
+          "ঘটনাগুলো আগে-পরে সাজানো",
+          "শুধু শিরোনাম বলা",
+          "শব্দ গোনা"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: ঘটনাগুলো আগে-পরে সাজানো।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u10",
+      "order": 10,
+      "title_bn": "বাক্য পড়ি ও লিখি",
+      "genre": "sentences",
+      "learning_objective_bn": "অর্থপূর্ণ বাক্য পড়া ও লেখা",
+      "source": {
+        "printed_pages": [
+          31,
+          31
+        ],
+        "pdf_pages_1_based": [
+          40,
+          40
+        ],
+        "reading_printed_pages": [
+          31,
+          31
+        ],
+        "exercise_printed_pages": null,
+        "split_pdf": "lesson-pdfs/10-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u10-s1",
+        "bn3-u10-s2",
+        "bn3-u10-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u09"
+      ],
+      "original_practice_bn": "একটি সম্পূর্ণ বাক্য লেখো এবং শেষে যতিচিহ্ন দাও।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "কোনটি একটি সম্পূর্ণ বাক্য?",
+        "options_bn": [
+          "সবুজ",
+          "পাখি উড়ে।",
+          "আকাশের"
+        ],
+        "correct_option_index": 1,
+        "feedback_bn": "সঠিক উত্তর: পাখি উড়ে।।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u11",
+      "order": 11,
+      "title_bn": "আনন্দের দিন",
+      "genre": "prose",
+      "learning_objective_bn": "অভিজ্ঞতার বিবরণ বুঝে নিজের অভিজ্ঞতা বলা",
+      "source": {
+        "printed_pages": [
+          32,
+          36
+        ],
+        "pdf_pages_1_based": [
+          41,
+          45
+        ],
+        "reading_printed_pages": [
+          32,
+          34
+        ],
+        "exercise_printed_pages": [
+          35,
+          36
+        ],
+        "split_pdf": "lesson-pdfs/11-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u11-s1",
+        "bn3-u11-s2",
+        "bn3-u11-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u10"
+      ],
+      "original_practice_bn": "তোমার একটি আনন্দের দিনের কথা তিন বাক্যে বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "কোন প্রশ্নের উত্তরে স্থানের কথা বলা হয়?",
+        "options_bn": [
+          "কোথায়?",
+          "কখন?",
+          "কে?"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: কোথায়?।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u12",
+      "order": 12,
+      "title_bn": "বালুচরে একদিন",
+      "genre": "prose",
+      "learning_objective_bn": "স্থান, পর্যবেক্ষণ ও ঘটনার বিবরণ বোঝা",
+      "source": {
+        "printed_pages": [
+          37,
+          41
+        ],
+        "pdf_pages_1_based": [
+          46,
+          50
+        ],
+        "reading_printed_pages": [
+          37,
+          38
+        ],
+        "exercise_printed_pages": [
+          39,
+          41
+        ],
+        "split_pdf": "lesson-pdfs/12-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u12-s1",
+        "bn3-u12-s2",
+        "bn3-u12-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u11"
+      ],
+      "original_practice_bn": "পাঠের বালুচরের বর্ণনা থেকে দুটি বিষয় বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "কোনটি একটি স্থানের নাম?",
+        "options_bn": [
+          "বালুচর",
+          "আনন্দ",
+          "দৌড়ানো"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: বালুচর।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u13",
+      "order": 13,
+      "title_bn": "আমাদের গ্রাম",
+      "genre": "poem",
+      "learning_objective_bn": "কবিতায় গ্রামের ছবি কল্পনা ও বর্ণনা করা",
+      "source": {
+        "printed_pages": [
+          42,
+          44
+        ],
+        "pdf_pages_1_based": [
+          51,
+          53
+        ],
+        "reading_printed_pages": [
+          42,
+          42
+        ],
+        "exercise_printed_pages": [
+          43,
+          44
+        ],
+        "split_pdf": "lesson-pdfs/13-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u13-s1",
+        "bn3-u13-s2",
+        "bn3-u13-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u12"
+      ],
+      "original_practice_bn": "তোমার পরিচিত গ্রামের কথা তিন বাক্যে বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "গ্রামের বর্ণনায় কোনটি মানানসই?",
+        "options_bn": [
+          "ফসলের মাঠ",
+          "পাসওয়ার্ড",
+          "কম্পিউটারের কোড"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: ফসলের মাঠ।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u14",
+      "order": 14,
+      "title_bn": "নদীর দেশ",
+      "genre": "prose",
+      "learning_objective_bn": "নদীসংক্রান্ত তথ্য পড়ে মূল কথা বলা",
+      "source": {
+        "printed_pages": [
+          45,
+          48
+        ],
+        "pdf_pages_1_based": [
+          54,
+          57
+        ],
+        "reading_printed_pages": [
+          45,
+          46
+        ],
+        "exercise_printed_pages": [
+          47,
+          48
+        ],
+        "split_pdf": "lesson-pdfs/14-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u14-s1",
+        "bn3-u14-s2",
+        "bn3-u14-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u13"
+      ],
+      "original_practice_bn": "নদী মানুষের কী কাজে লাগে? দুটি উদাহরণ দাও।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "নদী আমাদের কোন কাজে সাহায্য করতে পারে?",
+        "options_bn": [
+          "নৌপথে চলাচলে",
+          "পাসওয়ার্ড তৈরিতে",
+          "বই বাঁধাইয়ে"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: নৌপথে চলাচলে।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u15",
+      "order": 15,
+      "title_bn": "হার-জিতের গল্প",
+      "genre": "story",
+      "learning_objective_bn": "হার-জিত ও সহযোগিতা নিয়ে মত প্রকাশ করা",
+      "source": {
+        "printed_pages": [
+          49,
+          54
+        ],
+        "pdf_pages_1_based": [
+          58,
+          63
+        ],
+        "reading_printed_pages": [
+          49,
+          51
+        ],
+        "exercise_printed_pages": [
+          52,
+          54
+        ],
+        "split_pdf": "lesson-pdfs/15-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u15-s1",
+        "bn3-u15-s2",
+        "bn3-u15-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u14"
+      ],
+      "original_practice_bn": "খেলায় হেরে গেলে তুমি কী করবে?",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "খেলায় হেরে গেলে ভালো আচরণ কোনটি?",
+        "options_bn": [
+          "সঙ্গীকে দোষ দেওয়া",
+          "আবার চেষ্টা করা",
+          "ঝগড়া করা"
+        ],
+        "correct_option_index": 1,
+        "feedback_bn": "সঠিক উত্তর: আবার চেষ্টা করা।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u16",
+      "order": 16,
+      "title_bn": "হাসি",
+      "genre": "poem",
+      "learning_objective_bn": "ছন্দ, আবৃত্তি ও কবিতার ভাব বোঝা",
+      "source": {
+        "printed_pages": [
+          55,
+          57
+        ],
+        "pdf_pages_1_based": [
+          64,
+          66
+        ],
+        "reading_printed_pages": [
+          55,
+          55
+        ],
+        "exercise_printed_pages": [
+          56,
+          57
+        ],
+        "split_pdf": "lesson-pdfs/16-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u16-s1",
+        "bn3-u16-s2",
+        "bn3-u16-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u15"
+      ],
+      "original_practice_bn": "কবিতার একটি অংশ শুনে নিজের অনুভূতি বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "কবিতা আবৃত্তিতে কোনটি কাজে লাগে?",
+        "options_bn": [
+          "সঠিক উচ্চারণ ও বিরতি",
+          "সব শব্দ এড়িয়ে যাওয়া",
+          "শুধু শিরোনাম বলা"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: সঠিক উচ্চারণ ও বিরতি।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u17",
+      "order": 17,
+      "title_bn": "আমাদের উৎসব",
+      "genre": "prose",
+      "learning_objective_bn": "বিভিন্ন উৎসবের পরিচয় ও পারস্পরিক সম্মান বোঝা",
+      "source": {
+        "printed_pages": [
+          58,
+          61
+        ],
+        "pdf_pages_1_based": [
+          67,
+          70
+        ],
+        "reading_printed_pages": [
+          58,
+          59
+        ],
+        "exercise_printed_pages": [
+          60,
+          61
+        ],
+        "split_pdf": "lesson-pdfs/17-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u17-s1",
+        "bn3-u17-s2",
+        "bn3-u17-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u16"
+      ],
+      "original_practice_bn": "তোমার পরিচিত একটি উৎসবের কথা বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "অন্যের উৎসবের প্রতি কেমন আচরণ করব?",
+        "options_bn": [
+          "বিদ্রূপ করব",
+          "সম্মান দেখাব",
+          "ঝগড়া করব"
+        ],
+        "correct_option_index": 1,
+        "feedback_bn": "সঠিক উত্তর: সম্মান দেখাব।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u18",
+      "order": 18,
+      "title_bn": "রাষ্ট্রভাষা বাংলা চাই",
+      "genre": "history",
+      "learning_objective_bn": "পাঠ থেকে ভাষা আন্দোলনের মূল ঘটনা বোঝা",
+      "source": {
+        "printed_pages": [
+          62,
+          64
+        ],
+        "pdf_pages_1_based": [
+          71,
+          73
+        ],
+        "reading_printed_pages": [
+          62,
+          63
+        ],
+        "exercise_printed_pages": [
+          64,
+          64
+        ],
+        "split_pdf": "lesson-pdfs/18-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u18-s1",
+        "bn3-u18-s2",
+        "bn3-u18-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u17"
+      ],
+      "original_practice_bn": "পাঠে বাংলা ভাষার জন্য কী দাবি করা হয়েছিল বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "রাষ্ট্রভাষা বাংলা চাই দাবিটি কোন ভাষার জন্য?",
+        "options_bn": [
+          "বাংলা",
+          "ইংরেজি",
+          "ফরাসি"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: বাংলা।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u19",
+      "order": 19,
+      "title_bn": "আজিকার শিশু",
+      "genre": "poem",
+      "learning_objective_bn": "কবিতার ভাব ও শিশুদের সম্ভাবনা বোঝা",
+      "source": {
+        "printed_pages": [
+          65,
+          68
+        ],
+        "pdf_pages_1_based": [
+          74,
+          77
+        ],
+        "reading_printed_pages": [
+          65,
+          65
+        ],
+        "exercise_printed_pages": [
+          66,
+          68
+        ],
+        "split_pdf": "lesson-pdfs/19-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u19-s1",
+        "bn3-u19-s2",
+        "bn3-u19-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u18"
+      ],
+      "original_practice_bn": "তুমি নতুন কী শিখতে চাও? কীভাবে শিখবে?",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "নতুন কিছু শেখার জন্য কোন অভ্যাস ভালো?",
+        "options_bn": [
+          "প্রশ্ন করা ও অনুশীলন",
+          "কখনো চেষ্টা না করা",
+          "বই লুকিয়ে রাখা"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: প্রশ্ন করা ও অনুশীলন।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u20",
+      "order": 20,
+      "title_bn": "ঢাকাই মসলিন",
+      "genre": "informational",
+      "learning_objective_bn": "তথ্যমূলক লেখা থেকে মসলিনের পরিচয় বোঝা",
+      "source": {
+        "printed_pages": [
+          69,
+          71
+        ],
+        "pdf_pages_1_based": [
+          78,
+          80
+        ],
+        "reading_printed_pages": [
+          69,
+          69
+        ],
+        "exercise_printed_pages": [
+          70,
+          71
+        ],
+        "split_pdf": "lesson-pdfs/20-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u20-s1",
+        "bn3-u20-s2",
+        "bn3-u20-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u19"
+      ],
+      "original_practice_bn": "পাঠ থেকে মসলিন সম্পর্কে দুটি তথ্য বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "মসলিন কী ধরনের জিনিস?",
+        "options_bn": [
+          "কাপড়",
+          "খেলনা",
+          "ফল"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: কাপড়।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u21",
+      "order": 21,
+      "title_bn": "হজরত আবু বকর (রা)",
+      "genre": "biography",
+      "learning_objective_bn": "জীবনী থেকে ব্যক্তির পরিচয় ও গুণাবলি বোঝা",
+      "source": {
+        "printed_pages": [
+          72,
+          75
+        ],
+        "pdf_pages_1_based": [
+          81,
+          84
+        ],
+        "reading_printed_pages": [
+          72,
+          73
+        ],
+        "exercise_printed_pages": [
+          74,
+          75
+        ],
+        "split_pdf": "lesson-pdfs/21-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u21-s1",
+        "bn3-u21-s2",
+        "bn3-u21-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u20"
+      ],
+      "original_practice_bn": "পাঠে বর্ণিত একটি ভালো গুণ উদাহরণসহ বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "জীবনীতে সাধারণত কী থাকে?",
+        "options_bn": [
+          "ব্যক্তির জীবন ও কাজ",
+          "শুধু বাজারের তালিকা",
+          "শুধু আবহাওয়া"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: ব্যক্তির জীবন ও কাজ।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u22",
+      "order": 22,
+      "title_bn": "আমার পণ",
+      "genre": "poem",
+      "learning_objective_bn": "পণ বা সংকল্পের অর্থ বুঝে নিজের লক্ষ্য বলা",
+      "source": {
+        "printed_pages": [
+          76,
+          79
+        ],
+        "pdf_pages_1_based": [
+          85,
+          88
+        ],
+        "reading_printed_pages": [
+          76,
+          76
+        ],
+        "exercise_printed_pages": [
+          77,
+          79
+        ],
+        "split_pdf": "lesson-pdfs/22-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u22-s1",
+        "bn3-u22-s2",
+        "bn3-u22-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u21"
+      ],
+      "original_practice_bn": "তোমার একটি ভালো অভ্যাসের পণ লেখো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "পণ কথার কাছাকাছি অর্থ কোনটি?",
+        "options_bn": [
+          "সংকল্প",
+          "ঠিকানা",
+          "খেলনা"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: সংকল্প।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u23",
+      "order": 23,
+      "title_bn": "মানব জয়ের গল্প",
+      "genre": "story",
+      "learning_objective_bn": "ঘটনার ক্রম ও সমস্যার সমাধান বোঝা",
+      "source": {
+        "printed_pages": [
+          80,
+          82
+        ],
+        "pdf_pages_1_based": [
+          89,
+          91
+        ],
+        "reading_printed_pages": [
+          80,
+          80
+        ],
+        "exercise_printed_pages": [
+          81,
+          82
+        ],
+        "split_pdf": "lesson-pdfs/23-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u23-s1",
+        "bn3-u23-s2",
+        "bn3-u23-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u22"
+      ],
+      "original_practice_bn": "গল্পের সমস্যা ও সমাধান নিজের ভাষায় বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "সমস্যা সমাধানে কোনটি সহায়ক?",
+        "options_bn": [
+          "চেষ্টা ও বুদ্ধি",
+          "কিছুই না করা",
+          "সবাইকে দোষ দেওয়া"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: চেষ্টা ও বুদ্ধি।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u24",
+      "order": 24,
+      "title_bn": "তালগাছ",
+      "genre": "poem",
+      "learning_objective_bn": "কল্পনা ও প্রকৃতির বর্ণনা বোঝা",
+      "source": {
+        "printed_pages": [
+          83,
+          85
+        ],
+        "pdf_pages_1_based": [
+          92,
+          94
+        ],
+        "reading_printed_pages": [
+          83,
+          83
+        ],
+        "exercise_printed_pages": [
+          84,
+          85
+        ],
+        "split_pdf": "lesson-pdfs/24-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u24-s1",
+        "bn3-u24-s2",
+        "bn3-u24-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u23"
+      ],
+      "original_practice_bn": "কবিতার তালগাছটি আঁকো এবং দুটি বাক্য বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "তালগাছ কোন ধরনের বিষয়?",
+        "options_bn": [
+          "একটি গাছ",
+          "একটি নদী",
+          "একটি শহর"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: একটি গাছ।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u25",
+      "order": 25,
+      "title_bn": "রবীন্দ্রনাথ ঠাকুরের ছেলেবেলা",
+      "genre": "biography",
+      "learning_objective_bn": "ছেলেবেলার ঘটনা ও শেখার অভিজ্ঞতা বোঝা",
+      "source": {
+        "printed_pages": [
+          86,
+          88
+        ],
+        "pdf_pages_1_based": [
+          95,
+          97
+        ],
+        "reading_printed_pages": [
+          86,
+          87
+        ],
+        "exercise_printed_pages": [
+          88,
+          88
+        ],
+        "split_pdf": "lesson-pdfs/25-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u25-s1",
+        "bn3-u25-s2",
+        "bn3-u25-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u24"
+      ],
+      "original_practice_bn": "পাঠ থেকে রবীন্দ্রনাথের ছেলেবেলার দুটি ঘটনা বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "ছেলেবেলা বলতে জীবনের কোন সময় বোঝায়?",
+        "options_bn": [
+          "শৈশব",
+          "বার্ধক্য",
+          "কেবল আজকের দিন"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: শৈশব।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u26",
+      "order": 26,
+      "title_bn": "আদর্শ ছেলে",
+      "genre": "poem",
+      "learning_objective_bn": "কবিতায় ভালো আচরণের ধারণা বোঝা",
+      "source": {
+        "printed_pages": [
+          89,
+          91
+        ],
+        "pdf_pages_1_based": [
+          98,
+          100
+        ],
+        "reading_printed_pages": [
+          89,
+          89
+        ],
+        "exercise_printed_pages": [
+          90,
+          91
+        ],
+        "split_pdf": "lesson-pdfs/26-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u26-s1",
+        "bn3-u26-s2",
+        "bn3-u26-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u25"
+      ],
+      "original_practice_bn": "একটি ভালো কাজের উদাহরণ দাও।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "কোনটি ভালো আচরণের উদাহরণ?",
+        "options_bn": [
+          "প্রয়োজনে সাহায্য করা",
+          "ইচ্ছা করে কষ্ট দেওয়া",
+          "সবার সঙ্গে ঝগড়া করা"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: প্রয়োজনে সাহায্য করা।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u27",
+      "order": 27,
+      "title_bn": "মুক্তিযুদ্ধে রাজারবাগ",
+      "genre": "history",
+      "learning_objective_bn": "পাঠের ঐতিহাসিক ঘটনা ও সাহসিকতা বোঝা",
+      "source": {
+        "printed_pages": [
+          92,
+          94
+        ],
+        "pdf_pages_1_based": [
+          101,
+          103
+        ],
+        "reading_printed_pages": [
+          92,
+          93
+        ],
+        "exercise_printed_pages": [
+          94,
+          94
+        ],
+        "split_pdf": "lesson-pdfs/27-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u27-s1",
+        "bn3-u27-s2",
+        "bn3-u27-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u26"
+      ],
+      "original_practice_bn": "পাঠ থেকে রাজারবাগের ঘটনাটি নিজের ভাষায় বলো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "বাংলাদেশের মুক্তিযুদ্ধ কোন সালে হয়?",
+        "options_bn": [
+          "১৯৭১",
+          "১৯৫২",
+          "১৯৯০"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: ১৯৭১।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u28",
+      "order": 28,
+      "title_bn": "নিজের মতো লিখি",
+      "genre": "writing",
+      "learning_objective_bn": "ছবি বা বিষয় দেখে নিজের ভাষায় লেখা",
+      "source": {
+        "printed_pages": [
+          95,
+          96
+        ],
+        "pdf_pages_1_based": [
+          104,
+          105
+        ],
+        "reading_printed_pages": [
+          95,
+          95
+        ],
+        "exercise_printed_pages": [
+          96,
+          96
+        ],
+        "split_pdf": "lesson-pdfs/28-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u28-s1",
+        "bn3-u28-s2",
+        "bn3-u28-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u27"
+      ],
+      "original_practice_bn": "একটি ছবি বেছে তিন থেকে পাঁচটি বাক্য লেখো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "নিজের মতো লেখার ভালো উপায় কোনটি?",
+        "options_bn": [
+          "বিষয় বুঝে নিজের ভাষায় লেখা",
+          "না বুঝে নকল করা",
+          "শুধু একটি বর্ণ লেখা"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: বিষয় বুঝে নিজের ভাষায় লেখা।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    },
+    {
+      "id": "bn3-u29",
+      "order": 29,
+      "title_bn": "প্রতিযোগিতায় নাম লিখি",
+      "genre": "functional_writing",
+      "learning_objective_bn": "বিজ্ঞপ্তি পড়া ও ফরমের ঘর বোঝা",
+      "source": {
+        "printed_pages": [
+          97,
+          98
+        ],
+        "pdf_pages_1_based": [
+          106,
+          107
+        ],
+        "reading_printed_pages": [
+          97,
+          98
+        ],
+        "exercise_printed_pages": null,
+        "split_pdf": "lesson-pdfs/29-lesson.pdf"
+      },
+      "session_ids": [
+        "bn3-u29-s1",
+        "bn3-u29-s2",
+        "bn3-u29-s3"
+      ],
+      "prerequisite_unit_ids": [
+        "bn3-u28"
+      ],
+      "original_practice_bn": "কাল্পনিক নাম দিয়ে নমুনা ফরম পূরণ করো।",
+      "starter_check": {
+        "origin": "app_authored_not_textbook_exercise",
+        "type": "single_choice",
+        "question_bn": "ফরমের নাম ঘরে কী লেখা হয়?",
+        "options_bn": [
+          "প্রতিযোগীর নাম",
+          "গল্পের শেষ",
+          "আবহাওয়া"
+        ],
+        "correct_option_index": 0,
+        "feedback_bn": "সঠিক উত্তর: প্রতিযোগীর নাম।"
+      },
+      "review_status": "curriculum_mapping_reviewed; full_text_and_audio_not_transcribed"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "bn3-u01-s1",
+      "unit_id": "bn3-u01",
+      "sequence": 1,
+      "title_bn": "আমাদের কথা · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "নিজের পরিচয় দেওয়া ও অন্যের কথা মনোযোগ দিয়ে শোনা",
+      "source_pdf_pages_1_based": [
+        10,
+        11
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের কথা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u01-s2",
+      "unit_id": "bn3-u01",
+      "sequence": 2,
+      "title_bn": "আমাদের কথা · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "নিজের পরিচয় দেওয়া ও অন্যের কথা মনোযোগ দিয়ে শোনা",
+      "source_pdf_pages_1_based": [
+        10,
+        11
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের কথা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u01-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u01-s3",
+      "unit_id": "bn3-u01",
+      "sequence": 3,
+      "title_bn": "আমাদের কথা · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "নিজের পরিচয় দেওয়া ও অন্যের কথা মনোযোগ দিয়ে শোনা",
+      "source_pdf_pages_1_based": [
+        10,
+        11
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের কথা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "নিজের পরিচয় দুই বাক্যে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "নিজের পরিচয় দুই বাক্যে বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u01.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u01-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u02-s1",
+      "unit_id": "bn3-u02",
+      "sequence": 1,
+      "title_bn": "আমাদের পরিবার ও আমাদের প্রতিবেশী · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "পরিবার ও প্রতিবেশীর ভূমিকা বোঝা",
+      "source_pdf_pages_1_based": [
+        12,
+        14
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের পরিবার ও আমাদের প্রতিবেশী শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u01-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u02-s2",
+      "unit_id": "bn3-u02",
+      "sequence": 2,
+      "title_bn": "আমাদের পরিবার ও আমাদের প্রতিবেশী · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পরিবার ও প্রতিবেশীর ভূমিকা বোঝা",
+      "source_pdf_pages_1_based": [
+        12,
+        14
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের পরিবার ও আমাদের প্রতিবেশী শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u02-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u02-s3",
+      "unit_id": "bn3-u02",
+      "sequence": 3,
+      "title_bn": "আমাদের পরিবার ও আমাদের প্রতিবেশী · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পরিবার ও প্রতিবেশীর ভূমিকা বোঝা",
+      "source_pdf_pages_1_based": [
+        12,
+        14
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের পরিবার ও আমাদের প্রতিবেশী শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "প্রতিবেশীকে সাহায্য করার একটি উপায় বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "প্রতিবেশীকে সাহায্য করার একটি উপায় বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u02.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u02-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u03-s1",
+      "unit_id": "bn3-u03",
+      "sequence": 1,
+      "title_bn": "ময়লার বাকসো · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছবির ঘটনা অনুসরণ করা ও পরিচ্ছন্নতার অভ্যাস গড়া",
+      "source_pdf_pages_1_based": [
+        15,
+        20
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ময়লার বাকসো শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u02-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u03-s2",
+      "unit_id": "bn3-u03",
+      "sequence": 2,
+      "title_bn": "ময়লার বাকসো · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছবির ঘটনা অনুসরণ করা ও পরিচ্ছন্নতার অভ্যাস গড়া",
+      "source_pdf_pages_1_based": [
+        15,
+        20
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ময়লার বাকসো শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u03-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u03-s3",
+      "unit_id": "bn3-u03",
+      "sequence": 3,
+      "title_bn": "ময়লার বাকসো · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছবির ঘটনা অনুসরণ করা ও পরিচ্ছন্নতার অভ্যাস গড়া",
+      "source_pdf_pages_1_based": [
+        15,
+        20
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ময়লার বাকসো শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "ছবিগুলো দেখে ঘটনার শুরু, মাঝ ও শেষ বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "ছবিগুলো দেখে ঘটনার শুরু, মাঝ ও শেষ বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u03.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u03-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u04-s1",
+      "unit_id": "bn3-u04",
+      "sequence": 1,
+      "title_bn": "আবার পড়ি কারচিহ্ন · চিহ্ন চিনে নিই",
+      "estimated_minutes": 8,
+      "objective_bn": "কারচিহ্ন চিনে শব্দ পড়া ও লেখা",
+      "source_pdf_pages_1_based": [
+        21,
+        23
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আবার পড়ি কারচিহ্ন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "বইয়ের চিহ্নগুলো বড় করে দেখাও। শিক্ষার্থীকে একটি করে চিনতে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u03-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u04-s2",
+      "unit_id": "bn3-u04",
+      "sequence": 2,
+      "title_bn": "আবার পড়ি কারচিহ্ন · শব্দ পড়ি ও গড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "কারচিহ্ন চিনে শব্দ পড়া ও লেখা",
+      "source_pdf_pages_1_based": [
+        21,
+        23
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আবার পড়ি কারচিহ্ন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পৃষ্ঠার তিনটি শব্দ নিয়ে চিহ্ন আলাদা করে দেখাও; তারপর সম্পূর্ণ শব্দ পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u04-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u04-s3",
+      "unit_id": "bn3-u04",
+      "sequence": 3,
+      "title_bn": "আবার পড়ি কারচিহ্ন · লিখি ও যাচাই করি",
+      "estimated_minutes": 8,
+      "objective_bn": "কারচিহ্ন চিনে শব্দ পড়া ও লেখা",
+      "source_pdf_pages_1_based": [
+        21,
+        23
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আবার পড়ি কারচিহ্ন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "ক বর্ণে া, ি ও ু বসিয়ে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "ক বর্ণে া, ি ও ু বসিয়ে পড়ো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u04.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u04-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u05-s1",
+      "unit_id": "bn3-u05",
+      "sequence": 1,
+      "title_bn": "আবার পড়ি ফলাচিহ্ন · চিহ্ন চিনে নিই",
+      "estimated_minutes": 8,
+      "objective_bn": "ফলাচিহ্ন শনাক্ত করা ও শব্দে প্রয়োগ করা",
+      "source_pdf_pages_1_based": [
+        24,
+        27
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আবার পড়ি ফলাচিহ্ন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "বইয়ের চিহ্নগুলো বড় করে দেখাও। শিক্ষার্থীকে একটি করে চিনতে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u04-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u05-s2",
+      "unit_id": "bn3-u05",
+      "sequence": 2,
+      "title_bn": "আবার পড়ি ফলাচিহ্ন · শব্দ পড়ি ও গড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "ফলাচিহ্ন শনাক্ত করা ও শব্দে প্রয়োগ করা",
+      "source_pdf_pages_1_based": [
+        24,
+        27
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আবার পড়ি ফলাচিহ্ন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পৃষ্ঠার তিনটি শব্দ নিয়ে চিহ্ন আলাদা করে দেখাও; তারপর সম্পূর্ণ শব্দ পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u05-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u05-s3",
+      "unit_id": "bn3-u05",
+      "sequence": 3,
+      "title_bn": "আবার পড়ি ফলাচিহ্ন · লিখি ও যাচাই করি",
+      "estimated_minutes": 8,
+      "objective_bn": "ফলাচিহ্ন শনাক্ত করা ও শব্দে প্রয়োগ করা",
+      "source_pdf_pages_1_based": [
+        24,
+        27
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আবার পড়ি ফলাচিহ্ন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠের তিনটি শব্দে ফলাচিহ্ন চিহ্নিত করো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠের তিনটি শব্দে ফলাচিহ্ন চিহ্নিত করো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u05.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u05-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u06-s1",
+      "unit_id": "bn3-u06",
+      "sequence": 1,
+      "title_bn": "দেখে বুঝে কাজ করি · চিহ্ন দেখি",
+      "estimated_minutes": 8,
+      "objective_bn": "দৈনন্দিন চিহ্ন দেখে অর্থ ও করণীয় বোঝা",
+      "source_pdf_pages_1_based": [
+        28,
+        28
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা দেখে বুঝে কাজ করি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পৃষ্ঠার তিনটি চিহ্ন আলাদা করে দেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u05-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u06-s2",
+      "unit_id": "bn3-u06",
+      "sequence": 2,
+      "title_bn": "দেখে বুঝে কাজ করি · অর্থ বুঝি",
+      "estimated_minutes": 8,
+      "objective_bn": "দৈনন্দিন চিহ্ন দেখে অর্থ ও করণীয় বোঝা",
+      "source_pdf_pages_1_based": [
+        28,
+        28
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা দেখে বুঝে কাজ করি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "চিহ্নের অর্থ বলার পর বাস্তব পরিস্থিতির সঙ্গে মিলাতে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u06-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u06-s3",
+      "unit_id": "bn3-u06",
+      "sequence": 3,
+      "title_bn": "দেখে বুঝে কাজ করি · সঠিক কাজ বেছে নিই",
+      "estimated_minutes": 8,
+      "objective_bn": "দৈনন্দিন চিহ্ন দেখে অর্থ ও করণীয় বোঝা",
+      "source_pdf_pages_1_based": [
+        28,
+        28
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা দেখে বুঝে কাজ করি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠের দুটি চিহ্ন দেখে কী করতে হবে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠের দুটি চিহ্ন দেখে কী করতে হবে বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u06.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u06-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u07-s1",
+      "unit_id": "bn3-u07",
+      "sequence": 1,
+      "title_bn": "ঘাসফড়িং আর পিঁপড়ার গল্প · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "ঘটনার ক্রম ও কাজের ফল বোঝা",
+      "source_pdf_pages_1_based": [
+        29,
+        31
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ঘাসফড়িং আর পিঁপড়ার গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u06-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u07-s2",
+      "unit_id": "bn3-u07",
+      "sequence": 2,
+      "title_bn": "ঘাসফড়িং আর পিঁপড়ার গল্প · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ঘটনার ক্রম ও কাজের ফল বোঝা",
+      "source_pdf_pages_1_based": [
+        29,
+        31
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ঘাসফড়িং আর পিঁপড়ার গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u07-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u07-s3",
+      "unit_id": "bn3-u07",
+      "sequence": 3,
+      "title_bn": "ঘাসফড়িং আর পিঁপড়ার গল্প · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ঘটনার ক্রম ও কাজের ফল বোঝা",
+      "source_pdf_pages_1_based": [
+        29,
+        31
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ঘাসফড়িং আর পিঁপড়ার গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "গল্পের দুটি চরিত্রের কাজ তুলনা করো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "গল্পের দুটি চরিত্রের কাজ তুলনা করো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u07.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u07-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u08-s1",
+      "unit_id": "bn3-u08",
+      "sequence": 1,
+      "title_bn": "আমি হব · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতার ভাব বোঝা ও নিজের ইচ্ছা প্রকাশ করা",
+      "source_pdf_pages_1_based": [
+        32,
+        34
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমি হব শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "যাচাইকৃত আবৃত্তি শুনিয়ে দুই থেকে চার পঙ্‌ক্তি করে পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u07-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u08-s2",
+      "unit_id": "bn3-u08",
+      "sequence": 2,
+      "title_bn": "আমি হব · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতার ভাব বোঝা ও নিজের ইচ্ছা প্রকাশ করা",
+      "source_pdf_pages_1_based": [
+        32,
+        34
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমি হব শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u08-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u08-s3",
+      "unit_id": "bn3-u08",
+      "sequence": 3,
+      "title_bn": "আমি হব · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতার ভাব বোঝা ও নিজের ইচ্ছা প্রকাশ করা",
+      "source_pdf_pages_1_based": [
+        32,
+        34
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমি হব শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "বড় হয়ে তুমি কী করতে চাও? কেন?"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "বড় হয়ে তুমি কী করতে চাও? কেন?"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u08.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u08-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u09-s1",
+      "unit_id": "bn3-u09",
+      "sequence": 1,
+      "title_bn": "ব্যাঙের সাজা · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "চরিত্রের আচরণ ও ঘটনার কারণ ব্যাখ্যা করা",
+      "source_pdf_pages_1_based": [
+        35,
+        39
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ব্যাঙের সাজা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u08-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u09-s2",
+      "unit_id": "bn3-u09",
+      "sequence": 2,
+      "title_bn": "ব্যাঙের সাজা · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "চরিত্রের আচরণ ও ঘটনার কারণ ব্যাখ্যা করা",
+      "source_pdf_pages_1_based": [
+        35,
+        39
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ব্যাঙের সাজা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u09-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u09-s3",
+      "unit_id": "bn3-u09",
+      "sequence": 3,
+      "title_bn": "ব্যাঙের সাজা · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "চরিত্রের আচরণ ও ঘটনার কারণ ব্যাখ্যা করা",
+      "source_pdf_pages_1_based": [
+        35,
+        39
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ব্যাঙের সাজা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "একটি ঘটনা বেছে বলো: কেন ঘটল, পরে কী হলো?"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "একটি ঘটনা বেছে বলো: কেন ঘটল, পরে কী হলো?"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u09.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u09-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u10-s1",
+      "unit_id": "bn3-u10",
+      "sequence": 1,
+      "title_bn": "বাক্য পড়ি ও লিখি · নমুনা দেখি",
+      "estimated_minutes": 8,
+      "objective_bn": "অর্থপূর্ণ বাক্য পড়া ও লেখা",
+      "source_pdf_pages_1_based": [
+        40,
+        40
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা বাক্য পড়ি ও লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পৃষ্ঠার নমুনা বা নির্দেশনা একবারে একটি করে দেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u09-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u10-s2",
+      "unit_id": "bn3-u10",
+      "sequence": 2,
+      "title_bn": "বাক্য পড়ি ও লিখি · একসঙ্গে লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "অর্থপূর্ণ বাক্য পড়া ও লেখা",
+      "source_pdf_pages_1_based": [
+        40,
+        40
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা বাক্য পড়ি ও লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "একটি উদাহরণ তৈরি করো; শিক্ষার্থীকে পরের অংশ করতে দাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u10-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u10-s3",
+      "unit_id": "bn3-u10",
+      "sequence": 3,
+      "title_bn": "বাক্য পড়ি ও লিখি · নিজে লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "অর্থপূর্ণ বাক্য পড়া ও লেখা",
+      "source_pdf_pages_1_based": [
+        40,
+        40
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা বাক্য পড়ি ও লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "একটি সম্পূর্ণ বাক্য লেখো এবং শেষে যতিচিহ্ন দাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "একটি সম্পূর্ণ বাক্য লেখো এবং শেষে যতিচিহ্ন দাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u10.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u10-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u11-s1",
+      "unit_id": "bn3-u11",
+      "sequence": 1,
+      "title_bn": "আনন্দের দিন · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "অভিজ্ঞতার বিবরণ বুঝে নিজের অভিজ্ঞতা বলা",
+      "source_pdf_pages_1_based": [
+        41,
+        45
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আনন্দের দিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u10-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u11-s2",
+      "unit_id": "bn3-u11",
+      "sequence": 2,
+      "title_bn": "আনন্দের দিন · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "অভিজ্ঞতার বিবরণ বুঝে নিজের অভিজ্ঞতা বলা",
+      "source_pdf_pages_1_based": [
+        41,
+        45
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আনন্দের দিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u11-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u11-s3",
+      "unit_id": "bn3-u11",
+      "sequence": 3,
+      "title_bn": "আনন্দের দিন · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "অভিজ্ঞতার বিবরণ বুঝে নিজের অভিজ্ঞতা বলা",
+      "source_pdf_pages_1_based": [
+        41,
+        45
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আনন্দের দিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "তোমার একটি আনন্দের দিনের কথা তিন বাক্যে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "তোমার একটি আনন্দের দিনের কথা তিন বাক্যে বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u11.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u11-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u12-s1",
+      "unit_id": "bn3-u12",
+      "sequence": 1,
+      "title_bn": "বালুচরে একদিন · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "স্থান, পর্যবেক্ষণ ও ঘটনার বিবরণ বোঝা",
+      "source_pdf_pages_1_based": [
+        46,
+        50
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা বালুচরে একদিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u11-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u12-s2",
+      "unit_id": "bn3-u12",
+      "sequence": 2,
+      "title_bn": "বালুচরে একদিন · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "স্থান, পর্যবেক্ষণ ও ঘটনার বিবরণ বোঝা",
+      "source_pdf_pages_1_based": [
+        46,
+        50
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা বালুচরে একদিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u12-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u12-s3",
+      "unit_id": "bn3-u12",
+      "sequence": 3,
+      "title_bn": "বালুচরে একদিন · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "স্থান, পর্যবেক্ষণ ও ঘটনার বিবরণ বোঝা",
+      "source_pdf_pages_1_based": [
+        46,
+        50
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা বালুচরে একদিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠের বালুচরের বর্ণনা থেকে দুটি বিষয় বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠের বালুচরের বর্ণনা থেকে দুটি বিষয় বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u12.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u12-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u13-s1",
+      "unit_id": "bn3-u13",
+      "sequence": 1,
+      "title_bn": "আমাদের গ্রাম · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতায় গ্রামের ছবি কল্পনা ও বর্ণনা করা",
+      "source_pdf_pages_1_based": [
+        51,
+        53
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের গ্রাম শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "যাচাইকৃত আবৃত্তি শুনিয়ে দুই থেকে চার পঙ্‌ক্তি করে পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u12-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u13-s2",
+      "unit_id": "bn3-u13",
+      "sequence": 2,
+      "title_bn": "আমাদের গ্রাম · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতায় গ্রামের ছবি কল্পনা ও বর্ণনা করা",
+      "source_pdf_pages_1_based": [
+        51,
+        53
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের গ্রাম শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u13-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u13-s3",
+      "unit_id": "bn3-u13",
+      "sequence": 3,
+      "title_bn": "আমাদের গ্রাম · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতায় গ্রামের ছবি কল্পনা ও বর্ণনা করা",
+      "source_pdf_pages_1_based": [
+        51,
+        53
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের গ্রাম শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "তোমার পরিচিত গ্রামের কথা তিন বাক্যে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "তোমার পরিচিত গ্রামের কথা তিন বাক্যে বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u13.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u13-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u14-s1",
+      "unit_id": "bn3-u14",
+      "sequence": 1,
+      "title_bn": "নদীর দেশ · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "নদীসংক্রান্ত তথ্য পড়ে মূল কথা বলা",
+      "source_pdf_pages_1_based": [
+        54,
+        57
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা নদীর দেশ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u13-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u14-s2",
+      "unit_id": "bn3-u14",
+      "sequence": 2,
+      "title_bn": "নদীর দেশ · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "নদীসংক্রান্ত তথ্য পড়ে মূল কথা বলা",
+      "source_pdf_pages_1_based": [
+        54,
+        57
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা নদীর দেশ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u14-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u14-s3",
+      "unit_id": "bn3-u14",
+      "sequence": 3,
+      "title_bn": "নদীর দেশ · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "নদীসংক্রান্ত তথ্য পড়ে মূল কথা বলা",
+      "source_pdf_pages_1_based": [
+        54,
+        57
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা নদীর দেশ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "নদী মানুষের কী কাজে লাগে? দুটি উদাহরণ দাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "নদী মানুষের কী কাজে লাগে? দুটি উদাহরণ দাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u14.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u14-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u15-s1",
+      "unit_id": "bn3-u15",
+      "sequence": 1,
+      "title_bn": "হার-জিতের গল্প · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "হার-জিত ও সহযোগিতা নিয়ে মত প্রকাশ করা",
+      "source_pdf_pages_1_based": [
+        58,
+        63
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হার-জিতের গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u14-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u15-s2",
+      "unit_id": "bn3-u15",
+      "sequence": 2,
+      "title_bn": "হার-জিতের গল্প · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "হার-জিত ও সহযোগিতা নিয়ে মত প্রকাশ করা",
+      "source_pdf_pages_1_based": [
+        58,
+        63
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হার-জিতের গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u15-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u15-s3",
+      "unit_id": "bn3-u15",
+      "sequence": 3,
+      "title_bn": "হার-জিতের গল্প · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "হার-জিত ও সহযোগিতা নিয়ে মত প্রকাশ করা",
+      "source_pdf_pages_1_based": [
+        58,
+        63
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হার-জিতের গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "খেলায় হেরে গেলে তুমি কী করবে?"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "খেলায় হেরে গেলে তুমি কী করবে?"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u15.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u15-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u16-s1",
+      "unit_id": "bn3-u16",
+      "sequence": 1,
+      "title_bn": "হাসি · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছন্দ, আবৃত্তি ও কবিতার ভাব বোঝা",
+      "source_pdf_pages_1_based": [
+        64,
+        66
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হাসি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "যাচাইকৃত আবৃত্তি শুনিয়ে দুই থেকে চার পঙ্‌ক্তি করে পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u15-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u16-s2",
+      "unit_id": "bn3-u16",
+      "sequence": 2,
+      "title_bn": "হাসি · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছন্দ, আবৃত্তি ও কবিতার ভাব বোঝা",
+      "source_pdf_pages_1_based": [
+        64,
+        66
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হাসি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u16-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u16-s3",
+      "unit_id": "bn3-u16",
+      "sequence": 3,
+      "title_bn": "হাসি · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছন্দ, আবৃত্তি ও কবিতার ভাব বোঝা",
+      "source_pdf_pages_1_based": [
+        64,
+        66
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হাসি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "কবিতার একটি অংশ শুনে নিজের অনুভূতি বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "কবিতার একটি অংশ শুনে নিজের অনুভূতি বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u16.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u16-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u17-s1",
+      "unit_id": "bn3-u17",
+      "sequence": 1,
+      "title_bn": "আমাদের উৎসব · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "বিভিন্ন উৎসবের পরিচয় ও পারস্পরিক সম্মান বোঝা",
+      "source_pdf_pages_1_based": [
+        67,
+        70
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের উৎসব শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u16-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u17-s2",
+      "unit_id": "bn3-u17",
+      "sequence": 2,
+      "title_bn": "আমাদের উৎসব · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "বিভিন্ন উৎসবের পরিচয় ও পারস্পরিক সম্মান বোঝা",
+      "source_pdf_pages_1_based": [
+        67,
+        70
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের উৎসব শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u17-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u17-s3",
+      "unit_id": "bn3-u17",
+      "sequence": 3,
+      "title_bn": "আমাদের উৎসব · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "বিভিন্ন উৎসবের পরিচয় ও পারস্পরিক সম্মান বোঝা",
+      "source_pdf_pages_1_based": [
+        67,
+        70
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমাদের উৎসব শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "তোমার পরিচিত একটি উৎসবের কথা বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "তোমার পরিচিত একটি উৎসবের কথা বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u17.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u17-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u18-s1",
+      "unit_id": "bn3-u18",
+      "sequence": 1,
+      "title_bn": "রাষ্ট্রভাষা বাংলা চাই · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "পাঠ থেকে ভাষা আন্দোলনের মূল ঘটনা বোঝা",
+      "source_pdf_pages_1_based": [
+        71,
+        73
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা রাষ্ট্রভাষা বাংলা চাই শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u17-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u18-s2",
+      "unit_id": "bn3-u18",
+      "sequence": 2,
+      "title_bn": "রাষ্ট্রভাষা বাংলা চাই · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পাঠ থেকে ভাষা আন্দোলনের মূল ঘটনা বোঝা",
+      "source_pdf_pages_1_based": [
+        71,
+        73
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা রাষ্ট্রভাষা বাংলা চাই শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u18-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u18-s3",
+      "unit_id": "bn3-u18",
+      "sequence": 3,
+      "title_bn": "রাষ্ট্রভাষা বাংলা চাই · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পাঠ থেকে ভাষা আন্দোলনের মূল ঘটনা বোঝা",
+      "source_pdf_pages_1_based": [
+        71,
+        73
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা রাষ্ট্রভাষা বাংলা চাই শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠে বাংলা ভাষার জন্য কী দাবি করা হয়েছিল বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠে বাংলা ভাষার জন্য কী দাবি করা হয়েছিল বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u18.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u18-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u19-s1",
+      "unit_id": "bn3-u19",
+      "sequence": 1,
+      "title_bn": "আজিকার শিশু · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতার ভাব ও শিশুদের সম্ভাবনা বোঝা",
+      "source_pdf_pages_1_based": [
+        74,
+        77
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আজিকার শিশু শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "যাচাইকৃত আবৃত্তি শুনিয়ে দুই থেকে চার পঙ্‌ক্তি করে পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u18-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u19-s2",
+      "unit_id": "bn3-u19",
+      "sequence": 2,
+      "title_bn": "আজিকার শিশু · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতার ভাব ও শিশুদের সম্ভাবনা বোঝা",
+      "source_pdf_pages_1_based": [
+        74,
+        77
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আজিকার শিশু শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u19-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u19-s3",
+      "unit_id": "bn3-u19",
+      "sequence": 3,
+      "title_bn": "আজিকার শিশু · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতার ভাব ও শিশুদের সম্ভাবনা বোঝা",
+      "source_pdf_pages_1_based": [
+        74,
+        77
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আজিকার শিশু শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "তুমি নতুন কী শিখতে চাও? কীভাবে শিখবে?"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "তুমি নতুন কী শিখতে চাও? কীভাবে শিখবে?"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u19.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u19-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u20-s1",
+      "unit_id": "bn3-u20",
+      "sequence": 1,
+      "title_bn": "ঢাকাই মসলিন · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "তথ্যমূলক লেখা থেকে মসলিনের পরিচয় বোঝা",
+      "source_pdf_pages_1_based": [
+        78,
+        80
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ঢাকাই মসলিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u19-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u20-s2",
+      "unit_id": "bn3-u20",
+      "sequence": 2,
+      "title_bn": "ঢাকাই মসলিন · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "তথ্যমূলক লেখা থেকে মসলিনের পরিচয় বোঝা",
+      "source_pdf_pages_1_based": [
+        78,
+        80
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ঢাকাই মসলিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u20-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u20-s3",
+      "unit_id": "bn3-u20",
+      "sequence": 3,
+      "title_bn": "ঢাকাই মসলিন · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "তথ্যমূলক লেখা থেকে মসলিনের পরিচয় বোঝা",
+      "source_pdf_pages_1_based": [
+        78,
+        80
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা ঢাকাই মসলিন শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠ থেকে মসলিন সম্পর্কে দুটি তথ্য বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠ থেকে মসলিন সম্পর্কে দুটি তথ্য বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u20.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u20-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u21-s1",
+      "unit_id": "bn3-u21",
+      "sequence": 1,
+      "title_bn": "হজরত আবু বকর (রা) · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "জীবনী থেকে ব্যক্তির পরিচয় ও গুণাবলি বোঝা",
+      "source_pdf_pages_1_based": [
+        81,
+        84
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হজরত আবু বকর (রা) শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u20-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u21-s2",
+      "unit_id": "bn3-u21",
+      "sequence": 2,
+      "title_bn": "হজরত আবু বকর (রা) · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "জীবনী থেকে ব্যক্তির পরিচয় ও গুণাবলি বোঝা",
+      "source_pdf_pages_1_based": [
+        81,
+        84
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হজরত আবু বকর (রা) শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u21-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u21-s3",
+      "unit_id": "bn3-u21",
+      "sequence": 3,
+      "title_bn": "হজরত আবু বকর (রা) · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "জীবনী থেকে ব্যক্তির পরিচয় ও গুণাবলি বোঝা",
+      "source_pdf_pages_1_based": [
+        81,
+        84
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা হজরত আবু বকর (রা) শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠে বর্ণিত একটি ভালো গুণ উদাহরণসহ বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠে বর্ণিত একটি ভালো গুণ উদাহরণসহ বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u21.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u21-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u22-s1",
+      "unit_id": "bn3-u22",
+      "sequence": 1,
+      "title_bn": "আমার পণ · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "পণ বা সংকল্পের অর্থ বুঝে নিজের লক্ষ্য বলা",
+      "source_pdf_pages_1_based": [
+        85,
+        88
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমার পণ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "যাচাইকৃত আবৃত্তি শুনিয়ে দুই থেকে চার পঙ্‌ক্তি করে পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u21-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u22-s2",
+      "unit_id": "bn3-u22",
+      "sequence": 2,
+      "title_bn": "আমার পণ · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পণ বা সংকল্পের অর্থ বুঝে নিজের লক্ষ্য বলা",
+      "source_pdf_pages_1_based": [
+        85,
+        88
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমার পণ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u22-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u22-s3",
+      "unit_id": "bn3-u22",
+      "sequence": 3,
+      "title_bn": "আমার পণ · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পণ বা সংকল্পের অর্থ বুঝে নিজের লক্ষ্য বলা",
+      "source_pdf_pages_1_based": [
+        85,
+        88
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আমার পণ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "তোমার একটি ভালো অভ্যাসের পণ লেখো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "তোমার একটি ভালো অভ্যাসের পণ লেখো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u22.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u22-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u23-s1",
+      "unit_id": "bn3-u23",
+      "sequence": 1,
+      "title_bn": "মানব জয়ের গল্প · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "ঘটনার ক্রম ও সমস্যার সমাধান বোঝা",
+      "source_pdf_pages_1_based": [
+        89,
+        91
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা মানব জয়ের গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u22-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u23-s2",
+      "unit_id": "bn3-u23",
+      "sequence": 2,
+      "title_bn": "মানব জয়ের গল্প · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ঘটনার ক্রম ও সমস্যার সমাধান বোঝা",
+      "source_pdf_pages_1_based": [
+        89,
+        91
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা মানব জয়ের গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u23-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u23-s3",
+      "unit_id": "bn3-u23",
+      "sequence": 3,
+      "title_bn": "মানব জয়ের গল্প · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ঘটনার ক্রম ও সমস্যার সমাধান বোঝা",
+      "source_pdf_pages_1_based": [
+        89,
+        91
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা মানব জয়ের গল্প শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "গল্পের সমস্যা ও সমাধান নিজের ভাষায় বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "গল্পের সমস্যা ও সমাধান নিজের ভাষায় বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u23.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u23-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u24-s1",
+      "unit_id": "bn3-u24",
+      "sequence": 1,
+      "title_bn": "তালগাছ · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "কল্পনা ও প্রকৃতির বর্ণনা বোঝা",
+      "source_pdf_pages_1_based": [
+        92,
+        94
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা তালগাছ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "যাচাইকৃত আবৃত্তি শুনিয়ে দুই থেকে চার পঙ্‌ক্তি করে পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u23-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u24-s2",
+      "unit_id": "bn3-u24",
+      "sequence": 2,
+      "title_bn": "তালগাছ · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কল্পনা ও প্রকৃতির বর্ণনা বোঝা",
+      "source_pdf_pages_1_based": [
+        92,
+        94
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা তালগাছ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u24-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u24-s3",
+      "unit_id": "bn3-u24",
+      "sequence": 3,
+      "title_bn": "তালগাছ · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কল্পনা ও প্রকৃতির বর্ণনা বোঝা",
+      "source_pdf_pages_1_based": [
+        92,
+        94
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা তালগাছ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "কবিতার তালগাছটি আঁকো এবং দুটি বাক্য বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "কবিতার তালগাছটি আঁকো এবং দুটি বাক্য বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u24.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u24-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u25-s1",
+      "unit_id": "bn3-u25",
+      "sequence": 1,
+      "title_bn": "রবীন্দ্রনাথ ঠাকুরের ছেলেবেলা · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছেলেবেলার ঘটনা ও শেখার অভিজ্ঞতা বোঝা",
+      "source_pdf_pages_1_based": [
+        95,
+        97
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা রবীন্দ্রনাথ ঠাকুরের ছেলেবেলা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u24-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u25-s2",
+      "unit_id": "bn3-u25",
+      "sequence": 2,
+      "title_bn": "রবীন্দ্রনাথ ঠাকুরের ছেলেবেলা · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছেলেবেলার ঘটনা ও শেখার অভিজ্ঞতা বোঝা",
+      "source_pdf_pages_1_based": [
+        95,
+        97
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা রবীন্দ্রনাথ ঠাকুরের ছেলেবেলা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u25-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u25-s3",
+      "unit_id": "bn3-u25",
+      "sequence": 3,
+      "title_bn": "রবীন্দ্রনাথ ঠাকুরের ছেলেবেলা · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছেলেবেলার ঘটনা ও শেখার অভিজ্ঞতা বোঝা",
+      "source_pdf_pages_1_based": [
+        95,
+        97
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা রবীন্দ্রনাথ ঠাকুরের ছেলেবেলা শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠ থেকে রবীন্দ্রনাথের ছেলেবেলার দুটি ঘটনা বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠ থেকে রবীন্দ্রনাথের ছেলেবেলার দুটি ঘটনা বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u25.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u25-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u26-s1",
+      "unit_id": "bn3-u26",
+      "sequence": 1,
+      "title_bn": "আদর্শ ছেলে · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতায় ভালো আচরণের ধারণা বোঝা",
+      "source_pdf_pages_1_based": [
+        98,
+        100
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আদর্শ ছেলে শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "যাচাইকৃত আবৃত্তি শুনিয়ে দুই থেকে চার পঙ্‌ক্তি করে পড়তে বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u25-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u26-s2",
+      "unit_id": "bn3-u26",
+      "sequence": 2,
+      "title_bn": "আদর্শ ছেলে · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতায় ভালো আচরণের ধারণা বোঝা",
+      "source_pdf_pages_1_based": [
+        98,
+        100
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আদর্শ ছেলে শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u26-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u26-s3",
+      "unit_id": "bn3-u26",
+      "sequence": 3,
+      "title_bn": "আদর্শ ছেলে · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "কবিতায় ভালো আচরণের ধারণা বোঝা",
+      "source_pdf_pages_1_based": [
+        98,
+        100
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা আদর্শ ছেলে শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "একটি ভালো কাজের উদাহরণ দাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "একটি ভালো কাজের উদাহরণ দাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u26.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u26-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u27-s1",
+      "unit_id": "bn3-u27",
+      "sequence": 1,
+      "title_bn": "মুক্তিযুদ্ধে রাজারবাগ · শুনি ও পড়ি",
+      "estimated_minutes": 8,
+      "objective_bn": "পাঠের ঐতিহাসিক ঘটনা ও সাহসিকতা বোঝা",
+      "source_pdf_pages_1_based": [
+        101,
+        103
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা মুক্তিযুদ্ধে রাজারবাগ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠটি ছোট অনুচ্ছেদ বা ছবির অংশে দেখাও; একসঙ্গে পড়ো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u26-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u27-s2",
+      "unit_id": "bn3-u27",
+      "sequence": 2,
+      "title_bn": "মুক্তিযুদ্ধে রাজারবাগ · শব্দ ও অর্থ শিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পাঠের ঐতিহাসিক ঘটনা ও সাহসিকতা বোঝা",
+      "source_pdf_pages_1_based": [
+        101,
+        103
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা মুক্তিযুদ্ধে রাজারবাগ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পাঠ থেকে তিন থেকে পাঁচটি শব্দ বেছে উচ্চারণ, সহজ অর্থ ও একটি উদাহরণ শেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u27-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u27-s3",
+      "unit_id": "bn3-u27",
+      "sequence": 3,
+      "title_bn": "মুক্তিযুদ্ধে রাজারবাগ · বুঝে বলি ও লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "পাঠের ঐতিহাসিক ঘটনা ও সাহসিকতা বোঝা",
+      "source_pdf_pages_1_based": [
+        101,
+        103
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা মুক্তিযুদ্ধে রাজারবাগ শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "পাঠ থেকে রাজারবাগের ঘটনাটি নিজের ভাষায় বলো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "পাঠ থেকে রাজারবাগের ঘটনাটি নিজের ভাষায় বলো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u27.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u27-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u28-s1",
+      "unit_id": "bn3-u28",
+      "sequence": 1,
+      "title_bn": "নিজের মতো লিখি · নমুনা দেখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছবি বা বিষয় দেখে নিজের ভাষায় লেখা",
+      "source_pdf_pages_1_based": [
+        104,
+        105
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা নিজের মতো লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পৃষ্ঠার নমুনা বা নির্দেশনা একবারে একটি করে দেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u27-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u28-s2",
+      "unit_id": "bn3-u28",
+      "sequence": 2,
+      "title_bn": "নিজের মতো লিখি · একসঙ্গে লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছবি বা বিষয় দেখে নিজের ভাষায় লেখা",
+      "source_pdf_pages_1_based": [
+        104,
+        105
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা নিজের মতো লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "একটি উদাহরণ তৈরি করো; শিক্ষার্থীকে পরের অংশ করতে দাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u28-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u28-s3",
+      "unit_id": "bn3-u28",
+      "sequence": 3,
+      "title_bn": "নিজের মতো লিখি · নিজে লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "ছবি বা বিষয় দেখে নিজের ভাষায় লেখা",
+      "source_pdf_pages_1_based": [
+        104,
+        105
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা নিজের মতো লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "একটি ছবি বেছে তিন থেকে পাঁচটি বাক্য লেখো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "একটি ছবি বেছে তিন থেকে পাঁচটি বাক্য লেখো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u28.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u28-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u29-s1",
+      "unit_id": "bn3-u29",
+      "sequence": 1,
+      "title_bn": "প্রতিযোগিতায় নাম লিখি · নমুনা দেখি",
+      "estimated_minutes": 8,
+      "objective_bn": "বিজ্ঞপ্তি পড়া ও ফরমের ঘর বোঝা",
+      "source_pdf_pages_1_based": [
+        106,
+        107
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা প্রতিযোগিতায় নাম লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "উৎস পৃষ্ঠার নমুনা বা নির্দেশনা একবারে একটি করে দেখাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u28-s3"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u29-s2",
+      "unit_id": "bn3-u29",
+      "sequence": 2,
+      "title_bn": "প্রতিযোগিতায় নাম লিখি · একসঙ্গে লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "বিজ্ঞপ্তি পড়া ও ফরমের ঘর বোঝা",
+      "source_pdf_pages_1_based": [
+        106,
+        107
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা প্রতিযোগিতায় নাম লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "একটি উদাহরণ তৈরি করো; শিক্ষার্থীকে পরের অংশ করতে দাও।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "যা শিখলে, একটি উদাহরণ দিয়ে বলো বা দেখাও।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u29-s1"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    },
+    {
+      "id": "bn3-u29-s3",
+      "unit_id": "bn3-u29",
+      "sequence": 3,
+      "title_bn": "প্রতিযোগিতায় নাম লিখি · নিজে লিখি",
+      "estimated_minutes": 8,
+      "objective_bn": "বিজ্ঞপ্তি পড়া ও ফরমের ঘর বোঝা",
+      "source_pdf_pages_1_based": [
+        106,
+        107
+      ],
+      "content_origin": "app_authored_activity_plan_using_linked_textbook_pages",
+      "steps": [
+        {
+          "kind": "warmup",
+          "duration_minutes": 1,
+          "prompt_bn": "আজ আমরা প্রতিযোগিতায় নাম লিখি শিখব। শিরোনাম বা ছবি দেখে কী মনে হয়?"
+        },
+        {
+          "kind": "guided_activity",
+          "duration_minutes": 4,
+          "prompt_bn": "কাল্পনিক নাম দিয়ে নমুনা ফরম পূরণ করো।"
+        },
+        {
+          "kind": "practice",
+          "duration_minutes": 2,
+          "prompt_bn": "কাল্পনিক নাম দিয়ে নমুনা ফরম পূরণ করো।"
+        },
+        {
+          "kind": "exit_check",
+          "duration_minutes": 1,
+          "check_ref": "bn3-u29.starter_check",
+          "prompt_bn": null
+        }
+      ],
+      "prerequisite_session_ids": [
+        "bn3-u29-s2"
+      ],
+      "completion_rule": {
+        "attempt_required": true,
+        "open_response_rubric": [
+          "উত্তর পাঠ বা বিষয়ের সঙ্গে মেলে",
+          "মূল কথা বোধগম্য",
+          "সাহায্য নিয়ে বা নিজে কাজটি করেছে"
+        ],
+        "automatic_pass_from_mcq_only": false
+      },
+      "assets": {
+        "verified_bengali_transcript": null,
+        "audio": null,
+        "illustration_crops": []
+      },
+      "publication_status": "draft_requires_content_and_asset_review"
+    }
+  ],
+  "supplementary_resources": [
+    {
+      "title_bn": "শব্দ ভান্ডার",
+      "printed_pages": [
+        99,
+        100
+      ],
+      "pdf_pages_1_based": [
+        108,
+        109
+      ],
+      "use": "Cross-lesson vocabulary reference; verify each entry visually before import."
+    }
+  ],
+  "excluded_pdf_pages_1_based": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    110
+  ],
+  "tutor_policy": {
+    "language": "bn-BD",
+    "one_question_at_a_time": true,
+    "hint_sequence": [
+      "সহজ ইঙ্গিত দাও",
+      "উৎসের সংশ্লিষ্ট অংশ দেখাও",
+      "একটি উদাহরণ দিয়ে আবার চেষ্টা করতে দাও"
+    ],
+    "grounding": "Answer source-specific questions only from verified lesson text or source page images. Do not invent missing story details or quotations.",
+    "speech_assessment": "Treat automated pronunciation scores as tentative; allow replay and teacher review.",
+    "privacy": "Use fictional form examples. Do not request a child’s real address, phone number, or other private details.",
+    "reviews": "Offer brief review after units 5, 10, 15, 20, 25 and 29. This is an app design choice, not a textbook requirement."
+  }
+}

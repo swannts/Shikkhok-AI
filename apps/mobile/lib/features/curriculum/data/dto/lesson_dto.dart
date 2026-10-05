@@ -10,6 +10,8 @@ class LessonDto {
   final int order;
   final int? pageStart;
   final int? pageEnd;
+  final int? sourcePdfPageStart;
+  final int? sourcePdfPageEnd;
   final bool isPublished;
   final int contentVersion;
   final List<LessonContentBlockDto> contentBlocks;
@@ -24,6 +26,8 @@ class LessonDto {
     this.order = 0,
     this.pageStart,
     this.pageEnd,
+    this.sourcePdfPageStart,
+    this.sourcePdfPageEnd,
     this.isPublished = true,
     this.contentVersion = 1,
     this.contentBlocks = const [],
@@ -46,6 +50,8 @@ class LessonDto {
       order: (json['order'] as num?)?.toInt() ?? 0,
       pageStart: (json['pageStart'] as num?)?.toInt(),
       pageEnd: (json['pageEnd'] as num?)?.toInt(),
+      sourcePdfPageStart: (json['sourcePdfPageStart'] as num?)?.toInt(),
+      sourcePdfPageEnd: (json['sourcePdfPageEnd'] as num?)?.toInt(),
       isPublished: json['isPublished'] as bool? ?? true,
       contentVersion: (json['contentVersion'] as num?)?.toInt() ?? 1,
       contentBlocks: sortLessonContentBlockDtos(rawBlocks),
@@ -62,6 +68,8 @@ class LessonDto {
         'order': order,
         'pageStart': pageStart,
         'pageEnd': pageEnd,
+        'sourcePdfPageStart': sourcePdfPageStart,
+        'sourcePdfPageEnd': sourcePdfPageEnd,
         'isPublished': isPublished,
         'contentVersion': contentVersion,
         'contentBlocks': contentBlocks.map((block) => block.toJson()).toList(),

@@ -195,6 +195,11 @@ final chapterDetailsProvider =
   );
 });
 
+final chapterLessonsProvider =
+    FutureProvider.family<List<Lesson>, String>((ref, chapterId) {
+  return ref.watch(curriculumRepositoryProvider).listLessons(chapterId);
+});
+
 final textbooksForSubjectProvider =
     FutureProvider.family<List<TextbookItemDto>, Subject>((ref, subject) async {
   final manager = ref.watch(textbookDownloadManagerProvider);

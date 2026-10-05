@@ -1,4 +1,4 @@
-import { ExecutionContext, CallHandler } from '@nestjs/common';
+import { ExecutionContext, CallHandler, StreamableFile } from '@nestjs/common';
 import { of } from 'rxjs';
 import { TransformResponseInterceptor } from './transform-response.interceptor';
 
@@ -26,6 +26,23 @@ describe('TransformResponseInterceptor', () => {
         meta: {},
         requestId: 'test-uuid-1234',
       });
+      done();
+    });
+  });
+
+  it('should pass streamed files through without the JSON envelope', (done) => {
+    const file = new StreamableFile(Buffer.from('%PDF-test'));
+    const mockExecutionContext = {
+      switchToHttp: () => ({
+        getRequest: () => ({ requestId: 'test-uuid-1234' }),
+      }),
+    } as ExecutionContext;
+    const mockCallHandler: CallHandler = {
+      handle: () => of(file),
+    };
+
+    interceptor.intercept(mockExecutionContext, mockCallHandler).subscribe((result) => {
+      expect(result).toBe(file);
       done();
     });
   });

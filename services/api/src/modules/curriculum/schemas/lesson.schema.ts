@@ -49,6 +49,12 @@ export class Lesson {
   @Prop({ type: Number, default: null, required: false })
   pageEnd?: number | null;
 
+  @Prop({ type: Number, default: null, required: false, min: 1 })
+  sourcePdfPageStart?: number | null;
+
+  @Prop({ type: Number, default: null, required: false, min: 1 })
+  sourcePdfPageEnd?: number | null;
+
   @Prop({ type: Boolean, default: true, index: true })
   isPublished: boolean;
 

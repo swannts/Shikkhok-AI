@@ -103,12 +103,15 @@ class SubjectDetailsPage extends ConsumerWidget {
         ),
         data: (viewData) {
           final subject = viewData.subject;
-          // OCR imported this book under a generic navigation group and
-          // generated lesson names from fragments of page text. Do not present
-          // that placeholder as an actual NCTB chapter.
+          final readingList = viewData.chapters
+              .where((chapter) => chapter.slug == 'bn3-reading-list')
+              .firstOrNull;
+          // Do not present the old OCR placeholder as an NCTB chapter.
           final chapters = viewData.chapters.where((chapter) {
             final normalizedTitle = chapter.title.trim().toLowerCase();
-            return chapter.slug != 'pathsomuh' && normalizedTitle != 'পাঠসমূহ';
+            return chapter.slug != 'pathsomuh' &&
+                chapter.slug != 'bn3-reading-list' &&
+                normalizedTitle != 'পাঠসমূহ';
           }).toList();
 
           return SafeArea(
@@ -162,7 +165,9 @@ class SubjectDetailsPage extends ConsumerWidget {
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                '${chapters.length}টি অধ্যায়',
+                                readingList == null
+                                    ? '${chapters.length}টি অধ্যায়'
+                                    : 'বইয়ের পাঠসমূহ',
                                 style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
@@ -178,16 +183,18 @@ class SubjectDetailsPage extends ConsumerWidget {
                   const SizedBox(height: AppSpacing.md),
                   _TextbookReadAction(subject: subject),
                   const SizedBox(height: AppSpacing.xl),
-                  const Text(
-                    'অধ্যায়সমূহ',
-                    style: TextStyle(
+                  Text(
+                    readingList == null ? 'অধ্যায়সমূহ' : 'পাঠসমূহ',
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: AppSpacing.md),
-                  if (chapters.isEmpty) ...[
+                  if (readingList != null) ...[
+                    _BanglaReadingUnitList(chapterId: readingList.id),
+                  ] else if (chapters.isEmpty) ...[
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(AppSpacing.xl),
@@ -343,6 +350,97 @@ class _TextbookReadAction extends ConsumerWidget {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+}
+
+class _BanglaReadingUnitList extends ConsumerWidget {
+  final String chapterId;
+
+  const _BanglaReadingUnitList({required this.chapterId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lessons = ref.watch(chapterLessonsProvider(chapterId));
+    return lessons.when(
+      loading: () => const Padding(
+        padding: EdgeInsets.all(AppSpacing.xl),
+        child: Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
+      ),
+      error: (error, stackTrace) => const Text(
+        'পাঠগুলো লোড করা যায়নি। আবার চেষ্টা করো।',
+        style: AppTypography.body,
+      ),
+      data: (items) {
+        if (items.isEmpty) {
+          return const Text('এই বইয়ে এখনো কোনো পাঠ যোগ করা হয়নি।');
+        }
+        return ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: items.length,
+          separatorBuilder: (context, index) =>
+              const SizedBox(height: AppSpacing.sm),
+          itemBuilder: (context, index) {
+            final lesson = items[index];
+            return InkWell(
+              onTap: () => context.go(AppRoutes.lesson(lesson.id)),
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                constraints: const BoxConstraints(minHeight: 68),
+                padding: const EdgeInsets.all(AppSpacing.md),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withAlpha(20),
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${lesson.order}',
+                        style: const TextStyle(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(lesson.title, style: AppTypography.cardTitle),
+                          if (lesson.pageStart != null) ...[
+                            const SizedBox(height: 3),
+                            Text(
+                              lesson.pageEnd == lesson.pageStart
+                                  ? 'মুদ্রিত পৃষ্ঠা ${lesson.pageStart}'
+                                  : 'মুদ্রিত পৃষ্ঠা ${lesson.pageStart}–${lesson.pageEnd}',
+                              style: AppTypography.caption,
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right_rounded,
+                        color: AppColors.textSecondary),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );

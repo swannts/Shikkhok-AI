@@ -10,6 +10,8 @@ class Lesson {
   final int order;
   final int? pageStart;
   final int? pageEnd;
+  final int? sourcePdfPageStart;
+  final int? sourcePdfPageEnd;
   final bool isPublished;
   final int contentVersion;
   final List<LessonContentBlock> contentBlocks;
@@ -24,6 +26,8 @@ class Lesson {
     this.order = 0,
     this.pageStart,
     this.pageEnd,
+    this.sourcePdfPageStart,
+    this.sourcePdfPageEnd,
     this.isPublished = true,
     this.contentVersion = 1,
     this.contentBlocks = const [],

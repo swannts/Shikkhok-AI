@@ -287,8 +287,13 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                             ],
                           ],
                         ),
-                        if (subject != null && lesson.pageStart != null)
-                          _sourcePageAction(subject, lesson.pageStart!),
+                        if (subject != null &&
+                            lesson.sourcePdfPageStart != null)
+                          _sourcePageAction(
+                            subject,
+                            lesson.sourcePdfPageStart!,
+                            lesson.pageStart,
+                          ),
                         const Divider(height: AppSpacing.xl),
 
                         Text(
@@ -531,7 +536,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
     );
   }
 
-  Widget _sourcePageAction(Subject subject, int page) {
+  Widget _sourcePageAction(Subject subject, int pdfPage, int? printedPage) {
     return ref.watch(textbooksForSubjectProvider(subject)).when(
           loading: () => const SizedBox(height: AppSpacing.sm),
           error: (error, stackTrace) => const SizedBox.shrink(),
@@ -541,10 +546,14 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
               alignment: Alignment.centerLeft,
               child: TextButton.icon(
                 onPressed: () => context.push(
-                  '${AppRoutes.textbook(books.first.id)}?page=$page',
+                  '${AppRoutes.textbook(books.first.id)}?page=$pdfPage',
                 ),
                 icon: const Icon(Icons.menu_book_rounded),
-                label: Text('মূল বইয়ের পৃষ্ঠা $page পড়ো'),
+                label: Text(
+                  printedPage == null
+                      ? 'মূল বইয়ে পড়ো'
+                      : 'মূল বইয়ের মুদ্রিত পৃষ্ঠা $printedPage পড়ো',
+                ),
               ),
             );
           },
