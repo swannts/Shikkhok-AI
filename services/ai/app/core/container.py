@@ -10,6 +10,7 @@ from app.providers.embeddings.gemini import GeminiEmbeddingProvider
 from app.providers.embeddings.primary import DeterministicEmbeddingProvider
 from app.providers.llm.base import LlmProvider
 from app.providers.llm.gemini import GeminiLlmProvider
+from app.providers.llm.huggingface import HuggingFaceLlmProvider
 from app.providers.llm.mock import MockLlmProvider
 from app.providers.vector_store.base import VectorStore
 from app.providers.vector_store.memory import InMemoryVectorStore
@@ -85,6 +86,13 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
         if not cfg.mock_providers_allowed():
             raise RuntimeError(f"Mock LLM is strictly prohibited in {cfg.app_env}")
         primary_llm = MockLlmProvider(name="mock-primary", model=cfg.llm_model)
+    elif cfg.llm_provider == "huggingface":
+        primary_llm = HuggingFaceLlmProvider(
+            api_key=cfg.hf_token,
+            model=cfg.huggingface_model,
+            timeout_seconds=cfg.llm_timeout_seconds,
+            client=http_client,
+        )
     else:
         raise RuntimeError(f"Unsupported LLM provider: {cfg.llm_provider}")
 
@@ -97,6 +105,13 @@ def build_service_container(custom_settings: Settings | None = None) -> AiServic
         fallback_llm = GeminiLlmProvider(
             api_key=cfg.llm_fallback_api_key,
             model=cfg.llm_fallback_model or "gemini-2.5-flash-lite",
+            timeout_seconds=cfg.llm_timeout_seconds,
+            client=http_client,
+        )
+    elif cfg.llm_fallback_provider == "huggingface":
+        fallback_llm = HuggingFaceLlmProvider(
+            api_key=cfg.hf_token,
+            model=cfg.llm_fallback_model or cfg.huggingface_model,
             timeout_seconds=cfg.llm_timeout_seconds,
             client=http_client,
         )

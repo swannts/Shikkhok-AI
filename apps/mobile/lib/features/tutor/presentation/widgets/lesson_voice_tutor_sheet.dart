@@ -79,21 +79,30 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
       String? localeId;
       if (available) {
         final locales = await _speech.locales();
+        // Locale identifiers vary between Android, iOS and browsers. Prefer a
+        // Bengali locale actually reported by the platform instead of passing
+        // an unsupported hard-coded identifier to the speech engine.
         for (final preferred in ['bn_BD', 'bn-BD', 'bn_IN', 'bn-IN']) {
-          final match = locales.where((locale) => locale.localeId == preferred);
+          final match = locales.where((locale) =>
+              locale.localeId.toLowerCase() == preferred.toLowerCase());
           if (match.isNotEmpty) {
             localeId = match.first.localeId;
             break;
           }
         }
-        localeId ??= 'bn_BD';
+        for (final locale in locales) {
+          if (locale.localeId.toLowerCase().startsWith('bn')) {
+            localeId = locale.localeId;
+            break;
+          }
+        }
       }
       setState(() {
-        _speechAvailable = available;
+        _speechAvailable = available && localeId != null;
         _speechLocale = localeId;
-        if (!available) {
+        if (!available || localeId == null) {
           _voiceError =
-              'এই ব্রাউজার বা ডিভাইসে বাংলা ভয়েস ইনপুট পাওয়া যাচ্ছে না।';
+              'এই ডিভাইসে বাংলা ভয়েস ইনপুট পাওয়া যাচ্ছে না। বাংলা কিবোর্ড দিয়ে লিখে প্রশ্ন করতে পারো।';
         }
       });
     } catch (_) {
@@ -119,7 +128,7 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
       if (mounted) setState(() => _isListening = false);
       return;
     }
-    if (!_speechAvailable) {
+    if (!_speechAvailable || _speechLocale == null) {
       setState(() =>
           _voiceError = 'এই ব্রাউজার বা ডিভাইসে ভয়েস ইনপুট পাওয়া যাচ্ছে না।');
       return;
@@ -186,22 +195,19 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
     if (!mounted) return;
     setState(() => _isListening = false);
 
+    final messagesBeforeRequest =
+        ref.read(tutorControllerProvider).messages.length;
     await ref.read(tutorControllerProvider.notifier).streamMessage(question);
     if (!mounted) return;
 
     final tutorState = ref.read(tutorControllerProvider);
-    final reply = tutorState.messages
-        .lastWhere(
-          (message) => message.role == TutorMessageRole.assistant,
-          orElse: () => TutorMessage(
-            id: '',
-            role: TutorMessageRole.assistant,
-            content: '',
-            createdAt: DateTime.fromMillisecondsSinceEpoch(0),
-          ),
-        )
-        .content
-        .trim();
+    final newAssistantMessages = tutorState.messages
+        .skip(messagesBeforeRequest)
+        .where((message) => message.role == TutorMessageRole.assistant)
+        .toList(growable: false);
+    final reply = newAssistantMessages.isEmpty
+        ? ''
+        : newAssistantMessages.last.content.trim();
 
     setState(() {
       _isSubmitting = false;
@@ -376,6 +382,44 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
             ),
           ),
         ),
+        if (_voiceSessionActive || _isListening || _isSpeaking) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+            decoration: BoxDecoration(
+              color: AppColors.primaryLight,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  _isListening
+                      ? Icons.mic_rounded
+                      : _isSpeaking
+                          ? Icons.volume_up_rounded
+                          : Icons.autorenew_rounded,
+                  size: 18,
+                  color: AppColors.primary,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Text(
+                    _isListening
+                        ? 'শুনছি—কথা শেষ হলে উত্তর দেব'
+                        : _isSpeaking
+                            ? 'উত্তর বলছি…'
+                            : 'ভয়েস কথোপকথন চালু—উত্তরের পর আবার শুনব',
+                    style: const TextStyle(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
         if (latestReply != null) ...[
           const SizedBox(height: AppSpacing.md),
           Container(

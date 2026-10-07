@@ -1,0 +1,3720 @@
+{
+  "schema_version": "1.0",
+  "book": {
+    "id": "math-class1-ebtedayi-bn-2025",
+    "title": "গণিত",
+    "grade": 1,
+    "school_stream": "ebtedayi",
+    "edition_year_printed_in_book": 2025,
+    "edition_note": "Year taken from the book body; upload filename may say 2025.",
+    "subject": "math-bn",
+    "language": "bn-BD",
+    "source_filename": "nctb-2025-গণ-ত-1UZ0x1s4-0.pdf",
+    "source_sha256": "17d6bda0ca4d65cccd3888177772c43a72cbfbc75235bb4b6afca2167f17a8d2",
+    "source_type": "image_only_scanned_pdf",
+    "total_pdf_pages": 122
+  },
+  "counts": {
+    "lessons": 18,
+    "sessions": 54,
+    "starter_questions": 18,
+    "split_pdfs": 20
+  },
+  "scope": "Original source splits plus app-authored teaching plans and starter checks. Not a verified full transcription, recorded course, implemented UI or complete textbook answer bank. Math follows chapter-sized lessons; repeat short sessions for remaining examples. Arabic and Quran labels are app-authored topic groupings; source pages remain authoritative.",
+  "lessons": [
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l001",
+      "order": 1,
+      "title": "তুলনা করি",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "তুলনা করি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "তুলনা করি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          8,
+          11
+        ],
+        "printed_start_listed": 1,
+        "split_pdf": "lesson-pdfs/001-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l001-s1",
+        "math-class1-ebtedayi-bn-2025-l001-s2",
+        "math-class1-ebtedayi-bn-2025-l001-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l001-q1"
+      ],
+      "prerequisite_lesson_ids": [],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l002",
+      "order": 2,
+      "title": "গণনা",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "গণনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "গণনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          12,
+          15
+        ],
+        "printed_start_listed": 5,
+        "split_pdf": "lesson-pdfs/002-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l002-s1",
+        "math-class1-ebtedayi-bn-2025-l002-s2",
+        "math-class1-ebtedayi-bn-2025-l002-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l002-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l001"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l003",
+      "order": 3,
+      "title": "সংখ্যা ১-১০",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "সংখ্যা ১-১০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "সংখ্যা ১-১০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          16,
+          35
+        ],
+        "printed_start_listed": 9,
+        "split_pdf": "lesson-pdfs/003-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l003-s1",
+        "math-class1-ebtedayi-bn-2025-l003-s2",
+        "math-class1-ebtedayi-bn-2025-l003-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l003-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l002"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l004",
+      "order": 4,
+      "title": "যোগের ধারণা",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "যোগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "যোগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          36,
+          49
+        ],
+        "printed_start_listed": 29,
+        "split_pdf": "lesson-pdfs/004-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l004-s1",
+        "math-class1-ebtedayi-bn-2025-l004-s2",
+        "math-class1-ebtedayi-bn-2025-l004-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l004-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l003"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l005",
+      "order": 5,
+      "title": "বিয়োগের ধারণা",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "বিয়োগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "বিয়োগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          50,
+          60
+        ],
+        "printed_start_listed": 43,
+        "split_pdf": "lesson-pdfs/005-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l005-s1",
+        "math-class1-ebtedayi-bn-2025-l005-s2",
+        "math-class1-ebtedayi-bn-2025-l005-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l005-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l004"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l006",
+      "order": 6,
+      "title": "সংখ্যা ১১-২০",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "সংখ্যা ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "সংখ্যা ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          61,
+          64
+        ],
+        "printed_start_listed": 54,
+        "split_pdf": "lesson-pdfs/006-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l006-s1",
+        "math-class1-ebtedayi-bn-2025-l006-s2",
+        "math-class1-ebtedayi-bn-2025-l006-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l006-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l005"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l007",
+      "order": 7,
+      "title": "যোগ ১১-২০",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "যোগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "যোগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          65,
+          72
+        ],
+        "printed_start_listed": 58,
+        "split_pdf": "lesson-pdfs/007-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l007-s1",
+        "math-class1-ebtedayi-bn-2025-l007-s2",
+        "math-class1-ebtedayi-bn-2025-l007-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l007-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l006"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l008",
+      "order": 8,
+      "title": "বিয়োগ ১১-২০",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "বিয়োগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "বিয়োগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          73,
+          75
+        ],
+        "printed_start_listed": 66,
+        "split_pdf": "lesson-pdfs/008-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l008-s1",
+        "math-class1-ebtedayi-bn-2025-l008-s2",
+        "math-class1-ebtedayi-bn-2025-l008-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l008-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l007"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l009",
+      "order": 9,
+      "title": "সংখ্যা ২১-৪০",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "সংখ্যা ২১-৪০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "সংখ্যা ২১-৪০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          76,
+          80
+        ],
+        "printed_start_listed": 69,
+        "split_pdf": "lesson-pdfs/009-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l009-s1",
+        "math-class1-ebtedayi-bn-2025-l009-s2",
+        "math-class1-ebtedayi-bn-2025-l009-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l009-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l008"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l010",
+      "order": 10,
+      "title": "স্থানীয় মান",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "স্থানীয় মান বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "স্থানীয় মান বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          81,
+          85
+        ],
+        "printed_start_listed": 74,
+        "split_pdf": "lesson-pdfs/010-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l010-s1",
+        "math-class1-ebtedayi-bn-2025-l010-s2",
+        "math-class1-ebtedayi-bn-2025-l010-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l010-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l009"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l011",
+      "order": 11,
+      "title": "নিজে করি: সংখ্যা ও হিসাব",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "নিজে করি: সংখ্যা ও হিসাব বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "নিজে করি: সংখ্যা ও হিসাব বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          86,
+          88
+        ],
+        "printed_start_listed": 79,
+        "split_pdf": "lesson-pdfs/011-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l011-s1",
+        "math-class1-ebtedayi-bn-2025-l011-s2",
+        "math-class1-ebtedayi-bn-2025-l011-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l011-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l010"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l012",
+      "order": 12,
+      "title": "জ্যামিতি",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "জ্যামিতি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "জ্যামিতি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          89,
+          92
+        ],
+        "printed_start_listed": 82,
+        "split_pdf": "lesson-pdfs/012-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l012-s1",
+        "math-class1-ebtedayi-bn-2025-l012-s2",
+        "math-class1-ebtedayi-bn-2025-l012-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l012-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l011"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l013",
+      "order": 13,
+      "title": "প্যাটার্ন",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "প্যাটার্ন বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "প্যাটার্ন বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          93,
+          98
+        ],
+        "printed_start_listed": 86,
+        "split_pdf": "lesson-pdfs/013-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l013-s1",
+        "math-class1-ebtedayi-bn-2025-l013-s2",
+        "math-class1-ebtedayi-bn-2025-l013-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l013-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l012"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l014",
+      "order": 14,
+      "title": "সংখ্যা ৪১-১০০",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "সংখ্যা ৪১-১০০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "সংখ্যা ৪১-১০০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          99,
+          103
+        ],
+        "printed_start_listed": 92,
+        "split_pdf": "lesson-pdfs/014-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l014-s1",
+        "math-class1-ebtedayi-bn-2025-l014-s2",
+        "math-class1-ebtedayi-bn-2025-l014-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l014-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l013"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l015",
+      "order": 15,
+      "title": "যোগ",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "যোগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "যোগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          104,
+          107
+        ],
+        "printed_start_listed": 97,
+        "split_pdf": "lesson-pdfs/015-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l015-s1",
+        "math-class1-ebtedayi-bn-2025-l015-s2",
+        "math-class1-ebtedayi-bn-2025-l015-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l015-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l014"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l016",
+      "order": 16,
+      "title": "বিয়োগ",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "বিয়োগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "বিয়োগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          108,
+          111
+        ],
+        "printed_start_listed": 101,
+        "split_pdf": "lesson-pdfs/016-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l016-s1",
+        "math-class1-ebtedayi-bn-2025-l016-s2",
+        "math-class1-ebtedayi-bn-2025-l016-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l016-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l015"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l017",
+      "order": 17,
+      "title": "বাংলাদেশি মুদ্রা",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "বাংলাদেশি মুদ্রা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "বাংলাদেশি মুদ্রা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          112,
+          115
+        ],
+        "printed_start_listed": 105,
+        "split_pdf": "lesson-pdfs/017-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l017-s1",
+        "math-class1-ebtedayi-bn-2025-l017-s2",
+        "math-class1-ebtedayi-bn-2025-l017-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l017-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l016"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l018",
+      "order": 18,
+      "title": "নিজে করি: শেষ পুনরালোচনা",
+      "title_origin": "textbook_heading_or_grouped_heading",
+      "objective": "নিজে করি: শেষ পুনরালোচনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "activity": "নিজে করি: শেষ পুনরালোচনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।",
+      "source": {
+        "pdf_pages_1_based": [
+          116,
+          121
+        ],
+        "printed_start_listed": 109,
+        "split_pdf": "lesson-pdfs/018-lesson.pdf",
+        "note": "PDF page boundaries take precedence over printed contents references. Shared-page subtopics are grouped. Unit divider and review pages are retained."
+      },
+      "session_ids": [
+        "math-class1-ebtedayi-bn-2025-l018-s1",
+        "math-class1-ebtedayi-bn-2025-l018-s2",
+        "math-class1-ebtedayi-bn-2025-l018-s3"
+      ],
+      "question_ids": [
+        "math-class1-ebtedayi-bn-2025-l018-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "math-class1-ebtedayi-bn-2025-l017"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l001-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l001",
+      "sequence": 1,
+      "title": "তুলনা করি · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "তুলনা করি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        8,
+        11
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "তুলনা করি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "তুলনা করি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l001-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l001",
+      "sequence": 2,
+      "title": "তুলনা করি · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "তুলনা করি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        8,
+        11
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "তুলনা করি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l001-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l001",
+      "sequence": 3,
+      "title": "তুলনা করি · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "তুলনা করি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        8,
+        11
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "তুলনা করি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l001-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l002-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l002",
+      "sequence": 1,
+      "title": "গণনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "গণনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        12,
+        15
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "গণনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "গণনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l002-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l002",
+      "sequence": 2,
+      "title": "গণনা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "গণনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        12,
+        15
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "গণনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l002-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l002",
+      "sequence": 3,
+      "title": "গণনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "গণনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        12,
+        15
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "গণনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l002-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l003-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l003",
+      "sequence": 1,
+      "title": "সংখ্যা ১-১০ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ১-১০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        16,
+        35
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "সংখ্যা ১-১০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ১-১০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l003-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l003",
+      "sequence": 2,
+      "title": "সংখ্যা ১-১০ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ১-১০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        16,
+        35
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ১-১০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l003-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l003",
+      "sequence": 3,
+      "title": "সংখ্যা ১-১০ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ১-১০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        16,
+        35
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ১-১০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l003-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l004-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l004",
+      "sequence": 1,
+      "title": "যোগের ধারণা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "যোগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        36,
+        49
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "যোগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l004-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l004",
+      "sequence": 2,
+      "title": "যোগের ধারণা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "যোগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        36,
+        49
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l004-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l004",
+      "sequence": 3,
+      "title": "যোগের ধারণা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "যোগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        36,
+        49
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l004-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l005-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l005",
+      "sequence": 1,
+      "title": "বিয়োগের ধারণা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "বিয়োগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        50,
+        60
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "বিয়োগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l005-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l005",
+      "sequence": 2,
+      "title": "বিয়োগের ধারণা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "বিয়োগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        50,
+        60
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l005-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l005",
+      "sequence": 3,
+      "title": "বিয়োগের ধারণা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "বিয়োগের ধারণা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        50,
+        60
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগের ধারণা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l005-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l006-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l006",
+      "sequence": 1,
+      "title": "সংখ্যা ১১-২০ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "সংখ্যা ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        61,
+        64
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "সংখ্যা ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l006-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l006",
+      "sequence": 2,
+      "title": "সংখ্যা ১১-২০ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "সংখ্যা ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        61,
+        64
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l006-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l006",
+      "sequence": 3,
+      "title": "সংখ্যা ১১-২০ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "সংখ্যা ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        61,
+        64
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l006-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l007-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l007",
+      "sequence": 1,
+      "title": "যোগ ১১-২০ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "যোগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        65,
+        72
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "যোগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l007-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l007",
+      "sequence": 2,
+      "title": "যোগ ১১-২০ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "যোগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        65,
+        72
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l007-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l007",
+      "sequence": 3,
+      "title": "যোগ ১১-২০ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "যোগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        65,
+        72
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l007-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l008-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l008",
+      "sequence": 1,
+      "title": "বিয়োগ ১১-২০ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বিয়োগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        73,
+        75
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "বিয়োগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l008-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l008",
+      "sequence": 2,
+      "title": "বিয়োগ ১১-২০ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বিয়োগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        73,
+        75
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l008-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l008",
+      "sequence": 3,
+      "title": "বিয়োগ ১১-২০ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বিয়োগ ১১-২০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        73,
+        75
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগ ১১-২০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l008-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l009-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l009",
+      "sequence": 1,
+      "title": "সংখ্যা ২১-৪০ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ২১-৪০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "সংখ্যা ২১-৪০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ২১-৪০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l009-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l009",
+      "sequence": 2,
+      "title": "সংখ্যা ২১-৪০ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ২১-৪০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ২১-৪০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l009-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l009",
+      "sequence": 3,
+      "title": "সংখ্যা ২১-৪০ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ২১-৪০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ২১-৪০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l009-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l010-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l010",
+      "sequence": 1,
+      "title": "স্থানীয় মান · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "স্থানীয় মান বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        81,
+        85
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "স্থানীয় মান বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "স্থানীয় মান বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l010-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l010",
+      "sequence": 2,
+      "title": "স্থানীয় মান · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "স্থানীয় মান বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        81,
+        85
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "স্থানীয় মান বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l010-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l010",
+      "sequence": 3,
+      "title": "স্থানীয় মান · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "স্থানীয় মান বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        81,
+        85
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "স্থানীয় মান বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l010-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l011-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l011",
+      "sequence": 1,
+      "title": "নিজে করি: সংখ্যা ও হিসাব · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "নিজে করি: সংখ্যা ও হিসাব বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        86,
+        88
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "নিজে করি: সংখ্যা ও হিসাব বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "নিজে করি: সংখ্যা ও হিসাব বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l011-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l011",
+      "sequence": 2,
+      "title": "নিজে করি: সংখ্যা ও হিসাব · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "নিজে করি: সংখ্যা ও হিসাব বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        86,
+        88
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "নিজে করি: সংখ্যা ও হিসাব বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l011-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l011",
+      "sequence": 3,
+      "title": "নিজে করি: সংখ্যা ও হিসাব · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "নিজে করি: সংখ্যা ও হিসাব বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        86,
+        88
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "নিজে করি: সংখ্যা ও হিসাব বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l011-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l012-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l012",
+      "sequence": 1,
+      "title": "জ্যামিতি · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "জ্যামিতি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        89,
+        92
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "জ্যামিতি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "জ্যামিতি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l012-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l012",
+      "sequence": 2,
+      "title": "জ্যামিতি · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "জ্যামিতি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        89,
+        92
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "জ্যামিতি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l012-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l012",
+      "sequence": 3,
+      "title": "জ্যামিতি · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "জ্যামিতি বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        89,
+        92
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "জ্যামিতি বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l012-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l013-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l013",
+      "sequence": 1,
+      "title": "প্যাটার্ন · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "প্যাটার্ন বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        93,
+        98
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "প্যাটার্ন বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "প্যাটার্ন বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l013-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l013",
+      "sequence": 2,
+      "title": "প্যাটার্ন · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "প্যাটার্ন বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        93,
+        98
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "প্যাটার্ন বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l013-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l013",
+      "sequence": 3,
+      "title": "প্যাটার্ন · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "প্যাটার্ন বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        93,
+        98
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "প্যাটার্ন বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l013-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l014-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l014",
+      "sequence": 1,
+      "title": "সংখ্যা ৪১-১০০ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ৪১-১০০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        99,
+        103
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "সংখ্যা ৪১-১০০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ৪১-১০০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l014-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l014",
+      "sequence": 2,
+      "title": "সংখ্যা ৪১-১০০ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ৪১-১০০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        99,
+        103
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ৪১-১০০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l014-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l014",
+      "sequence": 3,
+      "title": "সংখ্যা ৪১-১০০ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "সংখ্যা ৪১-১০০ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        99,
+        103
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "সংখ্যা ৪১-১০০ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l014-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l015-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l015",
+      "sequence": 1,
+      "title": "যোগ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "যোগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        104,
+        107
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "যোগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l015-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l015",
+      "sequence": 2,
+      "title": "যোগ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "যোগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        104,
+        107
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l015-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l015",
+      "sequence": 3,
+      "title": "যোগ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "যোগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        104,
+        107
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "যোগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l015-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l016-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l016",
+      "sequence": 1,
+      "title": "বিয়োগ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বিয়োগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        108,
+        111
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "বিয়োগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l016-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l016",
+      "sequence": 2,
+      "title": "বিয়োগ · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বিয়োগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        108,
+        111
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l016-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l016",
+      "sequence": 3,
+      "title": "বিয়োগ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বিয়োগ বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        108,
+        111
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বিয়োগ বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l016-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l017-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l017",
+      "sequence": 1,
+      "title": "বাংলাদেশি মুদ্রা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বাংলাদেশি মুদ্রা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        112,
+        115
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "বাংলাদেশি মুদ্রা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বাংলাদেশি মুদ্রা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l017-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l017",
+      "sequence": 2,
+      "title": "বাংলাদেশি মুদ্রা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বাংলাদেশি মুদ্রা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        112,
+        115
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বাংলাদেশি মুদ্রা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l017-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l017",
+      "sequence": 3,
+      "title": "বাংলাদেশি মুদ্রা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": false,
+      "objective": "বাংলাদেশি মুদ্রা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        112,
+        115
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "বাংলাদেশি মুদ্রা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l017-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l018-s1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l018",
+      "sequence": 1,
+      "title": "নিজে করি: শেষ পুনরালোচনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "নিজে করি: শেষ পুনরালোচনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        116,
+        121
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "নিজে করি: শেষ পুনরালোচনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "নিজে করি: শেষ পুনরালোচনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l018-s2",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l018",
+      "sequence": 2,
+      "title": "নিজে করি: শেষ পুনরালোচনা · অনুশীলন করি",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "নিজে করি: শেষ পুনরালোচনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        116,
+        121
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "নিজে করি: শেষ পুনরালোচনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt": "শেখা একটি বিষয় দেখাও বা বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l018-s3",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l018",
+      "sequence": 3,
+      "title": "নিজে করি: শেষ পুনরালোচনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "repeat_with_new_source_examples": true,
+      "objective": "নিজে করি: শেষ পুনরালোচনা বিষয়ে একটি ধারণা বা চিহ্ন চিনে সহায়তায় অনুশীলন সম্পন্ন করতে পারবে।",
+      "source_pdf_pages_1_based": [
+        116,
+        121
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt": "উৎসের আরেকটি উদাহরণ ইঙ্গিতের সাহায্যে করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt": "নিজে করি: শেষ পুনরালোচনা বুঝতে কাঠি, ছবি বা সংখ্যারেখা ব্যবহার করো। উত্তর কীভাবে পেলে দেখাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "math-class1-ebtedayi-bn-2025-l018-q1",
+          "prompt": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric": [
+          "Recognises a source-grounded idea or symbol",
+          "Completes supported activity",
+          "Explains or demonstrates with an accessible response"
+        ],
+        "starter_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_text": null,
+        "narration": null,
+        "teacher_approved_pronunciation_audio": null,
+        "phone_image_crops": [],
+        "implemented_interaction": null
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    }
+  ],
+  "questions": [
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l001-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l001",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "২টি ও ৫টি বস্তুর মধ্যে কোনটি বেশি?",
+      "sample_answer": "৫টি",
+      "explanation": "৫ হলো ২-এর চেয়ে বড়।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        8,
+        11
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l002-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l002",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "তিনটি কাঠি গুনলে কয়টি হয়?",
+      "sample_answer": "৩",
+      "explanation": "প্রতিটি কাঠি একবার করে গুনি।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        12,
+        15
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l003-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l003",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "৬-এর পরের সংখ্যা কী?",
+      "sample_answer": "৭",
+      "explanation": "৫, ৬, ৭ গুনি।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        16,
+        35
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l004-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l004",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "২ + ৩ = কত?",
+      "sample_answer": "৫",
+      "explanation": "দুই ও তিনটি কাঠি একসঙ্গে গুনি।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        36,
+        49
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l005-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l005",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "৫ - ২ = কত?",
+      "sample_answer": "৩",
+      "explanation": "পাঁচটি থেকে দুইটি সরালে তিনটি থাকে।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        50,
+        60
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l006-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l006",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "১৪-এর পরের সংখ্যা কী?",
+      "sample_answer": "১৫",
+      "explanation": "১৩, ১৪, ১৫ গুনি।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        61,
+        64
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l007-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l007",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "১২ + ৩ = কত?",
+      "sample_answer": "১৫",
+      "explanation": "১২ থেকে তিন ধাপ এগোই।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        65,
+        72
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l008-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l008",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "১৭ - ৫ = কত?",
+      "sample_answer": "১২",
+      "explanation": "১৭ থেকে পাঁচ ধাপ পিছিয়ে গুনি।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        73,
+        75
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l009-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l009",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "২৯-এর পরের সংখ্যা কী?",
+      "sample_answer": "৩০",
+      "explanation": "২৯-এর সঙ্গে এক যোগ করলে ৩০।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l010-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l010",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "২৪-এ কয় দশক ও কয় একক?",
+      "sample_answer": "২ দশক ও ৪ একক",
+      "explanation": "২৪ = ২০ + ৪।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        81,
+        85
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l011-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l011",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "৮ + ২ = কত?",
+      "sample_answer": "১০",
+      "explanation": "৮ থেকে দুই ধাপ এগোই।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        86,
+        88
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l012-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l012",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "ত্রিভুজের কয়টি বাহু?",
+      "sample_answer": "৩",
+      "explanation": "তিনটি সোজা বাহু গুনি।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        89,
+        92
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l013-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l013",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "লাল, নীল, লাল, নীল - এরপর কোন রং?",
+      "sample_answer": "লাল",
+      "explanation": "দুই রঙের ধারা আবার শুরু হয়।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        93,
+        98
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l014-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l014",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "৭৯-এর পরের সংখ্যা কী?",
+      "sample_answer": "৮০",
+      "explanation": "৭৯-এর সঙ্গে এক যোগ করলে ৮০।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        99,
+        103
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l015-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l015",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "২৩ + ১৪ = কত?",
+      "sample_answer": "৩৭",
+      "explanation": "এককে ৩ + ৪ = ৭; দশকে ২ + ১ = ৩।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        104,
+        107
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l016-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l016",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "৪৮ - ১৬ = কত?",
+      "sample_answer": "৩২",
+      "explanation": "এককে ৮ - ৬ = ২; দশকে ৪ - ১ = ৩।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        108,
+        111
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l017-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l017",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "২ টাকা ও ৫ টাকা মিলে কত?",
+      "sample_answer": "৭ টাকা",
+      "explanation": "২ + ৫ = ৭।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        112,
+        115
+      ],
+      "mastery_evidence": false
+    },
+    {
+      "id": "math-class1-ebtedayi-bn-2025-l018-q1",
+      "lesson_id": "math-class1-ebtedayi-bn-2025-l018",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question": "৫৪ ও ৫৬-এর মাঝের সংখ্যা কী?",
+      "sample_answer": "৫৫",
+      "explanation": "ক্রমটি ৫৪, ৫৫, ৫৬।",
+      "accept_equivalent_answers": true,
+      "source_pdf_pages_1_based": [
+        116,
+        121
+      ],
+      "mastery_evidence": false
+    }
+  ],
+  "supplementary_resources": [
+    {
+      "title": "Covers, credits, preface and contents",
+      "source_pdf_pages_1_based": [
+        1,
+        7
+      ],
+      "split_pdf": "lesson-pdfs/000-front-matter.pdf",
+      "use": "Reference material; not a learner lesson"
+    },
+    {
+      "title": "Teacher guidance, supplementary pages, blanks and back cover",
+      "source_pdf_pages_1_based": [
+        122,
+        122
+      ],
+      "split_pdf": "lesson-pdfs/999-supplementary-pages.pdf",
+      "use": "Reference material; not a learner lesson"
+    }
+  ],
+  "tutor_policy": {
+    "grade": 1,
+    "language": "Simple Bengali; Arabic source shown right-to-left where applicable",
+    "one_question_at_a_time": true,
+    "grounding": "Use source page images or verified transcription. Never invent story events, rhyme lines, Arabic text, religious claims or textbook exercise answers.",
+    "hints": [
+      "Point to a source clue",
+      "Model a small example",
+      "Let learner retry"
+    ],
+    "mastery": "Add teacher-checked new items. A single repeated starter check does not establish mastery.",
+    "privacy": "Use fictional identities, addresses and optional family examples.",
+    "accessibility": "Allow pointing, tapping, tracing or supported oral response; speaking is optional.",
+    "pronunciation": "Use qualified teacher-approved audio; do not judge pronunciation from typed responses.",
+    "religious_content": "Qualified teacher reviews Arabic signs, recitation, meanings and practice. Do not infer learner religious belief or practice from answers.",
+    "prerequisites": "Suggested order only; teacher may skip or revisit.",
+    "math": "Accept Bengali or Western digits. Use safe counters and drawings. Currency examples describe textbook denominations; no claim that scanned notes are current."
+  }
+}

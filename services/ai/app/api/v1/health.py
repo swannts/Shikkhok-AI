@@ -57,9 +57,17 @@ async def get_readiness(
     # 2. Check LLM Provider Configuration
     l_start = time.time()
     is_prod = settings.app_env == "production"
-    if is_prod and (settings.llm_provider == "mock" or not settings.llm_api_key):
+    llm_has_key = (
+        bool(settings.hf_token)
+        if settings.llm_provider == "huggingface"
+        else bool(settings.llm_api_key)
+    )
+    llm_model = (
+        settings.huggingface_model if settings.llm_provider == "huggingface" else settings.llm_model
+    )
+    if is_prod and (settings.llm_provider == "mock" or not llm_has_key):
         l_status = "unhealthy"
-    elif settings.llm_api_key or settings.app_env in ("test", "development"):
+    elif llm_has_key or settings.app_env in ("test", "development"):
         l_status = "ready"
     else:
         l_status = "degraded"
@@ -71,8 +79,8 @@ async def get_readiness(
             latency_ms=round((time.time() - l_start) * 1000, 2),
             details={
                 "provider": settings.llm_provider,
-                "model": settings.llm_model,
-                "hasKey": bool(settings.llm_api_key),
+                "model": llm_model,
+                "hasKey": llm_has_key,
             },
         )
     )

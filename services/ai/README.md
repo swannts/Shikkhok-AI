@@ -20,7 +20,7 @@ Flutter Mobile / Next.js Admin
     ┌─────────┴─────────┐
     ▼                   ▼
 LLM Providers       Vector Store / Embeddings
-(Gemini / Mock)     (Memory / Persistent)
+(Gemini / HF / Mock) (Memory / Persistent)
 ```
 
 ### Architectural Separation of Responsibilities
@@ -66,6 +66,26 @@ The service uses a singleton `AiServiceContainer` instantiated in FastAPI's `lif
 * Provides deterministic vector store persistence and warm-up.
 * Cleans up all network pools on application shutdown (`container.aclose()`).
 * Injected into FastAPI routes via `Depends(get_tutor_service)`, `Depends(get_rag_service)`, etc.
+
+## Hugging Face Inference Providers
+
+Hugging Face can be selected for chat generation without changing the NestJS or mobile API:
+
+```env
+LLM_PROVIDER=huggingface
+HF_TOKEN=<token with Inference Providers permission>
+HUGGINGFACE_MODEL=Qwen/Qwen2.5-7B-Instruct-1M:fastest
+```
+
+Or keep Gemini as primary and configure `LLM_FALLBACK_PROVIDER=huggingface` to use Hugging Face
+only when the primary chat provider is unavailable. The token stays server-side and is never
+logged. Hosted inference may incur provider charges and availability depends on the selected model
+and provider. Evaluate Bangla response quality and cost before production use.
+
+This adapter covers chat completions only. Curriculum embeddings remain configured independently
+through `EMBEDDING_PROVIDER` / `EMBEDDING_API_KEY`; changing embedding models requires a compatible
+vector index and re-embedding the corpus. A Hugging Face chat provider therefore does not by itself
+restore retrieval when the configured embedding provider is unreachable.
 
 ## Streaming Output Safety & Sanitization
 

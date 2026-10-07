@@ -109,6 +109,66 @@ def test_development_rejects_missing_embedding_key_without_silent_fallback():
         build_service_container(settings)
 
 
+def test_huggingface_primary_requires_a_server_token():
+    settings = Settings(
+        app_env="test",
+        llm_provider="huggingface",
+        hf_token="",
+        embedding_provider="mock",
+    )
+
+    with pytest.raises(RuntimeError, match="requires HF_TOKEN"):
+        settings.validate_runtime_safety()
+
+
+def test_huggingface_fallback_requires_a_server_token():
+    settings = Settings(
+        app_env="test",
+        allow_mock_providers=True,
+        llm_provider="mock",
+        embedding_provider="mock",
+        llm_fallback_provider="huggingface",
+        hf_token="",
+    )
+
+    with pytest.raises(RuntimeError, match="fallback requires HF_TOKEN"):
+        settings.validate_runtime_safety()
+
+
+@pytest.mark.asyncio
+async def test_container_builds_huggingface_primary_and_fallback_providers():
+    primary_settings = Settings(
+        app_env="test",
+        llm_provider="huggingface",
+        hf_token="configured-test-token",
+        huggingface_model="Qwen/test-model",
+        embedding_provider="mock",
+    )
+    primary_container = build_service_container(primary_settings)
+    try:
+        assert primary_container.llm_provider.name == "huggingface"
+        assert primary_container.llm_provider.model == "Qwen/test-model"
+    finally:
+        await primary_container.aclose()
+
+    fallback_settings = Settings(
+        app_env="test",
+        allow_mock_providers=True,
+        llm_provider="mock",
+        embedding_provider="mock",
+        llm_fallback_provider="huggingface",
+        llm_fallback_model="Qwen/fallback-test-model",
+        hf_token="configured-test-token",
+    )
+    fallback_container = build_service_container(fallback_settings)
+    try:
+        assert fallback_container.fallback_provider is not None
+        assert fallback_container.fallback_provider.name == "huggingface"
+        assert fallback_container.fallback_provider.model == "Qwen/fallback-test-model"
+    finally:
+        await fallback_container.aclose()
+
+
 def test_production_requires_explicit_curriculum_configuration():
     settings = Settings(
         app_env="production",

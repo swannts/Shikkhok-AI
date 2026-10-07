@@ -48,10 +48,12 @@ class Settings(BaseSettings):
     redis_enabled: bool = False
 
     # LLM Settings
-    llm_provider: Literal["gemini", "mock"] = "gemini"
+    llm_provider: Literal["gemini", "huggingface", "mock"] = "gemini"
     llm_api_key: str = ""
     llm_model: str = "gemini-2.5-flash"
-    llm_fallback_provider: Literal["gemini", "none"] = "none"
+    hf_token: str = ""
+    huggingface_model: str = "Qwen/Qwen2.5-7B-Instruct-1M:fastest"
+    llm_fallback_provider: Literal["gemini", "huggingface", "none"] = "none"
     llm_fallback_model: str = ""
     llm_fallback_api_key: str = ""
 
@@ -124,6 +126,14 @@ class Settings(BaseSettings):
                 f"CRITICAL: Real LLM provider '{self.llm_provider}' requires LLM_API_KEY in {self.app_env}."
             )
 
+        if self.llm_provider == "huggingface" and not self.hf_token:
+            raise RuntimeError(
+                f"CRITICAL: Hugging Face provider requires HF_TOKEN in {self.app_env}."
+            )
+
+        if self.llm_provider == "huggingface" and not self.huggingface_model.strip():
+            raise RuntimeError(f"CRITICAL: HUGGINGFACE_MODEL must be configured in {self.app_env}.")
+
         if self.embedding_provider == "gemini" and not effective_embed_key:
             raise RuntimeError(
                 f"CRITICAL: Embedding provider '{self.embedding_provider}' requires an API key in {self.app_env}."
@@ -132,6 +142,11 @@ class Settings(BaseSettings):
         if self.llm_fallback_provider == "gemini" and not self.llm_fallback_api_key:
             raise RuntimeError(
                 f"CRITICAL: Fallback LLM provider '{self.llm_fallback_provider}' requires LLM_FALLBACK_API_KEY in {self.app_env}."
+            )
+
+        if self.llm_fallback_provider == "huggingface" and not self.hf_token:
+            raise RuntimeError(
+                f"CRITICAL: Hugging Face fallback requires HF_TOKEN in {self.app_env}."
             )
 
         if self.app_env in ("production", "staging") and (

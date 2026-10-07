@@ -1,4 +1,19 @@
-CURRICULUM_EVALUATION_CASES = [
+from typing import TypedDict
+
+
+class CurriculumEvaluationCase(TypedDict):
+    name: str
+    question: str
+    class_level: int | None
+    subject_id: str | None
+    chapter_id: str | None
+    lesson_id: str | None
+    should_answer: bool
+    is_safe: bool
+    expected_keywords: list[str]
+
+
+CURRICULUM_EVALUATION_CASES: list[CurriculumEvaluationCase] = [
     {
         "name": "bangla_fact",
         "question": "সালোকসংশ্লেষণ কী?",
