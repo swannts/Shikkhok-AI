@@ -18,6 +18,7 @@ import '../../domain/entities/chapter.dart';
 import '../../domain/entities/subject.dart';
 import '../widgets/lesson_content_block_renderer.dart';
 import '../widgets/cache_status_banner.dart';
+import '../widgets/pdf_reading_controls.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_endpoints.dart';
 
@@ -33,11 +34,13 @@ class LessonReaderPage extends ConsumerStatefulWidget {
 class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
   bool _isMarkingComplete = false;
   bool _isLaunchingTutor = false;
-  bool _showVoiceTutor = false;
+  bool _isLessonVoiceActive = false;
+  bool _voiceConversationReady = false;
 
-  Future<void> _launchTutor(
+  Future<bool> _prepareVoiceTutor(
       Lesson lesson, Chapter? chapter, Subject? subject) async {
-    if (_isLaunchingTutor) return;
+    if (_voiceConversationReady) return true;
+    if (_isLaunchingTutor) return false;
     setState(() => _isLaunchingTutor = true);
     try {
       final thread = await ref
@@ -47,51 +50,9 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
             chapterId: chapter?.id ?? lesson.chapterId,
             subjectId: subject?.id ?? chapter?.subjectId,
             lessonTitle: lesson.title,
+            includeWelcomeMessage: true,
           );
-      if (!mounted) return;
-      if (thread != null) {
-        context.go(AppRoutes.tutor(thread.conversation.id));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'AI শিক্ষকের সাথে সংযোগ স্থাপন করা যায়নি। পুনরায় চেষ্টা করুন।',
-            ),
-            backgroundColor: AppColors.error,
-          ),
-        );
-      }
-    } catch (_) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('AI শিক্ষক চালু করা যায়নি।'),
-            backgroundColor: AppColors.error,
-          ),
-        );
-      }
-    } finally {
-      if (mounted) {
-        setState(() => _isLaunchingTutor = false);
-      }
-    }
-  }
-
-  Future<void> _launchVoiceTutor(
-      Lesson lesson, Chapter? chapter, Subject? subject) async {
-    if (_isLaunchingTutor) return;
-    setState(() => _isLaunchingTutor = true);
-    try {
-      final thread = await ref
-          .read(tutorControllerProvider.notifier)
-          .startConversationForLesson(
-            lessonId: lesson.id,
-            chapterId: chapter?.id ?? lesson.chapterId,
-            subjectId: subject?.id ?? chapter?.subjectId,
-            lessonTitle: lesson.title,
-            includeWelcomeMessage: false,
-          );
-      if (!mounted) return;
+      if (!mounted) return false;
       if (thread == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -100,9 +61,10 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
             backgroundColor: AppColors.error,
           ),
         );
-        return;
+        return false;
       }
-      setState(() => _showVoiceTutor = true);
+      setState(() => _voiceConversationReady = true);
+      return true;
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -112,6 +74,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
           ),
         );
       }
+      return false;
     } finally {
       if (mounted) setState(() => _isLaunchingTutor = false);
     }
@@ -156,6 +119,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
     final bookmarkState =
         ref.watch(isLessonBookmarkedProvider(widget.lessonId!));
     final isBookmarked = bookmarkState.valueOrNull ?? false;
+    final lessonViewData = asyncData.valueOrNull;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -220,6 +184,30 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
           ),
         ],
       ),
+      floatingActionButton: lessonViewData == null
+          ? null
+          : Padding(
+              // The lesson-completion action is rendered inside the body, so
+              // reserve its height below the floating tutor button.
+              padding: const EdgeInsets.only(bottom: 76),
+              child: FloatingActionButton.extended(
+                heroTag: 'lesson-ai-tutor',
+                tooltip: _isLessonVoiceActive
+                    ? 'ভয়েস কথোপকথন বন্ধ করো'
+                    : 'AI শিক্ষকের সঙ্গে কথা বলো',
+                onPressed: _isLaunchingTutor
+                    ? null
+                    : () => setState(() {
+                          _isLessonVoiceActive = !_isLessonVoiceActive;
+                        }),
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                icon: Icon(_isLessonVoiceActive
+                    ? Icons.stop_circle_rounded
+                    : Icons.smart_toy_rounded),
+                label: Text(_isLessonVoiceActive ? 'থামাও' : 'AI শিক্ষক'),
+              ),
+            ),
       body: asyncData.when(
         loading: () => const Center(
           child: CircularProgressIndicator(color: AppColors.primary),
@@ -343,26 +331,64 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                           ),
                         const Divider(height: AppSpacing.xl),
 
-                        if (lesson.hasLessonPdf) ...[
-                          _LessonPdfSection(
-                            key: ValueKey('lesson-pdf-${lesson.id}'),
-                            lessonId: lesson.id,
-                            title: lesson.title,
+                        if (lesson.contentBlocks.isNotEmpty ||
+                            !lesson.hasLessonPdf) ...[
+                          Text(
+                            'সহজে পড়ার পাঠ্য',
+                            style: AppTypography.cardTitle.copyWith(
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.sm),
+                          SelectionArea(
+                            child: LessonContentBlockRenderer(
+                              blocks: lesson.contentBlocks,
+                            ),
                           ),
                           const SizedBox(height: AppSpacing.lg),
                         ],
 
-                        Text(
-                          'পাঠের বিষয়বস্তু',
-                          style: AppTypography.cardTitle.copyWith(
-                            color: AppColors.textPrimary,
+                        if (lesson.hasLessonPdf) ...[
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.surface,
+                              border: Border.all(color: AppColors.border),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                              ),
+                              child: ExpansionTile(
+                                initiallyExpanded: lesson.contentBlocks.isEmpty,
+                                leading: const Icon(
+                                  Icons.picture_as_pdf_outlined,
+                                  color: AppColors.primary,
+                                ),
+                                title: const Text('মূল PDF পৃষ্ঠা দেখুন'),
+                                subtitle: const Text(
+                                  'ছবি, চিত্র ও বইয়ের আসল বিন্যাস',
+                                ),
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      AppSpacing.sm,
+                                      0,
+                                      AppSpacing.sm,
+                                      AppSpacing.sm,
+                                    ),
+                                    child: _LessonPdfSection(
+                                      key: ValueKey('lesson-pdf-${lesson.id}'),
+                                      lessonId: lesson.id,
+                                      title: lesson.title,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: AppSpacing.sm),
-                        LessonContentBlockRenderer(
-                          blocks: lesson.contentBlocks,
-                        ),
-                        const SizedBox(height: AppSpacing.lg),
+                          const SizedBox(height: AppSpacing.lg),
+                        ],
 
                         // Key Takeaway / Summary Card
                         if (summary != null && summary.isNotEmpty) ...[
@@ -405,150 +431,6 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                           ),
                           const SizedBox(height: AppSpacing.lg),
                         ],
-
-                        // Lesson-scoped tutor actions
-                        if (_showVoiceTutor)
-                          LessonVoiceTutorSheet(
-                            key: ValueKey('lesson-voice-${lesson.id}'),
-                            lessonTitle: lesson.title,
-                            chapterTitle: chapter?.title,
-                            subjectTitle: subject?.name,
-                            embedded: true,
-                            onClose: () =>
-                                setState(() => _showVoiceTutor = false),
-                          )
-                        else
-                          Container(
-                            padding: const EdgeInsets.all(AppSpacing.md),
-                            decoration: BoxDecoration(
-                              color: AppColors.surface,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: AppColors.border),
-                              boxShadow: AppColors.minimalsShadow,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 42,
-                                      height: 42,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.primaryLight,
-                                        borderRadius: BorderRadius.circular(14),
-                                      ),
-                                      child: const Icon(
-                                        Icons.auto_awesome_rounded,
-                                        color: AppColors.primary,
-                                        size: 22,
-                                      ),
-                                    ),
-                                    const SizedBox(width: AppSpacing.sm),
-                                    const Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'পাঠটি বুঝতে সাহায্য লাগবে?',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.textPrimary,
-                                            ),
-                                          ),
-                                          SizedBox(height: 2),
-                                          Text(
-                                            'এই পাঠভিত্তিক AI সহায়তা',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: AppColors.textSecondary,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: AppSpacing.md),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: OutlinedButton.icon(
-                                        onPressed: _isLaunchingTutor
-                                            ? null
-                                            : () => _launchVoiceTutor(
-                                                lesson, chapter, subject),
-                                        icon: const Icon(
-                                          Icons.mic_none_rounded,
-                                          size: 18,
-                                        ),
-                                        label: const Text(
-                                          'কথা বলো',
-                                          maxLines: 1,
-                                          softWrap: false,
-                                        ),
-                                        style: OutlinedButton.styleFrom(
-                                          minimumSize:
-                                              const Size.fromHeight(48),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: AppSpacing.sm),
-                                          foregroundColor: AppColors.primary,
-                                          side: const BorderSide(
-                                              color: AppColors.border),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(14),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: AppSpacing.sm),
-                                    Expanded(
-                                      child: ElevatedButton.icon(
-                                        onPressed: _isLaunchingTutor
-                                            ? null
-                                            : () => _launchTutor(
-                                                lesson, chapter, subject),
-                                        icon: _isLaunchingTutor
-                                            ? const SizedBox(
-                                                width: 16,
-                                                height: 16,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  strokeWidth: 2,
-                                                  color: Colors.white,
-                                                ),
-                                              )
-                                            : const Icon(
-                                                Icons.chat_bubble_outline,
-                                                size: 18,
-                                              ),
-                                        label: const Text(
-                                          'লিখে প্রশ্ন',
-                                          maxLines: 1,
-                                          softWrap: false,
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          minimumSize:
-                                              const Size.fromHeight(48),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: AppSpacing.sm),
-                                          backgroundColor: AppColors.primary,
-                                          foregroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(14),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
                       ],
                     ),
                   ),
@@ -645,6 +527,30 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                     ),
                   ),
                 ),
+                if (_isLessonVoiceActive)
+                  LessonVoiceTutorSheet(
+                    key: ValueKey('lesson-voice-${lesson.id}'),
+                    lessonTitle: lesson.title,
+                    chapterTitle: chapter?.title,
+                    subjectTitle: subject?.name,
+                    embedded: true,
+                    voiceOnly: true,
+                    speakOpeningMessageOnStart: true,
+                    autoStartVoice: true,
+                    headless: true,
+                    onVoiceError: (message) {
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                          backgroundColor: AppColors.error,
+                        ),
+                      );
+                      setState(() => _isLessonVoiceActive = false);
+                    },
+                    onPrepareConversation: () =>
+                        _prepareVoiceTutor(lesson, chapter, subject),
+                  ),
               ],
             ),
           );
@@ -694,6 +600,7 @@ class _LessonPdfSection extends StatefulWidget {
 
 class _LessonPdfSectionState extends State<_LessonPdfSection> {
   late Future<Uint8List> _pdfFuture;
+  final PdfViewerController _pdfController = PdfViewerController();
   int _attempt = 0;
   bool _loaded = false;
   String? _viewerError;
@@ -725,6 +632,12 @@ class _LessonPdfSectionState extends State<_LessonPdfSection> {
       _viewerError = null;
       _pdfFuture = _loadPdf();
     });
+  }
+
+  @override
+  void dispose() {
+    _pdfController.dispose();
+    super.dispose();
   }
 
   @override
@@ -761,6 +674,10 @@ class _LessonPdfSectionState extends State<_LessonPdfSection> {
                 ),
               ],
             ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: PdfReadingControls(controller: _pdfController),
           ),
           SizedBox(
             height: 620,
@@ -802,6 +719,8 @@ class _LessonPdfSectionState extends State<_LessonPdfSection> {
                     SfPdfViewer.memory(
                       snapshot.data!,
                       key: ValueKey(_attempt),
+                      controller: _pdfController,
+                      enableTextSelection: true,
                       onDocumentLoaded: (_) {
                         if (mounted) setState(() => _loaded = true);
                       },

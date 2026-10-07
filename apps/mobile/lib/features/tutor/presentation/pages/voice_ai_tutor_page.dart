@@ -29,9 +29,11 @@ class _VoiceAiTutorPageState extends ConsumerState<VoiceAiTutorPage> {
 
   Future<void> _ensureConversation() async {
     final controller = ref.read(tutorControllerProvider.notifier);
-    if (ref.read(tutorControllerProvider).activeConversation == null) {
-      await controller.startConversation(title: 'ভয়েসে AI শিক্ষকের সঙ্গে কথা');
-    }
+    await controller.startConversation(
+      title: 'ভয়েসে AI শিক্ষকের সঙ্গে কথা',
+      initialMessage:
+          'আমাকে আমার শ্রেণির একটি বিষয় সহজ করে শেখাও। প্রথমে জিজ্ঞেস করো আমি কোন বিষয় বা পাঠ শিখতে চাই।',
+    );
     if (!mounted) return;
     final tutorState = ref.read(tutorControllerProvider);
     setState(() {
@@ -96,6 +98,8 @@ class _VoiceAiTutorPageState extends ConsumerState<VoiceAiTutorPage> {
                     ),
                   )
                 : const LessonVoiceTutorSheet(
+                    voiceOnly: true,
+                    speakOpeningMessageOnStart: true,
                     subjectTitle: 'তোমার শ্রেণির পড়াশোনা',
                     lessonTitle: 'যেকোনো প্রশ্ন করো',
                   ),

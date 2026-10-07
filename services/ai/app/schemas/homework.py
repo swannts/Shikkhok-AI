@@ -101,6 +101,6 @@ class HomeworkEvaluationResponse(BaseModel):
         description="Grounding citations to NCTB textbook references",
     )
     provider: str = "gemini"
-    model: str = "gemini-2.5-flash"
+    model: str = "gemini-3.5-flash-lite"
     fallback_used: bool = False
     duration_ms: int = 0

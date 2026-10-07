@@ -50,7 +50,7 @@ class Settings(BaseSettings):
     # LLM Settings
     llm_provider: Literal["gemini", "huggingface", "mock"] = "gemini"
     llm_api_key: str = ""
-    llm_model: str = "gemini-2.5-flash"
+    llm_model: str = "gemini-3.5-flash-lite"
     hf_token: str = ""
     huggingface_model: str = "Qwen/Qwen2.5-7B-Instruct-1M:fastest"
     llm_fallback_provider: Literal["gemini", "huggingface", "none"] = "none"

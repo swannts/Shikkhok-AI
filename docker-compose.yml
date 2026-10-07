@@ -58,10 +58,10 @@ services:
       JWT_ACCESS_TTL: ${JWT_ACCESS_TTL:-15m}
       JWT_REFRESH_TTL: ${JWT_REFRESH_TTL:-7d}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:4000,http://localhost:8080,http://localhost:8081}
-      AI_HMAC_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
+      AI_HMAC_SECRET: ${AI_HMAC_SECRET:-${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}}
       AI_SERVICE_ENABLED: ${AI_SERVICE_ENABLED:-true}
       AI_SERVICE_BASE_URL: ${AI_SERVICE_BASE_URL:-http://ai:8000/api/v1}
-      AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
+      AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:-${AI_HMAC_SECRET:-dev-internal-ai-service-secret-at-least-32chars}}
     healthcheck:
       test: ["CMD-SHELL", "node -e \"fetch('http://localhost:4000/api/v1/health/live').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))\""]
       interval: 10s
@@ -90,12 +90,12 @@ services:
     environment:
       PORT: 8000
       APP_ENV: ${NODE_ENV:-development}
-      INTERNAL_SERVICE_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
+      INTERNAL_SERVICE_SECRET: ${AI_SERVICE_SECRET:-${AI_HMAC_SECRET:-dev-internal-ai-service-secret-at-least-32chars}}
       ALLOW_MOCK_PROVIDERS: ${ALLOW_MOCK_PROVIDERS:-false}
       NEST_API_BASE_URL: http://api:4000/api/v1
       LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
       LLM_API_KEY: ${GEMINI_API_KEY}
-      LLM_MODEL: ${LLM_MODEL:-gemini-2.5-flash}
+      LLM_MODEL: ${LLM_MODEL:-gemini-3.5-flash-lite}
       HF_TOKEN: ${HF_TOKEN:-}
       HUGGINGFACE_MODEL: ${HUGGINGFACE_MODEL:-Qwen/Qwen2.5-7B-Instruct-1M:fastest}
       LLM_FALLBACK_PROVIDER: ${LLM_FALLBACK_PROVIDER:-none}
@@ -128,7 +128,7 @@ services:
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       MONGODB_URI: ${MONGODB_URI:-mongodb://shikkhok_admin:shikkhok_secure_password@mongodb:27017/shikkhok_db?authSource=admin}
       AI_SERVICE_URL: http://ai:8000
-      AI_HMAC_SECRET: ${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}
+      AI_HMAC_SECRET: ${AI_HMAC_SECRET:-${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}}
       API_SERVICE_URL: http://api:4000
       WORKER_HEALTH_PORT: 3100
       FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:-}

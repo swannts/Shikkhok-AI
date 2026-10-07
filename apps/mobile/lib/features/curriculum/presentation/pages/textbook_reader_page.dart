@@ -8,6 +8,7 @@ import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/api_endpoints.dart';
+import '../widgets/pdf_reading_controls.dart';
 
 class TextbookReaderPage extends StatefulWidget {
   final String? bookId;
@@ -20,6 +21,7 @@ class TextbookReaderPage extends StatefulWidget {
 
 class _TextbookReaderPageState extends State<TextbookReaderPage> {
   late Future<Uint8List> _pdfFuture;
+  final PdfViewerController _pdfController = PdfViewerController();
   int _readerAttempt = 0;
   bool _documentLoaded = false;
   String? _documentError;
@@ -60,6 +62,12 @@ class _TextbookReaderPageState extends State<TextbookReaderPage> {
   }
 
   @override
+  void dispose() {
+    _pdfController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -71,6 +79,7 @@ class _TextbookReaderPageState extends State<TextbookReaderPage> {
           onPressed: () =>
               context.canPop() ? context.pop() : context.go(AppRoutes.learn),
         ),
+        actions: [PdfReadingControls(controller: _pdfController)],
       ),
       body: FutureBuilder<Uint8List>(
         future: _pdfFuture,
@@ -91,6 +100,8 @@ class _TextbookReaderPageState extends State<TextbookReaderPage> {
               SfPdfViewer.memory(
                 snapshot.data!,
                 key: ValueKey(_readerAttempt),
+                controller: _pdfController,
+                enableTextSelection: true,
                 initialPageNumber:
                     widget.initialPage < 1 ? 1 : widget.initialPage,
                 onDocumentLoaded: (_) {
