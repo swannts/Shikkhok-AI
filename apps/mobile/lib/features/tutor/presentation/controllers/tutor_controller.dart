@@ -100,6 +100,7 @@ class TutorController extends StateNotifier<TutorState> {
     String? chapterId,
     String? subjectId,
     String? lessonTitle,
+    bool includeWelcomeMessage = true,
   }) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
     try {
@@ -111,7 +112,8 @@ class TutorController extends StateNotifier<TutorState> {
         subjectId: subjectId,
         chapterId: chapterId,
         lessonId: lessonId,
-        initialMessage: 'আমি এই পাঠটি বুঝতে সাহায্য চাই।',
+        initialMessage:
+            includeWelcomeMessage ? 'আমি এই পাঠটি বুঝতে সাহায্য চাই।' : null,
       );
       final updatedList = [
         thread.conversation,

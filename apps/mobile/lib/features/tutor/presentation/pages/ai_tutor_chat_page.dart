@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../app/localization/l10n/app_localizations.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 import '../../../../shared/widgets/app_card.dart';
@@ -152,6 +153,11 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
           ],
         ),
         actions: [
+          IconButton(
+            tooltip: 'ভয়েসে কথা বলো',
+            icon: const Icon(Icons.mic_none_rounded, color: AppColors.primary),
+            onPressed: () => context.push(AppRoutes.voiceAiTutor),
+          ),
           IconButton(
             icon: const Icon(Icons.history_rounded,
                 color: AppColors.textSecondary),

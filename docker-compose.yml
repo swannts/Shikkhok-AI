@@ -74,6 +74,7 @@ services:
         condition: service_healthy
     volumes:
       - ./data/curriculum-uploads:/app/uploads/curriculum
+      - ./books/class-3:/app/uploads/curriculum/split-books/class-3:ro
 
   # -------------------------------------------------------------
   # 4. DEDICATED FASTAPI AI SERVICE

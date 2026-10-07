@@ -1,0 +1,4442 @@
+{
+  "schema_version": "1.0",
+  "book": {
+    "title_bn": "হিন্দুধর্ম শিক্ষা",
+    "grade": 3,
+    "language": "bn-BD",
+    "source_filename": "hindu-religion-studies.pdf",
+    "total_pdf_pages": 94,
+    "printed_to_pdf_offset": 5,
+    "content_printed_pages": [
+      1,
+      88
+    ],
+    "content_pdf_pages_1_based": [
+      6,
+      93
+    ],
+    "text_extraction_status": "Scanned images"
+  },
+  "counts": {
+    "chapters": 5,
+    "lessons": 20,
+    "sessions": 60,
+    "starter_questions": 20,
+    "split_pdfs": 20
+  },
+  "scope": "Source segmentation and teaching plans. Not a full verified transcription, recorded course or complete textbook exercise bank.",
+  "chapters": [
+    {
+      "id": "hindu3-c01",
+      "order": 1,
+      "title_bn": "স্রষ্টা ও সৃষ্টি এবং উপাসনা ও প্রার্থনা",
+      "source": {
+        "printed_pages": [
+          1,
+          16
+        ],
+        "pdf_pages_1_based": [
+          6,
+          21
+        ]
+      },
+      "lesson_ids": [
+        "hindu3-c01-l01",
+        "hindu3-c01-l02",
+        "hindu3-c01-l03",
+        "hindu3-c01-l04"
+      ]
+    },
+    {
+      "id": "hindu3-c02",
+      "order": 2,
+      "title_bn": "আদর্শ জীবনচরিত",
+      "source": {
+        "printed_pages": [
+          17,
+          29
+        ],
+        "pdf_pages_1_based": [
+          22,
+          34
+        ]
+      },
+      "lesson_ids": [
+        "hindu3-c02-l01",
+        "hindu3-c02-l02"
+      ]
+    },
+    {
+      "id": "hindu3-c03",
+      "order": 3,
+      "title_bn": "নৈতিক ও মানবিক গুণাবলি",
+      "source": {
+        "printed_pages": [
+          30,
+          43
+        ],
+        "pdf_pages_1_based": [
+          35,
+          48
+        ]
+      },
+      "lesson_ids": [
+        "hindu3-c03-l01",
+        "hindu3-c03-l02",
+        "hindu3-c03-l03",
+        "hindu3-c03-l04"
+      ]
+    },
+    {
+      "id": "hindu3-c04",
+      "order": 4,
+      "title_bn": "ধর্মগ্রন্থ, পূজা-পার্বণ ও ধর্মীয় উৎসব এবং শান্তিপূর্ণ সহাবস্থান",
+      "source": {
+        "printed_pages": [
+          44,
+          70
+        ],
+        "pdf_pages_1_based": [
+          49,
+          75
+        ]
+      },
+      "lesson_ids": [
+        "hindu3-c04-l01",
+        "hindu3-c04-l02",
+        "hindu3-c04-l03",
+        "hindu3-c04-l04",
+        "hindu3-c04-l05"
+      ]
+    },
+    {
+      "id": "hindu3-c05",
+      "order": 5,
+      "title_bn": "প্রকৃতি ও পরিবেশ এবং দেশপ্রেম",
+      "source": {
+        "printed_pages": [
+          71,
+          88
+        ],
+        "pdf_pages_1_based": [
+          76,
+          93
+        ]
+      },
+      "lesson_ids": [
+        "hindu3-c05-l01",
+        "hindu3-c05-l02",
+        "hindu3-c05-l03",
+        "hindu3-c05-l04",
+        "hindu3-c05-l05"
+      ]
+    }
+  ],
+  "lessons": [
+    {
+      "id": "hindu3-c01-l01",
+      "chapter_id": "hindu3-c01",
+      "order_in_chapter": 1,
+      "global_order": 1,
+      "title_bn": "স্রষ্টা ও সৃষ্টি",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 1,
+        "printed_pages": [
+          1,
+          4
+        ],
+        "pdf_pages_1_based": [
+          6,
+          9
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c01-l01.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী স্রষ্টা ও সৃষ্টি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের প্রকৃতিচিত্রে জীব ও জড়ের উদাহরণ বলো।",
+      "session_ids": [
+        "hindu3-c01-l01-s1",
+        "hindu3-c01-l01-s2",
+        "hindu3-c01-l01-s3"
+      ],
+      "question_ids": [
+        "hindu3-c01-l01-q1"
+      ],
+      "prerequisite_lesson_ids": [],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c01-l02",
+      "chapter_id": "hindu3-c01",
+      "order_in_chapter": 2,
+      "global_order": 2,
+      "title_bn": "সর্বশক্তিমান ঈশ্বর",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 5,
+        "printed_pages": [
+          5,
+          8
+        ],
+        "pdf_pages_1_based": [
+          10,
+          13
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c01-l02.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী সর্বশক্তিমান ঈশ্বর সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের ছবি ও ঈশ্বর সম্পর্কে পাঠের ধারণা আলোচনা করো।",
+      "session_ids": [
+        "hindu3-c01-l02-s1",
+        "hindu3-c01-l02-s2",
+        "hindu3-c01-l02-s3"
+      ],
+      "question_ids": [
+        "hindu3-c01-l02-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c01-l01"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c01-l03",
+      "chapter_id": "hindu3-c01",
+      "order_in_chapter": 3,
+      "global_order": 3,
+      "title_bn": "সর্বজীবে ভালোবাসা",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 9,
+        "printed_pages": [
+          9,
+          11
+        ],
+        "pdf_pages_1_based": [
+          14,
+          16
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c01-l03.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী সর্বজীবে ভালোবাসা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "ছবিতে প্রাণীর প্রতি যত্নের উদাহরণ চিহ্নিত করো।",
+      "session_ids": [
+        "hindu3-c01-l03-s1",
+        "hindu3-c01-l03-s2",
+        "hindu3-c01-l03-s3"
+      ],
+      "question_ids": [
+        "hindu3-c01-l03-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c01-l02"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c01-l04",
+      "chapter_id": "hindu3-c01",
+      "order_in_chapter": 4,
+      "global_order": 4,
+      "title_bn": "উপাসনা ও প্রার্থনা",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 12,
+        "printed_pages": [
+          12,
+          16
+        ],
+        "pdf_pages_1_based": [
+          17,
+          21
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c01-l04.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী উপাসনা ও প্রার্থনা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের উপাসনা ও প্রার্থনার উদাহরণ তুলনা করো।",
+      "session_ids": [
+        "hindu3-c01-l04-s1",
+        "hindu3-c01-l04-s2",
+        "hindu3-c01-l04-s3"
+      ],
+      "question_ids": [
+        "hindu3-c01-l04-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c01-l03"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c02-l01",
+      "chapter_id": "hindu3-c02",
+      "order_in_chapter": 1,
+      "global_order": 5,
+      "title_bn": "ধর্মীয় ব্যক্তিত্ব",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 17,
+        "printed_pages": [
+          17,
+          25
+        ],
+        "pdf_pages_1_based": [
+          22,
+          30
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c02-l01.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী ধর্মীয় ব্যক্তিত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের মীরা বাঈ ও মা আনন্দময়ীর জীবন আলোচনা করো।",
+      "session_ids": [
+        "hindu3-c02-l01-s1",
+        "hindu3-c02-l01-s2",
+        "hindu3-c02-l01-s3"
+      ],
+      "question_ids": [
+        "hindu3-c02-l01-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c01-l04"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c02-l02",
+      "chapter_id": "hindu3-c02",
+      "order_in_chapter": 2,
+      "global_order": 6,
+      "title_bn": "জীবনাদর্শ অনুসরণ",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 26,
+        "printed_pages": [
+          26,
+          29
+        ],
+        "pdf_pages_1_based": [
+          31,
+          34
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c02-l02.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী জীবনাদর্শ অনুসরণ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "পাঠে বর্ণিত গুণের সঙ্গে দৈনন্দিন কাজ মিলাও।",
+      "session_ids": [
+        "hindu3-c02-l02-s1",
+        "hindu3-c02-l02-s2",
+        "hindu3-c02-l02-s3"
+      ],
+      "question_ids": [
+        "hindu3-c02-l02-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c02-l01"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c03-l01",
+      "chapter_id": "hindu3-c03",
+      "order_in_chapter": 1,
+      "global_order": 7,
+      "title_bn": "মানবিকতা",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 30,
+        "printed_pages": [
+          30,
+          32
+        ],
+        "pdf_pages_1_based": [
+          35,
+          37
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c03-l01.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী মানবিকতা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের সাহায্য করার ছবি দেখে অনুভূতি আলোচনা করো।",
+      "session_ids": [
+        "hindu3-c03-l01-s1",
+        "hindu3-c03-l01-s2",
+        "hindu3-c03-l01-s3"
+      ],
+      "question_ids": [
+        "hindu3-c03-l01-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c02-l02"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c03-l02",
+      "chapter_id": "hindu3-c03",
+      "order_in_chapter": 2,
+      "global_order": 8,
+      "title_bn": "পরোপকার",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 33,
+        "printed_pages": [
+          33,
+          36
+        ],
+        "pdf_pages_1_based": [
+          38,
+          41
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c03-l02.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী পরোপকার সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "শিবি রাজার গল্পে উপকারের উদাহরণ আলোচনা করো।",
+      "session_ids": [
+        "hindu3-c03-l02-s1",
+        "hindu3-c03-l02-s2",
+        "hindu3-c03-l02-s3"
+      ],
+      "question_ids": [
+        "hindu3-c03-l02-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c03-l01"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c03-l03",
+      "chapter_id": "hindu3-c03",
+      "order_in_chapter": 3,
+      "global_order": 9,
+      "title_bn": "ন্যায়-অন্যায়",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 37,
+        "printed_pages": [
+          37,
+          39
+        ],
+        "pdf_pages_1_based": [
+          42,
+          44
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c03-l03.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী ন্যায়-অন্যায় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের ঘটনায় ন্যায় ও অন্যায় আলাদা করে কারণ বলো।",
+      "session_ids": [
+        "hindu3-c03-l03-s1",
+        "hindu3-c03-l03-s2",
+        "hindu3-c03-l03-s3"
+      ],
+      "question_ids": [
+        "hindu3-c03-l03-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c03-l02"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c03-l04",
+      "chapter_id": "hindu3-c03",
+      "order_in_chapter": 4,
+      "global_order": 10,
+      "title_bn": "সকলের তরে সকল আমরা",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 40,
+        "printed_pages": [
+          40,
+          43
+        ],
+        "pdf_pages_1_based": [
+          45,
+          48
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c03-l04.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী সকলের তরে সকল আমরা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "সহযোগিতার একটি কাল্পনিক দৃশ্য অভিনয় করো।",
+      "session_ids": [
+        "hindu3-c03-l04-s1",
+        "hindu3-c03-l04-s2",
+        "hindu3-c03-l04-s3"
+      ],
+      "question_ids": [
+        "hindu3-c03-l04-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c03-l03"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c04-l01",
+      "chapter_id": "hindu3-c04",
+      "order_in_chapter": 1,
+      "global_order": 11,
+      "title_bn": "হিন্দুধর্মগ্রন্থ",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 44,
+        "printed_pages": [
+          44,
+          52
+        ],
+        "pdf_pages_1_based": [
+          49,
+          57
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c04-l01.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী হিন্দুধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসে ধর্মগ্রন্থের নাম ও গল্পের কার্ড মিলাও।",
+      "session_ids": [
+        "hindu3-c04-l01-s1",
+        "hindu3-c04-l01-s2",
+        "hindu3-c04-l01-s3"
+      ],
+      "question_ids": [
+        "hindu3-c04-l01-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c03-l04"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c04-l02",
+      "chapter_id": "hindu3-c04",
+      "order_in_chapter": 2,
+      "global_order": 12,
+      "title_bn": "দেব-দেবী",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 53,
+        "printed_pages": [
+          53,
+          57
+        ],
+        "pdf_pages_1_based": [
+          58,
+          62
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c04-l02.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী দেব-দেবী সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের ছবির সঙ্গে নাম শিক্ষকসহ মিলাও।",
+      "session_ids": [
+        "hindu3-c04-l02-s1",
+        "hindu3-c04-l02-s2",
+        "hindu3-c04-l02-s3"
+      ],
+      "question_ids": [
+        "hindu3-c04-l02-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c04-l01"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c04-l03",
+      "chapter_id": "hindu3-c04",
+      "order_in_chapter": 3,
+      "global_order": 13,
+      "title_bn": "পূজা-পার্বণ ও ধর্মীয় উৎসব",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 58,
+        "printed_pages": [
+          58,
+          61
+        ],
+        "pdf_pages_1_based": [
+          63,
+          66
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c04-l03.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী পূজা-পার্বণ ও ধর্মীয় উৎসব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের উৎসবের ছবি ও নাম মিলাও।",
+      "session_ids": [
+        "hindu3-c04-l03-s1",
+        "hindu3-c04-l03-s2",
+        "hindu3-c04-l03-s3"
+      ],
+      "question_ids": [
+        "hindu3-c04-l03-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c04-l02"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c04-l04",
+      "chapter_id": "hindu3-c04",
+      "order_in_chapter": 4,
+      "global_order": 14,
+      "title_bn": "অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 62,
+        "printed_pages": [
+          62,
+          64
+        ],
+        "pdf_pages_1_based": [
+          67,
+          69
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c04-l04.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসে ভিন্ন ধর্মের গ্রন্থের পরিচয় আলোচনা করো।",
+      "session_ids": [
+        "hindu3-c04-l04-s1",
+        "hindu3-c04-l04-s2",
+        "hindu3-c04-l04-s3"
+      ],
+      "question_ids": [
+        "hindu3-c04-l04-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c04-l03"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c04-l05",
+      "chapter_id": "hindu3-c04",
+      "order_in_chapter": 5,
+      "global_order": 15,
+      "title_bn": "শান্তিপূর্ণ সহাবস্থান",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 65,
+        "printed_pages": [
+          65,
+          70
+        ],
+        "pdf_pages_1_based": [
+          70,
+          75
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c04-l05.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী শান্তিপূর্ণ সহাবস্থান সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "ভিন্ন ধর্মের সহপাঠীর প্রতি সম্মানের উদাহরণ বলো।",
+      "session_ids": [
+        "hindu3-c04-l05-s1",
+        "hindu3-c04-l05-s2",
+        "hindu3-c04-l05-s3"
+      ],
+      "question_ids": [
+        "hindu3-c04-l05-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c04-l04"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c05-l01",
+      "chapter_id": "hindu3-c05",
+      "order_in_chapter": 1,
+      "global_order": 16,
+      "title_bn": "মানুষ, প্রকৃতি ও জীব",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 71,
+        "printed_pages": [
+          71,
+          75
+        ],
+        "pdf_pages_1_based": [
+          76,
+          80
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c05-l01.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী মানুষ, প্রকৃতি ও জীব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসচিত্রের মানুষ ও প্রকৃতির সম্পর্ক বলো।",
+      "session_ids": [
+        "hindu3-c05-l01-s1",
+        "hindu3-c05-l01-s2",
+        "hindu3-c05-l01-s3"
+      ],
+      "question_ids": [
+        "hindu3-c05-l01-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c04-l05"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c05-l02",
+      "chapter_id": "hindu3-c05",
+      "order_in_chapter": 2,
+      "global_order": 17,
+      "title_bn": "প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয়",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 76,
+        "printed_pages": [
+          76,
+          79
+        ],
+        "pdf_pages_1_based": [
+          81,
+          84
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c05-l02.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের বন্যা ও খরার ছবি দেখে প্রভাব আলোচনা করো।",
+      "session_ids": [
+        "hindu3-c05-l02-s1",
+        "hindu3-c05-l02-s2",
+        "hindu3-c05-l02-s3"
+      ],
+      "question_ids": [
+        "hindu3-c05-l02-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c05-l01"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c05-l03",
+      "chapter_id": "hindu3-c05",
+      "order_in_chapter": 3,
+      "global_order": 18,
+      "title_bn": "জীবসেবা",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 80,
+        "printed_pages": [
+          80,
+          83
+        ],
+        "pdf_pages_1_based": [
+          85,
+          88
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c05-l03.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী জীবসেবা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "উৎসের জীবসেবার ছবি ও আচরণ আলোচনা করো।",
+      "session_ids": [
+        "hindu3-c05-l03-s1",
+        "hindu3-c05-l03-s2",
+        "hindu3-c05-l03-s3"
+      ],
+      "question_ids": [
+        "hindu3-c05-l03-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c05-l02"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c05-l04",
+      "chapter_id": "hindu3-c05",
+      "order_in_chapter": 4,
+      "global_order": 19,
+      "title_bn": "দেশপ্রেম",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 84,
+        "printed_pages": [
+          84,
+          86
+        ],
+        "pdf_pages_1_based": [
+          89,
+          91
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c05-l04.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "পাঠের দেশকল্যাণের উদাহরণ চিহ্নিত করো।",
+      "session_ids": [
+        "hindu3-c05-l04-s1",
+        "hindu3-c05-l04-s2",
+        "hindu3-c05-l04-s3"
+      ],
+      "question_ids": [
+        "hindu3-c05-l04-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c05-l03"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    },
+    {
+      "id": "hindu3-c05-l05",
+      "chapter_id": "hindu3-c05",
+      "order_in_chapter": 5,
+      "global_order": 20,
+      "title_bn": "এসো দেশকে ভালোবাসি",
+      "title_origin": "textbook_subsection_title",
+      "source": {
+        "topic_start_printed_page": 87,
+        "printed_pages": [
+          87,
+          88
+        ],
+        "pdf_pages_1_based": [
+          92,
+          93
+        ],
+        "split_pdf": "lesson-pdfs/hindu3-c05-l05.pdf",
+        "boundary_note": "Introductory chapter pages are attached to the first lesson. Proposed boundaries can share a source page with neighbouring content; consult adjacent pages during authoring."
+      },
+      "objective_bn": "শিক্ষার্থী এসো দেশকে ভালোবাসি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "activity_bn": "পাঠের ভালো কাজের তালিকা ও অনুশীলনী করো।",
+      "session_ids": [
+        "hindu3-c05-l05-s1",
+        "hindu3-c05-l05-s2",
+        "hindu3-c05-l05-s3"
+      ],
+      "question_ids": [
+        "hindu3-c05-l05-q1"
+      ],
+      "prerequisite_lesson_ids": [
+        "hindu3-c05-l04"
+      ],
+      "publication_status": "draft_requires_teacher_review"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "hindu3-c01-l01-s1",
+      "lesson_id": "hindu3-c01-l01",
+      "sequence": 1,
+      "title_bn": "স্রষ্টা ও সৃষ্টি · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        6,
+        9
+      ],
+      "objective_bn": "শিক্ষার্থী স্রষ্টা ও সৃষ্টি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে স্রষ্টা ও সৃষ্টি সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের প্রকৃতিচিত্রে জীব ও জড়ের উদাহরণ বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l01-s2",
+      "lesson_id": "hindu3-c01-l01",
+      "sequence": 2,
+      "title_bn": "স্রষ্টা ও সৃষ্টি · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        6,
+        9
+      ],
+      "objective_bn": "শিক্ষার্থী স্রষ্টা ও সৃষ্টি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l01-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের প্রকৃতিচিত্রে জীব ও জড়ের উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l01-s3",
+      "lesson_id": "hindu3-c01-l01",
+      "sequence": 3,
+      "title_bn": "স্রষ্টা ও সৃষ্টি · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        6,
+        9
+      ],
+      "objective_bn": "শিক্ষার্থী স্রষ্টা ও সৃষ্টি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l01-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের প্রকৃতিচিত্রে জীব ও জড়ের উদাহরণ বলো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c01-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l02-s1",
+      "lesson_id": "hindu3-c01-l02",
+      "sequence": 1,
+      "title_bn": "সর্বশক্তিমান ঈশ্বর · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        10,
+        13
+      ],
+      "objective_bn": "শিক্ষার্থী সর্বশক্তিমান ঈশ্বর সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l01-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে সর্বশক্তিমান ঈশ্বর সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের ছবি ও ঈশ্বর সম্পর্কে পাঠের ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l02-s2",
+      "lesson_id": "hindu3-c01-l02",
+      "sequence": 2,
+      "title_bn": "সর্বশক্তিমান ঈশ্বর · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        10,
+        13
+      ],
+      "objective_bn": "শিক্ষার্থী সর্বশক্তিমান ঈশ্বর সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l02-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি ও ঈশ্বর সম্পর্কে পাঠের ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l02-s3",
+      "lesson_id": "hindu3-c01-l02",
+      "sequence": 3,
+      "title_bn": "সর্বশক্তিমান ঈশ্বর · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        10,
+        13
+      ],
+      "objective_bn": "শিক্ষার্থী সর্বশক্তিমান ঈশ্বর সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l02-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি ও ঈশ্বর সম্পর্কে পাঠের ধারণা আলোচনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c01-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l03-s1",
+      "lesson_id": "hindu3-c01-l03",
+      "sequence": 1,
+      "title_bn": "সর্বজীবে ভালোবাসা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        14,
+        16
+      ],
+      "objective_bn": "শিক্ষার্থী সর্বজীবে ভালোবাসা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l02-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে সর্বজীবে ভালোবাসা সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "ছবিতে প্রাণীর প্রতি যত্নের উদাহরণ চিহ্নিত করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l03-s2",
+      "lesson_id": "hindu3-c01-l03",
+      "sequence": 2,
+      "title_bn": "সর্বজীবে ভালোবাসা · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        14,
+        16
+      ],
+      "objective_bn": "শিক্ষার্থী সর্বজীবে ভালোবাসা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l03-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "ছবিতে প্রাণীর প্রতি যত্নের উদাহরণ চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l03-s3",
+      "lesson_id": "hindu3-c01-l03",
+      "sequence": 3,
+      "title_bn": "সর্বজীবে ভালোবাসা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        14,
+        16
+      ],
+      "objective_bn": "শিক্ষার্থী সর্বজীবে ভালোবাসা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l03-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "ছবিতে প্রাণীর প্রতি যত্নের উদাহরণ চিহ্নিত করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c01-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l04-s1",
+      "lesson_id": "hindu3-c01-l04",
+      "sequence": 1,
+      "title_bn": "উপাসনা ও প্রার্থনা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        17,
+        21
+      ],
+      "objective_bn": "শিক্ষার্থী উপাসনা ও প্রার্থনা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l03-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে উপাসনা ও প্রার্থনা সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের উপাসনা ও প্রার্থনার উদাহরণ তুলনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l04-s2",
+      "lesson_id": "hindu3-c01-l04",
+      "sequence": 2,
+      "title_bn": "উপাসনা ও প্রার্থনা · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        17,
+        21
+      ],
+      "objective_bn": "শিক্ষার্থী উপাসনা ও প্রার্থনা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l04-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের উপাসনা ও প্রার্থনার উদাহরণ তুলনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c01-l04-s3",
+      "lesson_id": "hindu3-c01-l04",
+      "sequence": 3,
+      "title_bn": "উপাসনা ও প্রার্থনা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        17,
+        21
+      ],
+      "objective_bn": "শিক্ষার্থী উপাসনা ও প্রার্থনা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l04-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের উপাসনা ও প্রার্থনার উদাহরণ তুলনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c01-l04-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c02-l01-s1",
+      "lesson_id": "hindu3-c02-l01",
+      "sequence": 1,
+      "title_bn": "ধর্মীয় ব্যক্তিত্ব · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        22,
+        30
+      ],
+      "objective_bn": "শিক্ষার্থী ধর্মীয় ব্যক্তিত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c01-l04-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে ধর্মীয় ব্যক্তিত্ব সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের মীরা বাঈ ও মা আনন্দময়ীর জীবন আলোচনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c02-l01-s2",
+      "lesson_id": "hindu3-c02-l01",
+      "sequence": 2,
+      "title_bn": "ধর্মীয় ব্যক্তিত্ব · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        22,
+        30
+      ],
+      "objective_bn": "শিক্ষার্থী ধর্মীয় ব্যক্তিত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c02-l01-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের মীরা বাঈ ও মা আনন্দময়ীর জীবন আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c02-l01-s3",
+      "lesson_id": "hindu3-c02-l01",
+      "sequence": 3,
+      "title_bn": "ধর্মীয় ব্যক্তিত্ব · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        22,
+        30
+      ],
+      "objective_bn": "শিক্ষার্থী ধর্মীয় ব্যক্তিত্ব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c02-l01-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের মীরা বাঈ ও মা আনন্দময়ীর জীবন আলোচনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c02-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c02-l02-s1",
+      "lesson_id": "hindu3-c02-l02",
+      "sequence": 1,
+      "title_bn": "জীবনাদর্শ অনুসরণ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        31,
+        34
+      ],
+      "objective_bn": "শিক্ষার্থী জীবনাদর্শ অনুসরণ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c02-l01-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে জীবনাদর্শ অনুসরণ সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "পাঠে বর্ণিত গুণের সঙ্গে দৈনন্দিন কাজ মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c02-l02-s2",
+      "lesson_id": "hindu3-c02-l02",
+      "sequence": 2,
+      "title_bn": "জীবনাদর্শ অনুসরণ · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        31,
+        34
+      ],
+      "objective_bn": "শিক্ষার্থী জীবনাদর্শ অনুসরণ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c02-l02-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠে বর্ণিত গুণের সঙ্গে দৈনন্দিন কাজ মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c02-l02-s3",
+      "lesson_id": "hindu3-c02-l02",
+      "sequence": 3,
+      "title_bn": "জীবনাদর্শ অনুসরণ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        31,
+        34
+      ],
+      "objective_bn": "শিক্ষার্থী জীবনাদর্শ অনুসরণ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c02-l02-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠে বর্ণিত গুণের সঙ্গে দৈনন্দিন কাজ মিলাও। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c02-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l01-s1",
+      "lesson_id": "hindu3-c03-l01",
+      "sequence": 1,
+      "title_bn": "মানবিকতা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        35,
+        37
+      ],
+      "objective_bn": "শিক্ষার্থী মানবিকতা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c02-l02-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে মানবিকতা সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের সাহায্য করার ছবি দেখে অনুভূতি আলোচনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l01-s2",
+      "lesson_id": "hindu3-c03-l01",
+      "sequence": 2,
+      "title_bn": "মানবিকতা · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        35,
+        37
+      ],
+      "objective_bn": "শিক্ষার্থী মানবিকতা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l01-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের সাহায্য করার ছবি দেখে অনুভূতি আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l01-s3",
+      "lesson_id": "hindu3-c03-l01",
+      "sequence": 3,
+      "title_bn": "মানবিকতা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        35,
+        37
+      ],
+      "objective_bn": "শিক্ষার্থী মানবিকতা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l01-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের সাহায্য করার ছবি দেখে অনুভূতি আলোচনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c03-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l02-s1",
+      "lesson_id": "hindu3-c03-l02",
+      "sequence": 1,
+      "title_bn": "পরোপকার · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        38,
+        41
+      ],
+      "objective_bn": "শিক্ষার্থী পরোপকার সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l01-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে পরোপকার সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শিবি রাজার গল্পে উপকারের উদাহরণ আলোচনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l02-s2",
+      "lesson_id": "hindu3-c03-l02",
+      "sequence": 2,
+      "title_bn": "পরোপকার · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        38,
+        41
+      ],
+      "objective_bn": "শিক্ষার্থী পরোপকার সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l02-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "শিবি রাজার গল্পে উপকারের উদাহরণ আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l02-s3",
+      "lesson_id": "hindu3-c03-l02",
+      "sequence": 3,
+      "title_bn": "পরোপকার · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        38,
+        41
+      ],
+      "objective_bn": "শিক্ষার্থী পরোপকার সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l02-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "শিবি রাজার গল্পে উপকারের উদাহরণ আলোচনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c03-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l03-s1",
+      "lesson_id": "hindu3-c03-l03",
+      "sequence": 1,
+      "title_bn": "ন্যায়-অন্যায় · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        42,
+        44
+      ],
+      "objective_bn": "শিক্ষার্থী ন্যায়-অন্যায় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l02-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে ন্যায়-অন্যায় সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের ঘটনায় ন্যায় ও অন্যায় আলাদা করে কারণ বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l03-s2",
+      "lesson_id": "hindu3-c03-l03",
+      "sequence": 2,
+      "title_bn": "ন্যায়-অন্যায় · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        42,
+        44
+      ],
+      "objective_bn": "শিক্ষার্থী ন্যায়-অন্যায় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l03-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ঘটনায় ন্যায় ও অন্যায় আলাদা করে কারণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l03-s3",
+      "lesson_id": "hindu3-c03-l03",
+      "sequence": 3,
+      "title_bn": "ন্যায়-অন্যায় · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        42,
+        44
+      ],
+      "objective_bn": "শিক্ষার্থী ন্যায়-অন্যায় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l03-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ঘটনায় ন্যায় ও অন্যায় আলাদা করে কারণ বলো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c03-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l04-s1",
+      "lesson_id": "hindu3-c03-l04",
+      "sequence": 1,
+      "title_bn": "সকলের তরে সকল আমরা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        45,
+        48
+      ],
+      "objective_bn": "শিক্ষার্থী সকলের তরে সকল আমরা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l03-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে সকলের তরে সকল আমরা সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "সহযোগিতার একটি কাল্পনিক দৃশ্য অভিনয় করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l04-s2",
+      "lesson_id": "hindu3-c03-l04",
+      "sequence": 2,
+      "title_bn": "সকলের তরে সকল আমরা · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        45,
+        48
+      ],
+      "objective_bn": "শিক্ষার্থী সকলের তরে সকল আমরা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l04-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "সহযোগিতার একটি কাল্পনিক দৃশ্য অভিনয় করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c03-l04-s3",
+      "lesson_id": "hindu3-c03-l04",
+      "sequence": 3,
+      "title_bn": "সকলের তরে সকল আমরা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        45,
+        48
+      ],
+      "objective_bn": "শিক্ষার্থী সকলের তরে সকল আমরা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l04-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "সহযোগিতার একটি কাল্পনিক দৃশ্য অভিনয় করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c03-l04-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l01-s1",
+      "lesson_id": "hindu3-c04-l01",
+      "sequence": 1,
+      "title_bn": "হিন্দুধর্মগ্রন্থ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        49,
+        57
+      ],
+      "objective_bn": "শিক্ষার্থী হিন্দুধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c03-l04-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে হিন্দুধর্মগ্রন্থ সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসে ধর্মগ্রন্থের নাম ও গল্পের কার্ড মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l01-s2",
+      "lesson_id": "hindu3-c04-l01",
+      "sequence": 2,
+      "title_bn": "হিন্দুধর্মগ্রন্থ · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        49,
+        57
+      ],
+      "objective_bn": "শিক্ষার্থী হিন্দুধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l01-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে ধর্মগ্রন্থের নাম ও গল্পের কার্ড মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l01-s3",
+      "lesson_id": "hindu3-c04-l01",
+      "sequence": 3,
+      "title_bn": "হিন্দুধর্মগ্রন্থ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        49,
+        57
+      ],
+      "objective_bn": "শিক্ষার্থী হিন্দুধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l01-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে ধর্মগ্রন্থের নাম ও গল্পের কার্ড মিলাও। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c04-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l02-s1",
+      "lesson_id": "hindu3-c04-l02",
+      "sequence": 1,
+      "title_bn": "দেব-দেবী · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        58,
+        62
+      ],
+      "objective_bn": "শিক্ষার্থী দেব-দেবী সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l01-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে দেব-দেবী সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের ছবির সঙ্গে নাম শিক্ষকসহ মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l02-s2",
+      "lesson_id": "hindu3-c04-l02",
+      "sequence": 2,
+      "title_bn": "দেব-দেবী · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        58,
+        62
+      ],
+      "objective_bn": "শিক্ষার্থী দেব-দেবী সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l02-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবির সঙ্গে নাম শিক্ষকসহ মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l02-s3",
+      "lesson_id": "hindu3-c04-l02",
+      "sequence": 3,
+      "title_bn": "দেব-দেবী · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        58,
+        62
+      ],
+      "objective_bn": "শিক্ষার্থী দেব-দেবী সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l02-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবির সঙ্গে নাম শিক্ষকসহ মিলাও। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c04-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l03-s1",
+      "lesson_id": "hindu3-c04-l03",
+      "sequence": 1,
+      "title_bn": "পূজা-পার্বণ ও ধর্মীয় উৎসব · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        63,
+        66
+      ],
+      "objective_bn": "শিক্ষার্থী পূজা-পার্বণ ও ধর্মীয় উৎসব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l02-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে পূজা-পার্বণ ও ধর্মীয় উৎসব সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের উৎসবের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l03-s2",
+      "lesson_id": "hindu3-c04-l03",
+      "sequence": 2,
+      "title_bn": "পূজা-পার্বণ ও ধর্মীয় উৎসব · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        63,
+        66
+      ],
+      "objective_bn": "শিক্ষার্থী পূজা-পার্বণ ও ধর্মীয় উৎসব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l03-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের উৎসবের ছবি ও নাম মিলাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l03-s3",
+      "lesson_id": "hindu3-c04-l03",
+      "sequence": 3,
+      "title_bn": "পূজা-পার্বণ ও ধর্মীয় উৎসব · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        63,
+        66
+      ],
+      "objective_bn": "শিক্ষার্থী পূজা-পার্বণ ও ধর্মীয় উৎসব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l03-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের উৎসবের ছবি ও নাম মিলাও। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c04-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l04-s1",
+      "lesson_id": "hindu3-c04-l04",
+      "sequence": 1,
+      "title_bn": "অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        67,
+        69
+      ],
+      "objective_bn": "শিক্ষার্থী অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l03-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসে ভিন্ন ধর্মের গ্রন্থের পরিচয় আলোচনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l04-s2",
+      "lesson_id": "hindu3-c04-l04",
+      "sequence": 2,
+      "title_bn": "অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        67,
+        69
+      ],
+      "objective_bn": "শিক্ষার্থী অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l04-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে ভিন্ন ধর্মের গ্রন্থের পরিচয় আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l04-s3",
+      "lesson_id": "hindu3-c04-l04",
+      "sequence": 3,
+      "title_bn": "অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        67,
+        69
+      ],
+      "objective_bn": "শিক্ষার্থী অন্য ধর্মাবলম্বীদের ধর্মগ্রন্থ সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l04-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসে ভিন্ন ধর্মের গ্রন্থের পরিচয় আলোচনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c04-l04-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l05-s1",
+      "lesson_id": "hindu3-c04-l05",
+      "sequence": 1,
+      "title_bn": "শান্তিপূর্ণ সহাবস্থান · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        70,
+        75
+      ],
+      "objective_bn": "শিক্ষার্থী শান্তিপূর্ণ সহাবস্থান সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l04-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে শান্তিপূর্ণ সহাবস্থান সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "ভিন্ন ধর্মের সহপাঠীর প্রতি সম্মানের উদাহরণ বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l05-s2",
+      "lesson_id": "hindu3-c04-l05",
+      "sequence": 2,
+      "title_bn": "শান্তিপূর্ণ সহাবস্থান · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        70,
+        75
+      ],
+      "objective_bn": "শিক্ষার্থী শান্তিপূর্ণ সহাবস্থান সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l05-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "ভিন্ন ধর্মের সহপাঠীর প্রতি সম্মানের উদাহরণ বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c04-l05-s3",
+      "lesson_id": "hindu3-c04-l05",
+      "sequence": 3,
+      "title_bn": "শান্তিপূর্ণ সহাবস্থান · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        70,
+        75
+      ],
+      "objective_bn": "শিক্ষার্থী শান্তিপূর্ণ সহাবস্থান সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l05-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "ভিন্ন ধর্মের সহপাঠীর প্রতি সম্মানের উদাহরণ বলো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c04-l05-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l01-s1",
+      "lesson_id": "hindu3-c05-l01",
+      "sequence": 1,
+      "title_bn": "মানুষ, প্রকৃতি ও জীব · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ],
+      "objective_bn": "শিক্ষার্থী মানুষ, প্রকৃতি ও জীব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c04-l05-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে মানুষ, প্রকৃতি ও জীব সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসচিত্রের মানুষ ও প্রকৃতির সম্পর্ক বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l01-s2",
+      "lesson_id": "hindu3-c05-l01",
+      "sequence": 2,
+      "title_bn": "মানুষ, প্রকৃতি ও জীব · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ],
+      "objective_bn": "শিক্ষার্থী মানুষ, প্রকৃতি ও জীব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l01-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসচিত্রের মানুষ ও প্রকৃতির সম্পর্ক বলো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l01-s3",
+      "lesson_id": "hindu3-c05-l01",
+      "sequence": 3,
+      "title_bn": "মানুষ, প্রকৃতি ও জীব · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ],
+      "objective_bn": "শিক্ষার্থী মানুষ, প্রকৃতি ও জীব সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l01-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসচিত্রের মানুষ ও প্রকৃতির সম্পর্ক বলো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c05-l01-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l02-s1",
+      "lesson_id": "hindu3-c05-l02",
+      "sequence": 1,
+      "title_bn": "প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        81,
+        84
+      ],
+      "objective_bn": "শিক্ষার্থী প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l01-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের বন্যা ও খরার ছবি দেখে প্রভাব আলোচনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l02-s2",
+      "lesson_id": "hindu3-c05-l02",
+      "sequence": 2,
+      "title_bn": "প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        81,
+        84
+      ],
+      "objective_bn": "শিক্ষার্থী প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l02-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের বন্যা ও খরার ছবি দেখে প্রভাব আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l02-s3",
+      "lesson_id": "hindu3-c05-l02",
+      "sequence": 3,
+      "title_bn": "প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        81,
+        84
+      ],
+      "objective_bn": "শিক্ষার্থী প্রাকৃতিক বিপর্যয় মানুষের বিপর্যয় সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l02-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের বন্যা ও খরার ছবি দেখে প্রভাব আলোচনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c05-l02-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l03-s1",
+      "lesson_id": "hindu3-c05-l03",
+      "sequence": 1,
+      "title_bn": "জীবসেবা · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        85,
+        88
+      ],
+      "objective_bn": "শিক্ষার্থী জীবসেবা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l02-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে জীবসেবা সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "উৎসের জীবসেবার ছবি ও আচরণ আলোচনা করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l03-s2",
+      "lesson_id": "hindu3-c05-l03",
+      "sequence": 2,
+      "title_bn": "জীবসেবা · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        85,
+        88
+      ],
+      "objective_bn": "শিক্ষার্থী জীবসেবা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l03-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের জীবসেবার ছবি ও আচরণ আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l03-s3",
+      "lesson_id": "hindu3-c05-l03",
+      "sequence": 3,
+      "title_bn": "জীবসেবা · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        85,
+        88
+      ],
+      "objective_bn": "শিক্ষার্থী জীবসেবা সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l03-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের জীবসেবার ছবি ও আচরণ আলোচনা করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c05-l03-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l04-s1",
+      "lesson_id": "hindu3-c05-l04",
+      "sequence": 1,
+      "title_bn": "দেশপ্রেম · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        89,
+        91
+      ],
+      "objective_bn": "শিক্ষার্থী দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l03-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে দেশপ্রেম সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "পাঠের দেশকল্যাণের উদাহরণ চিহ্নিত করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l04-s2",
+      "lesson_id": "hindu3-c05-l04",
+      "sequence": 2,
+      "title_bn": "দেশপ্রেম · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        89,
+        91
+      ],
+      "objective_bn": "শিক্ষার্থী দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l04-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের দেশকল্যাণের উদাহরণ চিহ্নিত করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l04-s3",
+      "lesson_id": "hindu3-c05-l04",
+      "sequence": 3,
+      "title_bn": "দেশপ্রেম · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        89,
+        91
+      ],
+      "objective_bn": "শিক্ষার্থী দেশপ্রেম সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l04-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের দেশকল্যাণের উদাহরণ চিহ্নিত করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c05-l04-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l05-s1",
+      "lesson_id": "hindu3-c05-l05",
+      "sequence": 1,
+      "title_bn": "এসো দেশকে ভালোবাসি · দেখি ও বুঝি",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        92,
+        93
+      ],
+      "objective_bn": "শিক্ষার্থী এসো দেশকে ভালোবাসি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l04-s3"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "উৎসের ছবি বা ছোট পাঠাংশ দেখে এসো দেশকে ভালোবাসি সম্পর্কে একটি মূল ধারণা আলোচনা করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "পাঠের ভালো কাজের তালিকা ও অনুশীলনী করো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l05-s2",
+      "lesson_id": "hindu3-c05-l05",
+      "sequence": 2,
+      "title_bn": "এসো দেশকে ভালোবাসি · অনুশীলন ও আলোচনা",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        92,
+        93
+      ],
+      "objective_bn": "শিক্ষার্থী এসো দেশকে ভালোবাসি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l05-s1"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ভালো কাজের তালিকা ও অনুশীলনী করো।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": null,
+          "prompt_bn": "আজকের শেখা একটি বিষয় বলো।"
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    },
+    {
+      "id": "hindu3-c05-l05-s3",
+      "lesson_id": "hindu3-c05-l05",
+      "sequence": 3,
+      "title_bn": "এসো দেশকে ভালোবাসি · প্রয়োগ ও যাচাই",
+      "estimated_minutes": 8,
+      "source_pdf_pages_1_based": [
+        92,
+        93
+      ],
+      "objective_bn": "শিক্ষার্থী এসো দেশকে ভালোবাসি সম্পর্কে উৎসের আলোকে একটি ধারণা, ঘটনা বা উদাহরণ বলতে পারবে।",
+      "prerequisite_session_ids": [
+        "hindu3-c05-l05-s2"
+      ],
+      "steps": [
+        {
+          "type": "recall",
+          "minutes": 1,
+          "prompt_bn": "আগের শেখা একটি বিষয় মনে করো।"
+        },
+        {
+          "type": "guided_learning",
+          "minutes": 4,
+          "prompt_bn": "পাঠের ভালো কাজের তালিকা ও অনুশীলনী করো। শেখা ধারণা নিজের ভাষায় বোঝাও।"
+        },
+        {
+          "type": "practice",
+          "minutes": 2,
+          "prompt_bn": "শেখা বিষয়ের একটি ঘটনা বা উদাহরণ নিজের ভাষায় বলো।"
+        },
+        {
+          "type": "exit_check",
+          "minutes": 1,
+          "question_ref": "hindu3-c05-l05-q1",
+          "prompt_bn": null
+        }
+      ],
+      "completion": {
+        "attempt_required": true,
+        "rubric_bn": [
+          "উৎসের সঙ্গে মূল ধারণা মেলে",
+          "একটি ঘটনা বা উদাহরণ বোঝাতে পারে"
+        ],
+        "starter_question_alone_does_not_establish_mastery": true
+      },
+      "assets": {
+        "verified_bengali_text": null,
+        "verified_prayer_or_chant_text": null,
+        "teacher_approved_prayer_or_chant_audio": null,
+        "narration": null,
+        "phone_image_crops": []
+      },
+      "publication_status": "draft_requires_teacher_and_asset_review"
+    }
+  ],
+  "questions": [
+    {
+      "id": "hindu3-c01-l01-q1",
+      "lesson_id": "hindu3-c01-l01",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "সৃষ্টির একটি উদাহরণ দাও।",
+      "sample_answer_bn": "গাছ, মানুষ, প্রাণী, নদী বা পাহাড়।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        6,
+        9
+      ]
+    },
+    {
+      "id": "hindu3-c01-l02-q1",
+      "lesson_id": "hindu3-c01-l02",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "এই অংশে ঈশ্বরের কোন পরিচয় রয়েছে?",
+      "sample_answer_bn": "সর্বশক্তিমান ঈশ্বর।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        10,
+        13
+      ]
+    },
+    {
+      "id": "hindu3-c01-l03-q1",
+      "lesson_id": "hindu3-c01-l03",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "প্রাণীর প্রতি ভালোবাসার একটি উদাহরণ বলো।",
+      "sample_answer_bn": "প্রাণীকে অকারণে কষ্ট না দেওয়া।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        14,
+        16
+      ]
+    },
+    {
+      "id": "hindu3-c01-l04-q1",
+      "lesson_id": "hindu3-c01-l04",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "এই অংশে কোন দুটি বিষয় শেখানো হয়েছে?",
+      "sample_answer_bn": "উপাসনা ও প্রার্থনা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        17,
+        21
+      ]
+    },
+    {
+      "id": "hindu3-c02-l01-q1",
+      "lesson_id": "hindu3-c02-l01",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "পাঠের একজন ধর্মীয় ব্যক্তিত্বের নাম বলো।",
+      "sample_answer_bn": "মীরা বাঈ বা মা আনন্দময়ী।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        22,
+        30
+      ]
+    },
+    {
+      "id": "hindu3-c02-l02-q1",
+      "lesson_id": "hindu3-c02-l02",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "ভালো জীবনাদর্শ অনুসরণের উদাহরণ বলো।",
+      "sample_answer_bn": "অন্যকে ভালোবাসা বা সাহায্য করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        31,
+        34
+      ]
+    },
+    {
+      "id": "hindu3-c03-l01-q1",
+      "lesson_id": "hindu3-c03-l01",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "মানবিক আচরণের একটি উদাহরণ দাও।",
+      "sample_answer_bn": "কষ্টে থাকা কাউকে সাহায্য করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        35,
+        37
+      ]
+    },
+    {
+      "id": "hindu3-c03-l02-q1",
+      "lesson_id": "hindu3-c03-l02",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "পরোপকার বলতে কী বোঝায়?",
+      "sample_answer_bn": "অন্যের উপকার করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        38,
+        41
+      ]
+    },
+    {
+      "id": "hindu3-c03-l03-q1",
+      "lesson_id": "hindu3-c03-l03",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "ন্যায় আচরণের উদাহরণ দাও।",
+      "sample_answer_bn": "সবার সঙ্গে ন্যায্য আচরণ করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        42,
+        44
+      ]
+    },
+    {
+      "id": "hindu3-c03-l04-q1",
+      "lesson_id": "hindu3-c03-l04",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "সহযোগিতার উদাহরণ দাও।",
+      "sample_answer_bn": "একসঙ্গে ভালো কাজ করা বা প্রয়োজনে সাহায্য করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        45,
+        48
+      ]
+    },
+    {
+      "id": "hindu3-c04-l01-q1",
+      "lesson_id": "hindu3-c04-l01",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "পাঠের একটি ধর্মগ্রন্থের নাম বলো।",
+      "sample_answer_bn": "বেদ, রামায়ণ বা মহাভারত।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        49,
+        57
+      ]
+    },
+    {
+      "id": "hindu3-c04-l02-q1",
+      "lesson_id": "hindu3-c04-l02",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "পাঠের একটি দেব বা দেবীর নাম বলো।",
+      "sample_answer_bn": "শিব, দুর্গা বা বিষ্ণু।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        58,
+        62
+      ]
+    },
+    {
+      "id": "hindu3-c04-l03-q1",
+      "lesson_id": "hindu3-c04-l03",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "পাঠে একটি উৎসবের উদাহরণ দাও।",
+      "sample_answer_bn": "রথযাত্রা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        63,
+        66
+      ]
+    },
+    {
+      "id": "hindu3-c04-l04-q1",
+      "lesson_id": "hindu3-c04-l04",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "পাঠে একটি অন্য ধর্মের গ্রন্থের নাম বলো।",
+      "sample_answer_bn": "কুরআন, বাইবেল বা ত্রিপিটক।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        67,
+        69
+      ]
+    },
+    {
+      "id": "hindu3-c04-l05-q1",
+      "lesson_id": "hindu3-c04-l05",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "শান্তিপূর্ণ সহাবস্থানের একটি উপায় বলো।",
+      "sample_answer_bn": "অন্যের ধর্ম ও উৎসবকে সম্মান করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        70,
+        75
+      ]
+    },
+    {
+      "id": "hindu3-c05-l01-q1",
+      "lesson_id": "hindu3-c05-l01",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "প্রকৃতির একটি উপাদান বলো।",
+      "sample_answer_bn": "গাছ, নদী, মাটি বা প্রাণী।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        76,
+        80
+      ]
+    },
+    {
+      "id": "hindu3-c05-l02-q1",
+      "lesson_id": "hindu3-c05-l02",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "পাঠে একটি প্রাকৃতিক বিপর্যয়ের নাম বলো।",
+      "sample_answer_bn": "বন্যা, খরা বা ঘূর্ণিঝড়।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        81,
+        84
+      ]
+    },
+    {
+      "id": "hindu3-c05-l03-q1",
+      "lesson_id": "hindu3-c05-l03",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "জীবসেবার একটি উদাহরণ বলো।",
+      "sample_answer_bn": "প্রাণীর যত্ন নেওয়া বা অসহায়কে সাহায্য করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        85,
+        88
+      ]
+    },
+    {
+      "id": "hindu3-c05-l04-q1",
+      "lesson_id": "hindu3-c05-l04",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "দেশপ্রেমের একটি ভালো কাজ বলো।",
+      "sample_answer_bn": "দেশের পরিবেশ পরিষ্কার রাখা বা মানুষের কল্যাণে কাজ করা।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        89,
+        91
+      ]
+    },
+    {
+      "id": "hindu3-c05-l05-q1",
+      "lesson_id": "hindu3-c05-l05",
+      "type": "short_answer",
+      "origin": "app_authored_starter_not_textbook_exercise",
+      "question_bn": "দেশের জন্য শিশুর উপযোগী একটি কাজ বলো।",
+      "sample_answer_bn": "সততার সঙ্গে কাজ করা এবং পরিবেশের যত্ন নেওয়া।",
+      "accepted_answer_policy": "Accept equivalent age-appropriate wording supported by the source; examples are not exhaustive.",
+      "rubric_bn": [
+        "প্রশ্নের সঙ্গে উত্তর মেলে",
+        "উৎসসমর্থিত ধারণা বা গ্রহণযোগ্য উদাহরণ রয়েছে"
+      ],
+      "source_pdf_pages_1_based": [
+        92,
+        93
+      ]
+    }
+  ],
+  "excluded_pdf_pages_1_based": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    94
+  ],
+  "tutor_policy": {
+    "language": "bn-BD",
+    "one_question_at_a_time": true,
+    "grounding": "Use checked source images or verified text. Do not invent quotations, prayers, chants, scriptural references or historical dates.",
+    "belief_framing": "Explain religious teachings and narratives in their textbook tradition. Do not rank religions or judge a child’s personal faith.",
+    "respect": "Encourage respectful treatment of people of all religions.",
+    "recitation": "Teacher verification is required for prayer or chant text and audio. Recognition and text answers are not pronunciation assessments.",
+    "assessment": "Accept equivalent open answers using rubrics. Add checked unseen questions before assigning mastery. Source exercises remain in PDFs; their answer keys have not been authored.",
+    "hints_bn": [
+      "উৎসের একটি সূত্র দেখাও।",
+      "একটি সহজ উদাহরণ দাও।",
+      "আবার চেষ্টা করতে দাও।"
+    ],
+    "scope": "Questions beyond the textbook should be referred to a teacher. Religious healing narratives are taught as source narratives, not medical advice.",
+    "activities": "Use source pictures and hypothetical scenarios; no travel, donations, animal handling or hazardous disaster response is assigned.",
+    "accessibility": "Allow touch, text or teacher-guided oral alternatives. Teachers may skip or unlock lessons."
+  }
+}

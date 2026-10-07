@@ -13,6 +13,8 @@ class FakeLessonTutorRepository implements TutorRepository {
   String? capturedChapterId;
   String? capturedLessonId;
   String? capturedInitialMessage;
+  String? capturedStreamConversationId;
+  String? capturedStreamQuestion;
 
   @override
   Future<TutorConversationThread> startConversation({
@@ -74,7 +76,12 @@ class FakeLessonTutorRepository implements TutorRepository {
   @override
   Stream<TutorStreamEvent> streamMessage(String conversationId, String content,
       {CancelToken? cancelToken}) {
-    throw UnimplementedError();
+    capturedStreamConversationId = conversationId;
+    capturedStreamQuestion = content;
+    return Stream<TutorStreamEvent>.fromIterable([
+      const TutorTextDeltaEvent('এই পাঠের ভিত্তিতে উত্তর।'),
+      const TutorDoneEvent(),
+    ]);
   }
 }
 
@@ -106,6 +113,26 @@ void main() {
       expect(thread!.conversation.id, 'conv_real_mongo_id_8899');
       expect(
           controller.state.activeConversation?.id, 'conv_real_mongo_id_8899');
+    });
+
+    test('voice question streams inside its lesson-scoped conversation',
+        () async {
+      await controller.startConversationForLesson(
+        lessonId: 'lesson-id-3',
+        chapterId: 'chapter-id-2',
+        subjectId: 'subject-id-1',
+        lessonTitle: 'উদ্ভিদের জীবন',
+        includeWelcomeMessage: false,
+      );
+
+      await controller.streamMessage('গাছ কীভাবে খাবার তৈরি করে?');
+
+      expect(fakeRepo.capturedInitialMessage, isNull);
+      expect(fakeRepo.capturedLessonId, 'lesson-id-3');
+      expect(fakeRepo.capturedStreamConversationId, 'conv_real_mongo_id_8899');
+      expect(fakeRepo.capturedStreamQuestion, 'গাছ কীভাবে খাবার তৈরি করে?');
+      expect(
+          controller.state.messages.last.content, 'এই পাঠের ভিত্তিতে উত্তর।');
     });
   });
 }

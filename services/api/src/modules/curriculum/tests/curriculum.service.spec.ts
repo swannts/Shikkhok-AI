@@ -84,4 +84,22 @@ describe('CurriculumService', () => {
 
     await expect(service.listLessons('chap-1')).resolves.toEqual([{ title: 'Lesson 1' }]);
   });
+
+  it('does not stream a PDF for an unpublished lesson', async () => {
+    lessonRepository.findById.mockResolvedValue({
+      isPublished: false,
+      lessonPdfPath: 'class-3/book/lesson-pdfs/lesson.pdf',
+    } as any);
+
+    await expect(service.streamLessonPdf('lesson-1')).rejects.toThrow(NotFoundException);
+  });
+
+  it('rejects a lesson PDF path that escapes the configured directory', async () => {
+    lessonRepository.findById.mockResolvedValue({
+      isPublished: true,
+      lessonPdfPath: '../../etc/passwd',
+    } as any);
+
+    await expect(service.streamLessonPdf('lesson-1')).rejects.toThrow(NotFoundException);
+  });
 });

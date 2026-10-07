@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, StreamableFile, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
@@ -55,5 +55,15 @@ export class CurriculumController {
   @ApiResponse({ status: 404, description: 'Lesson not found' })
   async getLesson(@Param('lessonId', MongoObjectIdPipe) lessonId: string) {
     return this.curriculumService.getLesson(lessonId);
+  }
+
+  @Get('lessons/:lessonId/pdf')
+  @ApiOperation({ summary: 'Stream the published lesson PDF' })
+  @ApiResponse({ status: 200, description: 'Lesson PDF streamed' })
+  @ApiResponse({ status: 404, description: 'Lesson PDF not found' })
+  async streamLessonPdf(
+    @Param('lessonId', MongoObjectIdPipe) lessonId: string,
+  ): Promise<StreamableFile> {
+    return this.curriculumService.streamLessonPdf(lessonId);
   }
 }

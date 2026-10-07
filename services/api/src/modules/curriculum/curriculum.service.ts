@@ -1,4 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, StreamableFile } from '@nestjs/common';
+import { createReadStream } from 'node:fs';
+import { realpath } from 'node:fs/promises';
+import { isAbsolute, resolve, sep, basename } from 'node:path';
 import { CurriculumQueryDto } from './dto/curriculum-query.dto';
 import { SubjectRepository } from './repositories/subject.repository';
 import { ChapterRepository } from './repositories/chapter.repository';
@@ -59,5 +62,42 @@ export class CurriculumService {
       throw new NotFoundException('Lesson not found');
     }
     return lesson.toJSON();
+  }
+
+  async streamLessonPdf(lessonId: string): Promise<StreamableFile> {
+    const lesson = await this.lessonRepository.findById(lessonId);
+    if (!lesson || !lesson.isPublished || !lesson.lessonPdfPath) {
+      throw new NotFoundException('Lesson PDF not found');
+    }
+
+    const configuredRoot = resolve(
+      process.env.CURRICULUM_SPLIT_PDF_DIR || '/app/uploads/curriculum/split-books',
+    );
+    const relativePath = lesson.lessonPdfPath;
+    if (isAbsolute(relativePath)) {
+      throw new NotFoundException('Lesson PDF not found');
+    }
+    const candidatePath = resolve(configuredRoot, relativePath);
+    if (candidatePath === configuredRoot || !candidatePath.startsWith(`${configuredRoot}${sep}`)) {
+      throw new NotFoundException('Lesson PDF not found');
+    }
+    let filePath: string;
+    try {
+      const [realRoot, realFile] = await Promise.all([
+        realpath(configuredRoot),
+        realpath(candidatePath),
+      ]);
+      if (realFile === realRoot || !realFile.startsWith(`${realRoot}${sep}`)) {
+        throw new NotFoundException('Lesson PDF not found');
+      }
+      filePath = realFile;
+    } catch {
+      throw new NotFoundException('Lesson PDF is not available yet');
+    }
+
+    return new StreamableFile(createReadStream(filePath), {
+      type: 'application/pdf',
+      disposition: `inline; filename="${basename(filePath)}"`,
+    });
   }
 }

@@ -16,6 +16,9 @@ export type LessonDocument = HydratedDocument<Lesson>;
   toJSON: {
     transform(_doc: any, ret: Record<string, any>) {
       delete ret.__v;
+      const hasLessonPdf = typeof ret.lessonPdfPath === 'string' && ret.lessonPdfPath.length > 0;
+      delete ret.lessonPdfPath;
+      ret.hasLessonPdf = hasLessonPdf;
       ret.contentVersion = ret.contentVersion ?? 1;
       ret.contentBlocks = normalizeLessonContentBlocks(
         Array.isArray(ret.contentBlocks) ? (ret.contentBlocks as any) : [],
@@ -54,6 +57,10 @@ export class Lesson {
 
   @Prop({ type: Number, default: null, required: false, min: 1 })
   sourcePdfPageEnd?: number | null;
+
+  // Relative to CURRICULUM_SPLIT_PDF_DIR. Never expose this storage path to clients.
+  @Prop({ type: String, required: false, default: null })
+  lessonPdfPath?: string | null;
 
   @Prop({ type: Boolean, default: true, index: true })
   isPublished: boolean;

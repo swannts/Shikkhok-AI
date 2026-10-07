@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'dart:typed_data';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 import '../../../../app/theme/app_typography.dart';
 import '../../../../app/router/app_routes.dart';
 import '../../../tutor/presentation/controllers/tutor_controller.dart';
+import '../../../tutor/presentation/widgets/lesson_voice_tutor_sheet.dart';
 import '../controllers/curriculum_controller.dart';
 import '../controllers/bookmark_controller.dart';
 import '../../domain/entities/lesson.dart';
@@ -14,6 +18,8 @@ import '../../domain/entities/chapter.dart';
 import '../../domain/entities/subject.dart';
 import '../widgets/lesson_content_block_renderer.dart';
 import '../widgets/cache_status_banner.dart';
+import '../../../../core/network/api_client.dart';
+import '../../../../core/network/api_endpoints.dart';
 
 class LessonReaderPage extends ConsumerStatefulWidget {
   final String? lessonId;
@@ -27,6 +33,7 @@ class LessonReaderPage extends ConsumerStatefulWidget {
 class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
   bool _isMarkingComplete = false;
   bool _isLaunchingTutor = false;
+  bool _showVoiceTutor = false;
 
   Future<void> _launchTutor(
       Lesson lesson, Chapter? chapter, Subject? subject) async {
@@ -67,6 +74,46 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
       if (mounted) {
         setState(() => _isLaunchingTutor = false);
       }
+    }
+  }
+
+  Future<void> _launchVoiceTutor(
+      Lesson lesson, Chapter? chapter, Subject? subject) async {
+    if (_isLaunchingTutor) return;
+    setState(() => _isLaunchingTutor = true);
+    try {
+      final thread = await ref
+          .read(tutorControllerProvider.notifier)
+          .startConversationForLesson(
+            lessonId: lesson.id,
+            chapterId: chapter?.id ?? lesson.chapterId,
+            subjectId: subject?.id ?? chapter?.subjectId,
+            lessonTitle: lesson.title,
+            includeWelcomeMessage: false,
+          );
+      if (!mounted) return;
+      if (thread == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content:
+                Text('এই পাঠের ভয়েস শিক্ষক চালু করা যায়নি। আবার চেষ্টা করুন।'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+        return;
+      }
+      setState(() => _showVoiceTutor = true);
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('ভয়েস শিক্ষক চালু করা যায়নি।'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isLaunchingTutor = false);
     }
   }
 
@@ -296,6 +343,15 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                           ),
                         const Divider(height: AppSpacing.xl),
 
+                        if (lesson.hasLessonPdf) ...[
+                          _LessonPdfSection(
+                            key: ValueKey('lesson-pdf-${lesson.id}'),
+                            lessonId: lesson.id,
+                            title: lesson.title,
+                          ),
+                          const SizedBox(height: AppSpacing.lg),
+                        ],
+
                         Text(
                           'পাঠের বিষয়বস্তু',
                           style: AppTypography.cardTitle.copyWith(
@@ -350,76 +406,149 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                           const SizedBox(height: AppSpacing.lg),
                         ],
 
-                        // Ask AI Tutor Card (Scoped to this lesson)
-                        Container(
-                          padding: const EdgeInsets.all(AppSpacing.md),
-                          decoration: BoxDecoration(
-                            color: AppColors.surface,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: AppColors.border),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Row(
-                                children: [
-                                  Icon(Icons.smart_toy_rounded,
-                                      color: AppColors.primary, size: 24),
-                                  SizedBox(width: AppSpacing.sm),
-                                  Text(
-                                    'AI শিক্ষকের সাহায্য প্রয়োজন?',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary,
+                        // Lesson-scoped tutor actions
+                        if (_showVoiceTutor)
+                          LessonVoiceTutorSheet(
+                            key: ValueKey('lesson-voice-${lesson.id}'),
+                            lessonTitle: lesson.title,
+                            chapterTitle: chapter?.title,
+                            subjectTitle: subject?.name,
+                            embedded: true,
+                            onClose: () =>
+                                setState(() => _showVoiceTutor = false),
+                          )
+                        else
+                          Container(
+                            padding: const EdgeInsets.all(AppSpacing.md),
+                            decoration: BoxDecoration(
+                              color: AppColors.surface,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: AppColors.border),
+                              boxShadow: AppColors.minimalsShadow,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 42,
+                                      height: 42,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primaryLight,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      child: const Icon(
+                                        Icons.auto_awesome_rounded,
+                                        color: AppColors.primary,
+                                        size: 22,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 6),
-                              const Text(
-                                'এই পাঠের যেকোনো প্রশ্ন বা জটিল বিষয় নিয়ে AI টিউটরের সাথে সরাসরি কথা বলো।',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: AppColors.textSecondary,
-                                ),
-                              ),
-                              const SizedBox(height: AppSpacing.md),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: ElevatedButton.icon(
-                                  onPressed: _isLaunchingTutor
-                                      ? null
-                                      : () => _launchTutor(
-                                          lesson, chapter, subject),
-                                  icon: _isLaunchingTutor
-                                      ? const SizedBox(
-                                          width: 16,
-                                          height: 16,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                            color: Colors.white,
+                                    const SizedBox(width: AppSpacing.sm),
+                                    const Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'পাঠটি বুঝতে সাহায্য লাগবে?',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.textPrimary,
+                                            ),
                                           ),
-                                        )
-                                      : const Icon(Icons.chat_bubble_outline,
-                                          size: 18),
-                                  label: Text(
-                                    _isLaunchingTutor
-                                        ? 'চালু হচ্ছে...'
-                                        : 'প্রশ্ন করো',
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.primary,
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
+                                          SizedBox(height: 2),
+                                          Text(
+                                            'এই পাঠভিত্তিক AI সহায়তা',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: AppColors.textSecondary,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: AppSpacing.md),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: OutlinedButton.icon(
+                                        onPressed: _isLaunchingTutor
+                                            ? null
+                                            : () => _launchVoiceTutor(
+                                                lesson, chapter, subject),
+                                        icon: const Icon(
+                                          Icons.mic_none_rounded,
+                                          size: 18,
+                                        ),
+                                        label: const Text(
+                                          'কথা বলো',
+                                          maxLines: 1,
+                                          softWrap: false,
+                                        ),
+                                        style: OutlinedButton.styleFrom(
+                                          minimumSize:
+                                              const Size.fromHeight(48),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: AppSpacing.sm),
+                                          foregroundColor: AppColors.primary,
+                                          side: const BorderSide(
+                                              color: AppColors.border),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: AppSpacing.sm),
+                                    Expanded(
+                                      child: ElevatedButton.icon(
+                                        onPressed: _isLaunchingTutor
+                                            ? null
+                                            : () => _launchTutor(
+                                                lesson, chapter, subject),
+                                        icon: _isLaunchingTutor
+                                            ? const SizedBox(
+                                                width: 16,
+                                                height: 16,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            : const Icon(
+                                                Icons.chat_bubble_outline,
+                                                size: 18,
+                                              ),
+                                        label: const Text(
+                                          'লিখে প্রশ্ন',
+                                          maxLines: 1,
+                                          softWrap: false,
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          minimumSize:
+                                              const Size.fromHeight(48),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: AppSpacing.sm),
+                                          backgroundColor: AppColors.primary,
+                                          foregroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -521,18 +650,6 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final data = asyncData.valueOrNull;
-          if (data != null) {
-            _launchTutor(data.lesson, data.chapter, data.subject);
-          } else {
-            context.go(AppRoutes.aiTutorChat);
-          }
-        },
-        backgroundColor: AppColors.primary,
-        child: const Icon(Icons.smart_toy_rounded, color: Colors.white),
-      ),
     );
   }
 
@@ -558,5 +675,158 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
             );
           },
         );
+  }
+}
+
+class _LessonPdfSection extends StatefulWidget {
+  final String lessonId;
+  final String title;
+
+  const _LessonPdfSection({
+    super.key,
+    required this.lessonId,
+    required this.title,
+  });
+
+  @override
+  State<_LessonPdfSection> createState() => _LessonPdfSectionState();
+}
+
+class _LessonPdfSectionState extends State<_LessonPdfSection> {
+  late Future<Uint8List> _pdfFuture;
+  int _attempt = 0;
+  bool _loaded = false;
+  String? _viewerError;
+
+  @override
+  void initState() {
+    super.initState();
+    _pdfFuture = _loadPdf();
+  }
+
+  Future<Uint8List> _loadPdf() async {
+    final response = await apiClient.dio.get<List<int>>(
+      ApiEndpoints.lessonPdf(widget.lessonId),
+      options: Options(responseType: ResponseType.bytes),
+    );
+    final data = response.data;
+    if (data == null ||
+        data.length < 5 ||
+        String.fromCharCodes(data.take(5)) != '%PDF-') {
+      throw const FormatException('Lesson PDF is missing or invalid');
+    }
+    return Uint8List.fromList(data);
+  }
+
+  void _retry() {
+    setState(() {
+      _attempt++;
+      _loaded = false;
+      _viewerError = null;
+      _pdfFuture = _loadPdf();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(18),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            child: Row(
+              children: [
+                const Icon(Icons.menu_book_rounded, color: AppColors.primary),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('বই থেকে এই পাঠ পড়ো',
+                          style: AppTypography.cardTitle),
+                      Text(widget.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: AppColors.textSecondary, fontSize: 13)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 620,
+            child: FutureBuilder<Uint8List>(
+              future: _pdfFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return const Center(
+                      child:
+                          CircularProgressIndicator(color: AppColors.primary));
+                }
+                if (snapshot.hasError ||
+                    snapshot.data == null ||
+                    _viewerError != null) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppSpacing.lg),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.picture_as_pdf_outlined,
+                              size: 40, color: AppColors.error),
+                          const SizedBox(height: AppSpacing.sm),
+                          const Text('এই পাঠের বইটি খোলা যাচ্ছে না',
+                              textAlign: TextAlign.center),
+                          const SizedBox(height: AppSpacing.sm),
+                          OutlinedButton.icon(
+                            onPressed: _retry,
+                            icon: const Icon(Icons.refresh_rounded),
+                            label: const Text('আবার চেষ্টা করুন'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return Stack(
+                  children: [
+                    SfPdfViewer.memory(
+                      snapshot.data!,
+                      key: ValueKey(_attempt),
+                      onDocumentLoaded: (_) {
+                        if (mounted) setState(() => _loaded = true);
+                      },
+                      onDocumentLoadFailed: (details) {
+                        if (mounted) {
+                          setState(() => _viewerError = details.description);
+                        }
+                      },
+                    ),
+                    if (!_loaded)
+                      const Positioned.fill(
+                        child: ColoredBox(
+                          color: AppColors.surface,
+                          child: Center(
+                              child: CircularProgressIndicator(
+                                  color: AppColors.primary)),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,12 +1,13 @@
 import { createRequire } from 'node:module';
 import { readFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { resolve, basename, dirname } from 'node:path';
+import { resolve, basename, dirname, relative, isAbsolute, sep } from 'node:path';
 
 const require = createRequire(new URL('../services/api/package.json', import.meta.url));
 const mongoose = require('mongoose');
 const repoRoot = fileURLToPath(new URL('../', import.meta.url));
 const applyChanges = process.argv.includes('--apply');
+const linkSplitPdfsOnly = process.argv.includes('--link-split-pdfs-only');
 const books = [
   {
     subjectSlug: 'bangla',
@@ -268,8 +269,30 @@ async function loadBook(config) {
     ),
   ];
   for (const relativePath of splitPdfs) {
-    await stat(resolve(directory, relativePath));
+    const splitPdfFile = resolve(directory, relativePath);
+    const classBooksRoot = resolve(repoRoot, 'books/class-3');
+    if (splitPdfFile !== classBooksRoot && !splitPdfFile.startsWith(`${classBooksRoot}${sep}`)) {
+      throw new Error(`Split PDF escapes Class 3 book directory: ${relativePath}`);
+    }
+    await stat(splitPdfFile);
   }
+
+  const splitPdfByLessonId = new Map(
+    [...(curriculum.units ?? []), ...(curriculum.lessons ?? [])]
+      .filter((entry) => entry.source?.split_pdf)
+      .map((entry) => {
+        const absolutePath = resolve(directory, entry.source.split_pdf);
+        const storagePath = relative(resolve(repoRoot, 'books'), absolutePath);
+        if (isAbsolute(storagePath) || storagePath === '..' || storagePath.startsWith(`..${sep}`)) {
+          throw new Error(`Invalid split PDF path for ${entry.id}`);
+        }
+        return [entry.id, storagePath];
+      }),
+  );
+  lessons = lessons.map((lesson) => ({
+    ...lesson,
+    lessonPdfPath: splitPdfByLessonId.get(lesson.id) ?? null,
+  }));
 
   return {
     ...config,
@@ -293,6 +316,54 @@ async function main() {
 
   await mongoose.connect(mongoUri);
   const db = mongoose.connection.db;
+  if (linkSplitPdfsOnly) {
+    const plans = [];
+    let missingLessons = 0;
+    for (const book of loadedBooks) {
+      const subject = await db.collection('subjects').findOne({
+        classLevel: book.grade,
+        medium: 'bangla',
+        slug: book.subjectSlug,
+      });
+      if (!subject) throw new Error(`No class-${book.grade} subject found for slug ${book.subjectSlug}`);
+
+      const chapters = await db.collection('chapters').find({ subjectId: subject._id }).toArray();
+      const chapterBySlug = new Map(chapters.map((chapter) => [chapter.slug, chapter._id]));
+      const operations = [];
+      for (const lesson of book.lessons) {
+        const chapterId = chapterBySlug.get(lesson.groupId);
+        if (!chapterId) {
+          throw new Error(`No existing chapter ${lesson.groupId} for ${book.subjectSlug}`);
+        }
+        const exists = await db.collection('lessons').findOne({ chapterId, slug: lesson.id }, { projection: { _id: 1 } });
+        if (!exists) {
+          missingLessons++;
+          continue;
+        }
+        operations.push({
+          updateOne: {
+            filter: { _id: exists._id },
+            update: { $set: { lessonPdfPath: lesson.lessonPdfPath } },
+          },
+        });
+      }
+      plans.push({ subjectName: subject.name, operations });
+    }
+
+    if (applyChanges) {
+      for (const plan of plans) {
+        if (plan.operations.length > 0) {
+          await db.collection('lessons').bulkWrite(plan.operations, { ordered: true });
+        }
+      }
+    }
+    const linkedCount = plans.reduce((sum, plan) => sum + plan.operations.length, 0);
+    console.log(`${applyChanges ? 'UPDATED' : 'DRY RUN'} split-PDF links for ${linkedCount} existing lessons; ${missingLessons} lesson records were not found.`);
+    if (!applyChanges) console.log('No database records were changed. Re-run with --apply --link-split-pdfs-only to update only lessonPdfPath.');
+    await mongoose.disconnect();
+    return;
+  }
+
   let totalArchivedChapters = 0;
   let totalArchivedLessons = 0;
 
@@ -409,6 +480,7 @@ async function main() {
         pageEnd: printedEnd,
         sourcePdfPageStart: pdfStart,
         sourcePdfPageEnd: pdfEnd,
+        lessonPdfPath: lesson.lessonPdfPath,
         isPublished:
           book.publicationMode === 'published' ||
           (preserveReviewedStatus && existingLesson?.isPublished === true),
