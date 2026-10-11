@@ -29,7 +29,7 @@ class Onboarding2Page extends StatelessWidget {
                   onPressed: () => context.go('/role-selection'),
                   child: Text(
                     l10n.skip,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
@@ -66,7 +66,7 @@ class Onboarding2Page extends StatelessWidget {
                 children: [
                   Text(
                     l10n.onboarding2Title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -77,7 +77,7 @@ class Onboarding2Page extends StatelessWidget {
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     l10n.onboarding2Description,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       color: AppColors.textSecondary,
                       height: 1.5,
@@ -112,7 +112,7 @@ class Onboarding2Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -130,7 +130,7 @@ class Onboarding2Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),

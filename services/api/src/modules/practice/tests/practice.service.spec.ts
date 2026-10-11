@@ -99,6 +99,7 @@ describe('PracticeService', () => {
       _id: new Types.ObjectId(),
       isPublished: true,
       questionType: PracticeQuestionType.MCQ,
+      options: ['সঠিক উত্তর', 'ভুল উত্তর'],
       correctOptionIds: ['opt-a'],
       lessonId: new Types.ObjectId('64b8268b6cb348e3b53f3141'),
       chapterId: new Types.ObjectId('64b8268b6cb348e3b53f3142'),
@@ -128,7 +129,7 @@ describe('PracticeService', () => {
       {
         questionId: '64b8268b6cb348e3b53f3150',
         questionType: PracticeQuestionType.MCQ,
-        selectedOptionId: 'opt-a',
+        selectedOptionId: 'opt_0',
       },
     );
 

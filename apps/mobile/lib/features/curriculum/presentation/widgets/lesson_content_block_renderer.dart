@@ -279,7 +279,7 @@ class _ImageBlock extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.broken_image_outlined,
+                        Icon(Icons.broken_image_outlined,
                             color: AppColors.textSecondary, size: 36),
                         const SizedBox(height: 8),
                         Text(

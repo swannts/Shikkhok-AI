@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -52,9 +51,9 @@ class _VoiceAiTutorPageState extends ConsumerState<VoiceAiTutorPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.aiTutorChat),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.aiTutorChat),
         ),
         title: const Text(
           'ভয়েসে AI শিক্ষকের সঙ্গে কথা',
@@ -77,7 +76,7 @@ class _VoiceAiTutorPageState extends ConsumerState<VoiceAiTutorPage> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.wifi_off_rounded,
+                          Icon(Icons.wifi_off_rounded,
                               color: AppColors.textSecondary, size: 42),
                           const SizedBox(height: AppSpacing.md),
                           Text(_errorMessage!, textAlign: TextAlign.center),

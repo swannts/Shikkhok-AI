@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -17,9 +18,9 @@ class AiTutorHistoryEmptyPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/ai-tutor-history'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.aiTutorHistory),
         ),
         title: Text(
           l10n.chatHistoryTitle,
@@ -53,7 +54,7 @@ class AiTutorHistoryEmptyPage extends StatelessWidget {
                 const SizedBox(height: AppSpacing.xl),
                 Text(
                   l10n.noHistoryTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textPrimary,
@@ -63,7 +64,7 @@ class AiTutorHistoryEmptyPage extends StatelessWidget {
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   l10n.noHistorySubtitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
                     color: AppColors.textSecondary,
                     height: 1.4,

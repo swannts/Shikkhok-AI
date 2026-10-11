@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -38,9 +39,9 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/curriculum-selection'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.curriculumSelection),
         ),
         title: const Text(
           'Shikkhok-AI',
@@ -64,7 +65,7 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(l10n.stepProgress('৩'),
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14, color: AppColors.textSecondary)),
                         const Text('100%',
                             style: TextStyle(
@@ -76,11 +77,11 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
                     const SizedBox(height: AppSpacing.xs),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: const LinearProgressIndicator(
+                      child: LinearProgressIndicator(
                         value: 1.0,
                         backgroundColor: AppColors.border,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                            AppColors.primary),
                         minHeight: 6,
                       ),
                     ),
@@ -89,7 +90,7 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
                     // Headings
                     Text(
                       l10n.selectGoalTitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary),
@@ -97,7 +98,7 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.selectGoalSubtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 15, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.lg),
@@ -178,7 +179,7 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
                     const SizedBox(height: AppSpacing.xl),
 
                     // Daily Study Time Goal Selection
-                    const Text(
+                    Text(
                       'প্রতিদিনের পড়ার সময়সীমা',
                       style: TextStyle(
                           fontSize: 18,
@@ -186,7 +187,7 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
                           color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
-                    const Text(
+                    Text(
                       'তুমি প্রতিদিন কতক্ষণ পড়াশোনা করতে চাও?',
                       style: TextStyle(
                           fontSize: 14, color: AppColors.textSecondary),
@@ -254,7 +255,7 @@ class _GoalSettingPageState extends ConsumerState<GoalSettingPage> {
             // Bottom Sticky CTA
             Container(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),

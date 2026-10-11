@@ -7,6 +7,7 @@ import '../../../../app/theme/app_spacing.dart';
 import '../../../../app/theme/app_typography.dart';
 import '../../../../app/router/app_routes.dart';
 import '../../../practice/presentation/controllers/practice_controller.dart';
+import '../../../tutor/presentation/controllers/tutor_controller.dart';
 
 class PracticeSessionMcqPage extends ConsumerWidget {
   const PracticeSessionMcqPage({super.key});
@@ -18,9 +19,9 @@ class PracticeSessionMcqPage extends ConsumerWidget {
     final notifier = ref.read(practiceControllerProvider.notifier);
 
     if (practiceState is PracticeLoading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.background,
-        body: Center(
+        body: const Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
       );
@@ -33,9 +34,9 @@ class PracticeSessionMcqPage extends ConsumerWidget {
           backgroundColor: AppColors.surface,
           title: Text(l10n.practiceTitle),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.practiceSetup),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () => AppRoutes.back(context,
+                fallbackLocation: AppRoutes.practiceSetup),
           ),
         ),
         body: Center(
@@ -76,7 +77,7 @@ class PracticeSessionMcqPage extends ConsumerWidget {
                 const Icon(Icons.check_circle_rounded,
                     color: AppColors.primary, size: 64),
                 const SizedBox(height: AppSpacing.md),
-                const Text(
+                Text(
                   'অনুশীলন সম্পন্ন হয়েছে!',
                   style: TextStyle(
                     fontSize: 22,
@@ -87,7 +88,7 @@ class PracticeSessionMcqPage extends ConsumerWidget {
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   'সঠিক উত্তর: ${practiceState.correctCount} / ${practiceState.totalQuestions}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     color: AppColors.textSecondary,
                   ),
@@ -121,19 +122,19 @@ class PracticeSessionMcqPage extends ConsumerWidget {
           backgroundColor: AppColors.surface,
           title: Text(l10n.practiceTitle),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.practiceSetup),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () => AppRoutes.back(context,
+                fallbackLocation: AppRoutes.practiceSetup),
           ),
         ),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.quiz_outlined,
+              Icon(Icons.quiz_outlined,
                   color: AppColors.textSecondary, size: 48),
               const SizedBox(height: AppSpacing.sm),
-              const Text(
+              Text(
                 'কোনো সক্রিয় অনুশীলন সেশন নেই',
                 style: AppTypography.body,
               ),
@@ -165,12 +166,12 @@ class PracticeSessionMcqPage extends ConsumerWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+          icon: Icon(Icons.close_rounded, color: AppColors.textPrimary),
           onPressed: () => context.go(AppRoutes.practiceSetup),
         ),
         title: Text(
           l10n.questionProgress(currentNumber, totalCount),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.textPrimary,
@@ -232,7 +233,7 @@ class PracticeSessionMcqPage extends ConsumerWidget {
                           const SizedBox(height: AppSpacing.md),
                           Text(
                             currentQuestion.prompt,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               height: 1.5,
@@ -383,6 +384,83 @@ class PracticeSessionMcqPage extends ConsumerWidget {
                         ),
                       ),
                     ],
+                    if (isSubmitted) ...[
+                      const SizedBox(height: AppSpacing.md),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: () async {
+                            final subject = currentQuestion.subjectId;
+                            final chapter = currentQuestion.chapterId;
+                            final thread = await ref
+                                .read(tutorControllerProvider.notifier)
+                                .startConversationForLesson(
+                                  lessonId: currentQuestion.lessonId,
+                                  chapterId: chapter,
+                                  subjectId: subject,
+                                  lessonTitle: 'অনুশীলনী প্রশ্ন ব্যাখ্যা',
+                                  includeWelcomeMessage: false,
+                                );
+                            if (!context.mounted || thread == null) {
+                              if (context.mounted) {
+                                final message = ref
+                                    .read(tutorControllerProvider)
+                                    .errorMessage;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(message ??
+                                        'AI টিউটর চালু করা যায়নি। আবার চেষ্টা করো।'),
+                                  ),
+                                );
+                              }
+                              return;
+                            }
+
+                            final selectedIndex = int.tryParse(
+                              (activeSession.selectedOptionId ?? '')
+                                  .replaceFirst('opt_', ''),
+                            );
+                            final selectedAnswer = selectedIndex != null &&
+                                    selectedIndex >= 0 &&
+                                    selectedIndex < options.length
+                                ? options[selectedIndex]
+                                : activeSession.selectedOptionId ??
+                                    'উত্তর দেওয়া হয়নি';
+                            final optionList = options
+                                .asMap()
+                                .entries
+                                .map((entry) =>
+                                    '${String.fromCharCode(65 + entry.key)}. ${entry.value}')
+                                .join('\n');
+                            final prompt =
+                                '''আমি এই পাঠের অনুশীলনী প্রশ্নটি বুঝতে চাই।
+প্রশ্ন: ${currentQuestion.prompt}
+বিকল্প:
+$optionList
+আমার উত্তর: $selectedAnswer
+আমার উত্তর ${submittedResult.isCorrect ? 'সঠিক' : 'ভুল'} হয়েছে।
+আমাকে আমার শ্রেণির উপযোগী সহজ বাংলায় ধাপে ধাপে বুঝিয়ে দাও—কেন সঠিক উত্তরটি ঠিক এবং অন্যগুলো কেন নয়। পাঠ্যবইয়ের তথ্য ব্যবহার করলে শুধু পাওয়া নির্ভরযোগ্য উৎস উল্লেখ করবে; কোনো বই, পৃষ্ঠা বা উদ্ধৃতি বানিয়ে বলবে না।''';
+                            if (context.mounted) {
+                              context.push(
+                                '/tutor/${thread.conversation.id}',
+                                extra: prompt,
+                              );
+                            }
+                          },
+                          icon: const Icon(Icons.auto_awesome,
+                              color: AppColors.primary),
+                          label: const Text('AI দিয়ে প্রশ্নটি বুঝি'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: AppColors.primary,
+                            side: const BorderSide(color: AppColors.primary),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -390,7 +468,7 @@ class PracticeSessionMcqPage extends ConsumerWidget {
             // Bottom Action Bar
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),

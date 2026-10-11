@@ -30,9 +30,9 @@ class AppBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
       ),
       padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
@@ -55,8 +55,7 @@ class AppBottomSheet extends StatelessWidget {
             children: [
               Text(title, style: AppTypography.sectionTitle),
               IconButton(
-                icon: const Icon(Icons.close_rounded,
-                    color: AppColors.textSecondary),
+                icon: Icon(Icons.close_rounded, color: AppColors.textSecondary),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ],

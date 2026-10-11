@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 import '../../../curriculum/presentation/controllers/curriculum_controller.dart';
@@ -17,7 +17,10 @@ class SubjectProgressDetailPage extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(Icons.arrow_back_rounded),
-            onPressed: () => context.go('/student-progress-dashboard')),
+            onPressed: () => AppRoutes.back(
+                  context,
+                  fallbackLocation: AppRoutes.studentProgressDashboard,
+                )),
         title: home.maybeWhen(
             data: (data) => Text(data.subjects
                 .firstWhere((item) => item.id == subjectId,

@@ -49,9 +49,9 @@ class PracticeMistakeReviewPage extends ConsumerWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.practiceResult),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.practiceResult),
         ),
         title: Text(
           l10n.mistakeReviewTitle,
@@ -76,7 +76,7 @@ class PracticeMistakeReviewPage extends ConsumerWidget {
                         size: 64,
                       ),
                       const SizedBox(height: AppSpacing.md),
-                      const Text(
+                      Text(
                         'অভিনন্দন! কোনো ভুল নেই',
                         style: TextStyle(
                           fontSize: 20,
@@ -85,7 +85,7 @@ class PracticeMistakeReviewPage extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: AppSpacing.sm),
-                      const Text(
+                      Text(
                         'তুমি সবগুলো প্রশ্নের সঠিক উত্তর দিয়েছো।',
                         style: AppTypography.body,
                         textAlign: TextAlign.center,
@@ -139,7 +139,7 @@ class PracticeMistakeReviewPage extends ConsumerWidget {
                         const SizedBox(height: 8),
                         Text(
                           m.$2,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary,
@@ -160,7 +160,7 @@ class PracticeMistakeReviewPage extends ConsumerWidget {
                                   const Icon(Icons.cancel_rounded,
                                       color: Colors.red, size: 18),
                                   const SizedBox(width: 8),
-                                  const Text('তোমার উত্তর: ',
+                                  Text('তোমার উত্তর: ',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: AppColors.textSecondary)),
@@ -182,7 +182,7 @@ class PracticeMistakeReviewPage extends ConsumerWidget {
                                   const Icon(Icons.check_circle_rounded,
                                       color: Colors.green, size: 18),
                                   const SizedBox(width: 8),
-                                  const Text('সঠিক উত্তর: ',
+                                  Text('সঠিক উত্তর: ',
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: AppColors.textSecondary)),
@@ -205,7 +205,7 @@ class PracticeMistakeReviewPage extends ConsumerWidget {
                           const SizedBox(height: AppSpacing.sm),
                           Text(
                             'ব্যাখ্যা: ${m.$5}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 13,
                               color: AppColors.textSecondary,
                               fontStyle: FontStyle.italic,

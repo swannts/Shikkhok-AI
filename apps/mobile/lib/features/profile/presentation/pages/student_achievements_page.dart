@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -62,9 +62,9 @@ class StudentAchievementsPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/profile'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.studentProfile),
         ),
         title: Text(
           l10n.achievementsTitle,
@@ -122,7 +122,7 @@ class StudentAchievementsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.xl),
-              const Text('ব্যাজ ও খেতাবসমূহ',
+              Text('ব্যাজ ও খেতাবসমূহ',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -180,7 +180,7 @@ class StudentAchievementsPage extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           b.$2,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 10, color: AppColors.textSecondary),
                           textAlign: TextAlign.center,
                           maxLines: 2,

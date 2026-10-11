@@ -91,9 +91,9 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
           backgroundColor: AppColors.surface,
           title: Text(l10n.lessonReaderTitle),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.learn),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () =>
+                AppRoutes.back(context, fallbackLocation: AppRoutes.learn),
           ),
         ),
         body: Center(
@@ -103,7 +103,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
               const Icon(Icons.error_outline_rounded,
                   color: AppColors.error, size: 48),
               const SizedBox(height: AppSpacing.sm),
-              const Text('পাঠটি খুঁজে পাওয়া যায়নি', style: AppTypography.body),
+              Text('পাঠটি খুঁজে পাওয়া যায়নি', style: AppTypography.body),
               const SizedBox(height: AppSpacing.md),
               ElevatedButton(
                 onPressed: () => context.go(AppRoutes.learn),
@@ -127,15 +127,15 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
           onPressed: () {
             final chapterId = asyncData.valueOrNull?.lesson.chapterId;
-            if (chapterId != null && chapterId.isNotEmpty) {
-              context.go(AppRoutes.chapter(chapterId));
-            } else {
-              context.go(AppRoutes.learn);
-            }
+            AppRoutes.back(
+              context,
+              fallbackLocation: chapterId != null && chapterId.isNotEmpty
+                  ? AppRoutes.chapter(chapterId)
+                  : AppRoutes.learn,
+            );
           },
         ),
         title: Text(
@@ -221,7 +221,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                 const Icon(Icons.error_outline_rounded,
                     color: AppColors.error, size: 48),
                 const SizedBox(height: AppSpacing.sm),
-                const Text(
+                Text(
                   'পাঠ লোড করা সম্ভব হয়নি',
                   textAlign: TextAlign.center,
                   style: AppTypography.body,
@@ -284,7 +284,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                         // Lesson Title
                         Text(
                           lesson.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary,
@@ -295,12 +295,12 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                         Row(
                           children: [
                             if (lesson.pageStart != null) ...[
-                              const Icon(Icons.menu_book_rounded,
+                              Icon(Icons.menu_book_rounded,
                                   size: 16, color: AppColors.textSecondary),
                               const SizedBox(width: 4),
                               Text(
                                 'NCTB পৃষ্ঠা ${lesson.pageStart}${lesson.pageEnd != null ? '-${lesson.pageEnd}' : ''}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 13,
                                   color: AppColors.textSecondary,
                                 ),
@@ -309,12 +309,12 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                             ],
                             if (lesson.textbookReference != null &&
                                 lesson.textbookReference!.isNotEmpty) ...[
-                              const Icon(Icons.bookmark_border_rounded,
+                              Icon(Icons.bookmark_border_rounded,
                                   size: 16, color: AppColors.textSecondary),
                               const SizedBox(width: 4),
                               Text(
                                 lesson.textbookReference!,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 13,
                                   color: AppColors.textSecondary,
                                 ),
@@ -439,7 +439,7 @@ class _LessonReaderPageState extends ConsumerState<LessonReaderPage> {
                 Container(
                   padding: const EdgeInsets.symmetric(
                       horizontal: AppSpacing.md, vertical: 12),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.surface,
                     border: Border(top: BorderSide(color: AppColors.border)),
                   ),
@@ -662,12 +662,12 @@ class _LessonPdfSectionState extends State<_LessonPdfSection> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('বই থেকে এই পাঠ পড়ো',
+                      Text('বই থেকে এই পাঠ পড়ো',
                           style: AppTypography.cardTitle),
                       Text(widget.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: AppColors.textSecondary, fontSize: 13)),
                     ],
                   ),
@@ -731,10 +731,10 @@ class _LessonPdfSectionState extends State<_LessonPdfSection> {
                       },
                     ),
                     if (!_loaded)
-                      const Positioned.fill(
+                      Positioned.fill(
                         child: ColoredBox(
                           color: AppColors.surface,
-                          child: Center(
+                          child: const Center(
                               child: CircularProgressIndicator(
                                   color: AppColors.primary)),
                         ),

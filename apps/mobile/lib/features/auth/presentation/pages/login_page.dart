@@ -94,7 +94,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     const SizedBox(height: AppSpacing.md),
                     Text(
                       l10n.welcomeTitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: AppColors.textPrimary,
@@ -103,7 +103,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.welcomeSubtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
                         color: AppColors.textSecondary,
                       ),
@@ -146,7 +146,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         l10n.identifierLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textPrimary,
@@ -159,15 +159,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         hintText: l10n.identifierPlaceholder,
-                        prefixIcon: const Icon(Icons.phone_android_rounded,
+                        prefixIcon: Icon(Icons.phone_android_rounded,
                             color: AppColors.textSecondary),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(color: AppColors.border),
+                          borderSide: BorderSide(color: AppColors.border),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(color: AppColors.border),
+                          borderSide: BorderSide(color: AppColors.border),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -187,7 +187,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         l10n.passwordLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textPrimary,
@@ -200,7 +200,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: l10n.passwordPlaceholder,
-                        prefixIcon: const Icon(Icons.lock_outline_rounded,
+                        prefixIcon: Icon(Icons.lock_outline_rounded,
                             color: AppColors.textSecondary),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -214,11 +214,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(color: AppColors.border),
+                          borderSide: BorderSide(color: AppColors.border),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(color: AppColors.border),
+                          borderSide: BorderSide(color: AppColors.border),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -305,7 +305,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       children: [
                         Text(
                           l10n.noAccount,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 14, color: AppColors.textSecondary),
                         ),
                         const SizedBox(width: 4),

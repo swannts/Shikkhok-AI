@@ -61,9 +61,9 @@ class _LearnPageState extends ConsumerState<LearnPage> {
         elevation: 0,
         scrolledUnderElevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: Text(l10n.learnHeader, style: AppTypography.sectionTitle),
         actions: [
@@ -98,11 +98,11 @@ class _LearnPageState extends ConsumerState<LearnPage> {
                   color: AppColors.primaryLight,
                   borderRadius: BorderRadius.circular(18),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.auto_stories_rounded,
+                    const Icon(Icons.auto_stories_rounded,
                         color: AppColors.primary, size: 28),
-                    SizedBox(width: AppSpacing.sm),
+                    const SizedBox(width: AppSpacing.sm),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +113,7 @@ class _LearnPageState extends ConsumerState<LearnPage> {
                                 fontWeight: FontWeight.w700,
                                 fontSize: 15,
                               )),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 3),
                           Text('বই খুলে অধ্যায় ও পাঠ থেকে শেখা শুরু করো',
                               style: TextStyle(
                                 color: AppColors.textSecondary,
@@ -186,7 +186,7 @@ class _LearnPageState extends ConsumerState<LearnPage> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.search_off_rounded,
+                            Icon(Icons.search_off_rounded,
                                 color: AppColors.textSecondary, size: 48),
                             const SizedBox(height: AppSpacing.sm),
                             Text(
@@ -204,7 +204,7 @@ class _LearnPageState extends ConsumerState<LearnPage> {
                     children: [
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text('তোমার পাঠ্যবই',
                                 style: AppTypography.sectionTitle),
                           ),
@@ -267,8 +267,7 @@ class _LearnPageState extends ConsumerState<LearnPage> {
             ),
           ),
           const SizedBox(width: AppSpacing.xs),
-          const Icon(Icons.chevron_right_rounded,
-              color: AppColors.textSecondary),
+          Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
         ],
       ),
     );

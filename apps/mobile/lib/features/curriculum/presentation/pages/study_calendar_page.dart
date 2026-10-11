@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -75,9 +75,9 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: Text(
           l10n.studyCalendarTitle,
@@ -143,8 +143,7 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       IconButton(
-                                        icon: const Icon(
-                                            Icons.chevron_left_rounded,
+                                        icon: Icon(Icons.chevron_left_rounded,
                                             color: AppColors.textPrimary),
                                         onPressed: () {
                                           setState(() => _monthOffset--);
@@ -152,14 +151,13 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
                                       ),
                                       Text(
                                         _getMonthName(),
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.textPrimary),
                                       ),
                                       IconButton(
-                                        icon: const Icon(
-                                            Icons.chevron_right_rounded,
+                                        icon: Icon(Icons.chevron_right_rounded,
                                             color: AppColors.textPrimary),
                                         onPressed: () {
                                           setState(() => _monthOffset++);
@@ -176,7 +174,7 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
                                         width: 36,
                                         child: Text(
                                           day,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.textSecondary),
@@ -285,7 +283,7 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
                                                     color: AppColors.primary)),
-                                            const Text(
+                                            Text(
                                                 'ধারাবাহিকতা বজায় রাখতে আজ অন্তত ৩০ মিনিট পড়ুন।',
                                                 style: TextStyle(
                                                     fontSize: 12,
@@ -306,7 +304,7 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
 
                             Text(
                               '$_selectedDay-র নির্ধারিত পাঠ',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.textPrimary),
@@ -317,8 +315,8 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
                               final tasks = _getTasksForSelectedDay(
                                   planState.plan!.items);
                               if (tasks.isEmpty) {
-                                return const Padding(
-                                  padding: EdgeInsets.all(16.0),
+                                return Padding(
+                                  padding: const EdgeInsets.all(16.0),
                                   child: Text('এই দিনে কোনো পাঠ নেই',
                                       style: TextStyle(
                                           color: AppColors.textSecondary)),
@@ -377,7 +375,7 @@ class _StudyCalendarPageState extends ConsumerState<StudyCalendarPage> {
                 ),
                 const SizedBox(height: 2),
                 Text(subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 12, color: AppColors.textSecondary)),
               ],
             ),

@@ -87,10 +87,13 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed:
-              isProcessing ? null : () => context.go(AppRoutes.subscription),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: isProcessing
+              ? null
+              : () => AppRoutes.back(
+                    context,
+                    fallbackLocation: AppRoutes.subscription,
+                  ),
         ),
         title: Text(
           l10n.checkoutTitle,
@@ -120,7 +123,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('অর্ডার বিবরণ',
+                          Text('অর্ডার বিবরণ',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -130,20 +133,20 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(plan.title,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 14,
                                       color: AppColors.textSecondary)),
                               Text('৳${plan.priceBdt}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 14,
                                       color: AppColors.textPrimary)),
                             ],
                           ),
-                          const Divider(height: 20, color: AppColors.border),
+                          Divider(height: 20, color: AppColors.border),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text('মোট প্রদেয়',
+                              Text('মোট প্রদেয়',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -159,7 +162,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    const Text('পেমেন্ট মাধ্যম নির্বাচন করুন',
+                    Text('পেমেন্ট মাধ্যম নির্বাচন করুন',
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -201,7 +204,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
                                 const SizedBox(width: AppSpacing.md),
                                 Expanded(
                                   child: Text(pm.$1,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.textPrimary)),
@@ -227,7 +230,7 @@ class _CheckoutPageState extends ConsumerState<CheckoutPage> {
             // Sticky CTA Action
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),

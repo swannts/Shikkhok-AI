@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -22,9 +22,11 @@ class WeeklyLearningReportPage extends ConsumerWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/student-progress-dashboard'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(
+            context,
+            fallbackLocation: AppRoutes.studentProgressDashboard,
+          ),
         ),
         title: Text(
           l10n.weeklyReportTitle,
@@ -98,7 +100,7 @@ class WeeklyLearningReportPage extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: AppSpacing.xl),
-                      const Text('সাপ্তাহিক হাইলাইটস',
+                      Text('সাপ্তাহিক হাইলাইটস',
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -121,11 +123,11 @@ class WeeklyLearningReportPage extends ConsumerWidget {
                                       color: Colors.green, size: 28),
                                   const SizedBox(height: 8),
                                   Text('$practiceSessionsটি সেশন',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.textPrimary)),
-                                  const Text('অনুশীলন করা হয়েছে',
+                                  Text('অনুশীলন করা হয়েছে',
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: AppColors.textSecondary)),
@@ -151,11 +153,11 @@ class WeeklyLearningReportPage extends ConsumerWidget {
                                       size: 28),
                                   const SizedBox(height: 8),
                                   Text('$streakDays দিন টানা',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.textPrimary)),
-                                  const Text('পড়াশোনার রেকর্ড',
+                                  Text('পড়াশোনার রেকর্ড',
                                       style: TextStyle(
                                           fontSize: 12,
                                           color: AppColors.textSecondary)),
@@ -175,10 +177,10 @@ class WeeklyLearningReportPage extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(color: AppColors.border),
                           ),
-                          child: const Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
+                              const Row(
                                 children: [
                                   Icon(Icons.lightbulb_rounded,
                                       color: Colors.amber, size: 22),
@@ -190,7 +192,7 @@ class WeeklyLearningReportPage extends ConsumerWidget {
                                           color: AppColors.primary)),
                                 ],
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 'এই সপ্তাহে তোমার অগ্রগতি দারুণ! আগামী সপ্তাহে নতুন অধ্যায়গুলো আরও প্র্যাকটিস করলে অনেক ভালো করা সম্ভব।',
                                 style: TextStyle(

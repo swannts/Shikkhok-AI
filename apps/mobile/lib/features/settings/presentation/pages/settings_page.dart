@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../app/router/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
+import '../../../../app/theme/theme_mode_controller.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
-  bool _darkMode = false;
+class _SettingsPageState extends ConsumerState<SettingsPage> {
   bool _highContrast = false;
   bool _studyReminder = true;
   bool _voiceAssistant = true;
@@ -28,8 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future<void> _loadSettings() async {
     _prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
     setState(() {
-      _darkMode = _prefs?.getBool('darkMode') ?? false;
       _highContrast = _prefs?.getBool('highContrast') ?? false;
       _studyReminder = _prefs?.getBool('studyReminder') ?? true;
       _voiceAssistant = _prefs?.getBool('voiceAssistant') ?? true;
@@ -48,6 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final isDarkMode = ref.watch(themeModeProvider) == ThemeMode.dark;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -55,9 +57,9 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/profile'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.studentProfile),
         ),
         title: Text(
           l10n.settingsTitle,
@@ -91,7 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ListTile(
                       leading: const Icon(Icons.language_rounded,
                           color: AppColors.primary),
-                      title: const Text('ভাষা (Language)',
+                      title: Text('ভাষা (Language)',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -110,32 +112,31 @@ class _SettingsPageState extends State<SettingsPage> {
                                 color: AppColors.primary)),
                       ),
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     SwitchListTile(
                       secondary: const Icon(Icons.dark_mode_rounded,
                           color: AppColors.primary),
-                      title: const Text('ডার্ক মোড (Dark Mode)',
+                      title: Text('ডার্ক মোড (Dark Mode)',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
-                      value: _darkMode,
+                      value: isDarkMode,
                       activeTrackColor: AppColors.primary,
                       onChanged: (val) {
-                        setState(() => _darkMode = val);
-                        _saveBool('darkMode', val);
+                        ref.read(themeModeProvider.notifier).setDarkMode(val);
                       },
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     SwitchListTile(
                       secondary: const Icon(Icons.notifications_active_rounded,
                           color: AppColors.primary),
-                      title: const Text('স্টাডি রিমাইন্ডার',
+                      title: Text('স্টাডি রিমাইন্ডার',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
-                      subtitle: const Text('প্রতিদিনের পড়াশোনার নোটিফিকেশন',
+                      subtitle: Text('প্রতিদিনের পড়াশোনার নোটিফিকেশন',
                           style: TextStyle(
                               fontSize: 12, color: AppColors.textSecondary)),
                       value: _studyReminder,
@@ -166,11 +167,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.text_fields_rounded,
+                        const Icon(Icons.text_fields_rounded,
                             color: AppColors.primary),
-                        SizedBox(width: 12),
+                        const SizedBox(width: 12),
                         Text('ফন্ট সাইজ (Text Size)',
                             style: TextStyle(
                                 fontSize: 15,
@@ -192,17 +193,17 @@ class _SettingsPageState extends State<SettingsPage> {
                         _saveDouble('textSize', val);
                       },
                     ),
-                    const Divider(height: 16, color: AppColors.border),
+                    Divider(height: 16, color: AppColors.border),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
                       secondary: const Icon(Icons.contrast_rounded,
                           color: AppColors.primary),
-                      title: const Text('হাই কনট্রাস্ট মোড',
+                      title: Text('হাই কনট্রাস্ট মোড',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
-                      subtitle: const Text('লেখা স্পষ্ট দেখতে বেশি কনট্রাস্ট',
+                      subtitle: Text('লেখা স্পষ্ট দেখতে বেশি কনট্রাস্ট',
                           style: TextStyle(
                               fontSize: 12, color: AppColors.textSecondary)),
                       value: _highContrast,
@@ -212,17 +213,17 @@ class _SettingsPageState extends State<SettingsPage> {
                         _saveBool('highContrast', val);
                       },
                     ),
-                    const Divider(height: 16, color: AppColors.border),
+                    Divider(height: 16, color: AppColors.border),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
                       secondary: const Icon(Icons.record_voice_over_rounded,
                           color: AppColors.primary),
-                      title: const Text('ভয়েস অ্যাসিস্ট্যান্ট প্রম্পট',
+                      title: Text('ভয়েস অ্যাসিস্ট্যান্ট প্রম্পট',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
-                      subtitle: const Text('উত্তর পড়ে শোনানোর সুবিধা',
+                      subtitle: Text('উত্তর পড়ে শোনানোর সুবিধা',
                           style: TextStyle(
                               fontSize: 12, color: AppColors.textSecondary)),
                       value: _voiceAssistant,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -39,9 +40,9 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: TextField(
           controller: _searchController,
@@ -51,7 +52,7 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
             border: InputBorder.none,
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
-                    icon: const Icon(Icons.clear_rounded,
+                    icon: Icon(Icons.clear_rounded,
                         color: AppColors.textSecondary),
                     onPressed: () => setState(() => _searchController.clear()),
                   )
@@ -102,7 +103,7 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
               // Recent Searches Tag List
               Text(
                 l10n.recentSearches,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textSecondary),
@@ -112,10 +113,10 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
                 spacing: 8,
                 children: recentSearches.map((tag) {
                   return ActionChip(
-                    avatar: const Icon(Icons.history_rounded,
+                    avatar: Icon(Icons.history_rounded,
                         size: 16, color: AppColors.textSecondary),
                     label: Text(tag,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 13, color: AppColors.textPrimary)),
                     backgroundColor: AppColors.surface,
                     onPressed: () =>
@@ -125,7 +126,7 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
               ),
               const SizedBox(height: AppSpacing.xl),
               // Search Results List
-              const Text(
+              Text(
                 'ফলাফলসমূহ',
                 style: TextStyle(
                     fontSize: 16,
@@ -197,12 +198,12 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary)),
                   Text(subtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 12, color: AppColors.textSecondary)),
                 ],
               ),
@@ -214,8 +215,8 @@ class _GlobalSearchPageState extends State<GlobalSearchPage> {
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(tag,
-                  style: const TextStyle(
-                      fontSize: 11, color: AppColors.textSecondary)),
+                  style:
+                      TextStyle(fontSize: 11, color: AppColors.textSecondary)),
             ),
           ],
         ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -36,11 +34,6 @@ class _ParentDashboardPageState extends ConsumerState<ParentDashboardPage> {
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         elevation: 0.5,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.home),
-        ),
         title: Text(
           l10n.parentDashboardTitle,
           style: const TextStyle(
@@ -109,10 +102,10 @@ class _ParentDashboardPageState extends ConsumerState<ParentDashboardPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.family_restroom_rounded,
+                Icon(Icons.family_restroom_rounded,
                     color: AppColors.textSecondary, size: 64),
                 const SizedBox(height: AppSpacing.md),
-                const Text(
+                Text(
                   'কোনো শিক্ষার্থীর অ্যাকাউন্ট যুক্ত নেই',
                   style: TextStyle(
                     fontSize: 18,
@@ -121,7 +114,7 @@ class _ParentDashboardPageState extends ConsumerState<ParentDashboardPage> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xs),
-                const Text(
+                Text(
                   'আপনার সন্তানের অগ্রগতি ও পড়াশোনা পর্যবেক্ষণ করতে অ্যাকাউন্ট লিঙ্ক করুন।',
                   textAlign: TextAlign.center,
                   style: AppTypography.body,
@@ -216,7 +209,7 @@ class _ParentDashboardPageState extends ConsumerState<ParentDashboardPage> {
                       children: [
                         Text(
                           activeChild.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary,
@@ -225,7 +218,7 @@ class _ParentDashboardPageState extends ConsumerState<ParentDashboardPage> {
                         const SizedBox(height: 2),
                         Text(
                           '${activeChild.classLevel}ম শ্রেণি • ${activeChild.medium.toUpperCase()}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             color: AppColors.textSecondary,
                           ),
@@ -270,13 +263,13 @@ class _ParentDashboardPageState extends ConsumerState<ParentDashboardPage> {
                     '${dashboard?.weeklyMinutes ?? activeChild.totalMinutesThisWeek} মিনিট',
                     AppColors.primary,
                   ),
-                  const VerticalDivider(width: 1, color: AppColors.border),
+                  VerticalDivider(width: 1, color: AppColors.border),
                   _buildMetricStat(
                     'মোট বিষয়',
                     '${dashboard?.subjects.length ?? 0}টি',
                     Colors.green,
                   ),
-                  const VerticalDivider(width: 1, color: AppColors.border),
+                  VerticalDivider(width: 1, color: AppColors.border),
                   _buildMetricStat(
                     'গড় সঠিকতা',
                     '${(dashboard?.averageAccuracy ?? activeChild.averageScore).toInt()}%',
@@ -298,7 +291,7 @@ class _ParentDashboardPageState extends ConsumerState<ParentDashboardPage> {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 4),
         Text(

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'dart:typed_data';
 
@@ -77,7 +76,7 @@ class _TextbookReaderPageState extends State<TextbookReaderPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () =>
-              context.canPop() ? context.pop() : context.go(AppRoutes.learn),
+              AppRoutes.back(context, fallbackLocation: AppRoutes.learn),
         ),
         actions: [PdfReadingControls(controller: _pdfController)],
       ),
@@ -116,10 +115,10 @@ class _TextbookReaderPageState extends State<TextbookReaderPage> {
                 },
               ),
               if (!_documentLoaded)
-                const Positioned.fill(
+                Positioned.fill(
                   child: ColoredBox(
                     color: AppColors.background,
-                    child: Center(child: CircularProgressIndicator()),
+                    child: const Center(child: CircularProgressIndicator()),
                   ),
                 ),
             ],

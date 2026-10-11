@@ -18,9 +18,11 @@ class AiTutorChatPage extends ConsumerStatefulWidget {
   const AiTutorChatPage({
     super.key,
     this.initialConversationId,
+    this.initialPrompt,
   });
 
   final String? initialConversationId;
+  final String? initialPrompt;
 
   @override
   ConsumerState<AiTutorChatPage> createState() => _AiTutorChatPageState();
@@ -35,10 +37,17 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(tutorControllerProvider.notifier)
-          .loadInitial(conversationId: widget.initialConversationId);
+      _loadInitialConversation();
     });
+  }
+
+  Future<void> _loadInitialConversation() async {
+    final tutor = ref.read(tutorControllerProvider.notifier);
+    await tutor.loadInitial(conversationId: widget.initialConversationId);
+    final prompt = widget.initialPrompt?.trim();
+    if (mounted && prompt != null && prompt.isNotEmpty) {
+      await tutor.streamMessage(prompt);
+    }
   }
 
   @override
@@ -97,9 +106,9 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/home'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: Row(
           children: [
@@ -135,7 +144,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
               children: [
                 Text(
                   activeConversation?.title ?? l10n.aiTutorTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textPrimary,
@@ -143,7 +152,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                 ),
                 Text(
                   subtitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     color: AppColors.textSecondary,
                   ),
@@ -159,8 +168,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
             onPressed: () => context.push(AppRoutes.voiceAiTutor),
           ),
           IconButton(
-            icon: const Icon(Icons.history_rounded,
-                color: AppColors.textSecondary),
+            icon: Icon(Icons.history_rounded, color: AppColors.textSecondary),
             onPressed: () => context.go('/ai-tutor-history'),
           ),
         ],
@@ -204,7 +212,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                 ],
               ),
             ),
-            const Divider(height: 1, color: AppColors.border),
+            Divider(height: 1, color: AppColors.border),
             Expanded(
               child: Builder(
                 builder: (context) {
@@ -272,21 +280,21 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                         state.messages.length + (state.isSending ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index >= state.messages.length) {
-                        return const Padding(
-                          padding: EdgeInsets.only(top: 8),
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: AppCard(
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 14,
                                     height: 14,
                                     child: CircularProgressIndicator(
                                         strokeWidth: 2),
                                   ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Text(
                                     'AI উত্তর লিখছে...',
                                     style: TextStyle(
@@ -316,7 +324,7 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                 AppSpacing.md,
                 AppSpacing.md,
               ),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),
@@ -376,13 +384,11 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
                             fillColor: AppColors.background,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide:
-                                  const BorderSide(color: AppColors.border),
+                              borderSide: BorderSide(color: AppColors.border),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
-                              borderSide:
-                                  const BorderSide(color: AppColors.border),
+                              borderSide: BorderSide(color: AppColors.border),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
@@ -440,11 +446,11 @@ class _AiTutorChatPageState extends ConsumerState<AiTutorChatPage> {
       child: ActionChip(
         label: Text(label),
         backgroundColor: AppColors.background,
-        labelStyle: const TextStyle(
+        labelStyle: TextStyle(
           color: AppColors.textPrimary,
           fontWeight: FontWeight.w600,
         ),
-        side: const BorderSide(color: AppColors.border),
+        side: BorderSide(color: AppColors.border),
         onPressed: () {
           _messageController.text = label;
           _messageController.selection = TextSelection.fromPosition(
@@ -532,7 +538,7 @@ class _ChatBubble extends StatelessWidget {
           children: [
             Text(
               message.content,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 15,
                 height: 1.5,
                 color: AppColors.textPrimary,
@@ -560,8 +566,7 @@ class _ChatBubble extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               _formatTime(createdAt),
-              style:
-                  const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+              style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
             ),
           ],
         ),

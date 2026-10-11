@@ -23,9 +23,9 @@ class SubjectDetailsPage extends ConsumerWidget {
           backgroundColor: AppColors.surface,
           title: const Text('বিষয় বিবরণী'),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.learn),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () =>
+                AppRoutes.back(context, fallbackLocation: AppRoutes.learn),
           ),
         ),
         body: Center(
@@ -35,7 +35,7 @@ class SubjectDetailsPage extends ConsumerWidget {
               const Icon(Icons.error_outline_rounded,
                   color: AppColors.error, size: 48),
               const SizedBox(height: AppSpacing.sm),
-              const Text('বিষয়টি খুঁজে পাওয়া যায়নি', style: AppTypography.body),
+              Text('বিষয়টি খুঁজে পাওয়া যায়নি', style: AppTypography.body),
               const SizedBox(height: AppSpacing.md),
               ElevatedButton(
                 onPressed: () => context.go(AppRoutes.learn),
@@ -55,9 +55,9 @@ class SubjectDetailsPage extends ConsumerWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.learn),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.learn),
         ),
         title: Text(
           asyncData.valueOrNull?.subject.name ?? 'বিষয় বিবরণী',
@@ -81,7 +81,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                 const Icon(Icons.error_outline_rounded,
                     color: AppColors.error, size: 48),
                 const SizedBox(height: AppSpacing.sm),
-                const Text(
+                Text(
                   'অধ্যায় তালিকা আনা সম্ভব হয়নি',
                   textAlign: TextAlign.center,
                   style: AppTypography.body,
@@ -150,7 +150,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                             children: [
                               Text(
                                 subject.name,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.textPrimary,
@@ -158,7 +158,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                               ),
                               Text(
                                 'শ্রেণি ${subject.classLevel} • ${subject.medium.toUpperCase()}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 13,
                                   color: AppColors.textSecondary,
                                 ),
@@ -185,7 +185,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                   const SizedBox(height: AppSpacing.xl),
                   Text(
                     readingList == null ? 'অধ্যায়সমূহ' : 'পাঠসমূহ',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -201,7 +201,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.folder_open_rounded,
+                            Icon(Icons.folder_open_rounded,
                                 color: AppColors.textSecondary, size: 48),
                             const SizedBox(height: AppSpacing.sm),
                             Text(
@@ -255,14 +255,14 @@ class SubjectDetailsPage extends ConsumerWidget {
                                     children: [
                                       Text(
                                         'অধ্যায় ${ch.order > 0 ? ch.order : index + 1}',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 12,
                                           color: AppColors.textSecondary,
                                         ),
                                       ),
                                       Text(
                                         ch.title,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.textPrimary,
@@ -275,7 +275,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                                           ch.estimatedMinutes != null
                                               ? '${ch.estimatedMinutes} মিনিট'
                                               : (ch.summary ?? ''),
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 12,
                                             color: AppColors.textSecondary,
                                           ),
@@ -284,7 +284,7 @@ class SubjectDetailsPage extends ConsumerWidget {
                                     ],
                                   ),
                                 ),
-                                const Icon(Icons.chevron_right_rounded,
+                                Icon(Icons.chevron_right_rounded,
                                     color: AppColors.textSecondary),
                               ],
                             ),
@@ -327,7 +327,7 @@ class _TextbookReadAction extends ConsumerWidget {
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: AppColors.border),
             ),
-            child: const Text(
+            child: Text(
               'এই বইয়ের PDF এখনো পাওয়া যায়নি। নিচের অধ্যায়গুলো থেকে পড়া চালিয়ে যাও।',
               style: AppTypography.caption,
               textAlign: TextAlign.center,
@@ -371,7 +371,7 @@ class _BanglaReadingUnitList extends ConsumerWidget {
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
       ),
-      error: (error, stackTrace) => const Text(
+      error: (error, stackTrace) => Text(
         'পাঠগুলো লোড করা যায়নি। আবার চেষ্টা করো।',
         style: AppTypography.body,
       ),
@@ -434,7 +434,7 @@ class _BanglaReadingUnitList extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const Icon(Icons.chevron_right_rounded,
+                    Icon(Icons.chevron_right_rounded,
                         color: AppColors.textSecondary),
                   ],
                 ),

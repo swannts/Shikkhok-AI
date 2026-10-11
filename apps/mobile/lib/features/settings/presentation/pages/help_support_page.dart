@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -32,9 +33,9 @@ class HelpSupportPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/settings'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.settings),
         ),
         title: Text(
           l10n.helpSupportTitle,
@@ -63,47 +64,47 @@ class HelpSupportPage extends StatelessWidget {
                     ListTile(
                       leading: const Icon(Icons.headset_mic_rounded,
                           color: AppColors.primary),
-                      title: const Text('লাইভ চ্যাট সাপোর্ট',
+                      title: Text('লাইভ চ্যাট সাপোর্ট',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
-                      subtitle: const Text('সকাল ৯টা - রাত ১০টা',
+                      subtitle: Text('সকাল ৯টা - রাত ১০টা',
                           style: TextStyle(
                               fontSize: 12, color: AppColors.textSecondary)),
-                      trailing: const Icon(Icons.chevron_right_rounded,
+                      trailing: Icon(Icons.chevron_right_rounded,
                           color: AppColors.textSecondary),
                       onTap: () => context.go('/ai-tutor-chat'),
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     ListTile(
                       leading:
                           const Icon(Icons.email_outlined, color: Colors.blue),
-                      title: const Text('ইমেইল সাপোর্ট',
+                      title: Text('ইমেইল সাপোর্ট',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
-                      subtitle: const Text('support@shikkhok.ai',
+                      subtitle: Text('support@shikkhok.ai',
                           style: TextStyle(
                               fontSize: 12, color: AppColors.textSecondary)),
-                      trailing: const Icon(Icons.chevron_right_rounded,
+                      trailing: Icon(Icons.chevron_right_rounded,
                           color: AppColors.textSecondary),
                       onTap: () {},
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     ListTile(
                       leading: const Icon(Icons.phone_in_talk_rounded,
                           color: Colors.green),
-                      title: const Text('হটলাইন হেল্পলাইন',
+                      title: Text('হটলাইন হেল্পলাইন',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
-                      subtitle: const Text('১৬৬৭৭ (টোল ফ্রি)',
+                      subtitle: Text('১৬৬৭৭ (টোল ফ্রি)',
                           style: TextStyle(
                               fontSize: 12, color: AppColors.textSecondary)),
-                      trailing: const Icon(Icons.chevron_right_rounded,
+                      trailing: Icon(Icons.chevron_right_rounded,
                           color: AppColors.textSecondary),
                       onTap: () {},
                     ),
@@ -111,7 +112,7 @@ class HelpSupportPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.xl),
-              const Text('সাধারণ জিজ্ঞাসাসমূহ (FAQ)',
+              Text('সাধারণ জিজ্ঞাসাসমূহ (FAQ)',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -133,14 +134,14 @@ class HelpSupportPage extends StatelessWidget {
                     ),
                     child: ExpansionTile(
                       title: Text(faq.$1,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary)),
                       childrenPadding: const EdgeInsets.all(AppSpacing.md),
                       children: [
                         Text(faq.$2,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14,
                                 height: 1.5,
                                 color: AppColors.textSecondary)),

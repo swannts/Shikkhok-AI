@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -115,9 +116,11 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.pop(),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(
+            context,
+            fallbackLocation: AppRoutes.login,
+          ),
         ),
       ),
       body: SafeArea(
@@ -158,7 +161,7 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                   const SizedBox(height: AppSpacing.md),
                   Text(
                     l10n.verifyMobileTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -168,7 +171,7 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                   Text(
                     '$_phone নম্বরে পাঠানো ৬-সংখ্যার ওটিপি কোডটি লিখুন',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       color: AppColors.textSecondary,
                     ),
@@ -225,8 +228,7 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                             counterText: '',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide:
-                                  const BorderSide(color: AppColors.border),
+                              borderSide: BorderSide(color: AppColors.border),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -280,7 +282,7 @@ class _VerifyOtpPageState extends ConsumerState<VerifyOtpPage> {
                         _startSeconds > 0
                             ? 'পুনরায় পাঠান ($_startSeconds সেকেন্ড)'
                             : 'কোড পাননি?',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 14, color: AppColors.textSecondary),
                       ),
                       if (_startSeconds == 0) ...[

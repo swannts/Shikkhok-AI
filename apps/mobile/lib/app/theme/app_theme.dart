@@ -23,7 +23,7 @@ class AppTheme {
         onPrimary: AppColors.onPrimary,
       ),
       scaffoldBackgroundColor: AppColors.background,
-      dividerTheme: const DividerThemeData(
+      dividerTheme: DividerThemeData(
         color: AppColors.divider,
         space: 1,
         thickness: 1,
@@ -38,19 +38,19 @@ class AppTheme {
         bodySmall: AppTypography.caption,
         labelLarge: AppTypography.button,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.surface,
         elevation: 0,
         scrolledUnderElevation: 0.0,
         iconTheme: IconThemeData(color: AppColors.textPrimary),
         titleTextStyle: AppTypography.sectionTitle,
       ),
-      cardTheme: const CardThemeData(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         elevation: 0,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
           side: BorderSide(color: AppColors.border),
         ),
       ),
@@ -91,7 +91,7 @@ class AppTheme {
           color: AppColors.textPrimary,
         ),
       ),
-      navigationBarTheme: const NavigationBarThemeData(
+      navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.surface,
         elevation: 0,
         indicatorColor: AppColors.primaryLight,
@@ -105,11 +105,11 @@ class AppTheme {
             horizontal: AppSpacing.md, vertical: AppSpacing.smd),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border, width: 1),
+          borderSide: BorderSide(color: AppColors.border, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border, width: 1),
+          borderSide: BorderSide(color: AppColors.border, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -120,9 +120,37 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.error, width: 1),
         ),
       ),
-      extensions: const [
+      extensions: [
         ShikkhokThemeExtension.light,
       ],
+    );
+  }
+
+  static ThemeData get darkTheme {
+    final scheme = ColorScheme.fromSeed(
+      seedColor: AppColors.primary,
+      brightness: Brightness.dark,
+      primary: AppColors.primary,
+      onPrimary: AppColors.onPrimary,
+      secondary: AppColors.secondaryBlue,
+      surface: AppColors.surface,
+      onSurface: AppColors.textPrimary,
+      error: AppColors.error,
+    );
+    return lightTheme.copyWith(
+      brightness: Brightness.dark,
+      colorScheme: scheme,
+      scaffoldBackgroundColor: AppColors.background,
+      canvasColor: AppColors.background,
+      dialogTheme: DialogThemeData(backgroundColor: AppColors.surface),
+      bottomSheetTheme:
+          BottomSheetThemeData(backgroundColor: AppColors.surface),
+      popupMenuTheme: PopupMenuThemeData(color: AppColors.surface),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: AppColors.primary,
+        selectionColor: AppColors.primary.withAlpha(75),
+        selectionHandleColor: AppColors.primary,
+      ),
     );
   }
 }

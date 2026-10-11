@@ -77,7 +77,7 @@ class Onboarding3Page extends StatelessWidget {
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     l10n.onboarding3Description,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       color: AppColors.textSecondary,
                       height: 1.5,
@@ -115,7 +115,7 @@ class Onboarding3Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -124,7 +124,7 @@ class Onboarding3Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -194,7 +194,7 @@ class Onboarding3Page extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: AppColors.textPrimary,

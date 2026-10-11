@@ -30,7 +30,7 @@ class PracticeResultPage extends ConsumerWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+          icon: Icon(Icons.close_rounded, color: AppColors.textPrimary),
           onPressed: () => context.go(AppRoutes.home),
         ),
         title: Text(
@@ -65,7 +65,7 @@ class PracticeResultPage extends ConsumerWidget {
               const SizedBox(height: AppSpacing.sm),
               Text(
                 l10n.greatEffortTitle,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textPrimary,
@@ -88,13 +88,13 @@ class PracticeResultPage extends ConsumerWidget {
                       '$correctCount / $totalCount',
                       AppColors.primary,
                     ),
-                    const VerticalDivider(width: 1, color: AppColors.border),
+                    VerticalDivider(width: 1, color: AppColors.border),
                     _buildMetricCol(
                       l10n.accuracyLabel,
                       '$accuracy%',
                       Colors.green,
                     ),
-                    const VerticalDivider(width: 1, color: AppColors.border),
+                    VerticalDivider(width: 1, color: AppColors.border),
                     _buildMetricCol(
                       l10n.timeSpent,
                       '$timeSpentMin মিনিট',
@@ -165,7 +165,7 @@ class PracticeResultPage extends ConsumerWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 4),
         Text(

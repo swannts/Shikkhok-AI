@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
 import '../controllers/auth_controller.dart';
@@ -76,13 +77,12 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
           onPressed: () {
             if (_isResetMode) {
               setState(() => _isResetMode = false);
             } else {
-              context.pop();
+              AppRoutes.back(context, fallbackLocation: AppRoutes.login);
             }
           },
         ),
@@ -127,7 +127,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                     _isResetMode
                         ? 'নতুন পাসওয়ার্ড দিন'
                         : 'পাসওয়ার্ড ভুলে গেছেন?',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -139,7 +139,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                         ? 'প্রাপ্ত রিসেট কোড এবং আপনার নতুন পাসওয়ার্ড লিখুন'
                         : 'আপনার অ্যাকাউন্টের ইমেইল বা ফোন নম্বর লিখুন',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       color: AppColors.textSecondary,
                     ),
@@ -184,7 +184,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'ইমেইল বা ফোন নম্বর',
                             style: TextStyle(
                               fontSize: 14,
@@ -198,7 +198,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               hintText: 'example@mail.com বা 017XXXXXXXX',
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.person_outline_rounded,
                                 color: AppColors.textSecondary,
                               ),
@@ -264,7 +264,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'রিসেট টোকেন / কোড',
                             style: TextStyle(
                               fontSize: 14,
@@ -277,7 +277,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                             controller: _tokenController,
                             decoration: InputDecoration(
                               hintText: 'রিসেট টোকেন লিখুন',
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.vpn_key_outlined,
                                 color: AppColors.textSecondary,
                               ),
@@ -291,7 +291,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                                     : null,
                           ),
                           const SizedBox(height: AppSpacing.md),
-                          const Text(
+                          Text(
                             'নতুন পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)',
                             style: TextStyle(
                               fontSize: 14,
@@ -305,7 +305,7 @@ class _ForgotPasswordPageState extends ConsumerState<ForgotPasswordPage> {
                             obscureText: _obscurePassword,
                             decoration: InputDecoration(
                               hintText: 'নতুন পাসওয়ার্ড',
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.lock_outline_rounded,
                                 color: AppColors.textSecondary,
                               ),

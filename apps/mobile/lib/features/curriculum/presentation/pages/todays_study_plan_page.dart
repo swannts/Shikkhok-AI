@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -52,11 +52,12 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_rounded,
             color: AppColors.textPrimary,
           ),
-          onPressed: () => context.go('/'),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: Text(
           l10n.todaysStudyPlan,
@@ -70,8 +71,7 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
           IconButton(
             tooltip: 'Refresh',
             onPressed: state.isLoading ? null : notifier.refresh,
-            icon:
-                const Icon(Icons.refresh_rounded, color: AppColors.textPrimary),
+            icon: Icon(Icons.refresh_rounded, color: AppColors.textPrimary),
           ),
         ],
       ),
@@ -127,7 +127,7 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
                 children: [
                   _StudyPlanHeroCard(plan: plan),
                   const SizedBox(height: AppSpacing.lg),
-                  const Text(
+                  Text(
                     'আজকের নির্ধারিত টাস্কসমূহ',
                     style: TextStyle(
                       fontSize: 18,
@@ -137,7 +137,7 @@ class _TodaysStudyPlanPageState extends ConsumerState<TodaysStudyPlanPage> {
                   ),
                   const SizedBox(height: AppSpacing.md),
                   if (plan.items.isEmpty)
-                    const AppCard(
+                    AppCard(
                       child: Text(
                         'এই পরিকল্পনায় এখনও কোনো টাস্ক যোগ করা হয়নি।',
                         style: TextStyle(color: AppColors.textSecondary),
@@ -329,7 +329,7 @@ class _PlanTaskTile extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   '$subjectLabel • ${item.targetMinutes} মিনিট',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     color: AppColors.textSecondary,
                   ),
@@ -338,7 +338,7 @@ class _PlanTaskTile extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     item.note!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
                       color: AppColors.textSecondary,
                     ),

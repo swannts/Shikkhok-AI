@@ -26,7 +26,10 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.arrow_back_rounded,
                         color: Colors.white),
-                    onPressed: () => context.go(AppRoutes.homeworkHelpLanding),
+                    onPressed: () => AppRoutes.back(
+                      context,
+                      fallbackLocation: AppRoutes.homeworkHelpLanding,
+                    ),
                   ),
                   Text(
                     l10n.reviewImageTitle,
@@ -92,9 +95,9 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
             // Bottom Panel
             Container(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(28),
                   topRight: Radius.circular(28),
                 ),
@@ -117,7 +120,7 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                           children: [
                             Text(
                               l10n.uploadingProgress(100),
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 13,
                                 color: AppColors.textSecondary,
                               ),
@@ -127,10 +130,10 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                         const SizedBox(height: 6),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(4),
-                          child: const LinearProgressIndicator(
+                          child: LinearProgressIndicator(
                             value: 1.0,
                             backgroundColor: AppColors.border,
-                            valueColor: AlwaysStoppedAnimation<Color>(
+                            valueColor: const AlwaysStoppedAnimation<Color>(
                               AppColors.primary,
                             ),
                             minHeight: 6,
@@ -160,7 +163,7 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     l10n.isQuestionClear,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -169,7 +172,7 @@ class CapturedHomeworkReviewPage extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     l10n.unclearWarning,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13,
                       color: AppColors.textSecondary,
                     ),

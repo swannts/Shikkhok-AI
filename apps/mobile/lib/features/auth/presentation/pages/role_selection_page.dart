@@ -56,7 +56,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                   const SizedBox(height: AppSpacing.xs),
                   Text(
                     l10n.roleSelectionSubtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       color: AppColors.textSecondary,
                     ),
@@ -79,7 +79,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                     subtitle: l10n.parentRoleDesc,
                   ),
                   const SizedBox(height: AppSpacing.md),
-                  const Text(
+                  Text(
                     'শিক্ষক অ্যাকাউন্ট এখন আলাদা অনুমোদিত workflow দিয়ে তৈরি হয়।',
                     style: TextStyle(
                       fontSize: 13,
@@ -179,7 +179,7 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13,
                       color: AppColors.textSecondary,
                     ),

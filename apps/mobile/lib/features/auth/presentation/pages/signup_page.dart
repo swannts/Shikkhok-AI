@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -84,9 +85,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/role-selection'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.roleSelection),
         ),
       ),
       body: SafeArea(
@@ -115,7 +116,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   children: [
                     Text(
                       l10n.signupTitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: AppColors.textPrimary,
@@ -124,7 +125,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.signupSubtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
                         color: AppColors.textSecondary,
                       ),
@@ -202,7 +203,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         l10n.fullNameLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textPrimary,
@@ -214,7 +215,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       controller: _nameController,
                       decoration: InputDecoration(
                         hintText: l10n.fullNamePlaceholder,
-                        prefixIcon: const Icon(Icons.person_outline_rounded,
+                        prefixIcon: Icon(Icons.person_outline_rounded,
                             color: AppColors.textSecondary),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16)),
@@ -231,7 +232,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         l10n.mobileNumberLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textPrimary,
@@ -244,7 +245,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         hintText: l10n.mobileNumberPlaceholder,
-                        prefixIcon: const Icon(Icons.phone_android_rounded,
+                        prefixIcon: Icon(Icons.phone_android_rounded,
                             color: AppColors.textSecondary),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16)),
@@ -264,7 +265,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         l10n.passwordLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textPrimary,
@@ -277,7 +278,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: l10n.passwordPlaceholder,
-                        prefixIcon: const Icon(Icons.lock_outline_rounded,
+                        prefixIcon: Icon(Icons.lock_outline_rounded,
                             color: AppColors.textSecondary),
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword
@@ -300,7 +301,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         l10n.confirmPasswordLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textPrimary,
@@ -313,7 +314,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       obscureText: _obscureConfirmPassword,
                       decoration: InputDecoration(
                         hintText: l10n.passwordPlaceholder,
-                        prefixIcon: const Icon(Icons.lock_outline_rounded,
+                        prefixIcon: Icon(Icons.lock_outline_rounded,
                             color: AppColors.textSecondary),
                         suffixIcon: IconButton(
                           icon: Icon(_obscureConfirmPassword
@@ -344,7 +345,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                         Expanded(
                           child: Text(
                             l10n.termsAgreement,
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 13, color: AppColors.textSecondary),
                           ),
                         ),
@@ -392,7 +393,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                       children: [
                         Text(
                           l10n.alreadyHaveAccount,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 14, color: AppColors.textSecondary),
                         ),
                         const SizedBox(width: 4),

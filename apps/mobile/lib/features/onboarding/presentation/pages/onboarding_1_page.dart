@@ -29,7 +29,7 @@ class Onboarding1Page extends StatelessWidget {
                   onPressed: () => context.go('/login'),
                   child: Text(
                     l10n.skip,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
@@ -66,7 +66,7 @@ class Onboarding1Page extends StatelessWidget {
                 children: [
                   Text(
                     l10n.onboarding1Title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -77,7 +77,7 @@ class Onboarding1Page extends StatelessWidget {
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     l10n.onboarding1Description,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       color: AppColors.textSecondary,
                       height: 1.5,
@@ -109,7 +109,7 @@ class Onboarding1Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),
@@ -118,7 +118,7 @@ class Onboarding1Page extends StatelessWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: AppColors.border,
                           shape: BoxShape.circle,
                         ),

@@ -95,7 +95,7 @@ class _SplashPageState extends ConsumerState<SplashPage>
                   const SizedBox(height: AppSpacing.xs),
                   Text(
                     l10n.appSubtitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       color: AppColors.textSecondary,
                     ),
@@ -148,7 +148,7 @@ class _SplashPageState extends ConsumerState<SplashPage>
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     l10n.loadingApp,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13,
                       color: AppColors.textSecondary,
                     ),

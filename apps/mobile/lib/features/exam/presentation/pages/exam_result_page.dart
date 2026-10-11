@@ -34,7 +34,7 @@ class ExamResultPage extends ConsumerWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+          icon: Icon(Icons.close_rounded, color: AppColors.textPrimary),
           onPressed: () => context.go(AppRoutes.examLibrary),
         ),
         title: Text(
@@ -82,7 +82,7 @@ class ExamResultPage extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 2),
-              const Text(
+              Text(
                 'পরীক্ষার ফলাফল বিবরণী',
                 style: TextStyle(
                   fontSize: 14,
@@ -108,8 +108,7 @@ class ExamResultPage extends ConsumerWidget {
                           '$score / $totalMarks',
                           isPassed ? Colors.green : AppColors.error,
                         ),
-                        const VerticalDivider(
-                            width: 1, color: AppColors.border),
+                        VerticalDivider(width: 1, color: AppColors.border),
                         _buildExamStat(
                           'সঠিকতা',
                           '$percentage%',
@@ -117,7 +116,7 @@ class ExamResultPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    const Divider(height: 24, color: AppColors.border),
+                    Divider(height: 24, color: AppColors.border),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -126,8 +125,7 @@ class ExamResultPage extends ConsumerWidget {
                           '$timeSpentMin মিনিট',
                           AppColors.textPrimary,
                         ),
-                        const VerticalDivider(
-                            width: 1, color: AppColors.border),
+                        VerticalDivider(width: 1, color: AppColors.border),
                         _buildExamStat(
                           'স্ট্যাটাস',
                           isPassed ? 'উত্তীর্ণ' : 'অনুত্তীর্ণ',
@@ -190,11 +188,10 @@ class ExamResultPage extends ConsumerWidget {
               const SizedBox(height: 10),
               TextButton.icon(
                 onPressed: () => context.go(AppRoutes.home),
-                icon: const Icon(Icons.home_outlined,
-                    color: AppColors.textSecondary),
+                icon: Icon(Icons.home_outlined, color: AppColors.textSecondary),
                 label: Text(
                   l10n.backToHome,
-                  style: const TextStyle(color: AppColors.textSecondary),
+                  style: TextStyle(color: AppColors.textSecondary),
                 ),
               ),
             ],
@@ -209,7 +206,7 @@ class ExamResultPage extends ConsumerWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 4),
         Text(

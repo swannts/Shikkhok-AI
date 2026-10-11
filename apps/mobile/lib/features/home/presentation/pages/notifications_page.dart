@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -65,9 +65,9 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: Row(
           mainAxisSize: MainAxisSize.min,
@@ -260,7 +260,7 @@ class _NotificationTile extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       _formatRelativeTime(notification.createdAt),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11,
                         color: AppColors.textSecondary,
                       ),
@@ -270,7 +270,7 @@ class _NotificationTile extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   notification.body,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
                     height: 1.4,
                     color: AppColors.textSecondary,

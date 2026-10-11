@@ -167,9 +167,13 @@ export class PracticeService {
       case PracticeQuestionType.TRUE_FALSE: {
         const selected = dto.selectedOptionId ?? null;
         const correctOptionId = question.correctOptionIds?.[0] ?? null;
+        const isCorrect =
+          selected !== null &&
+          correctOptionId !== null &&
+          this.sameOption(selected, correctOptionId);
         return {
-          isCorrect: selected !== null && selected === correctOptionId,
-          partialScore: selected !== null && selected === correctOptionId ? 100 : 0,
+          isCorrect,
+          partialScore: isCorrect ? 100 : 0,
           submittedAnswer: { selectedOptionId: selected },
           correctAnswer: { correctOptionIds: question.correctOptionIds },
         };
@@ -261,6 +265,23 @@ export class PracticeService {
 
   private normalizeText(value: string): string {
     return value.toLowerCase().trim().replace(/\s+/g, ' ');
+  }
+
+  private sameOption(selected: string, correct: string): boolean {
+    if (selected === correct) return true;
+    const selectedIndex = this.optionIndex(selected);
+    const correctIndex = this.optionIndex(correct);
+    return selectedIndex !== null && correctIndex !== null && selectedIndex === correctIndex;
+  }
+
+  private optionIndex(value: string): number | null {
+    const normalized = value.trim().toLowerCase();
+    const numeric = normalized.match(/^(?:opt|option)?[_-]?(\d+)$/);
+    if (numeric) return Number(numeric[1]);
+
+    const letter = normalized.match(/^(?:opt|option)[_-]?([a-z])$/);
+    if (letter) return letter[1].charCodeAt(0) - 'a'.charCodeAt(0);
+    return null;
   }
 
   private serializeQuestionForStudent(question: any): PracticeQuestionStudentResponse {

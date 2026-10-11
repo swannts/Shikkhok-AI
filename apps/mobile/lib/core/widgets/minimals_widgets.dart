@@ -232,11 +232,11 @@ class MinimalsInput extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       onChanged: onChanged,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 14,
         color: AppColors.textPrimary,
         fontFamily: 'SutonnyMJ',
-        fontFamilyFallback: [
+        fontFamilyFallback: const [
           'SutonnyMJ',
           'Anek Bangla',
           'Hind Siliguri',
@@ -245,11 +245,11 @@ class MinimalsInput extends StatelessWidget {
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           fontSize: 14,
           color: AppColors.textSecondary,
           fontFamily: 'SutonnyMJ',
-          fontFamilyFallback: [
+          fontFamilyFallback: const [
             'SutonnyMJ',
             'Anek Bangla',
             'Hind Siliguri',
@@ -264,11 +264,11 @@ class MinimalsInput extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border, width: 1),
+          borderSide: BorderSide(color: AppColors.border, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border, width: 1),
+          borderSide: BorderSide(color: AppColors.border, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

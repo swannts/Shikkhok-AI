@@ -22,16 +22,17 @@ class ShikkhokThemeExtension extends ThemeExtension<ShikkhokThemeExtension> {
     required this.infoLight,
   });
 
-  static const light = ShikkhokThemeExtension(
-    surfaceMuted: AppColors.surfaceLow,
-    surfaceHover: AppColors.surfaceContainer,
-    success: AppColors.success,
-    successLight: AppColors.successLight,
-    warning: AppColors.warning,
-    warningLight: AppColors.warningLight,
-    errorLight: AppColors.errorLight,
-    infoLight: AppColors.info, // or another appropriate color from the palette
-  );
+  static ShikkhokThemeExtension get light => ShikkhokThemeExtension(
+        surfaceMuted: AppColors.surfaceLow,
+        surfaceHover: AppColors.surfaceContainer,
+        success: AppColors.success,
+        successLight: AppColors.successLight,
+        warning: AppColors.warning,
+        warningLight: AppColors.warningLight,
+        errorLight: AppColors.errorLight,
+        infoLight:
+            AppColors.info, // or another appropriate color from the palette
+      );
 
   @override
   ThemeExtension<ShikkhokThemeExtension> copyWith({

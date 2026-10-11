@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -49,9 +50,9 @@ class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/role-selection'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.roleSelection),
         ),
         title: const Text(
           'Shikkhok-AI',
@@ -75,7 +76,7 @@ class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(l10n.stepProgress('১'),
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14, color: AppColors.textSecondary)),
                         const Text('33%',
                             style: TextStyle(
@@ -87,11 +88,11 @@ class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
                     const SizedBox(height: AppSpacing.xs),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: const LinearProgressIndicator(
+                      child: LinearProgressIndicator(
                         value: 0.33,
                         backgroundColor: AppColors.border,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                            AppColors.primary),
                         minHeight: 6,
                       ),
                     ),
@@ -100,7 +101,7 @@ class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
                     // Headings
                     Text(
                       l10n.selectClassTitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary),
@@ -108,7 +109,7 @@ class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       l10n.selectClassSubtitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 15, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: AppSpacing.lg),
@@ -211,7 +212,7 @@ class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
                       const SizedBox(height: AppSpacing.xl),
                       Text(
                         l10n.selectGroupTitle,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary),
@@ -236,7 +237,7 @@ class _ClassSelectionPageState extends ConsumerState<ClassSelectionPage> {
               padding: const EdgeInsets.all(AppSpacing.lg),
               decoration: BoxDecoration(
                 color: AppColors.surface,
-                border: const Border(top: BorderSide(color: AppColors.border)),
+                border: Border(top: BorderSide(color: AppColors.border)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withAlpha(8),

@@ -26,9 +26,9 @@ class ChapterDetailsPage extends ConsumerWidget {
           backgroundColor: AppColors.surface,
           title: Text(l10n.chapterDetailsTitle),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.learn),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () =>
+                AppRoutes.back(context, fallbackLocation: AppRoutes.learn),
           ),
         ),
         body: Center(
@@ -38,8 +38,7 @@ class ChapterDetailsPage extends ConsumerWidget {
               const Icon(Icons.error_outline_rounded,
                   color: AppColors.error, size: 48),
               const SizedBox(height: AppSpacing.sm),
-              const Text('অধ্যায়টি খুঁজে পাওয়া যায়নি',
-                  style: AppTypography.body),
+              Text('অধ্যায়টি খুঁজে পাওয়া যায়নি', style: AppTypography.body),
               const SizedBox(height: AppSpacing.md),
               ElevatedButton(
                 onPressed: () => context.go(AppRoutes.learn),
@@ -59,9 +58,9 @@ class ChapterDetailsPage extends ConsumerWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.learn),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.learn),
         ),
         title: Text(
           asyncData.valueOrNull?.chapter.title ?? l10n.chapterDetailsTitle,
@@ -85,7 +84,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                 const Icon(Icons.error_outline_rounded,
                     color: AppColors.error, size: 48),
                 const SizedBox(height: AppSpacing.sm),
-                const Text(
+                Text(
                   'পাঠ তালিকা আনা সম্ভব হয়নি',
                   textAlign: TextAlign.center,
                   style: AppTypography.body,
@@ -125,7 +124,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                         // Hero Title
                         Text(
                           chapter.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary,
@@ -136,7 +135,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                           subject?.classLevel != null
                               ? '${subject?.name ?? 'বিষয়'} • শ্রেণি ${subject!.classLevel}'
                               : (subject?.name ?? 'বিষয়'),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 14,
                             color: AppColors.textSecondary,
                           ),
@@ -168,7 +167,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
+                                      Text(
                                         'অধ্যায় অগ্রগতি',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -243,7 +242,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
+                                      Text(
                                         'মোট পাঠ',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -253,7 +252,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                                       const SizedBox(height: 2),
                                       Text(
                                         '${lessons.length}টি',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.textPrimary,
@@ -266,7 +265,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        const Text(
+                                        Text(
                                           'আনুমানিক সময়',
                                           style: TextStyle(
                                             fontSize: 12,
@@ -276,7 +275,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                                         const SizedBox(height: 2),
                                         Text(
                                           '${chapter.estimatedMinutes} মিনিট',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.textPrimary,
@@ -292,7 +291,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                         const SizedBox(height: AppSpacing.xl),
                         Text(
                           l10n.lessonsList,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary,
@@ -307,7 +306,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.menu_book_outlined,
+                                  Icon(Icons.menu_book_outlined,
                                       color: AppColors.textSecondary, size: 48),
                                   const SizedBox(height: AppSpacing.sm),
                                   Text(
@@ -399,7 +398,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                 children: [
                   Text(
                     lesson.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
@@ -411,7 +410,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                       lesson.summary!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
                         color: AppColors.textSecondary,
                       ),
@@ -431,7 +430,7 @@ class ChapterDetailsPage extends ConsumerWidget {
                 ),
                 child: Text(
                   timeBadge,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11,
                     color: AppColors.textSecondary,
                   ),
@@ -439,8 +438,7 @@ class ChapterDetailsPage extends ConsumerWidget {
               ),
             ],
             const SizedBox(width: 4),
-            const Icon(Icons.chevron_right_rounded,
-                color: AppColors.textSecondary),
+            Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
           ],
         ),
       ),

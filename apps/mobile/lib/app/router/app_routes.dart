@@ -1,4 +1,16 @@
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+
 abstract final class AppRoutes {
+  /// Pops the current page when it was pushed, otherwise opens a safe parent.
+  static void back(BuildContext context, {required String fallbackLocation}) {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(fallbackLocation);
+    }
+  }
+
   // Static Top-Level Routes
   static const splash = '/splash';
   static const onboarding1 = '/onboarding-1';

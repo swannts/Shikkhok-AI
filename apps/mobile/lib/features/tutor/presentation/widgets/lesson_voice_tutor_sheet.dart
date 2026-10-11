@@ -553,7 +553,7 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
             const Icon(Icons.record_voice_over_rounded,
                 color: AppColors.primary),
             const SizedBox(width: AppSpacing.sm),
-            const Expanded(
+            Expanded(
               child: Text(
                 'পাঠ নিয়ে কথা বলো',
                 style: TextStyle(
@@ -590,11 +590,11 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
               .whereType<String>()
               .where((value) => value.trim().isNotEmpty)
               .join(' • '),
-          style: const TextStyle(color: AppColors.textSecondary),
+          style: TextStyle(color: AppColors.textSecondary),
         ),
         if (widget.voiceOnly) ...[
           const SizedBox(height: AppSpacing.xs),
-          const Text(
+          Text(
             'শুনে শেখো, মাইকে মুখে উত্তর দাও',
             style: TextStyle(
               color: AppColors.textSecondary,
@@ -626,7 +626,7 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
                 hintText: _isListening
                     ? 'শুনছি… প্রশ্নটি বলো'
                     : 'পাঠ নিয়ে বাংলায় প্রশ্ন বলো বা লিখো',
-                hintStyle: const TextStyle(color: AppColors.textSecondary),
+                hintStyle: TextStyle(color: AppColors.textSecondary),
               ),
             ),
           ),
@@ -694,7 +694,7 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
                     padding: const EdgeInsets.only(top: AppSpacing.sm),
                     child: Text(
                       'পাঠ্যবইয়ের ${latestReply.citations.length}টি উৎস',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 12,
                       ),
@@ -849,8 +849,8 @@ class _LessonVoiceTutorSheetState extends ConsumerState<LessonVoiceTutorSheet> {
             ],
           ),
         if (tutorState.isStreaming)
-          const Padding(
-            padding: EdgeInsets.only(top: AppSpacing.sm),
+          Padding(
+            padding: const EdgeInsets.only(top: AppSpacing.sm),
             child: Text(
               'এই পাঠের তথ্য দেখে উত্তর তৈরি হচ্ছে…',
               textAlign: TextAlign.center,

@@ -48,9 +48,9 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
           backgroundColor: AppColors.surface,
           title: Text(l10n.examLibraryTitle),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.examLibrary),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () => AppRoutes.back(context,
+                fallbackLocation: AppRoutes.examLibrary),
           ),
         ),
         body: Center(
@@ -60,7 +60,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
               const Icon(Icons.error_outline_rounded,
                   color: AppColors.error, size: 48),
               const SizedBox(height: AppSpacing.sm),
-              const Text(
+              Text(
                 'পরীক্ষা আইডি সঠিক নয়',
                 style: AppTypography.body,
               ),
@@ -76,9 +76,9 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
     }
 
     if (examState is ExamSessionLoading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.background,
-        body: Center(
+        body: const Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
       );
@@ -91,9 +91,9 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
           backgroundColor: AppColors.surface,
           title: Text(l10n.examLibraryTitle),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.examLibrary),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () => AppRoutes.back(context,
+                fallbackLocation: AppRoutes.examLibrary),
           ),
         ),
         body: Center(
@@ -135,7 +135,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                 const Icon(Icons.check_circle_rounded,
                     color: AppColors.primary, size: 64),
                 const SizedBox(height: AppSpacing.md),
-                const Text(
+                Text(
                   'পরীক্ষা সফলভাবে জমা দেওয়া হয়েছে!',
                   style: TextStyle(
                     fontSize: 20,
@@ -146,7 +146,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                 const SizedBox(height: AppSpacing.sm),
                 Text(
                   'প্রাপ্ত নম্বর: ${examState.result.score} / ${examState.result.totalMarks}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     color: AppColors.textSecondary,
                   ),
@@ -174,9 +174,9 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
     }
 
     if (examState is! ExamSessionActive) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.background,
-        body: Center(
+        body: const Center(
           child: CircularProgressIndicator(color: AppColors.primary),
         ),
       );
@@ -194,12 +194,12 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+          icon: Icon(Icons.close_rounded, color: AppColors.textPrimary),
           onPressed: () => _showExitDialog(context),
         ),
         title: Text(
           l10n.questionProgress(currentIdx + 1, totalQ),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
             color: AppColors.textPrimary,
@@ -292,7 +292,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
                           const SizedBox(height: AppSpacing.md),
                           Text(
                             currentQ.prompt,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               height: 1.5,
@@ -391,7 +391,7 @@ class _ExamSessionPageState extends ConsumerState<ExamSessionPage> {
             // Bottom Navigation & Submit Bar
             Container(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),

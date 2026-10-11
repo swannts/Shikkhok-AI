@@ -26,10 +26,10 @@ class CacheStatusBanner extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColors.warning.withAlpha(80)),
         ),
-        child: const Row(
+        child: Row(
           children: [
-            Icon(Icons.cloud_off_rounded, size: 18, color: AppColors.warning),
-            SizedBox(width: AppSpacing.sm),
+            const Icon(Icons.cloud_off_rounded, size: 18, color: AppColors.warning),
+            const SizedBox(width: AppSpacing.sm),
             Expanded(
               child: Text(
                 'অফলাইন মোড: দেখানো তথ্য শেষবার সংরক্ষিত কপি। ইন্টারনেট এলে আপডেট হবে।',
@@ -63,8 +63,7 @@ class CacheStatusBanner extends ConsumerWidget {
                 color: AppColors.warning.withAlpha(24),
                 borderRadius: BorderRadius.circular(12)),
             child: Text('ক্যাশ করা তথ্য • $label আগে আপডেট হয়েছে',
-                style: const TextStyle(
-                    fontSize: 12, color: AppColors.textPrimary)),
+                style: TextStyle(fontSize: 12, color: AppColors.textPrimary)),
           );
         },
       );

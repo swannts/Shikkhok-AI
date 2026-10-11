@@ -17,7 +17,7 @@ class PaymentSuccessPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+          icon: Icon(Icons.close_rounded, color: AppColors.textPrimary),
           onPressed: () => context.go('/'),
         ),
         title: Text(
@@ -45,7 +45,7 @@ class PaymentSuccessPage extends StatelessWidget {
                     color: Colors.green, size: 64),
               ),
               const SizedBox(height: AppSpacing.md),
-              const Text(
+              Text(
                 'পেমেন্ট সফল হয়েছে!',
                 style: TextStyle(
                     fontSize: 24,
@@ -53,7 +53,7 @@ class PaymentSuccessPage extends StatelessWidget {
                     color: AppColors.textPrimary),
               ),
               const SizedBox(height: 4),
-              const Text(
+              Text(
                 'অভিনন্দন! তোমার Shikkhok Plus সাবস্ক্রিপশন সচল করা হয়েছে।',
                 style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
                 textAlign: TextAlign.center,
@@ -70,11 +70,11 @@ class PaymentSuccessPage extends StatelessWidget {
                 child: Column(
                   children: [
                     _buildReceiptRow('ট্রানজেকশন আইডি', 'TXN98421045'),
-                    const Divider(height: 16, color: AppColors.border),
+                    Divider(height: 16, color: AppColors.border),
                     _buildReceiptRow('প্যাকেজ', 'Shikkhok Plus (১ বছর)'),
-                    const Divider(height: 16, color: AppColors.border),
+                    Divider(height: 16, color: AppColors.border),
                     _buildReceiptRow('পরিশোধিত অর্থ', '৳১৯৯৯'),
-                    const Divider(height: 16, color: AppColors.border),
+                    Divider(height: 16, color: AppColors.border),
                     _buildReceiptRow('তারিখ', '২৪ আগস্ট ২০২৬'),
                   ],
                 ),
@@ -143,10 +143,9 @@ class PaymentSuccessPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title,
-            style:
-                const TextStyle(fontSize: 13, color: AppColors.textSecondary)),
+            style: TextStyle(fontSize: 13, color: AppColors.textSecondary)),
         Text(val,
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: AppColors.textPrimary)),

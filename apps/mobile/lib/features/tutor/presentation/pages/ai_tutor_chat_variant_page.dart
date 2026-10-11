@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -24,9 +24,11 @@ class _AiTutorChatVariantPageState extends State<AiTutorChatVariantPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/ai-tutor-chat'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(
+            context,
+            fallbackLocation: AppRoutes.aiTutorChat,
+          ),
         ),
         title: Text(
           l10n.aiTutorTitle,
@@ -79,7 +81,7 @@ class _AiTutorChatVariantPageState extends State<AiTutorChatVariantPage> {
                     const SizedBox(height: AppSpacing.md),
                     Text(
                       l10n.thinking,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 14, color: AppColors.textSecondary),
                     ),
                   ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -17,9 +18,9 @@ class SourceCitationPage extends StatelessWidget {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/ai-tutor-chat'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.aiTutorChat),
         ),
         title: Text(
           l10n.sourceCitationTitle,
@@ -65,13 +66,13 @@ class SourceCitationPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    const Text('উৎস রেফারেন্স',
+                    Text('উৎস রেফারেন্স',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColors.textPrimary)),
                     const SizedBox(height: 4),
-                    const Text(
+                    Text(
                         'জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) • গণিত, ৮ম শ্রেণি',
                         style: TextStyle(
                             fontSize: 13, color: AppColors.textSecondary)),
@@ -84,13 +85,13 @@ class SourceCitationPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: AppColors.border),
                       ),
-                      child: const Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('অধ্যায় ৪: সরল সমীকরণ',
+                              const Text('অধ্যায় ৪: সরল সমীকরণ',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -120,7 +121,7 @@ class SourceCitationPage extends StatelessWidget {
             // Sticky CTA Action
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),

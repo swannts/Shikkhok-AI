@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
@@ -71,9 +72,9 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/ai-tutor-chat'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.aiTutorChat),
         ),
         title: Text(
           l10n.chatHistoryTitle,
@@ -85,7 +86,7 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.chat_bubble_outline_rounded,
+            icon: Icon(Icons.chat_bubble_outline_rounded,
                 color: AppColors.textSecondary),
             onPressed: () => context.go('/ai-tutor-chat'),
           ),
@@ -103,7 +104,7 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
                 onChanged: (_) => setState(() {}),
                 decoration: InputDecoration(
                   hintText: l10n.searchHistoryPlaceholder,
-                  prefixIcon: const Icon(Icons.search_rounded,
+                  prefixIcon: Icon(Icons.search_rounded,
                       color: AppColors.textSecondary),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -177,7 +178,7 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
                                     conversation.title,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.textPrimary,
@@ -186,7 +187,7 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
                                   const SizedBox(height: 2),
                                   Text(
                                     '${conversation.classLevel}ম শ্রেণি • ${conversation.messageCount} বার্তা',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 12,
                                       color: AppColors.textSecondary,
                                     ),
@@ -198,7 +199,7 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
                                     Text(
                                       _formatRelative(
                                           conversation.lastMessageAt),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 11,
                                         color: AppColors.textSecondary,
                                       ),
@@ -207,7 +208,7 @@ class _AiTutorHistoryPageState extends ConsumerState<AiTutorHistoryPage> {
                                 ],
                               ),
                             ),
-                            const Icon(
+                            Icon(
                               Icons.chevron_right_rounded,
                               color: AppColors.textSecondary,
                             ),

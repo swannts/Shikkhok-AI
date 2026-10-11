@@ -62,13 +62,12 @@ class _HomePageState extends ConsumerState<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none_rounded,
+            icon: Icon(Icons.notifications_none_rounded,
                 color: AppColors.textPrimary),
             onPressed: () => context.go(AppRoutes.notifications),
           ),
           IconButton(
-            icon:
-                const Icon(Icons.search_rounded, color: AppColors.textPrimary),
+            icon: Icon(Icons.search_rounded, color: AppColors.textPrimary),
             onPressed: () => context.go(AppRoutes.globalSearch),
           ),
         ],
@@ -113,8 +112,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('আজকের অগ্রগতি',
-                          style: AppTypography.cardTitle),
+                      Text('আজকের অগ্রগতি', style: AppTypography.cardTitle),
                       AppBadge(
                         label: '$streak দিন টানা 🔥',
                         variant: AppBadgeVariant.warning,
@@ -166,7 +164,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   Container(
                     width: 44,
                     height: 44,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.primaryLight,
                       shape: BoxShape.circle,
                     ),
@@ -174,13 +172,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                         color: AppColors.primaryDark),
                   ),
                   const SizedBox(width: AppSpacing.md),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('আজকের পড়াশোনার পরিকল্পনা',
                             style: AppTypography.cardTitle),
-                        SizedBox(height: 2),
+                        const SizedBox(height: 2),
                         Text('দৈনিক নির্ধারিত পাঠ ও অনুশীলন',
                             style: AppTypography.caption),
                       ],

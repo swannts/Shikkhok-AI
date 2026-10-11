@@ -46,7 +46,7 @@ class StudentBottomNavigation extends StatelessWidget {
       selectedIndex: _selectedIndex(path),
       onDestinationSelected: (index) => _go(context, index),
       destinations: destinations,
-      labelTextStyle: const WidgetStatePropertyAll(AppTypography.captionBold),
+      labelTextStyle: WidgetStatePropertyAll(AppTypography.captionBold),
       backgroundColor: AppColors.surface,
       indicatorColor: AppColors.primaryLight,
     );

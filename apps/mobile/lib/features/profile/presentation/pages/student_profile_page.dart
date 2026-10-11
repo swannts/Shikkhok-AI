@@ -56,9 +56,9 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.home),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: Text(
           l10n.profileTitle,
@@ -102,7 +102,7 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
               const SizedBox(height: AppSpacing.sm),
               Text(
                 name,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textPrimary,
@@ -111,7 +111,7 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
               const SizedBox(height: 2),
               Text(
                 classAndStream,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
                   color: AppColors.textSecondary,
                 ),
@@ -133,13 +133,13 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
                       '${progress?.streakDays ?? 0} দিন 🔥',
                       Colors.deepOrange,
                     ),
-                    const VerticalDivider(width: 1, color: AppColors.border),
+                    VerticalDivider(width: 1, color: AppColors.border),
                     _buildStatCol(
                       'গড় সঠিকতা',
                       '${(progress?.averageScore ?? 0).toInt()}%',
                       AppColors.primary,
                     ),
-                    const VerticalDivider(width: 1, color: AppColors.border),
+                    VerticalDivider(width: 1, color: AppColors.border),
                     _buildStatCol(
                       'পাঠ সম্পন্ন',
                       '${progress?.totalLessonsCompleted ?? 0}টি',
@@ -165,7 +165,7 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
                       subtitle: 'সকল আনলিমিটেড এআই সুবিধা',
                       onTap: () => context.go(AppRoutes.subscription),
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     _buildMenuTile(
                       icon: Icons.analytics_outlined,
                       iconColor: AppColors.primary,
@@ -173,21 +173,21 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
                       onTap: () =>
                           context.go(AppRoutes.studentProgressDashboard),
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     _buildMenuTile(
                       icon: Icons.cloud_download_outlined,
                       iconColor: Colors.blue,
                       title: l10n.offlineDownloadsTitle,
                       onTap: () => context.go(AppRoutes.offlineDownloads),
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     _buildMenuTile(
                       icon: Icons.settings_outlined,
                       iconColor: Colors.purple,
                       title: l10n.settingsTitle,
                       onTap: () => context.go(AppRoutes.settings),
                     ),
-                    const Divider(height: 1, color: AppColors.border),
+                    Divider(height: 1, color: AppColors.border),
                     _buildMenuTile(
                       icon: Icons.logout_rounded,
                       iconColor: Colors.red,
@@ -217,7 +217,7 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 4),
         Text(
@@ -261,14 +261,14 @@ class _StudentProfilePageState extends ConsumerState<StudentProfilePage> {
       subtitle: subtitle != null
           ? Text(
               subtitle,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
                 color: AppColors.textSecondary,
               ),
             )
           : null,
-      trailing: const Icon(Icons.chevron_right_rounded,
-          color: AppColors.textSecondary),
+      trailing:
+          Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
     );
   }
 }

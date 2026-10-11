@@ -28,9 +28,11 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/captured-homework-review'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(
+            context,
+            fallbackLocation: AppRoutes.capturedHomeworkReview,
+          ),
         ),
         title: Text(
           l10n.solutionTitle,
@@ -104,7 +106,7 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
                                 ),
                               ),
                               const SizedBox(width: AppSpacing.md),
-                              const Expanded(
+                              Expanded(
                                 child: Text(
                                   '"2x + 5 = 15 হলে x এর মান কত?"',
                                   style: TextStyle(
@@ -151,7 +153,7 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'ধাপ ১',
                             style: TextStyle(
                                 fontSize: 13,
@@ -159,7 +161,7 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
                                 color: AppColors.textSecondary),
                           ),
                           const SizedBox(height: 4),
-                          const Text(
+                          Text(
                             'প্রথমে উভয় পাশ থেকে ৫ বিয়োগ করো।',
                             style: TextStyle(
                                 fontSize: 15, color: AppColors.textPrimary),
@@ -193,7 +195,7 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
                             ),
                           ),
                           const SizedBox(height: AppSpacing.md),
-                          const Text(
+                          Text(
                             'এখন কী পেলাম?',
                             style: TextStyle(
                                 fontSize: 15,
@@ -296,7 +298,7 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
                                 border: Border.all(
                                     color: AppColors.primary.withAlpha(50)),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'ইঙ্গিত: সমীকরণের উভয় পাশে ৪ যোগ করে পক্ষান্তর সম্পন্ন করুন।',
                                 style: TextStyle(
                                     fontSize: 13, color: AppColors.textPrimary),
@@ -314,7 +316,7 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
             // Bottom Action Footer
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),
@@ -331,11 +333,11 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(color: AppColors.border),
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
                           Icon(Icons.chat_bubble_outline_rounded,
                               color: AppColors.textSecondary, size: 20),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text('AI শিক্ষককে আরও জিজ্ঞেস করো...',
                               style: TextStyle(
                                   fontSize: 14,
@@ -345,12 +347,12 @@ class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.menu_book_rounded,
                           size: 12, color: AppColors.textSecondary),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text('উৎস: NCTB গণিত, ৮ম শ্রেণি, পৃষ্ঠা ৫২',
                           style: TextStyle(
                               fontSize: 11, color: AppColors.textSecondary)),

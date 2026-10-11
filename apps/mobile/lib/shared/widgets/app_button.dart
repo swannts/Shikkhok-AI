@@ -92,7 +92,7 @@ class AppButton extends StatelessWidget {
         child: OutlinedButton(
           onPressed: (isDisabled || isLoading) ? null : onPressed,
           style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: AppColors.border, width: 1.5),
+            side: BorderSide(color: AppColors.border, width: 1.5),
             shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMd),
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
           ),

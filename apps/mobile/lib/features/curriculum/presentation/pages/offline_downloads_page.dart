@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -37,9 +37,9 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.textbookLibrary),
         ),
         title: Text(
           l10n.offlineDownloadsTitle,
@@ -84,11 +84,11 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
+                        Row(
                           children: [
-                            Icon(Icons.sd_storage_rounded,
+                            const Icon(Icons.sd_storage_rounded,
                                 color: AppColors.primary, size: 20),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               'স্টোরেজ ব্যবহার',
                               style: TextStyle(
@@ -101,7 +101,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                         ),
                         Text(
                           '$storageMb MB ব্যবহৃত',
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 12, color: AppColors.textSecondary),
                         ),
                       ],
@@ -148,7 +148,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
 
               Text(
                 'সংরক্ষিত বইসমূহ (${completedBooks.length}/${state.availableTextbooks.length}টি ডাউনলোডকৃত)',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textPrimary,
@@ -171,7 +171,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: AppColors.border),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'কোনো পাঠ্যবই পাওয়া যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করুন।',
                       style: TextStyle(color: AppColors.textSecondary),
@@ -239,7 +239,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                                   children: [
                                     Text(
                                       book.title,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.textPrimary,
@@ -250,7 +250,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                                       children: [
                                         Text(
                                           '$sizeLabel • শ্রেণি ${book.classLevel}',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 12,
                                             color: AppColors.textSecondary,
                                           ),
@@ -341,7 +341,7 @@ class _OfflineDownloadsPageState extends ConsumerState<OfflineDownloadsPage> {
                             const SizedBox(height: 4),
                             Text(
                               'ডাউনলোড হচ্ছে ${(task.progress * 100).toStringAsFixed(0)}%',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 11,
                                 color: AppColors.textSecondary,
                               ),

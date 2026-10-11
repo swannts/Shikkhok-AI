@@ -31,9 +31,9 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
           backgroundColor: AppColors.surface,
           title: Text(l10n.examInstructionsTitle),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded,
-                color: AppColors.textPrimary),
-            onPressed: () => context.go(AppRoutes.examLibrary),
+            icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+            onPressed: () => AppRoutes.back(context,
+                fallbackLocation: AppRoutes.examLibrary),
           ),
         ),
         body: Center(
@@ -43,7 +43,7 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
               const Icon(Icons.error_outline_rounded,
                   color: AppColors.error, size: 48),
               const SizedBox(height: AppSpacing.sm),
-              const Text(
+              Text(
                 'পরীক্ষাটি খুঁজে পাওয়া যায়নি',
                 style: AppTypography.body,
               ),
@@ -71,9 +71,9 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.examLibrary),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.examLibrary),
         ),
         title: Text(
           l10n.examInstructionsTitle,
@@ -119,7 +119,7 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'মডেল টেস্ট পরীক্ষা',
                                   style: TextStyle(
                                     fontSize: 18,
@@ -130,7 +130,7 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
                                 const SizedBox(height: 2),
                                 Text(
                                   'সকল প্রশ্নের উত্তর বাধ্যতামূলক • ${l10n.totalMarks}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 12,
                                     color: AppColors.textSecondary,
                                   ),
@@ -142,7 +142,7 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.xl),
-                    const Text(
+                    Text(
                       'পরীক্ষার নিয়মাবলী',
                       style: TextStyle(
                         fontSize: 18,
@@ -190,7 +190,7 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
                               Expanded(
                                 child: Text(
                                   rules[index],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 14,
                                     height: 1.5,
                                     color: AppColors.textPrimary,
@@ -219,7 +219,7 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
                           Expanded(
                             child: Text(
                               l10n.agreeRules,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.textPrimary,
@@ -236,7 +236,7 @@ class _ExamInstructionsPageState extends ConsumerState<ExamInstructionsPage> {
             // Bottom Sticky Start Exam Action
             Container(
               padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),

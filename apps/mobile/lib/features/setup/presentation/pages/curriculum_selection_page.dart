@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
@@ -29,9 +30,9 @@ class _CurriculumSelectionPageState
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go('/class-selection'),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () => AppRoutes.back(context,
+              fallbackLocation: AppRoutes.classSelection),
         ),
         title: const Text(
           'Shikkhok-AI',
@@ -55,7 +56,7 @@ class _CurriculumSelectionPageState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(l10n.stepProgress('২'),
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14, color: AppColors.textSecondary)),
                         const Text('66%',
                             style: TextStyle(
@@ -67,11 +68,11 @@ class _CurriculumSelectionPageState
                     const SizedBox(height: AppSpacing.xs),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(4),
-                      child: const LinearProgressIndicator(
+                      child: LinearProgressIndicator(
                         value: 0.66,
                         backgroundColor: AppColors.border,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor: const AlwaysStoppedAnimation<Color>(
+                            AppColors.primary),
                         minHeight: 6,
                       ),
                     ),
@@ -80,13 +81,13 @@ class _CurriculumSelectionPageState
                     // Headings
                     Text(
                       l10n.selectCurriculumTitle,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary),
                     ),
                     const SizedBox(height: AppSpacing.xs),
-                    const Text(
+                    Text(
                       'জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) অনুমোদিত',
                       style: TextStyle(
                           fontSize: 15, color: AppColors.textSecondary),
@@ -166,14 +167,14 @@ class _CurriculumSelectionPageState
                                   children: [
                                     Text(
                                       l10n.nctbTitle,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: AppColors.textPrimary),
                                     ),
                                     Text(
                                       l10n.nctbSubtitle,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           fontSize: 12,
                                           color: AppColors.textSecondary),
                                     ),
@@ -184,15 +185,15 @@ class _CurriculumSelectionPageState
                                   color: AppColors.primary, size: 24),
                             ],
                           ),
-                          const Divider(height: 24, color: AppColors.divider),
+                          Divider(height: 24, color: AppColors.divider),
                           Row(
                             children: [
-                              const Icon(Icons.calendar_today_outlined,
+                              Icon(Icons.calendar_today_outlined,
                                   size: 16, color: AppColors.textSecondary),
                               const SizedBox(width: 6),
                               Text(
                                 l10n.academicYear,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.textSecondary),
@@ -207,7 +208,7 @@ class _CurriculumSelectionPageState
                     // Subjects Preview Grid
                     Text(
                       l10n.curriculumSubjects,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary),
@@ -260,7 +261,7 @@ class _CurriculumSelectionPageState
             // Bottom Sticky Next CTA
             Container(
               padding: const EdgeInsets.all(AppSpacing.lg),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: AppColors.surface,
                 border: Border(top: BorderSide(color: AppColors.border)),
               ),
@@ -322,7 +323,7 @@ class _CurriculumSelectionPageState
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textPrimary),

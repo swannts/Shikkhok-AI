@@ -17,7 +17,8 @@ class StudentProgressDashboardPage extends ConsumerWidget {
       appBar: AppBar(
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_rounded),
-              onPressed: () => context.go(AppRoutes.home)),
+              onPressed: () =>
+                  AppRoutes.back(context, fallbackLocation: AppRoutes.home)),
           title: const Text('আমার অগ্রগতি')),
       body: progress.when(
         loading: () => const Center(child: CircularProgressIndicator()),

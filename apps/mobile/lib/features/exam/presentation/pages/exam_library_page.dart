@@ -38,9 +38,9 @@ class _ExamLibraryPageState extends ConsumerState<ExamLibraryPage> {
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded,
-              color: AppColors.textPrimary),
-          onPressed: () => context.go(AppRoutes.home),
+          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          onPressed: () =>
+              AppRoutes.back(context, fallbackLocation: AppRoutes.home),
         ),
         title: Text(
           l10n.examLibraryTitle,
@@ -94,7 +94,7 @@ class _ExamLibraryPageState extends ConsumerState<ExamLibraryPage> {
                 }),
               ),
             ),
-            const Divider(height: 1, color: AppColors.border),
+            Divider(height: 1, color: AppColors.border),
             // Exam Cards List
             Expanded(
               child: _buildBody(context, l10n, examLibraryState),
@@ -150,10 +150,10 @@ class _ExamLibraryPageState extends ConsumerState<ExamLibraryPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.assignment_outlined,
+              Icon(Icons.assignment_outlined,
                   color: AppColors.textSecondary, size: 56),
               const SizedBox(height: AppSpacing.sm),
-              const Text(
+              Text(
                 'কোনো পরীক্ষা পাওয়া যায়নি',
                 style: AppTypography.body,
               ),
@@ -204,7 +204,7 @@ class _ExamLibraryPageState extends ConsumerState<ExamLibraryPage> {
                         children: [
                           Text(
                             exam.title,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary,
@@ -213,7 +213,7 @@ class _ExamLibraryPageState extends ConsumerState<ExamLibraryPage> {
                           const SizedBox(height: 2),
                           Text(
                             '${exam.questionCount}টি প্রশ্ন • ${exam.durationMinutes} মিনিট • মোট নম্বর ${exam.totalMarks}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
                               color: AppColors.textSecondary,
                             ),
@@ -236,7 +236,7 @@ class _ExamLibraryPageState extends ConsumerState<ExamLibraryPage> {
                       ),
                       child: Text(
                         exam.isPublished ? 'উপলব্ধ' : 'শীঘ্রই আসছে',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 11,
                           color: AppColors.textSecondary,
                         ),

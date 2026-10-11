@@ -9,12 +9,15 @@ import 'app_routes.dart';
 final List<RouteBase> tutorRoutes = [
   GoRoute(
     path: AppRoutes.aiTutorChat,
-    builder: (context, state) => const AiTutorChatPage(),
+    builder: (context, state) => AiTutorChatPage(
+      initialPrompt: state.extra is String ? state.extra as String : null,
+    ),
   ),
   GoRoute(
     path: '/tutor/:conversationId',
     builder: (context, state) => AiTutorChatPage(
       initialConversationId: state.pathParameters['conversationId'],
+      initialPrompt: state.extra is String ? state.extra as String : null,
     ),
   ),
   GoRoute(
