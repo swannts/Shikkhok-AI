@@ -6,11 +6,13 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 export interface JwtPayload {
   sub: string; // userId
   role: string; // UserRole value
+  permissions?: string[];
 }
 
 export interface AuthenticatedUser {
   userId: string;
   role: string;
+  permissions?: string[];
 }
 
 /**
@@ -37,6 +39,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'jwt') {
     return {
       userId: payload.sub,
       role: payload.role,
+      permissions: payload.permissions || [],
     };
   }
 }

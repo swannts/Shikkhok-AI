@@ -17,6 +17,8 @@ import 'package:mobile/features/home/domain/entities/gamification_summary.dart';
 import 'package:mobile/features/home/presentation/controllers/home_dashboard_controller.dart';
 import 'package:mobile/features/home/presentation/pages/home_page.dart';
 import 'package:mobile/features/profile/domain/entities/student_profile.dart';
+import 'package:mobile/features/profile/domain/repositories/student_repository.dart';
+import 'package:mobile/features/profile/presentation/controllers/student_profile_controller.dart';
 import 'package:mobile/features/profile/presentation/pages/student_profile_page.dart';
 import 'package:mobile/features/tutor/presentation/pages/ai_tutor_chat_page.dart';
 
@@ -94,12 +96,48 @@ class FakeCurriculumRepository implements CurriculumRepository {
   }) async {}
 }
 
+class FakeStudentRepository implements StudentRepository {
+  @override
+  Future<StudentProfile> getMyProfile() async {
+    return const StudentProfile(
+      id: 'p-1',
+      userId: 'u-1',
+      classLevel: 8,
+      medium: StudentMediumType.bangla,
+    );
+  }
+
+  @override
+  Future<StudentProfile> upsertMyProfile({
+    required int classLevel,
+    required StudentMediumType medium,
+    required int curriculumYear,
+    String? schoolName,
+    String? district,
+    String? upazila,
+    String? board,
+    String? academicStream,
+    String? guardianPhone,
+    List<String>? preferredSubjects,
+    List<String>? learningGoals,
+    DateTime? dateOfBirth,
+  }) async {
+    return const StudentProfile(
+      id: 'p-1',
+      userId: 'u-1',
+      classLevel: 8,
+      medium: StudentMediumType.bangla,
+    );
+  }
+}
+
 Widget createTestApp(
   Widget home, {
   List<Override> overrides = const [],
 }) {
   return ProviderScope(
     overrides: [
+      studentRepositoryProvider.overrideWithValue(FakeStudentRepository()),
       curriculumRepositoryProvider
           .overrideWithValue(FakeCurriculumRepository()),
       homeDashboardProvider.overrideWith((ref) => Future.value(

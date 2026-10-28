@@ -57,6 +57,9 @@ export class User {
   })
   status: UserStatus;
 
+  @Prop({ type: [String], default: [] })
+  permissions?: string[];
+
   // Populated by timestamps: true
   createdAt: Date;
   updatedAt: Date;

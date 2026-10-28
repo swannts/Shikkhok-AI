@@ -17,7 +17,10 @@ import { Request } from 'express';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
+import { PermissionsGuard } from '../../common/guards/permissions.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
+import { RequirePermissions } from '../../common/decorators/permissions.decorator';
+import { AdminPermission } from '../../common/enums/admin-permission.enum';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { MongoObjectIdPipe } from '../../common/pipes/mongo-object-id.pipe';
@@ -41,7 +44,7 @@ interface UploadedPdfFile {
 
 @ApiTags('Admin')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
 @Roles(UserRole.ADMIN)
 @Controller({ path: 'admin', version: '1' })
 export class AdminController {
@@ -52,6 +55,7 @@ export class AdminController {
   ) {}
 
   @Get('ai/health')
+  @RequirePermissions(AdminPermission.AI_READ)
   @ApiOperation({
     summary: 'Check real-time health and reachability of dedicated FastAPI AI service',
   })
@@ -68,6 +72,7 @@ export class AdminController {
   }
 
   @Get('ai/stats')
+  @RequirePermissions(AdminPermission.AI_READ)
   @ApiOperation({ summary: 'Get vector store and curriculum ingestion statistics' })
   @ApiResponse({ status: 200, description: 'Vector store ingestion statistics' })
   async getAiStats() {
@@ -75,6 +80,7 @@ export class AdminController {
   }
 
   @Post('ai/ingest')
+  @RequirePermissions(AdminPermission.AI_MANAGE)
   @ApiOperation({ summary: 'Ingest raw textbook content directly into AI vector store' })
   @ApiResponse({ status: 201, description: 'Content successfully ingested' })
   async ingestTextbook(
@@ -96,6 +102,7 @@ export class AdminController {
   }
 
   @Delete('ai/books/:bookId')
+  @RequirePermissions(AdminPermission.AI_MANAGE)
   @ApiOperation({ summary: 'Delete a textbook collection index from the AI vector store' })
   @ApiResponse({ status: 200, description: 'Book index deleted' })
   async deleteBookIndex(
@@ -117,6 +124,7 @@ export class AdminController {
   }
 
   @Post('ai/retrieval-test')
+  @RequirePermissions(AdminPermission.AI_READ)
   @ApiOperation({ summary: 'Run a scoped retrieval test against the active curriculum index' })
   async testAiRetrieval(
     @CurrentUser() adminUser: AuthenticatedUser,
@@ -137,6 +145,7 @@ export class AdminController {
   }
 
   @Get('metrics/overview')
+  @RequirePermissions(AdminPermission.SYSTEM_OPS)
   @ApiOperation({
     summary: 'Get global system overview, active users, academic completions, and revenue',
   })
@@ -146,6 +155,7 @@ export class AdminController {
   }
 
   @Get('users')
+  @RequirePermissions(AdminPermission.USERS_READ)
   @ApiOperation({
     summary: 'Search and paginate all registered users with role and status filtering',
   })
@@ -155,6 +165,7 @@ export class AdminController {
   }
 
   @Put('users/:userId/status')
+  @RequirePermissions(AdminPermission.USERS_MANAGE)
   @ApiOperation({
     summary: 'Update user account status (active, suspended, deleted) - Self-protection enforced',
   })
@@ -172,6 +183,7 @@ export class AdminController {
   }
 
   @Post('curriculum/subjects')
+  @RequirePermissions(AdminPermission.CURRICULUM_WRITE)
   @ApiOperation({ summary: 'Create a new curriculum subject' })
   @ApiResponse({ status: 201, description: 'Subject created successfully' })
   async createSubject(
@@ -186,6 +198,7 @@ export class AdminController {
   }
 
   @Post('curriculum/chapters')
+  @RequirePermissions(AdminPermission.CURRICULUM_WRITE)
   @ApiOperation({ summary: 'Create a new chapter under a subject' })
   @ApiResponse({ status: 201, description: 'Chapter created successfully' })
   async createChapter(
@@ -200,6 +213,7 @@ export class AdminController {
   }
 
   @Post('curriculum/lessons')
+  @RequirePermissions(AdminPermission.CURRICULUM_WRITE)
   @ApiOperation({ summary: 'Create a new lesson under a chapter' })
   @ApiResponse({ status: 201, description: 'Lesson created successfully' })
   async createLesson(
@@ -214,6 +228,7 @@ export class AdminController {
   }
 
   @Put('curriculum/lessons/:lessonId/publish')
+  @RequirePermissions(AdminPermission.CURRICULUM_PUBLISH)
   @ApiOperation({ summary: 'Toggle lesson publication status' })
   @ApiResponse({ status: 200, description: 'Lesson publication status updated' })
   async toggleLessonPublish(
@@ -229,12 +244,14 @@ export class AdminController {
   }
 
   @Get('curriculum/completeness')
+  @RequirePermissions(AdminPermission.CURRICULUM_READ)
   @ApiOperation({ summary: 'Return curriculum completeness and missing structured lesson content' })
   async getCurriculumCompleteness() {
     return this.adminService.getCurriculumCompleteness();
   }
 
   @Put('curriculum/lessons/:lessonId/workflow')
+  @RequirePermissions(AdminPermission.CURRICULUM_REVIEW)
   @ApiOperation({ summary: 'Transition a lesson through the server-validated review workflow' })
   async transitionLessonWorkflow(
     @CurrentUser() adminUser: AuthenticatedUser,
@@ -253,6 +270,7 @@ export class AdminController {
   }
 
   @Get('payments/pending')
+  @RequirePermissions(AdminPermission.PAYMENTS_READ)
   @ApiOperation({ summary: 'List manual MFS payments pending administrator verification' })
   @ApiResponse({ status: 200, description: 'List of pending manual transactions' })
   async listPendingPayments(@Query('limit') limit?: number, @Query('page') page?: number) {
@@ -263,6 +281,7 @@ export class AdminController {
   }
 
   @Post('payments/:transactionId/approve')
+  @RequirePermissions(AdminPermission.PAYMENTS_MANAGE)
   @ApiOperation({ summary: 'Approve manual MFS payment and activate student subscription' })
   @ApiResponse({ status: 200, description: 'Payment approved and subscription activated' })
   async approvePayment(
@@ -278,6 +297,7 @@ export class AdminController {
   }
 
   @Post('payments/:transactionId/reject')
+  @RequirePermissions(AdminPermission.PAYMENTS_MANAGE)
   @ApiOperation({ summary: 'Reject manual MFS payment with rejection reason' })
   @ApiResponse({ status: 200, description: 'Payment rejected and marked failed' })
   async rejectPayment(
@@ -298,6 +318,7 @@ export class AdminController {
   }
 
   @Get('audit-logs')
+  @RequirePermissions(AdminPermission.AUDIT_READ)
   @ApiOperation({ summary: 'Query and paginate administrator audit trail logs' })
   @ApiResponse({ status: 200, description: 'List of administrative audit logs' })
   async listAuditLogs(
@@ -317,6 +338,7 @@ export class AdminController {
   }
 
   @Get('textbooks/indexing-status')
+  @RequirePermissions(AdminPermission.CURRICULUM_READ)
   @Roles(UserRole.ADMIN)
   async getAllTextbooksIndexingStatus(
     @Query('page') page?: string,
@@ -329,12 +351,14 @@ export class AdminController {
   }
 
   @Post('textbooks/:bookId/reindex')
+  @RequirePermissions(AdminPermission.CURRICULUM_WRITE)
   @Roles(UserRole.ADMIN)
   async queueTextbookForReindex(@Param('bookId', MongoObjectIdPipe) bookId: string) {
     return this.adminService.queueTextbookForReindex(bookId);
   }
 
   @Post('textbooks/upload')
+  @RequirePermissions(AdminPermission.CURRICULUM_WRITE)
   @UseInterceptors(FileInterceptor('file'))
   @ApiOperation({ summary: 'Upload a curriculum PDF and queue it for indexing' })
   async uploadTextbook(

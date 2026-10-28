@@ -209,6 +209,7 @@ Widget wrapPage(Widget page, {CurriculumRepository? repo}) {
   return ProviderScope(
     overrides: [
       if (repo != null) curriculumRepositoryProvider.overrideWithValue(repo),
+      textbooksForSubjectProvider.overrideWith((ref, subject) async => const []),
     ],
     child: MaterialApp(
       theme: AppTheme.lightTheme,
@@ -343,7 +344,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('সার্বিক সেট ও উপসেট'), findsWidgets);
-      expect(find.text('পাঠের বিষয়বস্তু'), findsOneWidget);
+      expect(find.text('সহজে পড়ার পাঠ্য'), findsOneWidget);
       expect(find.text('সার্বিক সেট'), findsOneWidget);
       expect(find.text('সেটের মৌলিক বিষয়াবলি ও উপসেট গঠন।'), findsOneWidget);
       expect(

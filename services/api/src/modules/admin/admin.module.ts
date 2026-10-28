@@ -31,6 +31,7 @@ import { AdminService } from './admin.service';
 import { AdminController } from './admin.controller';
 import { CurriculumProgressController } from './curriculum-progress.controller';
 import { Textbook, TextbookSchema } from '../textbooks/schemas/textbook.schema';
+import { PermissionsGuard } from '../../common/guards/permissions.guard';
 
 @Module({
   imports: [
@@ -55,7 +56,7 @@ import { Textbook, TextbookSchema } from '../textbooks/schemas/textbook.schema';
     ]),
   ],
   controllers: [AdminController, CurriculumProgressController],
-  providers: [AdminAuditLogRepository, AdminAuditService, AdminService],
+  providers: [AdminAuditLogRepository, AdminAuditService, AdminService, PermissionsGuard],
   exports: [AdminAuditService, AdminService],
 })
 export class AdminModule {}

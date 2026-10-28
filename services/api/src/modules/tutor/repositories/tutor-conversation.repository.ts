@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { FilterQuery, Model, Types } from 'mongoose';
 import { TutorConversation, TutorConversationDocument } from '../schemas/tutor-conversation.schema';
 
 @Injectable()
@@ -22,7 +22,30 @@ export class TutorConversationRepository {
   async findByUserId(userId: string): Promise<TutorConversationDocument[]> {
     return this.conversationModel
       .find({ userId: new Types.ObjectId(userId) })
-      .sort({ updatedAt: -1 })
+      .sort({ updatedAt: -1, _id: -1 })
+      .exec();
+  }
+
+  async findByUserIdCursor(
+    userId: string,
+    limit: number,
+    cursor?: { updatedAt: string; id: string },
+  ): Promise<TutorConversationDocument[]> {
+    const filter: FilterQuery<TutorConversationDocument> = {
+      userId: new Types.ObjectId(userId),
+    };
+
+    if (cursor) {
+      filter.$or = [
+        { updatedAt: { $lt: new Date(cursor.updatedAt) } },
+        { updatedAt: new Date(cursor.updatedAt), _id: { $lt: new Types.ObjectId(cursor.id) } },
+      ];
+    }
+
+    return this.conversationModel
+      .find(filter)
+      .sort({ updatedAt: -1, _id: -1 })
+      .limit(limit)
       .exec();
   }
 

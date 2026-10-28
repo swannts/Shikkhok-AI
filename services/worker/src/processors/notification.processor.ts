@@ -4,6 +4,9 @@ import { config } from '../config';
 import { deliverPushNotifications } from './fcm-delivery';
 import { generateSignedHeaders } from '../utils/hmac';
 
+const NOTIFICATION_IDEMPOTENCY_PREFIX = 'idemp:worker:notif:';
+const NOTIFICATION_IDEMPOTENCY_TTL_SECONDS = 86400; // 24 hours
+
 export interface PushNotificationJobData {
   notificationId?: string;
   userId?: string;
@@ -214,6 +217,25 @@ export async function processNotificationJob(job: Job): Promise<Record<string, a
     case 'PUSH_NOTIFICATION':
     case 'NOTIFICATIONS': {
       const pushData = data as PushNotificationJobData;
+      const deduplicationKey = pushData.notificationId || pushData.requestId;
+      const idempotencyKey = deduplicationKey
+        ? `${NOTIFICATION_IDEMPOTENCY_PREFIX}${deduplicationKey}`
+        : null;
+
+      if (idempotencyKey) {
+        try {
+          const client = config.getRedisClient();
+          const cached = await client.get(idempotencyKey);
+          if (cached) {
+            console.log(
+              `[NotificationProcessor] Notification #${deduplicationKey} already delivered. Returning cached result.`,
+            );
+            return JSON.parse(cached);
+          }
+        } catch {
+          // Redis cache failure is non-fatal
+        }
+      }
 
       if (pushData.tokens && pushData.tokens.length === 0) {
         pushData.tokens = undefined;
@@ -242,13 +264,26 @@ export async function processNotificationJob(job: Job): Promise<Record<string, a
         console.log(
           `[NotificationProcessor] [SANDBOX PUSH] Sent "${pushData.title}" to ${tokens.length} token(s) (User: ${pushData.userId || 'N/A'})`,
         );
-        return {
+        const sandboxResult = {
           status: 'DELIVERED',
           provider: 'FCM-Sandbox',
           deliveredAt: new Date().toISOString(),
           recipientCount: tokens.length,
           tokens,
         };
+        if (idempotencyKey) {
+          try {
+            const client = config.getRedisClient();
+            await client.setex(
+              idempotencyKey,
+              NOTIFICATION_IDEMPOTENCY_TTL_SECONDS,
+              JSON.stringify(sandboxResult),
+            );
+          } catch {
+            // Best effort
+          }
+        }
+        return sandboxResult;
       }
 
       if (!config.fcmConfigured && config.isProduction) {
@@ -274,7 +309,7 @@ export async function processNotificationJob(job: Job): Promise<Record<string, a
         await deactivateInvalidTokens(result.invalid);
       }
 
-      return {
+      const deliveryResult = {
         status: result.failed.length === 0 ? 'DELIVERED' : 'PARTIAL',
         provider: 'FCM-HTTP-v1',
         deliveredAt: new Date().toISOString(),
@@ -284,6 +319,21 @@ export async function processNotificationJob(job: Job): Promise<Record<string, a
         invalidTokens: result.invalid,
         requestId: pushData.requestId,
       };
+
+      if (idempotencyKey && (deliveryResult.status === 'DELIVERED' || deliveryResult.status === 'PARTIAL')) {
+        try {
+          const client = config.getRedisClient();
+          await client.setex(
+            idempotencyKey,
+            NOTIFICATION_IDEMPOTENCY_TTL_SECONDS,
+            JSON.stringify(deliveryResult),
+          );
+        } catch {
+          // Best effort
+        }
+      }
+
+      return deliveryResult;
     }
 
     case 'EMAIL':

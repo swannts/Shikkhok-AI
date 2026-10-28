@@ -39,6 +39,7 @@ describe('TutorService', () => {
             createConversation: jest.fn(),
             findById: jest.fn(),
             findByUserId: jest.fn(),
+            findByUserIdCursor: jest.fn(),
             touchConversation: jest.fn(),
           },
         },
@@ -438,5 +439,46 @@ describe('TutorService', () => {
     expect(nextCursor).toBeTruthy();
     const decoded = JSON.parse(Buffer.from(nextCursor!, 'base64url').toString('utf8'));
     expect(decoded.id).toBe('msg-2');
+  });
+
+  it('should paginate my conversations with cursor and limit', async () => {
+    usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    conversationRepository.findByUserIdCursor.mockResolvedValue([
+      {
+        toJSON: jest.fn().mockReturnValue({
+          _id: 'conv-3',
+          title: 'Third',
+          updatedAt: '2026-10-28T02:03:00.000Z',
+        }),
+      },
+      {
+        toJSON: jest.fn().mockReturnValue({
+          _id: 'conv-2',
+          title: 'Second',
+          updatedAt: '2026-10-28T02:02:00.000Z',
+        }),
+      },
+      {
+        toJSON: jest.fn().mockReturnValue({
+          _id: 'conv-1',
+          title: 'First',
+          updatedAt: '2026-10-28T02:01:00.000Z',
+        }),
+      },
+    ] as any);
+
+    const result = await service.getMyConversations(
+      { userId: 'user-1', role: UserRole.STUDENT },
+      2,
+    );
+
+    expect(result.data).toHaveLength(2);
+    expect(result.data.map((c) => c._id)).toEqual(['conv-3', 'conv-2']);
+    expect(result.meta.hasNext).toBe(true);
+    expect(result.meta.limit).toBe(2);
+    expect(result.meta.nextCursor).toBeTruthy();
+
+    const decoded = JSON.parse(Buffer.from(result.meta.nextCursor!, 'base64url').toString('utf8'));
+    expect(decoded.id).toBe('conv-2');
   });
 });

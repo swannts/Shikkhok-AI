@@ -134,6 +134,7 @@ export class AuthService {
       user.role,
       dto.deviceId,
       dto.deviceName,
+      user.permissions,
     );
 
     this.logger.log(`User logged in: ${user._id}`, 'AuthService');
@@ -198,6 +199,7 @@ export class AuthService {
       user.role,
       session.deviceId,
       session.deviceName,
+      user.permissions,
     );
 
     this.logger.log(`Tokens refreshed for user: ${user._id}`, 'AuthService');
@@ -405,9 +407,10 @@ export class AuthService {
     role: string,
     deviceId?: string,
     deviceName?: string,
+    permissions?: string[],
   ): Promise<TokenPair> {
     const accessToken = this.jwtService.sign(
-      { sub: userId, role },
+      { sub: userId, role, ...(permissions && permissions.length > 0 ? { permissions } : {}) },
       {
         secret: this.configService.get<string>('jwt.accessSecret'),
         expiresIn: this.configService.get<string>('jwt.accessTtl', '15m') as any,

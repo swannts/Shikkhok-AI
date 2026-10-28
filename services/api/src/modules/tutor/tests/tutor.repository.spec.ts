@@ -10,8 +10,10 @@ describe('TutorConversationRepository', () => {
 
   beforeEach(async () => {
     const mockExec = jest.fn();
+    const mockLimit = jest.fn().mockReturnValue({ exec: mockExec });
+    const mockSort = jest.fn().mockReturnValue({ limit: mockLimit, exec: mockExec });
     const mockFind = jest.fn().mockReturnValue({
-      sort: jest.fn().mockReturnValue({ exec: mockExec }),
+      sort: mockSort,
     });
     const mockFindById = jest.fn().mockReturnValue({ exec: mockExec });
     const MockModel = jest.fn().mockImplementation((data) => ({
@@ -41,5 +43,25 @@ describe('TutorConversationRepository', () => {
     const result = await repository.touchConversation('conv-1', 2);
 
     expect(result).toBeDefined();
+  });
+
+  it('should query conversations with cursor filter and limit', async () => {
+    const userId = '507f1f77bcf86cd799439011';
+    model.find().sort().limit().exec.mockResolvedValue([
+      { _id: 'conv-1' },
+    ]);
+
+    const result = await repository.findByUserIdCursor(userId, 10, {
+      updatedAt: '2026-10-28T02:00:00.000Z',
+      id: '507f1f77bcf86cd799439012',
+    });
+
+    expect(result).toBeDefined();
+    expect(model.find).toHaveBeenCalledWith(
+      expect.objectContaining({
+        userId: expect.anything(),
+        $or: expect.any(Array),
+      }),
+    );
   });
 });

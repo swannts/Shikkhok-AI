@@ -15,6 +15,13 @@ import { ProgressService } from '../progress/progress.service';
 import { StudyPlanService } from '../study-plan/study-plan.service';
 import { StartTutorConversationDto } from './dto/start-tutor-conversation.dto';
 import { SendTutorMessageDto } from './dto/send-tutor-message.dto';
+import {
+  TutorConversationResponseDto,
+  TutorConversationDetailResponseDto,
+  TutorMessageResponseDto,
+  PaginatedTutorConversationsDto,
+  PaginatedTutorMessagesDto,
+} from './dto/tutor-conversation-response.dto';
 import { TutorConversationRepository } from './repositories/tutor-conversation.repository';
 import { TutorMessageRole } from './enums/tutor-message-role.enum';
 import {
@@ -40,7 +47,7 @@ export class TutorService {
   async startConversation(
     currentUser: AuthenticatedUser,
     dto: StartTutorConversationDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<TutorConversationResponseDto | TutorConversationDetailResponseDto> {
     await this.assertStudentOrAdmin(currentUser);
     const classLevel = await this.resolveClassLevel(currentUser.userId);
     const curriculumYear = await this.resolveCurriculumYear(currentUser.userId);
@@ -85,13 +92,41 @@ export class TutorService {
       });
     }
 
-    return conversation.toJSON();
+    return this.mapConversation(conversation);
   }
 
-  async getMyConversations(currentUser: AuthenticatedUser): Promise<Record<string, any>[]> {
+  async getMyConversations(
+    currentUser: AuthenticatedUser,
+    limit = 30,
+    cursor?: string,
+  ): Promise<PaginatedTutorConversationsDto> {
     await this.assertStudentOrAdmin(currentUser);
-    const conversations = await this.conversationRepository.findByUserId(currentUser.userId);
-    return conversations.map((conversation) => conversation.toJSON());
+    const pageLimit = Math.max(1, Math.min(limit || 30, 50));
+    const decodedCursor = this.decodeCursor(cursor);
+    const conversations = await this.conversationRepository.findByUserIdCursor(
+      currentUser.userId,
+      pageLimit + 1,
+      decodedCursor ? { updatedAt: decodedCursor.createdAt, id: decodedCursor.id } : undefined,
+    );
+    const hasNext = conversations.length > pageLimit;
+    const data = conversations
+      .slice(0, pageLimit)
+      .map((conversation) => this.mapConversation(conversation));
+    const lastItem = data[data.length - 1];
+    return {
+      data,
+      meta: {
+        limit: pageLimit,
+        nextCursor:
+          hasNext && lastItem
+            ? this.encodeCursor(
+                new Date(lastItem.updatedAt).toISOString(),
+                lastItem._id.toString(),
+              )
+            : null,
+        hasNext,
+      },
+    };
   }
 
   async getConversation(
@@ -99,7 +134,7 @@ export class TutorService {
     conversationId: string,
     limit = 30,
     cursor?: string,
-  ): Promise<Record<string, any>> {
+  ): Promise<TutorConversationDetailResponseDto> {
     await this.assertOwnershipOrAdmin(currentUser, conversationId);
     const conversation = await this.conversationRepository.findById(conversationId);
     if (!conversation) {
@@ -107,10 +142,9 @@ export class TutorService {
     }
 
     const messages = await this.getConversationMessagesInternal(conversationId, limit, cursor);
-    const conversationData =
-      typeof conversation.toJSON === 'function' ? conversation.toJSON() : conversation;
+    const mappedConversation = this.mapConversation(conversation);
     return {
-      ...conversationData,
+      ...mappedConversation,
       messages: messages.data,
       messageMeta: messages.meta,
     };
@@ -121,7 +155,7 @@ export class TutorService {
     conversationId: string,
     limit = 30,
     cursor?: string,
-  ): Promise<Record<string, any>> {
+  ): Promise<PaginatedTutorMessagesDto> {
     await this.assertOwnershipOrAdmin(currentUser, conversationId);
     return this.getConversationMessagesInternal(conversationId, limit, cursor);
   }
@@ -130,7 +164,7 @@ export class TutorService {
     currentUser: AuthenticatedUser,
     conversationId: string,
     dto: SendTutorMessageDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<TutorConversationDetailResponseDto> {
     await this.assertOwnershipOrAdmin(currentUser, conversationId);
 
     const conversation = await this.conversationRepository.findById(conversationId);
@@ -432,10 +466,7 @@ data: {}
     conversationId: string,
     limit: number,
     cursor?: string,
-  ): Promise<{
-    data: Record<string, any>[];
-    meta: { nextCursor: string | null; hasNext: boolean };
-  }> {
+  ): Promise<PaginatedTutorMessagesDto> {
     const pageLimit = Math.max(1, Math.min(limit || 30, 50));
     const decodedCursor = this.decodeCursor(cursor);
     const messages = await this.messageRepository.findByConversationCursor(
@@ -446,12 +477,13 @@ data: {}
     const hasNext = messages.length > pageLimit;
     const data = messages
       .slice(0, pageLimit)
-      .map((message) => message.toJSON())
+      .map((message) => this.mapMessage(message))
       .reverse();
     const firstItem = data[0];
     return {
       data,
       meta: {
+        limit: pageLimit,
         nextCursor:
           hasNext && firstItem
             ? this.encodeCursor(
@@ -461,6 +493,28 @@ data: {}
             : null,
         hasNext,
       },
+    };
+  }
+
+  private mapConversation(conversation: any): TutorConversationResponseDto {
+    const raw = typeof conversation?.toJSON === 'function' ? conversation.toJSON() : conversation;
+    return {
+      ...raw,
+      _id: raw._id?.toString?.() ?? String(raw._id),
+      userId: raw.userId?.toString?.() ?? String(raw.userId),
+      subjectId: raw.subjectId ? raw.subjectId.toString() : null,
+      chapterId: raw.chapterId ? raw.chapterId.toString() : null,
+      lessonId: raw.lessonId ? raw.lessonId.toString() : null,
+    };
+  }
+
+  private mapMessage(message: any): TutorMessageResponseDto {
+    const raw = typeof message?.toJSON === 'function' ? message.toJSON() : message;
+    return {
+      ...raw,
+      _id: raw._id?.toString?.() ?? String(raw._id),
+      conversationId: raw.conversationId?.toString?.() ?? String(raw.conversationId),
+      userId: raw.userId?.toString?.() ?? String(raw.userId),
     };
   }
 

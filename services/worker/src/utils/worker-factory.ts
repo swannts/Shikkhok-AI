@@ -1,4 +1,4 @@
-import { Worker, Queue, QueueEvents, Job, Processor } from 'bullmq';
+import { Worker, Queue, QueueEvents, Job, Processor, WorkerOptions } from 'bullmq';
 import { config } from '../config';
 
 const DLQ_JOB_TTL_SECONDS = 604800; // 7 days
@@ -8,7 +8,8 @@ export interface ManagedWorkerOptions {
   processor: Processor;
   concurrency?: number;
   maxAttempts?: number;
-  removeOnComplete?: any;
+  removeOnComplete?: WorkerOptions['removeOnComplete'];
+  removeOnFail?: WorkerOptions['removeOnFail'];
 }
 
 export function classifyJobError(err: Error): string {
@@ -59,7 +60,8 @@ export function createManagedWorker({
   processor,
   concurrency = 1,
   maxAttempts = 3,
-  removeOnComplete = true,
+  removeOnComplete = { count: 1000 },
+  removeOnFail,
 }: ManagedWorkerOptions) {
   const connection = config.getRedisClient();
 
@@ -70,6 +72,7 @@ export function createManagedWorker({
     connection,
     concurrency,
     removeOnComplete,
+    ...(removeOnFail !== undefined ? { removeOnFail } : {}),
   });
 
   const events = new QueueEvents(queueName, { connection });
