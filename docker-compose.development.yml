@@ -3,6 +3,8 @@ services:
     ports: ["27017:27017"]
   redis:
     ports: ["6379:6379"]
+  rabbitmq:
+    ports: ["5672:5672", "15672:15672"]
   api:
     build:
       context: ./services/api
@@ -17,9 +19,9 @@ services:
     build:
       context: ./services/worker
       target: development
-    command: npm run dev
+    command: go run .
     volumes:
-      - ./services/worker/src:/app/src
+      - ./services/worker:/app
   ai:
     build:
       context: ./services/ai

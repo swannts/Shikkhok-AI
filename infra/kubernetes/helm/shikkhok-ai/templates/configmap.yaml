@@ -16,4 +16,5 @@ data:
   ALLOW_MOCK_PROVIDERS: {{ .Values.aiService.env.allowMockProviders | quote }}
   VECTOR_STORE_ALLOW_DEMO_SEED: {{ .Values.aiService.env.vectorStoreAllowDemoSeed | quote }}
   AI_SERVICE_URL: {{ default (printf "http://%s-ai:8000" (include "shikkhok-ai.fullname" .)) .Values.worker.env.aiServiceUrl | quote }}
+  API_SERVICE_URL: {{ printf "http://%s-api:4000" (include "shikkhok-ai.fullname" .) | quote }}
   WORKER_HEALTH_PORT: {{ .Values.worker.healthPort | default 3100 | quote }}

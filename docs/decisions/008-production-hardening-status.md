@@ -2,7 +2,7 @@
 
 ## Context
 
-The platform spans mobile, NestJS, FastAPI, and BullMQ. Trust-sensitive behavior
+The platform spans mobile, NestJS, FastAPI, RabbitMQ, and Go background workers. Trust-sensitive behavior
 must remain explicit while individual services evolve independently.
 
 ## Decision

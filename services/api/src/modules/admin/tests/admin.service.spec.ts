@@ -5,7 +5,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Types } from 'mongoose';
 import { AdminService } from '../admin.service';
 import { Textbook } from '../../textbooks/schemas/textbook.schema';
-import { getQueueToken } from '@nestjs/bullmq';
+import { RabbitMqService } from '../../../core/queue/rabbitmq.service';
 import { AdminAuditService } from '../admin-audit.service';
 import { User } from '../../users/schemas/user.schema';
 import { Subject } from '../../curriculum/schemas/subject.schema';
@@ -95,7 +95,7 @@ describe('AdminService', () => {
         { provide: getModelToken(StudentSubscription.name), useValue: subscriptionModel },
         { provide: getModelToken(PaymentTransaction.name), useValue: transactionModel },
         { provide: getModelToken(Textbook.name), useValue: textbookModel },
-        { provide: getQueueToken('curriculum'), useValue: { add: jest.fn() } },
+        { provide: RabbitMqService, useValue: { publish: jest.fn(), stats: jest.fn(), listFailed: jest.fn(), retryFailed: jest.fn() } },
         {
           provide: PaymentTransactionRepository,
           useValue: {

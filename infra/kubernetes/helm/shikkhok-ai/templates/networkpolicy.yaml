@@ -28,6 +28,10 @@ spec:
     - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalRedisCidr | quote }} } }]
       ports: [{ protocol: TCP, port: 6379 }]
     {{- end }}
+    {{- if .Values.networkPolicy.externalRabbitCidr }}
+    - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalRabbitCidr | quote }} } }]
+      ports: [{ protocol: TCP, port: 5672 }]
+    {{- end }}
     {{- range .Values.networkPolicy.allowedExternalEgress }}
     - to: [{ ipBlock: { cidr: {{ . | quote }} } }]
       ports: [{ protocol: TCP, port: 443 }]
@@ -81,6 +85,8 @@ spec:
   egress:
     - to: [{ namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: {{ $ns }} } }, podSelector: { matchLabels: { app.kubernetes.io/instance: {{ $name }}, app.kubernetes.io/component: ai } } }]
       ports: [{ protocol: TCP, port: 8000 }]
+    - to: [{ namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: {{ $ns }} } }, podSelector: { matchLabels: { app.kubernetes.io/instance: {{ $name }}, app.kubernetes.io/component: api } } }]
+      ports: [{ protocol: TCP, port: 4000 }]
     {{- if .Values.networkPolicy.externalMongoCidr }}
     - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalMongoCidr | quote }} } }]
       ports: [{ protocol: TCP, port: 27017 }]
@@ -88,6 +94,10 @@ spec:
     {{- if .Values.networkPolicy.externalRedisCidr }}
     - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalRedisCidr | quote }} } }]
       ports: [{ protocol: TCP, port: 6379 }]
+    {{- end }}
+    {{- if .Values.networkPolicy.externalRabbitCidr }}
+    - to: [{ ipBlock: { cidr: {{ .Values.networkPolicy.externalRabbitCidr | quote }} } }]
+      ports: [{ protocol: TCP, port: 5672 }]
     {{- end }}
     {{- range .Values.networkPolicy.workerExternalEgress }}
     - to: [{ ipBlock: { cidr: {{ . | quote }} } }]

@@ -15,7 +15,7 @@ shikkhok-ai/
 ├── services/
 │   ├── api/                 # NestJS main API (Auth, Curriculum, Practice, Progress, Exams)
 │   ├── ai/                  # FastAPI AI service (Tutor, RAG, embeddings, safety)
-│   ├── worker/              # Asynchronous worker (BullMQ + Redis job processing)
+│   ├── worker/              # Go background worker consuming RabbitMQ jobs
 │   └── realtime/            # Realtime service / future streaming integrations
 ├── packages/
 │   └── types/               # Shared TypeScript DTOs & API Contracts
@@ -31,9 +31,9 @@ shikkhok-ai/
 
 - **Mobile Client**: Flutter, Riverpod, GoRouter, Drift/SQLite offline sync, Bangla/English localization
 - **Student/Admin Web**: Next.js, React 19, MUI, TypeScript
-- **Backend API**: NestJS, MongoDB/Mongoose, Redis, BullMQ
+- **Backend API**: NestJS, MongoDB/Mongoose, Redis, RabbitMQ
 - **AI Service**: FastAPI, curriculum RAG, embeddings, SSE tutor streaming, moderation and grounding
-- **Worker & Async**: Redis + BullMQ queue processing
+- **Worker & Async**: Go workers on RabbitMQ; Redis remains for cache and coordination
 - **DevOps & Testing**: Docker Compose, GitHub Actions CI/CD, Jest, Flutter test, `uv`/pytest, ESLint, Ruff
 
 ---
@@ -75,7 +75,7 @@ npm run dev
 ### Implementation status
 
 - ✅ Implemented: NestJS/FastAPI separation, curriculum-scoped RAG, degraded AI mode, strict tutor SSE parsing, refresh-session logout semantics, HMAC OTP verification, role/ownership guards, mobile curriculum caching, offline sync queue, health/readiness endpoints, and curriculum indexing progress.
-- 🟡 Implemented / hardening: BullMQ idempotency, admin indexing lifecycle, pagination/index coverage, cache-age UX, and explicit AI Tutor UI states.
+- 🟡 Implemented / hardening: RabbitMQ retry/DLQ handling, admin indexing lifecycle, pagination/index coverage, cache-age UX, and explicit AI Tutor UI states.
 - 🧪 Experimental: provider-dependent AI quality and vector-index evaluation fixtures.
 - ⬜ Planned: production infrastructure load testing, device-matrix testing, and final end-to-end execution against deployed dependencies.
 

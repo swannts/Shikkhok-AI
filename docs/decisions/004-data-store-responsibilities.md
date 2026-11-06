@@ -6,7 +6,7 @@ The platform needs durable product records and low-latency ephemeral coordinatio
 
 ## Decision
 
-MongoDB is the system of record for users, profiles, curriculum, conversations, progress, and other business entities. Redis is used for cache, distributed throttling, realtime coordination, and BullMQ state. A Redis result cache is not treated as durable business truth.
+MongoDB is the system of record for users, profiles, curriculum, conversations, progress, and other business entities. RabbitMQ carries durable background jobs. Redis is used for cache, distributed throttling, realtime coordination, and short-lived idempotency keys. A Redis result cache is not treated as durable business truth.
 
 ## Alternatives
 

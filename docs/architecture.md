@@ -19,8 +19,8 @@
                        │
          ┌─────────────┼─────────────┐
          ▼             ▼             ▼
-     MongoDB         Redis        BullMQ Worker
-  source of truth   cache/queue   background jobs
+     MongoDB         Redis        RabbitMQ       Go Worker
+  source of truth      cache      durable jobs
                        │
                        ▼
                 FastAPI AI Service

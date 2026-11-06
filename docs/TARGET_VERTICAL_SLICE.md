@@ -19,7 +19,7 @@ TopicMastery & weak topics updated in the primary API datastore
         ↓
 [Milestone 6] AI Tutor adapts with student mastery, grade level, & weak topics
         ↓
-[Milestone 7 & 8] SSE stream emissions, BullMQ background jobs, & observability metrics
+[Milestone 7 & 8] SSE stream emissions, RabbitMQ background jobs, & observability metrics
 ```
 
 ---
@@ -57,7 +57,7 @@ TopicMastery & weak topics updated in the primary API datastore
 - Prompt pipeline in the FastAPI AI service feeds student `classLevel`, `subject`, `masteryScore`, weak topics, and `isHomework` context into 12 pedagogical prompt rules.
 
 ### Milestone 7: Worker Microservice — **COMPLETED & VERIFIED**
-- Asynchronous BullMQ worker (`services/worker`) backed by Redis handling PDF jobs, embedding generation, notifications, analytics aggregation, and report generation.
+- Asynchronous Go worker (`services/worker`) backed by RabbitMQ handling PDF ingestion, notification delivery, and analytics jobs.
 
 ### Milestone 8: Production Readiness — **COMPLETED & VERIFIED**
 - Structured JSON logging (`logger.ts`) redacting passwords, OTPs, and tokens.
@@ -69,6 +69,6 @@ TopicMastery & weak topics updated in the primary API datastore
 ---
 
 ## 🚫 Avoided Premature Infrastructure (Item 71 Audit)
-- **NO Kafka**: Replaced by lightweight Redis + BullMQ queues.
+- RabbitMQ carries durable background jobs; Redis remains for caching and coordination.
 - **NO Service Mesh**: Replaced by clean HTTP correlation headers.
 - **NO Multi-Region Kubernetes**: Running lean local Docker Compose stack (`docker-compose.yml`) until production cloud scaling justifies Kubernetes manifests (`infra/KUBERNETES.md`).

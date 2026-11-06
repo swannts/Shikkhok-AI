@@ -6,8 +6,7 @@ import {
   NotFoundException,
   Optional,
 } from '@nestjs/common';
-import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
+import { RabbitMqService } from '../../core/queue/rabbitmq.service';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UsersService } from '../users/users.service';
 import { UserRole } from '../users/enums/user-role.enum';
@@ -33,7 +32,7 @@ export class HomeworkService {
     private readonly usersService: UsersService,
     private readonly studentsService: StudentsService,
     private readonly curriculumService: CurriculumService,
-    @Optional() @InjectQueue('homework') private readonly homeworkQueue?: Queue,
+    @Optional() private readonly rabbitMq?: RabbitMqService,
     @Optional() private readonly aiGatewayService?: AiGatewayService,
     @Optional() private readonly configService?: ConfigService,
   ) {}
@@ -56,16 +55,13 @@ export class HomeworkService {
     const submissionId = submission._id.toString();
 
     // Dispatch async job or process immediately
-    if (this.homeworkQueue) {
+    if (this.rabbitMq) {
       try {
-        await this.homeworkQueue.add(
+        await this.rabbitMq.publish(
+          'homework',
           'process-homework',
           { submissionId },
-          {
-            jobId: `process-homework-${submissionId}`,
-            attempts: 3,
-            backoff: { type: 'exponential', delay: 2000 },
-          },
+          `process-homework-${submissionId}`,
         );
       } catch (queueErr) {
         this.logger.warn(`Failed to enqueue homework job, running inline: ${queueErr}`);

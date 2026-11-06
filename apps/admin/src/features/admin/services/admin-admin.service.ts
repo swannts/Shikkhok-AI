@@ -79,22 +79,15 @@ export interface QueueMetric {
 	name: string;
 	counts: {
 		waiting: number;
-		active: number;
-		completed: number;
+		consumers: number;
 		failed: number;
-		delayed: number;
-		paused: number;
 	};
-	isPaused: boolean;
 }
 
 interface QueueCounts {
 	waiting: number;
-	active: number;
-	completed: number;
+	consumers: number;
 	failed: number;
-	delayed: number;
-	paused: number;
 	status?: string;
 	error?: string;
 }
@@ -263,8 +256,7 @@ export const adminAdminService = {
 			queues: Object.entries(response.queues).map(([name, counts]) => ({
 				name,
 				counts,
-				isPaused: counts.paused > 0
-			}))
+				})),
 		};
 	},
 

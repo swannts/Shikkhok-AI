@@ -1,6 +1,6 @@
 apiVersion: v2
 name: shikkhok-ai
-description: Production Helm Chart for Shikkhok AI Platform (NestJS API, FastAPI AI, BullMQ Worker, Teacher Portal)
+description: Production Helm Chart for Shikkhok AI Platform (NestJS API, FastAPI AI, Go RabbitMQ Worker, Teacher Portal)
 type: application
 version: 1.0.0
 appVersion: "1.0.0"

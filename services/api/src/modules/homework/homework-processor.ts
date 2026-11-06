@@ -1,20 +1,19 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
-import { Logger } from '@nestjs/common';
-import { Job } from 'bullmq';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { RabbitMqService } from '../../core/queue/rabbitmq.service';
 import { HomeworkService } from './homework.service';
 
-@Processor('homework')
-export class HomeworkProcessor extends WorkerHost {
+@Injectable()
+export class HomeworkProcessor implements OnModuleInit {
   private readonly logger = new Logger(HomeworkProcessor.name);
 
-  constructor(private readonly homeworkService: HomeworkService) {
-    super();
-  }
+  constructor(private readonly queue: RabbitMqService, private readonly homework: HomeworkService) {}
 
-  async process(job: Job<{ submissionId: string }>): Promise<any> {
-    this.logger.log(
-      `Processing homework submission job ${job.id} for submission ${job.data.submissionId}`,
-    );
-    return this.homeworkService.processSubmission(job.data.submissionId);
+  async onModuleInit(): Promise<void> {
+    await this.queue.consume('homework', async (job) => {
+      const payload = job.data as { submissionId?: string };
+      if (!payload?.submissionId) throw new Error('Missing homework submissionId');
+      this.logger.log(`Processing homework submission job ${job.id}`);
+      await this.homework.processSubmission(payload.submissionId);
+    }, 2);
   }
 }

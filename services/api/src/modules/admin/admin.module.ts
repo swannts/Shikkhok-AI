@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { BullModule } from '@nestjs/bullmq';
 import { UsersModule } from '../users/users.module';
 import { StudentsModule } from '../students/students.module';
 import { CurriculumModule } from '../curriculum/curriculum.module';
@@ -45,16 +44,6 @@ import { PermissionsGuard } from '../../common/guards/permissions.guard';
     SubscriptionsModule,
     AiGatewayModule,
     AuthModule,
-    BullModule.registerQueue(
-      { name: 'curriculum' },
-      { name: 'notifications' },
-      { name: 'analytics' },
-      { name: 'homework' },
-      { name: 'curriculum-dlq' },
-      { name: 'notifications-dlq' },
-      { name: 'analytics-dlq' },
-      { name: 'homework-dlq' },
-    ),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Subject.name, schema: SubjectSchema },

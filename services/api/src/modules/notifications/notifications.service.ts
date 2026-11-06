@@ -5,8 +5,7 @@ import {
   NotFoundException,
   Optional,
 } from '@nestjs/common';
-import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
+import { RabbitMqService } from '../../core/queue/rabbitmq.service';
 import { AuthenticatedUser } from '../auth/strategies/jwt-access.strategy';
 import { UserRole } from '../users/enums/user-role.enum';
 import { UsersService } from '../users/users.service';
@@ -29,9 +28,7 @@ export class NotificationsService {
     private readonly notificationRepository: NotificationRepository,
     private readonly deviceTokenRepository: DeviceTokenRepository,
     private readonly usersService: UsersService,
-    @Optional()
-    @InjectQueue('notifications')
-    private readonly notificationsQueue?: Queue,
+    @Optional() private readonly rabbitMq?: RabbitMqService,
   ) {}
 
   async getMyNotifications(
@@ -135,11 +132,12 @@ export class NotificationsService {
     const result = notification.toJSON();
 
     // Enqueue push notification background delivery job
-    if (this.notificationsQueue) {
+    if (this.rabbitMq) {
       try {
         const deviceTokens = await this.deviceTokenRepository.findActiveTokensForUser(userId);
         const tokens = deviceTokens.map((t) => t.token);
-        await this.notificationsQueue.add(
+        await this.rabbitMq.publish(
+          'notifications',
           'PUSH_NOTIFICATION',
           {
             jobType: 'PUSH_NOTIFICATION',
@@ -153,15 +151,7 @@ export class NotificationsService {
               type: dto.type,
             },
           },
-          {
-            jobId: `push-notify-${result._id?.toString?.() ?? result._id}`,
-            attempts: 3,
-            backoff: {
-              type: 'exponential',
-              delay: 2000,
-            },
-            removeOnComplete: true,
-          },
+          `push-notify-${result._id?.toString?.() ?? result._id}`,
         );
       } catch (queueErr: any) {
         this.logger.warn(

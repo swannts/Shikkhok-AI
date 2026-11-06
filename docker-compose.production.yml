@@ -10,6 +10,12 @@ services:
     restart: unless-stopped
     ports: []
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:?set REDIS_PASSWORD}
+  rabbitmq:
+    restart: unless-stopped
+    ports: []
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:?set RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?set RABBITMQ_PASSWORD}
   api:
     restart: unless-stopped
     environment:
@@ -20,14 +26,15 @@ services:
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:?set JWT_REFRESH_SECRET}
       AI_HMAC_SECRET: ${AI_HMAC_SECRET:?set AI_HMAC_SECRET}
       AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:?set AI_SERVICE_SECRET}
+      RABBITMQ_URL: ${RABBITMQ_URL:?set RABBITMQ_URL}
       CORS_ORIGINS: ${CORS_ORIGINS:?set CORS_ORIGINS}
   worker:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      MONGODB_URI: ${MONGODB_URI:?set MONGODB_URI}
       REDIS_URL: ${REDIS_URL:?set REDIS_URL}
-      AI_HMAC_SECRET: ${AI_HMAC_SECRET:?set AI_HMAC_SECRET}
+      RABBITMQ_URL: ${RABBITMQ_URL:?set RABBITMQ_URL}
+      AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:?set AI_SERVICE_SECRET}
   ai:
     restart: unless-stopped
     environment:

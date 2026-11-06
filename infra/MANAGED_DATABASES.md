@@ -16,8 +16,8 @@
 │ (MongoDB Atlas/DocDB)  │      │  (Memorystore / Elasti)│
 │                        │      │                        │
 │  - NoSQL Document DB   │      │  - In-memory cache     │
-│  - Automated backups   │      │  - BullMQ job broker   │
-│  - Multi-AZ sharding   │      │  - Rate limiting       │
+│  - Automated backups   │      │  - Rate limiting       │
+│  - Multi-AZ sharding   │      │  - Session/cache data  │
 └────────────────────────┘      └────────────────────────┘
 ```
 
@@ -44,6 +44,9 @@ Database connection strings for managed instances are injected via Kubernetes Se
 # MongoDB Atlas / Managed Connection String Format
 DATABASE_URL="mongodb+srv://shikkhok_admin:<SECURE_PASSWORD>@cluster.mongodb.net/shikkhok_prod?retryWrites=true&w=majority"
 
-# Managed Redis Connection String Format
+# Managed Redis Connection String Format (cache and throttling)
 REDIS_URL="rediss://:<SECURE_PASSWORD>@10.x.x.x:6379"
+
+# RabbitMQ is the background-job broker; provide its AMQP URL separately.
+RABBITMQ_URL="amqps://<USER>:<SECURE_PASSWORD>@rabbitmq.example:5671/%2F"
 ```

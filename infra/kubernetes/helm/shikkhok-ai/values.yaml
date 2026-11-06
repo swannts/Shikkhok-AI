@@ -46,11 +46,16 @@ worker:
   healthPort: 3100
   env:
     aiServiceUrl: ""
+    firebaseServiceAccountPath: ""
   resources:
     requests: { cpu: 200m, memory: 256Mi }
     limits: { cpu: "1", memory: 1Gi }
   podDisruptionBudget: { minAvailable: 1 }
   autoscaling: { enabled: true, minReplicas: 2, maxReplicas: 10, targetCPUUtilizationPercentage: 75 }
+
+curriculumUploads:
+  existingClaim: ""
+  mountPath: /app/uploads/curriculum
 
 teacherPortal:
   enabled: false
@@ -103,6 +108,7 @@ networkPolicy:
   allowedIngress: []
   externalMongoCidr: ""
   externalRedisCidr: ""
+  externalRabbitCidr: ""
   externalQdrantCidr: ""
   allowedExternalEgress: []
   workerExternalEgress: []

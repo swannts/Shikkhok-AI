@@ -1,4 +1,6 @@
-# ADR 005: BullMQ for asynchronous work
+# ADR 005: BullMQ for asynchronous work (superseded)
+
+Superseded by [ADR 009: RabbitMQ and Go worker](009-rabbitmq-go-worker.md). The decision below records the original queue architecture.
 
 ## Context
 

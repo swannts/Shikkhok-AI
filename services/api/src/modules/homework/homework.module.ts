@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { BullModule } from '@nestjs/bullmq';
 import { UsersModule } from '../users/users.module';
 import { StudentsModule } from '../students/students.module';
 import { CurriculumModule } from '../curriculum/curriculum.module';
@@ -19,7 +18,6 @@ import { HomeworkProcessor } from './homework-processor';
     StudentsModule,
     CurriculumModule,
     AiGatewayModule,
-    BullModule.registerQueue({ name: 'homework' }),
     MongooseModule.forFeature([
       { name: HomeworkSubmission.name, schema: HomeworkSubmissionSchema },
       { name: HomeworkFeedback.name, schema: HomeworkFeedbackSchema },

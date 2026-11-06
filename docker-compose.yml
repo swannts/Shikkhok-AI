@@ -21,7 +21,7 @@ services:
       - mongodb_data:/data/db
 
   # -------------------------------------------------------------
-  # 2. REDIS CACHE & JOB BROKER
+  # 2. REDIS CACHE
   # -------------------------------------------------------------
   redis:
     image: redis:7-alpine
@@ -36,6 +36,24 @@ services:
       retries: 5
     volumes:
       - redis_data:/data
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: shikkhok-rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-shikkhok}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-shikkhok-local-password}
+    ports:
+      - '5672:5672'
+      - '127.0.0.1:15672:15672'
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
   # -------------------------------------------------------------
   # 3. MAIN NESTJS API SERVICE
@@ -53,6 +71,7 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       MONGODB_URI: ${MONGODB_URI:-mongodb://shikkhok_admin:shikkhok_secure_password@mongodb:27017/shikkhok_db?authSource=admin}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      RABBITMQ_URL: ${RABBITMQ_URL:-amqp://shikkhok:shikkhok-local-password@rabbitmq:5672/}
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-shikkhok-development-only-access-secret-2026}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-shikkhok-development-only-refresh-secret-2026}
       JWT_ACCESS_TTL: ${JWT_ACCESS_TTL:-15m}
@@ -71,6 +90,8 @@ services:
       mongodb:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     volumes:
       - ./data/curriculum-uploads:/app/uploads/curriculum
@@ -126,18 +147,20 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
-      MONGODB_URI: ${MONGODB_URI:-mongodb://shikkhok_admin:shikkhok_secure_password@mongodb:27017/shikkhok_db?authSource=admin}
+      RABBITMQ_URL: ${RABBITMQ_URL:-amqp://shikkhok:shikkhok-local-password@rabbitmq:5672/}
       AI_SERVICE_URL: http://ai:8000
       AI_HMAC_SECRET: ${AI_HMAC_SECRET:-${AI_SERVICE_SECRET:-dev-internal-ai-service-secret-at-least-32chars}}
       API_SERVICE_URL: http://api:4000
+      AI_SERVICE_SECRET: ${AI_SERVICE_SECRET:-${AI_HMAC_SECRET:-dev-internal-ai-service-secret-at-least-32chars}}
       WORKER_HEALTH_PORT: 3100
       FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID:-}
       FIREBASE_CLIENT_EMAIL: ${FIREBASE_CLIENT_EMAIL:-}
       FIREBASE_PRIVATE_KEY: ${FIREBASE_PRIVATE_KEY:-}
+      FIREBASE_SERVICE_ACCOUNT_PATH: ${FIREBASE_SERVICE_ACCOUNT_PATH:-}
     depends_on:
-      mongodb:
-        condition: service_healthy
       redis:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     volumes:
       - ./data/curriculum-uploads:/app/uploads/curriculum
@@ -145,3 +168,4 @@ services:
 volumes:
   mongodb_data:
   redis_data:
+  rabbitmq_data:

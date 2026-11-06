@@ -86,22 +86,18 @@ jobs:
         run: npm test
 
   background-worker:
-    name: BullMQ Background Worker (Build)
+    name: Go RabbitMQ Background Worker (Build)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          node-version: 20
-          cache: 'npm'
-          cache-dependency-path: services/worker/package-lock.json
-      - name: Install & Build
+          go-version-file: services/worker/go.mod
+          cache-dependency-path: services/worker/go.sum
+      - name: Build
         working-directory: ./services/worker
-        run: npm ci && npm run build
-      - name: TypeScript type-check
-        working-directory: ./services/worker
-        run: npx tsc --noEmit
+        run: go build ./...
 
   teacher-portal:
     name: Teacher Portal (Next.js 15 Build)

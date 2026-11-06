@@ -55,6 +55,7 @@ worker:
   healthPort: 3100
   env:
     aiServiceUrl: "http://shikkhok-ai-shikkhok-ai-ai:8000"
+    firebaseServiceAccountPath: ""
   resources:
     requests: { cpu: 200m, memory: 256Mi }
     limits: { cpu: "1", memory: 1Gi }
@@ -68,6 +69,10 @@ worker:
     enabled: true
     path: /health
     port: 3100
+
+curriculumUploads:
+  existingClaim: curriculum-uploads-rwx
+  mountPath: /app/uploads/curriculum
 
 teacherPortal:
   enabled: false
@@ -123,6 +128,7 @@ networkPolicy:
           kubernetes.io/metadata.name: ingress-nginx
   externalMongoCidr: "10.92.0.0/16"
   externalRedisCidr: "10.93.0.0/16"
+  externalRabbitCidr: "10.94.0.0/16"
   externalQdrantCidr: "192.0.2.0/24"
   allowedExternalEgress:
     - "192.0.2.0/24"

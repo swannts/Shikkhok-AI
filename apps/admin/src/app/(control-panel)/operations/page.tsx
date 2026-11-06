@@ -116,7 +116,7 @@ export default function OperationsPage() {
 						variant="body2"
 						color="text.secondary"
 					>
-						Real-time cluster health, service dependencies, and BullMQ background worker queues.
+								Real-time cluster health, service dependencies, and RabbitMQ background queues.
 					</Typography>
 				</div>
 				<Button
@@ -280,11 +280,9 @@ export default function OperationsPage() {
 								<TableHead>
 									<TableRow>
 										<TableCell>Queue Name</TableCell>
-										<TableCell align="center">Active</TableCell>
-										<TableCell align="center">Waiting</TableCell>
-										<TableCell align="center">Completed</TableCell>
-										<TableCell align="center">Failed</TableCell>
-										<TableCell align="center">Delayed</TableCell>
+										<TableCell align="center">Consumers</TableCell>
+										<TableCell align="center">Ready</TableCell>
+										<TableCell align="center">Dead-lettered</TableCell>
 										<TableCell align="center">Status</TableCell>
 										<TableCell align="right">Actions</TableCell>
 									</TableRow>
@@ -298,13 +296,12 @@ export default function OperationsPage() {
 											<TableCell className="font-semibold font-mono text-sm">{q.name}</TableCell>
 											<TableCell align="center">
 												<Chip
-													label={q.counts.active}
+													label={q.counts.consumers}
 													size="small"
-													color={q.counts.active > 0 ? 'primary' : 'default'}
+													color={q.counts.consumers > 0 ? 'primary' : 'default'}
 												/>
 											</TableCell>
 											<TableCell align="center">{q.counts.waiting}</TableCell>
-											<TableCell align="center">{q.counts.completed.toLocaleString()}</TableCell>
 											<TableCell align="center">
 												{q.counts.failed > 0 ? (
 													<Chip
@@ -317,12 +314,11 @@ export default function OperationsPage() {
 													'0'
 												)}
 											</TableCell>
-											<TableCell align="center">{q.counts.delayed}</TableCell>
 											<TableCell align="center">
 												<Chip
-													label={q.isPaused ? 'PAUSED' : 'ACTIVE'}
+													label={q.counts.consumers > 0 ? 'LISTENING' : 'NO CONSUMER'}
 													size="small"
-													color={q.isPaused ? 'warning' : 'success'}
+													color={q.counts.consumers > 0 ? 'success' : 'warning'}
 													variant="outlined"
 												/>
 											</TableCell>

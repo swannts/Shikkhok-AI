@@ -23,7 +23,7 @@ Before modifying or replacing any established component, service, store, or patt
 | **HTTP & SSE Networking** | Dio / HTTP client + SSE stream parser | Maintain custom SSE decoding and disconnect handlers. Do NOT replace with third-party wrappers. |
 | **Mobile Navigation** | GoRouter (`apps/mobile`) | Maintain route groups and feature navigation structure. |
 | **Repository Pattern** | Feature repositories and service facades | Keep repositories as the contract between UI and backend APIs. |
-| **Modular Services** | NestJS `services/api`, FastAPI `services/ai`, BullMQ worker | Maintain modular domain separation (`auth`, `curriculum`, `progress`, `practice`, `tutor`). |
+| **Modular Services** | NestJS `services/api`, FastAPI `services/ai`, Go RabbitMQ worker | Maintain modular domain separation (`auth`, `curriculum`, `progress`, `practice`, `tutor`). |
 
 ---
 

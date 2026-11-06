@@ -16,7 +16,8 @@ docker compose --env-file .env.prod \
   -f docker-compose.yml -f docker-compose.production.yml up -d --build
 ```
 
-The production overlay does not publish MongoDB or Redis ports. `MONGODB_URI`
-and `REDIS_URL` must point at the selected production database/broker; the
-compose MongoDB/Redis services are suitable for a single-host deployment, not
-managed-database replacement. Do not commit `.env.prod` or credentials.
+The production overlay does not publish MongoDB, Redis, or RabbitMQ ports.
+`MONGODB_URI`, `REDIS_URL`, and `RABBITMQ_URL` must point at the selected
+production database/cache/broker; the compose MongoDB, Redis, and RabbitMQ
+services are suitable for a single-host deployment, not managed-service
+replacement. Do not commit `.env.prod` or credentials.

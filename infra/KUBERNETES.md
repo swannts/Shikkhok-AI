@@ -9,7 +9,12 @@ When deploying to Kubernetes environments (e.g. Google Kubernetes Engine - GKE),
 ### 1. Target Microservice Deployments
 - **`shikkhok-api`**: Primary REST API monolith deployment with HPA scaling.
 - **`shikkhok-ai-gateway`**: AI LLM streaming gateway with SSE connection limits.
-- **`shikkhok-worker`**: Asynchronous BullMQ background worker deployment.
+- **`shikkhok-worker`**: Go background worker deployment consuming RabbitMQ queues.
+
+PDF curriculum jobs pass uploaded paths from the API to the worker. Provision a
+shared RWX PVC and set `curriculumUploads.existingClaim` in Helm values; the chart
+mounts it at `/app/uploads/curriculum` in both deployments. Text-only curriculum
+jobs do not need this claim.
 
 ### 2. Standard Manifest Components per Service
 For each microservice deployment, the following Kubernetes resources must be defined:

@@ -7,9 +7,8 @@ import {
   Optional,
 } from '@nestjs/common';
 import { Textbook, TextbookDocument } from '../textbooks/schemas/textbook.schema';
-import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
 import { RedisService } from '../../core/redis/redis.service';
+import { RabbitMqService } from '../../core/queue/rabbitmq.service';
 import { AiGatewayService } from '../ai-gateway/services/ai-gateway.service';
 import { PaymentMethod } from '../subscriptions/enums/payment-method.enum';
 import { PaymentStateMachineService } from '../subscriptions/services/payment-state-machine.service';
@@ -82,14 +81,7 @@ export class AdminService {
     private readonly activationService: SubscriptionActivationService,
     private readonly auditService: AdminAuditService,
     @InjectModel(Textbook.name) private textbookModel: Model<TextbookDocument>,
-    @Optional() @InjectQueue('curriculum') private readonly curriculumQueue?: Queue,
-    @Optional() @InjectQueue('notifications') private readonly notificationsQueue?: Queue,
-    @Optional() @InjectQueue('analytics') private readonly analyticsQueue?: Queue,
-    @Optional() @InjectQueue('homework') private readonly homeworkQueue?: Queue,
-    @Optional() @InjectQueue('curriculum-dlq') private readonly curriculumDlq?: Queue,
-    @Optional() @InjectQueue('notifications-dlq') private readonly notificationsDlq?: Queue,
-    @Optional() @InjectQueue('analytics-dlq') private readonly analyticsDlq?: Queue,
-    @Optional() @InjectQueue('homework-dlq') private readonly homeworkDlq?: Queue,
+    private readonly rabbitMq: RabbitMqService,
     @Optional() private readonly redisService?: RedisService,
     @Optional() private readonly aiGatewayService?: AiGatewayService,
     @Optional() private readonly authService?: AuthService,
@@ -785,12 +777,6 @@ export class AdminService {
       throw new NotFoundException('Textbook not found');
     }
 
-    if (!this.curriculumQueue) {
-      throw new InternalServerErrorException(
-        'Background curriculum worker queue is not configured',
-      );
-    }
-
     try {
       book.indexingStatus = 'queued';
       book.indexingStartedAt = null;
@@ -799,17 +785,11 @@ export class AdminService {
       book.lastIndexError = null;
       await book.save();
 
-      await this.curriculumQueue.add(
+      await this.rabbitMq.publish(
+        'curriculum',
         'process-curriculum-indexing',
         { bookId: book._id.toString() },
-        {
-          // Stable job identity makes repeated admin clicks idempotent while a
-          // book is already queued or processing. A later retry is handled by
-          // BullMQ's attempts/backoff rather than creating duplicate jobs.
-          jobId: `reindex-book-${book._id.toString()}`,
-          attempts: 3,
-          backoff: { type: 'exponential', delay: 5000 },
-        },
+        `reindex-book-${book._id.toString()}`,
       );
 
       return {
@@ -898,10 +878,8 @@ export class AdminService {
       )
       .exec();
 
-    if (!this.curriculumQueue) {
-      throw new InternalServerErrorException('Curriculum worker queue is not configured');
-    }
-    await this.curriculumQueue.add(
+    await this.rabbitMq.publish(
+      'curriculum',
       'process-curriculum-indexing',
       {
         bookId: book._id.toString(),
@@ -914,11 +892,7 @@ export class AdminService {
         curriculumVersion,
         academicYear: dto.curriculumYear,
       },
-      {
-        jobId: `index-book-${book._id.toString()}`,
-        attempts: 3,
-        backoff: { type: 'exponential', delay: 5000 },
-      },
+      `index-book-${book._id.toString()}`,
     );
     await this.auditService.recordAudit({
       actorUserId,
@@ -997,20 +971,11 @@ export class AdminService {
     let totalWaiting = 0;
     let totalFailed = 0;
     let queueStatus: 'up' | 'down' = 'up';
-
-    const queueList = [
-      this.curriculumQueue,
-      this.notificationsQueue,
-      this.analyticsQueue,
-      this.homeworkQueue,
-    ].filter(Boolean) as Queue[];
-    if (queueList.length !== 4) queueStatus = 'down';
-
-    for (const q of queueList) {
+    for (const name of ['curriculum', 'notifications', 'analytics', 'homework']) {
       try {
-        const counts = await q.getJobCounts('waiting', 'failed');
-        totalWaiting += counts.waiting || 0;
-        totalFailed += counts.failed || 0;
+        const counts = await this.rabbitMq.stats(name);
+        totalWaiting += counts.waiting;
+        totalFailed += counts.failed;
       } catch {
         queueStatus = 'down';
       }
@@ -1052,47 +1017,13 @@ export class AdminService {
     totalBacklog: number;
     timestamp: string;
   }> {
-    const queueMap: Record<string, Queue | undefined> = {
-      curriculum: this.curriculumQueue,
-      notifications: this.notificationsQueue,
-      analytics: this.analyticsQueue,
-      homework: this.homeworkQueue,
-    };
-
-    const dlqMap: Record<string, Queue | undefined> = {
-      'curriculum-dlq': this.curriculumDlq,
-      'notifications-dlq': this.notificationsDlq,
-      'analytics-dlq': this.analyticsDlq,
-      'homework-dlq': this.homeworkDlq,
-    };
-
     const resultQueues: Record<string, any> = {};
     let totalBacklog = 0;
-
-    for (const [name, queue] of Object.entries(queueMap)) {
-      if (!queue) {
-        resultQueues[name] = {
-          waiting: 0,
-          active: 0,
-          completed: 0,
-          failed: 0,
-          delayed: 0,
-          paused: 0,
-          status: 'unconfigured',
-        };
-        continue;
-      }
+    for (const name of ['curriculum', 'notifications', 'analytics', 'homework']) {
       try {
-        const counts = await queue.getJobCounts(
-          'waiting',
-          'active',
-          'completed',
-          'failed',
-          'delayed',
-          'paused',
-        );
-        resultQueues[name] = counts;
-        totalBacklog += (counts.waiting || 0) + (counts.delayed || 0) + (counts.active || 0);
+        const counts = await this.rabbitMq.stats(name);
+        resultQueues[name] = { waiting: counts.waiting, consumers: counts.consumers, failed: counts.failed };
+        totalBacklog += counts.waiting;
       } catch (err: unknown) {
         resultQueues[name] = {
           waiting: 0,
@@ -1107,16 +1038,12 @@ export class AdminService {
     }
 
     const deadLetterQueues: Record<string, { count: number }> = {};
-    for (const [name, dlq] of Object.entries(dlqMap)) {
-      if (!dlq) {
-        deadLetterQueues[name] = { count: 0 };
-        continue;
-      }
+    for (const name of ['curriculum', 'notifications', 'analytics', 'homework']) {
       try {
-        const count = await dlq.count();
-        deadLetterQueues[name] = { count };
+        const counts = await this.rabbitMq.stats(name);
+        deadLetterQueues[`${name}-dlq`] = { count: counts.failed };
       } catch {
-        deadLetterQueues[name] = { count: 0 };
+        deadLetterQueues[`${name}-dlq`] = { count: 0 };
       }
     }
 
@@ -1129,67 +1056,29 @@ export class AdminService {
   }
 
   async getFailedQueueJobs(queueName: string, limit = 20) {
-    const queueMap: Record<string, Queue | undefined> = {
-      curriculum: this.curriculumQueue,
-      notifications: this.notificationsQueue,
-      analytics: this.analyticsQueue,
-      homework: this.homeworkQueue,
-      'curriculum-dlq': this.curriculumDlq,
-      'notifications-dlq': this.notificationsDlq,
-      'analytics-dlq': this.analyticsDlq,
-      'homework-dlq': this.homeworkDlq,
-    };
-
-    const queue = queueMap[queueName];
-    if (!queue) {
+    const queue = queueName.replace(/-dlq$/, '');
+    if (!['curriculum', 'notifications', 'analytics', 'homework'].includes(queue)) {
       throw new NotFoundException(`Queue "${queueName}" not found or not configured`);
     }
 
     const safeLimit = Math.min(Math.max(1, limit), 100);
-    const jobs = await queue.getJobs(['failed'], 0, safeLimit - 1, true);
-
-    return jobs.map((job) => ({
-      id: job.id,
-      name: job.name,
-      failedReason: job.failedReason,
-      attemptsMade: job.attemptsMade,
-      timestamp: job.timestamp,
-      processedOn: job.processedOn,
-      finishedOn: job.finishedOn,
-    }));
+    return this.rabbitMq.listFailed(queue, safeLimit);
   }
 
   async retryFailedQueueJobs(queueName: string, limit = 100) {
-    const queueMap: Record<string, Queue | undefined> = {
-      curriculum: this.curriculumQueue,
-      notifications: this.notificationsQueue,
-      analytics: this.analyticsQueue,
-      homework: this.homeworkQueue,
-    };
-
-    const queue = queueMap[queueName];
-    if (!queue) {
+    if (!['curriculum', 'notifications', 'analytics', 'homework'].includes(queueName)) {
       throw new NotFoundException(`Queue "${queueName}" not found or not retryable`);
     }
 
     const safeLimit = Math.min(Math.max(1, limit), 100);
-    const failedJobs = await queue.getJobs(['failed'], 0, safeLimit - 1, true);
-    let retriedCount = 0;
-
-    for (const job of failedJobs) {
-      try {
-        await job.retry();
-        retriedCount++;
-      } catch {
-        // Individual job failure ignored
-      }
-    }
+    const retriedCount = await this.rabbitMq.retryFailed(queueName, safeLimit);
+    const failedJobs = await this.rabbitMq.listFailed(queueName, safeLimit);
 
     return {
       queue: queueName,
       retriedCount,
-      totalFound: failedJobs.length,
-      message: `${retriedCount} of ${failedJobs.length} failed jobs queued for retry.`,
+      totalFound: retriedCount + failedJobs.length,
+      message: `${retriedCount} failed jobs queued for retry.`,
       timestamp: new Date().toISOString(),
     };
   }

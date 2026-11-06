@@ -1,29 +1,22 @@
-# Stage 1: Build TypeScript
-FROM node:20-alpine AS base
+FROM golang:1.23-alpine AS builder
+WORKDIR /src
+RUN apk add --no-cache ca-certificates
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o /out/shikkhok-worker .
+
+FROM golang:1.23-alpine AS development
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+COPY go.mod go.sum ./
+RUN go mod download
+CMD ["go", "run", "."]
 
-FROM base AS development
-COPY tsconfig.json ./
-COPY src ./src
-CMD ["npm", "run", "dev"]
-
-FROM base AS builder
-COPY src ./src
-COPY tsconfig.json ./
-RUN npm run build
-
-# Stage 2: Production execution
-FROM node:20-alpine AS runner
+FROM alpine:3.21 AS runner
+RUN apk add --no-cache ca-certificates && addgroup -S -g 10001 app && adduser -S -u 10001 -G app app
 WORKDIR /app
-RUN addgroup -g 1001 -S appgroup && \
-    adduser -S appuser -u 1001 -G appgroup
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
-RUN npm ci --omit=dev
-
+COPY --from=builder /out/shikkhok-worker /usr/local/bin/shikkhok-worker
 ENV NODE_ENV=production
-USER appuser
+USER app
 EXPOSE 3100
-CMD ["node", "dist/index.js"]
+ENTRYPOINT ["/usr/local/bin/shikkhok-worker"]
