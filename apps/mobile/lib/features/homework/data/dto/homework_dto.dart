@@ -52,13 +52,15 @@ class HomeworkCorrectionStepDto {
   });
 
   factory HomeworkCorrectionStepDto.fromJson(Map<String, dynamic> json) {
+    final original = json['original']?.toString();
+    final corrected = json['corrected']?.toString();
     return HomeworkCorrectionStepDto(
       stepNumber: (json['stepNumber'] as num?)?.toInt() ?? 1,
-      title: (json['title'] ?? '').toString(),
+      title: (json['title'] ?? original ?? '').toString(),
       explanation: (json['explanation'] ?? '').toString(),
-      isCorrect: (json['isCorrect'] as bool?) ?? true,
-      studentStepText: json['studentStepText']?.toString(),
-      suggestedStepText: json['suggestedStepText']?.toString(),
+      isCorrect: (json['isCorrect'] as bool?) ?? false,
+      studentStepText: json['studentStepText']?.toString() ?? original,
+      suggestedStepText: json['suggestedStepText']?.toString() ?? corrected,
     );
   }
 }
@@ -70,6 +72,10 @@ class HomeworkFeedbackDto {
   final List<HomeworkCorrectionStepDto> steps;
   final List<String> citations;
   final int? rating;
+  final bool grounded;
+  final bool retrievalUnavailable;
+  final String groundingMode;
+  final List<String> recommendations;
 
   const HomeworkFeedbackDto({
     required this.submissionId,
@@ -78,6 +84,10 @@ class HomeworkFeedbackDto {
     this.steps = const [],
     this.citations = const [],
     this.rating,
+    this.grounded = false,
+    this.retrievalUnavailable = false,
+    this.groundingMode = 'ungrounded',
+    this.recommendations = const [],
   });
 
   factory HomeworkFeedbackDto.fromJson(Map<String, dynamic> json) {
@@ -86,16 +96,40 @@ class HomeworkFeedbackDto {
       summary: (json['summary'] ?? '').toString(),
       detailedExplanation:
           (json['detailedExplanation'] ?? json['explanation'] ?? '').toString(),
-      steps: (json['steps'] as List<dynamic>?)
-              ?.map((e) =>
-                  HomeworkCorrectionStepDto.fromJson(e as Map<String, dynamic>))
+      steps: ((json['steps'] ?? json['corrections']) as List<dynamic>?)
+              ?.asMap()
+              .entries
+              .map((entry) => HomeworkCorrectionStepDto.fromJson({
+                    ...entry.value as Map<String, dynamic>,
+                    'stepNumber': entry.key + 1,
+                  }))
               .toList() ??
           const [],
       citations: (json['citations'] as List<dynamic>?)
-              ?.map((e) => e.toString())
+              ?.map((e) {
+                if (e is String) return e;
+                if (e is Map<String, dynamic>) {
+                  final book = e['sourceBook'] ?? e['source_book'];
+                  final page = e['pageStart'] ?? e['page_start'];
+                  if (book is! String || book.trim().isEmpty) return '';
+                  return page is num ? '$book · p. ${page.toInt()}' : book;
+                }
+                return '';
+              })
+              .where((citation) => citation.isNotEmpty)
               .toList() ??
           const [],
       rating: (json['rating'] as num?)?.toInt(),
+      grounded: json['grounded'] == true,
+      retrievalUnavailable: json['retrievalUnavailable'] == true ||
+          json['retrieval_unavailable'] == true,
+      groundingMode:
+          (json['groundingMode'] ?? json['grounding_mode'] ?? 'ungrounded')
+              .toString(),
+      recommendations: (json['recommendations'] as List<dynamic>?)
+              ?.whereType<String>()
+              .toList() ??
+          const [],
     );
   }
 }

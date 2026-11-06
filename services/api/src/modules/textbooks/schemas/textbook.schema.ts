@@ -47,8 +47,8 @@ export class Textbook {
   @Prop({ trim: true })
   curriculumVersion?: string;
 
-  @Prop({ trim: true, default: '2026 Revised Edition' })
-  edition: string;
+  @Prop({ trim: true, default: null })
+  edition?: string | null;
 
   @Prop({ trim: true, default: '' })
   coverImageUrl: string;
@@ -104,3 +104,13 @@ export class Textbook {
 export const TextbookSchema = SchemaFactory.createForClass(Textbook);
 TextbookSchema.index({ classLevel: 1, medium: 1, curriculumYear: 1, isPublished: 1 });
 TextbookSchema.index({ subjectId: 1, isPublished: 1 });
+TextbookSchema.index(
+  { checksumSha256: 1, subjectId: 1, curriculumVersion: 1 },
+  {
+    unique: true,
+    name: 'uq_textbook_content_scope',
+    partialFilterExpression: {
+      checksumSha256: { $type: 'string', $gt: '' },
+    },
+  },
+);

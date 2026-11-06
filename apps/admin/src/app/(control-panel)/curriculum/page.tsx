@@ -1,16 +1,11 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
+import Link from 'next/link';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -21,22 +16,11 @@ import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { aiAdminService, IngestionStatsResponse, IngestTextbookPayload } from '@/features/ai/services/ai-admin.service';
+import { aiAdminService, IngestionStatsResponse } from '@/features/ai/services/ai-admin.service';
 import {
 	curriculumAdminService,
 	CurriculumCompletenessRow
 } from '@/features/curriculum/services/curriculum-admin.service';
-
-const CLASS_LEVELS = [6, 7, 8, 9, 10];
-const SUBJECTS = [
-	{ id: 'mathematics', title: 'Mathematics (গণিত)' },
-	{ id: 'science', title: 'General Science (সাধারণ বিজ্ঞান)' },
-	{ id: 'english', title: 'English Grammar & Composition' },
-	{ id: 'bangla', title: 'Bangla Sahitto (বাংলা সাহিত্য)' },
-	{ id: 'physics', title: 'Physics (পদার্থবিজ্ঞান)' },
-	{ id: 'chemistry', title: 'Chemistry (রসায়ন)' },
-	{ id: 'biology', title: 'Biology (জীববিজ্ঞান)' }
-];
 
 export default function CurriculumIngestionPage() {
 	const [stats, setStats] = useState<IngestionStatsResponse | null>(null);
@@ -45,25 +29,7 @@ export default function CurriculumIngestionPage() {
 	const [successMsg, setSuccessMsg] = useState<string | null>(null);
 	const [completeness, setCompleteness] = useState<CurriculumCompletenessRow[]>([]);
 
-	// Ingestion Dialog state
-	const [openDialog, setOpenDialog] = useState(false);
-	const [submitting, setSubmitting] = useState(false);
 	const [deletingId, setDeletingId] = useState<string | null>(null);
-
-	const [formData, setFormData] = useState<IngestTextbookPayload>({
-		source_book: 'NCTB গণিত (শ্রেণি ৮)',
-		book_id: 'nctb_math_class_8',
-		class_level: 8,
-		subject_id: 'mathematics',
-		subject_title: 'গণিত',
-		chapter_id: 'algebra',
-		chapter_title: 'বীজগণিতীয় রাশি',
-		page_start: 45,
-		page_end: 45,
-		chunk_size: 300,
-		chunk_overlap: 50,
-		text: ''
-	});
 
 	const fetchStats = useCallback(async () => {
 		try {
@@ -85,38 +51,6 @@ export default function CurriculumIngestionPage() {
 	useEffect(() => {
 		fetchStats();
 	}, [fetchStats]);
-
-	const handleOpenDialog = () => {
-		setOpenDialog(true);
-	};
-
-	const handleCloseDialog = () => {
-		setOpenDialog(false);
-		setFormData((prev) => ({ ...prev, text: '' }));
-	};
-
-	const handleIngest = async (e: React.FormEvent) => {
-		e.preventDefault();
-
-		if (!formData.text.trim()) {
-			setError('Text content is required for ingestion.');
-			return;
-		}
-
-		setSubmitting(true);
-		setError(null);
-		try {
-			const res = await aiAdminService.ingestChunk(formData);
-			setSuccessMsg(`Successfully indexed ${res.indexed_count ?? 1} chunk(s) for ${formData.book_id}`);
-			handleCloseDialog();
-			await fetchStats();
-		} catch (err: unknown) {
-			const msg = err instanceof Error ? err.message : 'Failed to ingest textbook chunk';
-			setError(msg);
-		} finally {
-			setSubmitting(false);
-		}
-	};
 
 	const handleDeleteBook = async (bookId: string) => {
 		if (!window.confirm(`Are you sure you want to delete all indexed vector chunks for "${bookId}"?`)) {
@@ -163,13 +97,14 @@ export default function CurriculumIngestionPage() {
 
 				<div className="flex items-center gap-3">
 					<Button
+						component={Link}
+						href="/curriculum/books"
 						variant="contained"
 						color="primary"
 						startIcon={<FuseSvgIcon size={18}>heroicons-outline:plus</FuseSvgIcon>}
-						onClick={handleOpenDialog}
 						className="shadow-sm font-semibold"
 					>
-						Ingest Content
+						Upload Textbook PDF
 					</Button>
 				</div>
 			</div>
@@ -413,149 +348,14 @@ export default function CurriculumIngestionPage() {
 									color="text.secondary"
 									className="mb-4"
 								>
-									Click "Ingest Content" above or run the CLI batch ingestion script.
+									Upload a source PDF from Books & Indexing to register its verified curriculum scope
+									and queue indexing.
 								</Typography>
 							</div>
 						)}
 					</Paper>
 				</>
 			)}
-
-			{/* Ingest Content Dialog Modal */}
-			<Dialog
-				open={openDialog}
-				onClose={handleCloseDialog}
-				maxWidth="md"
-				fullWidth
-			>
-				<form onSubmit={handleIngest}>
-					<DialogTitle className="font-bold">Ingest NCTB Textbook Content</DialogTitle>
-					<DialogContent
-						dividers
-						className="space-y-4"
-					>
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-							<TextField
-								label="Source Book Title"
-								fullWidth
-								required
-								value={formData.source_book}
-								onChange={(e) => setFormData({ ...formData, source_book: e.target.value })}
-								placeholder="e.g. NCTB গণিত (শ্রেণি ৮)"
-							/>
-
-							<TextField
-								label="Book Identifier (ID)"
-								fullWidth
-								required
-								value={formData.book_id}
-								onChange={(e) => setFormData({ ...formData, book_id: e.target.value })}
-								placeholder="e.g. nctb_math_class_8"
-							/>
-						</div>
-
-						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-							<TextField
-								select
-								label="Class Level"
-								fullWidth
-								value={formData.class_level}
-								onChange={(e) => setFormData({ ...formData, class_level: Number(e.target.value) })}
-							>
-								{CLASS_LEVELS.map((lvl) => (
-									<MenuItem
-										key={lvl}
-										value={lvl}
-									>
-										Class {lvl} (শ্রেণি {lvl})
-									</MenuItem>
-								))}
-							</TextField>
-
-							<TextField
-								select
-								label="Subject"
-								fullWidth
-								value={formData.subject_id}
-								onChange={(e) => {
-									const sub = SUBJECTS.find((s) => s.id === e.target.value);
-									setFormData({
-										...formData,
-										subject_id: e.target.value,
-										subject_title: sub ? sub.title : e.target.value
-									});
-								}}
-							>
-								{SUBJECTS.map((sub) => (
-									<MenuItem
-										key={sub.id}
-										value={sub.id}
-									>
-										{sub.title}
-									</MenuItem>
-								))}
-							</TextField>
-
-							<TextField
-								label="Page Number"
-								type="number"
-								fullWidth
-								value={formData.page_start}
-								onChange={(e) => {
-									const p = Number(e.target.value);
-									setFormData({ ...formData, page_start: p, page_end: p });
-								}}
-							/>
-						</div>
-
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-							<TextField
-								label="Chapter ID"
-								fullWidth
-								value={formData.chapter_id}
-								onChange={(e) => setFormData({ ...formData, chapter_id: e.target.value })}
-								placeholder="e.g. algebra"
-							/>
-
-							<TextField
-								label="Chapter Title"
-								fullWidth
-								value={formData.chapter_title}
-								onChange={(e) => setFormData({ ...formData, chapter_title: e.target.value })}
-								placeholder="e.g. বীজগণিতীয় রাশি"
-							/>
-						</div>
-
-						<TextField
-							label="Textbook Content (Bangla / English)"
-							fullWidth
-							required
-							multiline
-							rows={8}
-							value={formData.text}
-							onChange={(e) => setFormData({ ...formData, text: e.target.value })}
-							placeholder="Paste the lesson, textbook paragraph, formulas, or chapter text here..."
-						/>
-					</DialogContent>
-					<DialogActions className="p-4">
-						<Button
-							onClick={handleCloseDialog}
-							color="inherit"
-							disabled={submitting}
-						>
-							Cancel
-						</Button>
-						<Button
-							type="submit"
-							variant="contained"
-							color="primary"
-							disabled={submitting}
-						>
-							{submitting ? 'Indexing Vectors...' : 'Submit & Ingest'}
-						</Button>
-					</DialogActions>
-				</form>
-			</Dialog>
 		</div>
 	);
 }

@@ -144,8 +144,14 @@ class TutorRepositoryImpl implements TutorRepository {
     );
 
     await for (final event in sseStream) {
-      final eventType = event.event?.toLowerCase() ?? 'delta';
+      final eventType = event.event?.toLowerCase();
       final dataStr = event.data.trim();
+
+      if (eventType == null ||
+          !const {'metadata', 'delta', 'citation', 'error', 'done'}
+              .contains(eventType)) {
+        continue;
+      }
 
       if (dataStr == '[DONE]') {
         yield const TutorDoneEvent();
@@ -157,27 +163,55 @@ class TutorRepositoryImpl implements TutorRepository {
         if (decoded is Map<String, dynamic>) {
           switch (eventType) {
             case 'metadata':
+              final grounded = decoded['grounded'];
+              final retrievalUnavailable = decoded['retrievalUnavailable'];
+              if (grounded is! bool ||
+                  retrievalUnavailable is! bool ||
+                  (grounded && retrievalUnavailable)) {
+                break;
+              }
               yield TutorMetadataEvent(
                 provider: (decoded['provider'] ?? 'gemini').toString(),
-                grounded: decoded['grounded'] as bool?,
+                grounded: grounded,
+                retrievalUnavailable: retrievalUnavailable,
+                groundingMode: decoded['groundingMode'] is String
+                    ? decoded['groundingMode'] as String
+                    : null,
                 raw: decoded,
               );
               break;
             case 'delta':
-              final text =
-                  (decoded['text'] ?? decoded['delta'] ?? '').toString();
+              final rawText = decoded['text'] ?? decoded['delta'];
+              if (rawText is! String) {
+                break;
+              }
+              final text = rawText;
               if (text.isNotEmpty) {
                 yield TutorTextDeltaEvent(text);
               }
               break;
             case 'citation':
+              final sourceId = decoded['sourceId'];
+              final sourceBook = decoded['sourceBook'];
+              final excerpt = decoded['excerpt'] ?? decoded['textChunk'];
+              if (sourceId is! String ||
+                  sourceId.trim().isEmpty ||
+                  sourceBook is! String ||
+                  sourceBook.trim().isEmpty ||
+                  excerpt is! String ||
+                  excerpt.trim().isEmpty) {
+                break;
+              }
               final citationDto = TutorCitationDto.fromJson(decoded);
               yield TutorCitationEvent(TutorMapper.toCitation(citationDto));
               break;
             case 'error':
+              if (decoded['code'] is! String || decoded['message'] is! String) {
+                break;
+              }
               yield TutorErrorEvent(
-                code: (decoded['code'] ?? 'STREAM_ERROR').toString(),
-                message: (decoded['message'] ?? 'Streaming error').toString(),
+                code: decoded['code'] as String,
+                message: decoded['message'] as String,
               );
               break;
             case 'done':
@@ -187,18 +221,11 @@ class TutorRepositoryImpl implements TutorRepository {
               );
               break;
             default:
-              final text = decoded['text']?.toString();
-              if (text != null && text.isNotEmpty) {
-                yield TutorTextDeltaEvent(text);
-              }
+              break;
           }
-        } else if (decoded is String) {
-          yield TutorTextDeltaEvent(decoded);
         }
       } catch (_) {
-        if (dataStr.isNotEmpty) {
-          yield TutorTextDeltaEvent(dataStr);
-        }
+        // Ignore malformed frames; never reinterpret protocol errors as answer text.
       }
     }
   }

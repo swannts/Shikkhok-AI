@@ -30,6 +30,7 @@ import {
 } from '../ai-gateway/services/ai-gateway.service';
 import { TutorMessageRepository } from './repositories/tutor-message.repository';
 import { TutorCitation } from './types/tutor-citation.type';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class TutorService {
@@ -240,7 +241,7 @@ export class TutorService {
     } = await this.prepareContext(currentUser.userId, conversation);
 
     const payload: TutorGenerationPayload = {
-      requestId: `req-${Date.now()}`,
+      requestId: `req-${randomUUID()}`,
       conversationId,
       userId: currentUser.userId,
       message: dto.content,
@@ -253,7 +254,7 @@ export class TutorService {
       subjectTitle: subjectTitle,
       language: conversation.medium === 'english' ? 'en' : 'bn',
       history: contextSegments.length
-        ? ([{ role: 'system', content: `Context:\n${contextSegments.join('\n')}` }] as any)
+        ? [{ role: 'system', content: `Context:\n${contextSegments.join('\n')}` }]
         : undefined,
     };
 
@@ -321,23 +322,39 @@ export class TutorService {
           }
         }
       }
-    } catch (error: any) {
+    } catch {
       if (!abortController.signal.aborted) {
-        // Fallback response
-        res.write(`event: metadata
-data: ${JSON.stringify({ provider: 'local-fallback', grounded: false, retrievalUnavailable: true })}
-
-`);
+        // Degraded output has no curriculum provenance and is persisted like a reply.
         const fallbackText =
           'এই উত্তরটি সাধারণ ব্যাখ্যার ভিত্তিতে দেওয়া হয়েছে। এই মুহূর্তে পাঠ্যবইয়ের উৎস যাচাই করা যাচ্ছে না।';
-        res.write(`event: delta
-data: ${JSON.stringify({ text: fallbackText })}
-
-`);
-        res.write(`event: done
-data: {}
-
-`);
+        accumulatedContent = fallbackText;
+        collectedCitations.length = 0;
+        provider = 'degraded';
+        grounded = false;
+        const fallbackMessage = await this.messageRepository.createMessage({
+          conversationId,
+          userId: currentUser.userId,
+          role: TutorMessageRole.ASSISTANT,
+          content: fallbackText,
+          citations: [],
+          provider,
+        });
+        await this.conversationRepository.touchConversation(conversationId, 2);
+        res.write(
+          `event: metadata\ndata: ${JSON.stringify({
+            provider,
+            grounded,
+            retrievalUnavailable: true,
+            groundingMode: 'degraded',
+          })}\n\n`,
+        );
+        res.write(`event: delta\ndata: ${JSON.stringify({ text: fallbackText })}\n\n`);
+        res.write(
+          `event: done\ndata: ${JSON.stringify({
+            messageId: fallbackMessage._id?.toString?.(),
+            conversationId,
+          })}\n\n`,
+        );
         accumulatedContent = fallbackText;
       }
     } finally {
@@ -402,7 +419,7 @@ data: {}
     );
 
     const payload: TutorGenerationPayload = {
-      requestId: `req-${Date.now()}`,
+      requestId: `req-${randomUUID()}`,
       userId,
       conversationId: conversation._id?.toString?.() ?? '',
       message: prompt,
@@ -415,7 +432,7 @@ data: {}
       chapterId: conversation.chapterId?.toString?.() ?? null,
       subjectId: conversation.subjectId?.toString?.() ?? null,
       history: contextSegments.length
-        ? ([{ role: 'system', content: `Context:\n${contextSegments.join('\n')}` }] as any)
+        ? [{ role: 'system', content: `Context:\n${contextSegments.join('\n')}` }]
         : undefined,
     };
 
@@ -458,7 +475,7 @@ data: {}
 
     return {
       content: reply,
-      citations,
+      citations: [],
     };
   }
 

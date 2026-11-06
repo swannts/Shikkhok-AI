@@ -24,6 +24,9 @@ export class HomeworkFeedbackRepository {
     weaknesses?: string[];
     recommendations?: string[];
     citations?: TutorCitation[];
+    grounded?: boolean;
+    retrievalUnavailable?: boolean;
+    groundingMode?: 'grounded' | 'ungrounded' | 'degraded';
   }): Promise<HomeworkFeedbackDocument> {
     const feedback = new this.feedbackModel({
       submissionId: new Types.ObjectId(data.submissionId),
@@ -34,6 +37,9 @@ export class HomeworkFeedbackRepository {
       weaknesses: data.weaknesses ?? [],
       recommendations: data.recommendations ?? [],
       citations: data.citations ?? [],
+      grounded: data.grounded ?? false,
+      retrievalUnavailable: data.retrievalUnavailable ?? false,
+      groundingMode: data.groundingMode ?? 'ungrounded',
       rating: null,
     });
     return feedback.save();

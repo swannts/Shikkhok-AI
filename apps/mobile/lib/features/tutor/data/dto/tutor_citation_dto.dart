@@ -33,8 +33,8 @@ class TutorCitationDto {
       classLevel: parseInt(json['classLevel']),
       subject: json['subject']?.toString(),
       chapter: json['chapter']?.toString(),
-      pageNumber: parseInt(json['pageNumber']),
-      excerpt: json['excerpt']?.toString(),
+      pageNumber: parseInt(json['pageStart'] ?? json['pageNumber']),
+      excerpt: (json['excerpt'] ?? json['textChunk'])?.toString(),
       sourceUrl: json['sourceUrl']?.toString(),
     );
   }

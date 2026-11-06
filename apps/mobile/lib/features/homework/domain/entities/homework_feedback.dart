@@ -23,6 +23,10 @@ class HomeworkFeedback {
   final List<HomeworkCorrectionStep> steps;
   final List<String> citations;
   final int? rating;
+  final bool grounded;
+  final bool retrievalUnavailable;
+  final String groundingMode;
+  final List<String> recommendations;
 
   const HomeworkFeedback({
     required this.submissionId,
@@ -31,5 +35,9 @@ class HomeworkFeedback {
     this.steps = const [],
     this.citations = const [],
     this.rating,
+    this.grounded = false,
+    this.retrievalUnavailable = false,
+    this.groundingMode = 'ungrounded',
+    this.recommendations = const [],
   });
 }

@@ -6,6 +6,7 @@ import { ClassroomsController } from '../../modules/classrooms/classrooms.contro
 import { StudentsController } from '../../modules/students/students.controller';
 import { TextbooksController } from '../../modules/textbooks/textbooks.controller';
 import { AdminController } from '../../modules/admin/admin.controller';
+import { PERMISSIONS_KEY } from '../decorators/permissions.decorator';
 
 describe('role metadata policy', () => {
   it('restricts parent endpoints to parent/admin roles', () => {
@@ -47,5 +48,16 @@ describe('role metadata policy', () => {
 
   it('keeps the complete admin controller admin-only', () => {
     expect(Reflect.getMetadata(ROLES_KEY, AdminController)).toEqual([UserRole.ADMIN]);
+  });
+
+  it('requires an explicit permission for every admin route handler', () => {
+    const handlers = Object.getOwnPropertyNames(AdminController.prototype).filter(
+      (name) => name !== 'constructor' && typeof AdminController.prototype[name] === 'function',
+    );
+
+    expect(handlers.length).toBeGreaterThan(0);
+    for (const name of handlers) {
+      expect(Reflect.getMetadata(PERMISSIONS_KEY, AdminController.prototype[name])).toBeDefined();
+    }
   });
 });

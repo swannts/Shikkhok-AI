@@ -1,11 +1,72 @@
 from typing import Literal
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 
 class TutorHistoryMessage(BaseModel):
     role: Literal["user", "assistant", "system"]
     content: str
+
+
+class TutorMetadataPayload(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    grounded: bool
+    retrievalUnavailable: bool
+    groundingMode: Literal["grounded", "ungrounded", "degraded"] | None = None
+    provider: str | None = None
+    model: str | None = None
+    retrievalLatencyMs: int | None = Field(default=None, ge=0)
+    retrievedChunkCount: int | None = Field(default=None, ge=0)
+    citationCount: int | None = Field(default=None, ge=0)
+
+    @model_validator(mode="after")
+    def grounding_flags_are_consistent(self) -> "TutorMetadataPayload":
+        if self.retrievalUnavailable and self.grounded:
+            raise ValueError("unavailable retrieval cannot be marked grounded")
+        if self.groundingMode == "grounded" and not self.grounded:
+            raise ValueError("groundingMode grounded requires grounded=true")
+        if self.groundingMode == "degraded" and not self.retrievalUnavailable:
+            raise ValueError("degraded mode requires retrievalUnavailable=true")
+        return self
+
+
+class TutorDeltaPayload(BaseModel):
+    text: str
+
+
+class TutorCitationPayload(BaseModel):
+    citationId: str = Field(min_length=1)
+    sourceId: str = Field(min_length=1)
+    sourceBook: str = Field(min_length=1)
+    textChunk: str = Field(min_length=1)
+    classLevel: int | None = Field(default=None, ge=1, le=12)
+    pageStart: int | None = Field(default=None, ge=1)
+    pageEnd: int | None = Field(default=None, ge=1)
+    subject: str | None = None
+    chapter: str | None = None
+    lesson: str | None = None
+
+    @model_validator(mode="after")
+    def page_range_is_ordered(self) -> "TutorCitationPayload":
+        if self.pageStart is not None and self.pageEnd is not None and self.pageEnd < self.pageStart:
+            raise ValueError("citation pageEnd cannot precede pageStart")
+        return self
+
+
+class TutorDonePayload(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    messageId: str | None = None
+    conversationId: str | None = None
+    finishReason: str | None = None
+
+
+class TutorErrorPayload(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    code: str = Field(min_length=1)
+    message: str = Field(min_length=1)
 
 
 class TutorGenerationRequest(BaseModel):
@@ -62,24 +123,12 @@ class TutorStreamEvent(BaseModel):
 
     @model_validator(mode="after")
     def validate_event_payload(self) -> "TutorStreamEvent":
-        required: dict[str, tuple[str, ...]] = {
-            "metadata": ("grounded", "retrievalUnavailable"),
-            "delta": ("text",),
-            "citation": ("citationId", "sourceId", "sourceBook"),
-            "error": ("code", "message"),
+        payload_models = {
+            "metadata": TutorMetadataPayload,
+            "delta": TutorDeltaPayload,
+            "citation": TutorCitationPayload,
+            "done": TutorDonePayload,
+            "error": TutorErrorPayload,
         }
-        for field in required.get(self.event, ()):
-            value = self.data.get(field)
-            if not isinstance(value, (str, bool)) or (isinstance(value, str) and not value.strip()):
-                raise ValueError(f"{self.event} event requires non-empty {field}")
-        if self.event == "citation" and not any(
-            isinstance(self.data.get(field), str) and str(self.data[field]).strip()
-            for field in ("textChunk", "excerpt")
-        ):
-            raise ValueError("citation event requires retrieved text")
-        if self.event == "metadata":
-            if not isinstance(self.data["grounded"], bool) or not isinstance(
-                self.data["retrievalUnavailable"], bool
-            ):
-                raise ValueError("metadata grounding flags must be boolean")
+        payload_models[self.event].model_validate(self.data)
         return self

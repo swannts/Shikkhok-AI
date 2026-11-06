@@ -78,6 +78,15 @@ export class PaymentTransaction {
   @Prop({ trim: true, default: null })
   verificationNote?: string | null;
 
+  @Prop({ type: Date, default: null })
+  refundedAt?: Date | null;
+
+  @Prop({ trim: true, default: null })
+  refundedBy?: string | null;
+
+  @Prop({ trim: true, default: null })
+  refundReason?: string | null;
+
   @Prop({ trim: true, default: null })
   failureCode?: string | null;
 

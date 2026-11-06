@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsEnum, IsInt, IsNotEmpty, IsString, Max, Min } from 'class-validator';
+import { IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, Matches, Max, MaxLength, Min } from 'class-validator';
 import { CurriculumMedium } from '../../curriculum/enums/curriculum-medium.enum';
 
 export class AdminUploadTextbookDto {
@@ -29,4 +29,14 @@ export class AdminUploadTextbookDto {
   @Min(2020)
   @Max(2100)
   curriculumYear: number;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^[A-Za-z0-9._-]{1,80}$/)
+  curriculumVersion?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  edition?: string;
 }

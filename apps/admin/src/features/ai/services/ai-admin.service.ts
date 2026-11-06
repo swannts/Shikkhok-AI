@@ -16,27 +16,6 @@ export interface IngestionStatsResponse {
 	}[];
 }
 
-export interface IngestTextbookPayload {
-	text: string;
-	source_book: string;
-	book_id: string;
-	class_level?: number;
-	subject_id?: string;
-	subject_title?: string;
-	chapter_id?: string;
-	chapter_title?: string;
-	page_start?: number;
-	page_end?: number;
-	chunk_size?: number;
-	chunk_overlap?: number;
-}
-
-export interface IngestChunkResponse {
-	indexed_count: number;
-	book_id: string;
-	status: string;
-}
-
 export interface DeleteBookResponse {
 	deleted_count: number;
 	book_id: string;
@@ -62,10 +41,6 @@ export const aiAdminService = {
 
 	async getStats(): Promise<IngestionStatsResponse> {
 		return apiClient.get<IngestionStatsResponse>('/admin/ai/stats');
-	},
-
-	async ingestChunk(payload: IngestTextbookPayload): Promise<IngestChunkResponse> {
-		return apiClient.post<IngestChunkResponse>('/admin/ai/ingest', payload);
 	},
 
 	async deleteBook(bookId: string): Promise<DeleteBookResponse> {

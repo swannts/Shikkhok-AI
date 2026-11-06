@@ -3,7 +3,6 @@ import { config } from './config';
 import { processNotificationJob } from './processors/notification.processor';
 import { processCurriculumJob } from './processors/curriculum.processor';
 import { processAnalyticsJob } from './processors/analytics.processor';
-import { processHomeworkJob } from './processors/homework.processor';
 import { startHealthServer } from './health-server';
 import { createManagedWorker } from './utils/worker-factory';
 
@@ -39,15 +38,10 @@ export function startWorker() {
     removeOnComplete: JOB_REMOVE_ON_COMPLETE,
   });
 
-  const homeworkManaged = createManagedWorker({
-    queueName: 'homework',
-    processor: async (job: Job) => processHomeworkJob(job),
-    concurrency: config.workerConcurrency,
-    maxAttempts: JOB_ATTEMPTS,
-    removeOnComplete: JOB_REMOVE_ON_COMPLETE,
-  });
-
-  const managedNodes = [notificationManaged, curriculumManaged, analyticsManaged, homeworkManaged];
+  // Homework jobs are consumed by NestJS because it owns submission persistence
+  // and invokes the AI gateway with the stored submission. A second consumer in
+  // this process used an incompatible payload and raced the API processor.
+  const managedNodes = [notificationManaged, curriculumManaged, analyticsManaged];
   const workers = managedNodes.map(m => m.worker);
   const queues = managedNodes.flatMap(m => [m.mainQueue, m.dlqQueue]);
 

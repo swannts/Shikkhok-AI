@@ -310,6 +310,8 @@ export class AiGatewayService {
     prompt?: string;
     image_urls?: string[];
     class_level?: number;
+    curriculum_year?: number;
+    medium?: 'bangla' | 'english';
     subject_id?: string;
     chapter_id?: string;
     lesson_id?: string;
@@ -395,41 +397,6 @@ export class AiGatewayService {
   }
 
   /**
-   * Ingests a structured textbook chunk into FastAPI vector store.
-   */
-  async ingestTextbookChunk(payload: Record<string, any>): Promise<any> {
-    const baseUrl =
-      this.configService.get<string>('aiService.baseUrl')?.replace(/\/+$/, '') ??
-      'http://localhost:8000/api/v1';
-    const path = '/api/v1/ingestion/text';
-    const url = new URL(path, baseUrl);
-
-    const requestBody = JSON.stringify(payload);
-    const signedHeaders = this.hmacSignerService.generateSignedHeaders(
-      'POST',
-      path,
-      requestBody,
-      payload.book_id || 'ingest-req',
-    );
-
-    const response = await fetch(url.toString(), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...signedHeaders,
-      },
-      body: requestBody,
-      signal: AbortSignal.timeout(15000),
-    });
-
-    if (!response.ok) {
-      throw new Error(`FastAPI Textbook Ingestion error ${response.status}`);
-    }
-
-    return await response.json();
-  }
-
-  /**
    * Deletes a book index from FastAPI vector store.
    */
   async deleteBookIndex(bookId: string): Promise<any> {
@@ -483,7 +450,7 @@ export class AiGatewayService {
 
   public parseSseChunk(chunk: string): TutorStreamEvent | null {
     const lines = chunk.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
-    let eventName: TutorStreamEvent['event'] = 'delta';
+    let eventName: TutorStreamEvent['event'] | undefined;
     const dataLines: string[] = [];
 
     for (const rawLine of lines) {
@@ -497,6 +464,8 @@ export class AiGatewayService {
         const name = line.slice('event:'.length).trim();
         if (['metadata', 'delta', 'citation', 'done', 'error'].includes(name)) {
           eventName = name as TutorStreamEvent['event'];
+        } else {
+          return null;
         }
       } else if (line.startsWith('data:')) {
         let dataContent = line.slice('data:'.length);
@@ -507,14 +476,14 @@ export class AiGatewayService {
       }
     }
 
-    if (dataLines.length === 0) return null;
+    if (dataLines.length === 0 || !eventName) return null;
 
     const dataStr = dataLines.join('\n');
     let parsedData: unknown;
     try {
       parsedData = JSON.parse(dataStr);
     } catch {
-      parsedData = { text: dataStr };
+      return null;
     }
 
     return this.validateTutorStreamEvent(eventName, parsedData);

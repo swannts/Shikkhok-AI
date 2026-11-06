@@ -244,6 +244,10 @@ export class AuthService {
     this.logger.log(`All sessions revoked for user ${userId}`, 'AuthService');
   }
 
+  async getActiveSessionCount(userId: string): Promise<number> {
+    return this.refreshSessionRepository.countActiveByUserId(userId);
+  }
+
   // ──────────────────────────────────────────────
   // GET PROFILE
   // ──────────────────────────────────────────────

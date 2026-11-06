@@ -12,6 +12,12 @@ import { JoinClassroomDto } from './dto/join-classroom.dto';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { SubmitAssignmentDto } from './dto/submit-assignment.dto';
 import { GradeAssignmentDto } from './dto/grade-assignment.dto';
+import {
+  ClassroomAssignmentResponseDto,
+  ClassroomDetailResponseDto,
+  ClassroomResponseDto,
+  ClassroomSubmissionResponseDto,
+} from './dto/classroom-response.dto';
 import { UserRole } from '../users/enums/user-role.enum';
 
 @ApiTags('Classrooms')
@@ -26,7 +32,7 @@ export class ClassroomsController {
   @ApiOperation({
     summary: 'Create a new teacher classroom with auto-generated 6-character join code',
   })
-  @ApiResponse({ status: 201, description: 'Classroom created successfully' })
+  @ApiResponse({ status: 201, description: 'Classroom created successfully', type: ClassroomResponseDto })
   async createClassroom(@CurrentUser() user: AuthenticatedUser, @Body() dto: CreateClassroomDto) {
     return this.classroomsService.createClassroom(user, dto);
   }
@@ -34,7 +40,7 @@ export class ClassroomsController {
   @Get('me/teaching')
   @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'List all classrooms taught by the current teacher' })
-  @ApiResponse({ status: 200, description: 'List of teaching classrooms' })
+  @ApiResponse({ status: 200, description: 'List of teaching classrooms', type: [ClassroomResponseDto] })
   async listTeaching(@CurrentUser() user: AuthenticatedUser) {
     return this.classroomsService.listTeaching(user);
   }
@@ -58,7 +64,7 @@ export class ClassroomsController {
   @Get(':classroomId')
   @Roles(UserRole.STUDENT, UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'Get classroom details, member count, and assignments' })
-  @ApiResponse({ status: 200, description: 'Classroom overview returned' })
+  @ApiResponse({ status: 200, description: 'Classroom overview returned', type: ClassroomDetailResponseDto })
   async getClassroom(
     @CurrentUser() user: AuthenticatedUser,
     @Param('classroomId', MongoObjectIdPipe) classroomId: string,
@@ -69,7 +75,7 @@ export class ClassroomsController {
   @Post(':classroomId/assignments')
   @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'Create a new classroom homework or practice assignment' })
-  @ApiResponse({ status: 201, description: 'Assignment created successfully' })
+  @ApiResponse({ status: 201, description: 'Assignment created successfully', type: ClassroomAssignmentResponseDto })
   async createAssignment(
     @CurrentUser() user: AuthenticatedUser,
     @Param('classroomId', MongoObjectIdPipe) classroomId: string,
@@ -81,7 +87,7 @@ export class ClassroomsController {
   @Get(':classroomId/assignments')
   @Roles(UserRole.STUDENT, UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'List all published assignments for the classroom' })
-  @ApiResponse({ status: 200, description: 'List of assignments' })
+  @ApiResponse({ status: 200, description: 'List of assignments', type: [ClassroomAssignmentResponseDto] })
   async listAssignments(
     @CurrentUser() user: AuthenticatedUser,
     @Param('classroomId', MongoObjectIdPipe) classroomId: string,
@@ -92,7 +98,7 @@ export class ClassroomsController {
   @Post(':classroomId/assignments/:assignmentId/submit')
   @Roles(UserRole.STUDENT)
   @ApiOperation({ summary: 'Submit student work for a classroom assignment' })
-  @ApiResponse({ status: 200, description: 'Assignment submitted successfully' })
+  @ApiResponse({ status: 200, description: 'Assignment submitted successfully', type: ClassroomSubmissionResponseDto })
   async submitAssignment(
     @CurrentUser() user: AuthenticatedUser,
     @Param('classroomId', MongoObjectIdPipe) classroomId: string,
@@ -105,7 +111,7 @@ export class ClassroomsController {
   @Get(':classroomId/assignments/:assignmentId/submissions')
   @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'List all student submissions for an assignment (teacher only)' })
-  @ApiResponse({ status: 200, description: 'List of student submissions' })
+  @ApiResponse({ status: 200, description: 'List of student submissions', type: [ClassroomSubmissionResponseDto] })
   async listSubmissions(
     @CurrentUser() user: AuthenticatedUser,
     @Param('classroomId', MongoObjectIdPipe) classroomId: string,
@@ -117,7 +123,7 @@ export class ClassroomsController {
   @Put(':classroomId/assignments/:assignmentId/submissions/:submissionId/grade')
   @Roles(UserRole.TEACHER, UserRole.ADMIN)
   @ApiOperation({ summary: 'Grade a student submission with score and teacher feedback' })
-  @ApiResponse({ status: 200, description: 'Submission graded successfully' })
+  @ApiResponse({ status: 200, description: 'Submission graded successfully', type: ClassroomSubmissionResponseDto })
   async gradeSubmission(
     @CurrentUser() user: AuthenticatedUser,
     @Param('classroomId', MongoObjectIdPipe) classroomId: string,

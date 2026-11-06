@@ -13,6 +13,13 @@ import { JoinClassroomDto } from './dto/join-classroom.dto';
 import { CreateAssignmentDto } from './dto/create-assignment.dto';
 import { SubmitAssignmentDto } from './dto/submit-assignment.dto';
 import { GradeAssignmentDto } from './dto/grade-assignment.dto';
+import {
+  ClassroomAssignmentResponseDto,
+  ClassroomDetailResponseDto,
+  ClassroomMemberResponseDto,
+  ClassroomResponseDto,
+  ClassroomSubmissionResponseDto,
+} from './dto/classroom-response.dto';
 
 @Injectable()
 export class ClassroomsService {
@@ -27,7 +34,7 @@ export class ClassroomsService {
   async createClassroom(
     currentUser: AuthenticatedUser,
     dto: CreateClassroomDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<ClassroomResponseDto> {
     this.assertTeacherOrAdmin(currentUser);
 
     const code = await this.generateUniqueCode();
@@ -51,24 +58,28 @@ export class ClassroomsService {
       ClassroomRole.TEACHER,
     );
 
-    return classroom.toJSON();
+    return classroom.toJSON() as unknown as ClassroomResponseDto;
   }
 
-  async listTeaching(currentUser: AuthenticatedUser): Promise<Record<string, any>[]> {
+  async listTeaching(
+    currentUser: AuthenticatedUser,
+  ): Promise<(ClassroomResponseDto & { memberCount: number })[]> {
     this.assertTeacherOrAdmin(currentUser);
     const classrooms = await this.classroomRepository.findByTeacherId(currentUser.userId);
     return Promise.all(
       classrooms.map(async (c) => {
         const memberCount = await this.memberRepository.countMembers(c._id.toString());
         return {
-          ...c.toJSON(),
+          ...(c.toJSON() as unknown as ClassroomResponseDto),
           memberCount,
         };
       }),
     );
   }
 
-  async listEnrolled(currentUser: AuthenticatedUser): Promise<Record<string, any>[]> {
+  async listEnrolled(
+    currentUser: AuthenticatedUser,
+  ): Promise<{ membership: ClassroomMemberResponseDto; classroom: ClassroomResponseDto }[]> {
     const memberships = await this.memberRepository.findByStudentId(currentUser.userId);
     const classroomIds = memberships.map((m) => m.classroomId);
     const classrooms = await this.classroomRepository.findByIds(classroomIds);
@@ -81,15 +92,15 @@ export class ClassroomsService {
     return memberships
       .filter((m) => classroomMap.has(m.classroomId.toString()))
       .map((m) => ({
-        membership: m.toJSON(),
-        classroom: classroomMap.get(m.classroomId.toString()),
+        membership: m.toJSON() as unknown as ClassroomMemberResponseDto,
+        classroom: classroomMap.get(m.classroomId.toString()) as unknown as ClassroomResponseDto,
       }));
   }
 
   async joinClassroom(
     currentUser: AuthenticatedUser,
     dto: JoinClassroomDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<{ membership?: ClassroomMemberResponseDto; classroom: ClassroomResponseDto }> {
     const classroom = await this.classroomRepository.findByCode(dto.code);
     if (!classroom || !classroom.isActive) {
       throw new NotFoundException('Invalid or inactive classroom join code');
@@ -102,15 +113,15 @@ export class ClassroomsService {
     );
 
     return {
-      membership: member?.toJSON(),
-      classroom: classroom.toJSON(),
+      membership: member ? (member.toJSON() as unknown as ClassroomMemberResponseDto) : undefined,
+      classroom: classroom.toJSON() as unknown as ClassroomResponseDto,
     };
   }
 
   async getClassroom(
     currentUser: AuthenticatedUser,
     classroomId: string,
-  ): Promise<Record<string, any>> {
+  ): Promise<ClassroomDetailResponseDto & { assignments: ClassroomAssignmentResponseDto[] }> {
     const classroom = await this.classroomRepository.findById(classroomId);
     if (!classroom || !classroom.isActive) {
       throw new NotFoundException('Classroom not found');
@@ -123,10 +134,16 @@ export class ClassroomsService {
       this.assignmentRepository.findByClassroomId(classroomId),
     ]);
 
+    const isTeacher =
+      classroom.teacherId.toString() === currentUser.userId ||
+      currentUser.role === UserRole.ADMIN;
+
     return {
-      ...classroom.toJSON(),
+      ...(classroom.toJSON() as unknown as ClassroomResponseDto),
       memberCount,
-      assignments: assignments.map((a) => a.toJSON()),
+      assignmentCount: assignments.length,
+      myRole: isTeacher ? ClassroomRole.TEACHER : ClassroomRole.STUDENT,
+      assignments: assignments.map((a) => a.toJSON() as unknown as ClassroomAssignmentResponseDto),
     };
   }
 
@@ -134,7 +151,7 @@ export class ClassroomsService {
     currentUser: AuthenticatedUser,
     classroomId: string,
     dto: CreateAssignmentDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<ClassroomAssignmentResponseDto> {
     const classroom = await this.classroomRepository.findById(classroomId);
     if (!classroom || !classroom.isActive) {
       throw new NotFoundException('Classroom not found');
@@ -154,13 +171,13 @@ export class ClassroomsService {
       isPublished: true,
     });
 
-    return assignment.toJSON();
+    return assignment.toJSON() as unknown as ClassroomAssignmentResponseDto;
   }
 
   async listAssignments(
     currentUser: AuthenticatedUser,
     classroomId: string,
-  ): Promise<Record<string, any>[]> {
+  ): Promise<ClassroomAssignmentResponseDto[]> {
     const classroom = await this.classroomRepository.findById(classroomId);
     if (!classroom || !classroom.isActive) {
       throw new NotFoundException('Classroom not found');
@@ -169,7 +186,7 @@ export class ClassroomsService {
     await this.assertClassroomAccess(currentUser, classroom);
 
     const assignments = await this.assignmentRepository.findByClassroomId(classroomId);
-    return assignments.map((a) => a.toJSON());
+    return assignments.map((a) => a.toJSON() as unknown as ClassroomAssignmentResponseDto);
   }
 
   async submitAssignment(
@@ -177,7 +194,7 @@ export class ClassroomsService {
     classroomId: string,
     assignmentId: string,
     dto: SubmitAssignmentDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<ClassroomSubmissionResponseDto> {
     const isMember = await this.memberRepository.isMember(classroomId, currentUser.userId);
     if (!isMember) {
       throw new ForbiddenException('You must be a member of this classroom to submit assignments');
@@ -201,14 +218,18 @@ export class ClassroomsService {
       isLate,
     });
 
-    return submission ? submission.toJSON() : {};
+    if (!submission) {
+      throw new NotFoundException('Failed to record submission');
+    }
+
+    return submission.toJSON() as unknown as ClassroomSubmissionResponseDto;
   }
 
   async listSubmissions(
     currentUser: AuthenticatedUser,
     classroomId: string,
     assignmentId: string,
-  ): Promise<Record<string, any>[]> {
+  ): Promise<ClassroomSubmissionResponseDto[]> {
     const classroom = await this.classroomRepository.findById(classroomId);
     if (!classroom) {
       throw new NotFoundException('Classroom not found');
@@ -222,7 +243,7 @@ export class ClassroomsService {
     this.assertAssignmentBelongsToClassroom(assignment, classroomId);
 
     const submissions = await this.submissionRepository.findByAssignmentId(assignmentId);
-    return submissions.map((s) => s.toJSON());
+    return submissions.map((s) => s.toJSON() as unknown as ClassroomSubmissionResponseDto);
   }
 
   async gradeSubmission(
@@ -231,7 +252,7 @@ export class ClassroomsService {
     assignmentId: string,
     submissionId: string,
     dto: GradeAssignmentDto,
-  ): Promise<Record<string, any>> {
+  ): Promise<ClassroomSubmissionResponseDto> {
     const classroom = await this.classroomRepository.findById(classroomId);
     if (!classroom) {
       throw new NotFoundException('Classroom not found');
@@ -265,7 +286,7 @@ export class ClassroomsService {
       throw new NotFoundException('Submission not found');
     }
 
-    return graded.toJSON();
+    return graded.toJSON() as unknown as ClassroomSubmissionResponseDto;
   }
 
   private assertTeacherOrAdmin(currentUser: AuthenticatedUser): void {

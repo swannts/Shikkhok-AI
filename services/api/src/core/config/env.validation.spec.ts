@@ -32,4 +32,30 @@ describe('Environment Variables Validation', () => {
 
     expect(() => validateConfig(rawEnv)).toThrow();
   });
+
+  it('rejects curriculum years outside the supported configured range', () => {
+    const rawEnv = {
+      NODE_ENV: 'development',
+      MONGODB_URI: 'mongodb://localhost:27017/test_db',
+      REDIS_URL: 'redis://localhost:6379',
+      JWT_ACCESS_SECRET: 'super-secret-access-key-minimum-32-chars-123456',
+      JWT_REFRESH_SECRET: 'super-secret-refresh-key-minimum-32-chars-123456',
+      CURRICULUM_YEAR: '9999',
+    };
+
+    expect(() => validateConfig(rawEnv)).toThrow('CURRICULUM_YEAR must be between 1900 and 2100');
+  });
+
+  it('accepts a valid configured curriculum year', () => {
+    const rawEnv = {
+      NODE_ENV: 'development',
+      MONGODB_URI: 'mongodb://localhost:27017/test_db',
+      REDIS_URL: 'redis://localhost:6379',
+      JWT_ACCESS_SECRET: 'super-secret-access-key-minimum-32-chars-123456',
+      JWT_REFRESH_SECRET: 'super-secret-refresh-key-minimum-32-chars-123456',
+      CURRICULUM_YEAR: '2026',
+    };
+
+    expect(validateConfig(rawEnv).CURRICULUM_YEAR).toBe('2026');
+  });
 });

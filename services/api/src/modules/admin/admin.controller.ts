@@ -35,6 +35,9 @@ import { AdminCreateChapterDto } from './dto/admin-create-chapter.dto';
 import { AdminCreateLessonDto } from './dto/admin-create-lesson.dto';
 import { ContentWorkflowStatus } from '../curriculum/enums/content-workflow-status.enum';
 import { AdminUploadTextbookDto } from './dto/admin-upload-textbook.dto';
+import { TransitionLessonWorkflowDto } from './dto/transition-lesson-workflow.dto';
+import { QueueRetryDto } from './dto/queue-retry.dto';
+import { AdminPaymentReconciliationQueryDto } from './dto/admin-payment-reconciliation-query.dto';
 
 interface UploadedPdfFile {
   buffer: Buffer;
@@ -77,28 +80,6 @@ export class AdminController {
   @ApiResponse({ status: 200, description: 'Vector store ingestion statistics' })
   async getAiStats() {
     return this.aiGatewayService.getIngestionStats();
-  }
-
-  @Post('ai/ingest')
-  @RequirePermissions(AdminPermission.AI_MANAGE)
-  @ApiOperation({ summary: 'Ingest raw textbook content directly into AI vector store' })
-  @ApiResponse({ status: 201, description: 'Content successfully ingested' })
-  async ingestTextbook(
-    @CurrentUser() adminUser: AuthenticatedUser,
-    @Body() payload: Record<string, any>,
-    @Req() req?: Request,
-  ) {
-    const result = await this.aiGatewayService.ingestTextbookChunk(payload);
-    await this.auditService.recordAudit({
-      actorUserId: adminUser.userId,
-      action: 'INGEST_CURRICULUM_CHUNK',
-      resourceType: 'VECTOR_STORE',
-      resourceId: payload.book_id || 'unknown_book',
-      metadata: { bookId: payload.book_id, pageStart: payload.page_start },
-      ipAddress: req?.ip,
-      userAgent: req?.headers['user-agent'] as string | undefined,
-    });
-    return result;
   }
 
   @Delete('ai/books/:bookId')
@@ -182,6 +163,23 @@ export class AdminController {
     });
   }
 
+  @Post('users/:userId/revoke-sessions')
+  @RequirePermissions(AdminPermission.USERS_MANAGE)
+  @ApiOperation({
+    summary: 'Revoke all active sessions for a user (security lockdown / logout all)',
+  })
+  @ApiResponse({ status: 200, description: 'User sessions successfully revoked' })
+  async revokeUserSessions(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Param('userId', MongoObjectIdPipe) userId: string,
+    @Req() req: Request,
+  ) {
+    return this.adminService.revokeUserSessions(adminUser.userId, userId, {
+      ip: req.ip,
+      userAgent: req.headers['user-agent'],
+    });
+  }
+
   @Post('curriculum/subjects')
   @RequirePermissions(AdminPermission.CURRICULUM_WRITE)
   @ApiOperation({ summary: 'Create a new curriculum subject' })
@@ -256,15 +254,14 @@ export class AdminController {
   async transitionLessonWorkflow(
     @CurrentUser() adminUser: AuthenticatedUser,
     @Param('lessonId', MongoObjectIdPipe) lessonId: string,
-    @Body('status') status: ContentWorkflowStatus,
-    @Body('reviewComments') reviewComments: string | undefined,
+    @Body() dto: TransitionLessonWorkflowDto,
     @Req() req: Request,
   ) {
     return this.adminService.transitionLessonWorkflow(
       adminUser.userId,
       lessonId,
-      status,
-      reviewComments,
+      dto.status,
+      dto.reviewComments,
       { ip: req.ip, userAgent: req.headers['user-agent'] },
     );
   }
@@ -317,6 +314,37 @@ export class AdminController {
     );
   }
 
+  @Post('payments/:transactionId/refund')
+  @RequirePermissions(AdminPermission.PAYMENTS_MANAGE)
+  @ApiOperation({
+    summary: 'Refund a completed payment transaction and revoke student subscription',
+  })
+  @ApiResponse({ status: 200, description: 'Payment refunded successfully' })
+  async refundPayment(
+    @CurrentUser() adminUser: AuthenticatedUser,
+    @Param('transactionId') transactionId: string,
+    @Body('refundReason') refundReason?: string,
+    @Req() req?: Request,
+  ) {
+    return this.adminService.refundPayment(adminUser.userId, transactionId, refundReason, {
+      ip: req?.ip,
+      userAgent: req?.headers['user-agent'],
+    });
+  }
+
+  @Get('payments/reconciliation')
+  @RequirePermissions(AdminPermission.PAYMENTS_READ)
+  @ApiOperation({
+    summary:
+      'Get payment reconciliation metrics, method breakdowns, and stale/uncompleted discrepancies',
+  })
+  @ApiResponse({ status: 200, description: 'Payment reconciliation report' })
+  async getPaymentReconciliation(
+    @Query() query: AdminPaymentReconciliationQueryDto,
+  ): Promise<Record<string, unknown>> {
+    return this.adminService.getPaymentReconciliation(query);
+  }
+
   @Get('audit-logs')
   @RequirePermissions(AdminPermission.AUDIT_READ)
   @ApiOperation({ summary: 'Query and paginate administrator audit trail logs' })
@@ -359,7 +387,7 @@ export class AdminController {
 
   @Post('textbooks/upload')
   @RequirePermissions(AdminPermission.CURRICULUM_WRITE)
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 50 * 1024 * 1024 } }))
   @ApiOperation({ summary: 'Upload a curriculum PDF and queue it for indexing' })
   async uploadTextbook(
     @CurrentUser() adminUser: AuthenticatedUser,
@@ -367,5 +395,42 @@ export class AdminController {
     @Body() dto: AdminUploadTextbookDto,
   ) {
     return this.adminService.uploadTextbook(adminUser.userId, file, dto);
+  }
+
+  @Get('operations/health')
+  @RequirePermissions(AdminPermission.SYSTEM_OPS)
+  @ApiOperation({
+    summary: 'Get aggregated platform health overview (MongoDB, Redis, AI service, Qdrant, Queues)',
+  })
+  @ApiResponse({ status: 200, description: 'Aggregated platform health report' })
+  async getPlatformHealthOverview() {
+    return this.adminService.getPlatformHealthOverview();
+  }
+
+  @Get('operations/queues')
+  @RequirePermissions(AdminPermission.SYSTEM_OPS)
+  @ApiOperation({
+    summary:
+      'Get background worker queue metrics (waiting, active, completed, failed, delayed, DLQ)',
+  })
+  @ApiResponse({ status: 200, description: 'Queue metrics breakdown' })
+  async getQueueMetricsOverview() {
+    return this.adminService.getQueueMetricsOverview();
+  }
+
+  @Get('operations/queues/:queueName/failed')
+  @RequirePermissions(AdminPermission.SYSTEM_OPS)
+  @ApiOperation({ summary: 'List recent failed jobs from a specific queue for diagnostics' })
+  @ApiResponse({ status: 200, description: 'List of failed jobs with error reasons' })
+  async getFailedQueueJobs(@Param('queueName') queueName: string, @Query('limit') limit?: number) {
+    return this.adminService.getFailedQueueJobs(queueName, limit ? Number(limit) : 20);
+  }
+
+  @Post('operations/queues/:queueName/retry')
+  @RequirePermissions(AdminPermission.SYSTEM_OPS)
+  @ApiOperation({ summary: 'Retry all failed jobs in a background worker queue' })
+  @ApiResponse({ status: 200, description: 'Retry trigger result' })
+  async retryFailedQueueJobs(@Param('queueName') queueName: string, @Body() dto: QueueRetryDto) {
+    return this.adminService.retryFailedQueueJobs(queueName, dto.limit);
   }
 }

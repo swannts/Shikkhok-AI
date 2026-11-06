@@ -17,11 +17,15 @@ class TutorCitationEvent extends TutorStreamEvent {
 class TutorMetadataEvent extends TutorStreamEvent {
   final String provider;
   final bool? grounded;
+  final bool? retrievalUnavailable;
+  final String? groundingMode;
   final Map<String, dynamic> raw;
 
   const TutorMetadataEvent({
     required this.provider,
     this.grounded,
+    this.retrievalUnavailable,
+    this.groundingMode,
     this.raw = const {},
   });
 }

@@ -203,19 +203,28 @@ export class HomeworkService {
     await this.submissionRepository.updateStatus(submissionId, HomeworkStatus.PROCESSING);
 
     try {
-      // 1. Simulated / Vision OCR extraction
-      const ocrText =
-        submission.rawText?.trim() ||
-        (submission.prompt
-          ? `শিক্ষার্থীর প্রশ্ন ও অনুশীলন: "${submission.prompt}"`
-          : 'হস্তলিখিত বাড়ির কাজের ছবি থেকে বিষয়বস্তু শনাক্ত করা হয়েছে।');
+      const aiServiceEnabled = this.configService?.get<boolean>('aiService.enabled', false);
+      if (!aiServiceEnabled || !this.aiGatewayService) {
+        await this.submissionRepository.updateStatus(submissionId, HomeworkStatus.FAILED, {
+          errorMessage: 'AI মূল্যায়ন সেবা এখন পাওয়া যাচ্ছে না। ইন্টারনেট এলে আবার চেষ্টা করো।',
+        });
+        return;
+      }
 
-      // 2. Resolve Curriculum context
-      let subjectTitle = 'Mathematics & General Science';
+      let studentProfile: Record<string, any> | undefined;
+      try {
+        studentProfile = await this.studentsService.getProfileByUserId(
+          submission.studentId.toString(),
+        );
+      } catch (profileError) {
+        this.logger.warn(
+          `Student curriculum scope is unavailable for homework ${submissionId}: ${profileError instanceof Error ? profileError.message : 'unknown error'}`,
+        );
+      }
+
+      let subjectTitle: string | undefined;
       let chapterTitle: string | undefined;
       let lessonTitle: string | undefined;
-      const citations: TutorCitation[] = [];
-
       if (submission.lessonId) {
         try {
           const lesson = await this.curriculumService.getLesson(submission.lessonId.toString());
@@ -225,113 +234,110 @@ export class HomeworkService {
           const subject = submission.subjectId
             ? await this.curriculumService.getSubject(submission.subjectId.toString())
             : null;
-
-          subjectTitle = subject?.title ?? 'NCTB Curriculum';
+          subjectTitle = subject?.name;
           chapterTitle = chapter?.title;
           lessonTitle = lesson?.title;
-
-          citations.push({
-            sourceId: submission.lessonId.toString(),
-            sourceBook: `এনসিটিবি ${subjectTitle}`,
-            subject: subjectTitle,
-            chapter: chapterTitle,
-            excerpt: `${lessonTitle} সম্পর্কিত প্রাসঙ্গিক সূত্র ও সমাধান পদ্ধতি।`,
-          });
-        } catch {
-          // Fallback gracefully
-        }
-      }
-
-      // 3. Generate structured AI feedback
-      let corrections = [
-        {
-          original: 'ধাপ ২: চিহ্নের পরিবর্তন বাদ পড়েছে',
-          corrected: 'ধাপ ২: পক্ষান্তরের সময় (+) চিহ্নটি (-) তে পরিবর্তিত হবে।',
-          explanation: 'সমীকরণের উভয় পাশে মান সমান রাখতে পক্ষান্তরের মৌলিক নিয়ম মেনে চলতে হবে।',
-        },
-      ];
-
-      let strengths = [
-        'হস্তাক্ষর পরিষ্কার এবং উপস্থাপনা পরিচ্ছন্ন।',
-        'সমস্যা সমাধানের প্রথম ধাপটি সঠিকভাবে শুরু করা হয়েছে।',
-      ];
-
-      let weaknesses = ['চিহ্ন পরিবর্তনের ক্ষেত্রে অসাবধানতাবশত ভুল হয়েছে।'];
-
-      let recommendations = [
-        'পাঠ্যবইয়ের অনুরুপ উদাহরণ ২ ও ৩ পুনরায় অনুশীলন করো।',
-        'উত্তর লেখার পর পুনরায় শেষ ধাপটি যাচাই করার অভ্যাস করো।',
-      ];
-
-      let summary =
-        'তোমার বাড়ির কাজের সামগ্রিক মান সন্তোষজনক। মূল ধারণা সঠিক থাকলেও সমীকরণ সমাধানের সময় পক্ষান্তরের চিহ্নের দিকে একটু বেশি লক্ষ্য রাখলে পূর্ণ নম্বর পাওয়া যাবে।';
-
-      const aiServiceEnabled = this.configService?.get<boolean>('aiService.enabled', false);
-      if (aiServiceEnabled && this.aiGatewayService) {
-        try {
-          const aiResponse = await this.aiGatewayService.evaluateHomework({
-            submission_id: submissionId,
-            student_id: submission.studentId.toString(),
-            raw_text: submission.rawText,
-            prompt: submission.prompt,
-            image_urls: submission.imageUrls ?? [],
-            subject_id: submission.subjectId?.toString(),
-            chapter_id: submission.chapterId?.toString(),
-            lesson_id: submission.lessonId?.toString(),
-            subject_title: subjectTitle,
-            chapter_title: chapterTitle,
-            lesson_title: lessonTitle,
-          });
-
-          if (aiResponse) {
-            summary = aiResponse.summary ?? summary;
-            strengths = aiResponse.strengths?.length ? aiResponse.strengths : strengths;
-            weaknesses = aiResponse.weaknesses?.length ? aiResponse.weaknesses : weaknesses;
-            corrections = aiResponse.corrections?.length ? aiResponse.corrections : corrections;
-            recommendations = aiResponse.recommendations?.length
-              ? aiResponse.recommendations
-              : recommendations;
-
-            if (Array.isArray(aiResponse.citations) && aiResponse.citations.length > 0) {
-              for (const c of aiResponse.citations) {
-                citations.push({
-                  sourceId: c.sourceId ?? c.citationId ?? submissionId,
-                  sourceBook: c.sourceBook ?? `এনসিটিবি ${subjectTitle}`,
-                  subject: c.subject ?? subjectTitle,
-                  chapter: c.chapter ?? chapterTitle,
-                  pageNumber: c.pageStart ?? c.pageNumber,
-                  excerpt: c.excerpt ?? 'প্রাসঙ্গিক পাঠ্যবই তথ্য',
-                });
-              }
-            }
-          }
-        } catch (aiErr: any) {
+        } catch (contextError) {
           this.logger.warn(
-            `FastAPI homework evaluation failed for ${submissionId}, falling back to local rubric: ${aiErr?.message}`,
+            `Could not load homework curriculum context for ${submissionId}: ${contextError instanceof Error ? contextError.message : 'unknown error'}`,
           );
         }
       }
 
-      // 4. Save feedback in database
+      const aiResponse = await this.aiGatewayService.evaluateHomework({
+        submission_id: submissionId,
+        student_id: submission.studentId.toString(),
+        raw_text: submission.rawText?.trim() || undefined,
+        prompt: submission.prompt,
+        image_urls: submission.imageUrls ?? [],
+        class_level:
+          typeof studentProfile?.classLevel === 'number' ? studentProfile.classLevel : undefined,
+        curriculum_year:
+          typeof studentProfile?.curriculumYear === 'number'
+            ? studentProfile.curriculumYear
+            : undefined,
+        medium:
+          studentProfile?.medium === 'bangla' || studentProfile?.medium === 'english'
+            ? studentProfile.medium
+            : undefined,
+        subject_id: submission.subjectId?.toString(),
+        chapter_id: submission.chapterId?.toString(),
+        lesson_id: submission.lessonId?.toString(),
+        subject_title: subjectTitle,
+        chapter_title: chapterTitle,
+        lesson_title: lessonTitle,
+      });
+
+      if (!aiResponse || aiResponse.evaluation_available === false) {
+        throw new Error('Homework content could not be evaluated from available evidence');
+      }
+
+      const summary = typeof aiResponse.summary === 'string' ? aiResponse.summary.trim() : '';
+      if (!summary) throw new Error('AI evaluation response did not include a valid summary');
+
+      const citations: TutorCitation[] = [];
+      if (Array.isArray(aiResponse.citations)) {
+        for (const citation of aiResponse.citations) {
+          const sourceId = citation.sourceId ?? citation.source_id;
+          const sourceBook = citation.sourceBook ?? citation.source_book;
+          const excerpt = citation.excerpt ?? citation.textChunk ?? citation.text_chunk;
+          if (
+            typeof sourceId !== 'string' ||
+            !sourceId.trim() ||
+            typeof sourceBook !== 'string' ||
+            !sourceBook.trim() ||
+            typeof excerpt !== 'string' ||
+            !excerpt.trim()
+          ) {
+            continue;
+          }
+          const pageNumber = citation.pageStart ?? citation.page_start ?? citation.pageNumber;
+          citations.push({
+            sourceId,
+            sourceBook,
+            subject: typeof citation.subject === 'string' ? citation.subject : undefined,
+            chapter: typeof citation.chapter === 'string' ? citation.chapter : undefined,
+            pageNumber: typeof pageNumber === 'number' ? pageNumber : undefined,
+            excerpt,
+          });
+        }
+      }
+
       await this.feedbackRepository.createFeedback({
         submissionId,
         studentId: submission.studentId.toString(),
         summary,
-        corrections,
-        strengths,
-        weaknesses,
-        recommendations,
+        corrections: Array.isArray(aiResponse.corrections) ? aiResponse.corrections : [],
+        strengths: Array.isArray(aiResponse.strengths) ? aiResponse.strengths : [],
+        weaknesses: Array.isArray(aiResponse.weaknesses) ? aiResponse.weaknesses : [],
+        recommendations: Array.isArray(aiResponse.recommendations)
+          ? aiResponse.recommendations
+          : [],
         citations,
+        grounded: citations.length > 0,
+        retrievalUnavailable:
+          aiResponse.retrieval_unavailable === true || aiResponse.retrievalUnavailable === true,
+        groundingMode:
+          aiResponse.grounding_mode === 'grounded' || aiResponse.groundingMode === 'grounded'
+            ? 'grounded'
+            : aiResponse.retrieval_unavailable === true ||
+                aiResponse.retrievalUnavailable === true ||
+                aiResponse.grounding_mode === 'degraded' ||
+                aiResponse.groundingMode === 'degraded'
+              ? 'degraded'
+              : 'ungrounded',
       });
 
-      // 5. Update submission to completed
       await this.submissionRepository.updateStatus(submissionId, HomeworkStatus.COMPLETED, {
-        ocrText,
+        ocrText: submission.rawText?.trim() || null,
       });
-    } catch (error: any) {
-      this.logger.error(`Failed to process homework submission ${submissionId}: ${error?.message}`);
+    } catch (error: unknown) {
+      this.logger.error(
+        `Failed to process homework submission ${submissionId}: ${error instanceof Error ? error.message : 'unknown error'}`,
+      );
       await this.submissionRepository.updateStatus(submissionId, HomeworkStatus.FAILED, {
-        errorMessage: 'বাড়ির কাজ বিশ্লেষণ করতে সাময়িক সমস্যা হয়েছে। পুনরায় চেষ্টা করুন।',
+        errorMessage:
+          'বাড়ির কাজ নির্ভরযোগ্যভাবে মূল্যায়ন করা যায়নি। আবার চেষ্টা করো অথবা শিক্ষককে দেখাও।',
       });
     }
   }

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BullModule } from '@nestjs/bullmq';
 import { UsersModule } from '../users/users.module';
 import { StudentsModule } from '../students/students.module';
 import { CurriculumModule } from '../curriculum/curriculum.module';
@@ -7,6 +8,7 @@ import { ExamsModule } from '../exams/exams.module';
 import { HomeworkModule } from '../homework/homework.module';
 import { SubscriptionsModule } from '../subscriptions/subscriptions.module';
 import { AiGatewayModule } from '../ai-gateway/ai-gateway.module';
+import { AuthModule } from '../auth/auth.module';
 import { User, UserSchema } from '../users/schemas/user.schema';
 import { Subject, SubjectSchema } from '../curriculum/schemas/subject.schema';
 import { Chapter, ChapterSchema } from '../curriculum/schemas/chapter.schema';
@@ -42,6 +44,17 @@ import { PermissionsGuard } from '../../common/guards/permissions.guard';
     HomeworkModule,
     SubscriptionsModule,
     AiGatewayModule,
+    AuthModule,
+    BullModule.registerQueue(
+      { name: 'curriculum' },
+      { name: 'notifications' },
+      { name: 'analytics' },
+      { name: 'homework' },
+      { name: 'curriculum-dlq' },
+      { name: 'notifications-dlq' },
+      { name: 'analytics-dlq' },
+      { name: 'homework-dlq' },
+    ),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Subject.name, schema: SubjectSchema },

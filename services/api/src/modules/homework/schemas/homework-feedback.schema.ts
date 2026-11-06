@@ -55,6 +55,15 @@ export class HomeworkFeedback {
   @Prop({ type: [Object], default: [] })
   citations: TutorCitation[];
 
+  @Prop({ type: Boolean, default: false })
+  grounded: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  retrievalUnavailable: boolean;
+
+  @Prop({ type: String, enum: ['grounded', 'ungrounded', 'degraded'], default: 'ungrounded' })
+  groundingMode: 'grounded' | 'ungrounded' | 'degraded';
+
   @Prop({ type: Number, default: null, min: 1, max: 5 })
   rating?: number | null;
 

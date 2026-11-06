@@ -377,6 +377,59 @@ describe('TutorService', () => {
     expect(mockRes.write).not.toHaveBeenCalledWith(expect.stringContaining('event: citation'));
   });
 
+  it('persists an explicit ungrounded reply when the AI service is unavailable', async () => {
+    usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
+    (service as any).studentsService = {
+      getProfileByUserId: jest.fn().mockResolvedValue({ classLevel: 8 }),
+    };
+    conversationRepository.findById.mockResolvedValue({
+      _id: { toString: () => 'conv-1' },
+      userId: { toString: () => 'user-1' },
+      lessonId: null,
+      chapterId: null,
+      subjectId: null,
+      classLevel: 8,
+      medium: 'bangla',
+    } as any);
+    messageRepository.createMessage.mockResolvedValue({
+      _id: { toString: () => 'fallback-msg-1' },
+    } as any);
+    conversationRepository.touchConversation.mockResolvedValue({} as any);
+    studyPlanService.getMyCurrentPlan.mockRejectedValue(new NotFoundException());
+    progressService.getMySummary.mockRejectedValue(new NotFoundException());
+    aiGatewayService.streamTutorResponse.mockImplementation(async function* () {
+      throw new Error('FastAPI unavailable');
+    });
+
+    const written: string[] = [];
+    const response = {
+      setHeader: jest.fn(),
+      write: jest.fn((chunk: string) => written.push(chunk)),
+      end: jest.fn(),
+      flushHeaders: jest.fn(),
+    } as any;
+
+    await service.streamMessage(
+      { userId: 'user-1', role: UserRole.STUDENT },
+      'conv-1',
+      { content: 'একটি সাধারণ প্রশ্ন' },
+      response,
+      { on: jest.fn() } as any,
+    );
+
+    expect(messageRepository.createMessage).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        role: TutorMessageRole.ASSISTANT,
+        citations: [],
+        provider: 'degraded',
+        content: expect.stringContaining('পাঠ্যবইয়ের উৎস যাচাই করা যাচ্ছে না'),
+      }),
+    );
+    expect(written.join('')).toContain('"grounded":false');
+    expect(written.join('')).toContain('"retrievalUnavailable":true');
+    expect(written.join('')).toContain('"groundingMode":"degraded"');
+  });
+
   it('should paginate tutor messages using an opaque cursor', async () => {
     usersService.findById.mockResolvedValue({ role: UserRole.STUDENT } as any);
     (service as any).studentsService = {

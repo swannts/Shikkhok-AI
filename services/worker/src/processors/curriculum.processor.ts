@@ -9,6 +9,7 @@ export interface CurriculumJobData {
   sourceBook: string;
   bookId: string;
   classLevel: number;
+  medium?: 'bangla' | 'english';
   subjectId: string;
   subjectTitle?: string;
   chapterId?: string;
@@ -149,6 +150,9 @@ export async function processCurriculumJob(job: Job): Promise<Record<string, any
 }
 
 async function processCurriculumPdfJob(data: CurriculumJobData): Promise<Record<string, any>> {
+  if (!data.medium) {
+    throw new Error('Missing required curriculum job field: medium');
+  }
   await reportProgress(data.bookId, 'processing');
   try {
     const pdf = await readFile(data.filePath!);
@@ -158,7 +162,7 @@ async function processCurriculumPdfJob(data: CurriculumJobData): Promise<Record<
   form.append('subject_id', data.subjectId);
   form.append('subject_title', data.subjectTitle || data.subjectId);
   form.append('source_book', data.sourceBook || data.bookId);
-  form.append('medium', 'bangla');
+  form.append('medium', data.medium);
   form.append('curriculum_year', String(data.academicYear));
   form.append('curriculum_version', data.curriculumVersion);
   form.append('book_id', data.bookId);

@@ -1,369 +1,251 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../app/localization/l10n/app_localizations.dart';
+
+import '../../../../app/router/app_routes.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_spacing.dart';
-import '../../../../app/router/app_routes.dart';
+import '../controllers/homework_controller.dart';
 
-class HomeworkAiSolutionPage extends StatefulWidget {
+class HomeworkAiSolutionPage extends ConsumerStatefulWidget {
   final String? submissionId;
 
   const HomeworkAiSolutionPage({super.key, this.submissionId});
 
   @override
-  State<HomeworkAiSolutionPage> createState() => _HomeworkAiSolutionPageState();
+  ConsumerState<HomeworkAiSolutionPage> createState() =>
+      _HomeworkAiSolutionPageState();
 }
 
-class _HomeworkAiSolutionPageState extends State<HomeworkAiSolutionPage> {
-  bool _showExtraHints = false;
-  bool _answered = false;
+class _HomeworkAiSolutionPageState
+    extends ConsumerState<HomeworkAiSolutionPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final id = widget.submissionId;
+      if (id != null && id.isNotEmpty) {
+        ref.read(homeworkControllerProvider.notifier).loadFeedback(id);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
+    final state = ref.watch(homeworkControllerProvider);
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.surface,
         elevation: 0.5,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_rounded, color: AppColors.textPrimary),
+          icon: const Icon(Icons.arrow_back_rounded),
           onPressed: () => AppRoutes.back(
             context,
             fallbackLocation: AppRoutes.capturedHomeworkReview,
           ),
         ),
-        title: Text(
-          l10n.solutionTitle,
-          style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary),
+        title: const Text(
+          'হোমওয়ার্ক ব্যাখ্যা',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Uploaded Context Snippet Card
-                    Container(
-                      padding: const EdgeInsets.all(AppSpacing.md),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withAlpha(15),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.calculate_rounded,
-                                    size: 14, color: AppColors.primary),
-                                SizedBox(width: 4),
-                                Text(
-                                  'গণিত • বীজগণিত',
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.primary),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: AppSpacing.sm),
-                          Row(
-                            children: [
-                              Container(
-                                width: 56,
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  color: AppColors.background,
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: AppColors.border),
-                                ),
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  '2x+5',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.primary),
-                                ),
-                              ),
-                              const SizedBox(width: AppSpacing.md),
-                              Expanded(
-                                child: Text(
-                                  '"2x + 5 = 15 হলে x এর মান কত?"',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    // Socratic AI Teacher Card
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: AppColors.primary.withAlpha(20),
-                          child: const Icon(Icons.smart_toy_rounded,
-                              color: AppColors.primary, size: 24),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          l10n.letsTrySelf,
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primary),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    // Step 1 Solution Process Box
-                    Container(
-                      margin: const EdgeInsets.only(left: 12),
-                      padding: const EdgeInsets.all(AppSpacing.md),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'ধাপ ১',
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textSecondary),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'প্রথমে উভয় পাশ থেকে ৫ বিয়োগ করো।',
-                            style: TextStyle(
-                                fontSize: 15, color: AppColors.textPrimary),
-                          ),
-                          const SizedBox(height: AppSpacing.md),
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withAlpha(15),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            alignment: Alignment.center,
-                            child: RichText(
-                              text: const TextSpan(
-                                style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.primary),
-                                children: [
-                                  TextSpan(text: '2x + 5 '),
-                                  TextSpan(
-                                      text: '- 5',
-                                      style: TextStyle(color: Colors.red)),
-                                  TextSpan(text: ' = 15 '),
-                                  TextSpan(
-                                      text: '- 5',
-                                      style: TextStyle(color: Colors.red)),
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: AppSpacing.md),
-                          Text(
-                            'এখন কী পেলাম?',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textPrimary),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.lg),
-                    // Option Buttons
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: double.infinity,
-                            height: 48,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() => _answered = true);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: _answered
-                                    ? Colors.green
-                                    : AppColors.primary,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14)),
-                              ),
-                              child: Text(
-                                  _answered
-                                      ? '✓ সঠিক উত্তর: 2x = 10'
-                                      : '2x = 10',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    setState(() =>
-                                        _showExtraHints = !_showExtraHints);
-                                  },
-                                  icon: const Icon(
-                                      Icons.lightbulb_outline_rounded,
-                                      size: 18,
-                                      color: AppColors.primary),
-                                  label: Text(
-                                      _showExtraHints
-                                          ? 'ইঙ্গিত লুকান'
-                                          : l10n.moreHints,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.primary)),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                        color: AppColors.primary),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: OutlinedButton(
-                                  onPressed: () =>
-                                      context.go(AppRoutes.aiTutorChat),
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                        color: AppColors.primary),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12),
-                                  ),
-                                  child: Text(l10n.showAnswer,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.primary)),
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (_showExtraHints) ...[
-                            const SizedBox(height: 12),
-                            Container(
-                              padding: const EdgeInsets.all(AppSpacing.md),
-                              decoration: BoxDecoration(
-                                color: AppColors.surface,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                    color: AppColors.primary.withAlpha(50)),
-                              ),
-                              child: Text(
-                                'ইঙ্গিত: সমীকরণের উভয় পাশে ৪ যোগ করে পক্ষান্তর সম্পন্ন করুন।',
-                                style: TextStyle(
-                                    fontSize: 13, color: AppColors.textPrimary),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.xl),
-                  ],
-                ),
-              ),
-            ),
-            // Bottom Action Footer
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                border: Border(top: BorderSide(color: AppColors.border)),
-              ),
-              child: Column(
-                children: [
-                  InkWell(
-                    onTap: () => context.go(AppRoutes.aiTutorChat),
-                    borderRadius: BorderRadius.circular(14),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
-                      decoration: BoxDecoration(
-                        color: AppColors.background,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.chat_bubble_outline_rounded,
-                              color: AppColors.textSecondary, size: 20),
-                          const SizedBox(width: 10),
-                          Text('AI শিক্ষককে আরও জিজ্ঞেস করো...',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: AppColors.textSecondary)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.menu_book_rounded,
-                          size: 12, color: AppColors.textSecondary),
-                      const SizedBox(width: 4),
-                      Text('উৎস: NCTB গণিত, ৮ম শ্রেণি, পৃষ্ঠা ৫২',
-                          style: TextStyle(
-                              fontSize: 11, color: AppColors.textSecondary)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: SafeArea(child: _buildBody(state)),
     );
   }
+
+  Widget _buildBody(HomeworkState state) {
+    if (widget.submissionId == null || widget.submissionId!.isEmpty) {
+      return _message(
+        icon: Icons.assignment_outlined,
+        title: 'কোনো জমা পাওয়া যায়নি',
+        detail: 'আগে একটি হোমওয়ার্ক জমা দিলে তার ব্যাখ্যা এখানে দেখা যাবে।',
+        action: FilledButton(
+          onPressed: () => context.go(AppRoutes.homeworkHelpLanding),
+          child: const Text('হোমওয়ার্কে ফিরে যাও'),
+        ),
+      );
+    }
+
+    if (state is HomeworkLoading || state is HomeworkInitial) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (state is HomeworkError) {
+      return _message(
+        icon: Icons.cloud_off_outlined,
+        title: 'ব্যাখ্যা পাওয়া যায়নি',
+        detail: state.message,
+        action: FilledButton.icon(
+          onPressed: () => ref
+              .read(homeworkControllerProvider.notifier)
+              .loadFeedback(widget.submissionId!),
+          icon: const Icon(Icons.refresh),
+          label: const Text('আবার চেষ্টা করো'),
+        ),
+      );
+    }
+
+    if (state is! HomeworkFeedbackLoaded) {
+      return _message(
+        icon: Icons.info_outline,
+        title: 'ব্যাখ্যা প্রস্তুত নয়',
+        detail: 'জমার অবস্থা যাচাই করে আবার চেষ্টা করো।',
+        action: TextButton(
+          onPressed: () => ref
+              .read(homeworkControllerProvider.notifier)
+              .loadFeedback(widget.submissionId!),
+          child: const Text('রিফ্রেশ'),
+        ),
+      );
+    }
+
+    final feedback = state.feedback;
+    return ListView(
+      padding: const EdgeInsets.all(AppSpacing.md),
+      children: [
+        if (feedback.retrievalUnavailable)
+          const _GroundingNotice(
+            text: 'এই মুহূর্তে পাঠ্যবইয়ের উৎস যাচাই করা যাচ্ছে না।',
+          )
+        else if (!feedback.grounded)
+          const _GroundingNotice(
+            text: 'এই ব্যাখ্যায় যাচাইকৃত পাঠ্যবইয়ের উদ্ধৃতি নেই।',
+          ),
+        _section(
+          title: 'মূল্যায়নের সারাংশ',
+          child: Text(feedback.summary),
+        ),
+        if (feedback.steps.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.md),
+          _section(
+            title: 'ধাপে ধাপে ব্যাখ্যা',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: feedback.steps
+                  .map(
+                    (step) => Padding(
+                      padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('ধাপ ${step.stepNumber}: ${step.title}',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w700)),
+                          if (step.suggestedStepText?.isNotEmpty == true)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(step.suggestedStepText!),
+                            ),
+                          if (step.explanation.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(step.explanation),
+                            ),
+                        ],
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
+        if (feedback.recommendations.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.md),
+          _section(
+            title: 'পরের ধাপ',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: feedback.recommendations
+                  .map((item) => Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text('• $item'),
+                      ))
+                  .toList(),
+            ),
+          ),
+        ],
+        if (feedback.citations.isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.md),
+          _section(
+            title: 'ব্যবহৃত পাঠ্যবইয়ের উৎস',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:
+                  feedback.citations.map((item) => Text('• $item')).toList(),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _section({required String title, required Widget child}) => Container(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+            const SizedBox(height: AppSpacing.sm),
+            child,
+          ],
+        ),
+      );
+
+  Widget _message({
+    required IconData icon,
+    required String title,
+    required String detail,
+    required Widget action,
+  }) =>
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 44, color: AppColors.textSecondary),
+              const SizedBox(height: AppSpacing.md),
+              Text(title,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: AppSpacing.xs),
+              Text(detail,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.textSecondary)),
+              const SizedBox(height: AppSpacing.md),
+              action,
+            ],
+          ),
+        ),
+      );
+}
+
+class _GroundingNotice extends StatelessWidget {
+  final String text;
+
+  const _GroundingNotice({required this.text});
+
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(bottom: AppSpacing.md),
+        padding: const EdgeInsets.all(AppSpacing.md),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFF6DB),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFFFFD56A)),
+        ),
+        child: Text(text),
+      );
 }

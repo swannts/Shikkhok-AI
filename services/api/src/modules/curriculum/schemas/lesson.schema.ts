@@ -7,6 +7,7 @@ import {
   validateLessonContentBlocks,
 } from '../types/lesson-content-block';
 import { ContentWorkflowStatus } from '../enums/content-workflow-status.enum';
+import { LessonWorkflowHistoryEntry, LessonWorkflowHistoryEntrySchema } from './lesson-workflow-history.schema';
 
 export type LessonDocument = HydratedDocument<Lesson>;
 
@@ -90,6 +91,9 @@ export class Lesson {
 
   @Prop({ type: Number, default: 1 })
   contentVersion: number;
+
+  @Prop({ type: [LessonWorkflowHistoryEntrySchema], default: [] })
+  workflowHistory: LessonWorkflowHistoryEntry[];
 
   @Prop({
     type: [LessonContentBlockSchema],

@@ -57,7 +57,7 @@ def test_homework_request_rejects_oversized_submission() -> None:
 
 
 @pytest.mark.asyncio
-async def test_homework_service_falls_back_on_malformed_provider_response() -> None:
+async def test_homework_service_does_not_fabricate_assessment_for_malformed_response() -> None:
     moderation = ModerationService()
     citation = CitationService()
     mock_llm = MockLlmProvider(
@@ -89,6 +89,6 @@ async def test_homework_service_falls_back_on_malformed_provider_response() -> N
     response = await service.evaluate_submission(request)
 
     assert response.summary
-    assert response.score == 80.0
-    assert response.citations
-    assert response.citations[0].source_book == "Synthetic Fixture"
+    assert response.evaluation_available is False
+    assert response.score is None
+    assert response.citations == []

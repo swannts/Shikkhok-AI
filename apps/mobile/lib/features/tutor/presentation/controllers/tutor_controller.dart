@@ -325,23 +325,36 @@ class TutorController extends StateNotifier<TutorState> {
               if (!completer.isCompleted) completer.complete();
               stopGeneration(markCancelled: false);
               break;
-            case TutorMetadataEvent(:final grounded, :final raw):
-              final retrievalUnavailable = raw['retrievalUnavailable'] == true;
+            case TutorMetadataEvent(
+                :final grounded,
+                :final retrievalUnavailable,
+                :final groundingMode
+              ):
               state = state.copyWith(
-                status: retrievalUnavailable
-                    ? TutorUiStatus.degraded
-                    : grounded == true
-                        ? TutorUiStatus.retrieving
-                        : TutorUiStatus.ungrounded,
+                status:
+                    retrievalUnavailable == true || groundingMode == 'degraded'
+                        ? TutorUiStatus.degraded
+                        : grounded == true
+                            ? TutorUiStatus.retrieving
+                            : TutorUiStatus.ungrounded,
               );
               break;
           }
         },
         onError: (err) {
+          final failure = err is AppFailure ? err : null;
+          final isRateLimited = failure?.errorCode == 'RATE_LIMITED';
+          final isOffline =
+              failure is NetworkFailure || failure is TimeoutFailure;
           state = state.copyWith(
             isStreaming: false,
-            errorMessage: 'স্ট্রিমিং সংযোগে ত্রুটি হয়েছে।',
-            status: TutorUiStatus.error,
+            errorMessage:
+                failure?.banglaMessage ?? 'স্ট্রিমিং সংযোগে ত্রুটি হয়েছে।',
+            status: isRateLimited
+                ? TutorUiStatus.rateLimited
+                : isOffline
+                    ? TutorUiStatus.offline
+                    : TutorUiStatus.error,
           );
           if (!completer.isCompleted) completer.complete();
         },

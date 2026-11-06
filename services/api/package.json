@@ -13,7 +13,8 @@
     "start": "node dist/main.js",
     "migrate:tutor-messages": "ts-node --project ./tsconfig.json --transpile-only ./scripts/database/migrate-tutor-messages.ts",
     "test": "jest --config jest.config.js",
-    "test:e2e": "jest --config test/jest-e2e.json"
+    "test:e2e": "jest --config test/jest-e2e.json",
+    "migrate:textbook-content-index": "ts-node --project ./tsconfig.json --transpile-only ./scripts/database/create-textbook-content-index.ts"
   },
   "dependencies": {
     "@nestjs/bullmq": "^10.1.1",

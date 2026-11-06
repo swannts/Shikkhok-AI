@@ -47,7 +47,7 @@ async def test_ingestion_pipeline_runs_successfully(tmp_path: Path) -> None:
     assert count >= 1
 
 
-def test_pdf_parser_extracts_pages() -> None:
+def test_pdf_parser_extracts_pages(monkeypatch: pytest.MonkeyPatch) -> None:
     # Create an in-memory PDF with 2 blank/annotated pages using pypdf
     writer = PdfWriter()
     writer.add_blank_page(width=200, height=200)
@@ -58,6 +58,11 @@ def test_pdf_parser_extracts_pages() -> None:
     pdf_bytes = buf.getvalue()
 
     parser = NctbPdfParser()
+    monkeypatch.setattr(
+        parser,
+        "_ocr",
+        lambda _bytes, _name: [ExtractedPage(page_number=1, text="নমুনা পাঠ্য")],
+    )
     pages = parser.extract_pages_from_bytes(pdf_bytes, "test.pdf")
-    # Blank pages might have no text, but extract_pages_from_bytes handles cleanly without error
     assert isinstance(pages, list)
+    assert len(pages) == 1

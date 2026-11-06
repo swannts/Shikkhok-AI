@@ -34,6 +34,10 @@ class HomeworkMapper {
       steps: dto.steps.map(toDomainStep).toList(),
       citations: dto.citations,
       rating: dto.rating,
+      grounded: dto.grounded,
+      retrievalUnavailable: dto.retrievalUnavailable,
+      groundingMode: dto.groundingMode,
+      recommendations: dto.recommendations,
     );
   }
 }

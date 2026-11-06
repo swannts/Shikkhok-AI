@@ -22,6 +22,8 @@ import { UserStatus } from '../../users/enums/user-status.enum';
 import { CurriculumMedium } from '../../curriculum/enums/curriculum-medium.enum';
 import { PaymentStatus } from '../../subscriptions/enums/payment-status.enum';
 import { ContentWorkflowStatus } from '../../curriculum/enums/content-workflow-status.enum';
+import { AuthService } from '../../auth/auth.service';
+import { PaymentStateMachineService } from '../../subscriptions/services/payment-state-machine.service';
 
 describe('AdminService', () => {
   let service: AdminService;
@@ -33,6 +35,7 @@ describe('AdminService', () => {
   let homeworkSubmissionModel: any;
   let subscriptionModel: any;
   let transactionModel: any;
+  let textbookModel: any;
   let transactionRepository: jest.Mocked<PaymentTransactionRepository>;
   let activationService: jest.Mocked<SubscriptionActivationService>;
   let auditService: jest.Mocked<AdminAuditService>;
@@ -61,6 +64,12 @@ describe('AdminService', () => {
       });
       fn.findById = jest.fn();
       fn.findByIdAndUpdate = jest.fn();
+      fn.findOne = jest.fn();
+      fn.findOneAndUpdate = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue({ _id: new Types.ObjectId() }),
+      });
+      fn.updateMany = jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue({}) });
+      fn.updateOne = jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue({}) });
       return fn;
     };
 
@@ -72,6 +81,7 @@ describe('AdminService', () => {
     homeworkSubmissionModel = createMockModel();
     subscriptionModel = createMockModel();
     transactionModel = createMockModel();
+    textbookModel = createMockModel();
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -84,7 +94,7 @@ describe('AdminService', () => {
         { provide: getModelToken(HomeworkSubmission.name), useValue: homeworkSubmissionModel },
         { provide: getModelToken(StudentSubscription.name), useValue: subscriptionModel },
         { provide: getModelToken(PaymentTransaction.name), useValue: transactionModel },
-        { provide: getModelToken(Textbook.name), useValue: createMockModel() },
+        { provide: getModelToken(Textbook.name), useValue: textbookModel },
         { provide: getQueueToken('curriculum'), useValue: { add: jest.fn() } },
         {
           provide: PaymentTransactionRepository,
@@ -104,6 +114,19 @@ describe('AdminService', () => {
           useValue: {
             recordAudit: jest.fn().mockResolvedValue(undefined),
             listAuditLogs: jest.fn(),
+          },
+        },
+        {
+          provide: AuthService,
+          useValue: {
+            getActiveSessionCount: jest.fn().mockResolvedValue(2),
+            logoutAll: jest.fn().mockResolvedValue(undefined),
+          },
+        },
+        {
+          provide: PaymentStateMachineService,
+          useValue: {
+            validateTransition: jest.fn(),
           },
         },
       ],
@@ -210,6 +233,108 @@ describe('AdminService', () => {
     );
   });
 
+  it('creates new lessons as unpublished drafts regardless of requested publish flag', async () => {
+    const savedJson = {
+      workflowStatus: ContentWorkflowStatus.DRAFT,
+      isPublished: false,
+    };
+    lessonModel.mockImplementation((data) => ({
+      ...data,
+      _id: new Types.ObjectId(),
+      save: jest.fn().mockResolvedValue({
+        ...data,
+        _id: new Types.ObjectId(),
+        toJSON: () => savedJson,
+      }),
+    }));
+
+    await service.createLesson(new Types.ObjectId().toString(), {
+      chapterId: new Types.ObjectId().toString(),
+      title: 'Draft lesson',
+      slug: 'draft-lesson',
+      isPublished: true,
+      contentBlocks: [],
+    } as any);
+
+    expect(lessonModel).toHaveBeenCalledWith(
+      expect.objectContaining({
+        isPublished: false,
+        workflowStatus: ContentWorkflowStatus.DRAFT,
+      }),
+    );
+  });
+
+  it('does not publish a lesson until it has been approved', async () => {
+    lessonModel.findById.mockReturnValue({
+      exec: jest.fn().mockResolvedValue({
+        workflowStatus: ContentWorkflowStatus.DRAFT,
+        isPublished: false,
+      }),
+    });
+
+    await expect(
+      service.toggleLessonPublish(
+        new Types.ObjectId().toString(),
+        new Types.ObjectId().toString(),
+        true,
+      ),
+    ).rejects.toThrow('A lesson must be approved before it can be published');
+  });
+
+  it('stores extracted textbook lessons as drafts requiring teacher review', async () => {
+    const subjectId = new Types.ObjectId();
+    const bookId = new Types.ObjectId().toString();
+    textbookModel.findById.mockReturnValue({
+      exec: jest.fn().mockResolvedValue({ subjectId }),
+    });
+    const chapterId = new Types.ObjectId();
+    chapterModel.findOneAndUpdate.mockReturnValue({
+      exec: jest.fn().mockResolvedValue({ _id: chapterId }),
+    });
+    chapterModel.find.mockReturnValue({
+      select: jest.fn().mockReturnValue({
+        lean: jest.fn().mockReturnValue({
+          exec: jest.fn().mockResolvedValue([{ _id: chapterId }]),
+        }),
+      }),
+    });
+    chapterModel.countDocuments.mockReturnValue({ exec: jest.fn().mockResolvedValue(1) });
+    lessonModel.countDocuments.mockReturnValue({ exec: jest.fn().mockResolvedValue(1) });
+    textbookModel.updateOne.mockReturnValue({ exec: jest.fn().mockResolvedValue({}) });
+    lessonModel.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
+
+    const result = await service.persistExtractedStructure(bookId, [
+      {
+        chapter_title: 'Numbers',
+        lesson_title: 'Place value',
+        page_start: 4,
+        page_end: 5,
+        text: 'A lesson extracted from the source PDF.',
+      },
+    ]);
+
+    expect(result).toEqual({ ok: true, chapters: 1, lessons: 1 });
+    expect(lessonModel.findOneAndUpdate).toHaveBeenCalledWith(
+      expect.any(Object),
+      expect.objectContaining({
+        $set: expect.objectContaining({
+          isPublished: false,
+          workflowStatus: ContentWorkflowStatus.DRAFT,
+          publishedAt: null,
+        }),
+        $setOnInsert: expect.objectContaining({
+          workflowHistory: [
+            expect.objectContaining({
+              toStatus: ContentWorkflowStatus.DRAFT,
+              actorUserId: null,
+            }),
+          ],
+        }),
+      }),
+      expect.objectContaining({ upsert: true }),
+    );
+  });
+
   it('should approve manual payment and record audit', async () => {
     activationService.activateFromPayment.mockResolvedValue({
       isAlreadyActive: false,
@@ -272,5 +397,119 @@ describe('AdminService', () => {
     const result = await service.listPendingPayments(10, 1);
     expect(result.transactions).toHaveLength(1);
     expect(result.transactions[0].transactionId).toBe('MANUAL_100');
+  });
+
+  it('should return platform health overview with service statuses', async () => {
+    const health = await service.getPlatformHealthOverview();
+    expect(health).toHaveProperty('status');
+    expect(health).toHaveProperty('services');
+    expect(health.services).toHaveProperty('mongodb');
+    expect(health.services).toHaveProperty('redis');
+    expect(health.services).toHaveProperty('aiService');
+    expect(health.services).toHaveProperty('queues');
+  });
+
+  it('should return queue metrics overview with queue counts', async () => {
+    const queueMetrics = await service.getQueueMetricsOverview();
+    expect(queueMetrics).toHaveProperty('queues');
+    expect(queueMetrics).toHaveProperty('deadLetterQueues');
+    expect(queueMetrics).toHaveProperty('totalBacklog');
+    expect(queueMetrics.queues).toHaveProperty('curriculum');
+    expect(queueMetrics.queues).toHaveProperty('notifications');
+  });
+
+  it('should revoke all active user sessions and record audit', async () => {
+    userModel.findById.mockReturnValue({
+      exec: jest.fn().mockResolvedValue({
+        _id: 'target-user-123',
+        role: UserRole.STUDENT,
+      }),
+    });
+
+    const result = await service.revokeUserSessions('admin-actor', 'target-user-123');
+    expect(result.message).toContain('revoked');
+    expect(result.revokedSessions).toBe(2);
+    expect(auditService.recordAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        actorUserId: 'admin-actor',
+        action: 'REVOKE_USER_SESSIONS',
+        resourceId: 'target-user-123',
+      }),
+    );
+  });
+
+  it('should refund a payment and record audit', async () => {
+    const mockSave = jest.fn().mockResolvedValue({
+      transactionId: 'TRX_PAID_999',
+      status: PaymentStatus.REFUNDED,
+      toJSON: () => ({ transactionId: 'TRX_PAID_999', status: PaymentStatus.REFUNDED }),
+    });
+
+    transactionModel.findOne.mockReturnValue({
+      exec: jest.fn().mockResolvedValue({
+        transactionId: 'TRX_PAID_999',
+        userId: new Types.ObjectId(),
+        planId: new Types.ObjectId(),
+        status: PaymentStatus.COMPLETED,
+        amountBdt: 450,
+        paymentMethod: 'bkash',
+        save: mockSave,
+      }),
+    });
+
+    subscriptionModel.updateMany = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValue({ modifiedCount: 1 }),
+    });
+
+    const result = await service.refundPayment(
+      'admin-actor',
+      'TRX_PAID_999',
+      'Accidental duplicate charge',
+    );
+    expect(result.message).toContain('refunded successfully');
+    expect(mockSave).toHaveBeenCalled();
+    expect(auditService.recordAudit).toHaveBeenCalledWith(
+      expect.objectContaining({
+        actorUserId: 'admin-actor',
+        action: 'REFUND_PAYMENT',
+        resourceId: 'TRX_PAID_999',
+      }),
+    );
+  });
+
+  it('should generate payment reconciliation breakdown and flag discrepancies', async () => {
+    transactionModel.find.mockReturnValue({
+      sort: jest.fn().mockReturnValue({
+        limit: jest.fn().mockReturnValue({
+          lean: jest.fn().mockReturnValue({
+            exec: jest.fn().mockResolvedValue([
+              {
+                transactionId: 'TRX_STALE_1',
+                status: PaymentStatus.PENDING_VERIFICATION,
+                amountBdt: 500,
+                createdAt: new Date(Date.now() - 72 * 3600 * 1000), // 3 days ago
+              },
+            ]),
+          }),
+        }),
+      }),
+    });
+
+    transactionModel.aggregate
+      .mockResolvedValueOnce([
+        { _id: PaymentStatus.COMPLETED, count: 10, totalAmountBdt: 5000 },
+        { _id: PaymentStatus.REFUNDED, count: 1, totalAmountBdt: 500 },
+      ])
+      .mockResolvedValueOnce([
+        { _id: 'bkash', count: 8, totalAmountBdt: 4000 },
+        { _id: 'nagad', count: 3, totalAmountBdt: 1500 },
+      ]);
+
+    const result = await service.getPaymentReconciliation({});
+    expect(result.totalGrossRevenue).toBe(5000);
+    expect(result.totalRefundedAmount).toBe(500);
+    expect(result.netRevenue).toBe(4500);
+    expect(result.discrepancyCount).toBe(1);
+    expect(result.discrepancies[0].type).toBe('STALE_PENDING_VERIFICATION');
   });
 });

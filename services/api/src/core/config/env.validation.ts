@@ -72,6 +72,16 @@ export class EnvironmentVariables {
   AI_SERVICE_SECRET?: string;
 
   @IsOptional()
+  @Matches(/^[A-Za-z0-9._-]{1,80}$/, {
+    message: 'CURRICULUM_VERSION must be a short identifier using letters, numbers, dots, underscores, or hyphens',
+  })
+  CURRICULUM_VERSION?: string;
+
+  @IsOptional()
+  @Matches(/^\d{4}$/, { message: 'CURRICULUM_YEAR must be a four-digit year' })
+  CURRICULUM_YEAR?: string;
+
+  @IsOptional()
   @IsString()
   ALLOWED_CLOCK_SKEW_SECONDS?: string;
 
@@ -101,6 +111,12 @@ export function validateConfig(config: Record<string, unknown>) {
   if (errors.length > 0) {
     throw new Error(`❌ Environment Validation Error:\n${errors.toString()}`);
   }
+  if (validatedConfig.CURRICULUM_YEAR) {
+    const curriculumYear = Number(validatedConfig.CURRICULUM_YEAR);
+    if (!Number.isInteger(curriculumYear) || curriculumYear < 1900 || curriculumYear > 2100) {
+      throw new Error('❌ Environment Validation Error: CURRICULUM_YEAR must be between 1900 and 2100');
+    }
+  }
   const origins = String(validatedConfig.CORS_ORIGINS ?? '')
     .split(',')
     .map((origin) => origin.trim());
@@ -110,6 +126,14 @@ export function validateConfig(config: Record<string, unknown>) {
   ) {
     throw new Error(
       '❌ Environment Validation Error: production CORS_ORIGINS must be an explicit non-empty allowlist',
+    );
+  }
+  if (
+    [Environment.Production, Environment.Staging].includes(validatedConfig.NODE_ENV) &&
+    (!validatedConfig.CURRICULUM_VERSION || !validatedConfig.CURRICULUM_YEAR)
+  ) {
+    throw new Error(
+      '❌ Environment Validation Error: CURRICULUM_VERSION and CURRICULUM_YEAR are required outside development/test',
     );
   }
   if (

@@ -21,7 +21,10 @@ const navigationConfig: FuseNavItemType[] = [
 		title: 'Curriculum',
 		type: 'group',
 		icon: 'heroicons-outline:book-open',
-		children: [{ id: 'curriculum', title: 'Overview', type: 'item', url: '/curriculum' }]
+		children: [
+			{ id: 'curriculum', title: 'Overview', type: 'item', url: '/curriculum' },
+			{ id: 'curriculum-books', title: 'Books & Indexing', type: 'item', url: '/curriculum/books' }
+		]
 	},
 	{
 		id: 'ai-knowledge',
@@ -43,6 +46,13 @@ const navigationConfig: FuseNavItemType[] = [
 		type: 'group',
 		icon: 'heroicons-outline:shield-check',
 		children: [{ id: 'audit-logs', title: 'Audit Logs', type: 'item', url: '/audit-logs' }]
+	},
+	{
+		id: 'operations-group',
+		title: 'Operations',
+		type: 'group',
+		icon: 'heroicons-outline:command-line',
+		children: [{ id: 'operations', title: 'System & Queues', type: 'item', url: '/operations' }]
 	}
 ];
 

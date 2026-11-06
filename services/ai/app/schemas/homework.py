@@ -80,7 +80,16 @@ class HomeworkEvaluationRequest(BaseModel):
 
 class HomeworkEvaluationResponse(BaseModel):
     submission_id: str
-    score: float = Field(..., ge=0, le=100, description="Overall evaluated score from 0 to 100")
+    score: float | None = Field(
+        default=None,
+        ge=0,
+        le=100,
+        description="Score only when the submitted work was actually evaluated",
+    )
+    evaluation_available: bool = True
+    grounded: bool = False
+    retrieval_unavailable: bool = False
+    grounding_mode: Literal["grounded", "ungrounded", "degraded"] = "ungrounded"
     summary: str = Field(..., description="Overall constructive evaluation summary")
     strengths: list[str] = Field(
         default_factory=list, description="Observed strengths in student work"

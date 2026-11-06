@@ -81,6 +81,8 @@ npm run dev
 
 AI degraded mode is deliberate: when verified retrieval is unavailable, the tutor may provide a general explanation but returns `grounded=false`, `retrievalUnavailable=true`, and an empty citation list. It never invents NCTB provenance.
 
+Textbook PDFs are registered through the admin **Books & Indexing** page. Curriculum identity must be explicit or configured with `CURRICULUM_VERSION` and `CURRICULUM_YEAR`. Extracted lessons are unpublished drafts until a teacher reviews and approves them. Before deploying the textbook content/scope uniqueness index to an existing MongoDB database, run `cd services/api && npm run migrate:textbook-content-index`; the command checks for duplicate records and stops without changing data if conflicts exist.
+
 ```bash
 # API service tests
 cd services/api
@@ -104,6 +106,7 @@ npm test
 ## 📚 Technical Specifications & Documentation Index
 
 - [Architecture Overview](docs/architecture.md)
+- [Architecture Decision Records](docs/decisions/)
 - [AI Service Specifications](services/ai/README.md)
 - [RAG & Citation System](docs/rag.md)
 - [Authentication & Authorization](docs/authentication.md)

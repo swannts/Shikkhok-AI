@@ -9,6 +9,12 @@ import {
 import { Textbook, TextbookDocument } from '../textbooks/schemas/textbook.schema';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
+import { RedisService } from '../../core/redis/redis.service';
+import { AiGatewayService } from '../ai-gateway/services/ai-gateway.service';
+import { PaymentMethod } from '../subscriptions/enums/payment-method.enum';
+import { PaymentStateMachineService } from '../subscriptions/services/payment-state-machine.service';
+import { AuthService } from '../auth/auth.service';
+import { ConfigService } from '@nestjs/config';
 
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -77,6 +83,18 @@ export class AdminService {
     private readonly auditService: AdminAuditService,
     @InjectModel(Textbook.name) private textbookModel: Model<TextbookDocument>,
     @Optional() @InjectQueue('curriculum') private readonly curriculumQueue?: Queue,
+    @Optional() @InjectQueue('notifications') private readonly notificationsQueue?: Queue,
+    @Optional() @InjectQueue('analytics') private readonly analyticsQueue?: Queue,
+    @Optional() @InjectQueue('homework') private readonly homeworkQueue?: Queue,
+    @Optional() @InjectQueue('curriculum-dlq') private readonly curriculumDlq?: Queue,
+    @Optional() @InjectQueue('notifications-dlq') private readonly notificationsDlq?: Queue,
+    @Optional() @InjectQueue('analytics-dlq') private readonly analyticsDlq?: Queue,
+    @Optional() @InjectQueue('homework-dlq') private readonly homeworkDlq?: Queue,
+    @Optional() private readonly redisService?: RedisService,
+    @Optional() private readonly aiGatewayService?: AiGatewayService,
+    @Optional() private readonly authService?: AuthService,
+    @Optional() private readonly paymentStateMachine?: PaymentStateMachineService,
+    @Optional() private readonly configService?: ConfigService,
   ) {}
 
   async updateCurriculumIndexingProgress(
@@ -123,36 +141,78 @@ export class AdminService {
     let lessonCount = 0;
     let chapterOrder = 0;
     for (const [chapterTitle, chapterSections] of grouped) {
-      const chapter = await this.chapterModel.findOneAndUpdate(
-        { subjectId: book.subjectId, slug: this.slugify(chapterTitle) },
-        { $set: { title: chapterTitle, order: chapterOrder++, isPublished: true } },
-        { upsert: true, new: true, setDefaultsOnInsert: true },
-      ).exec();
+      const chapter = await this.chapterModel
+        .findOneAndUpdate(
+          { subjectId: book.subjectId, slug: this.slugify(chapterTitle) },
+          { $set: { title: chapterTitle, order: chapterOrder++, isPublished: true } },
+          { upsert: true, new: true, setDefaultsOnInsert: true },
+        )
+        .exec();
       let lessonOrder = 0;
       for (const section of chapterSections) {
         const text = section.text.trim();
         if (!text) continue;
-        await this.lessonModel.findOneAndUpdate(
-          { chapterId: chapter._id, slug: this.slugify(section.lesson_title) },
-          {
-            $set: {
-              title: section.lesson_title,
-              order: lessonOrder++,
-              pageStart: section.page_start,
-              pageEnd: section.page_end,
-              isPublished: true,
-              workflowStatus: ContentWorkflowStatus.PUBLISHED,
-              publishedAt: new Date(),
-              contentBlocks: [{
+        const lessonSlug = this.slugify(section.lesson_title);
+        const lessonFilter = { chapterId: chapter._id, slug: lessonSlug };
+        const existingLesson = await this.lessonModel.findOne(lessonFilter).exec();
+        const now = new Date();
+        const workflowStatus = ContentWorkflowStatus.DRAFT;
+        const lessonUpdate: Record<string, any> = {
+          $set: {
+            title: section.lesson_title,
+            order: lessonOrder++,
+            pageStart: section.page_start,
+            pageEnd: section.page_end,
+            isPublished: false,
+            workflowStatus,
+            publishedAt: null,
+            publishedBy: null,
+            approvedBy: null,
+            reviewedBy: null,
+            reviewComments:
+              'Updated from source PDF. Teacher review is required before publishing.',
+            contentBlocks: [
+              {
                 id: `ocr-${bookId}-${section.page_start}`,
                 type: LessonContentBlockType.PARAGRAPH,
                 order: 0,
                 text,
-              }],
-            },
+              },
+            ],
           },
-          { upsert: true, new: true, setDefaultsOnInsert: true },
-        ).exec();
+          $setOnInsert: {
+            workflowHistory: [
+              {
+                fromStatus: null,
+                toStatus: workflowStatus,
+                actorUserId: null,
+                reviewComments: 'Generated from source PDF; review required.',
+                changedAt: now,
+              },
+            ],
+          },
+        };
+        if (
+          existingLesson &&
+          (existingLesson.workflowStatus !== workflowStatus || existingLesson.isPublished)
+        ) {
+          lessonUpdate.$push = {
+            workflowHistory: {
+              fromStatus: existingLesson.workflowStatus ?? ContentWorkflowStatus.DRAFT,
+              toStatus: workflowStatus,
+              actorUserId: null,
+              reviewComments: 'Source PDF was reindexed; teacher review is required again.',
+              changedAt: now,
+            },
+          };
+        }
+        await this.lessonModel
+          .findOneAndUpdate(lessonFilter, lessonUpdate, {
+            upsert: true,
+            new: true,
+            setDefaultsOnInsert: true,
+          })
+          .exec();
         lessonCount++;
       }
     }
@@ -170,15 +230,23 @@ export class AdminService {
     const persistedChapterCount = await this.chapterModel
       .countDocuments({ subjectId: book.subjectId })
       .exec();
-    await this.textbookModel.updateOne(
-      { _id: bookId },
-      { $set: { totalChapters: persistedChapterCount, totalLessons: persistedLessonCount } },
-    ).exec();
+    await this.textbookModel
+      .updateOne(
+        { _id: bookId },
+        { $set: { totalChapters: persistedChapterCount, totalLessons: persistedLessonCount } },
+      )
+      .exec();
     return { ok: true, chapters: persistedChapterCount, lessons: persistedLessonCount };
   }
 
   private slugify(value: string): string {
-    return value.trim().toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || 'section';
+    return (
+      value
+        .trim()
+        .toLowerCase()
+        .replace(/[^\p{L}\p{N}]+/gu, '-')
+        .replace(/^-|-$/g, '') || 'section'
+    );
   }
 
   async getMetricsOverview(): Promise<Record<string, any>> {
@@ -383,11 +451,17 @@ export class AdminService {
       order: dto.order ?? 0,
       pageStart: dto.pageStart ?? null,
       pageEnd: dto.pageEnd ?? null,
-      isPublished: dto.isPublished ?? true,
-      workflowStatus:
-        dto.isPublished === false ? ContentWorkflowStatus.DRAFT : ContentWorkflowStatus.PUBLISHED,
-      publishedBy: dto.isPublished === false ? undefined : new Types.ObjectId(actorUserId),
-      publishedAt: dto.isPublished === false ? undefined : new Date(),
+      // New material must pass review and approval before it can be published.
+      isPublished: false,
+      workflowStatus: ContentWorkflowStatus.DRAFT,
+      workflowHistory: [
+        {
+          fromStatus: null,
+          toStatus: ContentWorkflowStatus.DRAFT,
+          actorUserId: new Types.ObjectId(actorUserId),
+          changedAt: new Date(),
+        },
+      ],
       contentVersion: dto.contentVersion ?? 1,
       contentBlocks: normalizeLessonContentBlocks(
         dto.contentBlocks as unknown as Parameters<typeof normalizeLessonContentBlocks>[0],
@@ -417,26 +491,35 @@ export class AdminService {
     isPublished: boolean,
     context?: { ip?: string; userAgent?: string },
   ): Promise<Record<string, any>> {
-    const nextStatus = isPublished ? ContentWorkflowStatus.PUBLISHED : ContentWorkflowStatus.DRAFT;
-    const lesson = await this.lessonModel
-      .findByIdAndUpdate(
-        lessonId,
-        {
-          $set: {
-            isPublished,
-            workflowStatus: nextStatus,
-            ...(isPublished
-              ? { publishedBy: new Types.ObjectId(actorUserId), publishedAt: new Date() }
-              : { publishedBy: undefined, publishedAt: undefined }),
-          },
-        },
-        { new: true },
-      )
-      .exec();
-
-    if (!lesson) {
-      throw new NotFoundException('Lesson not found');
+    const existing = await this.lessonModel.findById(lessonId).exec();
+    if (!existing) throw new NotFoundException('Lesson not found');
+    if (
+      isPublished &&
+      existing.workflowStatus !== ContentWorkflowStatus.APPROVED &&
+      existing.workflowStatus !== ContentWorkflowStatus.PUBLISHED
+    ) {
+      throw new BadRequestException('A lesson must be approved before it can be published');
     }
+    const nextStatus = isPublished ? ContentWorkflowStatus.PUBLISHED : ContentWorkflowStatus.DRAFT;
+    const lesson = existing;
+    const fromStatus = lesson.workflowStatus;
+    lesson.isPublished = isPublished;
+    lesson.workflowStatus = nextStatus;
+    if (isPublished) {
+      lesson.publishedBy = new Types.ObjectId(actorUserId);
+      lesson.publishedAt = new Date();
+    } else {
+      lesson.publishedBy = undefined;
+      lesson.publishedAt = undefined;
+    }
+    lesson.workflowHistory = lesson.workflowHistory ?? [];
+    lesson.workflowHistory.push({
+      fromStatus,
+      toStatus: nextStatus,
+      actorUserId: new Types.ObjectId(actorUserId),
+      changedAt: new Date(),
+    } as any);
+    await lesson.save();
 
     await this.auditService.recordAudit({
       actorUserId,
@@ -458,6 +541,12 @@ export class AdminService {
     reviewComments?: string,
     context?: { ip?: string; userAgent?: string },
   ): Promise<Record<string, any>> {
+    if (!Object.values(ContentWorkflowStatus).includes(status)) {
+      throw new BadRequestException(`Unknown lesson workflow status: ${String(status)}`);
+    }
+    if (status === ContentWorkflowStatus.PUBLISHED) {
+      throw new BadRequestException('Publish an approved lesson through the publish operation');
+    }
     const lesson = await this.lessonModel.findById(lessonId).exec();
     if (!lesson) throw new NotFoundException('Lesson not found');
 
@@ -473,10 +562,7 @@ export class AdminService {
         ContentWorkflowStatus.APPROVED,
         ContentWorkflowStatus.REJECTED,
       ],
-      [ContentWorkflowStatus.APPROVED]: [
-        ContentWorkflowStatus.PUBLISHED,
-        ContentWorkflowStatus.REJECTED,
-      ],
+      [ContentWorkflowStatus.APPROVED]: [ContentWorkflowStatus.REJECTED],
       [ContentWorkflowStatus.PUBLISHED]: [
         ContentWorkflowStatus.ARCHIVED,
         ContentWorkflowStatus.DRAFT,
@@ -492,16 +578,22 @@ export class AdminService {
     }
 
     lesson.workflowStatus = status;
-    lesson.isPublished = status === ContentWorkflowStatus.PUBLISHED;
+    lesson.isPublished = false;
     lesson.reviewComments = reviewComments?.trim() || lesson.reviewComments;
     if (status === ContentWorkflowStatus.IN_REVIEW || status === ContentWorkflowStatus.REJECTED) {
       lesson.reviewedBy = new Types.ObjectId(actorUserId);
     }
     if (status === ContentWorkflowStatus.APPROVED)
       lesson.approvedBy = new Types.ObjectId(actorUserId);
-    if (status === ContentWorkflowStatus.PUBLISHED) {
-      lesson.publishedBy = new Types.ObjectId(actorUserId);
-      lesson.publishedAt = new Date();
+    lesson.workflowHistory = lesson.workflowHistory ?? [];
+    if (current !== status) {
+      lesson.workflowHistory.push({
+        fromStatus: current,
+        toStatus: status,
+        actorUserId: new Types.ObjectId(actorUserId),
+        reviewComments: reviewComments?.trim() || null,
+        changedAt: new Date(),
+      } as any);
     }
     const saved = await lesson.save();
     await this.auditService.recordAudit({
@@ -648,7 +740,7 @@ export class AdminService {
       this.textbookModel
         .find()
         .select(
-          'title titleBn subjectId classLevel medium curriculumYear edition indexingStatus indexedChunkCount chunkCount failedChunkCount indexingStartedAt lastIndexedAt lastIndexError',
+          'title titleBn subjectId classLevel medium curriculumYear curriculumVersion edition indexingStatus indexedChunkCount chunkCount failedChunkCount indexingStartedAt lastIndexedAt lastIndexError',
         )
         .populate('subjectId', 'name nameBn')
         .sort({ updatedAt: -1, _id: -1 })
@@ -665,6 +757,7 @@ export class AdminService {
       classLevel: b.classLevel,
       medium: b.medium,
       curriculumYear: b.curriculumYear,
+      curriculumVersion: b.curriculumVersion ?? null,
       edition: b.edition,
       subject: b.subjectId ? b.subjectId.name : null,
       subjectBn: b.subjectId ? b.subjectId.nameBn : null,
@@ -734,16 +827,35 @@ export class AdminService {
     file: UploadedPdfFile | undefined,
     dto: AdminUploadTextbookDto,
   ): Promise<{ bookId: string; status: string }> {
-    if (!file || file.mimetype !== 'application/pdf') {
+    if (
+      !file ||
+      file.mimetype !== 'application/pdf' ||
+      file.size > 50 * 1024 * 1024 ||
+      file.buffer.subarray(0, 5).toString('ascii') !== '%PDF-'
+    ) {
       throw new BadRequestException('A PDF file is required');
     }
 
-    const subject = await this.subjectModel.findOne({
-      _id: dto.subjectId,
-      classLevel: dto.classLevel,
-      medium: dto.medium,
-      curriculumYear: dto.curriculumYear,
-    }).exec();
+    const activeVersion = this.configService?.get<string>('curriculum.version');
+    const activeYear = this.configService?.get<number>('curriculum.year');
+    const curriculumVersion = dto.curriculumVersion?.trim() || activeVersion;
+    if (!curriculumVersion) {
+      throw new BadRequestException('Curriculum version must be supplied or configured');
+    }
+    if (!dto.curriculumVersion && activeYear && activeYear !== dto.curriculumYear) {
+      throw new BadRequestException(
+        'The upload year differs from the configured active curriculum year; specify its version explicitly',
+      );
+    }
+
+    const subject = await this.subjectModel
+      .findOne({
+        _id: dto.subjectId,
+        classLevel: dto.classLevel,
+        medium: dto.medium,
+        curriculumYear: dto.curriculumYear,
+      })
+      .exec();
     if (!subject) {
       throw new BadRequestException('Subject does not match the supplied curriculum scope');
     }
@@ -752,29 +864,39 @@ export class AdminService {
     const uploadDir = process.env.CURRICULUM_UPLOAD_DIR || '/app/uploads/curriculum';
     await mkdir(uploadDir, { recursive: true });
     const storagePath = join(uploadDir, `${checksumSha256}.pdf`);
-    await writeFile(storagePath, file.buffer, { flag: 'wx' }).catch((error: NodeJS.ErrnoException) => {
-      if (error.code !== 'EEXIST') throw error;
-    });
-
-    const book = await this.textbookModel.findOneAndUpdate(
-      { checksumSha256 },
-      {
-        $set: {
-          title: dto.title,
-          titleBn: dto.titleBn,
-          subjectId: subject._id,
-          classLevel: dto.classLevel,
-          medium: dto.medium,
-          curriculumYear: dto.curriculumYear,
-          fileSizeBytes: file.size,
-          pdfStoragePath: storagePath,
-          indexingStatus: 'queued',
-          lastIndexError: null,
-        },
-        $setOnInsert: { isPublished: true },
+    await writeFile(storagePath, file.buffer, { flag: 'wx' }).catch(
+      (error: NodeJS.ErrnoException) => {
+        if (error.code !== 'EEXIST') throw error;
       },
-      { upsert: true, new: true, setDefaultsOnInsert: true },
-    ).exec();
+    );
+
+    const book = await this.textbookModel
+      .findOneAndUpdate(
+        {
+          checksumSha256,
+          subjectId: subject._id,
+          curriculumVersion,
+        },
+        {
+          $set: {
+            title: dto.title,
+            titleBn: dto.titleBn,
+            subjectId: subject._id,
+            classLevel: dto.classLevel,
+            medium: dto.medium,
+            curriculumYear: dto.curriculumYear,
+            curriculumVersion,
+            edition: dto.edition?.trim() || null,
+            fileSizeBytes: file.size,
+            pdfStoragePath: storagePath,
+            indexingStatus: 'queued',
+            lastIndexError: null,
+          },
+          $setOnInsert: { isPublished: true },
+        },
+        { upsert: true, new: true, setDefaultsOnInsert: true },
+      )
+      .exec();
 
     if (!this.curriculumQueue) {
       throw new InternalServerErrorException('Curriculum worker queue is not configured');
@@ -788,10 +910,15 @@ export class AdminService {
         subjectTitle: dto.titleBn || dto.title,
         subjectId: subject._id.toString(),
         classLevel: dto.classLevel,
-        curriculumVersion: `${dto.curriculumYear}-NCTB`,
+        medium: dto.medium,
+        curriculumVersion,
         academicYear: dto.curriculumYear,
       },
-      { jobId: `index-book-${book._id.toString()}`, attempts: 3, backoff: { type: 'exponential', delay: 5000 } },
+      {
+        jobId: `index-book-${book._id.toString()}`,
+        attempts: 3,
+        backoff: { type: 'exponential', delay: 5000 },
+      },
     );
     await this.auditService.recordAudit({
       actorUserId,
@@ -801,5 +928,508 @@ export class AdminService {
       metadata: { checksumSha256, fileSizeBytes: file.size },
     });
     return { bookId: book._id.toString(), status: 'queued' };
+  }
+
+  async getPlatformHealthOverview(): Promise<{
+    status: 'healthy' | 'degraded' | 'unhealthy';
+    services: {
+      mongodb: { status: 'up' | 'down'; latencyMs: number };
+      redis: { status: 'up' | 'down'; latencyMs: number };
+      aiService: { status: 'up' | 'down' | 'disabled'; healthy: boolean };
+      vectorStore: { status: 'up' | 'down' | 'unknown'; totalVectors?: number };
+      queues: { status: 'up' | 'down'; totalWaiting: number; totalFailed: number };
+    };
+    timestamp: string;
+  }> {
+    let mongoStatus: 'up' | 'down' = 'down';
+    let mongoLatency = -1;
+    try {
+      const start = Date.now();
+      if (this.userModel?.db?.db) {
+        await this.userModel.db.db.admin().ping();
+        mongoLatency = Date.now() - start;
+        mongoStatus = 'up';
+      }
+    } catch {
+      mongoStatus = 'down';
+    }
+
+    let redisStatus: 'up' | 'down' = 'down';
+    let redisLatency = -1;
+    if (this.redisService) {
+      try {
+        const start = Date.now();
+        const pong = await this.redisService.getClient().ping();
+        if (pong === 'PONG') {
+          redisLatency = Date.now() - start;
+          redisStatus = 'up';
+        }
+      } catch {
+        redisStatus = 'down';
+      }
+    }
+
+    let aiStatus: 'up' | 'down' | 'disabled' = 'disabled';
+    let aiHealthy = false;
+    let vectorStoreStatus: 'up' | 'down' | 'unknown' = 'unknown';
+    let totalVectors: number | undefined;
+
+    if (this.aiGatewayService) {
+      const enabled = this.aiGatewayService.isServiceEnabled();
+      if (!enabled) {
+        aiStatus = 'disabled';
+      } else {
+        try {
+          aiHealthy = await this.aiGatewayService.healthCheck();
+          aiStatus = aiHealthy ? 'up' : 'down';
+          const stats = await this.aiGatewayService.getIngestionStats();
+          if (stats) {
+            vectorStoreStatus = 'up';
+            totalVectors = stats.total_points ?? stats.vector_count ?? stats.points_count;
+          }
+        } catch {
+          aiStatus = 'down';
+          vectorStoreStatus = 'down';
+        }
+      }
+    }
+
+    let totalWaiting = 0;
+    let totalFailed = 0;
+    let queueStatus: 'up' | 'down' = 'up';
+
+    const queueList = [
+      this.curriculumQueue,
+      this.notificationsQueue,
+      this.analyticsQueue,
+      this.homeworkQueue,
+    ].filter(Boolean) as Queue[];
+    if (queueList.length !== 4) queueStatus = 'down';
+
+    for (const q of queueList) {
+      try {
+        const counts = await q.getJobCounts('waiting', 'failed');
+        totalWaiting += counts.waiting || 0;
+        totalFailed += counts.failed || 0;
+      } catch {
+        queueStatus = 'down';
+      }
+    }
+
+    let overall: 'healthy' | 'degraded' | 'unhealthy' = 'healthy';
+    if (mongoStatus === 'down' || redisStatus === 'down') {
+      overall = 'unhealthy';
+    } else if (aiStatus !== 'up' || queueStatus === 'down' || totalFailed > 50) {
+      overall = 'degraded';
+    }
+
+    return {
+      status: overall,
+      services: {
+        mongodb: { status: mongoStatus, latencyMs: mongoLatency },
+        redis: { status: redisStatus, latencyMs: redisLatency },
+        aiService: { status: aiStatus, healthy: aiHealthy },
+        vectorStore: { status: vectorStoreStatus, totalVectors },
+        queues: { status: queueStatus, totalWaiting, totalFailed },
+      },
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  async getQueueMetricsOverview(): Promise<{
+    queues: Record<
+      string,
+      {
+        waiting: number;
+        active: number;
+        completed: number;
+        failed: number;
+        delayed: number;
+        paused: number;
+      }
+    >;
+    deadLetterQueues: Record<string, { count: number }>;
+    totalBacklog: number;
+    timestamp: string;
+  }> {
+    const queueMap: Record<string, Queue | undefined> = {
+      curriculum: this.curriculumQueue,
+      notifications: this.notificationsQueue,
+      analytics: this.analyticsQueue,
+      homework: this.homeworkQueue,
+    };
+
+    const dlqMap: Record<string, Queue | undefined> = {
+      'curriculum-dlq': this.curriculumDlq,
+      'notifications-dlq': this.notificationsDlq,
+      'analytics-dlq': this.analyticsDlq,
+      'homework-dlq': this.homeworkDlq,
+    };
+
+    const resultQueues: Record<string, any> = {};
+    let totalBacklog = 0;
+
+    for (const [name, queue] of Object.entries(queueMap)) {
+      if (!queue) {
+        resultQueues[name] = {
+          waiting: 0,
+          active: 0,
+          completed: 0,
+          failed: 0,
+          delayed: 0,
+          paused: 0,
+          status: 'unconfigured',
+        };
+        continue;
+      }
+      try {
+        const counts = await queue.getJobCounts(
+          'waiting',
+          'active',
+          'completed',
+          'failed',
+          'delayed',
+          'paused',
+        );
+        resultQueues[name] = counts;
+        totalBacklog += (counts.waiting || 0) + (counts.delayed || 0) + (counts.active || 0);
+      } catch (err: unknown) {
+        resultQueues[name] = {
+          waiting: 0,
+          active: 0,
+          completed: 0,
+          failed: 0,
+          delayed: 0,
+          paused: 0,
+          error: err instanceof Error ? err.message : 'Queue metrics unavailable',
+        };
+      }
+    }
+
+    const deadLetterQueues: Record<string, { count: number }> = {};
+    for (const [name, dlq] of Object.entries(dlqMap)) {
+      if (!dlq) {
+        deadLetterQueues[name] = { count: 0 };
+        continue;
+      }
+      try {
+        const count = await dlq.count();
+        deadLetterQueues[name] = { count };
+      } catch {
+        deadLetterQueues[name] = { count: 0 };
+      }
+    }
+
+    return {
+      queues: resultQueues,
+      deadLetterQueues,
+      totalBacklog,
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  async getFailedQueueJobs(queueName: string, limit = 20) {
+    const queueMap: Record<string, Queue | undefined> = {
+      curriculum: this.curriculumQueue,
+      notifications: this.notificationsQueue,
+      analytics: this.analyticsQueue,
+      homework: this.homeworkQueue,
+      'curriculum-dlq': this.curriculumDlq,
+      'notifications-dlq': this.notificationsDlq,
+      'analytics-dlq': this.analyticsDlq,
+      'homework-dlq': this.homeworkDlq,
+    };
+
+    const queue = queueMap[queueName];
+    if (!queue) {
+      throw new NotFoundException(`Queue "${queueName}" not found or not configured`);
+    }
+
+    const safeLimit = Math.min(Math.max(1, limit), 100);
+    const jobs = await queue.getJobs(['failed'], 0, safeLimit - 1, true);
+
+    return jobs.map((job) => ({
+      id: job.id,
+      name: job.name,
+      failedReason: job.failedReason,
+      attemptsMade: job.attemptsMade,
+      timestamp: job.timestamp,
+      processedOn: job.processedOn,
+      finishedOn: job.finishedOn,
+    }));
+  }
+
+  async retryFailedQueueJobs(queueName: string, limit = 100) {
+    const queueMap: Record<string, Queue | undefined> = {
+      curriculum: this.curriculumQueue,
+      notifications: this.notificationsQueue,
+      analytics: this.analyticsQueue,
+      homework: this.homeworkQueue,
+    };
+
+    const queue = queueMap[queueName];
+    if (!queue) {
+      throw new NotFoundException(`Queue "${queueName}" not found or not retryable`);
+    }
+
+    const safeLimit = Math.min(Math.max(1, limit), 100);
+    const failedJobs = await queue.getJobs(['failed'], 0, safeLimit - 1, true);
+    let retriedCount = 0;
+
+    for (const job of failedJobs) {
+      try {
+        await job.retry();
+        retriedCount++;
+      } catch {
+        // Individual job failure ignored
+      }
+    }
+
+    return {
+      queue: queueName,
+      retriedCount,
+      totalFound: failedJobs.length,
+      message: `${retriedCount} of ${failedJobs.length} failed jobs queued for retry.`,
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  async revokeUserSessions(
+    actorUserId: string,
+    targetUserId: string,
+    context?: { ip?: string; userAgent?: string },
+  ): Promise<{ message: string; userId: string; revokedSessions: number }> {
+    const user = await this.userModel.findById(targetUserId).exec();
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const activeCount = this.authService
+      ? await this.authService.getActiveSessionCount(targetUserId)
+      : 0;
+    if (this.authService) {
+      await this.authService.logoutAll(targetUserId);
+    }
+
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'REVOKE_USER_SESSIONS',
+      resourceType: 'USER',
+      resourceId: targetUserId,
+      metadata: { targetUserRole: user.role, revokedCount: activeCount },
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
+
+    return {
+      message: 'All active sessions for user successfully revoked',
+      userId: targetUserId,
+      revokedSessions: activeCount,
+    };
+  }
+
+  async refundPayment(
+    actorUserId: string,
+    transactionId: string,
+    refundReason?: string,
+    context?: { ip?: string; userAgent?: string },
+  ): Promise<{ message: string; transaction: any }> {
+    const transaction = await this.transactionModel.findOne({ transactionId }).exec();
+    if (!transaction) {
+      throw new NotFoundException(`Transaction ${transactionId} not found`);
+    }
+
+    if (this.paymentStateMachine) {
+      this.paymentStateMachine.validateTransition(
+        transaction.status,
+        PaymentStatus.REFUNDED,
+        transactionId,
+      );
+    }
+
+    transaction.status = PaymentStatus.REFUNDED;
+    transaction.refundedAt = new Date();
+    transaction.refundedBy = actorUserId;
+    transaction.refundReason = refundReason || 'Refunded by administrator';
+    const savedTransaction = await transaction.save();
+
+    // Revert active subscription if tied to this user/plan
+    await this.subscriptionModel
+      .updateMany(
+        {
+          userId: transaction.userId,
+          paymentTransactionId: transaction.transactionId,
+          status: SubscriptionStatus.ACTIVE,
+        },
+        {
+          $set: {
+            status: SubscriptionStatus.CANCELLED,
+            cancelledAt: new Date(),
+          },
+        },
+      )
+      .exec();
+
+    await this.auditService.recordAudit({
+      actorUserId,
+      action: 'REFUND_PAYMENT',
+      resourceType: 'PAYMENT_TRANSACTION',
+      resourceId: transactionId,
+      metadata: {
+        userId: transaction.userId.toString(),
+        amountBdt: transaction.amountBdt,
+        paymentMethod: transaction.paymentMethod,
+        refundReason,
+      },
+      ipAddress: context?.ip,
+      userAgent: context?.userAgent,
+    });
+
+    return {
+      message: `Transaction ${transactionId} refunded successfully`,
+      transaction: savedTransaction.toJSON(),
+    };
+  }
+
+  async getPaymentReconciliation(query: {
+    startDate?: string;
+    endDate?: string;
+    paymentMethod?: PaymentMethod;
+  }): Promise<Record<string, unknown>> {
+    const filter: Record<string, any> = {};
+    if (query.paymentMethod) {
+      filter.paymentMethod = query.paymentMethod;
+    }
+    if (query.startDate || query.endDate) {
+      filter.createdAt = {};
+      if (query.startDate) filter.createdAt.$gte = new Date(query.startDate);
+      if (query.endDate) filter.createdAt.$lte = new Date(query.endDate);
+    }
+
+    const [transactions, statusAggregation, methodAggregation] = await Promise.all([
+      this.transactionModel.find(filter).sort({ createdAt: -1 }).limit(100).lean().exec(),
+      this.transactionModel.aggregate([
+        { $match: filter },
+        {
+          $group: {
+            _id: '$status',
+            count: { $sum: 1 },
+            totalAmountBdt: { $sum: '$amountBdt' },
+          },
+        },
+      ]),
+      this.transactionModel.aggregate([
+        { $match: filter },
+        {
+          $group: {
+            _id: '$paymentMethod',
+            count: { $sum: 1 },
+            totalAmountBdt: { $sum: '$amountBdt' },
+          },
+        },
+      ]),
+    ]);
+
+    const byStatus: Record<string, { count: number; totalAmountBdt: number }> = {};
+    let totalGrossRevenue = 0;
+    let totalRefundedAmount = 0;
+
+    for (const item of statusAggregation) {
+      byStatus[item._id] = { count: item.count, totalAmountBdt: item.totalAmountBdt };
+      if (item._id === PaymentStatus.COMPLETED) {
+        totalGrossRevenue += item.totalAmountBdt;
+      }
+      if (item._id === PaymentStatus.REFUNDED) {
+        totalRefundedAmount += item.totalAmountBdt;
+      }
+    }
+
+    const byMethod: Record<string, { count: number; totalAmountBdt: number }> = {};
+    for (const item of methodAggregation) {
+      byMethod[item._id] = { count: item.count, totalAmountBdt: item.totalAmountBdt };
+    }
+
+    const twoDaysAgo = new Date(Date.now() - 48 * 3600 * 1000);
+    const discrepancies: any[] = [];
+
+    for (const tx of transactions) {
+      if (tx.status === PaymentStatus.PENDING_VERIFICATION && tx.createdAt < twoDaysAgo) {
+        discrepancies.push({
+          transactionId: tx.transactionId,
+          type: 'STALE_PENDING_VERIFICATION',
+          message: 'Manual payment pending verification for more than 48 hours',
+          amountBdt: tx.amountBdt,
+          createdAt: tx.createdAt,
+        });
+      }
+      if (
+        tx.paidAt &&
+        tx.status !== PaymentStatus.COMPLETED &&
+        tx.status !== PaymentStatus.REFUNDED
+      ) {
+        discrepancies.push({
+          transactionId: tx.transactionId,
+          type: 'PAID_BUT_UNCOMPLETED',
+          message: `Transaction has paidAt timestamp (${tx.paidAt}) but status is ${tx.status}`,
+          amountBdt: tx.amountBdt,
+          createdAt: tx.createdAt,
+        });
+      }
+    }
+
+    const countFor = (...statuses: PaymentStatus[]) =>
+      statuses.reduce((sum, status) => sum + (byStatus[status]?.count ?? 0), 0);
+    const amountFor = (...statuses: PaymentStatus[]) =>
+      statuses.reduce((sum, status) => sum + (byStatus[status]?.totalAmountBdt ?? 0), 0);
+    const refundedTransactions = transactions.filter(
+      (transaction) => transaction.status === PaymentStatus.REFUNDED,
+    );
+    const settledTransactions = transactions.filter(
+      (transaction) => transaction.status === PaymentStatus.COMPLETED,
+    );
+
+    return {
+      summary: {
+        totalTransactions: Object.values(byStatus).reduce((sum, item) => sum + item.count, 0),
+        settledCount: countFor(PaymentStatus.COMPLETED),
+        settledAmountBdt: amountFor(PaymentStatus.COMPLETED),
+        pendingCount: countFor(
+          PaymentStatus.PENDING,
+          PaymentStatus.PROCESSING,
+          PaymentStatus.PENDING_VERIFICATION,
+        ),
+        pendingAmountBdt: amountFor(
+          PaymentStatus.PENDING,
+          PaymentStatus.PROCESSING,
+          PaymentStatus.PENDING_VERIFICATION,
+        ),
+        refundedCount: countFor(PaymentStatus.REFUNDED),
+        refundedAmountBdt: amountFor(PaymentStatus.REFUNDED),
+        failedCount: countFor(PaymentStatus.FAILED, PaymentStatus.CANCELLED, PaymentStatus.EXPIRED),
+      },
+      recentSettlements: settledTransactions.slice(0, 20).map((transaction) => ({
+        ...transaction,
+        _id: String(transaction._id),
+        userId: String(transaction.userId),
+      })),
+      recentRefunds: refundedTransactions.slice(0, 20).map((transaction) => ({
+        ...transaction,
+        _id: String(transaction._id),
+        userId: String(transaction.userId),
+      })),
+      totalGrossRevenue,
+      totalRefundedAmount,
+      netRevenue: totalGrossRevenue - totalRefundedAmount,
+      byStatus,
+      byMethod,
+      discrepancyCount: discrepancies.length,
+      discrepancies,
+      recentTransactions: transactions.slice(0, 20).map((transaction) => ({
+        ...transaction,
+        _id: String(transaction._id),
+        userId: String(transaction.userId),
+      })),
+      timestamp: new Date().toISOString(),
+    };
   }
 }

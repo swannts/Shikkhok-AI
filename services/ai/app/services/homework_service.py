@@ -49,6 +49,22 @@ class HomeworkService:
     ) -> HomeworkEvaluationResponse:
         start_time = time.time()
 
+        # Image URLs are not fetched or OCR processed by this service today.
+        # Never claim to have reviewed handwriting that was not actually read.
+        if not request.raw_text:
+            return HomeworkEvaluationResponse(
+                submission_id=request.submission_id,
+                score=None,
+                evaluation_available=False,
+                grounding_mode="ungrounded",
+                summary=(
+                    "ছবির লেখা এখনো নির্ভরযোগ্যভাবে পড়া যাচ্ছে না। "
+                    "লিখিত উত্তর যোগ করে আবার চেষ্টা করো, অথবা শিক্ষককে দেখাও।"
+                ),
+                fallback_used=True,
+                duration_ms=int((time.time() - start_time) * 1000),
+            )
+
         # 1. Moderation Check on text content if provided
         content_to_check = f"{request.prompt or ''} {request.raw_text or ''}".strip()
         if content_to_check:
@@ -64,21 +80,32 @@ class HomeworkService:
             request.raw_text or request.prompt or request.lesson_title or "অনুশীলনী ও সমাধান"
         )
         retrieved_chunks: list[RetrievedChunk] = []
-        try:
-            retrieved_chunks = await self.rag_service.search(
-                filter_params=RetrievalFilter(
-                    query=retrieval_query,
-                    class_level=request.class_level,
-                    subject_id=request.subject_id,
-                    chapter_id=request.chapter_id,
-                    lesson_id=request.lesson_id,
-                    curriculum_year=request.curriculum_year,
-                    medium=request.medium,
-                    top_k=3,
-                ),
+        retrieval_unavailable = False
+        has_complete_scope = all(
+            (
+                request.class_level is not None,
+                request.subject_id,
+                request.curriculum_year is not None,
+                request.medium,
             )
-        except Exception as e:
-            logger.warning(f"RAG retrieval failed during homework evaluation: {e}")
+        )
+        if has_complete_scope:
+            try:
+                retrieved_chunks = await self.rag_service.search(
+                    filter_params=RetrievalFilter(
+                        query=retrieval_query,
+                        class_level=request.class_level,
+                        subject_id=request.subject_id,
+                        chapter_id=request.chapter_id,
+                        lesson_id=request.lesson_id,
+                        curriculum_year=request.curriculum_year,
+                        medium=request.medium,
+                        top_k=3,
+                    ),
+                )
+            except Exception as e:
+                retrieval_unavailable = True
+                logger.warning(f"RAG retrieval failed during homework evaluation: {e}")
 
         # 3. Build Prompt
         system_file = f"system_{request.language}.txt"
@@ -105,7 +132,7 @@ class HomeworkService:
             f"=== পাঠ্যবইয়ের প্রাসঙ্গিক সূত্র ও বিষয়বস্তু ===\n{context_str}\n\n"
             f"উপরোক্ত তথ্যের ভিত্তিতে শিক্ষার্থীর জমা দেওয়া কাজটি মূল্যায়ন করে নিম্নলিখিত JSON স্কিমায় উত্তর দাও:\n"
             f"{{\n"
-            f'  "score": 85.0,\n'
+            f'  "score": null,\n'
             f'  "summary": "সামগ্রিক মূল্যায়ন সংক্ষেপ",\n'
             f'  "strengths": ["সবল দিক ১", "সবল দিক ২"],\n'
             f'  "weaknesses": ["দুর্বল দিক বা ভুলের জায়গা"],\n'
@@ -137,22 +164,52 @@ class HomeworkService:
 
         duration_ms = int((time.time() - start_time) * 1000)
 
+        score_value = parsed.get("score")
+        try:
+            score = float(score_value) if score_value is not None else None
+        except (TypeError, ValueError):
+            score = None
+        if score is not None and not 0 <= score <= 100:
+            score = None
+
+        summary_value = parsed.get("summary")
+        summary = (
+            summary_value.strip()
+            if isinstance(summary_value, str) and summary_value.strip()
+            else "উত্তরটি নির্ভরযোগ্যভাবে মূল্যায়ন করা যায়নি। আবার চেষ্টা করো অথবা শিক্ষককে দেখাও।"
+        )
+        evaluation_available = bool(
+            isinstance(summary_value, str)
+            and summary_value.strip()
+            and parsed
+        )
+
         return HomeworkEvaluationResponse(
             submission_id=request.submission_id,
-            score=float(parsed.get("score", 80.0)),
-            summary=parsed.get("summary", "শিক্ষার্থীর বাড়ির কাজ সফলভাবে মূল্যায়ন করা হয়েছে।"),
-            strengths=parsed.get("strengths", ["সমাধানের প্রয়াস ভালো হয়েছে।"]),
-            weaknesses=parsed.get("weaknesses", []),
+            score=score,
+            evaluation_available=evaluation_available,
+            grounded=bool(citations),
+            retrieval_unavailable=retrieval_unavailable,
+            grounding_mode=(
+                "grounded"
+                if citations
+                else "degraded"
+                if retrieval_unavailable
+                else "ungrounded"
+            ),
+            summary=summary,
+            strengths=self._string_list(parsed.get("strengths")),
+            weaknesses=self._string_list(parsed.get("weaknesses")),
             corrections=[
                 HomeworkCorrection(
                     original=c.get("original", ""),
                     corrected=c.get("corrected", ""),
                     explanation=c.get("explanation", ""),
                 )
-                for c in parsed.get("corrections", [])
+                for c in self._dict_list(parsed.get("corrections"))
                 if isinstance(c, dict)
             ],
-            recommendations=parsed.get("recommendations", ["পাঠ্যবইয়ের নিয়মাবলী নিয়মিত অনুশীলন করো।"]),
+            recommendations=self._string_list(parsed.get("recommendations")),
             citations=citations,
             provider=self.model_router.primary.name,
             model=self.model_router.primary.model,
@@ -190,12 +247,16 @@ class HomeworkService:
             except Exception:
                 pass
 
-        # Fallback structured dict
-        return {
-            "score": 80.0,
-            "summary": text[:200] if text else "মূল্যায়ন সম্পন্ন হয়েছে।",
-            "strengths": ["শিক্ষার্থী পাঠের সমাধান করার সক্রিয় চেষ্টা করেছে।"],
-            "weaknesses": [],
-            "corrections": [],
-            "recommendations": ["পাঠ্যবইয়ের সংশ্লিষ্ট উদাহরণগুলো আবার দেখো।"],
-        }
+        return {}
+
+    @staticmethod
+    def _string_list(value: Any) -> list[str]:
+        if not isinstance(value, list):
+            return []
+        return [item.strip() for item in value if isinstance(item, str) and item.strip()]
+
+    @staticmethod
+    def _dict_list(value: Any) -> list[dict[str, Any]]:
+        if not isinstance(value, list):
+            return []
+        return [item for item in value if isinstance(item, dict)]

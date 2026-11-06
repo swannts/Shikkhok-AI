@@ -33,7 +33,9 @@ export default function UsersPage() {
 	const [appliedSearch, setAppliedSearch] = useState('');
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [successMessage, setSuccessMessage] = useState<string | null>(null);
 	const [updating, setUpdating] = useState<string | null>(null);
+	const [revoking, setRevoking] = useState<string | null>(null);
 
 	const loadUsers = useCallback(async () => {
 		setLoading(true);
@@ -80,6 +82,28 @@ export default function UsersPage() {
 		}
 	};
 
+	const revokeSessions = async (user: AdminUser) => {
+		if (
+			!window.confirm(
+				`Revoke all active login sessions for ${user.name}? This forces immediate re-authentication across all devices.`
+			)
+		) {
+			return;
+		}
+
+		setRevoking(user._id);
+		setError(null);
+		setSuccessMessage(null);
+		try {
+			const res = await adminAdminService.revokeUserSessions(user._id);
+			setSuccessMessage(`Successfully revoked ${res.revokedCount} session(s) for ${user.name}.`);
+		} catch (err: unknown) {
+			setError(err instanceof Error ? err.message : 'Failed to revoke user sessions');
+		} finally {
+			setRevoking(null);
+		}
+	};
+
 	return (
 		<div className="flex flex-col flex-auto min-w-0 p-6 md:p-10">
 			<div className="mb-6">
@@ -100,8 +124,18 @@ export default function UsersPage() {
 				<Alert
 					severity="error"
 					className="mb-6"
+					onClose={() => setError(null)}
 				>
 					{error}
+				</Alert>
+			)}
+			{successMessage && (
+				<Alert
+					severity="success"
+					className="mb-6"
+					onClose={() => setSuccessMessage(null)}
+				>
+					{successMessage}
 				</Alert>
 			)}
 			<Paper className="p-4 mb-4 rounded-2xl border border-divider shadow-sm">
@@ -188,18 +222,29 @@ export default function UsersPage() {
 										<TableCell>{user.status}</TableCell>
 										<TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
 										<TableCell align="right">
-											<Button
-												size="small"
-												color={user.status === 'active' ? 'warning' : 'success'}
-												disabled={updating === user._id || user.role === 'admin'}
-												onClick={() => updateStatus(user)}
-											>
-												{updating === user._id
-													? 'Saving…'
-													: user.status === 'active'
-														? 'Suspend'
-														: 'Activate'}
-											</Button>
+											<div className="flex items-center justify-end gap-2">
+												<Button
+													size="small"
+													color={user.status === 'active' ? 'warning' : 'success'}
+													disabled={updating === user._id || user.role === 'admin'}
+													onClick={() => updateStatus(user)}
+												>
+													{updating === user._id
+														? 'Saving…'
+														: user.status === 'active'
+															? 'Suspend'
+															: 'Activate'}
+												</Button>
+												<Button
+													size="small"
+													color="secondary"
+													variant="outlined"
+													disabled={revoking === user._id}
+													onClick={() => revokeSessions(user)}
+												>
+													{revoking === user._id ? 'Revoking…' : 'Revoke'}
+												</Button>
+											</div>
 										</TableCell>
 									</TableRow>
 								))}

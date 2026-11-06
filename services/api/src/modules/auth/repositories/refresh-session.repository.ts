@@ -63,4 +63,15 @@ export class RefreshSessionRepository {
       )
       .exec();
   }
+
+  /**
+   * Count active (non-revoked, unexpired) sessions for a user.
+   */
+  async countActiveByUserId(userId: string): Promise<number> {
+    return this.sessionModel.countDocuments({
+      userId: new Types.ObjectId(userId),
+      revokedAt: null,
+      expiresAt: { $gt: new Date() },
+    });
+  }
 }

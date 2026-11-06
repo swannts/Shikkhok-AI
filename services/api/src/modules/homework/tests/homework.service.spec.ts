@@ -10,6 +10,8 @@ import { StudentsService } from '../../students/students.service';
 import { CurriculumService } from '../../curriculum/curriculum.service';
 import { UserRole } from '../../users/enums/user-role.enum';
 import { HomeworkStatus } from '../enums/homework-status.enum';
+import { ConfigService } from '@nestjs/config';
+import { AiGatewayService } from '../../ai-gateway/services/ai-gateway.service';
 
 describe('HomeworkService', () => {
   let service: HomeworkService;
@@ -17,6 +19,8 @@ describe('HomeworkService', () => {
   let feedbackRepository: jest.Mocked<HomeworkFeedbackRepository>;
   let usersService: jest.Mocked<UsersService>;
   let curriculumService: jest.Mocked<CurriculumService>;
+  let configService: jest.Mocked<ConfigService>;
+  let aiGatewayService: jest.Mocked<AiGatewayService>;
 
   const studentUserId = new Types.ObjectId().toString();
   const studentUser = { userId: studentUserId, role: UserRole.STUDENT };
@@ -62,6 +66,23 @@ describe('HomeworkService', () => {
             getSubject: jest.fn(),
           },
         },
+        {
+          provide: ConfigService,
+          useValue: { get: jest.fn().mockReturnValue(false) },
+        },
+        {
+          provide: AiGatewayService,
+          useValue: {
+            evaluateHomework: jest.fn().mockResolvedValue({
+              summary: 'The answer was reviewed.',
+              strengths: [],
+              weaknesses: [],
+              corrections: [],
+              recommendations: [],
+              citations: [],
+            }),
+          },
+        },
       ],
     }).compile();
 
@@ -70,6 +91,8 @@ describe('HomeworkService', () => {
     feedbackRepository = module.get(HomeworkFeedbackRepository);
     usersService = module.get(UsersService);
     curriculumService = module.get(CurriculumService);
+    configService = module.get(ConfigService);
+    aiGatewayService = module.get(AiGatewayService);
   });
 
   it('should create a homework submission and trigger processing', async () => {
@@ -145,7 +168,7 @@ describe('HomeworkService', () => {
     expect(result.rating).toBe(5);
   });
 
-  it('should process a submission and generate feedback with NCTB citations', async () => {
+  it('only stores a citation when the AI service supplies complete retrieved-source metadata', async () => {
     const submissionId = new Types.ObjectId().toString();
     const lessonId = new Types.ObjectId().toString();
     const chapterId = new Types.ObjectId().toString();
@@ -158,12 +181,21 @@ describe('HomeworkService', () => {
       chapterId: new Types.ObjectId(chapterId),
       subjectId: new Types.ObjectId(subjectId),
       prompt: 'বর্গের সূত্র',
+      rawText: '(a+b)^2 = a^2 + 2ab + b^2',
       status: HomeworkStatus.PENDING,
     } as any);
 
     curriculumService.getLesson.mockResolvedValue({ title: 'বীজগণিতীয় সূত্রাবলি' } as any);
     curriculumService.getChapter.mockResolvedValue({ title: 'অধ্যায় ৪' } as any);
-    curriculumService.getSubject.mockResolvedValue({ title: 'গণিত' } as any);
+    curriculumService.getSubject.mockResolvedValue({ name: 'গণিত' } as any);
+    configService.get.mockReturnValue(true);
+    aiGatewayService.evaluateHomework.mockResolvedValue({
+      summary: 'The answer was reviewed.',
+      citations: [
+        { sourceId: 'chunk-123', sourceBook: 'Class 8 Mathematics', excerpt: 'Verified passage' },
+        { sourceId: 'made-up', sourceBook: 'Class 8 Mathematics' },
+      ],
+    });
 
     await service.processSubmission(submissionId);
 
@@ -174,18 +206,39 @@ describe('HomeworkService', () => {
     expect(feedbackRepository.createFeedback).toHaveBeenCalledWith(
       expect.objectContaining({
         submissionId,
-        citations: expect.arrayContaining([
+        citations: [
           expect.objectContaining({
-            sourceBook: 'এনসিটিবি গণিত',
-            subject: 'গণিত',
+            sourceId: 'chunk-123',
+            sourceBook: 'Class 8 Mathematics',
+            excerpt: 'Verified passage',
           }),
-        ]),
+        ],
       }),
     );
     expect(submissionRepository.updateStatus).toHaveBeenCalledWith(
       submissionId,
       HomeworkStatus.COMPLETED,
       expect.anything(),
+    );
+  });
+
+  it('marks homework failed rather than inventing an assessment when AI is unavailable', async () => {
+    const submissionId = new Types.ObjectId().toString();
+    submissionRepository.findById.mockResolvedValue({
+      _id: new Types.ObjectId(submissionId),
+      studentId: new Types.ObjectId(studentUserId),
+      rawText: 'student answer',
+      imageUrls: [],
+    } as any);
+    configService.get.mockReturnValue(false);
+
+    await service.processSubmission(submissionId);
+
+    expect(feedbackRepository.createFeedback).not.toHaveBeenCalled();
+    expect(submissionRepository.updateStatus).toHaveBeenCalledWith(
+      submissionId,
+      HomeworkStatus.FAILED,
+      expect.objectContaining({ errorMessage: expect.stringContaining('AI মূল্যায়ন') }),
     );
   });
 

@@ -5,6 +5,7 @@ import configuration from './core/config/configuration';
 import { validateConfig } from './core/config/env.validation';
 import { DatabaseModule } from './core/database/database.module';
 import { RedisModule } from './core/redis/redis.module';
+import { RedisService } from './core/redis/redis.service';
 import { QueueModule } from './core/queue/queue.module';
 import { HealthModule } from './core/health/health.module';
 import { AppLoggerService } from './core/logging/logging.service';
@@ -30,6 +31,7 @@ import { SubscriptionsModule } from './modules/subscriptions/subscriptions.modul
 import { AdminModule } from './modules/admin/admin.module';
 import { MetricsModule } from './common/metrics/metrics.module';
 import { LiveClassroomModule } from './modules/live-classroom/live-classroom.module';
+import { RedisThrottlerStorage } from './core/throttling/redis-throttler-storage';
 
 @Module({
   imports: [
@@ -39,23 +41,20 @@ import { LiveClassroomModule } from './modules/live-classroom/live-classroom.mod
       validate: validateConfig,
     }),
 
-    ThrottlerModule.forRoot([
-      {
-        name: 'short',
-        ttl: 1000,
-        limit: 3,
-      },
-      {
-        name: 'medium',
-        ttl: 10000,
-        limit: 20,
-      },
-      {
-        name: 'long',
-        ttl: 60000,
-        limit: 100,
-      },
-    ]),
+    ThrottlerModule.forRootAsync({
+      imports: [RedisModule],
+      inject: [RedisService],
+      useFactory: (redisService: RedisService) => ({
+        throttlers: [
+          { name: 'short', ttl: 1000, limit: 3 },
+          { name: 'medium', ttl: 10000, limit: 20 },
+          { name: 'long', ttl: 60000, limit: 100 },
+        ],
+        storage: new RedisThrottlerStorage(redisService.getClient()),
+        getTracker: (request: { user?: { userId?: string }; ip?: string }) =>
+          `${request.user?.userId ? `user:${request.user.userId}` : 'anonymous'}:ip:${request.ip ?? 'unknown'}`,
+      }),
+    }),
     DatabaseModule,
     RedisModule,
     QueueModule,

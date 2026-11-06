@@ -28,6 +28,10 @@ export default () => ({
     url: process.env.AI_GATEWAY_URL || '',
     timeoutMs: parseInt(process.env.AI_GATEWAY_TIMEOUT_MS || '12000', 10),
   },
+  curriculum: {
+    version: process.env.CURRICULUM_VERSION,
+    year: process.env.CURRICULUM_YEAR ? parseInt(process.env.CURRICULUM_YEAR, 10) : undefined,
+  },
   aiService: {
     enabled: process.env.AI_SERVICE_ENABLED === 'true',
     baseUrl: process.env.AI_SERVICE_BASE_URL || 'http://localhost:8000/api/v1',

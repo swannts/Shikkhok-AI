@@ -95,7 +95,11 @@ class ApiClient {
 				}
 
 				const raw = await response.json();
-				const payload = unwrapEnvelope<{ accessToken?: string; token?: string; refreshToken?: string }>(raw);
+				const payload = unwrapEnvelope<{
+					accessToken?: string;
+					token?: string;
+					refreshToken?: string;
+				}>(raw);
 
 				const newAccessToken = payload.accessToken || payload.token;
 				const newRefreshToken = payload.refreshToken || refreshToken;
@@ -267,7 +271,7 @@ class ApiClient {
 		return this.request<T>(path, {
 			...options,
 			method: 'POST',
-			body: body !== undefined ? JSON.stringify(body) : undefined
+			body: body instanceof FormData ? body : body !== undefined ? JSON.stringify(body) : undefined
 		});
 	}
 

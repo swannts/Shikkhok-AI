@@ -106,6 +106,7 @@ def test_persistent_vector_store_rejects_dimension_mismatch(tmp_path: Path) -> N
                 dimension=768,
             ),
             allow_demo_seed=True,
+            allow_legacy_fallback=False,
         )
 
 

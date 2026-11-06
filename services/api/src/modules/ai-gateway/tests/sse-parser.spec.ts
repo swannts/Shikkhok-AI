@@ -44,8 +44,8 @@ describe('AiGatewayService SSE Parser Hardening', () => {
     expect((parsed?.data as { text?: string })?.text).toBe('সুপ্রভাত');
   });
 
-  it('should support multiline data fields joined with newlines', () => {
-    const chunk = 'event: delta\ndata: line 1\ndata: line 2\n';
+  it('should join multiline JSON data fields and validate the payload', () => {
+    const chunk = 'event: delta\ndata: {"text":\ndata: "line 1\\nline 2"}\n';
     const parsed = service.parseSseChunk(chunk);
     expect(parsed).not.toBeNull();
     expect(parsed?.event).toBe('delta');
@@ -64,5 +64,16 @@ describe('AiGatewayService SSE Parser Hardening', () => {
     expect(service.parseSseChunk('')).toBeNull();
     expect(service.parseSseChunk('   \n  \r\n')).toBeNull();
     expect(service.parseSseChunk(': just a comment\n: another comment')).toBeNull();
+  });
+
+  it('rejects unknown event names and malformed JSON instead of treating them as deltas', () => {
+    expect(service.parseSseChunk('event: progress\ndata: {"text":"ignored"}')).toBeNull();
+    expect(service.parseSseChunk('event: metadata\ndata: not-json')).toBeNull();
+  });
+
+  it('rejects malformed event payloads', () => {
+    expect(service.parseSseChunk('event: metadata\ndata: {"grounded":true}')).toBeNull();
+    expect(service.parseSseChunk('event: citation\ndata: {"sourceBook":"book"}')).toBeNull();
+    expect(service.parseSseChunk('event: delta\ndata: {"text":4}')).toBeNull();
   });
 });

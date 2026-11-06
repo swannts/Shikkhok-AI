@@ -36,6 +36,7 @@ def test_production_rejects_weak_secret():
         llm_api_key="valid-key",
         embedding_provider="gemini",
         embedding_api_key="valid-key",
+        vector_store_allow_legacy_fallback=False,
         internal_service_secret="short",
     )
     with pytest.raises(RuntimeError, match="INTERNAL_SERVICE_SECRET must be at least 32"):
@@ -176,6 +177,7 @@ def test_production_requires_explicit_curriculum_configuration():
         llm_api_key="valid-key",
         embedding_provider="gemini",
         embedding_api_key="valid-key",
+        vector_store_allow_legacy_fallback=False,
         internal_service_secret="a" * 32,
     )
 
@@ -190,6 +192,7 @@ def test_production_accepts_valid_curriculum_configuration():
         llm_api_key="valid-key",
         embedding_provider="gemini",
         embedding_api_key="valid-key",
+        vector_store_allow_legacy_fallback=False,
         internal_service_secret="a" * 32,
         default_curriculum_version="2024-NCTB",
         default_curriculum_year=2026,
